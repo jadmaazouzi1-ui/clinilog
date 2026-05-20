@@ -87,30 +87,7 @@ export default async function HomePage() {
             WebkitBackdropFilter: "blur(12px)",
           }}
         >
-          <div className="max-w-5xl mx-auto flex items-center justify-between">
-            {/* Logo */}
-            <div className="flex items-center gap-2.5">
-              <div
-                className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
-                style={{ backgroundColor: "#00D4FF" }}
-              >
-                <svg
-                  className="w-5 h-5"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#0A1628"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <polyline points="2,12 5,12 7,7 9,17 11,10 13,14 15,12 22,12" />
-                </svg>
-              </div>
-              <span className="font-bold text-lg" style={{ color: "#F8FAFC" }}>
-                CliniLog
-              </span>
-            </div>
-
+          <div className="max-w-5xl mx-auto flex items-center justify-end">
             <Link
               href="/auth/login"
               className="teal-hover text-sm font-medium px-4 py-2 rounded-lg transition-colors"
@@ -168,20 +145,31 @@ export default async function HomePage() {
           </div>
 
           <div className="max-w-3xl mx-auto text-center">
-            {/* Badge */}
-            <div
-              className="inline-flex items-center gap-2 text-sm font-medium px-4 py-1.5 rounded-full mb-8"
-              style={{
-                backgroundColor: "rgba(0,212,255,0.1)",
-                border: "1px solid rgba(0,212,255,0.3)",
-                color: "#00D4FF",
-              }}
-            >
-              <span
-                className="w-2 h-2 rounded-full"
-                style={{ backgroundColor: "#00D4FF" }}
-              />
-              100% free — no credit card required
+            {/* Hero logo */}
+            <div className="flex flex-col items-center gap-4 mb-10">
+              <div
+                className="w-20 h-20 rounded-2xl flex items-center justify-center"
+                style={{
+                  backgroundColor: "#00D4FF",
+                  boxShadow: "0 0 40px rgba(0,212,255,0.35)",
+                }}
+              >
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#0A1628"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="2,12 5,12 7,7 9,17 11,10 13,14 15,12 22,12" />
+                </svg>
+              </div>
+              <span className="text-2xl font-bold tracking-wide" style={{ color: "#F8FAFC" }}>
+                CliniLog
+              </span>
             </div>
 
             {/* Headline */}
