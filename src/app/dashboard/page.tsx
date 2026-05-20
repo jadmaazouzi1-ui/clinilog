@@ -15,12 +15,12 @@ const TYPE_LABELS: Record<ExperienceType, string> = {
   other: "Other",
 };
 
-const TYPE_BADGE_COLORS: Record<ExperienceType, string> = {
-  shadowing: "bg-blue-50 text-blue-700 border-blue-100",
-  volunteer: "bg-green-50 text-green-700 border-green-100",
-  clinical_work: "bg-indigo-50 text-indigo-700 border-indigo-100",
-  research: "bg-violet-50 text-violet-700 border-violet-100",
-  other: "bg-gray-100 text-gray-600 border-gray-200",
+const TYPE_BADGE_STYLES: Record<ExperienceType, React.CSSProperties> = {
+  shadowing:    { background: "rgba(0,212,255,0.1)",    color: "#00D4FF",              border: "1px solid rgba(0,212,255,0.3)" },
+  volunteer:    { background: "rgba(16,185,129,0.1)",   color: "#10B981",              border: "1px solid rgba(16,185,129,0.3)" },
+  clinical_work:{ background: "rgba(99,102,241,0.1)",   color: "#818CF8",              border: "1px solid rgba(99,102,241,0.3)" },
+  research:     { background: "rgba(139,92,246,0.1)",   color: "#A78BFA",              border: "1px solid rgba(139,92,246,0.3)" },
+  other:        { background: "rgba(248,250,252,0.08)", color: "rgba(248,250,252,0.6)",border: "1px solid rgba(248,250,252,0.15)" },
 };
 
 function formatDate(dateStr: string) {
@@ -60,58 +60,51 @@ export default async function DashboardPage({
     totalHours % 1 === 0 ? totalHours.toString() : totalHours.toFixed(1);
 
   const stats = [
-    {
-      label: "Total Hours",
-      value: totalHoursDisplay,
-      unit: "hrs",
-      color: "bg-blue-50 text-blue-700 border-blue-100",
-    },
-    {
-      label: "Experiences Logged",
-      value: experienceList.length.toString(),
-      unit: "entries",
-      color: "bg-indigo-50 text-indigo-700 border-indigo-100",
-    },
-    {
-      label: "Total Organizations",
-      value: new Set(experienceList.map((e) => e.organization)).size.toString(),
-      unit: "orgs",
-      color: "bg-violet-50 text-violet-700 border-violet-100",
-    },
+    { label: "Total Hours",         value: totalHoursDisplay,                                                          unit: "hrs"     },
+    { label: "Experiences Logged",  value: experienceList.length.toString(),                                           unit: "entries" },
+    { label: "Total Organizations", value: new Set(experienceList.map((e) => e.organization)).size.toString(),         unit: "orgs"    },
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen dot-grid-bg" style={{ backgroundColor: "#0A1628" }}>
       {/* Top nav */}
-      <header className="bg-white border-b border-gray-200 px-6 py-4">
+      <header
+        className="px-6 py-4"
+        style={{ backgroundColor: "rgba(10,22,40,0.95)", borderBottom: "1px solid rgba(0,212,255,0.18)" }}
+      >
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">CL</span>
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#00D4FF" }}>
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#0A1628" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="3 12 6 9 9 13 12 7 15 11 18 8 21 12" />
+              </svg>
             </div>
-            <span className="text-gray-900 font-semibold text-lg">CliniLog</span>
+            <span className="font-semibold text-lg" style={{ color: "#F8FAFC" }}>CliniLog</span>
           </Link>
 
           <div className="flex items-center gap-4">
-            <span className="text-sm text-gray-500 hidden sm:block">
+            <span className="text-sm hidden sm:block" style={{ color: "rgba(248,250,252,0.6)" }}>
               {user.email}
             </span>
             <Link
               href="/schools"
-              className="text-sm text-gray-600 hover:text-gray-900 font-medium"
+              className="text-sm font-medium transition-colors"
+              style={{ color: "rgba(248,250,252,0.7)" }}
             >
               Schools
             </Link>
             <Link
               href="/profile"
-              className="text-sm text-gray-600 hover:text-gray-900 font-medium"
+              className="text-sm font-medium transition-colors"
+              style={{ color: "rgba(248,250,252,0.7)" }}
             >
               Profile
             </Link>
             <form action="/auth/signout" method="POST">
               <button
                 type="submit"
-                className="text-sm text-gray-600 border border-gray-200 px-3 py-1.5 rounded-lg hover:bg-gray-50 hover:text-gray-900 transition-colors"
+                className="text-sm px-3 py-1.5 rounded-lg transition-colors"
+                style={{ color: "#00D4FF", border: "1px solid rgba(0,212,255,0.35)", background: "transparent" }}
               >
                 Sign Out
               </button>
@@ -122,21 +115,24 @@ export default async function DashboardPage({
 
       <main className="max-w-5xl mx-auto px-6 py-10">
         {pageError && (
-          <div className="mb-6 bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3">
+          <div
+            className="mb-6 text-sm rounded-xl px-4 py-3"
+            style={{ background: "rgba(255,71,87,0.1)", border: "1px solid rgba(255,71,87,0.3)", color: "#FF4757" }}
+          >
             Error: {decodeURIComponent(pageError)}
           </div>
         )}
         {/* Welcome + Add button */}
         <div className="mb-8 flex items-start justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">
+            <h1 className="text-2xl font-bold" style={{ color: "#F8FAFC" }}>
               Welcome back
               {user.user_metadata?.full_name
                 ? `, ${user.user_metadata.full_name.split(" ")[0]}`
                 : ""}
               !
             </h1>
-            <p className="text-gray-500 mt-1 text-sm">
+            <p className="mt-1 text-sm" style={{ color: "rgba(248,250,252,0.6)" }}>
               Here&apos;s an overview of your clinical journey so far.
             </p>
           </div>
@@ -146,7 +142,8 @@ export default async function DashboardPage({
               <ExportAllButton experiences={experienceList} />
               <Link
                 href="/dashboard/new"
-                className="inline-flex items-center gap-2 bg-indigo-600 text-white px-4 py-2.5 rounded-xl font-semibold text-sm hover:bg-indigo-700 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 whitespace-nowrap"
+                className="inline-flex items-center gap-2 teal-glow px-4 py-2.5 rounded-xl font-semibold text-sm transition-colors focus:outline-none whitespace-nowrap"
+                style={{ backgroundColor: "#00D4FF", color: "#0A1628" }}
               >
                 <svg
                   className="w-4 h-4"
@@ -172,14 +169,18 @@ export default async function DashboardPage({
           {stats.map((stat) => (
             <div
               key={stat.label}
-              className={`rounded-xl border p-6 ${stat.color}`}
+              className="rounded-xl p-6"
+              style={{ backgroundColor: "#1E2A3A", border: "1px solid rgba(0,212,255,0.14)" }}
             >
-              <p className="text-xs font-semibold uppercase tracking-wide opacity-70 mb-1">
+              <p
+                className="text-xs font-semibold uppercase tracking-wide mb-1"
+                style={{ color: "rgba(248,250,252,0.6)" }}
+              >
                 {stat.label}
               </p>
               <div className="flex items-baseline gap-1.5">
-                <span className="text-3xl font-bold">{stat.value}</span>
-                <span className="text-sm font-medium opacity-70">
+                <span className="text-3xl font-bold" style={{ color: "#00D4FF" }}>{stat.value}</span>
+                <span className="text-sm font-medium" style={{ color: "rgba(248,250,252,0.6)" }}>
                   {stat.unit}
                 </span>
               </div>
@@ -192,12 +193,17 @@ export default async function DashboardPage({
 
         {/* Content area */}
         {experienceList.length === 0 ? (
-          <div className="bg-white rounded-2xl border border-gray-200 p-8 text-center">
-            <div className="inline-flex items-center justify-center w-14 h-14 bg-indigo-50 rounded-full mb-4">
+          <div
+            className="glass-card rounded-2xl p-8 text-center"
+          >
+            <div
+              className="inline-flex items-center justify-center w-14 h-14 rounded-full mb-4"
+              style={{ background: "rgba(0,212,255,0.1)" }}
+            >
               <svg
-                className="w-7 h-7 text-indigo-600"
+                className="w-7 h-7"
                 fill="none"
-                stroke="currentColor"
+                stroke="#00D4FF"
                 viewBox="0 0 24 24"
               >
                 <path
@@ -208,16 +214,17 @@ export default async function DashboardPage({
                 />
               </svg>
             </div>
-            <h2 className="text-lg font-semibold text-gray-900 mb-2">
+            <h2 className="text-lg font-semibold mb-2" style={{ color: "#F8FAFC" }}>
               No experiences yet
             </h2>
-            <p className="text-gray-500 text-sm mb-6 max-w-sm mx-auto">
+            <p className="text-sm mb-6 max-w-sm mx-auto" style={{ color: "rgba(248,250,252,0.6)" }}>
               Start documenting your clinical rotations, volunteer hours, and
               shadowing experiences to build your application story.
             </p>
             <Link
               href="/dashboard/new"
-              className="inline-flex items-center gap-2 bg-indigo-600 text-white px-6 py-2.5 rounded-xl font-semibold text-sm hover:bg-indigo-700 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className="inline-flex items-center gap-2 teal-glow px-6 py-2.5 rounded-xl font-semibold text-sm transition-colors focus:outline-none"
+              style={{ backgroundColor: "#00D4FF", color: "#0A1628" }}
             >
               <svg
                 className="w-4 h-4"
@@ -240,39 +247,40 @@ export default async function DashboardPage({
             {experienceList.map((experience) => (
               <div
                 key={experience.id}
-                className="bg-white rounded-2xl border border-gray-200 p-6"
+                className="glass-card rounded-2xl p-6"
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
                     {/* Title + badge */}
                     <div className="flex items-center gap-3 flex-wrap mb-1">
-                      <h3 className="text-base font-semibold text-gray-900">
+                      <h3 className="text-base font-semibold" style={{ color: "#F8FAFC" }}>
                         <Link
                           href={`/dashboard/${experience.id}`}
-                          className="hover:text-indigo-600 transition-colors"
+                          className="hover:opacity-80 transition-opacity"
                         >
                           {experience.title}
                         </Link>
                       </h3>
                       <span
-                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${TYPE_BADGE_COLORS[experience.type as ExperienceType]}`}
+                        className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                        style={TYPE_BADGE_STYLES[experience.type as ExperienceType]}
                       >
                         {TYPE_LABELS[experience.type as ExperienceType]}
                       </span>
                     </div>
 
                     {/* Org + meta */}
-                    <p className="text-sm text-gray-500 mb-3">
+                    <p className="text-sm mb-3" style={{ color: "rgba(248,250,252,0.5)" }}>
                       {experience.organization}
                     </p>
-                    <div className="flex items-center gap-4 text-xs text-gray-400 mb-4">
+                    <div className="flex items-center gap-4 text-xs mb-4" style={{ color: "rgba(248,250,252,0.4)" }}>
                       <span>
                         {formatDate(experience.start_date)}
                         {experience.end_date
                           ? ` — ${formatDate(experience.end_date)}`
                           : " — Present"}
                       </span>
-                      <span className="font-semibold text-gray-600">
+                      <span className="font-semibold" style={{ color: "rgba(248,250,252,0.7)" }}>
                         {experience.hours % 1 === 0
                           ? experience.hours
                           : experience.hours.toFixed(1)}{" "}
@@ -281,7 +289,7 @@ export default async function DashboardPage({
                     </div>
 
                     {/* Description (truncated) */}
-                    <p className="text-sm text-gray-600 line-clamp-2">
+                    <p className="text-sm line-clamp-2" style={{ color: "rgba(248,250,252,0.7)" }}>
                       {experience.description}
                     </p>
                   </div>
@@ -290,7 +298,8 @@ export default async function DashboardPage({
                   <div className="flex items-center gap-1 flex-shrink-0">
                     <Link
                       href={`/dashboard/${experience.id}/edit`}
-                      className="p-2 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
+                      className="p-2 rounded-lg transition-colors"
+                      style={{ color: "rgba(248,250,252,0.4)" }}
                       aria-label="Edit experience"
                     >
                       <svg
@@ -310,7 +319,8 @@ export default async function DashboardPage({
                     <form action={deleteExperience.bind(null, experience.id)}>
                       <button
                         type="submit"
-                        className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                        className="p-2 rounded-lg transition-colors"
+                        style={{ color: "rgba(248,250,252,0.4)" }}
                         aria-label="Delete experience"
                       >
                         <svg

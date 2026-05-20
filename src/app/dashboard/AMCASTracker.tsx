@@ -19,12 +19,15 @@ export default function AMCASTracker({
   }
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 p-6 mb-8">
+    <div className="glass-card rounded-2xl p-6 mb-8">
       <div className="flex items-baseline justify-between mb-5">
-        <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">
+        <h2
+          className="text-sm font-semibold uppercase tracking-wide"
+          style={{ color: "rgba(248,250,252,0.5)" }}
+        >
           AMCAS Hours Tracker
         </h2>
-        <span className="text-xs text-gray-400">Recommended minimums</span>
+        <span className="text-xs" style={{ color: "rgba(248,250,252,0.4)" }}>Recommended minimums</span>
       </div>
 
       <div className="space-y-5">
@@ -37,23 +40,29 @@ export default function AMCASTracker({
           return (
             <div key={type}>
               <div className="flex items-center justify-between mb-1.5">
-                <span className="text-sm font-medium text-gray-700">{label}</span>
+                <span className="text-sm font-medium" style={{ color: "#F8FAFC" }}>{label}</span>
                 <span className="text-xs tabular-nums">
-                  <span className={met ? "font-semibold text-green-600" : "font-semibold text-gray-900"}>
+                  <span
+                    className="font-semibold"
+                    style={{ color: met ? "#00D4FF" : "#FF4757" }}
+                  >
                     {display}
                   </span>
-                  <span className="text-gray-400"> / {min} hrs</span>
+                  <span style={{ color: "rgba(248,250,252,0.4)" }}> / {min} hrs</span>
                   {met && (
-                    <span className="ml-1.5 inline-flex items-center gap-0.5 text-green-600 font-medium">
+                    <span className="ml-1.5 inline-flex items-center gap-0.5 font-medium" style={{ color: "#00D4FF" }}>
                       ✓
                     </span>
                   )}
                 </span>
               </div>
-              <div className="h-4 w-full bg-gray-100 rounded-full overflow-hidden">
+              <div
+                className="h-4 w-full rounded-full overflow-hidden"
+                style={{ background: "rgba(248,250,252,0.08)" }}
+              >
                 <div
-                  className={`h-full rounded-full transition-all duration-500 ${met ? "bg-green-500" : "bg-indigo-500"}`}
-                  style={{ width: `${pct}%` }}
+                  className="h-full rounded-full transition-all duration-500"
+                  style={{ width: `${pct}%`, backgroundColor: met ? "#00D4FF" : "#FF4757" }}
                 />
               </div>
             </div>

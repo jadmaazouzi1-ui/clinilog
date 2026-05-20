@@ -1,0 +1,132 @@
+{
+  "node": {
+    "402fc5f1ec30f1cb37cf9987e02126db59bea61100": {
+      "workers": {
+        "app/auth/login/page": {
+          "moduleId": 5490,
+          "async": false,
+          "exportedName": "$$RSC_SERVER_ACTION_0",
+          "filename": "src/app/auth/login/page.tsx"
+        }
+      },
+      "filename": "src/app/auth/login/page.tsx",
+      "exportedName": "$$RSC_SERVER_ACTION_0"
+    },
+    "40a10771ff87f88e2cafdc66fda10e40feea38dd83": {
+      "workers": {
+        "app/auth/signup/page": {
+          "moduleId": 96745,
+          "async": false,
+          "exportedName": "$$RSC_SERVER_ACTION_0",
+          "filename": "src/app/auth/signup/page.tsx"
+        }
+      },
+      "filename": "src/app/auth/signup/page.tsx",
+      "exportedName": "$$RSC_SERVER_ACTION_0"
+    },
+    "40ceadfaf7e8af00fda067cde20b1cef497444e514": {
+      "workers": {
+        "app/dashboard/[id]/edit/page": {
+          "moduleId": 27768,
+          "async": false,
+          "exportedName": "deleteExperience",
+          "filename": "src/app/dashboard/actions.ts"
+        },
+        "app/dashboard/[id]/page": {
+          "moduleId": 12633,
+          "async": false,
+          "exportedName": "deleteExperience",
+          "filename": "src/app/dashboard/actions.ts"
+        },
+        "app/dashboard/new/page": {
+          "moduleId": 32219,
+          "async": false,
+          "exportedName": "deleteExperience",
+          "filename": "src/app/dashboard/actions.ts"
+        },
+        "app/dashboard/page": {
+          "moduleId": 56241,
+          "async": false,
+          "exportedName": "deleteExperience",
+          "filename": "src/app/dashboard/actions.ts"
+        }
+      },
+      "filename": "src/app/dashboard/actions.ts",
+      "exportedName": "deleteExperience"
+    },
+    "40e3e8eddfc344d04af5f90660f00f048df0832b66": {
+      "workers": {
+        "app/dashboard/[id]/edit/page": {
+          "moduleId": 27768,
+          "async": false,
+          "exportedName": "createExperience",
+          "filename": "src/app/dashboard/actions.ts"
+        },
+        "app/dashboard/[id]/page": {
+          "moduleId": 12633,
+          "async": false,
+          "exportedName": "createExperience",
+          "filename": "src/app/dashboard/actions.ts"
+        },
+        "app/dashboard/new/page": {
+          "moduleId": 32219,
+          "async": false,
+          "exportedName": "createExperience",
+          "filename": "src/app/dashboard/actions.ts"
+        },
+        "app/dashboard/page": {
+          "moduleId": 56241,
+          "async": false,
+          "exportedName": "createExperience",
+          "filename": "src/app/dashboard/actions.ts"
+        }
+      },
+      "filename": "src/app/dashboard/actions.ts",
+      "exportedName": "createExperience"
+    },
+    "60e491fd972534ddecc93da42927095501436b2a05": {
+      "workers": {
+        "app/dashboard/[id]/edit/page": {
+          "moduleId": 27768,
+          "async": false,
+          "exportedName": "updateExperience",
+          "filename": "src/app/dashboard/actions.ts"
+        },
+        "app/dashboard/[id]/page": {
+          "moduleId": 12633,
+          "async": false,
+          "exportedName": "updateExperience",
+          "filename": "src/app/dashboard/actions.ts"
+        },
+        "app/dashboard/new/page": {
+          "moduleId": 32219,
+          "async": false,
+          "exportedName": "updateExperience",
+          "filename": "src/app/dashboard/actions.ts"
+        },
+        "app/dashboard/page": {
+          "moduleId": 56241,
+          "async": false,
+          "exportedName": "updateExperience",
+          "filename": "src/app/dashboard/actions.ts"
+        }
+      },
+      "filename": "src/app/dashboard/actions.ts",
+      "exportedName": "updateExperience"
+    },
+    "40b31d21485d6bd655e6d54358e6f29df92e5c4a66": {
+      "workers": {
+        "app/profile/page": {
+          "moduleId": 78639,
+          "async": false,
+          "exportedName": "upsertProfile",
+          "filename": "src/app/profile/actions.ts"
+        }
+      },
+      "filename": "src/app/profile/actions.ts",
+      "exportedName": "upsertProfile"
+    }
+  },
+  "edge": {},
+  "encryptionKey": "wsNZQinfbEgA6KwOBSNQravk46qTi8MJMVwpOmJoii0="
+}

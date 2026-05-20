@@ -18,11 +18,11 @@ const TYPE_LABELS: Record<ExperienceType, string> = {
 };
 
 const COLORS: Record<ExperienceType, string> = {
-  clinical_work: "#6366f1",
-  shadowing:     "#3b82f6",
-  research:      "#8b5cf6",
-  volunteer:     "#22c55e",
-  other:         "#9ca3af",
+  shadowing:     "#00D4FF",
+  clinical_work: "#6366F1",
+  volunteer:     "#10B981",
+  research:      "#8B5CF6",
+  other:         "#475569",
 };
 
 export default function HoursBreakdown({
@@ -46,8 +46,13 @@ export default function HoursBreakdown({
   if (data.length === 0) return null;
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 p-6 mb-8">
-      <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-6">
+    <div
+      className="glass-card rounded-2xl p-6 mb-8"
+    >
+      <h2
+        className="text-sm font-semibold uppercase tracking-wide mb-6"
+        style={{ color: "rgba(248,250,252,0.5)" }}
+      >
         Hours Breakdown
       </h2>
 
@@ -77,8 +82,10 @@ export default function HoursBreakdown({
                 }}
                 contentStyle={{
                   borderRadius: "8px",
-                  border: "1px solid #e5e7eb",
+                  border: "1px solid rgba(0,212,255,0.2)",
                   fontSize: "12px",
+                  backgroundColor: "#1E2A3A",
+                  color: "#F8FAFC",
                 }}
               />
             </PieChart>
@@ -99,13 +106,13 @@ export default function HoursBreakdown({
                   className="w-3 h-3 rounded-full flex-shrink-0"
                   style={{ backgroundColor: COLORS[entry.type] }}
                 />
-                <span className="text-sm text-gray-700 flex-1">
+                <span className="text-sm flex-1" style={{ color: "#F8FAFC" }}>
                   {entry.label}
                 </span>
-                <span className="text-sm font-semibold text-gray-900">
+                <span className="text-sm font-semibold" style={{ color: "#F8FAFC" }}>
                   {hrs} hrs
                 </span>
-                <span className="text-xs text-gray-400 w-10 text-right">
+                <span className="text-xs w-10 text-right" style={{ color: "rgba(248,250,252,0.4)" }}>
                   {pct}%
                 </span>
               </div>

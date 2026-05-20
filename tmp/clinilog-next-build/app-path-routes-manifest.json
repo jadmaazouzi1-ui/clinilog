@@ -1,0 +1,17 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/auth/login/page": "/auth/login",
+  "/auth/signout/route": "/auth/signout",
+  "/auth/signup/page": "/auth/signup",
+  "/auth/verify-email/page": "/auth/verify-email",
+  "/dashboard/[id]/edit/page": "/dashboard/[id]/edit",
+  "/dashboard/[id]/page": "/dashboard/[id]",
+  "/dashboard/new/page": "/dashboard/new",
+  "/dashboard/page": "/dashboard",
+  "/favicon.ico/route": "/favicon.ico",
+  "/icon/route": "/icon",
+  "/page": "/",
+  "/profile/page": "/profile",
+  "/schools/page": "/schools"
+}

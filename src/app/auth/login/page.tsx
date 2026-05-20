@@ -2,7 +2,11 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 
-export default function LoginPage() {
+export default function LoginPage({
+  searchParams,
+}: {
+  searchParams?: Promise<{ error?: string }>;
+}) {
   async function login(formData: FormData) {
     "use server";
 
@@ -24,29 +28,32 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+    <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "#0A1628" }}>
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 mb-4">
-            <div className="w-9 h-9 bg-indigo-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold">CL</span>
+            <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#00D4FF" }}>
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#0A1628" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="3 12 6 9 9 13 12 7 15 11 18 8 21 12" />
+              </svg>
             </div>
-            <span className="text-gray-900 font-semibold text-xl">CliniLog</span>
+            <span className="font-semibold text-xl" style={{ color: "#F8FAFC" }}>CliniLog</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">Welcome back</h1>
-          <p className="text-gray-500 text-sm mt-1">
+          <h1 className="text-2xl font-bold" style={{ color: "#F8FAFC" }}>Welcome back</h1>
+          <p className="text-sm mt-1" style={{ color: "rgba(248,250,252,0.6)" }}>
             Sign in to your account to continue
           </p>
         </div>
 
         {/* Card */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
+        <div className="glass-card rounded-2xl p-8">
           <form action={login} className="space-y-5">
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-1.5"
+                className="block text-sm font-medium mb-1.5"
+                style={{ color: "rgba(248,250,252,0.85)" }}
               >
                 Email address
               </label>
@@ -56,7 +63,7 @@ export default function LoginPage() {
                 type="email"
                 required
                 autoComplete="email"
-                className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                className="input-dark w-full px-3.5 py-2.5 rounded-lg text-sm transition"
                 placeholder="you@university.edu"
               />
             </div>
@@ -64,7 +71,8 @@ export default function LoginPage() {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700 mb-1.5"
+                className="block text-sm font-medium mb-1.5"
+                style={{ color: "rgba(248,250,252,0.85)" }}
               >
                 Password
               </label>
@@ -74,25 +82,27 @@ export default function LoginPage() {
                 type="password"
                 required
                 autoComplete="current-password"
-                className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                className="input-dark w-full px-3.5 py-2.5 rounded-lg text-sm transition"
                 placeholder="••••••••"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full bg-indigo-600 text-white py-2.5 rounded-lg font-semibold text-sm hover:bg-indigo-700 active:bg-indigo-800 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className="w-full teal-glow py-2.5 rounded-lg font-semibold text-sm transition-colors focus:outline-none"
+              style={{ backgroundColor: "#00D4FF", color: "#0A1628" }}
             >
               Sign In
             </button>
           </form>
         </div>
 
-        <p className="text-center text-sm text-gray-500 mt-6">
+        <p className="text-center text-sm mt-6" style={{ color: "rgba(248,250,252,0.5)" }}>
           Don&apos;t have an account?{" "}
           <Link
             href="/auth/signup"
-            className="text-indigo-600 font-medium hover:text-indigo-700"
+            className="font-medium"
+            style={{ color: "#00D4FF" }}
           >
             Create one free
           </Link>

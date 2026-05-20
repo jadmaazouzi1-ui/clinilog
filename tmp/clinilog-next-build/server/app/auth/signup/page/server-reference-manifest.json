@@ -1,0 +1,17 @@
+{
+  "node": {
+    "40a10771ff87f88e2cafdc66fda10e40feea38dd83": {
+      "workers": {
+        "app/auth/signup/page": {
+          "moduleId": 96745,
+          "async": false,
+          "exportedName": "$$RSC_SERVER_ACTION_0",
+          "filename": "src/app/auth/signup/page.tsx"
+        }
+      },
+      "exportedName": "$$RSC_SERVER_ACTION_0",
+      "filename": "src/app/auth/signup/page.tsx"
+    }
+  },
+  "edge": {}
+}

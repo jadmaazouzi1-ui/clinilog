@@ -26,37 +26,37 @@ export default async function ProfilePage({
     .single();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen dot-grid-bg" style={{ backgroundColor: "#0A1628" }}>
       {/* Top nav */}
-      <header className="bg-white border-b border-gray-200 px-6 py-4">
+      <header
+        className="px-6 py-4"
+        style={{ backgroundColor: "rgba(10,22,40,0.95)", borderBottom: "1px solid rgba(0,212,255,0.18)" }}
+      >
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">CL</span>
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#00D4FF" }}>
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#0A1628" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="3 12 6 9 9 13 12 7 15 11 18 8 21 12" />
+              </svg>
             </div>
-            <span className="text-gray-900 font-semibold text-lg">CliniLog</span>
+            <span className="font-semibold text-lg" style={{ color: "#F8FAFC" }}>CliniLog</span>
           </Link>
 
           <div className="flex items-center gap-4">
-            <span className="text-sm text-gray-500 hidden sm:block">
+            <span className="text-sm hidden sm:block" style={{ color: "rgba(248,250,252,0.6)" }}>
               {user.email}
             </span>
-            <Link
-              href="/schools"
-              className="text-sm text-gray-600 hover:text-gray-900 font-medium"
-            >
+            <Link href="/schools" className="text-sm font-medium" style={{ color: "rgba(248,250,252,0.7)" }}>
               Schools
             </Link>
-            <Link
-              href="/profile"
-              className="text-sm text-gray-600 hover:text-gray-900 font-medium"
-            >
+            <Link href="/profile" className="text-sm font-medium" style={{ color: "rgba(248,250,252,0.7)" }}>
               Profile
             </Link>
             <form action="/auth/signout" method="POST">
               <button
                 type="submit"
-                className="text-sm text-gray-600 border border-gray-200 px-3 py-1.5 rounded-lg hover:bg-gray-50 hover:text-gray-900 transition-colors"
+                className="text-sm px-3 py-1.5 rounded-lg transition-colors"
+                style={{ color: "#00D4FF", border: "1px solid rgba(0,212,255,0.35)", background: "transparent" }}
               >
                 Sign Out
               </button>
@@ -69,7 +69,8 @@ export default async function ProfilePage({
         {/* Back link */}
         <Link
           href="/dashboard"
-          className="inline-flex items-center gap-1.5 text-sm text-indigo-600 hover:text-indigo-700 font-medium mb-8"
+          className="inline-flex items-center gap-1.5 text-sm font-medium mb-8"
+          style={{ color: "#00D4FF" }}
         >
           <svg
             className="w-4 h-4"
@@ -88,26 +89,33 @@ export default async function ProfilePage({
         </Link>
 
         {saved === "1" && (
-          <div className="mb-6 bg-green-50 border border-green-200 text-green-700 text-sm rounded-xl px-4 py-3">
+          <div
+            className="mb-6 text-sm rounded-xl px-4 py-3"
+            style={{ background: "rgba(16,185,129,0.1)", border: "1px solid rgba(16,185,129,0.3)", color: "#10B981" }}
+          >
             Profile saved successfully.
           </div>
         )}
 
         {pageError && (
-          <div className="mb-6 bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3">
+          <div
+            className="mb-6 text-sm rounded-xl px-4 py-3"
+            style={{ background: "rgba(255,71,87,0.1)", border: "1px solid rgba(255,71,87,0.3)", color: "#FF4757" }}
+          >
             Error: {decodeURIComponent(pageError)}
           </div>
         )}
 
-        <div className="bg-white rounded-2xl border border-gray-200 p-8">
-          <h1 className="text-xl font-bold text-gray-900 mb-6">Your Profile</h1>
+        <div className="glass-card rounded-2xl p-8">
+          <h1 className="text-xl font-bold mb-6" style={{ color: "#F8FAFC" }}>Your Profile</h1>
 
           <form action={upsertProfile} className="space-y-6">
             {/* Full Name */}
             <div>
               <label
                 htmlFor="full_name"
-                className="block text-sm font-medium text-gray-700 mb-1.5"
+                className="block text-sm font-medium mb-1.5"
+                style={{ color: "rgba(248,250,252,0.85)" }}
               >
                 Full Name
               </label>
@@ -117,7 +125,7 @@ export default async function ProfilePage({
                 type="text"
                 defaultValue={profile?.full_name ?? ""}
                 placeholder="e.g. Jane Smith"
-                className="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm"
               />
             </div>
 
@@ -125,7 +133,8 @@ export default async function ProfilePage({
             <div>
               <label
                 htmlFor="undergraduate_school"
-                className="block text-sm font-medium text-gray-700 mb-1.5"
+                className="block text-sm font-medium mb-1.5"
+                style={{ color: "rgba(248,250,252,0.85)" }}
               >
                 Undergraduate School
               </label>
@@ -136,7 +145,7 @@ export default async function ProfilePage({
                 list="university-list"
                 defaultValue={profile?.undergraduate_school ?? ""}
                 placeholder="Start typing your school..."
-                className="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm"
               />
               <datalist id="university-list">
                 <option value="Arizona State University" />
@@ -241,7 +250,8 @@ export default async function ProfilePage({
             <div>
               <label
                 htmlFor="graduation_year"
-                className="block text-sm font-medium text-gray-700 mb-1.5"
+                className="block text-sm font-medium mb-1.5"
+                style={{ color: "rgba(248,250,252,0.85)" }}
               >
                 Graduation Year
               </label>
@@ -253,7 +263,7 @@ export default async function ProfilePage({
                 max={2040}
                 defaultValue={profile?.graduation_year ?? ""}
                 placeholder="e.g. 2026"
-                className="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm"
               />
             </div>
 
@@ -261,7 +271,8 @@ export default async function ProfilePage({
             <div>
               <label
                 htmlFor="intended_specialty"
-                className="block text-sm font-medium text-gray-700 mb-1.5"
+                className="block text-sm font-medium mb-1.5"
+                style={{ color: "rgba(248,250,252,0.85)" }}
               >
                 Intended Specialty
               </label>
@@ -271,7 +282,7 @@ export default async function ProfilePage({
                 type="text"
                 defaultValue={profile?.intended_specialty ?? ""}
                 placeholder="e.g. Internal Medicine"
-                className="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm"
               />
             </div>
 
@@ -279,7 +290,8 @@ export default async function ProfilePage({
             <div className="pt-2">
               <button
                 type="submit"
-                className="w-full inline-flex items-center justify-center gap-2 bg-indigo-600 text-white px-6 py-3 rounded-xl font-semibold text-sm hover:bg-indigo-700 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                className="w-full inline-flex items-center justify-center gap-2 teal-glow px-6 py-3 rounded-xl font-semibold text-sm transition-colors focus:outline-none"
+                style={{ backgroundColor: "#00D4FF", color: "#0A1628" }}
               >
                 Save Profile
               </button>

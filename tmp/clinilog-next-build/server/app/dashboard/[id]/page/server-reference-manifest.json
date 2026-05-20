@@ -1,0 +1,41 @@
+{
+  "node": {
+    "40ceadfaf7e8af00fda067cde20b1cef497444e514": {
+      "workers": {
+        "app/dashboard/[id]/page": {
+          "moduleId": 12633,
+          "async": false,
+          "exportedName": "deleteExperience",
+          "filename": "src/app/dashboard/actions.ts"
+        }
+      },
+      "exportedName": "deleteExperience",
+      "filename": "src/app/dashboard/actions.ts"
+    },
+    "40e3e8eddfc344d04af5f90660f00f048df0832b66": {
+      "workers": {
+        "app/dashboard/[id]/page": {
+          "moduleId": 12633,
+          "async": false,
+          "exportedName": "createExperience",
+          "filename": "src/app/dashboard/actions.ts"
+        }
+      },
+      "exportedName": "createExperience",
+      "filename": "src/app/dashboard/actions.ts"
+    },
+    "60e491fd972534ddecc93da42927095501436b2a05": {
+      "workers": {
+        "app/dashboard/[id]/page": {
+          "moduleId": 12633,
+          "async": false,
+          "exportedName": "updateExperience",
+          "filename": "src/app/dashboard/actions.ts"
+        }
+      },
+      "exportedName": "updateExperience",
+      "filename": "src/app/dashboard/actions.ts"
+    }
+  },
+  "edge": {}
+}

@@ -176,23 +176,29 @@ const ALL_STATES = [...new Set(SCHOOLS.map((s) => s.state))].sort();
 
 type MissionFilter = "Primary Care & Underserved" | "Research" | "Osteopathic" | "Community Health" | "Caribbean";
 
-const MISSION_FILTERS: { label: string; value: MissionFilter; dot: string; active: string; hover: string }[] = [
-  { label: "Primary Care & Underserved", value: "Primary Care & Underserved", dot: "bg-teal-500",   active: "bg-teal-600 text-white border-teal-600",    hover: "hover:border-teal-400 hover:text-teal-700" },
-  { label: "Research",                   value: "Research",                   dot: "bg-violet-500", active: "bg-violet-600 text-white border-violet-600", hover: "hover:border-violet-400 hover:text-violet-700" },
-  { label: "Osteopathic (DO)",           value: "Osteopathic",                dot: "bg-orange-500", active: "bg-orange-600 text-white border-orange-600", hover: "hover:border-orange-400 hover:text-orange-700" },
-  { label: "Community Health",           value: "Community Health",           dot: "bg-amber-500",  active: "bg-amber-600 text-white border-amber-600",   hover: "hover:border-amber-400 hover:text-amber-700" },
-  { label: "Caribbean",                  value: "Caribbean",                  dot: "bg-sky-500",    active: "bg-sky-600 text-white border-sky-600",       hover: "hover:border-sky-400 hover:text-sky-700" },
+const MISSION_FILTERS: { label: string; value: MissionFilter; dot: string }[] = [
+  { label: "Primary Care & Underserved", value: "Primary Care & Underserved", dot: "#2DD4BF" },
+  { label: "Research",                   value: "Research",                   dot: "#8B5CF6" },
+  { label: "Osteopathic (DO)",           value: "Osteopathic",                dot: "#F97316" },
+  { label: "Community Health",           value: "Community Health",           dot: "#F59E0B" },
+  { label: "Caribbean",                  value: "Caribbean",                  dot: "#38BDF8" },
 ];
 
-function getMissionBadgeColor(mission: string): string {
+function getMissionBadgeStyle(mission: string): React.CSSProperties {
   const m = mission.toLowerCase();
-  if (m.includes("caribbean"))                              return "bg-sky-50 text-sky-700 border-sky-100";
-  if (m.includes("osteopathic"))                           return "bg-orange-50 text-orange-700 border-orange-100";
-  if (m.includes("community health"))                      return "bg-amber-50 text-amber-700 border-amber-100";
-  if (m.includes("underserved") && m.includes("primary")) return "bg-teal-50 text-teal-700 border-teal-100";
-  if (m.includes("underserved"))                           return "bg-green-50 text-green-700 border-green-100";
-  if (m.includes("primary care"))                          return "bg-blue-50 text-blue-700 border-blue-100";
-  return "bg-violet-50 text-violet-700 border-violet-100";
+  if (m.includes("caribbean"))
+    return { background: "rgba(56,189,248,0.1)", color: "#38BDF8", border: "1px solid rgba(56,189,248,0.3)" };
+  if (m.includes("osteopathic"))
+    return { background: "rgba(249,115,22,0.1)", color: "#FB923C", border: "1px solid rgba(249,115,22,0.3)" };
+  if (m.includes("community health"))
+    return { background: "rgba(245,158,11,0.1)", color: "#FCD34D", border: "1px solid rgba(245,158,11,0.3)" };
+  if (m.includes("underserved") && m.includes("primary"))
+    return { background: "rgba(45,212,191,0.1)", color: "#2DD4BF", border: "1px solid rgba(45,212,191,0.3)" };
+  if (m.includes("underserved"))
+    return { background: "rgba(16,185,129,0.1)", color: "#10B981", border: "1px solid rgba(16,185,129,0.3)" };
+  if (m.includes("primary care"))
+    return { background: "rgba(0,212,255,0.1)", color: "#00D4FF", border: "1px solid rgba(0,212,255,0.3)" };
+  return { background: "rgba(139,92,246,0.1)", color: "#A78BFA", border: "1px solid rgba(139,92,246,0.3)" };
 }
 
 export default function SchoolList({ userEmail: _userEmail }: { userEmail: string }) {
@@ -252,45 +258,58 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
     return true;
   });
 
+  // Inactive filter button style
+  const inactiveFilterStyle: React.CSSProperties = {
+    background: "#1E2A3A",
+    border: "1px solid rgba(0,212,255,0.15)",
+    color: "rgba(248,250,252,0.6)",
+  };
+  // Active filter button style
+  const activeFilterStyle: React.CSSProperties = {
+    background: "rgba(0,212,255,0.15)",
+    border: "1px solid #00D4FF",
+    color: "#00D4FF",
+  };
+
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">Medical School Explorer</h1>
-        <p className="text-gray-500 mt-1 text-sm">
+        <h1 className="text-2xl font-bold" style={{ color: "#F8FAFC" }}>Medical School Explorer</h1>
+        <p className="mt-1 text-sm" style={{ color: "rgba(248,250,252,0.5)" }}>
           See how your stats compare to average applicant profiles across {SCHOOLS.length} programs.
         </p>
       </div>
 
       {/* Stats inputs */}
-      <div className="bg-white rounded-2xl border border-gray-200 p-6 mb-6">
+      <div className="glass-card rounded-2xl p-6 mb-6">
         <div className="grid grid-cols-2 gap-4 mb-3">
           <div>
-            <label htmlFor="gpa-input" className="block text-sm font-medium text-gray-700 mb-1.5">GPA</label>
+            <label htmlFor="gpa-input" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(248,250,252,0.85)" }}>GPA</label>
             <input
               id="gpa-input" type="number" min={0} max={4.0} step={0.01} placeholder="e.g. 3.7"
               value={gpa} onChange={(e) => setGpa(e.target.value)}
-              className="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm"
             />
           </div>
           <div>
-            <label htmlFor="mcat-input" className="block text-sm font-medium text-gray-700 mb-1.5">MCAT</label>
+            <label htmlFor="mcat-input" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(248,250,252,0.85)" }}>MCAT</label>
             <input
               id="mcat-input" type="number" min={472} max={528} step={1} placeholder="e.g. 512"
               value={mcat} onChange={(e) => setMcat(e.target.value)}
-              className="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm"
             />
           </div>
         </div>
-        <p className="text-xs text-gray-400">Highlights schools within ±0.3 GPA and ±5 MCAT points of your stats.</p>
-        <div className="mt-4 pt-4 border-t border-gray-100">
-          <label htmlFor="home-state" className="block text-sm font-medium text-gray-700 mb-1.5">
-            My Home State <span className="text-gray-400 font-normal">(optional — highlights in-state schools for you)</span>
+        <p className="text-xs" style={{ color: "rgba(248,250,252,0.4)" }}>Highlights schools within ±0.3 GPA and ±5 MCAT points of your stats.</p>
+        <div className="mt-4 pt-4" style={{ borderTop: "1px solid rgba(0,212,255,0.1)" }}>
+          <label htmlFor="home-state" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(248,250,252,0.85)" }}>
+            My Home State <span className="font-normal" style={{ color: "rgba(248,250,252,0.4)" }}>(optional — highlights in-state schools for you)</span>
           </label>
           <select
             id="home-state"
             value={homeState}
             onChange={(e) => setHomeState(e.target.value)}
-            className="w-full sm:w-64 px-3.5 py-2.5 border border-gray-300 rounded-xl text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white"
+            className="input-dark w-full sm:w-64 px-3.5 py-2.5 rounded-xl text-sm"
           >
             <option value="">Select your state...</option>
             {ALL_STATES.filter((s) => s !== "Intl").map((s) => <option key={s} value={s}>{s}</option>)}
@@ -299,57 +318,54 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
       </div>
 
       {/* Filter bar */}
-      <div className="bg-white rounded-2xl border border-gray-200 p-4 mb-5">
+      <div className="glass-card rounded-2xl p-4 mb-5">
         <div className="flex flex-wrap items-center gap-2">
           {MISSION_FILTERS.map((f) => {
             const active = missionFilters.has(f.value);
             return (
               <button
                 key={f.value} type="button" onClick={() => toggleMission(f.value)}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium border transition-colors ${
-                  active ? f.active : `bg-white text-gray-600 border-gray-200 ${f.hover}`
-                }`}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium transition-colors"
+                style={active ? activeFilterStyle : inactiveFilterStyle}
               >
-                <span className={`w-2 h-2 rounded-full flex-shrink-0 ${active ? "bg-white" : f.dot}`} />
+                <span
+                  className="w-2 h-2 rounded-full flex-shrink-0"
+                  style={{ backgroundColor: active ? "#00D4FF" : f.dot }}
+                />
                 {f.label}
               </button>
             );
           })}
 
           {/* Divider */}
-          <span className="w-px h-5 bg-gray-200 mx-1 hidden sm:block" />
+          <span className="w-px h-5 mx-1 hidden sm:block" style={{ background: "rgba(0,212,255,0.15)" }} />
 
           {/* In-state pref filter buttons */}
           {(["In-State Friendly", "Out-of-State Friendly"] as const).map((pref) => {
             const active = inStatePrefFilter === pref;
-            const isIn = pref === "In-State Friendly";
             return (
               <button
                 key={pref} type="button"
                 onClick={() => setInStatePrefFilter(active ? "" : pref)}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium border transition-colors ${
-                  active
-                    ? isIn ? "bg-green-600 text-white border-green-600" : "bg-blue-600 text-white border-blue-600"
-                    : isIn ? "bg-white text-gray-600 border-gray-200 hover:border-green-400 hover:text-green-700"
-                           : "bg-white text-gray-600 border-gray-200 hover:border-blue-400 hover:text-blue-700"
-                }`}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium transition-colors"
+                style={active ? activeFilterStyle : inactiveFilterStyle}
               >
-                <span className={`w-2 h-2 rounded-full flex-shrink-0 ${active ? "bg-white" : isIn ? "bg-green-500" : "bg-blue-500"}`} />
+                <span
+                  className="w-2 h-2 rounded-full flex-shrink-0"
+                  style={{ backgroundColor: active ? "#00D4FF" : pref === "In-State Friendly" ? "#10B981" : "#38BDF8" }}
+                />
                 {pref}
               </button>
             );
           })}
 
           {/* Divider */}
-          <span className="w-px h-5 bg-gray-200 mx-1 hidden sm:block" />
+          <span className="w-px h-5 mx-1 hidden sm:block" style={{ background: "rgba(0,212,255,0.15)" }} />
 
           <select
             value={stateFilter} onChange={(e) => setStateFilter(e.target.value)}
-            className={`px-3 py-1.5 rounded-xl text-sm font-medium border transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
-              stateFilter
-                ? "bg-indigo-600 text-white border-indigo-600"
-                : "bg-white text-gray-600 border-gray-200 hover:border-indigo-400 hover:text-indigo-700"
-            }`}
+            className="px-3 py-1.5 rounded-xl text-sm font-medium transition-colors focus:outline-none"
+            style={stateFilter ? activeFilterStyle : inactiveFilterStyle}
           >
             <option value="">School State</option>
             {ALL_STATES.map((s) => <option key={s} value={s}>{s}</option>)}
@@ -359,20 +375,21 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
             type="button" onClick={() => setMatchOnly((v) => !v)}
             disabled={!bothEntered}
             title={!bothEntered ? "Enter GPA and MCAT above first" : undefined}
-            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium border transition-colors disabled:opacity-40 disabled:cursor-not-allowed ${
-              matchOnly
-                ? "bg-indigo-600 text-white border-indigo-600"
-                : "bg-white text-gray-600 border-gray-200 hover:border-indigo-400 hover:text-indigo-700"
-            }`}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            style={matchOnly ? activeFilterStyle : inactiveFilterStyle}
           >
-            <span className={`w-2 h-2 rounded-full flex-shrink-0 ${matchOnly ? "bg-white" : "bg-indigo-500"}`} />
+            <span
+              className="w-2 h-2 rounded-full flex-shrink-0"
+              style={{ backgroundColor: matchOnly ? "#00D4FF" : "#6366F1" }}
+            />
             My Stats Match
           </button>
 
           {hasActiveFilters && (
             <button
               type="button" onClick={clearAll}
-              className="ml-auto text-xs text-gray-400 hover:text-gray-700 font-medium px-2 py-1"
+              className="ml-auto text-xs font-medium px-2 py-1"
+              style={{ color: "#00D4FF" }}
             >
               Clear all
             </button>
@@ -380,8 +397,8 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
         </div>
       </div>
 
-      <p className="text-sm text-gray-500 mb-4 font-medium">
-        Showing <span className="text-gray-900 font-semibold">{filtered.length}</span> of {SCHOOLS.length} schools
+      <p className="text-sm mb-4 font-medium" style={{ color: "rgba(248,250,252,0.5)" }}>
+        Showing <span className="font-semibold" style={{ color: "#F8FAFC" }}>{filtered.length}</span> of {SCHOOLS.length} schools
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -391,24 +408,31 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
           return (
             <div
               key={school.name}
-              className={`bg-white rounded-2xl border p-5 transition-all ${
+              className="glass-card rounded-2xl p-5 transition-all"
+              style={
                 isInStateForUser
-                  ? "border-l-4 border-l-green-500 border-green-200 bg-green-50"
+                  ? { borderLeft: "4px solid #10B981", background: "rgba(16,185,129,0.05)" }
                   : match
-                  ? "border-l-4 border-l-indigo-500 border-indigo-200 bg-indigo-50"
-                  : "border-gray-200"
-              }`}
+                  ? { borderLeft: "4px solid #00D4FF", background: "rgba(0,212,255,0.05)" }
+                  : {}
+              }
             >
               <div className="mb-3">
                 <div className="flex items-center gap-2 flex-wrap mb-1">
-                  <h3 className="text-sm font-bold text-gray-900 leading-snug">{school.name}</h3>
+                  <h3 className="text-sm font-bold leading-snug" style={{ color: "#F8FAFC" }}>{school.name}</h3>
                   {isInStateForUser && (
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-green-100 text-green-700 border border-green-200 whitespace-nowrap">
+                    <span
+                      className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap"
+                      style={{ background: "rgba(16,185,129,0.12)", color: "#10B981", border: "1px solid rgba(16,185,129,0.3)" }}
+                    >
                       In-State for You ✓
                     </span>
                   )}
                   {match && !isInStateForUser && (
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-700 border border-indigo-200 whitespace-nowrap">
+                    <span
+                      className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap"
+                      style={{ background: "rgba(0,212,255,0.12)", color: "#00D4FF", border: "1px solid rgba(0,212,255,0.3)" }}
+                    >
                       Good Match
                     </span>
                   )}
@@ -416,31 +440,46 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
               </div>
 
               <div className="flex items-center gap-2 flex-wrap mb-3">
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600 border border-gray-200">
+                <span
+                  className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                  style={{ background: "rgba(248,250,252,0.08)", color: "rgba(248,250,252,0.55)", border: "1px solid rgba(248,250,252,0.12)" }}
+                >
                   {school.state}
                 </span>
-                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${getMissionBadgeColor(school.mission)}`}>
+                <span
+                  className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                  style={getMissionBadgeStyle(school.mission)}
+                >
                   {school.mission}
                 </span>
                 {school.inStatePref !== "Neutral" && (
-                  <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${
-                    school.inStatePref === "In-State Friendly"
-                      ? "bg-green-50 text-green-700 border-green-100"
-                      : "bg-blue-50 text-blue-700 border-blue-100"
-                  }`}>
+                  <span
+                    className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                    style={
+                      school.inStatePref === "In-State Friendly"
+                        ? { background: "rgba(16,185,129,0.1)", color: "#10B981", border: "1px solid rgba(16,185,129,0.3)" }
+                        : { background: "rgba(56,189,248,0.1)", color: "#38BDF8", border: "1px solid rgba(56,189,248,0.3)" }
+                    }
+                  >
                     {school.inStatePref}
                   </span>
                 )}
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="flex items-center gap-1.5 bg-gray-50 border border-gray-200 rounded-lg px-3 py-1.5">
-                  <span className="text-xs text-gray-500 font-medium">Avg GPA</span>
-                  <span className="text-sm font-bold text-gray-900">{school.avgGpa.toFixed(2)}</span>
+                <div
+                  className="flex items-center gap-1.5 rounded-lg px-3 py-1.5"
+                  style={{ background: "rgba(0,212,255,0.05)", border: "1px solid rgba(0,212,255,0.12)" }}
+                >
+                  <span className="text-xs font-medium" style={{ color: "rgba(248,250,252,0.55)" }}>Avg GPA</span>
+                  <span className="text-sm font-bold" style={{ color: "#F8FAFC" }}>{school.avgGpa.toFixed(2)}</span>
                 </div>
-                <div className="flex items-center gap-1.5 bg-gray-50 border border-gray-200 rounded-lg px-3 py-1.5">
-                  <span className="text-xs text-gray-500 font-medium">Avg MCAT</span>
-                  <span className="text-sm font-bold text-gray-900">{school.avgMcat}</span>
+                <div
+                  className="flex items-center gap-1.5 rounded-lg px-3 py-1.5"
+                  style={{ background: "rgba(0,212,255,0.05)", border: "1px solid rgba(0,212,255,0.12)" }}
+                >
+                  <span className="text-xs font-medium" style={{ color: "rgba(248,250,252,0.55)" }}>Avg MCAT</span>
+                  <span className="text-sm font-bold" style={{ color: "#F8FAFC" }}>{school.avgMcat}</span>
                 </div>
               </div>
             </div>
@@ -448,9 +487,9 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
         })}
 
         {filtered.length === 0 && (
-          <div className="col-span-2 bg-white rounded-2xl border border-gray-200 p-10 text-center">
-            <p className="text-gray-500 text-sm">No schools match your current filters.</p>
-            <button type="button" onClick={clearAll} className="mt-3 text-indigo-600 text-sm font-medium hover:text-indigo-700">
+          <div className="col-span-2 glass-card rounded-2xl p-10 text-center">
+            <p className="text-sm" style={{ color: "rgba(248,250,252,0.5)" }}>No schools match your current filters.</p>
+            <button type="button" onClick={clearAll} className="mt-3 text-sm font-medium" style={{ color: "#00D4FF" }}>
               Clear all filters
             </button>
           </div>

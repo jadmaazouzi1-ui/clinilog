@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[97367,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0n4z.7yu76je-.js"],"ViewportBoundary"]
+3:I[97367,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0n4z.7yu76je-.js"],"MetadataBoundary"]
+4:"$Sreact.suspense"
+5:I[27201,["/_next/static/chunks/01xlw8hd842-c.js","/_next/static/chunks/0n4z.7yu76je-.js"],"IconMark"]
+0:{"rsc":["$","$1","h",{"children":[null,["$","$L2",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","div",null,{"hidden":true,"children":["$","$L3",null,{"children":["$","$4",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"CliniLog — Built for First-Gen Pre-Med Students"}],["$","meta","1",{"name":"description","content":"Track your clinical hours, explore 150+ medical schools, and build your path to medicine — all in one free tool."}],["$","link","2",{"rel":"icon","href":"/favicon.ico?favicon.0x3dzn~oxb6tn.ico","sizes":"256x256","type":"image/x-icon"}],["$","link","3",{"rel":"icon","href":"/icon?ac18ef0e05179342","type":"image/png","sizes":"32x32"}],["$","$L5","4",{}]]}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"kCq0rFR6sONLj8Py0fJ8w"}

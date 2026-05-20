@@ -1,0 +1,17 @@
+{
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/auth/login/page": "app/auth/login/page.js",
+  "/auth/signout/route": "app/auth/signout/route.js",
+  "/auth/signup/page": "app/auth/signup/page.js",
+  "/auth/verify-email/page": "app/auth/verify-email/page.js",
+  "/dashboard/[id]/edit/page": "app/dashboard/[id]/edit/page.js",
+  "/dashboard/[id]/page": "app/dashboard/[id]/page.js",
+  "/dashboard/new/page": "app/dashboard/new/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/icon/route": "app/icon/route.js",
+  "/page": "app/page.js",
+  "/profile/page": "app/profile/page.js",
+  "/schools/page": "app/schools/page.js"
+}
