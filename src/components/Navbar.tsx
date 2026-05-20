@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import AIAdvisorButton from "./AIAdvisorButton";
 
 interface NavbarProps {
   userEmail: string;
@@ -19,6 +20,7 @@ export default function Navbar({ userEmail, activePath }: NavbarProps) {
   ];
 
   return (
+    <>
     <header style={{ backgroundColor: "rgba(10,22,40,0.95)", borderBottom: "1px solid rgba(0,212,255,0.18)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)" }} className="px-6 py-4 relative z-50">
       <div className="max-w-5xl mx-auto flex items-center justify-between">
         {/* Logo */}
@@ -73,5 +75,7 @@ export default function Navbar({ userEmail, activePath }: NavbarProps) {
         </div>
       )}
     </header>
+    <AIAdvisorButton />
+    </>
   );
 }
