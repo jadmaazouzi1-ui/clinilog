@@ -146,28 +146,34 @@ export default async function HomePage() {
 
           <div className="max-w-3xl mx-auto text-center">
             {/* Hero logo */}
-            <div className="flex flex-col items-center gap-4 mb-10">
+            <div className="flex flex-col items-center gap-6 mb-12">
               <div
-                className="w-20 h-20 rounded-2xl flex items-center justify-center"
                 style={{
+                  width: "140px",
+                  height: "140px",
+                  borderRadius: "32px",
                   backgroundColor: "#00D4FF",
-                  boxShadow: "0 0 40px rgba(0,212,255,0.35)",
+                  boxShadow: "0 0 80px rgba(0,212,255,0.5), 0 0 160px rgba(0,212,255,0.2)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexShrink: 0,
                 }}
               >
                 <svg
-                  width="48"
-                  height="48"
+                  width="88"
+                  height="88"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="#0A1628"
-                  strokeWidth="2.2"
+                  strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 >
                   <polyline points="2,12 5,12 7,7 9,17 11,10 13,14 15,12 22,12" />
                 </svg>
               </div>
-              <span className="text-2xl font-bold tracking-wide" style={{ color: "#F8FAFC" }}>
+              <span className="text-4xl font-bold tracking-wide" style={{ color: "#F8FAFC" }}>
                 CliniLog
               </span>
             </div>
