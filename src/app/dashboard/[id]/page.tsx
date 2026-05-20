@@ -83,10 +83,7 @@ export default async function ExperienceDetailPage({
             <Link href="/schools" className="text-sm font-medium" style={{ color: "rgba(248,250,252,0.7)" }}>
               Schools
             </Link>
-            <Link href="/narrative" className="text-sm font-medium" style={{ color: "rgba(248,250,252,0.7)" }}>
-              Narrative
-            </Link>
-            <Link href="/profile" className="text-sm font-medium" style={{ color: "rgba(248,250,252,0.7)" }}>
+<Link href="/profile" className="text-sm font-medium" style={{ color: "rgba(248,250,252,0.7)" }}>
               Profile
             </Link>
             <form action="/auth/signout" method="POST">
