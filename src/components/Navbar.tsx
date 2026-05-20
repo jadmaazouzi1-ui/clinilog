@@ -14,6 +14,7 @@ export default function Navbar({ userEmail, activePath }: NavbarProps) {
     { href: "/schools", label: "Schools" },
     { href: "/resources", label: "Resources" },
     { href: "/fee-tracker", label: "Fee Tracker" },
+    { href: "/stories", label: "Stories" },
     { href: "/profile", label: "Profile" },
   ];
 
