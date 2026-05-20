@@ -49,7 +49,9 @@ export default async function ProfilePage({
             <Link href="/schools" className="text-sm font-medium" style={{ color: "rgba(248,250,252,0.7)" }}>
               Schools
             </Link>
-<Link href="/profile" className="text-sm font-medium" style={{ color: "rgba(248,250,252,0.7)" }}>
+            <Link href="/resources" className="text-sm font-medium" style={{ color: "rgba(248,250,252,0.7)" }}>Resources</Link>
+            <Link href="/fee-tracker" className="text-sm font-medium" style={{ color: "rgba(248,250,252,0.7)" }}>Fee Tracker</Link>
+            <Link href="/profile" className="text-sm font-medium" style={{ color: "rgba(248,250,252,0.7)" }}>
               Profile
             </Link>
             <form action="/auth/signout" method="POST">
