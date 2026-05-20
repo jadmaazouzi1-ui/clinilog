@@ -180,7 +180,7 @@ export default async function HomePage() {
 
             {/* Headline */}
             <h1
-              className="text-5xl font-bold leading-tight tracking-tight mb-5"
+              className="text-3xl sm:text-5xl font-bold leading-tight tracking-tight mb-5"
               style={{ color: "#F8FAFC" }}
             >
               Built for First-Gen{" "}

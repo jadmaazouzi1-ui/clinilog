@@ -282,7 +282,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
 
       {/* Stats inputs */}
       <div className="glass-card rounded-2xl p-6 mb-6">
-        <div className="grid grid-cols-2 gap-4 mb-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-3">
           <div>
             <label htmlFor="gpa-input" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(248,250,252,0.85)" }}>GPA</label>
             <input
@@ -319,13 +319,13 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
 
       {/* Filter bar */}
       <div className="glass-card rounded-2xl p-4 mb-5">
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex gap-2 overflow-x-auto pb-2" style={{ scrollbarWidth: "none" }}>
           {MISSION_FILTERS.map((f) => {
             const active = missionFilters.has(f.value);
             return (
               <button
                 key={f.value} type="button" onClick={() => toggleMission(f.value)}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium transition-colors flex-shrink-0"
                 style={active ? activeFilterStyle : inactiveFilterStyle}
               >
                 <span
@@ -338,7 +338,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
           })}
 
           {/* Divider */}
-          <span className="w-px h-5 mx-1 hidden sm:block" style={{ background: "rgba(0,212,255,0.15)" }} />
+          <span className="w-px h-5 mx-1 self-center flex-shrink-0" style={{ background: "rgba(0,212,255,0.15)" }} />
 
           {/* In-state pref filter buttons */}
           {(["In-State Friendly", "Out-of-State Friendly"] as const).map((pref) => {
@@ -347,7 +347,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
               <button
                 key={pref} type="button"
                 onClick={() => setInStatePrefFilter(active ? "" : pref)}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium transition-colors flex-shrink-0"
                 style={active ? activeFilterStyle : inactiveFilterStyle}
               >
                 <span
@@ -360,11 +360,11 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
           })}
 
           {/* Divider */}
-          <span className="w-px h-5 mx-1 hidden sm:block" style={{ background: "rgba(0,212,255,0.15)" }} />
+          <span className="w-px h-5 mx-1 self-center flex-shrink-0" style={{ background: "rgba(0,212,255,0.15)" }} />
 
           <select
             value={stateFilter} onChange={(e) => setStateFilter(e.target.value)}
-            className="px-3 py-1.5 rounded-xl text-sm font-medium transition-colors focus:outline-none"
+            className="px-3 py-1.5 rounded-xl text-sm font-medium transition-colors focus:outline-none flex-shrink-0"
             style={stateFilter ? activeFilterStyle : inactiveFilterStyle}
           >
             <option value="">School State</option>
@@ -375,7 +375,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
             type="button" onClick={() => setMatchOnly((v) => !v)}
             disabled={!bothEntered}
             title={!bothEntered ? "Enter GPA and MCAT above first" : undefined}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium transition-colors disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0"
             style={matchOnly ? activeFilterStyle : inactiveFilterStyle}
           >
             <span
@@ -384,24 +384,26 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
             />
             My Stats Match
           </button>
+        </div>
 
-          {hasActiveFilters && (
+        {hasActiveFilters && (
+          <div className="pt-2">
             <button
               type="button" onClick={clearAll}
-              className="ml-auto text-xs font-medium px-2 py-1"
+              className="text-xs font-medium px-2 py-1"
               style={{ color: "#00D4FF" }}
             >
               Clear all
             </button>
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
       <p className="text-sm mb-4 font-medium" style={{ color: "rgba(248,250,252,0.5)" }}>
         Showing <span className="font-semibold" style={{ color: "#F8FAFC" }}>{filtered.length}</span> of {SCHOOLS.length} schools
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {filtered.map((school) => {
           const match = isGoodMatch(school);
           const isInStateForUser = homeState !== "" && school.state === homeState && school.inStatePref === "In-State Friendly";
@@ -487,7 +489,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
         })}
 
         {filtered.length === 0 && (
-          <div className="col-span-2 glass-card rounded-2xl p-10 text-center">
+          <div className="col-span-1 sm:col-span-2 glass-card rounded-2xl p-10 text-center">
             <p className="text-sm" style={{ color: "rgba(248,250,252,0.5)" }}>No schools match your current filters.</p>
             <button type="button" onClick={clearAll} className="mt-3 text-sm font-medium" style={{ color: "#00D4FF" }}>
               Clear all filters
