@@ -1,22 +1,28 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import SchoolList from "./SchoolList";
+import { Experience } from "@/lib/types";
+import NarrativeBuilder from "./NarrativeBuilder";
 
-export default async function SchoolsPage() {
+export default async function NarrativePage() {
   const supabase = await createClient();
 
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) {
-    redirect("/auth/login");
-  }
+  if (!user) redirect("/auth/login");
+
+  const { data: experiences } = await supabase
+    .from("experiences")
+    .select("*")
+    .order("start_date", { ascending: false });
+
+  const experienceList: Experience[] = experiences ?? [];
 
   return (
     <div className="min-h-screen dot-grid-bg" style={{ backgroundColor: "#0A1628" }}>
-      {/* Top nav */}
+      {/* Navbar */}
       <header
         className="px-6 py-4"
         style={{ backgroundColor: "rgba(10,22,40,0.95)", borderBottom: "1px solid rgba(0,212,255,0.18)" }}
@@ -38,7 +44,7 @@ export default async function SchoolsPage() {
             <Link href="/schools" className="text-sm font-medium" style={{ color: "rgba(248,250,252,0.7)" }}>
               Schools
             </Link>
-            <Link href="/narrative" className="text-sm font-medium" style={{ color: "rgba(248,250,252,0.7)" }}>
+            <Link href="/narrative" className="text-sm font-medium" style={{ color: "#00D4FF" }}>
               Narrative
             </Link>
             <Link href="/profile" className="text-sm font-medium" style={{ color: "rgba(248,250,252,0.7)" }}>
@@ -57,7 +63,7 @@ export default async function SchoolsPage() {
         </div>
       </header>
 
-      <main className="max-w-5xl mx-auto px-6 py-10">
+      <main className="max-w-3xl mx-auto px-6 py-10">
         <Link
           href="/dashboard"
           className="inline-flex items-center gap-1.5 text-sm font-medium mb-8"
@@ -68,7 +74,16 @@ export default async function SchoolsPage() {
           </svg>
           Back to Dashboard
         </Link>
-        <SchoolList userEmail={user.email ?? ""} />
+
+        <div className="mb-8">
+          <h1 className="text-2xl font-bold mb-2" style={{ color: "#F8FAFC" }}>Narrative Builder</h1>
+          <p className="text-sm leading-relaxed" style={{ color: "rgba(248,250,252,0.55)" }}>
+            Gemini AI analyzes your clinical experiences and generates a personal statement theme,
+            AMCAS-ready descriptions for each experience, and a &ldquo;Who I Am&rdquo; summary paragraph.
+          </p>
+        </div>
+
+        <NarrativeBuilder experiences={experienceList} />
       </main>
     </div>
   );

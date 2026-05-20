@@ -94,6 +94,13 @@ export default async function DashboardPage({
               Schools
             </Link>
             <Link
+              href="/narrative"
+              className="text-sm font-medium transition-colors"
+              style={{ color: "rgba(248,250,252,0.7)" }}
+            >
+              Narrative
+            </Link>
+            <Link
               href="/profile"
               className="text-sm font-medium transition-colors"
               style={{ color: "rgba(248,250,252,0.7)" }}
