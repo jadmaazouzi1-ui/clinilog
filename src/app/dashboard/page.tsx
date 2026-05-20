@@ -7,6 +7,7 @@ import ExportAllButton from "./ExportAllButton";
 import HoursBreakdown from "./HoursBreakdown";
 import AMCASTracker from "./AMCASTracker";
 import Navbar from "@/components/Navbar";
+import OnboardingModal from "./OnboardingModal";
 
 const TYPE_LABELS: Record<ExperienceType, string> = {
   shadowing: "Shadowing",
@@ -56,6 +57,14 @@ export default async function DashboardPage({
 
   const experienceList: Experience[] = experiences ?? [];
 
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("onboarding_complete")
+    .eq("id", user.id)
+    .single();
+
+  const showOnboarding = !profile?.onboarding_complete;
+
   const totalHours = experienceList.reduce((sum, e) => sum + e.hours, 0);
   const totalHoursDisplay =
     totalHours % 1 === 0 ? totalHours.toString() : totalHours.toFixed(1);
@@ -68,6 +77,7 @@ export default async function DashboardPage({
 
   return (
     <div className="min-h-screen dot-grid-bg" style={{ backgroundColor: "#0A1628" }}>
+      {showOnboarding && <OnboardingModal />}
       <Navbar userEmail={user.email ?? ""} activePath="/dashboard" />
 
       <main className="max-w-5xl mx-auto px-6 py-10">
