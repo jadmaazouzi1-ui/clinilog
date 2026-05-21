@@ -47,6 +47,20 @@ export default async function HomePage() {
         .teal-hover:hover {
           background: rgba(0, 212, 255, 0.08);
         }
+        .signin-btn {
+          transition: box-shadow 0.25s, background 0.25s, border-color 0.25s;
+        }
+        .signin-btn:hover {
+          background: rgba(0, 212, 255, 0.12);
+          border-color: #00D4FF !important;
+          box-shadow: 0 0 18px rgba(0, 212, 255, 0.45), 0 0 32px rgba(0, 212, 255, 0.2);
+        }
+        .step-line {
+          background-image: linear-gradient(to right, rgba(0,212,255,0.4) 50%, transparent 50%);
+          background-size: 8px 2px;
+          background-repeat: repeat-x;
+          background-position: center;
+        }
       `}</style>
 
       <div
@@ -90,10 +104,11 @@ export default async function HomePage() {
           <div className="max-w-5xl mx-auto flex items-center justify-end">
             <Link
               href="/auth/login"
-              className="teal-hover text-sm font-medium px-4 py-2 rounded-lg transition-colors"
+              className="signin-btn text-sm font-semibold px-5 py-2 rounded-lg"
               style={{
                 color: "#00D4FF",
-                border: "1px solid rgba(0,212,255,0.35)",
+                border: "1.5px solid #00D4FF",
+                background: "rgba(0,212,255,0.05)",
               }}
             >
               Sign In
@@ -188,12 +203,34 @@ export default async function HomePage() {
             </h1>
 
             <p
-              className="text-xl leading-relaxed mb-10 max-w-2xl mx-auto"
+              className="text-xl leading-relaxed mb-5 max-w-2xl mx-auto"
               style={{ color: "rgba(248,250,252,0.65)" }}
             >
               Track your clinical hours, explore 150+ medical schools, and build
               your path to medicine — all in one free tool.
             </p>
+
+            {/* Social proof */}
+            <div className="mb-10 flex items-center justify-center gap-2 flex-wrap">
+              <div className="flex -space-x-2">
+                {["#00D4FF", "#10B981", "#A78BFA", "#F59E0B"].map((c, i) => (
+                  <div
+                    key={i}
+                    className="w-7 h-7 rounded-full border-2 flex items-center justify-center text-xs font-bold"
+                    style={{
+                      backgroundColor: c,
+                      borderColor: "#0A1628",
+                      color: "#0A1628",
+                    }}
+                  >
+                    {["M", "D", "P", "A"][i]}
+                  </div>
+                ))}
+              </div>
+              <p className="text-sm" style={{ color: "rgba(248,250,252,0.55)" }}>
+                Join <span className="font-bold" style={{ color: "#00D4FF" }}>500+</span> first-gen pre-med students building their path to medicine
+              </p>
+            </div>
 
             {/* CTA */}
             <Link
@@ -221,67 +258,47 @@ export default async function HomePage() {
             </Link>
 
             {/* Feature cards */}
-            <div className="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-5 text-left">
+            <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 text-left">
               {[
                 {
-                  icon: (
-                    <svg
-                      className="w-6 h-6"
-                      style={{ color: "#00D4FF" }}
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={1.5}
-                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
-                      />
-                    </svg>
-                  ),
                   title: "Track Every Hour",
                   desc: "Log clinical work, shadowing, research, and volunteering with dates, hours, and reflections.",
+                  iconPath: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01",
                 },
                 {
-                  icon: (
-                    <svg
-                      className="w-6 h-6"
-                      style={{ color: "#00D4FF" }}
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={1.5}
-                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                      />
-                    </svg>
-                  ),
                   title: "Explore 150+ Schools",
                   desc: "Filter by GPA, MCAT, mission focus, and state preference to find programs that fit your profile.",
+                  iconPath: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4",
                 },
                 {
-                  icon: (
-                    <svg
-                      className="w-6 h-6"
-                      style={{ color: "#00D4FF" }}
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={1.5}
-                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                      />
-                    </svg>
-                  ),
                   title: "Export to PDF",
                   desc: "Download a clean, formatted summary of all your experiences to share with advisors or for applications.",
+                  iconPath: "M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4",
+                },
+                {
+                  title: "Narrative Builder",
+                  desc: "AI analyzes your experiences and helps shape them into a cohesive med school story that lands.",
+                  iconPath: "M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z",
+                },
+                {
+                  title: "AI Advisor",
+                  desc: "Get personalized pre-med guidance anytime — your AI mentor knows your hours, GPA, and goals.",
+                  iconPath: "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z",
+                },
+                {
+                  title: "Reframe Engine",
+                  desc: "Turn rough descriptions into polished AMCAS-ready language that highlights clinical depth and impact.",
+                  iconPath: "M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15",
+                },
+                {
+                  title: "Resource Library",
+                  desc: "Curated free MCAT prep, fee assistance programs, and pipeline opportunities for first-gen students.",
+                  iconPath: "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253",
+                },
+                {
+                  title: "First-Gen Stories",
+                  desc: "Real stories from first-gen pre-med students who made it — proof that your path belongs in medicine too.",
+                  iconPath: "M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z",
                 },
               ].map((f) => (
                 <div key={f.title} className="glass-card rounded-2xl p-6">
@@ -289,7 +306,20 @@ export default async function HomePage() {
                     className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
                     style={{ backgroundColor: "rgba(0,212,255,0.12)" }}
                   >
-                    {f.icon}
+                    <svg
+                      className="w-6 h-6"
+                      style={{ color: "#00D4FF" }}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1.5}
+                        d={f.iconPath}
+                      />
+                    </svg>
                   </div>
                   <h3
                     className="font-semibold mb-1.5"
@@ -306,19 +336,165 @@ export default async function HomePage() {
                 </div>
               ))}
             </div>
+
+            {/* ── How It Works ── */}
+            <div className="mt-24 text-left">
+              <div className="text-center mb-12">
+                <h2 className="text-2xl sm:text-3xl font-bold mb-3" style={{ color: "#F8FAFC" }}>
+                  How It Works
+                </h2>
+                <p className="text-base" style={{ color: "rgba(248,250,252,0.6)" }}>
+                  Three steps from sign-up to a polished application story.
+                </p>
+              </div>
+
+              <div className="relative grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-4">
+                {/* Dotted connector — desktop only, hidden behind the cards */}
+                <div
+                  className="hidden sm:block absolute top-7 left-[16.66%] right-[16.66%] step-line"
+                  style={{ height: 2, zIndex: 0 }}
+                />
+
+                {[
+                  {
+                    n: "1",
+                    title: "Create Your Free Account",
+                    desc: "Sign up in under 30 seconds — no credit card, no upsells, ever.",
+                  },
+                  {
+                    n: "2",
+                    title: "Log Your Experiences",
+                    desc: "Track clinical hours, shadowing, research, and volunteering as you go.",
+                  },
+                  {
+                    n: "3",
+                    title: "Build Your Narrative",
+                    desc: "Use AI tools to reframe your experiences into a compelling med school story.",
+                  },
+                ].map((step) => (
+                  <div key={step.n} className="relative z-10 flex flex-col items-center text-center">
+                    <div
+                      className="w-14 h-14 rounded-full flex items-center justify-center text-xl font-bold mb-4"
+                      style={{
+                        backgroundColor: "#0A1628",
+                        border: "2px solid #00D4FF",
+                        color: "#00D4FF",
+                        boxShadow: "0 0 20px rgba(0,212,255,0.3)",
+                      }}
+                    >
+                      {step.n}
+                    </div>
+                    <h3 className="font-bold text-base mb-2" style={{ color: "#F8FAFC" }}>
+                      {step.title}
+                    </h3>
+                    <p className="text-sm leading-relaxed max-w-[240px]" style={{ color: "rgba(248,250,252,0.55)" }}>
+                      {step.desc}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </main>
 
         {/* Footer */}
         <footer
-          className="relative z-10 px-6 py-6 text-center text-sm"
+          className="relative z-10 px-6 pt-14 pb-6"
           style={{
-            borderTop: "1px solid rgba(0,212,255,0.1)",
-            color: "rgba(248,250,252,0.35)",
+            borderTop: "1px solid rgba(0,212,255,0.18)",
+            background: "rgba(6,14,28,0.6)",
           }}
         >
-          &copy; {new Date().getFullYear()} CliniLog. Built for
-          first-generation pre-med students.
+          <div className="max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 mb-10">
+              {/* Brand column */}
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <div
+                    className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
+                    style={{ backgroundColor: "#00D4FF", boxShadow: "0 0 12px rgba(0,212,255,0.4)" }}
+                  >
+                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#0A1628" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="3 12 6 9 9 13 12 7 15 11 18 8 21 12" />
+                    </svg>
+                  </div>
+                  <span className="font-bold text-base" style={{ color: "#F8FAFC" }}>CliniLog</span>
+                </div>
+                <p className="text-sm leading-relaxed" style={{ color: "rgba(248,250,252,0.5)" }}>
+                  Built by and for first-generation pre-med students. Free forever — because your path to medicine shouldn&apos;t cost more than it already does.
+                </p>
+              </div>
+
+              {/* Product column */}
+              <div>
+                <p
+                  className="text-xs font-bold uppercase tracking-wider mb-4"
+                  style={{ color: "#00D4FF" }}
+                >
+                  Product
+                </p>
+                <ul className="space-y-2.5">
+                  {[
+                    { label: "Dashboard", href: "/dashboard" },
+                    { label: "Schools", href: "/schools" },
+                    { label: "Narrative Builder", href: "/dashboard" },
+                    { label: "Resources", href: "/resources" },
+                  ].map((link) => (
+                    <li key={link.label}>
+                      <Link
+                        href={link.href}
+                        className="text-sm transition-colors hover:opacity-80"
+                        style={{ color: "rgba(248,250,252,0.65)" }}
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Community column */}
+              <div>
+                <p
+                  className="text-xs font-bold uppercase tracking-wider mb-4"
+                  style={{ color: "#00D4FF" }}
+                >
+                  Community
+                </p>
+                <ul className="space-y-2.5">
+                  {[
+                    { label: "First-Gen Stories", href: "/stories" },
+                    { label: "AI Advisor", href: "/dashboard" },
+                    { label: "Share Your Story", href: "/stories" },
+                    { label: "Fee Tracker", href: "/fee-tracker" },
+                  ].map((link) => (
+                    <li key={link.label}>
+                      <Link
+                        href={link.href}
+                        className="text-sm transition-colors hover:opacity-80"
+                        style={{ color: "rgba(248,250,252,0.65)" }}
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Copyright bar */}
+            <div
+              className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3"
+              style={{ borderTop: "1px solid rgba(0,212,255,0.08)" }}
+            >
+              <p className="text-xs" style={{ color: "rgba(248,250,252,0.4)" }}>
+                &copy; {new Date().getFullYear()} CliniLog. Built for first-generation pre-med students.
+              </p>
+              <p className="text-xs" style={{ color: "rgba(248,250,252,0.3)" }}>
+                Made with <span style={{ color: "#00D4FF" }}>♥</span> for the next generation of physicians.
+              </p>
+            </div>
+          </div>
         </footer>
       </div>
     </>
