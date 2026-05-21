@@ -34,15 +34,24 @@ export default function ReframeableTextarea({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ description: trimmed }),
       });
-      const data = await res.json();
+      const raw = await res.text();
+      let data: { reframed?: string; error?: string } = {};
+      try {
+        data = JSON.parse(raw);
+      } catch {
+        const snippet = raw.slice(0, 180).replace(/\s+/g, " ").trim();
+        setError(`Server returned non-JSON (status ${res.status}): ${snippet || "empty body"}`);
+        return;
+      }
       if (data.reframed) {
         setOriginalValue(value);
         setValue(data.reframed);
       } else {
-        setError(data.error ?? "Reframe failed. Please try again.");
+        setError(data.error ?? `Request failed (status ${res.status}).`);
       }
-    } catch {
-      setError("Network error. Please try again.");
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Unknown fetch error";
+      setError(`Could not reach /api/reframe: ${msg}`);
     } finally {
       setLoading(false);
     }

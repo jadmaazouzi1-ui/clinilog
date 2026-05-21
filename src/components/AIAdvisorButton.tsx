@@ -119,14 +119,23 @@ export default function AIAdvisorButton() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: newMessages, userContext: userCtx }),
       });
-      const data = await res.json();
-      if (data.reply) {
-        setMessages(prev => [...prev, { role: "assistant", content: data.reply }]);
-      } else {
-        setMessages(prev => [...prev, { role: "assistant", content: data.error ?? "Something went wrong. Please try again." }]);
+      const raw = await res.text();
+      let data: { reply?: string; error?: string } = {};
+      try {
+        data = JSON.parse(raw);
+      } catch {
+        const snippet = raw.slice(0, 180).replace(/\s+/g, " ").trim();
+        setMessages(prev => [...prev, { role: "assistant", content: `Server returned non-JSON (status ${res.status}): ${snippet || "empty body"}` }]);
+        return;
       }
-    } catch {
-      setMessages(prev => [...prev, { role: "assistant", content: "Network error. Please check your connection and try again." }]);
+      if (data.reply) {
+        setMessages(prev => [...prev, { role: "assistant", content: data.reply! }]);
+      } else {
+        setMessages(prev => [...prev, { role: "assistant", content: data.error ?? `Request failed (status ${res.status}).` }]);
+      }
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Unknown fetch error";
+      setMessages(prev => [...prev, { role: "assistant", content: `Could not reach /api/advisor: ${msg}` }]);
     } finally {
       setLoading(false);
     }
