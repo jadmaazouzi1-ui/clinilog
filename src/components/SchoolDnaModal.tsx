@@ -33,8 +33,8 @@ export default function SchoolDnaModal({ schoolName, state, mission, dna, onClos
 
   return (
     <div
-      className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center p-0 sm:p-4 page-fade-in"
-      style={{ backgroundColor: "rgba(0,0,0,0.75)" }}
+      className="fixed inset-0 flex items-end sm:items-center justify-center p-0 sm:p-4"
+      style={{ backgroundColor: "rgba(0,0,0,0.75)", zIndex: 60 }}
       onClick={onClose}
     >
       <div
