@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { updateExperience } from "../../actions";
 import { Experience } from "@/lib/types";
 import AppShell from "@/components/AppShell";
+import ReframeableTextarea from "@/components/ReframeableTextarea";
 
 export default async function EditExperiencePage({
   params,
@@ -212,14 +213,10 @@ export default async function EditExperiencePage({
               >
                 Description <span style={{ color: "#FF4757" }}>*</span>
               </label>
-              <textarea
-                id="description"
-                name="description"
+              <ReframeableTextarea
                 required
-                rows={4}
                 defaultValue={exp.description}
                 placeholder="What did you do?"
-                className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm resize-none"
               />
             </div>
 

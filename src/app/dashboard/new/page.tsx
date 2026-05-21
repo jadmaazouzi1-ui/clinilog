@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { createExperience } from "../actions";
 import AppShell from "@/components/AppShell";
+import ReframeableTextarea from "@/components/ReframeableTextarea";
 
 export default async function NewExperiencePage() {
   const supabase = await createClient();
@@ -175,13 +176,9 @@ export default async function NewExperiencePage() {
               >
                 Description <span style={{ color: "#FF4757" }}>*</span>
               </label>
-              <textarea
-                id="description"
-                name="description"
+              <ReframeableTextarea
                 required
-                rows={4}
                 placeholder="What did you do?"
-                className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm resize-none"
               />
             </div>
 
