@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { createExperience } from "../actions";
-import Navbar from "@/components/Navbar";
+import AppShell from "@/components/AppShell";
 
 export default async function NewExperiencePage() {
   const supabase = await createClient();
@@ -16,9 +16,7 @@ export default async function NewExperiencePage() {
   }
 
   return (
-    <div className="min-h-screen dot-grid-bg" style={{ backgroundColor: "#0A1628" }}>
-      <Navbar userEmail={user.email ?? ""} activePath="/dashboard" />
-
+    <AppShell userEmail={user.email ?? ""} activePath="/dashboard" breadcrumbs={[{ label: "Dashboard", href: "/dashboard" }, { label: "Log Experience" }]}>
       <main className="max-w-2xl mx-auto px-6 py-10">
         {/* Back link */}
         <Link
@@ -219,6 +217,6 @@ export default async function NewExperiencePage() {
           </form>
         </div>
       </main>
-    </div>
+    </AppShell>
   );
 }

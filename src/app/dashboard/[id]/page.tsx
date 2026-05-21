@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { deleteExperience } from "../actions";
 import { Experience, ExperienceType } from "@/lib/types";
 import ExportButton from "./ExportButton";
-import Navbar from "@/components/Navbar";
+import AppShell from "@/components/AppShell";
 
 const TYPE_LABELS: Record<ExperienceType, string> = {
   shadowing: "Shadowing",
@@ -61,9 +61,7 @@ export default async function ExperienceDetailPage({
   const exp = experience as Experience;
 
   return (
-    <div className="min-h-screen dot-grid-bg" style={{ backgroundColor: "#0A1628" }}>
-      <Navbar userEmail={user.email ?? ""} activePath="/dashboard" />
-
+    <AppShell userEmail={user.email ?? ""} activePath="/dashboard" breadcrumbs={[{ label: "Dashboard", href: "/dashboard" }, { label: exp.title }]}>
       <main className="max-w-3xl mx-auto px-6 py-10">
         {/* Back link */}
         <Link
@@ -229,6 +227,6 @@ export default async function ExperienceDetailPage({
           )}
         </div>
       </main>
-    </div>
+    </AppShell>
   );
 }

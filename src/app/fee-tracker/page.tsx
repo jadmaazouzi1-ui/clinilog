@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { addWaiver, updateWaiverStatus, deleteWaiver } from "./actions";
-import Navbar from "@/components/Navbar";
+import AppShell from "@/components/AppShell";
 
 type WaiverStatus = "Not Applied" | "Applied" | "Approved" | "Denied";
 
@@ -73,8 +73,7 @@ export default async function FeeTrackerPage() {
   ];
 
   return (
-    <div className="min-h-screen dot-grid-bg" style={{ backgroundColor: "#0A1628" }}>
-      <Navbar userEmail={user.email ?? ""} activePath="/fee-tracker" />
+    <AppShell userEmail={user.email ?? ""} activePath="/fee-tracker">
 
       <main className="max-w-5xl mx-auto px-6 py-10">
         {/* Back link */}
@@ -328,6 +327,6 @@ export default async function FeeTrackerPage() {
           </div>
         )}
       </main>
-    </div>
+    </AppShell>
   );
 }

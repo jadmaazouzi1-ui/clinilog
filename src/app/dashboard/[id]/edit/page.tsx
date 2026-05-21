@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { updateExperience } from "../../actions";
 import { Experience } from "@/lib/types";
-import Navbar from "@/components/Navbar";
+import AppShell from "@/components/AppShell";
 
 export default async function EditExperiencePage({
   params,
@@ -38,9 +38,7 @@ export default async function EditExperiencePage({
   const exp = experience as Experience;
 
   return (
-    <div className="min-h-screen dot-grid-bg" style={{ backgroundColor: "#0A1628" }}>
-      <Navbar userEmail={user.email ?? ""} activePath="/dashboard" />
-
+    <AppShell userEmail={user.email ?? ""} activePath="/dashboard" breadcrumbs={[{ label: "Dashboard", href: "/dashboard" }, { label: exp.title, href: `/dashboard/${exp.id}` }, { label: "Edit" }]}>
       <main className="max-w-2xl mx-auto px-6 py-10">
         {/* Back link */}
         <Link
@@ -265,6 +263,6 @@ export default async function EditExperiencePage({
           </form>
         </div>
       </main>
-    </div>
+    </AppShell>
   );
 }

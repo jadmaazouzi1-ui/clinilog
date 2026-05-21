@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import SchoolList from "./SchoolList";
-import Navbar from "@/components/Navbar";
+import AppShell from "@/components/AppShell";
 
 export default async function SchoolsPage() {
   const supabase = await createClient();
@@ -16,9 +16,7 @@ export default async function SchoolsPage() {
   }
 
   return (
-    <div className="min-h-screen dot-grid-bg" style={{ backgroundColor: "#0A1628" }}>
-      <Navbar userEmail={user.email ?? ""} activePath="/schools" />
-
+    <AppShell userEmail={user.email ?? ""} activePath="/schools">
       <main className="max-w-5xl mx-auto px-6 py-10">
         <Link
           href="/dashboard"
@@ -32,6 +30,6 @@ export default async function SchoolsPage() {
         </Link>
         <SchoolList userEmail={user.email ?? ""} />
       </main>
-    </div>
+    </AppShell>
   );
 }

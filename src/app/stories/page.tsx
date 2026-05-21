@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import Navbar from "@/components/Navbar";
+import AppShell from "@/components/AppShell";
 import ShareStoryModal from "./ShareStoryModal";
 
 const STORIES = [
@@ -100,8 +100,7 @@ export default async function StoriesPage({
   if (!user) redirect("/auth/login");
 
   return (
-    <div className="min-h-screen dot-grid-bg" style={{ backgroundColor: "#0A1628" }}>
-      <Navbar userEmail={user.email ?? ""} activePath="/stories" />
+    <AppShell userEmail={user.email ?? ""} activePath="/stories">
 
       <main className="max-w-5xl mx-auto px-6 py-10">
         <Link
@@ -211,6 +210,6 @@ export default async function StoriesPage({
           <ShareStoryModal />
         </div>
       </main>
-    </div>
+    </AppShell>
   );
 }

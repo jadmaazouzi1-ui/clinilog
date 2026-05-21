@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { upsertProfile } from "./actions";
-import Navbar from "@/components/Navbar";
+import AppShell from "@/components/AppShell";
 
 export default async function ProfilePage({
   searchParams,
@@ -27,8 +27,7 @@ export default async function ProfilePage({
     .single();
 
   return (
-    <div className="min-h-screen dot-grid-bg" style={{ backgroundColor: "#0A1628" }}>
-      <Navbar userEmail={user.email ?? ""} activePath="/profile" />
+    <AppShell userEmail={user.email ?? ""} activePath="/profile">
 
       <main className="max-w-2xl mx-auto px-6 py-10">
         {/* Back link */}
@@ -264,6 +263,6 @@ export default async function ProfilePage({
           </form>
         </div>
       </main>
-    </div>
+    </AppShell>
   );
 }

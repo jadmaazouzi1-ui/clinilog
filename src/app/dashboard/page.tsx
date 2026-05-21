@@ -6,7 +6,7 @@ import { Experience, ExperienceType } from "@/lib/types";
 import ExportAllButton from "./ExportAllButton";
 import HoursBreakdown from "./HoursBreakdown";
 import AMCASTracker from "./AMCASTracker";
-import Navbar from "@/components/Navbar";
+import AppShell from "@/components/AppShell";
 import OnboardingModal from "./OnboardingModal";
 
 const TYPE_LABELS: Record<ExperienceType, string> = {
@@ -76,9 +76,8 @@ export default async function DashboardPage({
   ];
 
   return (
-    <div className="min-h-screen dot-grid-bg" style={{ backgroundColor: "#0A1628" }}>
+    <AppShell userEmail={user.email ?? ""} activePath="/dashboard">
       {showOnboarding && <OnboardingModal />}
-      <Navbar userEmail={user.email ?? ""} activePath="/dashboard" />
 
       <main className="max-w-5xl mx-auto px-6 py-10">
         {pageError && (
@@ -312,6 +311,6 @@ export default async function DashboardPage({
           </div>
         )}
       </main>
-    </div>
+    </AppShell>
   );
 }

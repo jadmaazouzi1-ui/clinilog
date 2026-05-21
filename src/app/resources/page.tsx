@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import Navbar from "@/components/Navbar";
+import AppShell from "@/components/AppShell";
 
 const CATEGORIES = [
   {
@@ -192,8 +192,7 @@ export default async function ResourcesPage() {
   }
 
   return (
-    <div className="min-h-screen dot-grid-bg" style={{ backgroundColor: "#0A1628" }}>
-      <Navbar userEmail={user.email ?? ""} activePath="/resources" />
+    <AppShell userEmail={user.email ?? ""} activePath="/resources">
 
       <main className="max-w-5xl mx-auto px-6 py-10">
         {/* Back link */}
@@ -266,6 +265,6 @@ export default async function ResourcesPage() {
           ))}
         </div>
       </main>
-    </div>
+    </AppShell>
   );
 }
