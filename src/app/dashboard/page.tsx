@@ -8,6 +8,8 @@ import HoursBreakdown from "./HoursBreakdown";
 import AMCASTracker from "./AMCASTracker";
 import AppShell from "@/components/AppShell";
 import OnboardingModal from "./OnboardingModal";
+import AppStrengthScore from "@/components/AppStrengthScore";
+import { scoreExperience, scoreColor, averageScore } from "@/lib/scoreExperience";
 
 const TYPE_LABELS: Record<ExperienceType, string> = {
   shadowing: "Shadowing",
@@ -154,6 +156,14 @@ export default async function DashboardPage({
           ))}
         </div>
 
+        {/* Application Strength Score */}
+        <div className="mb-8">
+          <AppStrengthScore
+            score={averageScore(experienceList)}
+            experienceCount={experienceList.length}
+          />
+        </div>
+
         <HoursBreakdown experiences={experienceList} />
         <AMCASTracker experiences={experienceList} />
 
@@ -215,10 +225,14 @@ export default async function DashboardPage({
                 key={experience.id}
                 className="glass-card rounded-2xl p-6"
               >
+                {(() => {
+                  const { total: expScore } = scoreExperience(experience);
+                  const { color, bg, border } = scoreColor(expScore);
+                  return (
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
-                    {/* Title + badge */}
-                    <div className="flex items-center gap-3 flex-wrap mb-1">
+                    {/* Title + badges */}
+                    <div className="flex items-center gap-2 flex-wrap mb-1">
                       <h3 className="text-base font-semibold" style={{ color: "#F8FAFC" }}>
                         <Link
                           href={`/dashboard/${experience.id}`}
@@ -232,6 +246,17 @@ export default async function DashboardPage({
                         style={TYPE_BADGE_STYLES[experience.type as ExperienceType]}
                       >
                         {TYPE_LABELS[experience.type as ExperienceType]}
+                      </span>
+                      {/* Value Score badge */}
+                      <span
+                        className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold"
+                        style={{ backgroundColor: bg, color, border: `1px solid ${border}` }}
+                        title="Experience Value Score — based on hours, category, description depth, leadership, and patient contact"
+                      >
+                        <svg className="w-2.5 h-2.5" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                        </svg>
+                        {expScore}
                       </span>
                     </div>
 
@@ -306,6 +331,8 @@ export default async function DashboardPage({
                     </form>
                   </div>
                 </div>
+                  );
+                })()}
               </div>
             ))}
           </div>
