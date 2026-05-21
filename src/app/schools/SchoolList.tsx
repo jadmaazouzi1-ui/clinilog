@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import SchoolDnaModal from "@/components/SchoolDnaModal";
-import { getDna } from "@/lib/schoolDna";
 
 interface School {
   name: string;
@@ -211,7 +209,6 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
   const [homeState, setHomeState] = useState("");
   const [inStatePrefFilter, setInStatePrefFilter] = useState<"" | "In-State Friendly" | "Out-of-State Friendly">("");
   const [matchOnly, setMatchOnly] = useState(false);
-  const [dnaSchool, setDnaSchool] = useState<School | null>(null);
 
   const gpaNum = parseFloat(gpa);
   const mcatNum = parseInt(mcat, 10);
@@ -471,7 +468,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
                 )}
               </div>
 
-              <div className="flex items-center gap-3 flex-wrap">
+              <div className="flex items-center gap-3">
                 <div
                   className="flex items-center gap-1.5 rounded-lg px-3 py-1.5"
                   style={{ background: "rgba(0,212,255,0.05)", border: "1px solid rgba(0,212,255,0.12)" }}
@@ -486,21 +483,6 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
                   <span className="text-xs font-medium" style={{ color: "rgba(248,250,252,0.55)" }}>Avg MCAT</span>
                   <span className="text-sm font-bold" style={{ color: "#F8FAFC" }}>{school.avgMcat}</span>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => setDnaSchool(school)}
-                  className="ml-auto inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all hover:opacity-90"
-                  style={{
-                    background: "rgba(0,212,255,0.12)",
-                    color: "#00D4FF",
-                    border: "1px solid rgba(0,212,255,0.3)",
-                  }}
-                >
-                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4c0 4 4 6 8 8s8 4 8 8M20 4c0 4-4 6-8 8s-8 4-8 8" />
-                  </svg>
-                  View DNA
-                </button>
               </div>
             </div>
           );
@@ -515,16 +497,6 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
           </div>
         )}
       </div>
-
-      {dnaSchool && (
-        <SchoolDnaModal
-          schoolName={dnaSchool.name}
-          state={dnaSchool.state}
-          mission={dnaSchool.mission}
-          dna={getDna(dnaSchool)}
-          onClose={() => setDnaSchool(null)}
-        />
-      )}
     </div>
   );
 }
