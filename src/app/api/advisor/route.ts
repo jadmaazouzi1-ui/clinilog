@@ -31,7 +31,12 @@ Always address the student directly and warmly. You are their advocate.`;
       systemInstruction: systemPrompt,
     });
 
-    const history = messages.slice(0, -1).map((m: { role: string; content: string }) => ({
+    // Gemini requires history to start with a user message — drop any
+    // leading assistant messages (e.g. our greeting).
+    const priorMessages = messages.slice(0, -1) as { role: string; content: string }[];
+    const firstUserIdx = priorMessages.findIndex((m) => m.role === "user");
+    const trimmed = firstUserIdx === -1 ? [] : priorMessages.slice(firstUserIdx);
+    const history = trimmed.map((m) => ({
       role: m.role === "user" ? "user" : "model",
       parts: [{ text: m.content }],
     }));
