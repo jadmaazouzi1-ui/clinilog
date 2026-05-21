@@ -31,7 +31,7 @@ Return only the reframed description text. No preamble, no quotes, no explanatio
 
   try {
     const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
     const result = await model.generateContent(prompt);
     const reframed = result.response.text().trim();
 
