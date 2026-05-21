@@ -12,9 +12,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "No description provided." }, { status: 400 });
   }
 
-  const genAI = new GoogleGenerativeAI(apiKey);
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
   const prompt = `You are an expert medical school application advisor helping a first-generation pre-med student craft their AMCAS application.
 
 Reframe the following clinical experience description into polished, AMCAS-ready language. The reframed version must:
@@ -32,8 +29,23 @@ ${description.trim()}
 
 Return only the reframed description text. No preamble, no quotes, no explanation.`;
 
-  const result = await model.generateContent(prompt);
-  const reframed = result.response.text().trim();
+  try {
+    const genAI = new GoogleGenerativeAI(apiKey);
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const result = await model.generateContent(prompt);
+    const reframed = result.response.text().trim();
 
-  return NextResponse.json({ reframed });
+    if (!reframed) {
+      return NextResponse.json({ error: "AI returned an empty response. Please try again." }, { status: 502 });
+    }
+
+    return NextResponse.json({ reframed });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Unknown error";
+    console.error("[/api/reframe] Gemini call failed:", message);
+    return NextResponse.json(
+      { error: `Reframe failed: ${message}` },
+      { status: 500 }
+    );
+  }
 }

@@ -24,22 +24,31 @@ Your role:
 
 Always address the student directly and warmly. You are their advocate.`;
 
-  const genAI = new GoogleGenerativeAI(apiKey);
-  const model = genAI.getGenerativeModel({
-    model: "gemini-1.5-flash",
-    systemInstruction: systemPrompt,
-  });
+  try {
+    const genAI = new GoogleGenerativeAI(apiKey);
+    const model = genAI.getGenerativeModel({
+      model: "gemini-1.5-flash",
+      systemInstruction: systemPrompt,
+    });
 
-  const history = messages.slice(0, -1).map((m: { role: string; content: string }) => ({
-    role: m.role === "user" ? "user" : "model",
-    parts: [{ text: m.content }],
-  }));
+    const history = messages.slice(0, -1).map((m: { role: string; content: string }) => ({
+      role: m.role === "user" ? "user" : "model",
+      parts: [{ text: m.content }],
+    }));
 
-  const lastMessage = messages[messages.length - 1].content;
+    const lastMessage = messages[messages.length - 1].content;
 
-  const chat = model.startChat({ history });
-  const result = await chat.sendMessage(lastMessage);
-  const text = result.response.text();
+    const chat = model.startChat({ history });
+    const result = await chat.sendMessage(lastMessage);
+    const text = result.response.text();
 
-  return NextResponse.json({ reply: text });
+    return NextResponse.json({ reply: text });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Unknown error";
+    console.error("[/api/advisor] Gemini call failed:", message);
+    return NextResponse.json(
+      { error: `Advisor failed: ${message}` },
+      { status: 500 }
+    );
+  }
 }
