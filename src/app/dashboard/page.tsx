@@ -61,11 +61,13 @@ export default async function DashboardPage({
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("onboarding_complete")
+    .select("onboarding_complete, archetype_id")
     .eq("id", user.id)
     .single();
 
   const showOnboarding = !profile?.onboarding_complete;
+  const showArchetypeBanner = experienceList.length >= 3;
+  const archetypeReady = !!profile?.archetype_id;
 
   const totalHours = experienceList.reduce((sum, e) => sum + e.hours, 0);
   const totalHoursDisplay =
@@ -155,6 +157,47 @@ export default async function DashboardPage({
             </div>
           ))}
         </div>
+
+        {/* Archetype banner — shown once user has 3+ experiences */}
+        {showArchetypeBanner && (
+          <Link
+            href="/archetype"
+            className="block mb-8 rounded-2xl px-5 py-4 transition-all hover:opacity-95"
+            style={{
+              background: "linear-gradient(135deg, rgba(0,212,255,0.12) 0%, rgba(167,139,250,0.08) 100%)",
+              border: "1px solid rgba(0,212,255,0.3)",
+              boxShadow: "0 0 24px rgba(0,212,255,0.18)",
+            }}
+          >
+            <div className="flex items-center gap-4 flex-wrap">
+              <div
+                className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
+                style={{ backgroundColor: "rgba(0,212,255,0.18)", border: "1px solid rgba(0,212,255,0.4)" }}
+              >
+                <svg className="w-6 h-6" fill="none" stroke="#00D4FF" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-bold mb-0.5" style={{ color: "#F8FAFC" }}>
+                  {archetypeReady ? "Your Pre-Med Archetype is ready" : "Your Pre-Med Archetype is ready to be revealed"}
+                </p>
+                <p className="text-xs" style={{ color: "rgba(248,250,252,0.6)" }}>
+                  {archetypeReady ? "View your personalized profile and ideal med schools." : "See your personalized profile based on your logged experiences."}
+                </p>
+              </div>
+              <span
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold flex-shrink-0"
+                style={{ backgroundColor: "#00D4FF", color: "#0A1628", boxShadow: "0 0 14px rgba(0,212,255,0.5)" }}
+              >
+                {archetypeReady ? "View" : "Reveal"}
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </span>
+            </div>
+          </Link>
+        )}
 
         {/* Application Strength Score */}
         <div className="mb-8">
