@@ -78,6 +78,15 @@ const NAV_ITEMS = [
     ),
   },
   {
+    href: "/import",
+    label: "Import CSV",
+    icon: (active: boolean) => (
+      <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={active ? 2 : 1.75} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+      </svg>
+    ),
+  },
+  {
     href: "/profile",
     label: "Profile",
     icon: (active: boolean) => (
@@ -99,6 +108,7 @@ const AUTO_BREADCRUMBS: Record<string, BreadcrumbItem[]> = {
   "/resources": [{ label: "Resources" }],
   "/fee-tracker": [{ label: "Fee Tracker" }],
   "/stories":   [{ label: "Stories" }],
+  "/import":    [{ label: "Dashboard", href: "/dashboard" }, { label: "Import CSV" }],
   "/profile":   [{ label: "Profile" }],
 };
 
