@@ -8,8 +8,8 @@ import HoursBreakdown from "./HoursBreakdown";
 import AMCASTracker from "./AMCASTracker";
 import AppShell from "@/components/AppShell";
 import OnboardingModal from "./OnboardingModal";
-import AppStrengthScore from "@/components/AppStrengthScore";
-import { scoreExperience, scoreColor, averageScore } from "@/lib/scoreExperience";
+import ExperienceInsights from "@/components/ExperienceInsights";
+import { scoreExperience, scoreColor } from "@/lib/scoreExperience";
 
 const TYPE_LABELS: Record<ExperienceType, string> = {
   shadowing: "Shadowing",
@@ -199,13 +199,8 @@ export default async function DashboardPage({
           </Link>
         )}
 
-        {/* Application Strength Score */}
-        <div className="mb-8">
-          <AppStrengthScore
-            score={averageScore(experienceList)}
-            experienceCount={experienceList.length}
-          />
-        </div>
+        {/* Experience Insights — personalized tips */}
+        <ExperienceInsights experiences={experienceList} />
 
         <HoursBreakdown experiences={experienceList} />
         <AMCASTracker experiences={experienceList} />
