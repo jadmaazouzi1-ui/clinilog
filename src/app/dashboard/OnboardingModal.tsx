@@ -158,6 +158,7 @@ export default function OnboardingModal() {
     startTransition(async () => {
       await markOnboardingComplete();
       router.push("/schools");
+      router.refresh();
     });
   }
 
@@ -165,6 +166,17 @@ export default function OnboardingModal() {
     startTransition(async () => {
       await markOnboardingComplete();
       setDone(true);
+      router.refresh();
+    });
+  }
+
+  // Called from "Skip" buttons and the X close button — marks onboarding
+  // complete so the modal never shows again, then dismisses.
+  function handleSkipOnboarding() {
+    startTransition(async () => {
+      await markOnboardingComplete();
+      setDone(true);
+      router.refresh();
     });
   }
 
@@ -227,8 +239,34 @@ export default function OnboardingModal() {
           border: "1px solid rgba(0,212,255,0.2)",
           borderRadius: 24,
           padding: 32,
+          position: "relative",
         }}
       >
+        {/* Close (X) button — also marks onboarding complete */}
+        <button
+          onClick={handleSkipOnboarding}
+          disabled={isPending}
+          aria-label="Close onboarding"
+          style={{
+            position: "absolute",
+            top: 14,
+            right: 14,
+            padding: 6,
+            borderRadius: 8,
+            background: "transparent",
+            border: "none",
+            color: "rgba(248,250,252,0.4)",
+            cursor: isPending ? "not-allowed" : "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
         <StepIndicator />
 
         {/* ── Step 1 ── */}
@@ -298,9 +336,9 @@ export default function OnboardingModal() {
               <button
                 style={ghostBtn}
                 disabled={isPending}
-                onClick={() => setStep(2)}
+                onClick={handleSkipOnboarding}
               >
-                Skip for now
+                Skip onboarding
               </button>
               <button
                 style={tealBtn}
@@ -398,9 +436,9 @@ export default function OnboardingModal() {
               <button
                 style={ghostBtn}
                 disabled={isPending}
-                onClick={() => setStep(3)}
+                onClick={handleSkipOnboarding}
               >
-                Skip for now
+                Skip onboarding
               </button>
               <button
                 style={tealBtn}
