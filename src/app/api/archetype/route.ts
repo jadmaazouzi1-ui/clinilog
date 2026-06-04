@@ -2,6 +2,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { ARCHETYPES, ArchetypeAnalysis } from "@/lib/archetypes";
+import { formatHours } from "@/lib/types";
 
 export async function POST() {
   const apiKey = process.env.GEMINI_API_KEY;
@@ -42,7 +43,7 @@ export async function POST() {
   const expList = exps
     .map(
       (e, i) =>
-        `${i + 1}. "${e.title}" at ${e.organization} — ${e.type.replace("_", " ")}, ${e.hours} hrs\n   Description: ${e.description ?? "(none)"}${e.reflection ? `\n   Reflection: ${e.reflection}` : ""}`
+        `${i + 1}. "${e.title}" at ${e.organization} — ${e.type.replace("_", " ")}, ${formatHours(e.hours ?? 0)} hrs\n   Description: ${e.description ?? "(none)"}${e.reflection ? `\n   Reflection: ${e.reflection}` : ""}`
     )
     .join("\n\n");
 
@@ -71,8 +72,8 @@ Undergraduate school: ${profile.undergraduate_school ?? "(not provided)"}
 Graduation year: ${profile.graduation_year ?? "(not provided)"}
 Intended specialty: ${profile.intended_specialty ?? "(undecided)"}
 
-Total logged hours: ${totalHours}
-Hours by category: ${Object.entries(hoursByType).map(([k, v]) => `${k.replace("_", " ")}=${v}`).join(", ")}
+Total logged hours: ${formatHours(totalHours)}
+Hours by category: ${Object.entries(hoursByType).map(([k, v]) => `${k.replace("_", " ")}=${formatHours(v)}`).join(", ")}
 
 Experiences (${exps.length}):
 

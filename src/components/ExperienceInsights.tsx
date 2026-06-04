@@ -1,4 +1,4 @@
-import { Experience, ExperienceType } from "@/lib/types";
+import { Experience, ExperienceType, formatHours } from "@/lib/types";
 
 interface Tip {
   kind: "positive" | "warn" | "alert";
@@ -161,6 +161,11 @@ function generateTips(experiences: Experience[]): Tip[] {
     ];
   }
 
+  const clinical = formatHours(hoursByType.clinical_work);
+  const shadowingH = formatHours(hoursByType.shadowing);
+  const research = formatHours(hoursByType.research);
+  const volunteer = formatHours(hoursByType.volunteer);
+
   // ── Critical gaps (alerts) ───────────────────────────────────────────────
   if (hoursByType.clinical_work === 0) {
     candidates.push({
@@ -172,8 +177,8 @@ function generateTips(experiences: Experience[]): Tip[] {
   } else if (hoursByType.clinical_work < RECOMMENDATIONS.clinicalWork) {
     candidates.push({
       kind: "warn",
-      title: `${hoursByType.clinical_work} clinical hours — keep building`,
-      body: `Most successful applicants have 100+ clinical hours. You're at ${hoursByType.clinical_work}; aim for steady weekly clinical exposure.`,
+      title: "Keep building clinical hours",
+      body: `You're at ${clinical} hours — most successful applicants have at least 100. Aim for steady weekly clinical exposure.`,
       icon: ICONS.stethoscope,
     });
   }
@@ -188,8 +193,8 @@ function generateTips(experiences: Experience[]): Tip[] {
   } else if (hoursByType.shadowing < RECOMMENDATIONS.shadowing) {
     candidates.push({
       kind: "warn",
-      title: `${hoursByType.shadowing} shadowing hours`,
-      body: `Aim for 50+ across at least two specialties. You currently have ${hoursByType.shadowing}.`,
+      title: "More shadowing recommended",
+      body: `You have ${shadowingH} shadowing hours. Aim for 50+ across at least two specialties to give your application breadth.`,
       icon: ICONS.eye,
     });
   }
@@ -198,14 +203,14 @@ function generateTips(experiences: Experience[]): Tip[] {
     candidates.push({
       kind: "warn",
       title: "No research experience yet",
-      body: "Research isn't required at every school, but it's a huge plus — especially for top-tier programs. Even 50 hours in a lab shows curiosity.",
+      body: "Research isn't required everywhere, but it's a big plus — especially for top-tier programs. Even 50 hours in a lab shows curiosity.",
       icon: ICONS.flask,
     });
   } else if (hoursByType.research < RECOMMENDATIONS.research) {
     candidates.push({
       kind: "warn",
-      title: `${hoursByType.research} research hours`,
-      body: `Research-heavy schools look for 100+ hours and a publication or poster. You have ${hoursByType.research} — keep going.`,
+      title: "Push research deeper",
+      body: `You're at ${research} research hours. Research-heavy schools look for 100+ hours plus a poster or publication — keep going.`,
       icon: ICONS.flask,
     });
   }
@@ -220,8 +225,8 @@ function generateTips(experiences: Experience[]): Tip[] {
   } else if (hoursByType.volunteer < RECOMMENDATIONS.volunteer) {
     candidates.push({
       kind: "warn",
-      title: `${hoursByType.volunteer} volunteer hours`,
-      body: `Most schools want 40+ volunteer hours, ideally non-clinical service. You're at ${hoursByType.volunteer}.`,
+      title: "Add more volunteer hours",
+      body: `You're at ${volunteer} volunteer hours. Most schools want 40+, ideally non-clinical service work.`,
       icon: ICONS.heart,
     });
   }
@@ -239,8 +244,8 @@ function generateTips(experiences: Experience[]): Tip[] {
   if (hoursByType.clinical_work >= RECOMMENDATIONS.clinicalWork) {
     candidates.push({
       kind: "positive",
-      title: `Strong clinical foundation`,
-      body: `${hoursByType.clinical_work} clinical hours puts you above the typical applicant benchmark. Keep going with consistent weekly hours.`,
+      title: "Strong clinical foundation",
+      body: `${clinical} clinical hours puts you above the typical applicant benchmark. Keep consistent weekly hours to maintain momentum.`,
       icon: ICONS.check,
     });
   }
@@ -248,7 +253,7 @@ function generateTips(experiences: Experience[]): Tip[] {
     candidates.push({
       kind: "positive",
       title: "Shadowing target met",
-      body: `${hoursByType.shadowing} shadowing hours covers the AMCAS sweet spot. Make sure you've shadowed at least 2 different specialties.`,
+      body: `${shadowingH} shadowing hours hits the AMCAS sweet spot. Make sure you've covered at least two different specialties.`,
       icon: ICONS.eye,
     });
   }
@@ -256,7 +261,7 @@ function generateTips(experiences: Experience[]): Tip[] {
     candidates.push({
       kind: "positive",
       title: "Volunteering looks healthy",
-      body: `${hoursByType.volunteer} volunteer hours shows real commitment to service — exactly what mission-driven schools love to see.`,
+      body: `${volunteer} volunteer hours shows real commitment to service — exactly what mission-driven schools love to see.`,
       icon: ICONS.heart,
     });
   }
@@ -264,7 +269,7 @@ function generateTips(experiences: Experience[]): Tip[] {
     candidates.push({
       kind: "positive",
       title: "Research depth is real",
-      body: `${hoursByType.research} research hours is competitive for research-heavy programs. Aim for a poster, abstract, or pub if you haven't yet.`,
+      body: `${research} research hours is competitive for research-heavy programs. Aim for a poster, abstract, or publication next if you haven't yet.`,
       icon: ICONS.flask,
     });
   }
@@ -276,7 +281,7 @@ function generateTips(experiences: Experience[]): Tip[] {
     candidates.push({
       kind: "positive",
       title: "Well-rounded profile",
-      body: `Activity across all four core categories with ${totalHours} total hours — that's a strong foundation for a Renaissance-style narrative.`,
+      body: `Activity across all four core categories with ${formatHours(totalHours)} total hours — that's a strong foundation for a Renaissance-style narrative.`,
       icon: ICONS.trophy,
     });
   }

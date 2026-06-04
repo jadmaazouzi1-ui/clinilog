@@ -1,6 +1,6 @@
 "use client";
 
-import { Experience, ExperienceType } from "@/lib/types";
+import { Experience, ExperienceType, formatHours } from "@/lib/types";
 
 const TYPE_LABELS: Record<ExperienceType, string> = {
   shadowing: "Shadowing",
@@ -74,9 +74,7 @@ export default function ExportButton({ experience }: ExportButtonProps) {
     y += 14;
 
     const hoursDisplay =
-      experience.hours % 1 === 0
-        ? experience.hours.toString()
-        : experience.hours.toFixed(1);
+      formatHours(experience.hours);
     doc.setFont("helvetica", "bold");
     doc.text(`${hoursDisplay} hours`, margin, y);
     y += 24;

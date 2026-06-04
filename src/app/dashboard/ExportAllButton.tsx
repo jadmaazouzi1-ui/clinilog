@@ -1,6 +1,6 @@
 "use client";
 
-import { Experience, ExperienceType } from "@/lib/types";
+import { Experience, ExperienceType, formatHours } from "@/lib/types";
 
 const TYPE_LABELS: Record<ExperienceType, string> = {
   shadowing: "Shadowing",
@@ -36,8 +36,7 @@ export default function ExportAllButton({ experiences }: ExportAllButtonProps) {
     const contentWidth = pageWidth - margin * 2;
 
     const totalHours = experiences.reduce((sum, e) => sum + e.hours, 0);
-    const totalHoursDisplay =
-      totalHours % 1 === 0 ? totalHours.toString() : totalHours.toFixed(1);
+    const totalHoursDisplay = formatHours(totalHours);
 
     // ── Cover page ──────────────────────────────────────────────────────────
     let y = 200;
@@ -114,9 +113,7 @@ export default function ExportAllButton({ experiences }: ExportAllButtonProps) {
       y += 14;
 
       const hoursDisplay =
-        experience.hours % 1 === 0
-          ? experience.hours.toString()
-          : experience.hours.toFixed(1);
+        formatHours(experience.hours);
       doc.setFont("helvetica", "bold");
       doc.text(`${hoursDisplay} hours`, margin, y);
       y += 22;

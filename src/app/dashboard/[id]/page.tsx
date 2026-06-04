@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { deleteExperience } from "../actions";
-import { Experience, ExperienceType } from "@/lib/types";
+import { Experience, ExperienceType, formatHours } from "@/lib/types";
 import ExportButton from "./ExportButton";
 import AppShell from "@/components/AppShell";
 
@@ -193,7 +193,7 @@ export default async function ExperienceDetailPage({
                 />
               </svg>
               <span className="font-semibold" style={{ color: "rgba(248,250,252,0.85)" }}>
-                {exp.hours % 1 === 0 ? exp.hours : exp.hours.toFixed(1)} hrs
+                {formatHours(exp.hours)} hrs
               </span>
             </div>
           </div>

@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { createBrowserClient } from "@supabase/ssr";
+import { formatHours } from "@/lib/types";
 
 interface Message {
   role: "user" | "assistant";
@@ -24,11 +25,11 @@ function buildContextString(ctx: UserContext): string {
   if (ctx.school) lines.push(`Undergraduate school: ${ctx.school}`);
   if (ctx.gradYear) lines.push(`Expected graduation year: ${ctx.gradYear}`);
   if (ctx.specialty) lines.push(`Interested specialty: ${ctx.specialty}`);
-  lines.push(`Total logged hours: ${ctx.totalHours}`);
+  lines.push(`Total logged hours: ${formatHours(ctx.totalHours)}`);
   lines.push(`Experiences logged: ${ctx.experienceCount}`);
   if (Object.keys(ctx.hoursByType).length > 0) {
     const breakdown = Object.entries(ctx.hoursByType)
-      .map(([type, hrs]) => `${type.replace("_", " ")}: ${hrs} hrs`)
+      .map(([type, hrs]) => `${type.replace("_", " ")}: ${formatHours(hrs)} hrs`)
       .join(", ");
     lines.push(`Hours breakdown: ${breakdown}`);
   }

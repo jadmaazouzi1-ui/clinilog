@@ -1,4 +1,4 @@
-import { Experience, ExperienceType } from "@/lib/types";
+import { Experience, ExperienceType, formatHours } from "@/lib/types";
 
 const TARGETS: { type: ExperienceType; label: string; min: number }[] = [
   { type: "clinical_work", label: "Clinical Work", min: 100 },
@@ -35,7 +35,7 @@ export default function AMCASTracker({
           const hours = hoursByType[type] ?? 0;
           const pct = Math.min((hours / min) * 100, 100);
           const met = hours >= min;
-          const display = hours % 1 === 0 ? hours : hours.toFixed(1);
+          const display = formatHours(hours);
 
           return (
             <div key={type}>

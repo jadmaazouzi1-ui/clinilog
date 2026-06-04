@@ -3,6 +3,7 @@
 import { useState, useRef, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { bulkImportExperiences, ImportRow } from "./actions";
+import { formatHours } from "@/lib/types";
 
 type CategoryDisplay = "Clinical Work" | "Shadowing" | "Research" | "Volunteering" | "Other";
 
@@ -453,7 +454,7 @@ export default function ImportView() {
                         {r.row?.start_date && !r.row?.end_date && <> → Present</>}
                       </td>
                       <td className="px-2 py-3 align-top text-right font-semibold text-xs whitespace-nowrap" style={{ color: "#F8FAFC" }}>
-                        {r.row?.hours ?? "—"}
+                        {r.row ? formatHours(r.row.hours) : "—"}
                       </td>
                     </tr>
                   );

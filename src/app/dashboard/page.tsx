@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { deleteExperience } from "./actions";
-import { Experience, ExperienceType } from "@/lib/types";
+import { Experience, ExperienceType, formatHours } from "@/lib/types";
 import ExportAllButton from "./ExportAllButton";
 import HoursBreakdown from "./HoursBreakdown";
 import AMCASTracker from "./AMCASTracker";
@@ -70,8 +70,7 @@ export default async function DashboardPage({
   const archetypeReady = !!profile?.archetype_id;
 
   const totalHours = experienceList.reduce((sum, e) => sum + e.hours, 0);
-  const totalHoursDisplay =
-    totalHours % 1 === 0 ? totalHours.toString() : totalHours.toFixed(1);
+  const totalHoursDisplay = formatHours(totalHours);
 
   const stats = [
     { label: "Total Hours",         value: totalHoursDisplay,                                                          unit: "hrs"     },
@@ -310,9 +309,7 @@ export default async function DashboardPage({
                           : " — Present"}
                       </span>
                       <span className="font-semibold" style={{ color: "rgba(248,250,252,0.7)" }}>
-                        {experience.hours % 1 === 0
-                          ? experience.hours
-                          : experience.hours.toFixed(1)}{" "}
+                        {formatHours(experience.hours)}{" "}
                         hrs
                       </span>
                     </div>

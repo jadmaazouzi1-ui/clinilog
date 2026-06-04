@@ -7,7 +7,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { Experience, ExperienceType } from "@/lib/types";
+import { Experience, ExperienceType, formatHours } from "@/lib/types";
 
 const TYPE_LABELS: Record<ExperienceType, string> = {
   shadowing: "Shadowing",
@@ -96,10 +96,7 @@ export default function HoursBreakdown({
         <div className="flex-1 w-full space-y-3">
           {data.map((entry) => {
             const pct = Math.round((entry.hours / totalHours) * 100);
-            const hrs =
-              entry.hours % 1 === 0
-                ? entry.hours.toString()
-                : entry.hours.toFixed(1);
+            const hrs = formatHours(entry.hours);
             return (
               <div key={entry.type} className="flex items-center gap-3">
                 <span
