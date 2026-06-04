@@ -211,11 +211,11 @@ export default async function EditExperiencePage({
                 className="block text-sm font-medium mb-1.5"
                 style={{ color: "rgba(248,250,252,0.85)" }}
               >
-                Description <span style={{ color: "#FF4757" }}>*</span>
+                Description{" "}
+                <span className="font-normal" style={{ color: "rgba(248,250,252,0.4)" }}>(optional)</span>
               </label>
               <ReframeableTextarea
-                required
-                defaultValue={exp.description}
+                defaultValue={exp.description ?? ""}
                 placeholder="What did you do?"
               />
             </div>

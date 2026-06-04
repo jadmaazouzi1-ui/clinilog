@@ -146,8 +146,6 @@ function rowsFromCsv(matrix: string[][]): ParsedRow[] {
     const hours = parseFloat(hoursRaw);
     if (!hoursRaw || isNaN(hours) || hours <= 0) errors.push("Invalid hours");
 
-    if (!description) errors.push("Missing description");
-
     const row: ImportRow | null = errors.length === 0 ? {
       title,
       organization,
@@ -155,7 +153,7 @@ function rowsFromCsv(matrix: string[][]): ParsedRow[] {
       start_date: start_date!,
       end_date,
       hours,
-      description,
+      description: description || null,
     } : null;
 
     return { selected: errors.length === 0, row, raw, errors };
@@ -163,8 +161,8 @@ function rowsFromCsv(matrix: string[][]): ParsedRow[] {
 }
 
 const TEMPLATE_CSV = `Experience Name,Organization,Category,Start Date,End Date,Hours,Description
-Cardiology Shadowing,UCSF Medical Center,Shadowing,2024-06-01,2024-08-15,40,Shadowed Dr. Chen during morning rounds and outpatient cardiology clinic. Observed echocardiograms and patient consultations.
-Free Clinic Volunteer,Bayview Community Health Clinic,Volunteering,2024-01-15,,120,Front desk volunteer translating English-Spanish for patients and helping with intake forms.
+Cardiology Shadowing,UCSF Medical Center,Shadowing,2024-06-01,2024-08-15,40,Shadowed Dr. Chen during morning rounds and outpatient cardiology clinic.
+Free Clinic Volunteer,Bayview Community Health Clinic,Volunteering,2024-01-15,,120,
 Cancer Research Assistant,Stanford Cancer Institute,Research,2023-09-01,2024-05-30,300,Independent research project investigating immunotherapy response in melanoma patients under Dr. Lee.
 `;
 
@@ -267,7 +265,7 @@ export default function ImportView() {
             </h2>
             <p className="text-xs leading-relaxed" style={{ color: "rgba(248,250,252,0.55)" }}>
               Fill it in with your experiences, then upload below. Columns: Experience Name,
-              Organization, Category, Start Date, End Date (optional), Hours, Description.
+              Organization, Category, Start Date, End Date (optional), Hours, Description (optional).
             </p>
           </div>
           <button

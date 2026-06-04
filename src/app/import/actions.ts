@@ -9,7 +9,7 @@ export interface ImportRow {
   start_date: string;
   end_date: string | null;
   hours: number;
-  description: string;
+  description: string | null;
 }
 
 export interface ImportResult {

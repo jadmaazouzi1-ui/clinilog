@@ -20,7 +20,7 @@ export async function createExperience(formData: FormData) {
   const start_date = formData.get("start_date") as string;
   const end_date = (formData.get("end_date") as string) || null;
   const hours = parseFloat(formData.get("hours") as string);
-  const description = formData.get("description") as string;
+  const description = ((formData.get("description") as string) || "").trim() || null;
   const reflection = (formData.get("reflection") as string) || null;
 
   const { error } = await supabase.from("experiences").insert({
@@ -59,7 +59,7 @@ export async function updateExperience(id: string, formData: FormData) {
   const start_date = formData.get("start_date") as string;
   const end_date = (formData.get("end_date") as string) || null;
   const hours = parseFloat(formData.get("hours") as string);
-  const description = formData.get("description") as string;
+  const description = ((formData.get("description") as string) || "").trim() || null;
   const reflection = (formData.get("reflection") as string) || null;
 
   const { error } = await supabase
