@@ -61,7 +61,7 @@ export default async function DashboardPage({
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("onboarding_complete, archetype_id")
+    .select("onboarding_complete, archetype_id, graduation_year")
     .eq("id", user.id)
     .single();
 
@@ -199,7 +199,10 @@ export default async function DashboardPage({
         )}
 
         {/* Experience Insights — personalized tips */}
-        <ExperienceInsights experiences={experienceList} />
+        <ExperienceInsights
+          experiences={experienceList}
+          gradYear={profile?.graduation_year ?? null}
+        />
 
         <HoursBreakdown experiences={experienceList} />
         <AMCASTracker experiences={experienceList} />
