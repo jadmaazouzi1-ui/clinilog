@@ -206,8 +206,9 @@ export default async function HomePage() {
               className="text-xl leading-relaxed mb-5 max-w-2xl mx-auto"
               style={{ color: "rgba(248,250,252,0.65)" }}
             >
-              Track your clinical hours, explore 150+ medical schools, and build
-              your path to medicine — all in one free tool.
+              Track your clinical hours, explore 150+ medical schools, discover
+              your pre-med archetype, and build your path to medicine — all in
+              one free tool.
             </p>
 
             {/* Social proof */}
@@ -228,7 +229,7 @@ export default async function HomePage() {
                 ))}
               </div>
               <p className="text-sm" style={{ color: "rgba(248,250,252,0.55)" }}>
-                Join <span className="font-bold" style={{ color: "#00D4FF" }}>500+</span> first-gen pre-med students building their path to medicine
+                Join <span className="font-bold" style={{ color: "#00D4FF" }}>1,000+</span> first-gen pre-med students building their path to medicine
               </p>
             </div>
 
@@ -258,7 +259,7 @@ export default async function HomePage() {
             </Link>
 
             {/* Feature cards */}
-            <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 text-left">
+            <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 text-left">
               {[
                 {
                   title: "Track Every Hour",
@@ -267,28 +268,38 @@ export default async function HomePage() {
                 },
                 {
                   title: "Explore 150+ Schools",
-                  desc: "Filter by GPA, MCAT, mission focus, and state preference to find programs that fit your profile.",
+                  desc: "Filter by GPA, MCAT, mission, and state preference to find programs that fit your profile.",
                   iconPath: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4",
                 },
                 {
                   title: "Export to PDF",
-                  desc: "Download a clean, formatted summary of all your experiences to share with advisors or for applications.",
+                  desc: "Download a clean, formatted summary of your experiences for advisors or applications.",
                   iconPath: "M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4",
                 },
                 {
                   title: "Narrative Builder",
-                  desc: "AI analyzes your experiences and helps shape them into a cohesive med school story that lands.",
+                  desc: "AI analyzes your experiences and crafts a cohesive med school story that actually lands.",
                   iconPath: "M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z",
                 },
                 {
-                  title: "AI Advisor",
-                  desc: "Get personalized pre-med guidance anytime — your AI mentor knows your hours, GPA, and goals.",
+                  title: "AI Pre-Med Advisor",
+                  desc: "Get personalized guidance 24/7 from your AI consultant — it knows your hours, GPA, and goals.",
                   iconPath: "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z",
                 },
                 {
                   title: "Reframe Engine",
-                  desc: "Turn rough descriptions into polished AMCAS-ready language that highlights clinical depth and impact.",
+                  desc: "Turn rough descriptions into polished AMCAS-ready language with clinical depth and impact.",
                   iconPath: "M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15",
+                },
+                {
+                  title: "Pre-Med Archetype",
+                  desc: "Discover your unique pre-med identity and get personalized school matches built for you.",
+                  iconPath: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
+                },
+                {
+                  title: "Specialty Explorer",
+                  desc: "Browse 30+ medical specialties by lifestyle, salary range, residency length, and competitiveness.",
+                  iconPath: "M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6 6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3M8 15v1a6 6 0 0 0 6 6 6 6 0 0 0 6-6v-4",
                 },
                 {
                   title: "Resource Library",
@@ -296,8 +307,18 @@ export default async function HomePage() {
                   iconPath: "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253",
                 },
                 {
+                  title: "Gap Year Planner",
+                  desc: "Structured goal tracking, monthly logs, and milestone checklists for students taking time off.",
+                  iconPath: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z",
+                },
+                {
+                  title: "Post-bacc Tracker",
+                  desc: "Calculate your BCPM and cumulative GPA in real time as you log post-bacc courses.",
+                  iconPath: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4",
+                },
+                {
                   title: "First-Gen Stories",
-                  desc: "Real stories from first-gen pre-med students who made it — proof that your path belongs in medicine too.",
+                  desc: "Real stories from first-gen pre-med students who made it — proof your path belongs in medicine too.",
                   iconPath: "M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z",
                 },
               ].map((f) => (
@@ -344,14 +365,14 @@ export default async function HomePage() {
                   How It Works
                 </h2>
                 <p className="text-base" style={{ color: "rgba(248,250,252,0.6)" }}>
-                  Three steps from sign-up to a polished application story.
+                  Four steps from sign-up to a polished application story.
                 </p>
               </div>
 
-              <div className="relative grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-4">
+              <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-4">
                 {/* Dotted connector — desktop only, hidden behind the cards */}
                 <div
-                  className="hidden sm:block absolute top-7 left-[16.66%] right-[16.66%] step-line"
+                  className="hidden lg:block absolute top-7 left-[12.5%] right-[12.5%] step-line"
                   style={{ height: 2, zIndex: 0 }}
                 />
 
@@ -364,10 +385,15 @@ export default async function HomePage() {
                   {
                     n: "2",
                     title: "Log Your Experiences",
-                    desc: "Track clinical hours, shadowing, research, and volunteering as you go.",
+                    desc: "Track clinical, shadowing, research, and volunteer hours as you go.",
                   },
                   {
                     n: "3",
+                    title: "Discover Your Archetype",
+                    desc: "AI analyzes your profile and reveals your unique pre-med identity.",
+                  },
+                  {
+                    n: "4",
                     title: "Build Your Narrative",
                     desc: "Use AI tools to reframe your experiences into a compelling med school story.",
                   },
@@ -406,7 +432,7 @@ export default async function HomePage() {
           }}
         >
           <div className="max-w-5xl mx-auto">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 mb-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
               {/* Brand column */}
               <div>
                 <div className="flex items-center gap-2 mb-3">
@@ -437,8 +463,38 @@ export default async function HomePage() {
                   {[
                     { label: "Dashboard", href: "/dashboard" },
                     { label: "Schools", href: "/schools" },
+                    { label: "Specialties", href: "/specialties" },
+                    { label: "My Archetype", href: "/archetype" },
                     { label: "Narrative Builder", href: "/dashboard" },
+                  ].map((link) => (
+                    <li key={link.label}>
+                      <Link
+                        href={link.href}
+                        className="text-sm transition-colors hover:opacity-80"
+                        style={{ color: "rgba(248,250,252,0.65)" }}
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Planning column */}
+              <div>
+                <p
+                  className="text-xs font-bold uppercase tracking-wider mb-4"
+                  style={{ color: "#00D4FF" }}
+                >
+                  Planning
+                </p>
+                <ul className="space-y-2.5">
+                  {[
+                    { label: "Gap Year Planner", href: "/gapyear" },
+                    { label: "Post-bacc Tracker", href: "/postbacc" },
+                    { label: "Fee Tracker", href: "/fee-tracker" },
                     { label: "Resources", href: "/resources" },
+                    { label: "Import CSV", href: "/import" },
                   ].map((link) => (
                     <li key={link.label}>
                       <Link
@@ -466,7 +522,7 @@ export default async function HomePage() {
                     { label: "First-Gen Stories", href: "/stories" },
                     { label: "AI Advisor", href: "/dashboard" },
                     { label: "Share Your Story", href: "/stories" },
-                    { label: "Fee Tracker", href: "/fee-tracker" },
+                    { label: "Profile", href: "/profile" },
                   ].map((link) => (
                     <li key={link.label}>
                       <Link
