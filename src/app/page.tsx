@@ -259,7 +259,7 @@ export default async function HomePage() {
             </Link>
 
             {/* Feature cards */}
-            <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 text-left">
+            <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 text-left auto-rows-fr items-stretch">
               {[
                 {
                   title: "Track Every Hour",
@@ -322,9 +322,13 @@ export default async function HomePage() {
                   iconPath: "M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z",
                 },
               ].map((f) => (
-                <div key={f.title} className="glass-card rounded-2xl p-6">
+                <div
+                  key={f.title}
+                  className="glass-card rounded-2xl p-6 h-full flex flex-col"
+                >
+                  {/* Icon — fixed height block */}
                   <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
+                    className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 flex-shrink-0"
                     style={{ backgroundColor: "rgba(0,212,255,0.12)" }}
                   >
                     <svg
@@ -342,14 +346,18 @@ export default async function HomePage() {
                       />
                     </svg>
                   </div>
+
+                  {/* Title — consistent leading */}
                   <h3
-                    className="font-semibold mb-1.5"
+                    className="font-semibold text-base mb-2 leading-snug"
                     style={{ color: "#F8FAFC" }}
                   >
                     {f.title}
                   </h3>
+
+                  {/* Description — fills remaining space */}
                   <p
-                    className="text-sm leading-relaxed"
+                    className="text-sm leading-relaxed flex-1"
                     style={{ color: "rgba(248,250,252,0.55)" }}
                   >
                     {f.desc}
