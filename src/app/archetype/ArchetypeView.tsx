@@ -217,7 +217,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
     // CliniLog brand
     ctx.fillStyle = "rgba(248,250,252,0.4)";
     ctx.font = "bold 24px -apple-system, system-ui, sans-serif";
-    ctx.fillText("CliniLog · Built for First-Gen Pre-Med Students", w / 2, h - 50);
+    ctx.fillText("CliniLog · Your Pre-Med Journey, Organized", w / 2, h - 50);
 
     // Download
     canvas.toBlob((blob) => {

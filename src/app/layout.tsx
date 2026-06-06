@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CliniLog — Built for First-Gen Pre-Med Students",
+  title: "CliniLog — Your Pre-Med Journey, Organized",
   description:
     "Track your clinical hours, explore 150+ medical schools, and build your path to medicine — all in one free tool.",
 };

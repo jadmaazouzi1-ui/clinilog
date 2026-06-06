@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "No description provided." }, { status: 400 });
   }
 
-  const prompt = `You are an expert medical school application advisor helping a first-generation pre-med student craft their AMCAS application.
+  const prompt = `You are an expert medical school application advisor helping a pre-med student craft their AMCAS application.
 
 Reframe the following clinical experience description into polished, AMCAS-ready language. The reframed version must:
 - Lead with the most clinically meaningful aspect of the experience

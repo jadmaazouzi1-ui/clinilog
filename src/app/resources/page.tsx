@@ -5,6 +5,40 @@ import AppShell from "@/components/AppShell";
 
 const CATEGORIES = [
   {
+    id: "essentials",
+    label: "Pre-Med Essentials",
+    color: "#00D4FF",
+    bgColor: "rgba(0,212,255,0.1)",
+    borderColor: "rgba(0,212,255,0.25)",
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M13 10V3L4 14h7v7l9-11h-7z" />
+      </svg>
+    ),
+    resources: [
+      {
+        title: "AAMC Aspiring Docs",
+        description: "The official AAMC starting point — explains what medical school is, application timelines, and how to prepare.",
+        url: "https://students-residents.aamc.org/applying-medical-school",
+      },
+      {
+        title: "MSAR (Medical School Admission Requirements)",
+        description: "The definitive database of every accredited MD program with GPA/MCAT data, deadlines, and class composition. Subscription required but indispensable.",
+        url: "https://students-residents.aamc.org/medical-school-admission-requirements/medical-school-admission-requirements",
+      },
+      {
+        title: "AACOMAS Choose DO Explorer",
+        description: "Compare every osteopathic medical school side-by-side — the DO equivalent of MSAR and completely free.",
+        url: "https://choosedo.org/explore-schools/",
+      },
+      {
+        title: "AAMC Application Roadmap",
+        description: "Year-by-year guidance on what to do from freshman year through application submission. The official AAMC pre-med timeline.",
+        url: "https://students-residents.aamc.org/choosing-medical-career/choosing-medical-career",
+      },
+    ],
+  },
+  {
     id: "mcat",
     label: "MCAT Prep (Free)",
     color: "#00D4FF",
@@ -226,7 +260,7 @@ export default async function ResourcesPage() {
         <div className="mb-10">
           <h1 className="text-2xl font-bold mb-2" style={{ color: "#F8FAFC" }}>Resource Library</h1>
           <p className="text-sm" style={{ color: "rgba(248,250,252,0.6)" }}>
-            Free tools and programs for first-gen pre-med students
+            Free tools, programs, and guides for every pre-med journey
           </p>
         </div>
 

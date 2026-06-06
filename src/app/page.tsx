@@ -198,17 +198,16 @@ export default async function HomePage() {
               className="text-3xl sm:text-5xl font-bold leading-tight tracking-tight mb-5"
               style={{ color: "#F8FAFC" }}
             >
-              Built for First-Gen{" "}
-              <span style={{ color: "#00D4FF" }}>Pre-Med</span> Students
+              Your <span style={{ color: "#00D4FF" }}>Pre-Med</span> Journey, Organized
             </h1>
 
             <p
               className="text-xl leading-relaxed mb-5 max-w-2xl mx-auto"
               style={{ color: "rgba(248,250,252,0.65)" }}
             >
-              Track your clinical hours, explore 150+ medical schools, discover
-              your pre-med archetype, and build your path to medicine — all in
-              one free tool.
+              Track your clinical hours, discover your archetype, explore 150+
+              medical schools, and build your path to medicine — all in one
+              free tool.
             </p>
 
             {/* Social proof */}
@@ -229,7 +228,7 @@ export default async function HomePage() {
                 ))}
               </div>
               <p className="text-sm" style={{ color: "rgba(248,250,252,0.55)" }}>
-                Join <span className="font-bold" style={{ color: "#00D4FF" }}>1,000+</span> first-gen pre-med students building their path to medicine
+                Join <span className="font-bold" style={{ color: "#00D4FF" }}>1,000+</span> pre-med students building their path to medicine
               </p>
             </div>
 
@@ -303,7 +302,7 @@ export default async function HomePage() {
                 },
                 {
                   title: "Resource Library",
-                  desc: "Curated free MCAT prep, fee assistance programs, and pipeline opportunities for first-gen students.",
+                  desc: "Curated free MCAT prep, fee assistance programs, and pipeline opportunities for every pre-med.",
                   iconPath: "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253",
                 },
                 {
@@ -455,7 +454,7 @@ export default async function HomePage() {
                   <span className="font-bold text-base" style={{ color: "#F8FAFC" }}>CliniLog</span>
                 </div>
                 <p className="text-sm leading-relaxed" style={{ color: "rgba(248,250,252,0.5)" }}>
-                  Built by and for first-generation pre-med students. Free forever — because your path to medicine shouldn&apos;t cost more than it already does.
+                  The all-in-one toolkit for pre-med students. Free forever — because your path to medicine shouldn&apos;t cost more than it already does.
                 </p>
               </div>
 
@@ -552,7 +551,7 @@ export default async function HomePage() {
               style={{ borderTop: "1px solid rgba(0,212,255,0.08)" }}
             >
               <p className="text-xs" style={{ color: "rgba(248,250,252,0.4)" }}>
-                &copy; {new Date().getFullYear()} CliniLog. Built for first-generation pre-med students.
+                &copy; {new Date().getFullYear()} CliniLog. The all-in-one pre-med toolkit.
               </p>
               <p className="text-xs" style={{ color: "rgba(248,250,252,0.3)" }}>
                 Made with <span style={{ color: "#00D4FF" }}>♥</span> for the next generation of physicians.
