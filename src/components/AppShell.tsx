@@ -48,6 +48,35 @@ const NAV_ITEMS = [
     ),
   },
   {
+    href: "/specialties",
+    label: "Specialties",
+    icon: (active: boolean) => (
+      <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={active ? 2 : 1.75} d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6 6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={active ? 2 : 1.75} d="M8 15v1a6 6 0 0 0 6 6 6 6 0 0 0 6-6v-4" />
+        <circle cx="20" cy="10" r="2" strokeWidth={active ? 2 : 1.75} />
+      </svg>
+    ),
+  },
+  {
+    href: "/gapyear",
+    label: "Gap Year",
+    icon: (active: boolean) => (
+      <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={active ? 2 : 1.75} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+      </svg>
+    ),
+  },
+  {
+    href: "/postbacc",
+    label: "Post-bacc",
+    icon: (active: boolean) => (
+      <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={active ? 2 : 1.75} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+      </svg>
+    ),
+  },
+  {
     href: "/resources",
     label: "Resources",
     icon: (active: boolean) => (
@@ -105,6 +134,9 @@ const AUTO_BREADCRUMBS: Record<string, BreadcrumbItem[]> = {
   "/dashboard": [{ label: "Dashboard" }],
   "/archetype": [{ label: "Dashboard", href: "/dashboard" }, { label: "My Archetype" }],
   "/schools":   [{ label: "Schools" }],
+  "/specialties": [{ label: "Specialties" }],
+  "/gapyear":   [{ label: "Gap Year Planner" }],
+  "/postbacc":  [{ label: "Post-bacc Tracker" }],
   "/resources": [{ label: "Resources" }],
   "/fee-tracker": [{ label: "Fee Tracker" }],
   "/stories":   [{ label: "Stories" }],
