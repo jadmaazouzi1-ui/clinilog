@@ -161,37 +161,37 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
   const crumbs = breadcrumbs ?? AUTO_BREADCRUMBS[activePath] ?? [];
 
   return (
-    <div className="min-h-screen graph-paper-bg" style={{ backgroundColor: "#F8F9FA" }}>
-      {/* ── Desktop Patient-Chart Sidebar ───────────────────────────── */}
+    <div className="min-h-screen" style={{ backgroundColor: "#1A1A2E" }}>
       <aside
         className="hidden md:flex flex-col fixed top-0 left-0 h-full z-40"
         style={{
           width: collapsed ? 64 : 232,
           transition: "width 0.25s cubic-bezier(0.4,0,0.2,1)",
-          backgroundColor: "#FFFFFF",
-          borderRight: "1px solid #E5E7EB",
+          backgroundColor: "#1A1A2E",
+          borderRight: "1px solid rgba(255,255,255,0.08)",
         }}
       >
-        {/* Logo with heartbeat-on-hover */}
-        <div className="px-4 py-5 flex-shrink-0" style={{ borderBottom: "1px solid #E5E7EB" }}>
-          <Link href="/" className="flex items-center gap-2.5 logo-pulse hover:opacity-90 transition-opacity">
+        <div className="px-4 py-5 flex-shrink-0" style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+          <Link href="/" className="flex items-center gap-2.5 hover:opacity-90 transition-opacity">
             <div
-              className="logo-pulse-target w-8 h-8 rounded-md flex items-center justify-center flex-shrink-0"
-              style={{ backgroundColor: "#1A6BFF" }}
+              className="w-8 h-8 rounded-md flex items-center justify-center flex-shrink-0"
+              style={{ backgroundColor: "#E8A020" }}
             >
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#1A1A2E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="3 12 6 9 9 13 12 7 15 11 18 8 21 12" />
               </svg>
             </div>
             {!collapsed && (
-              <span className="font-bold text-base tracking-tight whitespace-nowrap" style={{ color: "#0D0D0D" }}>
-                CliniLog
-              </span>
+              <>
+                <span className="font-medium text-base tracking-tight whitespace-nowrap" style={{ color: "#FFFFFF" }}>
+                  CliniLog
+                </span>
+                <span className="beta-pill">BETA</span>
+              </>
             )}
           </Link>
         </div>
 
-        {/* Patient chart tabs */}
         <nav className="flex-1 overflow-y-auto py-3 px-2 space-y-1">
           {NAV_ITEMS.map((item) => {
             const isActive = activePath.startsWith(item.href);
@@ -200,24 +200,24 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
                 key={item.href}
                 href={item.href}
                 title={collapsed ? item.label : undefined}
-                className="group relative flex items-center gap-3 pl-3 pr-2.5 py-2 rounded-r-md transition-all duration-150"
+                className="group relative flex items-center gap-3 pl-3 pr-2.5 py-2 transition-all duration-150"
                 style={{
-                  color: isActive ? "#1A6BFF" : "#6B7280",
-                  backgroundColor: isActive ? "#FFFFFF" : "transparent",
-                  borderLeft: `3px solid ${isActive ? "#1A6BFF" : "transparent"}`,
-                  fontWeight: isActive ? 600 : 500,
-                  boxShadow: isActive ? "inset -1px 0 0 #E5E7EB, 0 1px 2px rgba(13,13,13,0.04)" : "none",
-                  marginRight: isActive ? -2 : 0,
+                  color: isActive ? "#E8A020" : "rgba(255,255,255,0.55)",
+                  backgroundColor: isActive ? "#16213E" : "transparent",
+                  borderLeft: `3px solid ${isActive ? "#E8A020" : "transparent"}`,
+                  fontWeight: isActive ? 500 : 400,
+                  borderTopRightRadius: 4,
+                  borderBottomRightRadius: 4,
                 }}
               >
                 {item.icon}
                 {!collapsed && (
-                  <span className="text-[13px] whitespace-nowrap" style={{ letterSpacing: "-0.005em" }}>{item.label}</span>
+                  <span className="text-[13px] whitespace-nowrap">{item.label}</span>
                 )}
                 {collapsed && (
                   <span
                     className="pointer-events-none absolute left-full ml-3 px-2.5 py-1 rounded text-xs font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity z-50"
-                    style={{ backgroundColor: "#0D0D0D", color: "#FFFFFF", boxShadow: "0 4px 12px rgba(13,13,13,0.15)" }}
+                    style={{ backgroundColor: "#16213E", color: "#E8A020", border: "1px solid rgba(232,160,32,0.3)" }}
                   >
                     {item.label}
                   </span>
@@ -227,13 +227,12 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
           })}
         </nav>
 
-        {/* Footer controls */}
-        <div className="flex-shrink-0 px-2 pb-3 pt-2 space-y-1" style={{ borderTop: "1px solid #E5E7EB" }}>
+        <div className="flex-shrink-0 px-2 pb-3 pt-2 space-y-1" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
           <button
             onClick={toggle}
             title={collapsed ? "Expand" : "Collapse"}
-            className="w-full flex items-center gap-3 px-2.5 py-1.5 rounded transition-colors hover:bg-gray-50"
-            style={{ color: "#9CA3AF" }}
+            className="w-full flex items-center gap-3 px-2.5 py-1.5 rounded transition-colors"
+            style={{ color: "rgba(255,255,255,0.4)" }}
           >
             <svg
               className="w-4 h-4 flex-shrink-0 transition-transform duration-300"
@@ -242,12 +241,12 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
             >
               <path strokeLinecap="round" strokeLinejoin="round" d="M11 19l-7-7 7-7M18 19l-7-7 7-7" />
             </svg>
-            {!collapsed && <span className="text-[11px] whitespace-nowrap uppercase tracking-wider">Collapse</span>}
+            {!collapsed && <span className="text-[10px] mono whitespace-nowrap uppercase tracking-widest">Collapse</span>}
           </button>
 
           {!collapsed && (
             <div className="px-2.5 py-1">
-              <p className="text-[11px] mono-stat truncate" style={{ color: "#9CA3AF" }}>{userEmail}</p>
+              <p className="text-[10px] mono truncate" style={{ color: "rgba(255,255,255,0.4)" }}>{userEmail}</p>
             </div>
           )}
 
@@ -255,8 +254,8 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
             <button
               type="submit"
               title={collapsed ? "Sign Out" : undefined}
-              className="w-full flex items-center gap-3 px-2.5 py-1.5 rounded transition-colors hover:bg-gray-50"
-              style={{ color: "#6B7280" }}
+              className="w-full flex items-center gap-3 px-2.5 py-1.5 rounded transition-colors"
+              style={{ color: "rgba(255,255,255,0.55)" }}
             >
               <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -267,27 +266,26 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
         </div>
       </aside>
 
-      {/* ── Main Content ───────────────────────────────────────────── */}
       <div className={`${collapsed ? "md:ml-16" : "md:ml-[232px]"} transition-all duration-300 pb-16 md:pb-0`}>
         {crumbs.length > 0 && (
           <div className="flex items-center gap-1.5 px-6 pt-6 pb-1">
             {crumbs.map((crumb, i) => (
               <span key={i} className="flex items-center gap-1.5">
                 {i > 0 && (
-                  <svg className="w-3 h-3 flex-shrink-0" fill="none" stroke="#9CA3AF" viewBox="0 0 24 24">
+                  <svg className="w-3 h-3 flex-shrink-0" fill="none" stroke="rgba(255,255,255,0.3)" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 )}
                 {crumb.href ? (
                   <Link
                     href={crumb.href}
-                    className="text-[11px] uppercase tracking-wider font-semibold hover:opacity-80"
-                    style={{ color: "#1A6BFF" }}
+                    className="text-[10px] mono uppercase tracking-widest font-medium hover:opacity-80"
+                    style={{ color: "#E8A020" }}
                   >
                     {crumb.label}
                   </Link>
                 ) : (
-                  <span className="text-[11px] uppercase tracking-wider font-semibold" style={{ color: "#6B7280" }}>
+                  <span className="text-[10px] mono uppercase tracking-widest font-medium" style={{ color: "rgba(255,255,255,0.55)" }}>
                     {crumb.label}
                   </span>
                 )}
@@ -299,10 +297,9 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
         <div className="page-fade-in">{children}</div>
       </div>
 
-      {/* ── Mobile Bottom Tab Bar ──────────────────────────────────── */}
       <nav
         className="md:hidden fixed bottom-0 left-0 right-0 z-40 flex items-stretch"
-        style={{ height: 60, backgroundColor: "#FFFFFF", borderTop: "1px solid #E5E7EB" }}
+        style={{ height: 60, backgroundColor: "#16213E", borderTop: "1px solid rgba(255,255,255,0.08)" }}
       >
         {BOTTOM_TABS.map((item) => {
           const isActive = activePath.startsWith(item.href);
@@ -312,8 +309,8 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
               href={item.href}
               className="flex-1 flex flex-col items-center justify-center gap-0.5 transition-colors"
               style={{
-                color: isActive ? "#1A6BFF" : "#9CA3AF",
-                borderTop: `2px solid ${isActive ? "#1A6BFF" : "transparent"}`,
+                color: isActive ? "#E8A020" : "rgba(255,255,255,0.4)",
+                borderTop: `2px solid ${isActive ? "#E8A020" : "transparent"}`,
               }}
             >
               {item.icon}

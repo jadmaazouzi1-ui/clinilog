@@ -23,11 +23,11 @@ export default function AMCASTracker({
       <div className="flex items-baseline justify-between mb-5">
         <h2
           className="text-sm font-semibold uppercase tracking-wide"
-          style={{ color: "rgba(13,13,13,0.5)" }}
+          style={{ color: "rgba(255,255,255,0.5)" }}
         >
           AMCAS Hours Tracker
         </h2>
-        <span className="text-xs" style={{ color: "rgba(13,13,13,0.4)" }}>Recommended minimums</span>
+        <span className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>Recommended minimums</span>
       </div>
 
       <div className="space-y-5">
@@ -40,17 +40,17 @@ export default function AMCASTracker({
           return (
             <div key={type}>
               <div className="flex items-center justify-between mb-1.5">
-                <span className="text-sm font-medium" style={{ color: "#0D0D0D" }}>{label}</span>
+                <span className="text-sm font-medium" style={{ color: "#FFFFFF" }}>{label}</span>
                 <span className="text-xs tabular-nums">
                   <span
                     className="font-semibold"
-                    style={{ color: met ? "#1A6BFF" : "#FF4757" }}
+                    style={{ color: met ? "#E8A020" : "#FF4757" }}
                   >
                     {display}
                   </span>
-                  <span style={{ color: "rgba(13,13,13,0.4)" }}> / {min} hrs</span>
+                  <span style={{ color: "rgba(255,255,255,0.4)" }}> / {min} hrs</span>
                   {met && (
-                    <span className="ml-1.5 inline-flex items-center gap-0.5 font-medium" style={{ color: "#1A6BFF" }}>
+                    <span className="ml-1.5 inline-flex items-center gap-0.5 font-medium" style={{ color: "#E8A020" }}>
                       ✓
                     </span>
                   )}
@@ -58,11 +58,11 @@ export default function AMCASTracker({
               </div>
               <div
                 className="h-4 w-full rounded-full overflow-hidden"
-                style={{ background: "rgba(13,13,13,0.08)" }}
+                style={{ background: "rgba(255,255,255,0.08)" }}
               >
                 <div
                   className="h-full rounded-full transition-all duration-500"
-                  style={{ width: `${pct}%`, backgroundColor: met ? "#1A6BFF" : "#FF4757" }}
+                  style={{ width: `${pct}%`, backgroundColor: met ? "#E8A020" : "#FF4757" }}
                 />
               </div>
             </div>

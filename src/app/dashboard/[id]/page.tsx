@@ -15,11 +15,11 @@ const TYPE_LABELS: Record<ExperienceType, string> = {
 };
 
 const TYPE_BADGE_STYLES: Record<ExperienceType, React.CSSProperties> = {
-  shadowing:    { background: "rgba(26,107,255,0.1)",    color: "#1A6BFF",              border: "1px solid rgba(26,107,255,0.3)" },
+  shadowing:    { background: "rgba(232,160,32,0.1)",    color: "#E8A020",              border: "1px solid rgba(232,160,32,0.3)" },
   volunteer:    { background: "rgba(16,185,129,0.1)",   color: "#10B981",              border: "1px solid rgba(16,185,129,0.3)" },
   clinical_work:{ background: "rgba(99,102,241,0.1)",   color: "#818CF8",              border: "1px solid rgba(99,102,241,0.3)" },
   research:     { background: "rgba(139,92,246,0.1)",   color: "#A78BFA",              border: "1px solid rgba(139,92,246,0.3)" },
-  other:        { background: "rgba(13,13,13,0.08)", color: "rgba(13,13,13,0.6)",border: "1px solid rgba(13,13,13,0.15)" },
+  other:        { background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.6)",border: "1px solid rgba(255,255,255,0.15)" },
 };
 
 function formatDate(dateStr: string) {
@@ -67,7 +67,7 @@ export default async function ExperienceDetailPage({
         <Link
           href="/dashboard"
           className="inline-flex items-center gap-1.5 text-sm font-medium mb-8"
-          style={{ color: "#1A6BFF" }}
+          style={{ color: "#E8A020" }}
         >
           <svg
             className="w-4 h-4"
@@ -90,7 +90,7 @@ export default async function ExperienceDetailPage({
           <div className="flex items-start justify-between gap-4 mb-6">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-3 flex-wrap mb-1">
-                <h1 className="text-xl font-bold" style={{ color: "#0D0D0D" }}>{exp.title}</h1>
+                <h1 className="text-xl font-bold" style={{ color: "#FFFFFF" }}>{exp.title}</h1>
                 <span
                   className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                   style={TYPE_BADGE_STYLES[exp.type as ExperienceType]}
@@ -98,7 +98,7 @@ export default async function ExperienceDetailPage({
                   {TYPE_LABELS[exp.type as ExperienceType]}
                 </span>
               </div>
-              <p className="text-sm" style={{ color: "rgba(13,13,13,0.6)" }}>{exp.organization}</p>
+              <p className="text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>{exp.organization}</p>
             </div>
 
             {/* Action buttons */}
@@ -107,7 +107,7 @@ export default async function ExperienceDetailPage({
               <Link
                 href={`/dashboard/${exp.id}/edit`}
                 className="inline-flex items-center gap-1.5 text-sm font-medium px-3 py-1.5 rounded-lg transition-colors"
-                style={{ color: "#1A6BFF", border: "1px solid rgba(26,107,255,0.35)", background: "rgba(26,107,255,0.08)" }}
+                style={{ color: "#E8A020", border: "1px solid rgba(232,160,32,0.35)", background: "rgba(232,160,32,0.08)" }}
               >
                 <svg
                   className="w-4 h-4"
@@ -153,7 +153,7 @@ export default async function ExperienceDetailPage({
           {/* Meta info */}
           <div
             className="flex items-center gap-6 text-sm mb-8 pb-6"
-            style={{ color: "rgba(13,13,13,0.6)", borderBottom: "1px solid rgba(26,107,255,0.1)" }}
+            style={{ color: "rgba(255,255,255,0.6)", borderBottom: "1px solid rgba(232,160,32,0.1)" }}
           >
             <div className="flex items-center gap-1.5">
               <svg
@@ -161,7 +161,7 @@ export default async function ExperienceDetailPage({
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
-                style={{ color: "rgba(13,13,13,0.4)" }}
+                style={{ color: "rgba(255,255,255,0.4)" }}
               >
                 <path
                   strokeLinecap="round"
@@ -183,7 +183,7 @@ export default async function ExperienceDetailPage({
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
-                style={{ color: "rgba(13,13,13,0.4)" }}
+                style={{ color: "rgba(255,255,255,0.4)" }}
               >
                 <path
                   strokeLinecap="round"
@@ -192,7 +192,7 @@ export default async function ExperienceDetailPage({
                   d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-              <span className="font-semibold" style={{ color: "rgba(13,13,13,0.85)" }}>
+              <span className="font-semibold" style={{ color: "rgba(255,255,255,0.85)" }}>
                 {formatHours(exp.hours)} hrs
               </span>
             </div>
@@ -202,11 +202,11 @@ export default async function ExperienceDetailPage({
           <div className="mb-8">
             <h2
               className="text-sm font-semibold uppercase tracking-wide mb-3"
-              style={{ color: "rgba(13,13,13,0.5)" }}
+              style={{ color: "rgba(255,255,255,0.5)" }}
             >
               Description
             </h2>
-            <p className="text-sm leading-relaxed whitespace-pre-wrap" style={{ color: "rgba(13,13,13,0.85)" }}>
+            <p className="text-sm leading-relaxed whitespace-pre-wrap" style={{ color: "rgba(255,255,255,0.85)" }}>
               {exp.description}
             </p>
           </div>
@@ -216,11 +216,11 @@ export default async function ExperienceDetailPage({
             <div>
               <h2
                 className="text-sm font-semibold uppercase tracking-wide mb-3"
-                style={{ color: "rgba(13,13,13,0.5)" }}
+                style={{ color: "rgba(255,255,255,0.5)" }}
               >
                 Reflection
               </h2>
-              <p className="text-sm leading-relaxed whitespace-pre-wrap" style={{ color: "rgba(13,13,13,0.85)" }}>
+              <p className="text-sm leading-relaxed whitespace-pre-wrap" style={{ color: "rgba(255,255,255,0.85)" }}>
                 {exp.reflection}
               </p>
             </div>

@@ -41,17 +41,17 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "#F8F9FA" }}>
+    <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "#1A1A2E" }}>
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 mb-4">
-            <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#1A6BFF" }}>
+            <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#E8A020" }}>
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#0A1628" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="3 12 6 9 9 13 12 7 15 11 18 8 21 12" />
               </svg>
             </div>
-            <span className="font-semibold text-xl" style={{ color: "#0D0D0D" }}>CliniLog</span>
+            <span className="font-semibold text-xl" style={{ color: "#FFFFFF" }}>CliniLog</span>
           </div>
         </div>
 
@@ -65,16 +65,16 @@ export default function ResetPasswordPage() {
                 <polyline points="20 6 9 17 4 12" />
               </svg>
             </div>
-            <h2 className="text-lg font-bold mb-2" style={{ color: "#0D0D0D" }}>Password updated</h2>
-            <p className="text-sm" style={{ color: "rgba(13,13,13,0.6)" }}>
+            <h2 className="text-lg font-bold mb-2" style={{ color: "#FFFFFF" }}>Password updated</h2>
+            <p className="text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>
               Redirecting you to your dashboard…
             </p>
           </div>
         ) : (
           <>
             <div className="text-center mb-8">
-              <h1 className="text-2xl font-bold" style={{ color: "#0D0D0D" }}>Set a new password</h1>
-              <p className="text-sm mt-1" style={{ color: "rgba(13,13,13,0.6)" }}>
+              <h1 className="text-2xl font-bold" style={{ color: "#FFFFFF" }}>Set a new password</h1>
+              <p className="text-sm mt-1" style={{ color: "rgba(255,255,255,0.6)" }}>
                 Choose a strong password for your account
               </p>
             </div>
@@ -91,7 +91,7 @@ export default function ResetPasswordPage() {
 
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                  <label htmlFor="password" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(13,13,13,0.85)" }}>
+                  <label htmlFor="password" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(255,255,255,0.85)" }}>
                     New password
                   </label>
                   <input
@@ -108,7 +108,7 @@ export default function ResetPasswordPage() {
                 </div>
 
                 <div>
-                  <label htmlFor="confirm" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(13,13,13,0.85)" }}>
+                  <label htmlFor="confirm" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(255,255,255,0.85)" }}>
                     Confirm new password
                   </label>
                   <input
@@ -127,7 +127,7 @@ export default function ResetPasswordPage() {
                   type="submit"
                   disabled={loading}
                   className="w-full teal-glow py-2.5 rounded-lg font-semibold text-sm focus:outline-none disabled:opacity-60 disabled:cursor-not-allowed"
-                  style={{ backgroundColor: "#1A6BFF", color: "#FFFFFF" }}
+                  style={{ backgroundColor: "#E8A020", color: "#FFFFFF" }}
                 >
                   {loading ? "Updating…" : "Update Password"}
                 </button>
@@ -135,7 +135,7 @@ export default function ResetPasswordPage() {
             </div>
 
             <p className="text-center text-sm mt-6">
-              <Link href="/auth/login" className="font-medium" style={{ color: "#1A6BFF" }}>
+              <Link href="/auth/login" className="font-medium" style={{ color: "#E8A020" }}>
                 ← Back to sign in
               </Link>
             </p>

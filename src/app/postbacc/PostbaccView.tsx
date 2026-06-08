@@ -78,8 +78,8 @@ export default function PostbaccView({
     <div className="space-y-6">
       {/* Program type selector */}
       <div className="glass-card rounded-2xl p-6">
-        <h2 className="text-base font-semibold mb-1" style={{ color: "#0D0D0D" }}>Program Type</h2>
-        <p className="text-xs mb-4" style={{ color: "rgba(13,13,13,0.5)" }}>Tell us which post-bacc path you&apos;re on.</p>
+        <h2 className="text-base font-semibold mb-1" style={{ color: "#FFFFFF" }}>Program Type</h2>
+        <p className="text-xs mb-4" style={{ color: "rgba(255,255,255,0.5)" }}>Tell us which post-bacc path you&apos;re on.</p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {PROGRAM_TYPES.map((pt) => {
             const active = profile.program_type === pt.value;
@@ -89,13 +89,13 @@ export default function PostbaccView({
                 onClick={() => persistProfile({ program_type: pt.value })}
                 className="text-left rounded-xl px-4 py-3 transition-all"
                 style={{
-                  background: active ? "rgba(26,107,255,0.1)" : "rgba(26,107,255,0.03)",
-                  border: `1px solid ${active ? "#1A6BFF" : "rgba(26,107,255,0.12)"}`,
-                  boxShadow: active ? "0 0 14px rgba(26,107,255,0.25)" : "none",
+                  background: active ? "rgba(232,160,32,0.1)" : "rgba(232,160,32,0.03)",
+                  border: `1px solid ${active ? "#E8A020" : "rgba(232,160,32,0.12)"}`,
+                  boxShadow: active ? "0 0 14px rgba(232,160,32,0.25)" : "none",
                 }}
               >
-                <p className="text-sm font-bold mb-0.5" style={{ color: active ? "#1A6BFF" : "#0D0D0D" }}>{pt.label}</p>
-                <p className="text-xs" style={{ color: "rgba(13,13,13,0.5)" }}>{pt.desc}</p>
+                <p className="text-sm font-bold mb-0.5" style={{ color: active ? "#E8A020" : "#FFFFFF" }}>{pt.label}</p>
+                <p className="text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>{pt.desc}</p>
               </button>
             );
           })}
@@ -122,7 +122,7 @@ export default function PostbaccView({
 
       {/* Add course form */}
       <div className="glass-card rounded-2xl p-6">
-        <h2 className="text-base font-semibold mb-4" style={{ color: "#0D0D0D" }}>Add a Course</h2>
+        <h2 className="text-base font-semibold mb-4" style={{ color: "#FFFFFF" }}>Add a Course</h2>
         <form onSubmit={handleAddCourse} className="space-y-3">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <input
@@ -155,7 +155,7 @@ export default function PostbaccView({
             >
               {GRADES.map((g) => <option key={g} value={g}>{g}</option>)}
             </select>
-            <label className="inline-flex items-center gap-2 text-sm cursor-pointer" style={{ color: "rgba(13,13,13,0.85)" }}>
+            <label className="inline-flex items-center gap-2 text-sm cursor-pointer" style={{ color: "rgba(255,255,255,0.85)" }}>
               <input
                 type="checkbox"
                 checked={cBcpm}
@@ -168,7 +168,7 @@ export default function PostbaccView({
               type="submit"
               disabled={isPending}
               className="px-4 py-2.5 rounded-xl font-semibold text-sm disabled:opacity-40"
-              style={{ background: "#1A6BFF", color: "#FFFFFF" }}
+              style={{ background: "#E8A020", color: "#FFFFFF" }}
             >
               Add Course
             </button>
@@ -179,42 +179,42 @@ export default function PostbaccView({
 
       {/* Course list */}
       <div className="glass-card rounded-2xl p-6">
-        <h2 className="text-base font-semibold mb-4" style={{ color: "#0D0D0D" }}>Your Courses</h2>
+        <h2 className="text-base font-semibold mb-4" style={{ color: "#FFFFFF" }}>Your Courses</h2>
         {initialCourses.length === 0 ? (
-          <p className="text-sm text-center py-8" style={{ color: "rgba(13,13,13,0.5)" }}>
+          <p className="text-sm text-center py-8" style={{ color: "rgba(255,255,255,0.5)" }}>
             No courses logged yet. Add your first course above.
           </p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm" style={{ minWidth: 600 }}>
               <thead>
-                <tr style={{ borderBottom: "1px solid rgba(26,107,255,0.15)" }}>
-                  <th className="text-left px-2 py-2 text-xs uppercase tracking-wide" style={{ color: "rgba(13,13,13,0.5)" }}>Course</th>
-                  <th className="text-left px-2 py-2 text-xs uppercase tracking-wide" style={{ color: "rgba(13,13,13,0.5)" }}>Semester</th>
-                  <th className="text-right px-2 py-2 text-xs uppercase tracking-wide" style={{ color: "rgba(13,13,13,0.5)" }}>Credits</th>
-                  <th className="text-center px-2 py-2 text-xs uppercase tracking-wide" style={{ color: "rgba(13,13,13,0.5)" }}>Grade</th>
-                  <th className="text-center px-2 py-2 text-xs uppercase tracking-wide" style={{ color: "rgba(13,13,13,0.5)" }}>BCPM</th>
+                <tr style={{ borderBottom: "1px solid rgba(232,160,32,0.15)" }}>
+                  <th className="text-left px-2 py-2 text-xs uppercase tracking-wide" style={{ color: "rgba(255,255,255,0.5)" }}>Course</th>
+                  <th className="text-left px-2 py-2 text-xs uppercase tracking-wide" style={{ color: "rgba(255,255,255,0.5)" }}>Semester</th>
+                  <th className="text-right px-2 py-2 text-xs uppercase tracking-wide" style={{ color: "rgba(255,255,255,0.5)" }}>Credits</th>
+                  <th className="text-center px-2 py-2 text-xs uppercase tracking-wide" style={{ color: "rgba(255,255,255,0.5)" }}>Grade</th>
+                  <th className="text-center px-2 py-2 text-xs uppercase tracking-wide" style={{ color: "rgba(255,255,255,0.5)" }}>BCPM</th>
                   <th className="px-2 py-2"></th>
                 </tr>
               </thead>
               <tbody>
                 {initialCourses.map((c) => (
-                  <tr key={c.id} style={{ borderBottom: "1px solid rgba(26,107,255,0.06)" }}>
-                    <td className="px-2 py-3" style={{ color: "#0D0D0D" }}>{c.name}</td>
-                    <td className="px-2 py-3" style={{ color: "rgba(13,13,13,0.65)" }}>{c.semester || "—"}</td>
-                    <td className="px-2 py-3 text-right" style={{ color: "rgba(13,13,13,0.85)" }}>{c.credits}</td>
+                  <tr key={c.id} style={{ borderBottom: "1px solid rgba(232,160,32,0.06)" }}>
+                    <td className="px-2 py-3" style={{ color: "#FFFFFF" }}>{c.name}</td>
+                    <td className="px-2 py-3" style={{ color: "rgba(255,255,255,0.65)" }}>{c.semester || "—"}</td>
+                    <td className="px-2 py-3 text-right" style={{ color: "rgba(255,255,255,0.85)" }}>{c.credits}</td>
                     <td className="px-2 py-3 text-center">
-                      <span className="inline-flex items-center justify-center w-9 px-2 py-0.5 rounded-md text-xs font-bold" style={{ background: "rgba(26,107,255,0.12)", color: "#1A6BFF", border: "1px solid rgba(26,107,255,0.3)" }}>
+                      <span className="inline-flex items-center justify-center w-9 px-2 py-0.5 rounded-md text-xs font-bold" style={{ background: "rgba(232,160,32,0.12)", color: "#E8A020", border: "1px solid rgba(232,160,32,0.3)" }}>
                         {c.grade}
                       </span>
                     </td>
                     <td className="px-2 py-3 text-center">
                       {c.is_bcpm ? (
-                        <svg className="w-4 h-4 mx-auto" fill="none" stroke="#1A6BFF" strokeWidth="2.5" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4 mx-auto" fill="none" stroke="#E8A020" strokeWidth="2.5" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                         </svg>
                       ) : (
-                        <span style={{ color: "rgba(13,13,13,0.25)" }}>—</span>
+                        <span style={{ color: "rgba(255,255,255,0.25)" }}>—</span>
                       )}
                     </td>
                     <td className="px-2 py-3 text-right">
@@ -234,8 +234,8 @@ export default function PostbaccView({
 
       {/* Notes */}
       <div className="glass-card rounded-2xl p-6">
-        <h2 className="text-base font-semibold mb-1" style={{ color: "#0D0D0D" }}>Notes</h2>
-        <p className="text-xs mb-3" style={{ color: "rgba(13,13,13,0.5)" }}>Track strategy, advisor meetings, anything else.</p>
+        <h2 className="text-base font-semibold mb-1" style={{ color: "#FFFFFF" }}>Notes</h2>
+        <p className="text-xs mb-3" style={{ color: "rgba(255,255,255,0.5)" }}>Track strategy, advisor meetings, anything else.</p>
         <textarea
           value={profile.notes ?? ""}
           onChange={(e) => setProfile({ ...profile, notes: e.target.value })}
@@ -247,7 +247,7 @@ export default function PostbaccView({
       </div>
 
       {savedAt && (
-        <p className="text-xs text-center" style={{ color: "rgba(26,107,255,0.5)" }}>
+        <p className="text-xs text-center" style={{ color: "rgba(232,160,32,0.5)" }}>
           {isPending ? "Saving…" : `Saved at ${savedAt}`}
         </p>
       )}
@@ -271,34 +271,34 @@ function GpaCard({ label, sub, value, goal, onGoalChange }: {
   return (
     <div className="glass-card rounded-2xl p-5">
       <div className="flex items-center justify-between mb-1">
-        <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: "rgba(26,107,255,0.7)" }}>{label}</p>
+        <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: "rgba(232,160,32,0.7)" }}>{label}</p>
         {value !== null && (
-          <span className="text-[10px] font-bold uppercase tracking-wide" style={{ color: metGoal ? "#10B981" : "rgba(13,13,13,0.5)" }}>
+          <span className="text-[10px] font-bold uppercase tracking-wide" style={{ color: metGoal ? "#10B981" : "rgba(255,255,255,0.5)" }}>
             {metGoal ? "Goal Met ✓" : `${pct.toFixed(0)}% to goal`}
           </span>
         )}
       </div>
       <div className="flex items-baseline gap-2 mb-3">
-        <span className="text-4xl font-bold" style={{ color: "#1A6BFF" }}>{formatGpa(value)}</span>
-        <span className="text-sm" style={{ color: "rgba(13,13,13,0.5)" }}>/ 4.00</span>
+        <span className="text-4xl font-bold" style={{ color: "#E8A020" }}>{formatGpa(value)}</span>
+        <span className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>/ 4.00</span>
       </div>
 
-      <div className="w-full h-2 rounded-full overflow-hidden mb-3" style={{ background: "rgba(26,107,255,0.08)" }}>
+      <div className="w-full h-2 rounded-full overflow-hidden mb-3" style={{ background: "rgba(232,160,32,0.08)" }}>
         <div
           className="h-full rounded-full"
           style={{
             width: `${pct}%`,
-            background: metGoal ? "#10B981" : "#1A6BFF",
-            boxShadow: `0 0 8px ${metGoal ? "rgba(16,185,129,0.5)" : "rgba(26,107,255,0.5)"}`,
+            background: metGoal ? "#10B981" : "#E8A020",
+            boxShadow: `0 0 8px ${metGoal ? "rgba(16,185,129,0.5)" : "rgba(232,160,32,0.5)"}`,
             transition: "width 0.4s",
           }}
         />
       </div>
 
-      <p className="text-xs mb-2" style={{ color: "rgba(13,13,13,0.5)" }}>{sub}</p>
+      <p className="text-xs mb-2" style={{ color: "rgba(255,255,255,0.5)" }}>{sub}</p>
 
-      <div className="flex items-center gap-2 pt-2" style={{ borderTop: "1px solid rgba(26,107,255,0.08)" }}>
-        <label className="text-xs" style={{ color: "rgba(13,13,13,0.6)" }}>Goal:</label>
+      <div className="flex items-center gap-2 pt-2" style={{ borderTop: "1px solid rgba(232,160,32,0.08)" }}>
+        <label className="text-xs" style={{ color: "rgba(255,255,255,0.6)" }}>Goal:</label>
         <input
           type="number" min="2.0" max="4.0" step="0.05"
           value={editingGoal}

@@ -23,7 +23,7 @@ export default async function NewExperiencePage() {
         <Link
           href="/dashboard"
           className="inline-flex items-center gap-1.5 text-sm font-medium mb-8"
-          style={{ color: "#1A6BFF" }}
+          style={{ color: "#E8A020" }}
         >
           <svg
             className="w-4 h-4"
@@ -42,7 +42,7 @@ export default async function NewExperiencePage() {
         </Link>
 
         <div className="glass-card rounded-2xl p-8">
-          <h1 className="text-xl font-bold mb-6" style={{ color: "#0D0D0D" }}>
+          <h1 className="text-xl font-bold mb-6" style={{ color: "#FFFFFF" }}>
             Log a Clinical Experience
           </h1>
 
@@ -52,7 +52,7 @@ export default async function NewExperiencePage() {
               <label
                 htmlFor="title"
                 className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(13,13,13,0.85)" }}
+                style={{ color: "rgba(255,255,255,0.85)" }}
               >
                 Title <span style={{ color: "#FF4757" }}>*</span>
               </label>
@@ -71,7 +71,7 @@ export default async function NewExperiencePage() {
               <label
                 htmlFor="organization"
                 className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(13,13,13,0.85)" }}
+                style={{ color: "rgba(255,255,255,0.85)" }}
               >
                 Organization <span style={{ color: "#FF4757" }}>*</span>
               </label>
@@ -90,7 +90,7 @@ export default async function NewExperiencePage() {
               <label
                 htmlFor="experience_type"
                 className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(13,13,13,0.85)" }}
+                style={{ color: "rgba(255,255,255,0.85)" }}
               >
                 Type <span style={{ color: "#FF4757" }}>*</span>
               </label>
@@ -115,7 +115,7 @@ export default async function NewExperiencePage() {
                 <label
                   htmlFor="start_date"
                   className="block text-sm font-medium mb-1.5"
-                  style={{ color: "rgba(13,13,13,0.85)" }}
+                  style={{ color: "rgba(255,255,255,0.85)" }}
                 >
                   Start Date <span style={{ color: "#FF4757" }}>*</span>
                 </label>
@@ -131,10 +131,10 @@ export default async function NewExperiencePage() {
                 <label
                   htmlFor="end_date"
                   className="block text-sm font-medium mb-1.5"
-                  style={{ color: "rgba(13,13,13,0.85)" }}
+                  style={{ color: "rgba(255,255,255,0.85)" }}
                 >
                   End Date{" "}
-                  <span className="font-normal" style={{ color: "rgba(13,13,13,0.4)" }}>(optional)</span>
+                  <span className="font-normal" style={{ color: "rgba(255,255,255,0.4)" }}>(optional)</span>
                 </label>
                 <input
                   id="end_date"
@@ -150,7 +150,7 @@ export default async function NewExperiencePage() {
               <label
                 htmlFor="hours"
                 className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(13,13,13,0.85)" }}
+                style={{ color: "rgba(255,255,255,0.85)" }}
               >
                 Hours <span style={{ color: "#FF4757" }}>*</span>
               </label>
@@ -172,10 +172,10 @@ export default async function NewExperiencePage() {
               <label
                 htmlFor="description"
                 className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(13,13,13,0.85)" }}
+                style={{ color: "rgba(255,255,255,0.85)" }}
               >
                 Description{" "}
-                <span className="font-normal" style={{ color: "rgba(13,13,13,0.4)" }}>(optional)</span>
+                <span className="font-normal" style={{ color: "rgba(255,255,255,0.4)" }}>(optional)</span>
               </label>
               <ReframeableTextarea placeholder="What did you do?" />
             </div>
@@ -185,10 +185,10 @@ export default async function NewExperiencePage() {
               <label
                 htmlFor="reflection"
                 className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(13,13,13,0.85)" }}
+                style={{ color: "rgba(255,255,255,0.85)" }}
               >
                 Reflection{" "}
-                <span className="font-normal" style={{ color: "rgba(13,13,13,0.4)" }}>(optional)</span>
+                <span className="font-normal" style={{ color: "rgba(255,255,255,0.4)" }}>(optional)</span>
               </label>
               <textarea
                 id="reflection"
@@ -204,7 +204,7 @@ export default async function NewExperiencePage() {
               <button
                 type="submit"
                 className="w-full inline-flex items-center justify-center gap-2 teal-glow px-6 py-3 rounded-xl font-semibold text-sm transition-colors focus:outline-none"
-                style={{ backgroundColor: "#1A6BFF", color: "#FFFFFF" }}
+                style={{ backgroundColor: "#E8A020", color: "#FFFFFF" }}
               >
                 Save Experience
               </button>

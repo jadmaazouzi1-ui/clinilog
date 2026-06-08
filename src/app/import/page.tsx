@@ -12,10 +12,10 @@ export default async function ImportPage() {
     <AppShell userEmail={user.email ?? ""} activePath="/import">
       <main className="max-w-4xl mx-auto px-6 py-10">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold mb-2" style={{ color: "#0D0D0D" }}>
+          <h1 className="text-2xl font-bold mb-2" style={{ color: "#FFFFFF" }}>
             Bulk Import Experiences
           </h1>
-          <p className="text-sm" style={{ color: "rgba(13,13,13,0.6)" }}>
+          <p className="text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>
             Already tracking your experiences in a spreadsheet? Import them all at once.
           </p>
         </div>

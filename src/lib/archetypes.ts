@@ -50,7 +50,7 @@ export const ARCHETYPES: Archetype[] = [
     name: "The First-Gen Grinder",
     tagline: "No blueprint. Built it anyway.",
     description: "Resilient, resourceful, and unbreakable. Your path is non-traditional — and that's exactly the point.",
-    color: "#1A6BFF",
+    color: "#E8A020",
     iconPath: "M13 10V3L4 14h7v7l9-11h-7z",
     idealSchools: [
       "UCLA David Geffen School of Medicine",

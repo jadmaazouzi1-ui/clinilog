@@ -15,8 +15,8 @@ export default async function HomePage() {
           to   { transform: translateX(-50%); }
         }
         @keyframes btn-pulse {
-          0%, 100% { box-shadow: 0 0 18px rgba(26,107,255,0.45), 0 0 36px rgba(26,107,255,0.2); }
-          50%       { box-shadow: 0 0 28px rgba(26,107,255,0.75), 0 0 56px rgba(26,107,255,0.35); }
+          0%, 100% { box-shadow: 0 0 18px rgba(232,160,32,0.45), 0 0 36px rgba(232,160,32,0.2); }
+          50%       { box-shadow: 0 0 28px rgba(232,160,32,0.75), 0 0 56px rgba(232,160,32,0.35); }
         }
         @keyframes dot-fade {
           0%, 100% { opacity: 0.35; }
@@ -34,29 +34,29 @@ export default async function HomePage() {
           animation: dot-fade 6s ease-in-out infinite;
         }
         .hero-dark {
-          background-color: #0A0F1C;
+          background-color: #1A1A2E;
           color: #FFFFFF;
         }
         .feature-card {
-          background: #FFFFFF;
-          border: 1px solid #E5E7EB;
-          box-shadow: 0 1px 2px rgba(13,13,13,0.04);
-          transition: box-shadow 0.2s, transform 0.2s;
+          background: #16213E;
+          border: 0.5px solid rgba(255,255,255,0.08);
+          border-radius: 8px;
+          transition: border-color 0.2s, transform 0.2s;
         }
         .feature-card:hover {
-          box-shadow: 0 6px 18px rgba(13,13,13,0.06);
+          border-color: rgba(232,160,32,0.4);
           transform: translateY(-2px);
         }
         .signin-btn-hero {
           transition: background 0.2s;
-          color: #FFFFFF;
-          border: 1.5px solid #FFFFFF;
+          color: #E8A020;
+          border: 0.5px solid #E8A020;
         }
         .signin-btn-hero:hover {
-          background: rgba(255,255,255,0.1);
+          background: rgba(232,160,32,0.1);
         }
         .step-line {
-          background-image: linear-gradient(to right, rgba(26,107,255,0.4) 50%, transparent 50%);
+          background-image: linear-gradient(to right, rgba(232,160,32,0.4) 50%, transparent 50%);
           background-size: 8px 2px;
           background-repeat: repeat-x;
           background-position: center;
@@ -65,10 +65,10 @@ export default async function HomePage() {
 
       <div
         className="min-h-screen flex flex-col"
-        style={{ backgroundColor: "#FFFFFF", color: "#0D0D0D" }}
+        style={{ backgroundColor: "#1A1A2E", color: "#FFFFFF" }}
       >
-        {/* ── Hero (dark section) ── */}
-        <section className="hero-dark relative overflow-hidden" style={{ backgroundColor: "#0A0F1C" }}>
+        {/* ── Hero ── */}
+        <section className="relative overflow-hidden" style={{ backgroundColor: "#1A1A2E" }}>
           <header className="relative z-20 px-6 py-4">
             <div className="max-w-5xl mx-auto flex items-center justify-end">
               <Link
@@ -111,7 +111,7 @@ export default async function HomePage() {
                       L1050,30 L1060,25 L1070,30 L1085,30 L1090,35 L1095,5 L1100,40 L1110,30 L1130,30 L1140,22 L1155,30
                       L1200,30
                     "
-                    stroke="#1A6BFF"
+                    stroke="#E8A020"
                     strokeWidth="1.5"
                     fill="none"
                     strokeLinecap="round"
@@ -123,45 +123,42 @@ export default async function HomePage() {
           </div>
 
           <div className="max-w-3xl mx-auto text-center">
-            {/* Hero logo */}
-            <div className="flex flex-col items-center gap-6 mb-12">
+            {/* Hero logo + BETA */}
+            <div className="flex items-center justify-center gap-3 mb-8">
               <div
                 style={{
-                  width: "140px",
-                  height: "140px",
-                  borderRadius: "32px",
-                  backgroundColor: "#1A6BFF",
-                  boxShadow: "0 0 80px rgba(26,107,255,0.5), 0 0 160px rgba(26,107,255,0.2)",
+                  width: "56px",
+                  height: "56px",
+                  borderRadius: "8px",
+                  backgroundColor: "#E8A020",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   flexShrink: 0,
                 }}
               >
-                <svg
-                  width="88"
-                  height="88"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#0A1628"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#1A1A2E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <polyline points="2,12 5,12 7,7 9,17 11,10 13,14 15,12 22,12" />
                 </svg>
               </div>
-              <span className="text-4xl font-bold tracking-tight" style={{ color: "#FFFFFF" }}>
-                CliniLog
-              </span>
+              <span className="text-2xl font-medium tracking-tight" style={{ color: "#FFFFFF" }}>CliniLog</span>
+              <span className="beta-pill">BETA</span>
             </div>
+
+            {/* Eyebrow */}
+            <p
+              className="text-[11px] mono uppercase tracking-[0.22em] mb-5"
+              style={{ color: "#E8A020" }}
+            >
+              Pre-Med Platform — 2026
+            </p>
 
             {/* Headline */}
             <h1
-              className="text-3xl sm:text-5xl font-bold leading-tight tracking-tight mb-5"
+              className="text-3xl sm:text-5xl font-medium leading-tight tracking-tight mb-5"
               style={{ color: "#FFFFFF" }}
             >
-              Your <span style={{ color: "#1A6BFF" }}>Pre-Med</span> Journey, Organized
+              Your <span style={{ color: "#E8A020" }}>Pre-Med</span> Journey, Organized
             </h1>
 
             <p
@@ -176,13 +173,13 @@ export default async function HomePage() {
             {/* Social proof */}
             <div className="mb-10 flex items-center justify-center gap-2 flex-wrap">
               <div className="flex -space-x-2">
-                {["#1A6BFF", "#10B981", "#A78BFA", "#F59E0B"].map((c, i) => (
+                {["#E8A020", "#10B981", "#A78BFA", "#F59E0B"].map((c, i) => (
                   <div
                     key={i}
                     className="w-7 h-7 rounded-full border-2 flex items-center justify-center text-xs font-bold"
                     style={{
                       backgroundColor: c,
-                      borderColor: "#0A0F1C",
+                      borderColor: "#1A1A2E",
                       color: "#FFFFFF",
                     }}
                   >
@@ -191,7 +188,7 @@ export default async function HomePage() {
                 ))}
               </div>
               <p className="text-sm" style={{ color: "rgba(255,255,255,0.75)" }}>
-                Join <span className="font-bold" style={{ color: "#1A6BFF" }}>1,000+</span> pre-med students building their path to medicine
+                Join <span className="font-bold" style={{ color: "#E8A020" }}>1,000+</span> pre-med students building their path to medicine
               </p>
             </div>
 
@@ -200,7 +197,7 @@ export default async function HomePage() {
               href="/auth/signup"
               className="inline-flex items-center gap-2 px-8 py-3.5 rounded-md font-semibold text-base transition-colors"
               style={{
-                backgroundColor: "#1A6BFF",
+                backgroundColor: "#E8A020",
                 color: "#FFFFFF",
               }}
             >
@@ -219,6 +216,24 @@ export default async function HomePage() {
                 />
               </svg>
             </Link>
+
+            {/* Floating stat cards */}
+            <div className="mt-14 grid grid-cols-3 gap-3 max-w-2xl mx-auto">
+              {[
+                { num: "149", label: "Schools" },
+                { num: "015", label: "Archetypes" },
+                { num: "012", label: "Tools" },
+              ].map((s) => (
+                <div
+                  key={s.label}
+                  className="rounded-md p-4 text-center"
+                  style={{ backgroundColor: "rgba(22,33,62,0.65)", border: "0.5px solid rgba(255,255,255,0.08)" }}
+                >
+                  <p className="mono text-2xl font-medium" style={{ color: "#E8A020" }}>{s.num}</p>
+                  <p className="mono text-[10px] uppercase tracking-widest mt-1" style={{ color: "rgba(255,255,255,0.55)" }}>{s.label}</p>
+                </div>
+              ))}
+            </div>
 
             {/* Feature cards */}
             <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 text-left auto-rows-fr items-stretch">
@@ -291,11 +306,11 @@ export default async function HomePage() {
                   {/* Icon — fixed height block */}
                   <div
                     className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 flex-shrink-0"
-                    style={{ backgroundColor: "rgba(26,107,255,0.12)" }}
+                    style={{ backgroundColor: "rgba(232,160,32,0.12)" }}
                   >
                     <svg
                       className="w-6 h-6"
-                      style={{ color: "#1A6BFF" }}
+                      style={{ color: "#E8A020" }}
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -312,7 +327,7 @@ export default async function HomePage() {
                   {/* Title — consistent leading */}
                   <h3
                     className="font-semibold text-base mb-2 leading-snug"
-                    style={{ color: "#0D0D0D" }}
+                    style={{ color: "#FFFFFF" }}
                   >
                     {f.title}
                   </h3>
@@ -320,7 +335,7 @@ export default async function HomePage() {
                   {/* Description — fills remaining space */}
                   <p
                     className="text-sm leading-relaxed flex-1"
-                    style={{ color: "rgba(13,13,13,0.55)" }}
+                    style={{ color: "rgba(255,255,255,0.55)" }}
                   >
                     {f.desc}
                   </p>
@@ -370,16 +385,18 @@ export default async function HomePage() {
                 ].map((step) => (
                   <div key={step.n} className="relative z-10 flex flex-col items-center text-center">
                     <div
-                      className="w-14 h-14 rounded-full flex items-center justify-center text-xl font-bold mb-4"
+                      className="w-14 h-14 rounded-md flex items-center justify-center mb-4 mono"
                       style={{
-                        backgroundColor: "#0A0F1C",
-                        border: "2px solid #1A6BFF",
-                        color: "#1A6BFF",
+                        backgroundColor: "#16213E",
+                        border: "0.5px solid rgba(232,160,32,0.4)",
+                        color: "#E8A020",
+                        fontSize: "1.5rem",
+                        fontWeight: 500,
                       }}
                     >
-                      {step.n}
+                      {String(step.n).padStart(2, "0")}
                     </div>
-                    <h3 className="font-bold text-base mb-2" style={{ color: "#FFFFFF" }}>
+                    <h3 className="font-medium text-base mb-2" style={{ color: "#FFFFFF" }}>
                       {step.title}
                     </h3>
                     <p className="text-sm leading-relaxed max-w-[240px]" style={{ color: "rgba(255,255,255,0.6)" }}>
@@ -397,8 +414,8 @@ export default async function HomePage() {
         <footer
           className="relative z-10 px-6 pt-14 pb-6"
           style={{
-            borderTop: "1px solid rgba(26,107,255,0.18)",
-            background: "rgba(255,255,255,0.6)",
+            borderTop: "1px solid rgba(255,255,255,0.08)",
+            background: "#1A1A2E",
           }}
         >
           <div className="max-w-5xl mx-auto">
@@ -408,15 +425,15 @@ export default async function HomePage() {
                 <div className="flex items-center gap-2 mb-3">
                   <div
                     className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
-                    style={{ backgroundColor: "#1A6BFF", boxShadow: "0 0 12px rgba(26,107,255,0.4)" }}
+                    style={{ backgroundColor: "#E8A020", boxShadow: "0 0 12px rgba(232,160,32,0.4)" }}
                   >
                     <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#0A1628" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                       <polyline points="3 12 6 9 9 13 12 7 15 11 18 8 21 12" />
                     </svg>
                   </div>
-                  <span className="font-bold text-base" style={{ color: "#0D0D0D" }}>CliniLog</span>
+                  <span className="font-bold text-base" style={{ color: "#FFFFFF" }}>CliniLog</span>
                 </div>
-                <p className="text-sm leading-relaxed" style={{ color: "rgba(13,13,13,0.5)" }}>
+                <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
                   The all-in-one toolkit for pre-med students. Free forever — because your path to medicine shouldn&apos;t cost more than it already does.
                 </p>
               </div>
@@ -425,7 +442,7 @@ export default async function HomePage() {
               <div>
                 <p
                   className="text-xs font-bold uppercase tracking-wider mb-4"
-                  style={{ color: "#1A6BFF" }}
+                  style={{ color: "#E8A020" }}
                 >
                   Product
                 </p>
@@ -441,7 +458,7 @@ export default async function HomePage() {
                       <Link
                         href={link.href}
                         className="text-sm transition-colors hover:opacity-80"
-                        style={{ color: "rgba(13,13,13,0.65)" }}
+                        style={{ color: "rgba(255,255,255,0.65)" }}
                       >
                         {link.label}
                       </Link>
@@ -454,7 +471,7 @@ export default async function HomePage() {
               <div>
                 <p
                   className="text-xs font-bold uppercase tracking-wider mb-4"
-                  style={{ color: "#1A6BFF" }}
+                  style={{ color: "#E8A020" }}
                 >
                   Planning
                 </p>
@@ -470,7 +487,7 @@ export default async function HomePage() {
                       <Link
                         href={link.href}
                         className="text-sm transition-colors hover:opacity-80"
-                        style={{ color: "rgba(13,13,13,0.65)" }}
+                        style={{ color: "rgba(255,255,255,0.65)" }}
                       >
                         {link.label}
                       </Link>
@@ -483,7 +500,7 @@ export default async function HomePage() {
               <div>
                 <p
                   className="text-xs font-bold uppercase tracking-wider mb-4"
-                  style={{ color: "#1A6BFF" }}
+                  style={{ color: "#E8A020" }}
                 >
                   Community
                 </p>
@@ -498,7 +515,7 @@ export default async function HomePage() {
                       <Link
                         href={link.href}
                         className="text-sm transition-colors hover:opacity-80"
-                        style={{ color: "rgba(13,13,13,0.65)" }}
+                        style={{ color: "rgba(255,255,255,0.65)" }}
                       >
                         {link.label}
                       </Link>
@@ -511,13 +528,13 @@ export default async function HomePage() {
             {/* Copyright bar */}
             <div
               className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3"
-              style={{ borderTop: "1px solid rgba(26,107,255,0.08)" }}
+              style={{ borderTop: "1px solid rgba(232,160,32,0.08)" }}
             >
-              <p className="text-xs" style={{ color: "rgba(13,13,13,0.4)" }}>
+              <p className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
                 &copy; {new Date().getFullYear()} CliniLog. The all-in-one pre-med toolkit.
               </p>
-              <p className="text-xs" style={{ color: "rgba(13,13,13,0.3)" }}>
-                Made with <span style={{ color: "#1A6BFF" }}>♥</span> for the next generation of physicians.
+              <p className="text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>
+                Made with <span style={{ color: "#E8A020" }}>♥</span> for the next generation of physicians.
               </p>
             </div>
           </div>
