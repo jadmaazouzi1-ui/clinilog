@@ -34,20 +34,20 @@ export default function SignupPage({
   }
 
   return (
-    <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "#0A1628" }}>
+    <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "#F8F9FA" }}>
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 mb-4">
-            <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#00D4FF" }}>
+            <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#1A6BFF" }}>
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#0A1628" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="3 12 6 9 9 13 12 7 15 11 18 8 21 12" />
               </svg>
             </div>
-            <span className="font-semibold text-xl" style={{ color: "#F8FAFC" }}>CliniLog</span>
+            <span className="font-semibold text-xl" style={{ color: "#0D0D0D" }}>CliniLog</span>
           </div>
-          <h1 className="text-2xl font-bold" style={{ color: "#F8FAFC" }}>Create your account</h1>
-          <p className="text-sm mt-1" style={{ color: "rgba(248,250,252,0.6)" }}>
+          <h1 className="text-2xl font-bold" style={{ color: "#0D0D0D" }}>Create your account</h1>
+          <p className="text-sm mt-1" style={{ color: "rgba(13,13,13,0.6)" }}>
             Start logging your clinical experiences today
           </p>
         </div>
@@ -59,7 +59,7 @@ export default function SignupPage({
               <label
                 htmlFor="name"
                 className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(248,250,252,0.85)" }}
+                style={{ color: "rgba(13,13,13,0.85)" }}
               >
                 Full name
               </label>
@@ -78,7 +78,7 @@ export default function SignupPage({
               <label
                 htmlFor="email"
                 className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(248,250,252,0.85)" }}
+                style={{ color: "rgba(13,13,13,0.85)" }}
               >
                 Email address
               </label>
@@ -97,7 +97,7 @@ export default function SignupPage({
               <label
                 htmlFor="password"
                 className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(248,250,252,0.85)" }}
+                style={{ color: "rgba(13,13,13,0.85)" }}
               >
                 Password
               </label>
@@ -116,19 +116,19 @@ export default function SignupPage({
             <button
               type="submit"
               className="w-full teal-glow py-2.5 rounded-lg font-semibold text-sm transition-colors focus:outline-none"
-              style={{ backgroundColor: "#00D4FF", color: "#0A1628" }}
+              style={{ backgroundColor: "#1A6BFF", color: "#FFFFFF" }}
             >
               Create Account
             </button>
           </form>
         </div>
 
-        <p className="text-center text-sm mt-6" style={{ color: "rgba(248,250,252,0.5)" }}>
+        <p className="text-center text-sm mt-6" style={{ color: "rgba(13,13,13,0.5)" }}>
           Already have an account?{" "}
           <Link
             href="/auth/login"
             className="font-medium"
-            style={{ color: "#00D4FF" }}
+            style={{ color: "#1A6BFF" }}
           >
             Sign in
           </Link>

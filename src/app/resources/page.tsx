@@ -7,9 +7,9 @@ const CATEGORIES = [
   {
     id: "essentials",
     label: "Pre-Med Essentials",
-    color: "#00D4FF",
-    bgColor: "rgba(0,212,255,0.1)",
-    borderColor: "rgba(0,212,255,0.25)",
+    color: "#1A6BFF",
+    bgColor: "rgba(26,107,255,0.1)",
+    borderColor: "rgba(26,107,255,0.25)",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -41,9 +41,9 @@ const CATEGORIES = [
   {
     id: "mcat",
     label: "MCAT Prep (Free)",
-    color: "#00D4FF",
-    bgColor: "rgba(0,212,255,0.1)",
-    borderColor: "rgba(0,212,255,0.25)",
+    color: "#1A6BFF",
+    bgColor: "rgba(26,107,255,0.1)",
+    borderColor: "rgba(26,107,255,0.25)",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -248,7 +248,7 @@ export default async function ResourcesPage() {
         <Link
           href="/dashboard"
           className="inline-flex items-center gap-1.5 text-sm font-medium mb-8"
-          style={{ color: "#00D4FF" }}
+          style={{ color: "#1A6BFF" }}
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -258,8 +258,8 @@ export default async function ResourcesPage() {
 
         {/* Page heading */}
         <div className="mb-10">
-          <h1 className="text-2xl font-bold mb-2" style={{ color: "#F8FAFC" }}>Resource Library</h1>
-          <p className="text-sm" style={{ color: "rgba(248,250,252,0.6)" }}>
+          <h1 className="text-2xl font-bold mb-2" style={{ color: "#0D0D0D" }}>Resource Library</h1>
+          <p className="text-sm" style={{ color: "rgba(13,13,13,0.6)" }}>
             Free tools, programs, and guides for every pre-med journey
           </p>
         </div>
@@ -276,8 +276,8 @@ export default async function ResourcesPage() {
                 >
                   {category.icon}
                 </div>
-                <h2 className="text-base font-semibold" style={{ color: "#F8FAFC" }}>{category.label}</h2>
-                <div className="flex-1 h-px" style={{ backgroundColor: "rgba(248,250,252,0.08)" }} />
+                <h2 className="text-base font-semibold" style={{ color: "#0D0D0D" }}>{category.label}</h2>
+                <div className="flex-1 h-px" style={{ backgroundColor: "rgba(13,13,13,0.08)" }} />
               </div>
 
               {/* Cards grid */}
@@ -288,10 +288,10 @@ export default async function ResourcesPage() {
                     className="glass-card rounded-2xl p-5 flex flex-col gap-3"
                   >
                     <div className="flex-1">
-                      <h3 className="text-sm font-semibold mb-1.5" style={{ color: "#F8FAFC" }}>
+                      <h3 className="text-sm font-semibold mb-1.5" style={{ color: "#0D0D0D" }}>
                         {resource.title}
                       </h3>
-                      <p className="text-xs leading-relaxed" style={{ color: "rgba(248,250,252,0.6)" }}>
+                      <p className="text-xs leading-relaxed" style={{ color: "rgba(13,13,13,0.6)" }}>
                         {resource.description}
                       </p>
                     </div>

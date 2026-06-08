@@ -48,16 +48,16 @@ export default function OnboardingModal() {
           const active = step === s.num;
 
           const circleStyle: React.CSSProperties = completed
-            ? { background: "#00D4FF", border: "2px solid #00D4FF" }
+            ? { background: "#1A6BFF", border: "2px solid #00D4FF" }
             : active
             ? { background: "transparent", border: "2px solid #00D4FF" }
-            : { background: "transparent", border: "2px solid rgba(248,250,252,0.2)" };
+            : { background: "transparent", border: "2px solid rgba(13,13,13,0.2)" };
 
           const numColor = completed
             ? "transparent"
             : active
-            ? "#00D4FF"
-            : "rgba(248,250,252,0.3)";
+            ? "#1A6BFF"
+            : "rgba(13,13,13,0.3)";
 
           return (
             <div key={s.num} className="flex items-center">
@@ -93,7 +93,7 @@ export default function OnboardingModal() {
                 <span
                   style={{
                     fontSize: 10,
-                    color: active || completed ? "#00D4FF" : "rgba(248,250,252,0.3)",
+                    color: active || completed ? "#1A6BFF" : "rgba(13,13,13,0.3)",
                     fontWeight: 500,
                   }}
                 >
@@ -109,8 +109,8 @@ export default function OnboardingModal() {
                     marginBottom: 18,
                     background:
                       step > s.num
-                        ? "#00D4FF"
-                        : "rgba(248,250,252,0.12)",
+                        ? "#1A6BFF"
+                        : "rgba(13,13,13,0.12)",
                     borderRadius: 1,
                   }}
                 />
@@ -183,8 +183,8 @@ export default function OnboardingModal() {
   // ── Button styles ───────────────────────────────────────────────────────────
 
   const tealBtn: React.CSSProperties = {
-    backgroundColor: "#00D4FF",
-    color: "#0A1628",
+    backgroundColor: "#1A6BFF",
+    color: "#FFFFFF",
     padding: "10px 20px",
     borderRadius: 12,
     fontWeight: 600,
@@ -197,12 +197,12 @@ export default function OnboardingModal() {
 
   const ghostBtn: React.CSSProperties = {
     background: "transparent",
-    color: "rgba(248,250,252,0.5)",
+    color: "rgba(13,13,13,0.5)",
     padding: "10px 20px",
     borderRadius: 12,
     fontWeight: 500,
     fontSize: 14,
-    border: "1px solid rgba(248,250,252,0.15)",
+    border: "1px solid rgba(13,13,13,0.15)",
     cursor: isPending ? "not-allowed" : "pointer",
     opacity: isPending ? 0.6 : 1,
     transition: "opacity 0.15s",
@@ -212,7 +212,7 @@ export default function OnboardingModal() {
     display: "block",
     fontSize: 12,
     fontWeight: 500,
-    color: "rgba(248,250,252,0.6)",
+    color: "rgba(13,13,13,0.6)",
     marginBottom: 6,
   };
 
@@ -235,8 +235,8 @@ export default function OnboardingModal() {
         style={{
           maxWidth: 512,
           width: "100%",
-          background: "rgba(15,28,50,0.97)",
-          border: "1px solid rgba(0,212,255,0.2)",
+          background: "rgba(255,255,255,0.97)",
+          border: "1px solid rgba(26,107,255,0.2)",
           borderRadius: 24,
           padding: 32,
           position: "relative",
@@ -255,7 +255,7 @@ export default function OnboardingModal() {
             borderRadius: 8,
             background: "transparent",
             border: "none",
-            color: "rgba(248,250,252,0.4)",
+            color: "rgba(13,13,13,0.4)",
             cursor: isPending ? "not-allowed" : "pointer",
             display: "flex",
             alignItems: "center",
@@ -272,10 +272,10 @@ export default function OnboardingModal() {
         {/* ── Step 1 ── */}
         {step === 1 && (
           <div>
-            <h2 style={{ fontSize: 20, fontWeight: 700, color: "#F8FAFC", marginBottom: 8 }}>
+            <h2 style={{ fontSize: 20, fontWeight: 700, color: "#0D0D0D", marginBottom: 8 }}>
               Welcome to CliniLog 👋
             </h2>
-            <p style={{ fontSize: 14, color: "rgba(248,250,252,0.6)", marginBottom: 24 }}>
+            <p style={{ fontSize: 14, color: "rgba(13,13,13,0.6)", marginBottom: 24 }}>
               Let&apos;s set up your profile so we can personalize your experience.
             </p>
 
@@ -355,10 +355,10 @@ export default function OnboardingModal() {
         {/* ── Step 2 ── */}
         {step === 2 && (
           <div>
-            <h2 style={{ fontSize: 20, fontWeight: 700, color: "#F8FAFC", marginBottom: 8 }}>
+            <h2 style={{ fontSize: 20, fontWeight: 700, color: "#0D0D0D", marginBottom: 8 }}>
               Log your first experience
             </h2>
-            <p style={{ fontSize: 14, color: "rgba(248,250,252,0.6)", marginBottom: 24 }}>
+            <p style={{ fontSize: 14, color: "rgba(13,13,13,0.6)", marginBottom: 24 }}>
               Add a clinical experience you&apos;ve already completed, or use our example to get started.
             </p>
 
@@ -460,7 +460,7 @@ export default function OnboardingModal() {
                 width: 64,
                 height: 64,
                 borderRadius: "50%",
-                background: "rgba(0,212,255,0.12)",
+                background: "rgba(26,107,255,0.12)",
                 border: "1.5px solid #00D4FF",
                 display: "flex",
                 alignItems: "center",
@@ -471,7 +471,7 @@ export default function OnboardingModal() {
               <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
                 <path
                   d="M5 14L11 20L23 8"
-                  stroke="#00D4FF"
+                  stroke="#1A6BFF"
                   strokeWidth="2.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -479,13 +479,13 @@ export default function OnboardingModal() {
               </svg>
             </div>
 
-            <h2 style={{ fontSize: 22, fontWeight: 700, color: "#F8FAFC", marginBottom: 10 }}>
+            <h2 style={{ fontSize: 22, fontWeight: 700, color: "#0D0D0D", marginBottom: 10 }}>
               Your CliniLog is ready
             </h2>
             <p
               style={{
                 fontSize: 14,
-                color: "rgba(248,250,252,0.6)",
+                color: "rgba(13,13,13,0.6)",
                 marginBottom: 28,
                 maxWidth: 360,
                 margin: "0 auto 28px",

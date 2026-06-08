@@ -34,7 +34,7 @@ export default async function ProfilePage({
         <Link
           href="/dashboard"
           className="inline-flex items-center gap-1.5 text-sm font-medium mb-8"
-          style={{ color: "#00D4FF" }}
+          style={{ color: "#1A6BFF" }}
         >
           <svg
             className="w-4 h-4"
@@ -71,7 +71,7 @@ export default async function ProfilePage({
         )}
 
         <div className="glass-card rounded-2xl p-8">
-          <h1 className="text-xl font-bold mb-6" style={{ color: "#F8FAFC" }}>Your Profile</h1>
+          <h1 className="text-xl font-bold mb-6" style={{ color: "#0D0D0D" }}>Your Profile</h1>
 
           <form action={upsertProfile} className="space-y-6">
             {/* Full Name */}
@@ -79,7 +79,7 @@ export default async function ProfilePage({
               <label
                 htmlFor="full_name"
                 className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(248,250,252,0.85)" }}
+                style={{ color: "rgba(13,13,13,0.85)" }}
               >
                 Full Name
               </label>
@@ -98,7 +98,7 @@ export default async function ProfilePage({
               <label
                 htmlFor="undergraduate_school"
                 className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(248,250,252,0.85)" }}
+                style={{ color: "rgba(13,13,13,0.85)" }}
               >
                 Undergraduate School
               </label>
@@ -215,7 +215,7 @@ export default async function ProfilePage({
               <label
                 htmlFor="graduation_year"
                 className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(248,250,252,0.85)" }}
+                style={{ color: "rgba(13,13,13,0.85)" }}
               >
                 Graduation Year
               </label>
@@ -236,7 +236,7 @@ export default async function ProfilePage({
               <label
                 htmlFor="intended_specialty"
                 className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(248,250,252,0.85)" }}
+                style={{ color: "rgba(13,13,13,0.85)" }}
               >
                 Intended Specialty
               </label>
@@ -255,7 +255,7 @@ export default async function ProfilePage({
               <button
                 type="submit"
                 className="w-full inline-flex items-center justify-center gap-2 teal-glow px-6 py-3 rounded-xl font-semibold text-sm transition-colors focus:outline-none"
-                style={{ backgroundColor: "#00D4FF", color: "#0A1628" }}
+                style={{ backgroundColor: "#1A6BFF", color: "#FFFFFF" }}
               >
                 Save Profile
               </button>

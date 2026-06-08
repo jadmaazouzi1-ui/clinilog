@@ -4,7 +4,7 @@ import { useState, useTransition, useMemo } from "react";
 import { GapGoal, GapYearData, saveGapYearData } from "./actions";
 
 const CATEGORIES: { value: GapGoal["category"]; label: string; color: string }[] = [
-  { value: "clinical",     label: "Clinical Hours",   color: "#00D4FF" },
+  { value: "clinical",     label: "Clinical Hours",   color: "#1A6BFF" },
   { value: "research",     label: "Research",         color: "#A78BFA" },
   { value: "volunteering", label: "Volunteering",     color: "#10B981" },
   { value: "personal",     label: "Personal Growth",  color: "#F59E0B" },
@@ -117,7 +117,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
       <div className="glass-card rounded-2xl p-6">
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div className="flex-1 min-w-[200px]">
-            <p className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: "rgba(0,212,255,0.7)" }}>Target Application Cycle</p>
+            <p className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: "rgba(26,107,255,0.7)" }}>Target Application Cycle</p>
             <select
               value={data.target_cycle_year ?? ""}
               onChange={(e) => persist({ target_cycle_year: e.target.value ? parseInt(e.target.value) : null })}
@@ -132,10 +132,10 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
           {countdown && (
             <div
               className="rounded-xl px-5 py-4 text-center flex-shrink-0"
-              style={{ background: "rgba(0,212,255,0.08)", border: "1px solid rgba(0,212,255,0.25)", minWidth: 180 }}
+              style={{ background: "rgba(26,107,255,0.08)", border: "1px solid rgba(26,107,255,0.25)", minWidth: 180 }}
             >
-              <p className="text-3xl font-bold" style={{ color: "#00D4FF" }}>{countdown.days}</p>
-              <p className="text-xs mt-1" style={{ color: "rgba(248,250,252,0.6)" }}>days until {countdown.label}</p>
+              <p className="text-3xl font-bold" style={{ color: "#1A6BFF" }}>{countdown.days}</p>
+              <p className="text-xs mt-1" style={{ color: "rgba(13,13,13,0.6)" }}>days until {countdown.label}</p>
             </div>
           )}
         </div>
@@ -145,8 +145,8 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
       <div className="glass-card rounded-2xl p-6">
         <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
           <div>
-            <h2 className="text-base font-semibold" style={{ color: "#F8FAFC" }}>Gap Year Goals</h2>
-            <p className="text-xs" style={{ color: "rgba(248,250,252,0.5)" }}>{data.goals.length}/5 set</p>
+            <h2 className="text-base font-semibold" style={{ color: "#0D0D0D" }}>Gap Year Goals</h2>
+            <p className="text-xs" style={{ color: "rgba(13,13,13,0.5)" }}>{data.goals.length}/5 set</p>
           </div>
         </div>
 
@@ -158,7 +158,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
                 <li
                   key={g.id}
                   className="flex items-start gap-3 rounded-xl px-3.5 py-3"
-                  style={{ background: "rgba(0,212,255,0.04)", border: "1px solid rgba(0,212,255,0.1)" }}
+                  style={{ background: "rgba(26,107,255,0.04)", border: "1px solid rgba(26,107,255,0.1)" }}
                 >
                   <span
                     className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide flex-shrink-0 mt-0.5"
@@ -167,8 +167,8 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
                     {meta.label}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium" style={{ color: "#F8FAFC" }}>{g.title}</p>
-                    {g.target && <p className="text-xs mt-0.5" style={{ color: "rgba(248,250,252,0.6)" }}>Target: {g.target}</p>}
+                    <p className="text-sm font-medium" style={{ color: "#0D0D0D" }}>{g.title}</p>
+                    {g.target && <p className="text-xs mt-0.5" style={{ color: "rgba(13,13,13,0.6)" }}>Target: {g.target}</p>}
                   </div>
                   <button
                     onClick={() => removeGoal(g.id)}
@@ -207,7 +207,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
               onClick={addGoal}
               disabled={!newTitle.trim()}
               className="px-4 py-2.5 rounded-xl font-semibold text-sm disabled:opacity-40 disabled:cursor-not-allowed"
-              style={{ background: "#00D4FF", color: "#0A1628" }}
+              style={{ background: "#1A6BFF", color: "#FFFFFF" }}
             >
               Add
             </button>
@@ -217,8 +217,8 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
 
       {/* Monthly log */}
       <div className="glass-card rounded-2xl p-6">
-        <h2 className="text-base font-semibold mb-1" style={{ color: "#F8FAFC" }}>Monthly Activity Log</h2>
-        <p className="text-xs mb-4" style={{ color: "rgba(248,250,252,0.5)" }}>What did you do this month? Track progress on your goals.</p>
+        <h2 className="text-base font-semibold mb-1" style={{ color: "#0D0D0D" }}>Monthly Activity Log</h2>
+        <p className="text-xs mb-4" style={{ color: "rgba(13,13,13,0.5)" }}>What did you do this month? Track progress on your goals.</p>
 
         <div className="grid grid-cols-[140px,1fr,auto] gap-2 mb-4">
           <input
@@ -237,26 +237,26 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
             onClick={saveLog}
             disabled={!logText.trim()}
             className="px-4 py-2.5 rounded-xl font-semibold text-sm disabled:opacity-40 disabled:cursor-not-allowed"
-            style={{ background: "#00D4FF", color: "#0A1628" }}
+            style={{ background: "#1A6BFF", color: "#FFFFFF" }}
           >
             Save
           </button>
         </div>
 
         {sortedLogEntries.length === 0 ? (
-          <p className="text-xs text-center py-4" style={{ color: "rgba(248,250,252,0.4)" }}>No entries logged yet.</p>
+          <p className="text-xs text-center py-4" style={{ color: "rgba(13,13,13,0.4)" }}>No entries logged yet.</p>
         ) : (
           <ul className="space-y-2">
             {sortedLogEntries.map(([month, text]) => (
               <li
                 key={month}
                 className="rounded-xl px-3.5 py-3 flex items-start gap-3"
-                style={{ background: "rgba(0,212,255,0.04)", border: "1px solid rgba(0,212,255,0.1)" }}
+                style={{ background: "rgba(26,107,255,0.04)", border: "1px solid rgba(26,107,255,0.1)" }}
               >
-                <span className="text-xs font-bold uppercase tracking-wide flex-shrink-0" style={{ color: "#00D4FF", minWidth: 76 }}>
+                <span className="text-xs font-bold uppercase tracking-wide flex-shrink-0" style={{ color: "#1A6BFF", minWidth: 76 }}>
                   {formatMonth(month)}
                 </span>
-                <p className="text-sm flex-1" style={{ color: "rgba(248,250,252,0.85)" }}>{text}</p>
+                <p className="text-sm flex-1" style={{ color: "rgba(13,13,13,0.85)" }}>{text}</p>
                 <button onClick={() => deleteLog(month)} className="p-1 opacity-50 hover:opacity-100" style={{ color: "#FF4757" }} aria-label="Delete log">
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -272,16 +272,16 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
       <div className="glass-card rounded-2xl p-6">
         <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
           <div>
-            <h2 className="text-base font-semibold" style={{ color: "#F8FAFC" }}>Application Milestones</h2>
-            <p className="text-xs" style={{ color: "rgba(248,250,252,0.5)" }}>{milestonesDone}/{MILESTONES.length} complete</p>
+            <h2 className="text-base font-semibold" style={{ color: "#0D0D0D" }}>Application Milestones</h2>
+            <p className="text-xs" style={{ color: "rgba(13,13,13,0.5)" }}>{milestonesDone}/{MILESTONES.length} complete</p>
           </div>
-          <div className="w-32 h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(0,212,255,0.1)" }}>
+          <div className="w-32 h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(26,107,255,0.1)" }}>
             <div
               className="h-full rounded-full"
               style={{
                 width: `${(milestonesDone / MILESTONES.length) * 100}%`,
-                background: "#00D4FF",
-                boxShadow: "0 0 8px rgba(0,212,255,0.5)",
+                background: "#1A6BFF",
+                boxShadow: "0 0 8px rgba(26,107,255,0.5)",
                 transition: "width 0.4s",
               }}
             />
@@ -297,15 +297,15 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
                   onClick={() => toggleMilestone(m.id)}
                   className="w-full text-left rounded-xl px-3.5 py-3 flex items-start gap-3 transition-colors"
                   style={{
-                    background: done ? "rgba(0,212,255,0.08)" : "rgba(0,212,255,0.02)",
-                    border: `1px solid ${done ? "rgba(0,212,255,0.3)" : "rgba(0,212,255,0.08)"}`,
+                    background: done ? "rgba(26,107,255,0.08)" : "rgba(26,107,255,0.02)",
+                    border: `1px solid ${done ? "rgba(26,107,255,0.3)" : "rgba(26,107,255,0.08)"}`,
                   }}
                 >
                   <span
                     className="w-5 h-5 rounded-md flex items-center justify-center flex-shrink-0 mt-0.5"
                     style={{
-                      background: done ? "#00D4FF" : "transparent",
-                      border: `1.5px solid ${done ? "#00D4FF" : "rgba(0,212,255,0.4)"}`,
+                      background: done ? "#1A6BFF" : "transparent",
+                      border: `1.5px solid ${done ? "#1A6BFF" : "rgba(26,107,255,0.4)"}`,
                     }}
                   >
                     {done && (
@@ -317,11 +317,11 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
                   <div className="flex-1 min-w-0">
                     <p
                       className="text-sm font-medium"
-                      style={{ color: done ? "rgba(248,250,252,0.55)" : "#F8FAFC", textDecoration: done ? "line-through" : "none" }}
+                      style={{ color: done ? "rgba(13,13,13,0.55)" : "#0D0D0D", textDecoration: done ? "line-through" : "none" }}
                     >
                       {m.label}
                     </p>
-                    <p className="text-xs mt-0.5" style={{ color: "rgba(248,250,252,0.4)" }}>{m.due}</p>
+                    <p className="text-xs mt-0.5" style={{ color: "rgba(13,13,13,0.4)" }}>{m.due}</p>
                   </div>
                 </button>
               </li>
@@ -331,7 +331,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
       </div>
 
       {savedAt && (
-        <p className="text-xs text-center" style={{ color: "rgba(0,212,255,0.5)" }}>
+        <p className="text-xs text-center" style={{ color: "rgba(26,107,255,0.5)" }}>
           {isPending ? "Saving…" : `Saved at ${savedAt}`}
         </p>
       )}

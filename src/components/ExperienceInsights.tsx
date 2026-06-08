@@ -81,7 +81,7 @@ const RECOMMENDATIONS = {
 
 const STAGE_META: Record<Stage, { label: string; tone: string; color: string; bg: string }> = {
   freshman:  { label: "Freshman",        tone: "Building your foundation",       color: "#10B981", bg: "rgba(16,185,129,0.08)"  },
-  sophomore: { label: "Sophomore",       tone: "Hitting midpoint goals",         color: "#00D4FF", bg: "rgba(0,212,255,0.08)"   },
+  sophomore: { label: "Sophomore",       tone: "Hitting midpoint goals",         color: "#1A6BFF", bg: "rgba(26,107,255,0.08)"   },
   junior:    { label: "Junior",          tone: "Cycle is approaching",           color: "#F59E0B", bg: "rgba(245,158,11,0.08)"  },
   senior:    { label: "Senior",          tone: "Apply-cycle territory",          color: "#FB923C", bg: "rgba(251,146,60,0.1)"   },
   postgrad:  { label: "Post-grad / Gap", tone: "Strengthen your final profile",  color: "#A78BFA", bg: "rgba(167,139,250,0.08)" },
@@ -119,26 +119,26 @@ export default function ExperienceInsights({
       <div className="mb-8">
         <div
           className="glass-card rounded-2xl p-6 flex items-start gap-4 flex-wrap"
-          style={{ borderColor: "rgba(0,212,255,0.3)" }}
+          style={{ borderColor: "rgba(26,107,255,0.3)" }}
         >
           <div
             className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-            style={{ background: "rgba(0,212,255,0.12)", color: "#00D4FF", border: "1px solid rgba(0,212,255,0.3)" }}
+            style={{ background: "rgba(26,107,255,0.12)", color: "#1A6BFF", border: "1px solid rgba(26,107,255,0.3)" }}
           >
             {ICONS.user}
           </div>
           <div className="flex-1 min-w-0">
-            <h2 className="text-base font-semibold mb-1" style={{ color: "#F8FAFC" }}>
+            <h2 className="text-base font-semibold mb-1" style={{ color: "#0D0D0D" }}>
               Tell us where you&apos;re at
             </h2>
-            <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(248,250,252,0.65)" }}>
+            <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(13,13,13,0.65)" }}>
               Add your graduation year on your profile so we can tailor insights to where
               you are in your pre-med journey — freshmen get different advice than seniors.
             </p>
             <Link
               href="/profile"
               className="inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-2 rounded-xl transition-opacity hover:opacity-90"
-              style={{ background: "#00D4FF", color: "#0A1628" }}
+              style={{ background: "#1A6BFF", color: "#FFFFFF" }}
             >
               Complete your profile
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -158,8 +158,8 @@ export default function ExperienceInsights({
     <div className="mb-8">
       <div className="flex items-end justify-between mb-4 flex-wrap gap-2">
         <div>
-          <h2 className="text-base font-semibold" style={{ color: "#F8FAFC" }}>Experience Insights</h2>
-          <p className="text-xs mt-0.5" style={{ color: "rgba(248,250,252,0.5)" }}>
+          <h2 className="text-base font-semibold" style={{ color: "#0D0D0D" }}>Experience Insights</h2>
+          <p className="text-xs mt-0.5" style={{ color: "rgba(13,13,13,0.5)" }}>
             Personalized tips based on what you&apos;ve logged so far.
           </p>
         </div>
@@ -193,10 +193,10 @@ export default function ExperienceInsights({
               >
                 {tip.icon}
               </div>
-              <h3 className="text-sm font-semibold mb-1.5" style={{ color: "#F8FAFC" }}>
+              <h3 className="text-sm font-semibold mb-1.5" style={{ color: "#0D0D0D" }}>
                 {tip.title}
               </h3>
-              <p className="text-xs leading-relaxed" style={{ color: "rgba(248,250,252,0.65)" }}>
+              <p className="text-xs leading-relaxed" style={{ color: "rgba(13,13,13,0.65)" }}>
                 {tip.body}
               </p>
             </div>
@@ -209,7 +209,7 @@ export default function ExperienceInsights({
 
 function paletteFor(kind: Tip["kind"]) {
   if (kind === "positive") {
-    return { color: "#00D4FF", bg: "rgba(0,212,255,0.12)", border: "rgba(0,212,255,0.3)" };
+    return { color: "#1A6BFF", bg: "rgba(26,107,255,0.12)", border: "rgba(26,107,255,0.3)" };
   }
   if (kind === "warn") {
     return { color: "#F59E0B", bg: "rgba(245,158,11,0.12)", border: "rgba(245,158,11,0.3)" };

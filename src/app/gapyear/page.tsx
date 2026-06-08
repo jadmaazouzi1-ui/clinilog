@@ -23,8 +23,8 @@ export default async function GapYearPage() {
     <AppShell userEmail={user.email ?? ""} activePath="/gapyear">
       <main className="max-w-4xl mx-auto px-6 py-10">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold mb-2" style={{ color: "#F8FAFC" }}>Gap Year Planner</h1>
-          <p className="text-sm" style={{ color: "rgba(248,250,252,0.6)" }}>
+          <h1 className="text-2xl font-bold mb-2" style={{ color: "#0D0D0D" }}>Gap Year Planner</h1>
+          <p className="text-sm" style={{ color: "rgba(13,13,13,0.6)" }}>
             Plan, track, and stay accountable through your gap year — all in one place.
           </p>
         </div>

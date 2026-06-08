@@ -19,11 +19,11 @@ const TYPE_LABELS: Record<ExperienceType, string> = {
 };
 
 const TYPE_BADGE_STYLES: Record<ExperienceType, React.CSSProperties> = {
-  shadowing:    { background: "rgba(0,212,255,0.1)",    color: "#00D4FF",              border: "1px solid rgba(0,212,255,0.3)" },
+  shadowing:    { background: "rgba(26,107,255,0.1)",    color: "#1A6BFF",              border: "1px solid rgba(26,107,255,0.3)" },
   volunteer:    { background: "rgba(16,185,129,0.1)",   color: "#10B981",              border: "1px solid rgba(16,185,129,0.3)" },
   clinical_work:{ background: "rgba(99,102,241,0.1)",   color: "#818CF8",              border: "1px solid rgba(99,102,241,0.3)" },
   research:     { background: "rgba(139,92,246,0.1)",   color: "#A78BFA",              border: "1px solid rgba(139,92,246,0.3)" },
-  other:        { background: "rgba(248,250,252,0.08)", color: "rgba(248,250,252,0.6)",border: "1px solid rgba(248,250,252,0.15)" },
+  other:        { background: "rgba(13,13,13,0.08)", color: "rgba(13,13,13,0.6)",border: "1px solid rgba(13,13,13,0.15)" },
 };
 
 function formatDate(dateStr: string) {
@@ -93,14 +93,14 @@ export default async function DashboardPage({
         {/* Welcome + Add button */}
         <div className="mb-8 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold" style={{ color: "#F8FAFC" }}>
+            <h1 className="text-2xl font-bold" style={{ color: "#0D0D0D" }}>
               Welcome back
               {user.user_metadata?.full_name
                 ? `, ${user.user_metadata.full_name.split(" ")[0]}`
                 : ""}
               !
             </h1>
-            <p className="mt-1 text-sm" style={{ color: "rgba(248,250,252,0.6)" }}>
+            <p className="mt-1 text-sm" style={{ color: "rgba(13,13,13,0.6)" }}>
               Here&apos;s an overview of your clinical journey so far.
             </p>
           </div>
@@ -111,7 +111,7 @@ export default async function DashboardPage({
               <Link
                 href="/dashboard/new"
                 className="inline-flex items-center gap-2 teal-glow px-4 py-2.5 rounded-xl font-semibold text-sm transition-colors focus:outline-none whitespace-nowrap flex-1 sm:flex-none justify-center"
-                style={{ backgroundColor: "#00D4FF", color: "#0A1628" }}
+                style={{ backgroundColor: "#1A6BFF", color: "#FFFFFF" }}
               >
                 <svg
                   className="w-4 h-4"
@@ -138,17 +138,17 @@ export default async function DashboardPage({
             <div
               key={stat.label}
               className="rounded-xl p-6"
-              style={{ backgroundColor: "#1E2A3A", border: "1px solid rgba(0,212,255,0.14)" }}
+              style={{ backgroundColor: "#FFFFFF", border: "1px solid rgba(26,107,255,0.14)" }}
             >
               <p
                 className="text-xs font-semibold uppercase tracking-wide mb-1"
-                style={{ color: "rgba(248,250,252,0.6)" }}
+                style={{ color: "rgba(13,13,13,0.6)" }}
               >
                 {stat.label}
               </p>
               <div className="flex items-baseline gap-1.5">
-                <span className="text-3xl font-bold" style={{ color: "#00D4FF" }}>{stat.value}</span>
-                <span className="text-sm font-medium" style={{ color: "rgba(248,250,252,0.6)" }}>
+                <span className="text-3xl font-bold" style={{ color: "#1A6BFF" }}>{stat.value}</span>
+                <span className="text-sm font-medium" style={{ color: "rgba(13,13,13,0.6)" }}>
                   {stat.unit}
                 </span>
               </div>
@@ -162,31 +162,31 @@ export default async function DashboardPage({
             href="/archetype"
             className="block mb-8 rounded-2xl px-5 py-4 transition-all hover:opacity-95"
             style={{
-              background: "linear-gradient(135deg, rgba(0,212,255,0.12) 0%, rgba(167,139,250,0.08) 100%)",
-              border: "1px solid rgba(0,212,255,0.3)",
-              boxShadow: "0 0 24px rgba(0,212,255,0.18)",
+              background: "linear-gradient(135deg, rgba(26,107,255,0.12) 0%, rgba(167,139,250,0.08) 100%)",
+              border: "1px solid rgba(26,107,255,0.3)",
+              boxShadow: "0 0 24px rgba(26,107,255,0.18)",
             }}
           >
             <div className="flex items-center gap-4 flex-wrap">
               <div
                 className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
-                style={{ backgroundColor: "rgba(0,212,255,0.18)", border: "1px solid rgba(0,212,255,0.4)" }}
+                style={{ backgroundColor: "rgba(26,107,255,0.18)", border: "1px solid rgba(26,107,255,0.4)" }}
               >
-                <svg className="w-6 h-6" fill="none" stroke="#00D4FF" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+                <svg className="w-6 h-6" fill="none" stroke="#1A6BFF" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                 </svg>
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-bold mb-0.5" style={{ color: "#F8FAFC" }}>
+                <p className="text-sm font-bold mb-0.5" style={{ color: "#0D0D0D" }}>
                   {archetypeReady ? "Your Pre-Med Archetype is ready" : "Your Pre-Med Archetype is ready to be revealed"}
                 </p>
-                <p className="text-xs" style={{ color: "rgba(248,250,252,0.6)" }}>
+                <p className="text-xs" style={{ color: "rgba(13,13,13,0.6)" }}>
                   {archetypeReady ? "View your personalized profile and ideal med schools." : "See your personalized profile based on your logged experiences."}
                 </p>
               </div>
               <span
                 className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold flex-shrink-0"
-                style={{ backgroundColor: "#00D4FF", color: "#0A1628", boxShadow: "0 0 14px rgba(0,212,255,0.5)" }}
+                style={{ backgroundColor: "#1A6BFF", color: "#FFFFFF", boxShadow: "0 0 14px rgba(26,107,255,0.5)" }}
               >
                 {archetypeReady ? "View" : "Reveal"}
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -213,12 +213,12 @@ export default async function DashboardPage({
           >
             <div
               className="inline-flex items-center justify-center w-14 h-14 rounded-full mb-4"
-              style={{ background: "rgba(0,212,255,0.1)" }}
+              style={{ background: "rgba(26,107,255,0.1)" }}
             >
               <svg
                 className="w-7 h-7"
                 fill="none"
-                stroke="#00D4FF"
+                stroke="#1A6BFF"
                 viewBox="0 0 24 24"
               >
                 <path
@@ -229,17 +229,17 @@ export default async function DashboardPage({
                 />
               </svg>
             </div>
-            <h2 className="text-lg font-semibold mb-2" style={{ color: "#F8FAFC" }}>
+            <h2 className="text-lg font-semibold mb-2" style={{ color: "#0D0D0D" }}>
               No experiences yet
             </h2>
-            <p className="text-sm mb-6 max-w-sm mx-auto" style={{ color: "rgba(248,250,252,0.6)" }}>
+            <p className="text-sm mb-6 max-w-sm mx-auto" style={{ color: "rgba(13,13,13,0.6)" }}>
               Start documenting your clinical rotations, volunteer hours, and
               shadowing experiences to build your application story.
             </p>
             <Link
               href="/dashboard/new"
               className="inline-flex items-center gap-2 teal-glow px-6 py-2.5 rounded-xl font-semibold text-sm transition-colors focus:outline-none"
-              style={{ backgroundColor: "#00D4FF", color: "#0A1628" }}
+              style={{ backgroundColor: "#1A6BFF", color: "#FFFFFF" }}
             >
               <svg
                 className="w-4 h-4"
@@ -268,7 +268,7 @@ export default async function DashboardPage({
                   <div className="flex-1 min-w-0">
                     {/* Title + badges */}
                     <div className="flex items-center gap-2 flex-wrap mb-1">
-                      <h3 className="text-base font-semibold" style={{ color: "#F8FAFC" }}>
+                      <h3 className="text-base font-semibold" style={{ color: "#0D0D0D" }}>
                         <Link
                           href={`/dashboard/${experience.id}`}
                           className="hover:opacity-80 transition-opacity"
@@ -285,24 +285,24 @@ export default async function DashboardPage({
                     </div>
 
                     {/* Org + meta */}
-                    <p className="text-sm mb-3" style={{ color: "rgba(248,250,252,0.5)" }}>
+                    <p className="text-sm mb-3" style={{ color: "rgba(13,13,13,0.5)" }}>
                       {experience.organization}
                     </p>
-                    <div className="flex items-center gap-4 text-xs mb-4" style={{ color: "rgba(248,250,252,0.4)" }}>
+                    <div className="flex items-center gap-4 text-xs mb-4" style={{ color: "rgba(13,13,13,0.4)" }}>
                       <span>
                         {formatDate(experience.start_date)}
                         {experience.end_date
                           ? ` — ${formatDate(experience.end_date)}`
                           : " — Present"}
                       </span>
-                      <span className="font-semibold" style={{ color: "rgba(248,250,252,0.7)" }}>
+                      <span className="font-semibold" style={{ color: "rgba(13,13,13,0.7)" }}>
                         {formatHours(experience.hours)}{" "}
                         hrs
                       </span>
                     </div>
 
                     {/* Description (truncated) */}
-                    <p className="text-sm line-clamp-2" style={{ color: "rgba(248,250,252,0.7)" }}>
+                    <p className="text-sm line-clamp-2" style={{ color: "rgba(13,13,13,0.7)" }}>
                       {experience.description}
                     </p>
                   </div>
@@ -312,7 +312,7 @@ export default async function DashboardPage({
                     <Link
                       href={`/dashboard/${experience.id}/edit`}
                       className="p-2 rounded-lg transition-colors"
-                      style={{ color: "rgba(248,250,252,0.4)" }}
+                      style={{ color: "rgba(13,13,13,0.4)" }}
                       aria-label="Edit experience"
                     >
                       <svg
@@ -333,7 +333,7 @@ export default async function DashboardPage({
                       <button
                         type="submit"
                         className="p-2 rounded-lg transition-colors"
-                        style={{ color: "rgba(248,250,252,0.4)" }}
+                        style={{ color: "rgba(13,13,13,0.4)" }}
                         aria-label="Delete experience"
                       >
                         <svg

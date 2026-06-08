@@ -79,15 +79,15 @@ export default function ReframeableTextarea({
           placeholder={placeholder}
           className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm resize-none transition-all"
           style={{
-            borderColor: hasReframed ? "rgba(0,212,255,0.5)" : undefined,
-            boxShadow: hasReframed ? "0 0 0 3px rgba(0,212,255,0.08)" : undefined,
+            borderColor: hasReframed ? "rgba(26,107,255,0.5)" : undefined,
+            boxShadow: hasReframed ? "0 0 0 3px rgba(26,107,255,0.08)" : undefined,
           }}
         />
         {/* Reframed badge */}
         {hasReframed && (
           <div
             className="absolute top-2.5 right-3 flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold"
-            style={{ backgroundColor: "rgba(0,212,255,0.12)", color: "#00D4FF", border: "1px solid rgba(0,212,255,0.25)" }}
+            style={{ backgroundColor: "rgba(26,107,255,0.12)", color: "#1A6BFF", border: "1px solid rgba(26,107,255,0.25)" }}
           >
             <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
@@ -110,9 +110,9 @@ export default function ReframeableTextarea({
           disabled={loading}
           className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all"
           style={{
-            backgroundColor: loading ? "rgba(0,212,255,0.15)" : "rgba(0,212,255,0.12)",
-            color: loading ? "rgba(0,212,255,0.6)" : "#00D4FF",
-            border: "1px solid rgba(0,212,255,0.3)",
+            backgroundColor: loading ? "rgba(26,107,255,0.15)" : "rgba(26,107,255,0.12)",
+            color: loading ? "rgba(26,107,255,0.6)" : "#1A6BFF",
+            border: "1px solid rgba(26,107,255,0.3)",
             cursor: loading ? "not-allowed" : "pointer",
           }}
         >
@@ -145,7 +145,7 @@ export default function ReframeableTextarea({
             type="button"
             onClick={handleUndo}
             className="inline-flex items-center gap-1.5 text-xs font-medium transition-opacity hover:opacity-80"
-            style={{ color: "rgba(248,250,252,0.45)" }}
+            style={{ color: "rgba(13,13,13,0.45)" }}
           >
             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />

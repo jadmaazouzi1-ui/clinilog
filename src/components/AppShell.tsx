@@ -20,114 +20,113 @@ const NAV_ITEMS = [
   {
     href: "/dashboard",
     label: "Dashboard",
-    icon: (active: boolean) => (
-      <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <rect x="3" y="3" width="7" height="7" rx="1" strokeWidth={active ? 2 : 1.75} />
-        <rect x="14" y="3" width="7" height="7" rx="1" strokeWidth={active ? 2 : 1.75} />
-        <rect x="3" y="14" width="7" height="7" rx="1" strokeWidth={active ? 2 : 1.75} />
-        <rect x="14" y="14" width="7" height="7" rx="1" strokeWidth={active ? 2 : 1.75} />
+    icon: (
+      <svg className="w-[18px] h-[18px] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+        <rect x="3" y="3" width="7" height="7" rx="1" />
+        <rect x="14" y="3" width="7" height="7" rx="1" />
+        <rect x="3" y="14" width="7" height="7" rx="1" />
+        <rect x="14" y="14" width="7" height="7" rx="1" />
       </svg>
     ),
   },
   {
     href: "/archetype",
     label: "My Archetype",
-    icon: (active: boolean) => (
-      <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={active ? 2 : 1.75} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+    icon: (
+      <svg className="w-[18px] h-[18px] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
       </svg>
     ),
   },
   {
     href: "/schools",
     label: "Schools",
-    icon: (active: boolean) => (
-      <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={active ? 2 : 1.75} d="M3 21V7l9-4 9 4v14M9 21V12h6v9" />
+    icon: (
+      <svg className="w-[18px] h-[18px] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 21V7l9-4 9 4v14M9 21V12h6v9" />
       </svg>
     ),
   },
   {
     href: "/specialties",
     label: "Specialties",
-    icon: (active: boolean) => (
-      <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={active ? 2 : 1.75} d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6 6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={active ? 2 : 1.75} d="M8 15v1a6 6 0 0 0 6 6 6 6 0 0 0 6-6v-4" />
-        <circle cx="20" cy="10" r="2" strokeWidth={active ? 2 : 1.75} />
+    icon: (
+      <svg className="w-[18px] h-[18px] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6 6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3" />
+        <path d="M8 15v1a6 6 0 0 0 6 6 6 6 0 0 0 6-6v-4" />
+        <circle cx="20" cy="10" r="2" />
       </svg>
     ),
   },
   {
     href: "/gapyear",
     label: "Gap Year",
-    icon: (active: boolean) => (
-      <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={active ? 2 : 1.75} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+    icon: (
+      <svg className="w-[18px] h-[18px] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
       </svg>
     ),
   },
   {
     href: "/postbacc",
     label: "Post-bacc",
-    icon: (active: boolean) => (
-      <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={active ? 2 : 1.75} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+    icon: (
+      <svg className="w-[18px] h-[18px] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
       </svg>
     ),
   },
   {
     href: "/resources",
     label: "Resources",
-    icon: (active: boolean) => (
-      <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={active ? 2 : 1.75} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+    icon: (
+      <svg className="w-[18px] h-[18px] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
       </svg>
     ),
   },
   {
     href: "/fee-tracker",
     label: "Fee Tracker",
-    icon: (active: boolean) => (
-      <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <rect x="2" y="5" width="20" height="14" rx="2" strokeWidth={active ? 2 : 1.75} />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={active ? 2 : 1.75} d="M2 10h20" />
+    icon: (
+      <svg className="w-[18px] h-[18px] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+        <rect x="2" y="5" width="20" height="14" rx="2" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M2 10h20" />
       </svg>
     ),
   },
   {
     href: "/stories",
     label: "Stories",
-    icon: (active: boolean) => (
-      <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={active ? 2 : 1.75} d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-        <circle cx="9" cy="7" r="4" strokeWidth={active ? 2 : 1.75} />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={active ? 2 : 1.75} d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+    icon: (
+      <svg className="w-[18px] h-[18px] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+        <circle cx="9" cy="7" r="4" />
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
       </svg>
     ),
   },
   {
     href: "/import",
     label: "Import CSV",
-    icon: (active: boolean) => (
-      <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={active ? 2 : 1.75} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+    icon: (
+      <svg className="w-[18px] h-[18px] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
       </svg>
     ),
   },
   {
     href: "/profile",
     label: "Profile",
-    icon: (active: boolean) => (
-      <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <circle cx="12" cy="8" r="4" strokeWidth={active ? 2 : 1.75} />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={active ? 2 : 1.75} d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+    icon: (
+      <svg className="w-[18px] h-[18px] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+        <circle cx="12" cy="8" r="4" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
       </svg>
     ),
   },
 ];
 
-// Bottom tab bar uses the first 5 items
 const BOTTOM_TABS = NAV_ITEMS.slice(0, 5);
 
 const AUTO_BREADCRUMBS: Record<string, BreadcrumbItem[]> = {
@@ -162,43 +161,38 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
   const crumbs = breadcrumbs ?? AUTO_BREADCRUMBS[activePath] ?? [];
 
   return (
-    <div className="min-h-screen dot-grid-bg" style={{ backgroundColor: "#0A1628" }}>
-
-      {/* ── Desktop Sidebar ─────────────────────────────────── */}
+    <div className="min-h-screen graph-paper-bg" style={{ backgroundColor: "#F8F9FA" }}>
+      {/* ── Desktop Patient-Chart Sidebar ───────────────────────────── */}
       <aside
-        className="hidden md:flex flex-col fixed top-0 left-0 h-full z-40 overflow-hidden"
+        className="hidden md:flex flex-col fixed top-0 left-0 h-full z-40"
         style={{
-          width: collapsed ? 64 : 240,
+          width: collapsed ? 64 : 232,
           transition: "width 0.25s cubic-bezier(0.4,0,0.2,1)",
-          backgroundColor: "rgba(6,14,28,0.98)",
-          borderRight: "1px solid rgba(0,212,255,0.1)",
-          backdropFilter: "blur(20px)",
+          backgroundColor: "#FFFFFF",
+          borderRight: "1px solid #E5E7EB",
         }}
       >
-        {/* Logo */}
-        <div
-          className="flex items-center px-3.5 py-[18px] flex-shrink-0"
-          style={{ borderBottom: "1px solid rgba(0,212,255,0.08)" }}
-        >
-          <Link href="/" className="flex items-center gap-3 min-w-0 hover:opacity-80 transition-opacity">
+        {/* Logo with heartbeat-on-hover */}
+        <div className="px-4 py-5 flex-shrink-0" style={{ borderBottom: "1px solid #E5E7EB" }}>
+          <Link href="/" className="flex items-center gap-2.5 logo-pulse hover:opacity-90 transition-opacity">
             <div
-              className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
-              style={{ backgroundColor: "#00D4FF", boxShadow: "0 0 14px rgba(0,212,255,0.4)" }}
+              className="logo-pulse-target w-8 h-8 rounded-md flex items-center justify-center flex-shrink-0"
+              style={{ backgroundColor: "#1A6BFF" }}
             >
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#0A1628" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="3 12 6 9 9 13 12 7 15 11 18 8 21 12" />
               </svg>
             </div>
             {!collapsed && (
-              <span className="font-bold text-base tracking-wide whitespace-nowrap" style={{ color: "#F8FAFC" }}>
+              <span className="font-bold text-base tracking-tight whitespace-nowrap" style={{ color: "#0D0D0D" }}>
                 CliniLog
               </span>
             )}
           </Link>
         </div>
 
-        {/* Nav links */}
-        <nav className="flex-1 overflow-y-auto py-3 px-2 space-y-0.5">
+        {/* Patient chart tabs */}
+        <nav className="flex-1 overflow-y-auto py-3 px-2 space-y-1">
           {NAV_ITEMS.map((item) => {
             const isActive = activePath.startsWith(item.href);
             return (
@@ -206,23 +200,24 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
                 key={item.href}
                 href={item.href}
                 title={collapsed ? item.label : undefined}
-                className="group relative flex items-center gap-3 px-2.5 py-2.5 rounded-xl transition-all duration-150"
+                className="group relative flex items-center gap-3 pl-3 pr-2.5 py-2 rounded-r-md transition-all duration-150"
                 style={{
-                  color: isActive ? "#00D4FF" : "rgba(248,250,252,0.55)",
-                  backgroundColor: isActive ? "rgba(0,212,255,0.08)" : "transparent",
-                  borderLeft: `2px solid ${isActive ? "#00D4FF" : "transparent"}`,
-                  boxShadow: isActive ? "inset 4px 0 12px rgba(0,212,255,0.06)" : "none",
+                  color: isActive ? "#1A6BFF" : "#6B7280",
+                  backgroundColor: isActive ? "#FFFFFF" : "transparent",
+                  borderLeft: `3px solid ${isActive ? "#1A6BFF" : "transparent"}`,
+                  fontWeight: isActive ? 600 : 500,
+                  boxShadow: isActive ? "inset -1px 0 0 #E5E7EB, 0 1px 2px rgba(13,13,13,0.04)" : "none",
+                  marginRight: isActive ? -2 : 0,
                 }}
               >
-                {item.icon(isActive)}
+                {item.icon}
                 {!collapsed && (
-                  <span className="text-sm font-medium whitespace-nowrap">{item.label}</span>
+                  <span className="text-[13px] whitespace-nowrap" style={{ letterSpacing: "-0.005em" }}>{item.label}</span>
                 )}
-                {/* Collapsed tooltip */}
                 {collapsed && (
                   <span
-                    className="pointer-events-none absolute left-full ml-3 px-2.5 py-1 rounded-lg text-xs font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity z-50"
-                    style={{ backgroundColor: "#1E2A3A", color: "#00D4FF", border: "1px solid rgba(0,212,255,0.25)", boxShadow: "0 4px 12px rgba(0,0,0,0.4)" }}
+                    className="pointer-events-none absolute left-full ml-3 px-2.5 py-1 rounded text-xs font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity z-50"
+                    style={{ backgroundColor: "#0D0D0D", color: "#FFFFFF", boxShadow: "0 4px 12px rgba(13,13,13,0.15)" }}
                   >
                     {item.label}
                   </span>
@@ -232,74 +227,67 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
           })}
         </nav>
 
-        {/* Bottom section */}
-        <div
-          className="flex-shrink-0 px-2 pb-3 pt-2 space-y-1"
-          style={{ borderTop: "1px solid rgba(0,212,255,0.08)" }}
-        >
-          {/* Collapse toggle */}
+        {/* Footer controls */}
+        <div className="flex-shrink-0 px-2 pb-3 pt-2 space-y-1" style={{ borderTop: "1px solid #E5E7EB" }}>
           <button
             onClick={toggle}
             title={collapsed ? "Expand" : "Collapse"}
-            className="w-full flex items-center gap-3 px-2.5 py-2 rounded-xl transition-colors hover:bg-white/5"
-            style={{ color: "rgba(248,250,252,0.35)" }}
+            className="w-full flex items-center gap-3 px-2.5 py-1.5 rounded transition-colors hover:bg-gray-50"
+            style={{ color: "#9CA3AF" }}
           >
             <svg
-              className="w-5 h-5 flex-shrink-0 transition-transform duration-300"
+              className="w-4 h-4 flex-shrink-0 transition-transform duration-300"
               style={{ transform: collapsed ? "rotate(180deg)" : "none" }}
-              fill="none" stroke="currentColor" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M11 19l-7-7 7-7M18 19l-7-7 7-7" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M11 19l-7-7 7-7M18 19l-7-7 7-7" />
             </svg>
-            {!collapsed && <span className="text-xs whitespace-nowrap">Collapse</span>}
+            {!collapsed && <span className="text-[11px] whitespace-nowrap uppercase tracking-wider">Collapse</span>}
           </button>
 
-          {/* User email */}
           {!collapsed && (
             <div className="px-2.5 py-1">
-              <p className="text-xs truncate" style={{ color: "rgba(248,250,252,0.3)" }}>{userEmail}</p>
+              <p className="text-[11px] mono-stat truncate" style={{ color: "#9CA3AF" }}>{userEmail}</p>
             </div>
           )}
 
-          {/* Sign out */}
           <form action="/auth/signout" method="POST">
             <button
               type="submit"
               title={collapsed ? "Sign Out" : undefined}
-              className="w-full flex items-center gap-3 px-2.5 py-2 rounded-xl transition-colors hover:bg-white/5"
-              style={{ color: "rgba(248,250,252,0.4)" }}
+              className="w-full flex items-center gap-3 px-2.5 py-1.5 rounded transition-colors hover:bg-gray-50"
+              style={{ color: "#6B7280" }}
             >
-              <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
               </svg>
-              {!collapsed && <span className="text-sm whitespace-nowrap">Sign Out</span>}
+              {!collapsed && <span className="text-[13px] whitespace-nowrap">Sign Out</span>}
             </button>
           </form>
         </div>
       </aside>
 
-      {/* ── Main Content ─────────────────────────────────────── */}
-      <div className={`${collapsed ? "md:ml-16" : "md:ml-60"} transition-all duration-300 pb-16 md:pb-0`}>
-        {/* Breadcrumbs */}
+      {/* ── Main Content ───────────────────────────────────────────── */}
+      <div className={`${collapsed ? "md:ml-16" : "md:ml-[232px]"} transition-all duration-300 pb-16 md:pb-0`}>
         {crumbs.length > 0 && (
-          <div className="flex items-center gap-1.5 px-6 pt-5 pb-1">
+          <div className="flex items-center gap-1.5 px-6 pt-6 pb-1">
             {crumbs.map((crumb, i) => (
               <span key={i} className="flex items-center gap-1.5">
                 {i > 0 && (
-                  <svg className="w-3 h-3 flex-shrink-0" fill="none" stroke="#00D4FF" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                  <svg className="w-3 h-3 flex-shrink-0" fill="none" stroke="#9CA3AF" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 )}
                 {crumb.href ? (
                   <Link
                     href={crumb.href}
-                    className="text-xs font-medium hover:opacity-80 transition-opacity"
-                    style={{ color: "#00D4FF" }}
+                    className="text-[11px] uppercase tracking-wider font-semibold hover:opacity-80"
+                    style={{ color: "#1A6BFF" }}
                   >
                     {crumb.label}
                   </Link>
                 ) : (
-                  <span className="text-xs font-medium" style={{ color: "rgba(248,250,252,0.5)" }}>
+                  <span className="text-[11px] uppercase tracking-wider font-semibold" style={{ color: "#6B7280" }}>
                     {crumb.label}
                   </span>
                 )}
@@ -308,21 +296,13 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
           </div>
         )}
 
-        {/* Page content with fade-in */}
-        <div className="page-fade-in">
-          {children}
-        </div>
+        <div className="page-fade-in">{children}</div>
       </div>
 
-      {/* ── Mobile Bottom Tab Bar ────────────────────────────── */}
+      {/* ── Mobile Bottom Tab Bar ──────────────────────────────────── */}
       <nav
         className="md:hidden fixed bottom-0 left-0 right-0 z-40 flex items-stretch"
-        style={{
-          height: 60,
-          backgroundColor: "rgba(6,14,28,0.98)",
-          borderTop: "1px solid rgba(0,212,255,0.15)",
-          backdropFilter: "blur(20px)",
-        }}
+        style={{ height: 60, backgroundColor: "#FFFFFF", borderTop: "1px solid #E5E7EB" }}
       >
         {BOTTOM_TABS.map((item) => {
           const isActive = activePath.startsWith(item.href);
@@ -332,13 +312,11 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
               href={item.href}
               className="flex-1 flex flex-col items-center justify-center gap-0.5 transition-colors"
               style={{
-                color: isActive ? "#00D4FF" : "rgba(248,250,252,0.4)",
-                borderTop: `2px solid ${isActive ? "#00D4FF" : "transparent"}`,
+                color: isActive ? "#1A6BFF" : "#9CA3AF",
+                borderTop: `2px solid ${isActive ? "#1A6BFF" : "transparent"}`,
               }}
             >
-              <span style={{ filter: isActive ? "drop-shadow(0 0 5px rgba(0,212,255,0.7))" : "none" }}>
-                {item.icon(isActive)}
-              </span>
+              {item.icon}
               <span className="text-[10px] font-medium leading-none">{item.label}</span>
             </Link>
           );

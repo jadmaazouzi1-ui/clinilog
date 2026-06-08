@@ -197,7 +197,7 @@ function getMissionBadgeStyle(mission: string): React.CSSProperties {
   if (m.includes("underserved"))
     return { background: "rgba(16,185,129,0.1)", color: "#10B981", border: "1px solid rgba(16,185,129,0.3)" };
   if (m.includes("primary care"))
-    return { background: "rgba(0,212,255,0.1)", color: "#00D4FF", border: "1px solid rgba(0,212,255,0.3)" };
+    return { background: "rgba(26,107,255,0.1)", color: "#1A6BFF", border: "1px solid rgba(26,107,255,0.3)" };
   return { background: "rgba(139,92,246,0.1)", color: "#A78BFA", border: "1px solid rgba(139,92,246,0.3)" };
 }
 
@@ -260,22 +260,22 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
 
   // Inactive filter button style
   const inactiveFilterStyle: React.CSSProperties = {
-    background: "#1E2A3A",
-    border: "1px solid rgba(0,212,255,0.15)",
-    color: "rgba(248,250,252,0.6)",
+    background: "#FFFFFF",
+    border: "1px solid rgba(26,107,255,0.15)",
+    color: "rgba(13,13,13,0.6)",
   };
   // Active filter button style
   const activeFilterStyle: React.CSSProperties = {
-    background: "rgba(0,212,255,0.15)",
+    background: "rgba(26,107,255,0.15)",
     border: "1px solid #00D4FF",
-    color: "#00D4FF",
+    color: "#1A6BFF",
   };
 
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-2xl font-bold" style={{ color: "#F8FAFC" }}>Medical School Explorer</h1>
-        <p className="mt-1 text-sm" style={{ color: "rgba(248,250,252,0.5)" }}>
+        <h1 className="text-2xl font-bold" style={{ color: "#0D0D0D" }}>Medical School Explorer</h1>
+        <p className="mt-1 text-sm" style={{ color: "rgba(13,13,13,0.5)" }}>
           See how your stats compare to average applicant profiles across {SCHOOLS.length} programs.
         </p>
       </div>
@@ -284,7 +284,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
       <div className="glass-card rounded-2xl p-6 mb-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-3">
           <div>
-            <label htmlFor="gpa-input" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(248,250,252,0.85)" }}>GPA</label>
+            <label htmlFor="gpa-input" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(13,13,13,0.85)" }}>GPA</label>
             <input
               id="gpa-input" type="number" min={0} max={4.0} step={0.01} placeholder="e.g. 3.7"
               value={gpa} onChange={(e) => setGpa(e.target.value)}
@@ -292,7 +292,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
             />
           </div>
           <div>
-            <label htmlFor="mcat-input" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(248,250,252,0.85)" }}>MCAT</label>
+            <label htmlFor="mcat-input" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(13,13,13,0.85)" }}>MCAT</label>
             <input
               id="mcat-input" type="number" min={472} max={528} step={1} placeholder="e.g. 512"
               value={mcat} onChange={(e) => setMcat(e.target.value)}
@@ -300,10 +300,10 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
             />
           </div>
         </div>
-        <p className="text-xs" style={{ color: "rgba(248,250,252,0.4)" }}>Highlights schools within ±0.3 GPA and ±5 MCAT points of your stats.</p>
-        <div className="mt-4 pt-4" style={{ borderTop: "1px solid rgba(0,212,255,0.1)" }}>
-          <label htmlFor="home-state" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(248,250,252,0.85)" }}>
-            My Home State <span className="font-normal" style={{ color: "rgba(248,250,252,0.4)" }}>(optional — highlights in-state schools for you)</span>
+        <p className="text-xs" style={{ color: "rgba(13,13,13,0.4)" }}>Highlights schools within ±0.3 GPA and ±5 MCAT points of your stats.</p>
+        <div className="mt-4 pt-4" style={{ borderTop: "1px solid rgba(26,107,255,0.1)" }}>
+          <label htmlFor="home-state" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(13,13,13,0.85)" }}>
+            My Home State <span className="font-normal" style={{ color: "rgba(13,13,13,0.4)" }}>(optional — highlights in-state schools for you)</span>
           </label>
           <select
             id="home-state"
@@ -330,7 +330,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
               >
                 <span
                   className="w-2 h-2 rounded-full flex-shrink-0"
-                  style={{ backgroundColor: active ? "#00D4FF" : f.dot }}
+                  style={{ backgroundColor: active ? "#1A6BFF" : f.dot }}
                 />
                 {f.label}
               </button>
@@ -338,7 +338,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
           })}
 
           {/* Divider */}
-          <span className="w-px h-5 mx-1 self-center flex-shrink-0" style={{ background: "rgba(0,212,255,0.15)" }} />
+          <span className="w-px h-5 mx-1 self-center flex-shrink-0" style={{ background: "rgba(26,107,255,0.15)" }} />
 
           {/* In-state pref filter buttons */}
           {(["In-State Friendly", "Out-of-State Friendly"] as const).map((pref) => {
@@ -352,7 +352,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
               >
                 <span
                   className="w-2 h-2 rounded-full flex-shrink-0"
-                  style={{ backgroundColor: active ? "#00D4FF" : pref === "In-State Friendly" ? "#10B981" : "#38BDF8" }}
+                  style={{ backgroundColor: active ? "#1A6BFF" : pref === "In-State Friendly" ? "#10B981" : "#38BDF8" }}
                 />
                 {pref}
               </button>
@@ -360,7 +360,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
           })}
 
           {/* Divider */}
-          <span className="w-px h-5 mx-1 self-center flex-shrink-0" style={{ background: "rgba(0,212,255,0.15)" }} />
+          <span className="w-px h-5 mx-1 self-center flex-shrink-0" style={{ background: "rgba(26,107,255,0.15)" }} />
 
           <select
             value={stateFilter} onChange={(e) => setStateFilter(e.target.value)}
@@ -380,7 +380,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
           >
             <span
               className="w-2 h-2 rounded-full flex-shrink-0"
-              style={{ backgroundColor: matchOnly ? "#00D4FF" : "#6366F1" }}
+              style={{ backgroundColor: matchOnly ? "#1A6BFF" : "#6366F1" }}
             />
             My Stats Match
           </button>
@@ -391,7 +391,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
             <button
               type="button" onClick={clearAll}
               className="text-xs font-medium px-2 py-1"
-              style={{ color: "#00D4FF" }}
+              style={{ color: "#1A6BFF" }}
             >
               Clear all
             </button>
@@ -399,8 +399,8 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
         )}
       </div>
 
-      <p className="text-sm mb-4 font-medium" style={{ color: "rgba(248,250,252,0.5)" }}>
-        Showing <span className="font-semibold" style={{ color: "#F8FAFC" }}>{filtered.length}</span> of {SCHOOLS.length} schools
+      <p className="text-sm mb-4 font-medium" style={{ color: "rgba(13,13,13,0.5)" }}>
+        Showing <span className="font-semibold" style={{ color: "#0D0D0D" }}>{filtered.length}</span> of {SCHOOLS.length} schools
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -415,13 +415,13 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
                 isInStateForUser
                   ? { borderLeft: "4px solid #10B981", background: "rgba(16,185,129,0.05)" }
                   : match
-                  ? { borderLeft: "4px solid #00D4FF", background: "rgba(0,212,255,0.05)" }
+                  ? { borderLeft: "4px solid #00D4FF", background: "rgba(26,107,255,0.05)" }
                   : {}
               }
             >
               <div className="mb-3">
                 <div className="flex items-center gap-2 flex-wrap mb-1">
-                  <h3 className="text-sm font-bold leading-snug" style={{ color: "#F8FAFC" }}>{school.name}</h3>
+                  <h3 className="text-sm font-bold leading-snug" style={{ color: "#0D0D0D" }}>{school.name}</h3>
                   {isInStateForUser && (
                     <span
                       className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap"
@@ -433,7 +433,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
                   {match && !isInStateForUser && (
                     <span
                       className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap"
-                      style={{ background: "rgba(0,212,255,0.12)", color: "#00D4FF", border: "1px solid rgba(0,212,255,0.3)" }}
+                      style={{ background: "rgba(26,107,255,0.12)", color: "#1A6BFF", border: "1px solid rgba(26,107,255,0.3)" }}
                     >
                       Good Match
                     </span>
@@ -444,7 +444,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
               <div className="flex items-center gap-2 flex-wrap mb-3">
                 <span
                   className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
-                  style={{ background: "rgba(248,250,252,0.08)", color: "rgba(248,250,252,0.55)", border: "1px solid rgba(248,250,252,0.12)" }}
+                  style={{ background: "rgba(13,13,13,0.08)", color: "rgba(13,13,13,0.55)", border: "1px solid rgba(13,13,13,0.12)" }}
                 >
                   {school.state}
                 </span>
@@ -471,17 +471,17 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
               <div className="flex items-center gap-3">
                 <div
                   className="flex items-center gap-1.5 rounded-lg px-3 py-1.5"
-                  style={{ background: "rgba(0,212,255,0.05)", border: "1px solid rgba(0,212,255,0.12)" }}
+                  style={{ background: "rgba(26,107,255,0.05)", border: "1px solid rgba(26,107,255,0.12)" }}
                 >
-                  <span className="text-xs font-medium" style={{ color: "rgba(248,250,252,0.55)" }}>Avg GPA</span>
-                  <span className="text-sm font-bold" style={{ color: "#F8FAFC" }}>{school.avgGpa.toFixed(2)}</span>
+                  <span className="text-xs font-medium" style={{ color: "rgba(13,13,13,0.55)" }}>Avg GPA</span>
+                  <span className="text-sm font-bold" style={{ color: "#0D0D0D" }}>{school.avgGpa.toFixed(2)}</span>
                 </div>
                 <div
                   className="flex items-center gap-1.5 rounded-lg px-3 py-1.5"
-                  style={{ background: "rgba(0,212,255,0.05)", border: "1px solid rgba(0,212,255,0.12)" }}
+                  style={{ background: "rgba(26,107,255,0.05)", border: "1px solid rgba(26,107,255,0.12)" }}
                 >
-                  <span className="text-xs font-medium" style={{ color: "rgba(248,250,252,0.55)" }}>Avg MCAT</span>
-                  <span className="text-sm font-bold" style={{ color: "#F8FAFC" }}>{school.avgMcat}</span>
+                  <span className="text-xs font-medium" style={{ color: "rgba(13,13,13,0.55)" }}>Avg MCAT</span>
+                  <span className="text-sm font-bold" style={{ color: "#0D0D0D" }}>{school.avgMcat}</span>
                 </div>
               </div>
             </div>
@@ -490,8 +490,8 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
 
         {filtered.length === 0 && (
           <div className="col-span-1 sm:col-span-2 glass-card rounded-2xl p-10 text-center">
-            <p className="text-sm" style={{ color: "rgba(248,250,252,0.5)" }}>No schools match your current filters.</p>
-            <button type="button" onClick={clearAll} className="mt-3 text-sm font-medium" style={{ color: "#00D4FF" }}>
+            <p className="text-sm" style={{ color: "rgba(13,13,13,0.5)" }}>No schools match your current filters.</p>
+            <button type="button" onClick={clearAll} className="mt-3 text-sm font-medium" style={{ color: "#1A6BFF" }}>
               Clear all filters
             </button>
           </div>

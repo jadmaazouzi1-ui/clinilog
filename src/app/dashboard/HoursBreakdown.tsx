@@ -18,7 +18,7 @@ const TYPE_LABELS: Record<ExperienceType, string> = {
 };
 
 const COLORS: Record<ExperienceType, string> = {
-  shadowing:     "#00D4FF",
+  shadowing:     "#1A6BFF",
   clinical_work: "#6366F1",
   volunteer:     "#10B981",
   research:      "#8B5CF6",
@@ -51,7 +51,7 @@ export default function HoursBreakdown({
     >
       <h2
         className="text-sm font-semibold uppercase tracking-wide mb-6"
-        style={{ color: "rgba(248,250,252,0.5)" }}
+        style={{ color: "rgba(13,13,13,0.5)" }}
       >
         Hours Breakdown
       </h2>
@@ -82,10 +82,10 @@ export default function HoursBreakdown({
                 }}
                 contentStyle={{
                   borderRadius: "8px",
-                  border: "1px solid rgba(0,212,255,0.2)",
+                  border: "1px solid rgba(26,107,255,0.2)",
                   fontSize: "12px",
-                  backgroundColor: "#1E2A3A",
-                  color: "#F8FAFC",
+                  backgroundColor: "#FFFFFF",
+                  color: "#0D0D0D",
                 }}
               />
             </PieChart>
@@ -103,13 +103,13 @@ export default function HoursBreakdown({
                   className="w-3 h-3 rounded-full flex-shrink-0"
                   style={{ backgroundColor: COLORS[entry.type] }}
                 />
-                <span className="text-sm flex-1" style={{ color: "#F8FAFC" }}>
+                <span className="text-sm flex-1" style={{ color: "#0D0D0D" }}>
                   {entry.label}
                 </span>
-                <span className="text-sm font-semibold" style={{ color: "#F8FAFC" }}>
+                <span className="text-sm font-semibold" style={{ color: "#0D0D0D" }}>
                   {hrs} hrs
                 </span>
-                <span className="text-xs w-10 text-right" style={{ color: "rgba(248,250,252,0.4)" }}>
+                <span className="text-xs w-10 text-right" style={{ color: "rgba(13,13,13,0.4)" }}>
                   {pct}%
                 </span>
               </div>

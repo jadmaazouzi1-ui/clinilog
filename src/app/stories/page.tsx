@@ -8,7 +8,7 @@ const STORIES = [
   {
     name: "Maria",
     initial: "M",
-    color: "#00D4FF",
+    color: "#1A6BFF",
     undergrad: "UC Riverside",
     medSchool: "UCLA David Geffen School of Medicine",
     background: "Daughter of Mexican immigrants; first in her family to attend a four-year university. Worked 25 hours a week at the family restaurant throughout college.",
@@ -80,7 +80,7 @@ const STORIES = [
 ];
 
 const STATUS_BADGES: Record<string, { bg: string; text: string; border: string }> = {
-  "#00D4FF": { bg: "rgba(0,212,255,0.1)", text: "#00D4FF", border: "rgba(0,212,255,0.25)" },
+  "#1A6BFF": { bg: "rgba(26,107,255,0.1)", text: "#1A6BFF", border: "rgba(26,107,255,0.25)" },
   "#10B981": { bg: "rgba(16,185,129,0.1)", text: "#10B981", border: "rgba(16,185,129,0.25)" },
   "#A78BFA": { bg: "rgba(167,139,250,0.1)", text: "#A78BFA", border: "rgba(167,139,250,0.25)" },
   "#F59E0B": { bg: "rgba(245,158,11,0.1)", text: "#F59E0B", border: "rgba(245,158,11,0.25)" },
@@ -106,7 +106,7 @@ export default async function StoriesPage({
         <Link
           href="/dashboard"
           className="inline-flex items-center gap-1.5 text-sm font-medium mb-8"
-          style={{ color: "#00D4FF" }}
+          style={{ color: "#1A6BFF" }}
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -117,10 +117,10 @@ export default async function StoriesPage({
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-6 mb-10">
           <div>
-            <h1 className="text-2xl font-bold mb-2" style={{ color: "#F8FAFC" }}>
+            <h1 className="text-2xl font-bold mb-2" style={{ color: "#0D0D0D" }}>
               First-Gen Success Stories
             </h1>
-            <p className="text-sm leading-relaxed max-w-xl" style={{ color: "rgba(248,250,252,0.55)" }}>
+            <p className="text-sm leading-relaxed max-w-xl" style={{ color: "rgba(13,13,13,0.55)" }}>
               Real students. Real obstacles. Real acceptance letters. These are the journeys of first-generation pre-med students who made it — and want you to know you can too.
             </p>
           </div>
@@ -153,7 +153,7 @@ export default async function StoriesPage({
         {/* Story cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {STORIES.map((s) => {
-            const badge = STATUS_BADGES[s.color] ?? STATUS_BADGES["#00D4FF"];
+            const badge = STATUS_BADGES[s.color] ?? STATUS_BADGES["#1A6BFF"];
             return (
               <div key={s.name} className="glass-card rounded-2xl p-6 flex flex-col gap-4">
                 {/* Avatar + name row */}
@@ -165,8 +165,8 @@ export default async function StoriesPage({
                     {s.initial}
                   </div>
                   <div className="min-w-0">
-                    <p className="font-semibold text-base" style={{ color: "#F8FAFC" }}>{s.name}</p>
-                    <p className="text-xs truncate" style={{ color: "rgba(248,250,252,0.5)" }}>{s.undergrad}</p>
+                    <p className="font-semibold text-base" style={{ color: "#0D0D0D" }}>{s.name}</p>
+                    <p className="text-xs truncate" style={{ color: "rgba(13,13,13,0.5)" }}>{s.undergrad}</p>
                   </div>
                 </div>
 
@@ -182,14 +182,14 @@ export default async function StoriesPage({
                 </div>
 
                 {/* Background */}
-                <p className="text-xs leading-relaxed" style={{ color: "rgba(248,250,252,0.5)" }}>
+                <p className="text-xs leading-relaxed" style={{ color: "rgba(13,13,13,0.5)" }}>
                   {s.background}
                 </p>
 
                 {/* Quote */}
                 <blockquote
                   className="text-sm leading-relaxed border-l-2 pl-4 italic"
-                  style={{ color: "rgba(248,250,252,0.82)", borderColor: s.color }}
+                  style={{ color: "rgba(13,13,13,0.82)", borderColor: s.color }}
                 >
                   &ldquo;{s.quote}&rdquo;
                 </blockquote>
@@ -201,10 +201,10 @@ export default async function StoriesPage({
         {/* Bottom CTA */}
         <div
           className="mt-10 rounded-2xl p-8 text-center"
-          style={{ background: "rgba(0,212,255,0.05)", border: "1px solid rgba(0,212,255,0.15)" }}
+          style={{ background: "rgba(26,107,255,0.05)", border: "1px solid rgba(26,107,255,0.15)" }}
         >
-          <h2 className="text-lg font-bold mb-2" style={{ color: "#F8FAFC" }}>Got into medical school?</h2>
-          <p className="text-sm mb-5" style={{ color: "rgba(248,250,252,0.55)" }}>
+          <h2 className="text-lg font-bold mb-2" style={{ color: "#0D0D0D" }}>Got into medical school?</h2>
+          <p className="text-sm mb-5" style={{ color: "rgba(13,13,13,0.55)" }}>
             Your story could be the one that keeps someone else going. Share it — we&apos;ll review it and add it to this page.
           </p>
           <ShareStoryModal />

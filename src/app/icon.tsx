@@ -20,7 +20,7 @@ export default function Icon() {
         <svg width="22" height="22" viewBox="0 0 24 24">
           <polyline
             points="2,12 5,12 7,7 9,17 11,10 13,14 15,12 22,12"
-            stroke="#00D4FF"
+            stroke="#1A6BFF"
             strokeWidth="2.5"
             fill="none"
             strokeLinecap="round"
