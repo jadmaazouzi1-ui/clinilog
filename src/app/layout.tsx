@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -16,6 +16,14 @@ export const metadata: Metadata = {
   title: "CliniLog — Your Pre-Med Journey, Organized",
   description:
     "Track your clinical hours, explore 150+ medical schools, and build your path to medicine — all in one free tool.",
+};
+
+// Next.js 16 emits <meta name="viewport" content="..."> from this export.
+// Forces the landing page (and every page) to render at native scale on
+// every device — no zoomed-out experience after sign out.
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
