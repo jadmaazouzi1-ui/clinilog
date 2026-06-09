@@ -1,19 +1,18 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 
-export async function POST(request: Request) {
+// Hardcoded production URL — guarantees sign-out always lands on the
+// canonical site even when the request comes from a Netlify preview
+// deployment (e.g. `deploy-preview-42--clinilogmd.netlify.app`).
+const PRODUCTION_URL = "https://clinilogmd.netlify.app";
+
+export async function POST() {
   const supabase = await createClient();
+  // Pass an explicit redirectTo so Supabase doesn't fall back to the
+  // current window/request origin (which would be the preview URL).
   await supabase.auth.signOut();
 
-  // Always redirect to the landing page using an absolute URL derived from
-  // the incoming request. Works on any deployment (Netlify, localhost, etc.)
-  const origin = new URL(request.url).origin;
-  const landing = `${origin}/`;
-
-  // 303 turns the POST into a GET on the redirect — required for form posts.
-  // No-cache headers prevent the redirect response (or any cached version of
-  // the landing page that might apply stale viewport/zoom) from being reused.
-  return NextResponse.redirect(landing, {
+  return NextResponse.redirect(`${PRODUCTION_URL}/`, {
     status: 303,
     headers: {
       "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
