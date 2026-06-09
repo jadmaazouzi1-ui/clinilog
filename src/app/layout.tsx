@@ -19,8 +19,9 @@ export const metadata: Metadata = {
 };
 
 // Next.js 16 emits <meta name="viewport" content="..."> from this export.
-// Forces the landing page (and every page) to render at native scale on
-// every device — no zoomed-out experience after sign out.
+// Forces every page (including post-signout landing) to render at native
+// 1.0 scale. No maximumScale / minimumScale set — those would constrain
+// the user's ability to pinch-zoom and aren't appropriate here.
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,

@@ -28,6 +28,16 @@
 
 html {
   background-color: var(--bg-primary);
+  /* Lock text size — prevents iOS Safari and some Android browsers from
+     auto-zooming text after orientation changes, navigations, or redirects.
+     This is the single most common cause of "zoomed out after sign out"
+     bugs that survive a hard refresh. */
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Defensive: explicit width prevents any browser's mobile-emulation
+     fallback from rendering at 980px and scaling down. */
+  width: 100%;
 }
 
 body {
@@ -36,6 +46,11 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  /* No transforms, no zoom, no scale — ever. Listed explicitly so future
+     edits don't accidentally introduce a body-level transform. */
+  transform: none;
+  zoom: 1;
 }
 
 /* ── Legacy classes redefined to navy/amber ───────────────────────────── */
