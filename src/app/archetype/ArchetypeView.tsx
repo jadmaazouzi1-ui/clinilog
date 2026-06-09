@@ -102,7 +102,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
             style={{ backgroundColor: "#E8A020", boxShadow: "0 0 30px rgba(232,160,32,0.6)" }}
           >
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0A1628" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="3 12 6 9 9 13 12 7 15 11 18 8 21 12" />
+              <polyline points="2,12 7,12 8,9 10,12 12,3 13,21 14,12 16,9 18,12 22,12" />
             </svg>
           </div>
         </div>

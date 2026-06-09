@@ -43,7 +43,7 @@ export default async function LoginPage({
     <div className="inline-flex items-center gap-2 mb-4">
       <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#E8A020" }}>
         <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#0A1628" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-          <polyline points="3 12 6 9 9 13 12 7 15 11 18 8 21 12" />
+          <polyline points="2,12 7,12 8,9 10,12 12,3 13,21 14,12 16,9 18,12 22,12" />
         </svg>
       </div>
       <span className="font-semibold text-xl" style={{ color: "#FFFFFF" }}>CliniLog</span>
