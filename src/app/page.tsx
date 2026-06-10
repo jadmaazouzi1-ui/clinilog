@@ -173,7 +173,7 @@ export default async function HomePage() {
             {/* Social proof */}
             <div className="mb-10 flex items-center justify-center gap-2 flex-wrap">
               <div className="flex -space-x-2">
-                {["#E8A020", "#10B981", "#A78BFA", "#F59E0B"].map((c, i) => (
+                {["#E8A020", "#22C55E", "#A78BFA", "#F59E0B"].map((c, i) => (
                   <div
                     key={i}
                     className="w-7 h-7 rounded-full border-2 flex items-center justify-center text-xs font-bold"
@@ -427,7 +427,7 @@ export default async function HomePage() {
                     className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
                     style={{ backgroundColor: "#E8A020", boxShadow: "0 0 12px rgba(232,160,32,0.4)" }}
                   >
-                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#0A1628" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#1A1A2E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                       <polyline points="2,12 7,12 8,9 10,12 12,3 13,21 14,12 16,9 18,12 22,12" />
                     </svg>
                   </div>

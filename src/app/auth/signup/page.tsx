@@ -2,11 +2,16 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 
-export default function SignupPage({
+export default async function SignupPage({
   searchParams,
 }: {
   searchParams?: Promise<{ error?: string }>;
 }) {
+  // Already-authed users skip the signup form.
+  const supabaseInit = await createClient();
+  const { data: { user: existingUser } } = await supabaseInit.auth.getUser();
+  if (existingUser) redirect("/dashboard");
+
   async function signup(formData: FormData) {
     "use server";
 
@@ -40,7 +45,7 @@ export default function SignupPage({
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 mb-4">
             <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#E8A020" }}>
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#0A1628" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#1A1A2E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="2,12 7,12 8,9 10,12 12,3 13,21 14,12 16,9 18,12 22,12" />
               </svg>
             </div>

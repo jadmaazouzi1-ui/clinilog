@@ -195,7 +195,7 @@ function getMissionBadgeStyle(mission: string): React.CSSProperties {
   if (m.includes("underserved") && m.includes("primary"))
     return { background: "rgba(45,212,191,0.1)", color: "#2DD4BF", border: "1px solid rgba(45,212,191,0.3)" };
   if (m.includes("underserved"))
-    return { background: "rgba(16,185,129,0.1)", color: "#10B981", border: "1px solid rgba(16,185,129,0.3)" };
+    return { background: "rgba(34,197,94,0.1)", color: "#22C55E", border: "1px solid rgba(34,197,94,0.3)" };
   if (m.includes("primary care"))
     return { background: "rgba(232,160,32,0.1)", color: "#E8A020", border: "1px solid rgba(232,160,32,0.3)" };
   return { background: "rgba(139,92,246,0.1)", color: "#A78BFA", border: "1px solid rgba(139,92,246,0.3)" };
@@ -352,7 +352,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
               >
                 <span
                   className="w-2 h-2 rounded-full flex-shrink-0"
-                  style={{ backgroundColor: active ? "#E8A020" : pref === "In-State Friendly" ? "#10B981" : "#38BDF8" }}
+                  style={{ backgroundColor: active ? "#E8A020" : pref === "In-State Friendly" ? "#22C55E" : "#38BDF8" }}
                 />
                 {pref}
               </button>
@@ -413,7 +413,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
               className="glass-card rounded-2xl p-5 transition-all"
               style={
                 isInStateForUser
-                  ? { borderLeft: "4px solid #10B981", background: "rgba(16,185,129,0.05)" }
+                  ? { borderLeft: "4px solid #10B981", background: "rgba(34,197,94,0.05)" }
                   : match
                   ? { borderLeft: "4px solid #00D4FF", background: "rgba(232,160,32,0.05)" }
                   : {}
@@ -425,7 +425,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
                   {isInStateForUser && (
                     <span
                       className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap"
-                      style={{ background: "rgba(16,185,129,0.12)", color: "#10B981", border: "1px solid rgba(16,185,129,0.3)" }}
+                      style={{ background: "rgba(34,197,94,0.12)", color: "#22C55E", border: "1px solid rgba(34,197,94,0.3)" }}
                     >
                       In-State for You ✓
                     </span>
@@ -459,7 +459,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
                     className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                     style={
                       school.inStatePref === "In-State Friendly"
-                        ? { background: "rgba(16,185,129,0.1)", color: "#10B981", border: "1px solid rgba(16,185,129,0.3)" }
+                        ? { background: "rgba(34,197,94,0.1)", color: "#22C55E", border: "1px solid rgba(34,197,94,0.3)" }
                         : { background: "rgba(56,189,248,0.1)", color: "#38BDF8", border: "1px solid rgba(56,189,248,0.3)" }
                     }
                   >

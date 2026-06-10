@@ -99,7 +99,7 @@ export default function ReframeableTextarea({
 
       {/* Error */}
       {error && (
-        <p className="text-xs" style={{ color: "#FF4757" }}>{error}</p>
+        <p className="text-xs" style={{ color: "#EF4444" }}>{error}</p>
       )}
 
       {/* Action row */}

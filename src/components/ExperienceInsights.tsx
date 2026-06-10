@@ -80,7 +80,7 @@ const RECOMMENDATIONS = {
 };
 
 const STAGE_META: Record<Stage, { label: string; tone: string; color: string; bg: string }> = {
-  freshman:  { label: "Freshman",        tone: "Building your foundation",       color: "#10B981", bg: "rgba(16,185,129,0.08)"  },
+  freshman:  { label: "Freshman",        tone: "Building your foundation",       color: "#22C55E", bg: "rgba(34,197,94,0.08)"  },
   sophomore: { label: "Sophomore",       tone: "Hitting midpoint goals",         color: "#E8A020", bg: "rgba(232,160,32,0.08)"   },
   junior:    { label: "Junior",          tone: "Cycle is approaching",           color: "#F59E0B", bg: "rgba(245,158,11,0.08)"  },
   senior:    { label: "Senior",          tone: "Apply-cycle territory",          color: "#FB923C", bg: "rgba(251,146,60,0.1)"   },

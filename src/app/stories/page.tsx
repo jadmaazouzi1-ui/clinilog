@@ -17,7 +17,7 @@ const STORIES = [
   {
     name: "DeShawn",
     initial: "D",
-    color: "#10B981",
+    color: "#22C55E",
     undergrad: "Howard University",
     medSchool: "Johns Hopkins School of Medicine",
     background: "Grew up in West Baltimore; first-generation college student raised by a single mother who worked as a home health aide.",
@@ -44,7 +44,7 @@ const STORIES = [
   {
     name: "Aisha",
     initial: "A",
-    color: "#FF4757",
+    color: "#EF4444",
     undergrad: "Morgan State University",
     medSchool: "University of Maryland School of Medicine",
     background: "HBCU graduate from Baltimore; first in her extended family to enter the medical pipeline. Navigated the application process entirely without a pre-med advisor.",
@@ -71,7 +71,7 @@ const STORIES = [
   {
     name: "James",
     initial: "J",
-    color: "#10B981",
+    color: "#22C55E",
     undergrad: "University of New Mexico",
     medSchool: "UNM School of Medicine",
     background: "Diné (Navajo Nation); grew up in a rural community with limited healthcare access. First in his family to leave the reservation for college.",
@@ -81,12 +81,12 @@ const STORIES = [
 
 const STATUS_BADGES: Record<string, { bg: string; text: string; border: string }> = {
   "#E8A020": { bg: "rgba(232,160,32,0.1)", text: "#E8A020", border: "rgba(232,160,32,0.25)" },
-  "#10B981": { bg: "rgba(16,185,129,0.1)", text: "#10B981", border: "rgba(16,185,129,0.25)" },
+  "#22C55E": { bg: "rgba(34,197,94,0.1)", text: "#22C55E", border: "rgba(34,197,94,0.25)" },
   "#A78BFA": { bg: "rgba(167,139,250,0.1)", text: "#A78BFA", border: "rgba(167,139,250,0.25)" },
   "#F59E0B": { bg: "rgba(245,158,11,0.1)", text: "#F59E0B", border: "rgba(245,158,11,0.25)" },
-  "#FF4757": { bg: "rgba(255,71,87,0.1)", text: "#FF4757", border: "rgba(255,71,87,0.25)" },
+  "#EF4444": { bg: "rgba(239,68,68,0.1)", text: "#EF4444", border: "rgba(239,68,68,0.25)" },
   "#38BDF8": { bg: "rgba(56,189,248,0.1)", text: "#38BDF8", border: "rgba(56,189,248,0.25)" },
-  "#6366F1": { bg: "rgba(99,102,241,0.1)", text: "#99,102,241", border: "rgba(99,102,241,0.25)" },
+  "#6366F1": { bg: "rgba(99,102,241,0.1)", text: "#6366F1", border: "rgba(99,102,241,0.25)" },
 };
 
 export default async function StoriesPage({
@@ -132,7 +132,7 @@ export default async function StoriesPage({
         {submitted === "1" && (
           <div
             className="mb-8 text-sm rounded-xl px-4 py-3 flex items-center gap-2"
-            style={{ background: "rgba(16,185,129,0.1)", border: "1px solid rgba(16,185,129,0.3)", color: "#10B981" }}
+            style={{ background: "rgba(34,197,94,0.1)", border: "1px solid rgba(34,197,94,0.3)", color: "#22C55E" }}
           >
             <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -144,7 +144,7 @@ export default async function StoriesPage({
         {pageError && (
           <div
             className="mb-8 text-sm rounded-xl px-4 py-3"
-            style={{ background: "rgba(255,71,87,0.1)", border: "1px solid rgba(255,71,87,0.3)", color: "#FF4757" }}
+            style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", color: "#EF4444" }}
           >
             {decodeURIComponent(pageError)}
           </div>

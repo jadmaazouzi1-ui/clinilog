@@ -71,7 +71,7 @@ export default async function EditExperiencePage({
           {pageError && (
             <div
               className="mb-6 text-sm rounded-xl px-4 py-3"
-              style={{ background: "rgba(255,71,87,0.1)", border: "1px solid rgba(255,71,87,0.3)", color: "#FF4757" }}
+              style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", color: "#EF4444" }}
             >
               Error: {decodeURIComponent(pageError)}
             </div>
@@ -85,7 +85,7 @@ export default async function EditExperiencePage({
                 className="block text-sm font-medium mb-1.5"
                 style={{ color: "rgba(255,255,255,0.85)" }}
               >
-                Title <span style={{ color: "#FF4757" }}>*</span>
+                Title <span style={{ color: "#EF4444" }}>*</span>
               </label>
               <input
                 id="title"
@@ -105,7 +105,7 @@ export default async function EditExperiencePage({
                 className="block text-sm font-medium mb-1.5"
                 style={{ color: "rgba(255,255,255,0.85)" }}
               >
-                Organization <span style={{ color: "#FF4757" }}>*</span>
+                Organization <span style={{ color: "#EF4444" }}>*</span>
               </label>
               <input
                 id="organization"
@@ -125,7 +125,7 @@ export default async function EditExperiencePage({
                 className="block text-sm font-medium mb-1.5"
                 style={{ color: "rgba(255,255,255,0.85)" }}
               >
-                Type <span style={{ color: "#FF4757" }}>*</span>
+                Type <span style={{ color: "#EF4444" }}>*</span>
               </label>
               <select
                 id="experience_type"
@@ -151,7 +151,7 @@ export default async function EditExperiencePage({
                   className="block text-sm font-medium mb-1.5"
                   style={{ color: "rgba(255,255,255,0.85)" }}
                 >
-                  Start Date <span style={{ color: "#FF4757" }}>*</span>
+                  Start Date <span style={{ color: "#EF4444" }}>*</span>
                 </label>
                 <input
                   id="start_date"
@@ -188,7 +188,7 @@ export default async function EditExperiencePage({
                 className="block text-sm font-medium mb-1.5"
                 style={{ color: "rgba(255,255,255,0.85)" }}
               >
-                Hours <span style={{ color: "#FF4757" }}>*</span>
+                Hours <span style={{ color: "#EF4444" }}>*</span>
               </label>
               <input
                 id="hours"

@@ -18,14 +18,14 @@ const STATUS_STYLES: Record<WaiverStatus, { background: string; color: string; b
     border: "1px solid rgba(232,160,32,0.3)",
   },
   Approved: {
-    background: "rgba(16,185,129,0.1)",
-    color: "#10B981",
-    border: "1px solid rgba(16,185,129,0.3)",
+    background: "rgba(34,197,94,0.1)",
+    color: "#22C55E",
+    border: "1px solid rgba(34,197,94,0.3)",
   },
   Denied: {
-    background: "rgba(255,71,87,0.1)",
-    color: "#FF4757",
-    border: "1px solid rgba(255,71,87,0.3)",
+    background: "rgba(239,68,68,0.1)",
+    color: "#EF4444",
+    border: "1px solid rgba(239,68,68,0.3)",
   },
 };
 
@@ -123,7 +123,7 @@ export default async function FeeTrackerPage() {
               {/* Name */}
               <div>
                 <label htmlFor="name" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(255,255,255,0.85)" }}>
-                  Program / Waiver Name <span style={{ color: "#FF4757" }}>*</span>
+                  Program / Waiver Name <span style={{ color: "#EF4444" }}>*</span>
                 </label>
                 <input
                   id="name"
@@ -259,7 +259,7 @@ export default async function FeeTrackerPage() {
 
                       <div className="flex items-center gap-4 text-xs flex-wrap" style={{ color: "rgba(255,255,255,0.5)" }}>
                         {waiver.amount_saved != null && (
-                          <span className="font-semibold" style={{ color: "#10B981" }}>
+                          <span className="font-semibold" style={{ color: "#22C55E" }}>
                             ${Number(waiver.amount_saved).toFixed(2)} saved
                           </span>
                         )}
@@ -311,7 +311,7 @@ export default async function FeeTrackerPage() {
                         <button
                           type="submit"
                           className="p-2 rounded-lg transition-colors"
-                          style={{ color: "#FF4757", border: "1px solid rgba(255,71,87,0.25)", background: "rgba(255,71,87,0.08)" }}
+                          style={{ color: "#EF4444", border: "1px solid rgba(239,68,68,0.25)", background: "rgba(239,68,68,0.08)" }}
                           aria-label="Delete waiver"
                         >
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

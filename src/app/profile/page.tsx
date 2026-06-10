@@ -55,7 +55,7 @@ export default async function ProfilePage({
         {saved === "1" && (
           <div
             className="mb-6 text-sm rounded-xl px-4 py-3"
-            style={{ background: "rgba(16,185,129,0.1)", border: "1px solid rgba(16,185,129,0.3)", color: "#10B981" }}
+            style={{ background: "rgba(34,197,94,0.1)", border: "1px solid rgba(34,197,94,0.3)", color: "#22C55E" }}
           >
             Profile saved successfully.
           </div>
@@ -64,7 +64,7 @@ export default async function ProfilePage({
         {pageError && (
           <div
             className="mb-6 text-sm rounded-xl px-4 py-3"
-            style={{ background: "rgba(255,71,87,0.1)", border: "1px solid rgba(255,71,87,0.3)", color: "#FF4757" }}
+            style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", color: "#EF4444" }}
           >
             Error: {decodeURIComponent(pageError)}
           </div>

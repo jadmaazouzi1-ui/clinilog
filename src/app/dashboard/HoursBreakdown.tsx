@@ -20,7 +20,7 @@ const TYPE_LABELS: Record<ExperienceType, string> = {
 const COLORS: Record<ExperienceType, string> = {
   shadowing:     "#E8A020",
   clinical_work: "#6366F1",
-  volunteer:     "#10B981",
+  volunteer:     "#22C55E",
   research:      "#8B5CF6",
   other:         "#475569",
 };

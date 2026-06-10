@@ -44,7 +44,7 @@ export default function AMCASTracker({
                 <span className="text-xs tabular-nums">
                   <span
                     className="font-semibold"
-                    style={{ color: met ? "#E8A020" : "#FF4757" }}
+                    style={{ color: met ? "#E8A020" : "#EF4444" }}
                   >
                     {display}
                   </span>
@@ -62,7 +62,7 @@ export default function AMCASTracker({
               >
                 <div
                   className="h-full rounded-full transition-all duration-500"
-                  style={{ width: `${pct}%`, backgroundColor: met ? "#E8A020" : "#FF4757" }}
+                  style={{ width: `${pct}%`, backgroundColor: met ? "#E8A020" : "#EF4444" }}
                 />
               </div>
             </div>

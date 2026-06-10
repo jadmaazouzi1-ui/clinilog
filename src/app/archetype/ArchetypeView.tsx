@@ -101,7 +101,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
             className="absolute inset-3 rounded-full flex items-center justify-center"
             style={{ backgroundColor: "#E8A020", boxShadow: "0 0 30px rgba(232,160,32,0.6)" }}
           >
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0A1628" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1A1A2E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="2,12 7,12 8,9 10,12 12,3 13,21 14,12 16,9 18,12 22,12" />
             </svg>
           </div>
@@ -126,7 +126,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
   if (error && !analysis) {
     return (
       <div className="glass-card rounded-2xl p-10 text-center">
-        <h1 className="text-lg font-bold mb-3" style={{ color: "#FF4757" }}>Couldn&apos;t generate your archetype</h1>
+        <h1 className="text-lg font-bold mb-3" style={{ color: "#EF4444" }}>Couldn&apos;t generate your archetype</h1>
         <p className="text-sm mb-6 max-w-md mx-auto" style={{ color: "rgba(255,255,255,0.6)" }}>{error}</p>
         <button
           onClick={runAnalysis}
@@ -152,7 +152,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
     if (!ctx) return;
 
     // Background
-    ctx.fillStyle = "#0A1628";
+    ctx.fillStyle = "#1A1A2E";
     ctx.fillRect(0, 0, w, h);
 
     // Dot grid
@@ -397,7 +397,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
       {error && (
         <div
           className="text-sm rounded-xl px-4 py-3"
-          style={{ background: "rgba(255,71,87,0.1)", border: "1px solid rgba(255,71,87,0.3)", color: "#FF4757" }}
+          style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", color: "#EF4444" }}
         >
           {error}
         </div>

@@ -54,7 +54,7 @@ export default async function NewExperiencePage() {
                 className="block text-sm font-medium mb-1.5"
                 style={{ color: "rgba(255,255,255,0.85)" }}
               >
-                Title <span style={{ color: "#FF4757" }}>*</span>
+                Title <span style={{ color: "#EF4444" }}>*</span>
               </label>
               <input
                 id="title"
@@ -73,7 +73,7 @@ export default async function NewExperiencePage() {
                 className="block text-sm font-medium mb-1.5"
                 style={{ color: "rgba(255,255,255,0.85)" }}
               >
-                Organization <span style={{ color: "#FF4757" }}>*</span>
+                Organization <span style={{ color: "#EF4444" }}>*</span>
               </label>
               <input
                 id="organization"
@@ -92,7 +92,7 @@ export default async function NewExperiencePage() {
                 className="block text-sm font-medium mb-1.5"
                 style={{ color: "rgba(255,255,255,0.85)" }}
               >
-                Type <span style={{ color: "#FF4757" }}>*</span>
+                Type <span style={{ color: "#EF4444" }}>*</span>
               </label>
               <select
                 id="experience_type"
@@ -117,7 +117,7 @@ export default async function NewExperiencePage() {
                   className="block text-sm font-medium mb-1.5"
                   style={{ color: "rgba(255,255,255,0.85)" }}
                 >
-                  Start Date <span style={{ color: "#FF4757" }}>*</span>
+                  Start Date <span style={{ color: "#EF4444" }}>*</span>
                 </label>
                 <input
                   id="start_date"
@@ -152,7 +152,7 @@ export default async function NewExperiencePage() {
                 className="block text-sm font-medium mb-1.5"
                 style={{ color: "rgba(255,255,255,0.85)" }}
               >
-                Hours <span style={{ color: "#FF4757" }}>*</span>
+                Hours <span style={{ color: "#EF4444" }}>*</span>
               </label>
               <input
                 id="hours"

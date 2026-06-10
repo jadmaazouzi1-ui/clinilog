@@ -20,7 +20,7 @@ export const ARCHETYPES: Archetype[] = [
     name: "The Community Healer",
     tagline: "Medicine as service. Service as identity.",
     description: "Volunteer-driven, mission-aligned, and deeply rooted in serving the underserved. Primary care is your calling.",
-    color: "#10B981",
+    color: "#22C55E",
     iconPath: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z",
     idealSchools: [
       "University of New Mexico School of Medicine",
@@ -65,7 +65,7 @@ export const ARCHETYPES: Archetype[] = [
     name: "The Clinical Immersive",
     tagline: "Hours on the floor. Eyes on the patient.",
     description: "Hands-on, patient-obsessed, and addicted to the clinical environment. You learn by doing.",
-    color: "#FF4757",
+    color: "#EF4444",
     iconPath: "M19 14l-7 7m0 0l-7-7m7 7V3",
     idealSchools: [
       "Sidney Kimmel Medical College (Thomas Jefferson)",

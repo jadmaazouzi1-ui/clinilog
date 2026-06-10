@@ -162,7 +162,7 @@ export default function AIAdvisorButton() {
         }}
       >
         {/* Stethoscope icon */}
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0A1628" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1A1A2E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6 6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3" />
           <path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4" />
           <circle cx="20" cy="10" r="2" />
@@ -319,7 +319,7 @@ export default function AIAdvisorButton() {
                 opacity: input.trim() && !loading ? 1 : 0.6,
               }}
             >
-              <svg className="w-4 h-4" fill="none" stroke={input.trim() && !loading ? "#0A1628" : "#E8A020"} viewBox="0 0 24 24">
+              <svg className="w-4 h-4" fill="none" stroke={input.trim() && !loading ? "#1A1A2E" : "#E8A020"} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
               </svg>
             </button>

@@ -8,6 +8,11 @@ export default async function LoginPage({
 }: {
   searchParams?: Promise<{ error?: string; view?: string; sent?: string }>;
 }) {
+  // Already-authed users skip the login form.
+  const supabaseInit = await createClient();
+  const { data: { user: existingUser } } = await supabaseInit.auth.getUser();
+  if (existingUser) redirect("/dashboard");
+
   const params = await searchParams;
   const pageError = params?.error;
   const view = params?.view;
@@ -42,7 +47,7 @@ export default async function LoginPage({
   const LogoMark = () => (
     <div className="inline-flex items-center gap-2 mb-4">
       <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#E8A020" }}>
-        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#0A1628" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#1A1A2E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
           <polyline points="2,12 7,12 8,9 10,12 12,3 13,21 14,12 16,9 18,12 22,12" />
         </svg>
       </div>
@@ -92,7 +97,7 @@ export default async function LoginPage({
                 {pageError && (
                   <div
                     className="mb-5 text-sm rounded-lg px-4 py-3"
-                    style={{ background: "rgba(255,71,87,0.1)", border: "1px solid rgba(255,71,87,0.3)", color: "#FF4757" }}
+                    style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", color: "#EF4444" }}
                   >
                     {decodeURIComponent(pageError)}
                   </div>
@@ -149,7 +154,7 @@ export default async function LoginPage({
           {pageError && (
             <div
               className="mb-5 text-sm rounded-lg px-4 py-3"
-              style={{ background: "rgba(255,71,87,0.1)", border: "1px solid rgba(255,71,87,0.3)", color: "#FF4757" }}
+              style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", color: "#EF4444" }}
             >
               {decodeURIComponent(pageError)}
             </div>

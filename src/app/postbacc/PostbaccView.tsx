@@ -160,7 +160,7 @@ export default function PostbaccView({
                 type="checkbox"
                 checked={cBcpm}
                 onChange={(e) => setCBcpm(e.target.checked)}
-                className="accent-cyan-400 w-4 h-4"
+                className="accent-amber-500 w-4 h-4"
               />
               BCPM course (Bio, Chem, Physics, Math)
             </label>
@@ -173,7 +173,7 @@ export default function PostbaccView({
               Add Course
             </button>
           </div>
-          {formError && <p className="text-xs" style={{ color: "#FF4757" }}>{formError}</p>}
+          {formError && <p className="text-xs" style={{ color: "#EF4444" }}>{formError}</p>}
         </form>
       </div>
 
@@ -218,7 +218,7 @@ export default function PostbaccView({
                       )}
                     </td>
                     <td className="px-2 py-3 text-right">
-                      <button onClick={() => handleDelete(c.id)} className="p-1.5 opacity-50 hover:opacity-100" style={{ color: "#FF4757" }} aria-label="Delete course">
+                      <button onClick={() => handleDelete(c.id)} className="p-1.5 opacity-50 hover:opacity-100" style={{ color: "#EF4444" }} aria-label="Delete course">
                         <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M4 7h16" />
                         </svg>
@@ -273,7 +273,7 @@ function GpaCard({ label, sub, value, goal, onGoalChange }: {
       <div className="flex items-center justify-between mb-1">
         <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: "rgba(232,160,32,0.7)" }}>{label}</p>
         {value !== null && (
-          <span className="text-[10px] font-bold uppercase tracking-wide" style={{ color: metGoal ? "#10B981" : "rgba(255,255,255,0.5)" }}>
+          <span className="text-[10px] font-bold uppercase tracking-wide" style={{ color: metGoal ? "#22C55E" : "rgba(255,255,255,0.5)" }}>
             {metGoal ? "Goal Met ✓" : `${pct.toFixed(0)}% to goal`}
           </span>
         )}
@@ -288,8 +288,8 @@ function GpaCard({ label, sub, value, goal, onGoalChange }: {
           className="h-full rounded-full"
           style={{
             width: `${pct}%`,
-            background: metGoal ? "#10B981" : "#E8A020",
-            boxShadow: `0 0 8px ${metGoal ? "rgba(16,185,129,0.5)" : "rgba(232,160,32,0.5)"}`,
+            background: metGoal ? "#22C55E" : "#E8A020",
+            boxShadow: `0 0 8px ${metGoal ? "rgba(34,197,94,0.5)" : "rgba(232,160,32,0.5)"}`,
             transition: "width 0.4s",
           }}
         />

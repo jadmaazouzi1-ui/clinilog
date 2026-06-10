@@ -6,7 +6,7 @@ import { GapGoal, GapYearData, saveGapYearData } from "./actions";
 const CATEGORIES: { value: GapGoal["category"]; label: string; color: string }[] = [
   { value: "clinical",     label: "Clinical Hours",   color: "#E8A020" },
   { value: "research",     label: "Research",         color: "#A78BFA" },
-  { value: "volunteering", label: "Volunteering",     color: "#10B981" },
+  { value: "volunteering", label: "Volunteering",     color: "#22C55E" },
   { value: "personal",     label: "Personal Growth",  color: "#F59E0B" },
   { value: "financial",    label: "Financial",        color: "#38BDF8" },
 ];
@@ -173,7 +173,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
                   <button
                     onClick={() => removeGoal(g.id)}
                     className="p-1.5 rounded-lg transition-opacity hover:opacity-100 opacity-50"
-                    style={{ color: "#FF4757" }}
+                    style={{ color: "#EF4444" }}
                     aria-label="Remove goal"
                   >
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -257,7 +257,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
                   {formatMonth(month)}
                 </span>
                 <p className="text-sm flex-1" style={{ color: "rgba(255,255,255,0.85)" }}>{text}</p>
-                <button onClick={() => deleteLog(month)} className="p-1 opacity-50 hover:opacity-100" style={{ color: "#FF4757" }} aria-label="Delete log">
+                <button onClick={() => deleteLog(month)} className="p-1 opacity-50 hover:opacity-100" style={{ color: "#EF4444" }} aria-label="Delete log">
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                   </svg>
@@ -309,7 +309,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
                     }}
                   >
                     {done && (
-                      <svg className="w-3 h-3" fill="none" stroke="#0A1628" strokeWidth="3" viewBox="0 0 24 24">
+                      <svg className="w-3 h-3" fill="none" stroke="#1A1A2E" strokeWidth="3" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                       </svg>
                     )}

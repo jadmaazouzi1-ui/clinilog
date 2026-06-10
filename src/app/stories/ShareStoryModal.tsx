@@ -47,7 +47,7 @@ export default function ShareStoryModal() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium mb-1.5" style={{ color: "rgba(255,255,255,0.85)" }}>
-                First Name <span style={{ color: "#FF4757" }}>*</span>
+                First Name <span style={{ color: "#EF4444" }}>*</span>
               </label>
               <input
                 name="name"
@@ -72,7 +72,7 @@ export default function ShareStoryModal() {
 
           <div>
             <label className="block text-sm font-medium mb-1.5" style={{ color: "rgba(255,255,255,0.85)" }}>
-              Medical School Accepted To <span style={{ color: "#FF4757" }}>*</span>
+              Medical School Accepted To <span style={{ color: "#EF4444" }}>*</span>
             </label>
             <input
               name="medical_school"
@@ -85,7 +85,7 @@ export default function ShareStoryModal() {
 
           <div>
             <label className="block text-sm font-medium mb-1.5" style={{ color: "rgba(255,255,255,0.85)" }}>
-              Your First-Gen Background <span style={{ color: "#FF4757" }}>*</span>
+              Your First-Gen Background <span style={{ color: "#EF4444" }}>*</span>
             </label>
             <input
               name="background"
@@ -98,7 +98,7 @@ export default function ShareStoryModal() {
 
           <div>
             <label className="block text-sm font-medium mb-1.5" style={{ color: "rgba(255,255,255,0.85)" }}>
-              Your Story <span style={{ color: "#FF4757" }}>*</span>
+              Your Story <span style={{ color: "#EF4444" }}>*</span>
             </label>
             <textarea
               name="quote"
