@@ -233,10 +233,10 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
 
   return (
     <div className="space-y-6">
-      {/* Reveal hero */}
+      {/* Reveal hero — cinematic fade-in */}
       <div
         ref={cardRef}
-        className="glass-card rounded-2xl p-8 text-center relative overflow-hidden"
+        className="glass-card rounded-2xl p-8 text-center relative overflow-hidden archetype-reveal"
         style={{
           borderColor: `${color}40`,
           opacity: revealed ? 1 : 0,
@@ -270,8 +270,15 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
               <path d={archetype.iconPath} />
             </svg>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-bold mb-2" style={{ color: "#FFFFFF" }}>
-            {archetype.name}
+          <h1 className="text-3xl sm:text-4xl font-bold mb-2 letter-reveal" style={{ color: "#FFFFFF" }}>
+            {archetype.name.split("").map((ch, i) => (
+              <span
+                key={i}
+                style={{ animationDelay: `${0.4 + i * 0.04}s`, whiteSpace: ch === " " ? "pre" : "normal" }}
+              >
+                {ch}
+              </span>
+            ))}
           </h1>
           <p className="text-base italic mb-4" style={{ color }}>
             &ldquo;{archetype.tagline}&rdquo;

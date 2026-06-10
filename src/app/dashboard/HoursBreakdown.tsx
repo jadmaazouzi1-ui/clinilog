@@ -49,12 +49,7 @@ export default function HoursBreakdown({
     <div
       className="glass-card rounded-2xl p-6 mb-8"
     >
-      <h2
-        className="text-sm font-semibold uppercase tracking-wide mb-6"
-        style={{ color: "rgba(255,255,255,0.5)" }}
-      >
-        Hours Breakdown
-      </h2>
+      <p className="dept-header mb-6">— Hours Breakdown</p>
 
       <div className="flex flex-col sm:flex-row items-center gap-8">
         {/* Donut chart */}

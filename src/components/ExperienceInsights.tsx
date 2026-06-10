@@ -158,8 +158,8 @@ export default function ExperienceInsights({
     <div className="mb-8">
       <div className="flex items-end justify-between mb-4 flex-wrap gap-2">
         <div>
-          <h2 className="text-base font-semibold" style={{ color: "#FFFFFF" }}>Experience Insights</h2>
-          <p className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.5)" }}>
+          <p className="dept-header" style={{ marginBottom: 6 }}>— Experience Insights</p>
+          <p className="text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>
             Personalized tips based on what you&apos;ve logged so far.
           </p>
         </div>

@@ -1,4 +1,5 @@
-import { Experience, ExperienceType, formatHours } from "@/lib/types";
+import { Experience, ExperienceType } from "@/lib/types";
+import { formatMedicalHours } from "@/lib/formatMedical";
 
 const TARGETS: { type: ExperienceType; label: string; min: number }[] = [
   { type: "clinical_work", label: "Clinical Work", min: 100 },
@@ -7,11 +8,7 @@ const TARGETS: { type: ExperienceType; label: string; min: number }[] = [
   { type: "volunteer",     label: "Volunteering",   min: 40  },
 ];
 
-export default function AMCASTracker({
-  experiences,
-}: {
-  experiences: Experience[];
-}) {
+export default function AMCASTracker({ experiences }: { experiences: Experience[] }) {
   const hoursByType: Partial<Record<ExperienceType, number>> = {};
   for (const e of experiences) {
     const t = e.type as ExperienceType;
@@ -20,49 +17,32 @@ export default function AMCASTracker({
 
   return (
     <div className="glass-card rounded-2xl p-6 mb-8">
-      <div className="flex items-baseline justify-between mb-5">
-        <h2
-          className="text-sm font-semibold uppercase tracking-wide"
-          style={{ color: "rgba(255,255,255,0.5)" }}
-        >
-          AMCAS Hours Tracker
-        </h2>
-        <span className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>Recommended minimums</span>
-      </div>
+      <p className="dept-header">— AMCAS Hours Tracker</p>
 
-      <div className="space-y-5">
+      <div className="space-y-5 mt-4">
         {TARGETS.map(({ type, label, min }) => {
           const hours = hoursByType[type] ?? 0;
           const pct = Math.min((hours / min) * 100, 100);
           const met = hours >= min;
-          const display = formatHours(hours);
+          const padded = formatMedicalHours(hours);
+          const minPadded = `${String(min).padStart(3, "0")} HRS`;
 
           return (
             <div key={type}>
               <div className="flex items-center justify-between mb-1.5">
                 <span className="text-sm font-medium" style={{ color: "#FFFFFF" }}>{label}</span>
-                <span className="text-xs tabular-nums">
-                  <span
-                    className="font-semibold"
-                    style={{ color: met ? "#E8A020" : "#EF4444" }}
-                  >
-                    {display}
-                  </span>
-                  <span style={{ color: "rgba(255,255,255,0.4)" }}> / {min} hrs</span>
+                <span className="text-[11px] mono">
+                  <span style={{ color: met ? "#E8A020" : "rgba(255,255,255,0.85)" }}>{padded}</span>
+                  <span style={{ color: "rgba(255,255,255,0.35)" }}> / {minPadded}</span>
                   {met && (
-                    <span className="ml-1.5 inline-flex items-center gap-0.5 font-medium" style={{ color: "#E8A020" }}>
-                      ✓
-                    </span>
+                    <span className="ml-1.5" style={{ color: "#22C55E" }}>✓</span>
                   )}
                 </span>
               </div>
-              <div
-                className="h-4 w-full rounded-full overflow-hidden"
-                style={{ background: "rgba(255,255,255,0.08)" }}
-              >
+              <div className="thin-progress">
                 <div
-                  className="h-full rounded-full transition-all duration-500"
-                  style={{ width: `${pct}%`, backgroundColor: met ? "#E8A020" : "#EF4444" }}
+                  className="liquid-fill"
+                  style={{ "--fill": `${pct}%` } as React.CSSProperties}
                 />
               </div>
             </div>

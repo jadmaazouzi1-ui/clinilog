@@ -2,13 +2,15 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { deleteExperience } from "./actions";
-import { Experience, ExperienceType, formatHours } from "@/lib/types";
+import { Experience, ExperienceType } from "@/lib/types";
 import ExportAllButton from "./ExportAllButton";
 import HoursBreakdown from "./HoursBreakdown";
 import AMCASTracker from "./AMCASTracker";
 import AppShell from "@/components/AppShell";
 import OnboardingModal from "./OnboardingModal";
 import ExperienceInsights from "@/components/ExperienceInsights";
+import CountUp from "@/components/CountUp";
+import { formatMedicalDate, formatMedicalHours } from "@/lib/formatMedical";
 
 const TYPE_LABELS: Record<ExperienceType, string> = {
   shadowing: "Shadowing",
@@ -26,14 +28,8 @@ const TYPE_BADGE_STYLES: Record<ExperienceType, React.CSSProperties> = {
   other:        { background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.6)",border: "1px solid rgba(255,255,255,0.15)" },
 };
 
-function formatDate(dateStr: string) {
-  const [year, month, day] = dateStr.split("-");
-  const months = [
-    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
-  ];
-  return `${months[parseInt(month, 10) - 1]} ${parseInt(day, 10)}, ${year}`;
-}
+// Medical-record style dates throughout the dashboard
+const formatDate = formatMedicalDate;
 
 export default async function DashboardPage({
   searchParams,
@@ -69,12 +65,12 @@ export default async function DashboardPage({
   const archetypeReady = !!profile?.archetype_id;
 
   const totalHours = experienceList.reduce((sum, e) => sum + e.hours, 0);
-  const totalHoursDisplay = formatHours(totalHours);
+  const totalOrgs = new Set(experienceList.map((e) => e.organization)).size;
 
-  const stats = [
-    { label: "Total Hours",         value: totalHoursDisplay,                                                          unit: "hrs"     },
-    { label: "Experiences Logged",  value: experienceList.length.toString(),                                           unit: "entries" },
-    { label: "Total Organizations", value: new Set(experienceList.map((e) => e.organization)).size.toString(),         unit: "orgs"    },
+  const stats: { label: string; value: number; decimals: number; padWidth?: number; prefix?: string }[] = [
+    { label: "TOTAL HOURS",   value: totalHours,             decimals: 1, padWidth: 3, prefix: "HRS: " },
+    { label: "ENTRIES LOGGED", value: experienceList.length, decimals: 0, padWidth: 3 },
+    { label: "ORGANIZATIONS", value: totalOrgs,              decimals: 0, padWidth: 2 },
   ];
 
   return (
@@ -132,26 +128,18 @@ export default async function DashboardPage({
           )}
         </div>
 
-        {/* Stats row */}
+        {/* Vitals monitor stat cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
           {stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="rounded-xl p-6"
-              style={{ backgroundColor: "#16213E", border: "1px solid rgba(232,160,32,0.14)" }}
-            >
-              <p
-                className="text-xs font-semibold uppercase tracking-wide mb-1"
-                style={{ color: "rgba(255,255,255,0.6)" }}
-              >
-                {stat.label}
-              </p>
-              <div className="flex items-baseline gap-1.5">
-                <span className="text-3xl font-bold" style={{ color: "#E8A020" }}>{stat.value}</span>
-                <span className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.6)" }}>
-                  {stat.unit}
-                </span>
-              </div>
+            <div key={stat.label} className="vital-card">
+              <p className="vital-card-label">{stat.label}</p>
+              <CountUp
+                to={stat.value}
+                decimals={stat.decimals}
+                padWidth={stat.padWidth}
+                prefix={stat.prefix}
+                className="vital-card-value"
+              />
             </div>
           ))}
         </div>
@@ -258,15 +246,17 @@ export default async function DashboardPage({
             </Link>
           </div>
         ) : (
+          <>
+          <p className="dept-header">— Recent Experiences</p>
           <div className="space-y-4">
             {experienceList.map((experience) => (
               <div
                 key={experience.id}
-                className="glass-card rounded-2xl p-6"
+                className="glass-card chart-margin rounded-2xl p-6 pl-7"
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
-                    {/* Title + badges */}
+                    {/* Title + tags */}
                     <div className="flex items-center gap-2 flex-wrap mb-1">
                       <h3 className="text-base font-semibold" style={{ color: "#FFFFFF" }}>
                         <Link
@@ -276,28 +266,24 @@ export default async function DashboardPage({
                           {experience.title}
                         </Link>
                       </h3>
-                      <span
-                        className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
-                        style={TYPE_BADGE_STYLES[experience.type as ExperienceType]}
-                      >
-                        {TYPE_LABELS[experience.type as ExperienceType]}
+                      <span className="cat-tag">
+                        {TYPE_LABELS[experience.type as ExperienceType].toUpperCase()}
                       </span>
                     </div>
 
-                    {/* Org + meta */}
+                    {/* Org + medical-record-style meta */}
                     <p className="text-sm mb-3" style={{ color: "rgba(255,255,255,0.5)" }}>
                       {experience.organization}
                     </p>
-                    <div className="flex items-center gap-4 text-xs mb-4" style={{ color: "rgba(255,255,255,0.4)" }}>
+                    <div className="flex items-center gap-4 text-xs mb-4 mono" style={{ color: "rgba(255,255,255,0.4)" }}>
                       <span>
                         {formatDate(experience.start_date)}
                         {experience.end_date
-                          ? ` — ${formatDate(experience.end_date)}`
-                          : " — Present"}
+                          ? ` → ${formatDate(experience.end_date)}`
+                          : " → PRESENT"}
                       </span>
-                      <span className="font-semibold" style={{ color: "rgba(255,255,255,0.7)" }}>
-                        {formatHours(experience.hours)}{" "}
-                        hrs
+                      <span className="font-medium" style={{ color: "#E8A020" }}>
+                        {formatMedicalHours(experience.hours)}
                       </span>
                     </div>
 
@@ -356,6 +342,7 @@ export default async function DashboardPage({
               </div>
             ))}
           </div>
+          </>
         )}
       </main>
     </AppShell>
