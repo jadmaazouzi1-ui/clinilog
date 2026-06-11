@@ -70,7 +70,14 @@ export default async function HomePage() {
         {/* ── Hero ── */}
         <section className="relative overflow-hidden" style={{ backgroundColor: "#1A1A2E" }}>
           <header className="relative z-20 px-6 py-4">
-            <div className="max-w-5xl mx-auto flex items-center justify-end">
+            <div className="max-w-5xl mx-auto flex items-center justify-end gap-5">
+              <Link
+                href="/about"
+                className="text-sm font-medium transition-opacity hover:opacity-80"
+                style={{ color: "rgba(255,255,255,0.75)" }}
+              >
+                About
+              </Link>
               <Link
                 href="/auth/login"
                 className="signin-btn-hero text-sm font-semibold px-5 py-2 rounded-md"
@@ -343,6 +350,38 @@ export default async function HomePage() {
               ))}
             </div>
 
+            {/* ── About teaser ── */}
+            <div className="mt-24 max-w-2xl mx-auto text-center">
+              <div
+                className="mx-auto mb-8"
+                style={{ height: 1, width: 56, backgroundColor: "#E8A020" }}
+              />
+              <p
+                className="text-[11px] mono uppercase tracking-[0.22em] mb-4"
+                style={{ color: "#E8A020" }}
+              >
+                Why We Built This
+              </p>
+              <p
+                className="text-lg leading-relaxed mb-5"
+                style={{ color: "rgba(255,255,255,0.85)" }}
+              >
+                CliniLog exists because the pre-med journey is hard enough without having to figure
+                out the system alone. We built the tools to make it clearer, more organized, and more
+                accessible for every student.
+              </p>
+              <Link
+                href="/about"
+                className="inline-flex items-center gap-1.5 text-sm font-medium transition-opacity hover:opacity-80"
+                style={{ color: "#E8A020" }}
+              >
+                Read our story
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </Link>
+            </div>
+
             {/* ── How It Works ── */}
             <div className="mt-24 text-left">
               <div className="text-center mb-12">
@@ -506,10 +545,10 @@ export default async function HomePage() {
                 </p>
                 <ul className="space-y-2.5">
                   {[
+                    { label: "About CliniLog", href: "/about" },
                     { label: "First-Gen Stories", href: "/stories" },
                     { label: "AI Advisor", href: "/dashboard" },
                     { label: "Share Your Story", href: "/stories" },
-                    { label: "Profile", href: "/profile" },
                   ].map((link) => (
                     <li key={link.label}>
                       <Link
