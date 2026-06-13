@@ -22,11 +22,6 @@ const CATEGORIES = [
         url: "https://students-residents.aamc.org/applying-medical-school",
       },
       {
-        title: "MSAR (Medical School Admission Requirements)",
-        description: "The definitive database of every accredited MD program with GPA/MCAT data, deadlines, and class composition. Subscription required but indispensable.",
-        url: "https://students-residents.aamc.org/medical-school-admission-requirements/medical-school-admission-requirements",
-      },
-      {
         title: "AACOMAS Choose DO Explorer",
         description: "Compare every osteopathic medical school side-by-side — the DO equivalent of MSAR and completely free.",
         url: "https://choosedo.org/explore-schools/",
