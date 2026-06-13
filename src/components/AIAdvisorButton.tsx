@@ -240,8 +240,8 @@ export default function AIAdvisorButton() {
                 className="max-w-[78%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed"
                 style={
                   msg.role === "user"
-                    ? { backgroundColor: "#E8A020", color: "#FFFFFF", borderBottomRightRadius: "4px" }
-                    : { backgroundColor: "rgba(255,255,255,0.8)", color: "rgba(255,255,255,0.9)", border: "1px solid rgba(232,160,32,0.12)", borderBottomLeftRadius: "4px" }
+                    ? { backgroundColor: "#E8A020", color: "#1A1A2E", borderBottomRightRadius: "4px", fontWeight: 500 }
+                    : { backgroundColor: "#16213E", color: "#FFFFFF", borderLeft: "2px solid #E8A020", borderBottomLeftRadius: "4px" }
                 }
               >
                 {msg.content.split("\n").map((line, j) => (
@@ -268,7 +268,7 @@ export default function AIAdvisorButton() {
               </div>
               <div
                 className="rounded-2xl px-4 py-3 flex items-center gap-1.5"
-                style={{ backgroundColor: "rgba(255,255,255,0.8)", border: "1px solid rgba(232,160,32,0.12)", borderBottomLeftRadius: "4px" }}
+                style={{ backgroundColor: "#16213E", borderLeft: "2px solid #E8A020", borderBottomLeftRadius: "4px" }}
               >
                 {[0, 1, 2].map(d => (
                   <div
@@ -292,7 +292,7 @@ export default function AIAdvisorButton() {
           style={{ borderTop: "1px solid rgba(232,160,32,0.12)" }}
         >
           <div
-            className="flex items-end gap-2 rounded-xl px-3 py-2"
+            className="flex items-end gap-2 rounded-xl px-3 py-2 transition-shadow focus-within:[box-shadow:0_0_0_2px_rgba(232,160,32,0.25)] focus-within:[border-color:#E8A020]"
             style={{ backgroundColor: "#16213E", border: "1px solid rgba(232,160,32,0.2)" }}
           >
             <textarea
