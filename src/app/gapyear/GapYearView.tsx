@@ -279,10 +279,11 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
             <div
               className="h-full rounded-full"
               style={{
-                width: `${(milestonesDone / MILESTONES.length) * 100}%`,
+                width: "100%",
+                transform: `scaleX(${milestonesDone / MILESTONES.length})`,
+                transformOrigin: "left center",
                 background: "#E8A020",
-                boxShadow: "0 0 8px rgba(232,160,32,0.5)",
-                transition: "width 0.4s",
+                transition: "transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
               }}
             />
           </div>

@@ -287,10 +287,11 @@ function GpaCard({ label, sub, value, goal, onGoalChange }: {
         <div
           className="h-full rounded-full"
           style={{
-            width: `${pct}%`,
+            width: "100%",
+            transform: `scaleX(${pct / 100})`,
+            transformOrigin: "left center",
             background: metGoal ? "#22C55E" : "#E8A020",
-            boxShadow: `0 0 8px ${metGoal ? "rgba(34,197,94,0.5)" : "rgba(232,160,32,0.5)"}`,
-            transition: "width 0.4s",
+            transition: "transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
           }}
         />
       </div>

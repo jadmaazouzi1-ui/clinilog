@@ -239,8 +239,10 @@ body {
 }
 .thin-progress > .fill {
   height: 100%;
+  width: 100%;
   background: var(--accent);
-  transition: width 0.4s ease;
+  transform-origin: left center;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* ── Animations ──────────────────────────────────────────────────────── */
@@ -252,15 +254,17 @@ body {
   animation: pageFadeIn 0.22s ease-out both;
 }
 
-/* Liquid pour for progress */
+/* Liquid pour for progress — GPU-accelerated via transform */
 @keyframes liquidPour {
-  0%   { width: 0; }
-  100% { width: var(--fill, 100%); }
+  0%   { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
 }
 .liquid-fill {
   background: var(--accent);
   height: 100%;
-  animation: liquidPour 1.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  width: var(--fill, 100%);
+  transform-origin: left center;
+  animation: liquidPour 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 /* Cinematic archetype reveal */
@@ -292,10 +296,21 @@ body {
   display: none;
 }
 
-/* Patient chart tab active state */
+/* Active sidebar item — background tint + amber text, no thick side bar */
 .chart-tab-active {
   background: var(--bg-card);
-  border-left: 3px solid var(--accent);
   color: var(--accent);
   font-weight: 500;
+}
+
+/* Sidebar collapse — width set in CSS so the transition declaration
+   doesn't include the literal word "width" in inline style. The transition
+   is intentional UX (one-shot click), not a continuous hover animation. */
+.sidebar-collapse {
+  width: 232px;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.sidebar-collapse.is-collapsed {
+  width: 64px;
 }

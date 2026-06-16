@@ -413,9 +413,9 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
               className="glass-card rounded-2xl p-5 transition-all"
               style={
                 isInStateForUser
-                  ? { borderLeft: "4px solid #10B981", background: "rgba(34,197,94,0.05)" }
+                  ? { background: "rgba(34,197,94,0.08)", borderColor: "rgba(34,197,94,0.35)" }
                   : match
-                  ? { borderLeft: "4px solid #00D4FF", background: "rgba(232,160,32,0.05)" }
+                  ? { background: "rgba(232,160,32,0.06)", borderColor: "rgba(232,160,32,0.35)" }
                   : {}
               }
             >

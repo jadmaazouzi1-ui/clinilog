@@ -276,7 +276,7 @@ export default function AIAdvisorButton() {
                     className="w-1.5 h-1.5 rounded-full"
                     style={{
                       backgroundColor: "#E8A020",
-                      animation: `bounce 1.2s ease-in-out ${d * 0.2}s infinite`,
+                      animation: `dot-pulse 1.2s cubic-bezier(0.65, 0, 0.35, 1) ${d * 0.18}s infinite`,
                     }}
                   />
                 ))}
@@ -331,9 +331,9 @@ export default function AIAdvisorButton() {
       </div>
 
       <style>{`
-        @keyframes bounce {
-          0%, 60%, 100% { transform: translateY(0); }
-          30% { transform: translateY(-6px); }
+        @keyframes dot-pulse {
+          0%, 100% { opacity: 0.25; }
+          50%      { opacity: 1; }
         }
       `}</style>
     </>

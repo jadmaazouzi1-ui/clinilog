@@ -163,10 +163,8 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#1A1A2E" }}>
       <aside
-        className="hidden md:flex flex-col fixed top-0 left-0 h-full z-40"
+        className={`hidden md:flex flex-col fixed top-0 left-0 h-full z-40 sidebar-collapse ${collapsed ? "is-collapsed" : ""}`}
         style={{
-          width: collapsed ? 64 : 232,
-          transition: "width 0.25s cubic-bezier(0.4,0,0.2,1)",
           backgroundColor: "#1A1A2E",
           borderRight: "1px solid rgba(255,255,255,0.08)",
         }}
@@ -200,14 +198,11 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
                 key={item.href}
                 href={item.href}
                 title={collapsed ? item.label : undefined}
-                className="group relative flex items-center gap-3 pl-3 pr-2.5 py-2 transition-all duration-150"
+                className="group relative flex items-center gap-3 px-3 py-2 rounded transition-colors duration-150"
                 style={{
                   color: isActive ? "#E8A020" : "rgba(255,255,255,0.55)",
                   backgroundColor: isActive ? "#16213E" : "transparent",
-                  borderLeft: `3px solid ${isActive ? "#E8A020" : "transparent"}`,
                   fontWeight: isActive ? 500 : 400,
-                  borderTopRightRadius: 4,
-                  borderBottomRightRadius: 4,
                 }}
               >
                 {item.icon}
