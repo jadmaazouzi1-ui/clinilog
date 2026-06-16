@@ -13,15 +13,15 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CliniLog — Your Pre-Med Journey, Organized",
+  title: "CliniLog: Your Pre-Med Journey, Organized",
   description:
-    "Track your clinical hours, explore 150+ medical schools, and build your path to medicine — all in one free tool.",
+    "Track your clinical hours, explore 150+ medical schools, and build your path to medicine in one free tool.",
 };
 
 // Next.js 16 emits <meta name="viewport" content="..."> from this export.
 // Forces every page (including post-signout landing) to render at native
-// 1.0 scale. No maximumScale / minimumScale set — those would constrain
-// the user's ability to pinch-zoom and aren't appropriate here.
+// 1.0 scale. No maximumScale or minimumScale set, since those would
+// constrain pinch-zoom which is undesirable here.
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
