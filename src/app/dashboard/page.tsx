@@ -21,11 +21,11 @@ const TYPE_LABELS: Record<ExperienceType, string> = {
 };
 
 const TYPE_BADGE_STYLES: Record<ExperienceType, React.CSSProperties> = {
-  shadowing:    { background: "rgba(232,160,32,0.1)",    color: "#E8A020",              border: "1px solid rgba(232,160,32,0.3)" },
-  volunteer:    { background: "rgba(34,197,94,0.1)",   color: "#22C55E",              border: "1px solid rgba(34,197,94,0.3)" },
-  clinical_work:{ background: "rgba(99,102,241,0.1)",   color: "#818CF8",              border: "1px solid rgba(99,102,241,0.3)" },
-  research:     { background: "rgba(139,92,246,0.1)",   color: "#A78BFA",              border: "1px solid rgba(139,92,246,0.3)" },
-  other:        { background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.6)",border: "1px solid rgba(255,255,255,0.15)" },
+  shadowing:    { background: "transparent", color: "rgba(255,255,255,0.5)", border: "1px solid rgba(255,255,255,0.12)" },
+  volunteer:    { background: "transparent", color: "rgba(255,255,255,0.5)", border: "1px solid rgba(255,255,255,0.12)" },
+  clinical_work:{ background: "transparent", color: "rgba(255,255,255,0.5)", border: "1px solid rgba(255,255,255,0.12)" },
+  research:     { background: "transparent", color: "rgba(255,255,255,0.5)", border: "1px solid rgba(255,255,255,0.12)" },
+  other:        { background: "transparent", color: "rgba(255,255,255,0.35)", border: "1px solid rgba(255,255,255,0.08)" },
 };
 
 // Medical-record style dates throughout the dashboard
@@ -107,7 +107,7 @@ export default async function DashboardPage({
               <Link
                 href="/dashboard/new"
                 className="inline-flex items-center gap-2 teal-glow px-4 py-2.5 rounded-xl font-semibold text-sm transition-colors focus:outline-none whitespace-nowrap flex-1 sm:flex-none justify-center"
-                style={{ backgroundColor: "#E8A020", color: "#FFFFFF" }}
+                style={{ backgroundColor: "#FFFFFF", color: "#000000" }}
               >
                 <svg
                   className="w-4 h-4"
@@ -148,19 +148,19 @@ export default async function DashboardPage({
         {showArchetypeBanner && (
           <Link
             href="/archetype"
-            className="block mb-8 rounded-2xl px-5 py-4 transition-all hover:opacity-95"
+            className="block mb-8 px-5 py-4 transition-colors hover:opacity-90"
             style={{
-              background: "linear-gradient(135deg, rgba(232,160,32,0.12) 0%, rgba(167,139,250,0.08) 100%)",
-              border: "1px solid rgba(232,160,32,0.3)",
-              boxShadow: "0 0 24px rgba(232,160,32,0.18)",
+              background: "rgba(255,255,255,0.02)",
+              border: "1px solid rgba(255,255,255,0.1)",
+              borderRadius: 1,
             }}
           >
             <div className="flex items-center gap-4 flex-wrap">
               <div
                 className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
-                style={{ backgroundColor: "rgba(232,160,32,0.18)", border: "1px solid rgba(232,160,32,0.4)" }}
+                style={{ backgroundColor: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.15)" }}
               >
-                <svg className="w-6 h-6" fill="none" stroke="#E8A020" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+                <svg className="w-6 h-6" fill="none" stroke="#FFFFFF" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                 </svg>
               </div>
@@ -174,7 +174,7 @@ export default async function DashboardPage({
               </div>
               <span
                 className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold flex-shrink-0"
-                style={{ backgroundColor: "#E8A020", color: "#FFFFFF", boxShadow: "0 0 14px rgba(232,160,32,0.5)" }}
+                style={{ backgroundColor: "#FFFFFF", color: "#000000" }}
               >
                 {archetypeReady ? "View" : "Reveal"}
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -201,12 +201,12 @@ export default async function DashboardPage({
           >
             <div
               className="inline-flex items-center justify-center w-14 h-14 rounded-full mb-4"
-              style={{ background: "rgba(232,160,32,0.1)" }}
+              style={{ background: "rgba(255,255,255,0.06)" }}
             >
               <svg
                 className="w-7 h-7"
                 fill="none"
-                stroke="#E8A020"
+                stroke="#FFFFFF"
                 viewBox="0 0 24 24"
               >
                 <path
@@ -227,7 +227,7 @@ export default async function DashboardPage({
             <Link
               href="/dashboard/new"
               className="inline-flex items-center gap-2 teal-glow px-6 py-2.5 rounded-xl font-semibold text-sm transition-colors focus:outline-none"
-              style={{ backgroundColor: "#E8A020", color: "#FFFFFF" }}
+              style={{ backgroundColor: "#FFFFFF", color: "#000000" }}
             >
               <svg
                 className="w-4 h-4"
@@ -282,7 +282,7 @@ export default async function DashboardPage({
                           ? ` → ${formatDate(experience.end_date)}`
                           : " → PRESENT"}
                       </span>
-                      <span className="font-medium" style={{ color: "#E8A020" }}>
+                      <span className="font-medium" style={{ color: "rgba(255,255,255,0.7)" }}>
                         {formatMedicalHours(experience.hours)}
                       </span>
                     </div>

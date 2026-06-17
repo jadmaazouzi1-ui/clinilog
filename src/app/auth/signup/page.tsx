@@ -58,7 +58,7 @@ export default async function SignupPage({
         </div>
 
         {/* Card */}
-        <div className="glass-card rounded-2xl p-8">
+        <div className="glass-card rounded-lg p-8">
           <form action={signup} className="space-y-5">
             <div>
               <label
@@ -121,7 +121,7 @@ export default async function SignupPage({
             <button
               type="submit"
               className="w-full teal-glow py-2.5 rounded-lg font-semibold text-sm transition-colors focus:outline-none"
-              style={{ backgroundColor: "#E8A020", color: "#FFFFFF" }}
+              style={{ backgroundColor: "#E8A020", color: "#1A1A2E" }}
             >
               Create Account
             </button>

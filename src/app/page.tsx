@@ -2,10 +2,41 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
+const TICKER_ITEMS = [
+  "HOURS TRACKER", "149 SCHOOLS", "15 ARCHETYPES", "NARRATIVE BUILDER",
+  "AI ADVISOR", "REFRAME ENGINE", "SPECIALTY EXPLORER", "PDF EXPORT",
+  "GAP YEAR PLANNER", "RESOURCE LIBRARY", "FIRST-GEN STORIES", "100% FREE",
+];
+
+const TOOLS = [
+  { n: "01", name: "Hours Tracker",       desc: "Log clinical, shadowing, research, and volunteer hours with dates and reflections.", tag: "CORE" },
+  { n: "02", name: "School Explorer",     desc: "Filter 149 accredited medical schools by GPA, MCAT, mission, and state preference.", tag: "CORE" },
+  { n: "03", name: "Archetype Engine",    desc: "AI analyzes your experiences and reveals your unique pre-med identity from 15 types.", tag: "AI" },
+  { n: "04", name: "Narrative Builder",   desc: "AI builds a cohesive medical school application story from your logged experience data.", tag: "AI" },
+  { n: "05", name: "Reframe Engine",      desc: "Transform rough descriptions into polished, AMCAS-ready language with clinical depth.", tag: "AI" },
+  { n: "06", name: "AI Advisor",          desc: "24/7 personalized guidance that knows your hours, GPA, goals, and school targets.", tag: "AI" },
+  { n: "07", name: "Specialty Explorer",  desc: "Browse 30+ medical specialties by lifestyle, salary, residency length, and competitiveness.", tag: "EXPLORE" },
+  { n: "08", name: "Resource Library",    desc: "Curated free MCAT prep, fee assistance programs, and pipeline opportunities.", tag: "EXPLORE" },
+  { n: "09", name: "Gap Year Planner",    desc: "Structured goal tracking, monthly logs, and milestone checklists for your gap year.", tag: "PLAN" },
+  { n: "10", name: "Post-bacc Tracker",   desc: "Calculate your BCPM and cumulative GPA in real time as you log post-bacc courses.", tag: "PLAN" },
+  { n: "11", name: "PDF Export",          desc: "Download a clean, formatted summary of all your experiences for advisors and committees.", tag: "EXPORT" },
+  { n: "12", name: "CSV Import",          desc: "Import your existing experience data from a spreadsheet in one step.", tag: "IMPORT" },
+];
+
+const SAMPLE_LOG = [
+  { org: "ACS Cares",          type: "CLINICAL WORK",  hours: "04.4" },
+  { org: "Cary Healthcare",    type: "SHADOWING",      hours: "04.0" },
+  { org: "Mobile Clinic",      type: "CLINICAL WORK",  hours: "03.0" },
+  { org: "VSC HHS",            type: "VOLUNTEERING",   hours: "03.0" },
+  { org: "Mobile Clinic Jan",  type: "CLINICAL WORK",  hours: "03.0" },
+];
+
 export default async function HomePage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (user) redirect("/dashboard");
+
+  const tickerText = [...TICKER_ITEMS, ...TICKER_ITEMS].join("  ·  ");
 
   return (
     <>
@@ -14,570 +45,330 @@ export default async function HomePage() {
           from { transform: translateX(0); }
           to   { transform: translateX(-50%); }
         }
-        @keyframes btn-pulse {
-          0%, 100% { box-shadow: 0 0 18px rgba(232,160,32,0.45), 0 0 36px rgba(232,160,32,0.2); }
-          50%       { box-shadow: 0 0 28px rgba(232,160,32,0.75), 0 0 56px rgba(232,160,32,0.35); }
-        }
-        @keyframes dot-fade {
-          0%, 100% { opacity: 0.35; }
-          50%       { opacity: 0.55; }
-        }
         .ekg-track {
-          animation: ekg-scroll 7s linear infinite;
+          animation: ekg-scroll 10s linear infinite;
           display: flex;
           width: 200%;
         }
-        .btn-glow {
-          animation: btn-pulse 2.4s ease-in-out infinite;
+        @keyframes pulse-dot {
+          0%, 100% { opacity: 1; }
+          50%       { opacity: 0.3; }
         }
-        .dot-grid {
-          animation: dot-fade 6s ease-in-out infinite;
+        .pulse-dot {
+          animation: pulse-dot 1.6s ease-in-out infinite;
         }
-        .hero-dark {
-          background-color: #1A1A2E;
-          color: #FFFFFF;
+        .ticker-track {
+          display: inline-flex;
+          white-space: nowrap;
+          animation: ticker-scroll 32s linear infinite;
         }
-        .feature-card {
-          background: #16213E;
-          border: 0.5px solid rgba(255,255,255,0.08);
-          border-radius: 8px;
-          transition: border-color 0.2s, transform 0.2s;
+        @keyframes ticker-scroll {
+          from { transform: translateX(0); }
+          to   { transform: translateX(-50%); }
         }
-        .feature-card:hover {
-          border-color: rgba(232,160,32,0.4);
-          transform: translateY(-2px);
-        }
-        .signin-btn-hero {
-          transition: background 0.2s;
-          color: #E8A020;
-          border: 0.5px solid #E8A020;
-        }
-        .signin-btn-hero:hover {
-          background: rgba(232,160,32,0.1);
-        }
-        .step-line {
-          background-image: linear-gradient(to right, rgba(232,160,32,0.4) 50%, transparent 50%);
-          background-size: 8px 2px;
-          background-repeat: repeat-x;
-          background-position: center;
-        }
+        .tool-row:hover .tool-tag { opacity: 1; }
+        .tool-row .tool-tag { opacity: 0.5; transition: opacity 0.15s; }
+        a:hover, button:hover { opacity: inherit; }
       `}</style>
 
-      <div
-        className="min-h-screen flex flex-col"
-        style={{ backgroundColor: "#1A1A2E", color: "#FFFFFF" }}
-      >
-        {/* ── Hero ── */}
-        <section className="relative overflow-hidden" style={{ backgroundColor: "#1A1A2E" }}>
-          <header className="relative z-20 px-6 py-4">
-            <div className="max-w-5xl mx-auto flex items-center justify-end gap-5">
-              <Link
-                href="/about"
-                className="text-sm font-medium transition-opacity hover:opacity-80"
-                style={{ color: "rgba(255,255,255,0.75)" }}
-              >
-                About
-              </Link>
-              <Link
-                href="/auth/login"
-                className="signin-btn-hero text-sm font-semibold px-5 py-2 rounded-md"
-              >
-                Sign In
-              </Link>
-            </div>
-          </header>
+      <div style={{ backgroundColor: "#000000", color: "#FFFFFF", minHeight: "100vh", fontFamily: "var(--font-inter, Inter, system-ui, sans-serif)" }}>
 
-        <main className="flex-1 flex flex-col items-center justify-center px-6 py-24 relative z-10">
-          {/* EKG strip — positioned horizontally across the middle */}
-          <div
-            className="absolute inset-x-0 overflow-hidden pointer-events-none"
-            style={{ top: "calc(50% - 30px)", height: "60px", opacity: 0.45 }}
-          >
-            <div className="ekg-track">
-              {[0, 1].map((i) => (
-                <svg
-                  key={i}
-                  height="60"
-                  style={{ width: "50%", minWidth: "50%" }}
-                  viewBox="0 0 1200 60"
-                  preserveAspectRatio="xMidYMid meet"
-                >
-                  <path
-                    d="
-                      M0,30
-                      L50,30 L60,25 L70,30 L85,30 L90,35 L95,5 L100,40 L110,30 L130,30 L140,22 L155,30
-                      L200,30
-                      L250,30 L260,25 L270,30 L285,30 L290,35 L295,5 L300,40 L310,30 L330,30 L340,22 L355,30
-                      L400,30
-                      L450,30 L460,25 L470,30 L485,30 L490,35 L495,5 L500,40 L510,30 L530,30 L540,22 L555,30
-                      L600,30
-                      L650,30 L660,25 L670,30 L685,30 L690,35 L695,5 L700,40 L710,30 L730,30 L740,22 L755,30
-                      L800,30
-                      L850,30 L860,25 L870,30 L885,30 L890,35 L895,5 L900,40 L910,30 L930,30 L940,22 L955,30
-                      L1000,30
-                      L1050,30 L1060,25 L1070,30 L1085,30 L1090,35 L1095,5 L1100,40 L1110,30 L1130,30 L1140,22 L1155,30
-                      L1200,30
-                    "
-                    stroke="#E8A020"
-                    strokeWidth="1.5"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              ))}
-            </div>
-          </div>
-
-          <div className="max-w-3xl mx-auto text-center">
-            {/* Hero logo + BETA */}
-            <div className="flex items-center justify-center gap-3 mb-8">
-              <div
-                style={{
-                  width: "56px",
-                  height: "56px",
-                  borderRadius: "8px",
-                  backgroundColor: "#E8A020",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0,
-                }}
-              >
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#1A1A2E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        {/* ── Navbar ── */}
+        <header style={{ position: "sticky", top: 0, zIndex: 50, backgroundColor: "#000000", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+          <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 2rem", display: "grid", gridTemplateColumns: "1fr auto 1fr", alignItems: "center", height: 52 }}>
+            {/* Left: Logo */}
+            <div style={{ display: "flex", alignItems: "center", gap: "0.625rem" }}>
+              <div style={{ width: 24, height: 24, backgroundColor: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, borderRadius: 1 }}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <polyline points="2,12 7,12 8,9 10,12 12,3 13,21 14,12 16,9 18,12 22,12" />
                 </svg>
               </div>
-              <span className="text-2xl font-medium tracking-tight" style={{ color: "#FFFFFF" }}>CliniLog</span>
-              <span className="beta-pill">BETA</span>
+              <span style={{ fontWeight: 600, fontSize: "0.875rem", color: "#FFFFFF", letterSpacing: "-0.01em" }}>CliniLog</span>
+              <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.35)", border: "1px solid rgba(255,255,255,0.12)", padding: "2px 5px", letterSpacing: "0.1em", textTransform: "uppercase" }}>BETA</span>
             </div>
+            {/* Center: Nav links */}
+            <nav style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
+              {[["Schools", "/schools"], ["Archetype", "/archetype"], ["Resources", "/resources"], ["Stories", "/stories"], ["About", "/about"]].map(([label, href]) => (
+                <Link key={label} href={href} style={{ fontSize: "0.8125rem", color: "rgba(255,255,255,0.35)", textDecoration: "none", letterSpacing: "0", transition: "color 0.15s" }}
+                  onMouseEnter={e => (e.currentTarget.style.color = "#FFFFFF")}
+                  onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.35)")}
+                >{label}</Link>
+              ))}
+            </nav>
+            {/* Right: Auth */}
+            <div style={{ display: "flex", alignItems: "center", gap: "1.25rem", justifyContent: "flex-end" }}>
+              <Link href="/auth/login" style={{ fontSize: "0.8125rem", color: "rgba(255,255,255,0.5)", textDecoration: "none" }}>Sign in</Link>
+              <Link href="/auth/signup" style={{ fontSize: "0.8125rem", fontWeight: 600, color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.3)", padding: "0.375rem 0.875rem", borderRadius: 1, textDecoration: "none", transition: "border-color 0.15s, background 0.15s" }}>
+                Get started
+              </Link>
+            </div>
+          </div>
+        </header>
 
-            {/* Eyebrow */}
-            <p
-              className="text-[11px] mono uppercase tracking-[0.22em] mb-5"
-              style={{ color: "#E8A020" }}
-            >
-              Pre-Med Platform — 2026
-            </p>
+        {/* ── Ticker ── */}
+        <div style={{ borderBottom: "1px solid rgba(255,255,255,0.06)", overflow: "hidden", position: "relative" }}>
+          <div className="ticker-track" style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.18)", letterSpacing: "0.16em", padding: "8px 0" }}>
+            <span style={{ paddingRight: "4rem" }}>{tickerText}</span>
+            <span style={{ paddingRight: "4rem" }}>{tickerText}</span>
+          </div>
+        </div>
 
-            {/* Headline */}
-            <h1
-              className="text-3xl sm:text-5xl font-medium leading-tight tracking-tight mb-5"
-              style={{ color: "#FFFFFF" }}
-            >
-              Your <span style={{ color: "#E8A020" }}>Pre-Med</span> Journey, Organized
-            </h1>
+        {/* ── Hero — 2 column split ── */}
+        <section style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+          <div style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1px 1fr" }}>
+            {/* Left */}
+            <div style={{ padding: "5rem 3rem 5rem 2rem" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "2rem" }}>
+                <div className="pulse-dot" style={{ width: 6, height: 6, backgroundColor: "#FFFFFF", borderRadius: "50%" }} />
+                <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.2em", textTransform: "uppercase" }}>PRE-MED PLATFORM — 2026</span>
+              </div>
+              <h1 style={{ fontSize: "clamp(2.25rem, 4.5vw, 3rem)", fontWeight: 700, lineHeight: 1.08, letterSpacing: "-0.03em", color: "#FFFFFF", marginBottom: "1.5rem" }}>
+                Your medical journey,<br />
+                <span style={{ textDecoration: "underline", textUnderlineOffset: "4px", textDecorationThickness: 1 }}>precisely</span> tracked.
+              </h1>
+              <p style={{ fontSize: "0.9375rem", lineHeight: 1.7, color: "rgba(255,255,255,0.35)", marginBottom: "2.5rem", maxWidth: 400 }}>
+                Track clinical hours, discover your archetype, explore 149 medical schools, and build your path to medicine — completely free.
+              </p>
+              <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                <Link href="/auth/signup" style={{ display: "inline-flex", alignItems: "center", gap: "0.375rem", backgroundColor: "#FFFFFF", color: "#000000", fontWeight: 700, fontSize: "0.875rem", padding: "0.75rem 1.5rem", borderRadius: 1, textDecoration: "none" }}>
+                  Get started
+                  <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </Link>
+                <Link href="/auth/login" style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.4)", textDecoration: "none", border: "1px solid rgba(255,255,255,0.12)", padding: "0.75rem 1.25rem", borderRadius: 1 }}>
+                  Sign in
+                </Link>
+              </div>
+            </div>
+            {/* Vertical divider */}
+            <div style={{ backgroundColor: "rgba(255,255,255,0.06)" }} />
+            {/* Right: 2x2 stat grid */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gridTemplateRows: "1fr 1fr" }}>
+              {[
+                { tag: "MEDICAL SCHOOLS", num: "149", label: "Accredited programs" },
+                { tag: "ARCHETYPES",      num: "015", label: "Unique pre-med profiles" },
+                { tag: "TOOLS TOTAL",     num: "012", label: "Included at no cost" },
+                { tag: "COST",            num: "FREE", label: "Forever, no card needed" },
+              ].map((s, i) => (
+                <div key={s.tag} style={{
+                  padding: "2.5rem 2rem",
+                  borderRight: i % 2 === 0 ? "1px solid rgba(255,255,255,0.06)" : "none",
+                  borderBottom: i < 2 ? "1px solid rgba(255,255,255,0.06)" : "none",
+                }}>
+                  <p style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.18)", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: "0.75rem" }}>{s.tag}</p>
+                  <p style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "2.25rem", fontWeight: 500, color: "#FFFFFF", lineHeight: 1, letterSpacing: "-0.02em", marginBottom: "0.375rem" }}>{s.num}</p>
+                  <p style={{ fontSize: "0.8125rem", color: "rgba(255,255,255,0.25)" }}>{s.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
-            <p
-              className="text-xl leading-relaxed mb-5 max-w-2xl mx-auto"
-              style={{ color: "rgba(255,255,255,0.75)" }}
-            >
-              Track your clinical hours, discover your archetype, explore 150+
-              medical schools, and build your path to medicine — all in one
-              free tool.
-            </p>
+        {/* ── EKG bar ── */}
+        <div style={{ borderBottom: "1px solid rgba(255,255,255,0.06)", overflow: "hidden" }}>
+          <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 2rem", display: "grid", gridTemplateColumns: "auto 1fr auto", alignItems: "center", gap: "2rem", height: 56 }}>
+            <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.18)", letterSpacing: "0.18em", textTransform: "uppercase", flexShrink: 0 }}>CLINICAL HOURS — REAL TIME</span>
+            <div style={{ overflow: "hidden", height: 40 }}>
+              <div className="ekg-track">
+                {[0, 1].map(i => (
+                  <svg key={i} height="40" style={{ width: "50%", minWidth: "50%" }} viewBox="0 0 1200 40" preserveAspectRatio="xMidYMid meet">
+                    <path d="M0,20 L80,20 L90,16 L100,20 L115,20 L120,26 L125,2 L130,32 L140,20 L200,20 L280,20 L290,16 L300,20 L315,20 L320,26 L325,2 L330,32 L340,20 L400,20 L480,20 L490,16 L500,20 L515,20 L520,26 L525,2 L530,32 L540,20 L600,20 L680,20 L690,16 L700,20 L715,20 L720,26 L725,2 L730,32 L740,20 L800,20 L880,20 L890,16 L900,20 L915,20 L920,26 L925,2 L930,32 L940,20 L1000,20 L1080,20 L1090,16 L1100,20 L1115,20 L1120,26 L1125,2 L1130,32 L1140,20 L1200,20"
+                      stroke="rgba(255,255,255,0.2)" strokeWidth="1" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                ))}
+              </div>
+            </div>
+            <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "0.875rem", color: "rgba(255,255,255,0.35)", flexShrink: 0 }}>000.0 HRS</span>
+          </div>
+        </div>
 
-            {/* Social proof */}
-            <div className="mb-10 flex items-center justify-center gap-2 flex-wrap">
-              <div className="flex -space-x-2">
-                {["#E8A020", "#22C55E", "#A78BFA", "#F59E0B"].map((c, i) => (
-                  <div
-                    key={i}
-                    className="w-7 h-7 rounded-full border-2 flex items-center justify-center text-xs font-bold"
-                    style={{
-                      backgroundColor: c,
-                      borderColor: "#1A1A2E",
-                      color: "#FFFFFF",
-                    }}
-                  >
-                    {["M", "D", "P", "A"][i]}
+        {/* ── Tools grid ── */}
+        <section style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+          <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+            {/* Header row */}
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1rem 2rem", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+              <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.18)", letterSpacing: "0.18em", textTransform: "uppercase" }}>ALL TOOLS</span>
+              <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.18)", letterSpacing: "0.18em", textTransform: "uppercase" }}>12 INCLUDED — FREE</span>
+            </div>
+            {/* 4-column grid */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)" }}>
+              {TOOLS.map((t, i) => (
+                <div
+                  key={t.n}
+                  className="tool-row"
+                  style={{
+                    padding: "1.75rem 1.5rem",
+                    borderRight: (i + 1) % 4 !== 0 ? "1px solid rgba(255,255,255,0.06)" : "none",
+                    borderBottom: i < 8 ? "1px solid rgba(255,255,255,0.06)" : "none",
+                    transition: "background 0.15s",
+                  }}
+                  onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.02)")}
+                  onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+                >
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.75rem" }}>
+                    <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.18)", letterSpacing: "0.1em" }}>{t.n}</span>
+                    <span className="tool-tag" style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.35)", border: "1px solid rgba(255,255,255,0.1)", padding: "2px 5px", letterSpacing: "0.1em", textTransform: "uppercase" }}>{t.tag}</span>
+                  </div>
+                  <p style={{ fontWeight: 600, fontSize: "0.875rem", color: "#FFFFFF", marginBottom: "0.5rem", lineHeight: 1.3 }}>{t.name}</p>
+                  <p style={{ fontSize: "0.8125rem", color: "rgba(255,255,255,0.28)", lineHeight: 1.55 }}>{t.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── How It Works + Sample Log — 2 col ── */}
+        <section style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+          <div style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1px 1fr" }}>
+            {/* Left: How it works */}
+            <div style={{ padding: "4rem 3rem 4rem 2rem" }}>
+              <p style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.18)", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: "1.5rem" }}>HOW IT WORKS</p>
+              <h2 style={{ fontSize: "1.75rem", fontWeight: 700, letterSpacing: "-0.025em", color: "#FFFFFF", lineHeight: 1.1, marginBottom: "2.5rem" }}>
+                From sign-up to story<br />in four steps.
+              </h2>
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                {[
+                  { n: "01", title: "Create your free account", desc: "Sign up in 30 seconds — no credit card, no upsells, ever." },
+                  { n: "02", title: "Log your experiences", desc: "Track clinical, shadowing, research, and volunteer hours as you go." },
+                  { n: "03", title: "Discover your archetype", desc: "AI analyzes your profile and reveals your unique pre-med identity." },
+                  { n: "04", title: "Build your narrative", desc: "Reframe your experiences into a compelling medical school story." },
+                ].map((step, i, arr) => (
+                  <div key={step.n} style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "1.25rem", padding: "1.25rem 0", borderBottom: i < arr.length - 1 ? "1px solid rgba(255,255,255,0.06)" : "none" }}>
+                    <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "0.75rem", fontWeight: 600, color: "rgba(255,255,255,0.25)", paddingTop: 2 }}>{step.n}</span>
+                    <div>
+                      <p style={{ fontWeight: 600, fontSize: "0.875rem", color: "#FFFFFF", marginBottom: "0.25rem" }}>{step.title}</p>
+                      <p style={{ fontSize: "0.8125rem", color: "rgba(255,255,255,0.3)", lineHeight: 1.55 }}>{step.desc}</p>
+                    </div>
                   </div>
                 ))}
               </div>
-              <p className="text-sm" style={{ color: "rgba(255,255,255,0.75)" }}>
-                Join <span className="font-bold" style={{ color: "#E8A020" }}>1,000+</span> pre-med students building their path to medicine
-              </p>
             </div>
-
-            {/* CTA */}
-            <Link
-              href="/auth/signup"
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-md font-semibold text-base transition-colors"
-              style={{
-                backgroundColor: "#E8A020",
-                color: "#FFFFFF",
-              }}
-            >
-              Get Started Free
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 7l5 5m0 0l-5 5m5-5H6"
-                />
-              </svg>
-            </Link>
-
-            {/* Floating stat cards */}
-            <div className="mt-14 grid grid-cols-3 gap-3 max-w-2xl mx-auto">
-              {[
-                { num: "149", label: "Schools" },
-                { num: "015", label: "Archetypes" },
-                { num: "012", label: "Tools" },
-              ].map((s) => (
-                <div
-                  key={s.label}
-                  className="rounded-md p-4 text-center"
-                  style={{ backgroundColor: "rgba(22,33,62,0.65)", border: "0.5px solid rgba(255,255,255,0.08)" }}
-                >
-                  <p className="mono text-2xl font-medium" style={{ color: "#E8A020" }}>{s.num}</p>
-                  <p className="mono text-[10px] uppercase tracking-widest mt-1" style={{ color: "rgba(255,255,255,0.55)" }}>{s.label}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* Feature cards */}
-            <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 text-left auto-rows-fr items-stretch">
-              {[
-                {
-                  title: "Track Every Hour",
-                  desc: "Log clinical work, shadowing, research, and volunteering with dates, hours, and reflections.",
-                  iconPath: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01",
-                },
-                {
-                  title: "Explore 150+ Schools",
-                  desc: "Filter by GPA, MCAT, mission, and state preference to find programs that fit your profile.",
-                  iconPath: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4",
-                },
-                {
-                  title: "Export to PDF",
-                  desc: "Download a clean, formatted summary of your experiences for advisors or applications.",
-                  iconPath: "M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4",
-                },
-                {
-                  title: "Narrative Builder",
-                  desc: "AI analyzes your experiences and crafts a cohesive med school story that actually lands.",
-                  iconPath: "M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z",
-                },
-                {
-                  title: "AI Pre-Med Advisor",
-                  desc: "Get personalized guidance 24/7 from your AI consultant — it knows your hours, GPA, and goals.",
-                  iconPath: "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z",
-                },
-                {
-                  title: "Reframe Engine",
-                  desc: "Turn rough descriptions into polished AMCAS-ready language with clinical depth and impact.",
-                  iconPath: "M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15",
-                },
-                {
-                  title: "Pre-Med Archetype",
-                  desc: "Discover your unique pre-med identity and get personalized school matches built for you.",
-                  iconPath: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
-                },
-                {
-                  title: "Specialty Explorer",
-                  desc: "Browse 30+ medical specialties by lifestyle, salary range, residency length, and competitiveness.",
-                  iconPath: "M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6 6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3M8 15v1a6 6 0 0 0 6 6 6 6 0 0 0 6-6v-4",
-                },
-                {
-                  title: "Resource Library",
-                  desc: "Curated free MCAT prep, fee assistance programs, and pipeline opportunities for every pre-med.",
-                  iconPath: "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253",
-                },
-                {
-                  title: "Gap Year Planner",
-                  desc: "Structured goal tracking, monthly logs, and milestone checklists for students taking time off.",
-                  iconPath: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z",
-                },
-                {
-                  title: "Post-bacc Tracker",
-                  desc: "Calculate your BCPM and cumulative GPA in real time as you log post-bacc courses.",
-                  iconPath: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4",
-                },
-                {
-                  title: "First-Gen Stories",
-                  desc: "Real stories from first-gen pre-med students who made it — proof your path belongs in medicine too.",
-                  iconPath: "M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z",
-                },
-              ].map((f) => (
-                <div
-                  key={f.title}
-                  className="feature-card rounded-md p-6 h-full flex flex-col"
-                >
-                  {/* Icon — fixed height block */}
-                  <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 flex-shrink-0"
-                    style={{ backgroundColor: "rgba(232,160,32,0.12)" }}
-                  >
-                    <svg
-                      className="w-6 h-6"
-                      style={{ color: "#E8A020" }}
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={1.5}
-                        d={f.iconPath}
-                      />
-                    </svg>
+            {/* Divider */}
+            <div style={{ backgroundColor: "rgba(255,255,255,0.06)" }} />
+            {/* Right: Sample log */}
+            <div style={{ padding: "4rem 2rem 4rem 3rem" }}>
+              <p style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.18)", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: "1.5rem" }}>SAMPLE LOG</p>
+              <h2 style={{ fontSize: "1.75rem", fontWeight: 700, letterSpacing: "-0.025em", color: "#FFFFFF", lineHeight: 1.1, marginBottom: "2.5rem" }}>
+                What your dashboard<br />will look like.
+              </h2>
+              {/* Log table header */}
+              <div style={{ display: "grid", gridTemplateColumns: "1fr auto auto", gap: "1rem", padding: "0.5rem 0", borderBottom: "1px solid rgba(255,255,255,0.06)", marginBottom: "0" }}>
+                <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.18)", letterSpacing: "0.14em", textTransform: "uppercase" }}>ORGANIZATION</span>
+                <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.18)", letterSpacing: "0.14em", textTransform: "uppercase" }}>TYPE</span>
+                <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.18)", letterSpacing: "0.14em", textTransform: "uppercase" }}>HRS</span>
+              </div>
+              {SAMPLE_LOG.map((row, i) => (
+                <div key={i} style={{ display: "grid", gridTemplateColumns: "1fr auto auto", gap: "1rem", padding: "1rem 0", borderBottom: "1px solid rgba(255,255,255,0.06)", alignItems: "center" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.625rem" }}>
+                    <div style={{ width: 2, height: 16, backgroundColor: "#DC2626", flexShrink: 0 }} />
+                    <span style={{ fontSize: "0.875rem", color: "#FFFFFF", fontWeight: 500 }}>{row.org}</span>
                   </div>
-
-                  {/* Title — consistent leading */}
-                  <h3
-                    className="font-semibold text-base mb-2 leading-snug"
-                    style={{ color: "#FFFFFF" }}
-                  >
-                    {f.title}
-                  </h3>
-
-                  {/* Description — fills remaining space */}
-                  <p
-                    className="text-sm leading-relaxed flex-1"
-                    style={{ color: "rgba(255,255,255,0.55)" }}
-                  >
-                    {f.desc}
-                  </p>
+                  <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.35)", border: "1px solid rgba(255,255,255,0.08)", padding: "2px 6px", textTransform: "uppercase", letterSpacing: "0.1em" }}>{row.type}</span>
+                  <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "0.875rem", color: "rgba(255,255,255,0.6)" }}>{row.hours}</span>
                 </div>
               ))}
+              <div style={{ marginTop: "1.5rem" }}>
+                <Link href="/auth/signup" style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "11px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.12em", textTransform: "uppercase", textDecoration: "none" }}>
+                  Start your log →
+                </Link>
+              </div>
             </div>
+          </div>
+        </section>
 
-            {/* ── About teaser ── */}
-            <div className="mt-24 max-w-2xl mx-auto text-center">
-              <div
-                className="mx-auto mb-8"
-                style={{ height: 1, width: 56, backgroundColor: "#E8A020" }}
-              />
-              <p
-                className="text-[11px] mono uppercase tracking-[0.22em] mb-4"
-                style={{ color: "#E8A020" }}
-              >
-                Why We Built This
+        {/* ── Archetype preview — 2 col ── */}
+        <section style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+          <div style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1px 1fr" }}>
+            {/* Left */}
+            <div style={{ padding: "4rem 3rem 4rem 2rem" }}>
+              <p style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.18)", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: "1.5rem" }}>PRE-MED ARCHETYPE</p>
+              <div style={{ border: "1px solid rgba(255,255,255,0.12)", padding: "1.5rem", marginBottom: "1.75rem", borderRadius: 1 }}>
+                <div style={{ display: "flex", alignItems: "baseline", gap: "0.75rem", marginBottom: "0.75rem" }}>
+                  <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.25)", letterSpacing: "0.14em" }}>01 / 15</span>
+                  <span style={{ fontSize: "1.125rem", fontWeight: 700, color: "#FFFFFF", letterSpacing: "-0.01em" }}>The Community Healer</span>
+                </div>
+                <p style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.4)", lineHeight: 1.6 }}>
+                  Your experiences are rooted in underserved communities. You bring cultural competency, patient trust, and a systems-level perspective that mission-driven schools actively seek.
+                </p>
+              </div>
+              <p style={{ fontSize: "0.8125rem", color: "rgba(255,255,255,0.25)", lineHeight: 1.65 }}>
+                CliniLog analyzes all your logged hours and reflections to reveal which of 15 pre-med archetypes best describes your path — and which schools are built for you.
               </p>
-              <p
-                className="text-lg leading-relaxed mb-5"
-                style={{ color: "rgba(255,255,255,0.85)" }}
-              >
-                CliniLog exists because the pre-med journey is hard enough without having to figure
-                out the system alone. We built the tools to make it clearer, more organized, and more
-                accessible for every student.
-              </p>
-              <Link
-                href="/about"
-                className="inline-flex items-center gap-1.5 text-sm font-medium transition-opacity hover:opacity-80"
-                style={{ color: "#E8A020" }}
-              >
-                Read our story
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            </div>
+            {/* Divider */}
+            <div style={{ backgroundColor: "rgba(255,255,255,0.06)" }} />
+            {/* Right: School match grid */}
+            <div style={{ padding: "4rem 2rem 4rem 3rem" }}>
+              <p style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.18)", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: "1.5rem" }}>SCHOOL MATCHES</p>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 1, backgroundColor: "rgba(255,255,255,0.06)" }}>
+                {[
+                  { name: "UCSF", match: "01" },
+                  { name: "UNC Chapel Hill", match: "02" },
+                  { name: "Morehouse SOM", match: "03" },
+                  { name: "Wake Forest SOM", match: "04" },
+                ].map((s) => (
+                  <div key={s.name} style={{ backgroundColor: "#000000", padding: "1.75rem 1.5rem" }}>
+                    <p style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.18)", letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "0.625rem" }}>MATCH {s.match}</p>
+                    <p style={{ fontWeight: 600, fontSize: "0.9375rem", color: "#FFFFFF" }}>{s.name}</p>
+                  </div>
+                ))}
+              </div>
+              <div style={{ marginTop: "1.75rem" }}>
+                <Link href="/schools" style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "11px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.12em", textTransform: "uppercase", textDecoration: "none" }}>
+                  Browse all 149 schools →
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Closing CTA — 2 col ── */}
+        <section style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+          <div style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1px 1fr" }}>
+            {/* Left */}
+            <div style={{ padding: "5rem 3rem 5rem 2rem" }}>
+              <h2 style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.05, color: "#FFFFFF", marginBottom: "2rem" }}>
+                Your path to medicine<br />starts here.
+              </h2>
+              <Link href="/auth/signup" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", backgroundColor: "#FFFFFF", color: "#000000", fontWeight: 700, fontSize: "0.9375rem", padding: "0.875rem 1.75rem", borderRadius: 1, textDecoration: "none" }}>
+                Get started free
+                <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
               </Link>
             </div>
-
-            {/* ── How It Works ── */}
-            <div className="mt-24 text-left">
-              <div className="text-center mb-12">
-                <h2 className="text-2xl sm:text-3xl font-bold mb-3 dept-header" style={{ color: "#FFFFFF", display: "inline-block", borderBottom: "none" }}>
-                  How It Works
-                </h2>
-                <p className="text-base" style={{ color: "rgba(255,255,255,0.7)" }}>
-                  Four steps from sign-up to a polished application story.
-                </p>
-              </div>
-
-              <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-4">
-                {/* Dotted connector — desktop only, hidden behind the cards */}
-                <div
-                  className="hidden lg:block absolute top-7 left-[12.5%] right-[12.5%] step-line"
-                  style={{ height: 2, zIndex: 0 }}
-                />
-
-                {[
-                  {
-                    n: "1",
-                    title: "Create Your Free Account",
-                    desc: "Sign up in under 30 seconds — no credit card, no upsells, ever.",
-                  },
-                  {
-                    n: "2",
-                    title: "Log Your Experiences",
-                    desc: "Track clinical, shadowing, research, and volunteer hours as you go.",
-                  },
-                  {
-                    n: "3",
-                    title: "Discover Your Archetype",
-                    desc: "AI analyzes your profile and reveals your unique pre-med identity.",
-                  },
-                  {
-                    n: "4",
-                    title: "Build Your Narrative",
-                    desc: "Use AI tools to reframe your experiences into a compelling med school story.",
-                  },
-                ].map((step) => (
-                  <div key={step.n} className="relative z-10 flex flex-col items-center text-center">
-                    <div
-                      className="w-14 h-14 rounded-md flex items-center justify-center mb-4 mono"
-                      style={{
-                        backgroundColor: "#16213E",
-                        border: "0.5px solid rgba(232,160,32,0.4)",
-                        color: "#E8A020",
-                        fontSize: "1.5rem",
-                        fontWeight: 500,
-                      }}
-                    >
-                      {String(step.n).padStart(2, "0")}
-                    </div>
-                    <h3 className="font-medium text-base mb-2" style={{ color: "#FFFFFF" }}>
-                      {step.title}
-                    </h3>
-                    <p className="text-sm leading-relaxed max-w-[240px]" style={{ color: "rgba(255,255,255,0.6)" }}>
-                      {step.desc}
-                    </p>
-                  </div>
-                ))}
-              </div>
+            {/* Divider */}
+            <div style={{ backgroundColor: "rgba(255,255,255,0.06)" }} />
+            {/* Right: Pricing rows */}
+            <div style={{ padding: "5rem 2rem 5rem 3rem" }}>
+              <p style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.18)", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: "1.5rem" }}>WHAT YOU GET</p>
+              {TOOLS.map((t, i) => (
+                <div key={t.n} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0.75rem 0", borderBottom: i < TOOLS.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none" }}>
+                  <span style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.5)" }}>{t.name}</span>
+                  <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.25)", border: "1px solid rgba(255,255,255,0.08)", padding: "2px 7px", letterSpacing: "0.1em" }}>FREE</span>
+                </div>
+              ))}
             </div>
           </div>
-        </main>
         </section>
 
-        {/* Footer */}
-        <footer
-          className="relative z-10 px-6 pt-14 pb-6"
-          style={{
-            borderTop: "1px solid rgba(255,255,255,0.08)",
-            background: "#1A1A2E",
-          }}
-        >
-          <div className="max-w-5xl mx-auto">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
-              {/* Brand column */}
-              <div>
-                <div className="flex items-center gap-2 mb-3">
-                  <div
-                    className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
-                    style={{ backgroundColor: "#E8A020", boxShadow: "0 0 12px rgba(232,160,32,0.4)" }}
-                  >
-                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#1A1A2E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="2,12 7,12 8,9 10,12 12,3 13,21 14,12 16,9 18,12 22,12" />
-                    </svg>
-                  </div>
-                  <span className="font-bold text-base" style={{ color: "#FFFFFF" }}>CliniLog</span>
-                </div>
-                <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
-                  The all-in-one toolkit for pre-med students. Free forever — because your path to medicine shouldn&apos;t cost more than it already does.
-                </p>
-              </div>
-
-              {/* Product column */}
-              <div>
-                <p
-                  className="text-xs font-bold uppercase tracking-wider mb-4"
-                  style={{ color: "#E8A020" }}
-                >
-                  Product
-                </p>
-                <ul className="space-y-2.5">
-                  {[
-                    { label: "Dashboard", href: "/dashboard" },
-                    { label: "Schools", href: "/schools" },
-                    { label: "Specialties", href: "/specialties" },
-                    { label: "My Archetype", href: "/archetype" },
-                    { label: "Narrative Builder", href: "/dashboard" },
-                  ].map((link) => (
-                    <li key={link.label}>
-                      <Link
-                        href={link.href}
-                        className="text-sm transition-colors hover:opacity-80"
-                        style={{ color: "rgba(255,255,255,0.65)" }}
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Planning column */}
-              <div>
-                <p
-                  className="text-xs font-bold uppercase tracking-wider mb-4"
-                  style={{ color: "#E8A020" }}
-                >
-                  Planning
-                </p>
-                <ul className="space-y-2.5">
-                  {[
-                    { label: "Gap Year Planner", href: "/gapyear" },
-                    { label: "Post-bacc Tracker", href: "/postbacc" },
-                    { label: "Fee Tracker", href: "/fee-tracker" },
-                    { label: "Resources", href: "/resources" },
-                    { label: "Import CSV", href: "/import" },
-                  ].map((link) => (
-                    <li key={link.label}>
-                      <Link
-                        href={link.href}
-                        className="text-sm transition-colors hover:opacity-80"
-                        style={{ color: "rgba(255,255,255,0.65)" }}
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Community column */}
-              <div>
-                <p
-                  className="text-xs font-bold uppercase tracking-wider mb-4"
-                  style={{ color: "#E8A020" }}
-                >
-                  Community
-                </p>
-                <ul className="space-y-2.5">
-                  {[
-                    { label: "About CliniLog", href: "/about" },
-                    { label: "First-Gen Stories", href: "/stories" },
-                    { label: "AI Advisor", href: "/dashboard" },
-                    { label: "Share Your Story", href: "/stories" },
-                  ].map((link) => (
-                    <li key={link.label}>
-                      <Link
-                        href={link.href}
-                        className="text-sm transition-colors hover:opacity-80"
-                        style={{ color: "rgba(255,255,255,0.65)" }}
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            {/* Copyright bar */}
-            <div
-              className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3"
-              style={{ borderTop: "1px solid rgba(232,160,32,0.08)" }}
-            >
-              <p className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
-                &copy; {new Date().getFullYear()} CliniLog. The all-in-one pre-med toolkit.
-              </p>
-              <p className="text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>
-                Made with <span style={{ color: "#E8A020" }}>♥</span> for the next generation of physicians.
-              </p>
+        {/* ── Footer ── */}
+        <footer style={{ borderTop: "1px solid rgba(255,255,255,0.06)", padding: "1.25rem 2rem" }}>
+          <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <p style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.18)", letterSpacing: "0.14em", textTransform: "uppercase" }}>
+              © {new Date().getFullYear()} CLINILOG — ALL RIGHTS RESERVED
+            </p>
+            <div style={{ display: "flex", gap: "1.5rem" }}>
+              {[["SCHOOLS", "/schools"], ["ARCHETYPE", "/archetype"], ["RESOURCES", "/resources"], ["STORIES", "/stories"], ["ABOUT", "/about"]].map(([label, href]) => (
+                <Link key={label} href={href} style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.18)", letterSpacing: "0.14em", textDecoration: "none", textTransform: "uppercase" }}>
+                  {label}
+                </Link>
+              ))}
             </div>
           </div>
         </footer>
+
       </div>
     </>
   );

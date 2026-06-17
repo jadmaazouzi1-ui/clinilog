@@ -89,12 +89,12 @@ export default function PostbaccView({
                 onClick={() => persistProfile({ program_type: pt.value })}
                 className="text-left rounded-xl px-4 py-3 transition-all"
                 style={{
-                  background: active ? "rgba(232,160,32,0.1)" : "rgba(232,160,32,0.03)",
-                  border: `1px solid ${active ? "#E8A020" : "rgba(232,160,32,0.12)"}`,
-                  boxShadow: active ? "0 0 14px rgba(232,160,32,0.25)" : "none",
+                  background: active ? "rgba(255,255,255,0.04)" : "rgba(232,160,32,0.03)",
+                  border: `1px solid ${active ? "#FFFFFF" : "rgba(255,255,255,0.04)"}`,
+                  boxShadow: active ? "0 0 14px rgba(255,255,255,0.1)" : "none",
                 }}
               >
-                <p className="text-sm font-bold mb-0.5" style={{ color: active ? "#E8A020" : "#FFFFFF" }}>{pt.label}</p>
+                <p className="text-sm font-bold mb-0.5" style={{ color: active ? "#FFFFFF" : "#FFFFFF" }}>{pt.label}</p>
                 <p className="text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>{pt.desc}</p>
               </button>
             );
@@ -168,12 +168,12 @@ export default function PostbaccView({
               type="submit"
               disabled={isPending}
               className="px-4 py-2.5 rounded-xl font-semibold text-sm disabled:opacity-40"
-              style={{ background: "#E8A020", color: "#FFFFFF" }}
+              style={{ background: "#FFFFFF", color: "#FFFFFF" }}
             >
               Add Course
             </button>
           </div>
-          {formError && <p className="text-xs" style={{ color: "#EF4444" }}>{formError}</p>}
+          {formError && <p className="text-xs" style={{ color: "#DC2626" }}>{formError}</p>}
         </form>
       </div>
 
@@ -188,7 +188,7 @@ export default function PostbaccView({
           <div className="overflow-x-auto">
             <table className="w-full text-sm" style={{ minWidth: 600 }}>
               <thead>
-                <tr style={{ borderBottom: "1px solid rgba(232,160,32,0.15)" }}>
+                <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
                   <th className="text-left px-2 py-2 text-xs uppercase tracking-wide" style={{ color: "rgba(255,255,255,0.5)" }}>Course</th>
                   <th className="text-left px-2 py-2 text-xs uppercase tracking-wide" style={{ color: "rgba(255,255,255,0.5)" }}>Semester</th>
                   <th className="text-right px-2 py-2 text-xs uppercase tracking-wide" style={{ color: "rgba(255,255,255,0.5)" }}>Credits</th>
@@ -204,13 +204,13 @@ export default function PostbaccView({
                     <td className="px-2 py-3" style={{ color: "rgba(255,255,255,0.65)" }}>{c.semester || "—"}</td>
                     <td className="px-2 py-3 text-right" style={{ color: "rgba(255,255,255,0.85)" }}>{c.credits}</td>
                     <td className="px-2 py-3 text-center">
-                      <span className="inline-flex items-center justify-center w-9 px-2 py-0.5 rounded-md text-xs font-bold" style={{ background: "rgba(232,160,32,0.12)", color: "#E8A020", border: "1px solid rgba(232,160,32,0.3)" }}>
+                      <span className="inline-flex items-center justify-center w-9 px-2 py-0.5 rounded-md text-xs font-bold" style={{ background: "rgba(255,255,255,0.04)", color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.12)" }}>
                         {c.grade}
                       </span>
                     </td>
                     <td className="px-2 py-3 text-center">
                       {c.is_bcpm ? (
-                        <svg className="w-4 h-4 mx-auto" fill="none" stroke="#E8A020" strokeWidth="2.5" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4 mx-auto" fill="none" stroke="#FFFFFF" strokeWidth="2.5" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                         </svg>
                       ) : (
@@ -218,7 +218,7 @@ export default function PostbaccView({
                       )}
                     </td>
                     <td className="px-2 py-3 text-right">
-                      <button onClick={() => handleDelete(c.id)} className="p-1.5 opacity-50 hover:opacity-100" style={{ color: "#EF4444" }} aria-label="Delete course">
+                      <button onClick={() => handleDelete(c.id)} className="p-1.5 opacity-50 hover:opacity-100" style={{ color: "#DC2626" }} aria-label="Delete course">
                         <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M4 7h16" />
                         </svg>
@@ -247,7 +247,7 @@ export default function PostbaccView({
       </div>
 
       {savedAt && (
-        <p className="text-xs text-center" style={{ color: "rgba(232,160,32,0.5)" }}>
+        <p className="text-xs text-center" style={{ color: "rgba(255,255,255,0.2)" }}>
           {isPending ? "Saving…" : `Saved at ${savedAt}`}
         </p>
       )}
@@ -273,13 +273,13 @@ function GpaCard({ label, sub, value, goal, onGoalChange }: {
       <div className="flex items-center justify-between mb-1">
         <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: "rgba(232,160,32,0.7)" }}>{label}</p>
         {value !== null && (
-          <span className="text-[10px] font-bold uppercase tracking-wide" style={{ color: metGoal ? "#22C55E" : "rgba(255,255,255,0.5)" }}>
+          <span className="text-[10px] font-bold uppercase tracking-wide" style={{ color: metGoal ? "#FFFFFF" : "rgba(255,255,255,0.5)" }}>
             {metGoal ? "Goal Met ✓" : `${pct.toFixed(0)}% to goal`}
           </span>
         )}
       </div>
       <div className="flex items-baseline gap-2 mb-3">
-        <span className="text-4xl font-bold" style={{ color: "#E8A020" }}>{formatGpa(value)}</span>
+        <span className="text-4xl font-bold" style={{ color: "#FFFFFF" }}>{formatGpa(value)}</span>
         <span className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>/ 4.00</span>
       </div>
 
@@ -290,7 +290,7 @@ function GpaCard({ label, sub, value, goal, onGoalChange }: {
             width: "100%",
             transform: `scaleX(${pct / 100})`,
             transformOrigin: "left center",
-            background: metGoal ? "#22C55E" : "#E8A020",
+            background: metGoal ? "#FFFFFF" : "#FFFFFF",
             transition: "transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
           }}
         />

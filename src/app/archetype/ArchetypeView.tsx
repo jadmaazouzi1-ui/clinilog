@@ -60,9 +60,9 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
       <div className="glass-card rounded-2xl p-10 text-center">
         <div
           className="inline-flex items-center justify-center w-14 h-14 rounded-full mb-4"
-          style={{ background: "rgba(232,160,32,0.1)" }}
+          style={{ background: "rgba(255,255,255,0.04)" }}
         >
-          <svg className="w-7 h-7" fill="none" stroke="#E8A020" viewBox="0 0 24 24">
+          <svg className="w-7 h-7" fill="none" stroke="#FFFFFF" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
           </svg>
         </div>
@@ -73,7 +73,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
         <Link
           href="/dashboard/new"
           className="inline-flex items-center gap-2 teal-glow px-5 py-2.5 rounded-xl font-semibold text-sm"
-          style={{ backgroundColor: "#E8A020", color: "#FFFFFF" }}
+          style={{ backgroundColor: "#FFFFFF", color: "#000000" }}
         >
           Log an experience
         </Link>
@@ -99,9 +99,9 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
           ))}
           <div
             className="absolute inset-3 rounded-full flex items-center justify-center"
-            style={{ backgroundColor: "#E8A020", boxShadow: "0 0 30px rgba(232,160,32,0.6)" }}
+            style={{ backgroundColor: "#FFFFFF", boxShadow: "0 0 30px rgba(255,255,255,0.25)" }}
           >
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1A1A2E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="2,12 7,12 8,9 10,12 12,3 13,21 14,12 16,9 18,12 22,12" />
             </svg>
           </div>
@@ -126,12 +126,12 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
   if (error && !analysis) {
     return (
       <div className="glass-card rounded-2xl p-10 text-center">
-        <h1 className="text-lg font-bold mb-3" style={{ color: "#EF4444" }}>Couldn&apos;t generate your archetype</h1>
+        <h1 className="text-lg font-bold mb-3" style={{ color: "#DC2626" }}>Couldn&apos;t generate your archetype</h1>
         <p className="text-sm mb-6 max-w-md mx-auto" style={{ color: "rgba(255,255,255,0.6)" }}>{error}</p>
         <button
           onClick={runAnalysis}
           className="inline-flex items-center gap-2 teal-glow px-5 py-2.5 rounded-xl font-semibold text-sm"
-          style={{ backgroundColor: "#E8A020", color: "#FFFFFF" }}
+          style={{ backgroundColor: "#FFFFFF", color: "#000000" }}
         >
           Try again
         </button>
@@ -142,7 +142,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
   if (!analysis) return null;
 
   const archetype = getArchetype(analysis.archetype_id) ?? ARCHETYPES[0];
-  const color = archetype.color;
+  const color = "#FFFFFF";
 
   function downloadCard() {
     const canvas = document.createElement("canvas");
@@ -152,11 +152,11 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
     if (!ctx) return;
 
     // Background
-    ctx.fillStyle = "#1A1A2E";
+    ctx.fillStyle = "#000000";
     ctx.fillRect(0, 0, w, h);
 
     // Dot grid
-    ctx.fillStyle = "rgba(232,160,32,0.12)";
+    ctx.fillStyle = "rgba(255,255,255,0.04)";
     for (let x = 14; x < w; x += 32) {
       for (let y = 14; y < h; y += 32) {
         ctx.beginPath();
@@ -167,13 +167,13 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
 
     // Radial glow
     const grad = ctx.createRadialGradient(w / 2, h / 2, 50, w / 2, h / 2, 500);
-    grad.addColorStop(0, "rgba(232,160,32,0.18)");
-    grad.addColorStop(1, "rgba(232,160,32,0)");
+    grad.addColorStop(0, "rgba(255,255,255,0.06)");
+    grad.addColorStop(1, "rgba(255,255,255,0)");
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, w, h);
 
     // Top label
-    ctx.fillStyle = "#E8A020";
+    ctx.fillStyle = "#FFFFFF";
     ctx.font = "bold 22px -apple-system, system-ui, sans-serif";
     ctx.textAlign = "center";
     ctx.fillText("MY PRE-MED ARCHETYPE", w / 2, 130);
@@ -192,7 +192,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
     ctx.fillText(archetype.name, w / 2, 290);
 
     // Tagline
-    ctx.fillStyle = color;
+    ctx.fillStyle = "rgba(255,255,255,0.7)";
     ctx.font = "italic 36px -apple-system, system-ui, sans-serif";
     ctx.fillText(`"${archetype.tagline}"`, w / 2, 365);
 
@@ -254,7 +254,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
         <div className="relative">
           <p
             className="text-xs font-bold uppercase tracking-[0.2em] mb-3"
-            style={{ color }}
+            style={{ color: "rgba(255,255,255,0.35)" }}
           >
             Your Pre-Med Archetype
           </p>
@@ -280,7 +280,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
               </span>
             ))}
           </h1>
-          <p className="text-base italic mb-4" style={{ color }}>
+          <p className="text-base italic mb-4" style={{ color: "rgba(255,255,255,0.35)" }}>
             &ldquo;{archetype.tagline}&rdquo;
           </p>
           <p className="text-sm leading-relaxed max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.7)" }}>
@@ -291,7 +291,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
             <button
               onClick={downloadCard}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-opacity hover:opacity-90"
-              style={{ backgroundColor: color, color: "#FFFFFF" }}
+              style={{ backgroundColor: "#FFFFFF", color: "#000000" }}
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -302,7 +302,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
               onClick={runAnalysis}
               disabled={loading}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-opacity"
-              style={{ color: "#E8A020", border: "1px solid rgba(232,160,32,0.35)", background: "rgba(232,160,32,0.06)" }}
+              style={{ color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.14)", background: "transparent" }}
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -351,7 +351,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
             <li
               key={i}
               className="flex items-center gap-3 rounded-xl px-3.5 py-2.5"
-              style={{ backgroundColor: "rgba(232,160,32,0.04)", border: "1px solid rgba(232,160,32,0.1)" }}
+              style={{ backgroundColor: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.04)" }}
             >
               <span
                 className="text-xs font-bold flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center"
@@ -366,7 +366,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
         <Link
           href="/schools"
           className="inline-flex items-center gap-1.5 text-xs font-semibold mt-4"
-          style={{ color: "#E8A020" }}
+          style={{ color: "#FFFFFF" }}
         >
           Browse all schools
           <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -404,7 +404,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
       {error && (
         <div
           className="text-sm rounded-xl px-4 py-3"
-          style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", color: "#EF4444" }}
+          style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", color: "#DC2626" }}
         >
           {error}
         </div>
@@ -418,7 +418,7 @@ function Section({ title, color, children }: { title: string; color: string; chi
     <div className="glass-card rounded-2xl p-6">
       <p
         className="text-xs font-bold uppercase tracking-wider mb-3"
-        style={{ color }}
+        style={{ color: "rgba(255,255,255,0.35)" }}
       >
         {title}
       </p>

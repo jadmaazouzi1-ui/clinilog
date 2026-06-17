@@ -13,18 +13,18 @@ const STATUS_STYLES: Record<WaiverStatus, { background: string; color: string; b
     border: "1px solid rgba(255,255,255,0.15)",
   },
   Applied: {
-    background: "rgba(232,160,32,0.1)",
-    color: "#E8A020",
-    border: "1px solid rgba(232,160,32,0.3)",
+    background: "rgba(255,255,255,0.04)",
+    color: "#FFFFFF",
+    border: "1px solid rgba(255,255,255,0.12)",
   },
   Approved: {
-    background: "rgba(34,197,94,0.1)",
-    color: "#22C55E",
-    border: "1px solid rgba(34,197,94,0.3)",
+    background: "rgba(255,255,255,0.1)",
+    color: "#FFFFFF",
+    border: "1px solid rgba(255,255,255,0.1)",
   },
   Denied: {
     background: "rgba(239,68,68,0.1)",
-    color: "#EF4444",
+    color: "#DC2626",
     border: "1px solid rgba(239,68,68,0.3)",
   },
 };
@@ -80,7 +80,7 @@ export default async function FeeTrackerPage() {
         <Link
           href="/dashboard"
           className="inline-flex items-center gap-1.5 text-sm font-medium mb-8"
-          style={{ color: "#E8A020" }}
+          style={{ color: "#FFFFFF" }}
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -102,13 +102,13 @@ export default async function FeeTrackerPage() {
             <div
               key={stat.label}
               className="rounded-xl p-5"
-              style={{ backgroundColor: "#16213E", border: "1px solid rgba(232,160,32,0.14)" }}
+              style={{ backgroundColor: "#000000", border: "1px solid rgba(232,160,32,0.14)" }}
             >
               <p className="text-xs font-semibold uppercase tracking-wide mb-1" style={{ color: "rgba(255,255,255,0.6)" }}>
                 {stat.label}
               </p>
               <div className="flex items-baseline gap-1.5">
-                <span className="text-2xl font-bold" style={{ color: "#E8A020" }}>{stat.value}</span>
+                <span className="text-2xl font-bold" style={{ color: "#FFFFFF" }}>{stat.value}</span>
                 <span className="text-xs font-medium" style={{ color: "rgba(255,255,255,0.5)" }}>{stat.unit}</span>
               </div>
             </div>
@@ -123,7 +123,7 @@ export default async function FeeTrackerPage() {
               {/* Name */}
               <div>
                 <label htmlFor="name" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(255,255,255,0.85)" }}>
-                  Program / Waiver Name <span style={{ color: "#EF4444" }}>*</span>
+                  Program / Waiver Name <span style={{ color: "#DC2626" }}>*</span>
                 </label>
                 <input
                   id="name"
@@ -204,7 +204,7 @@ export default async function FeeTrackerPage() {
               <button
                 type="submit"
                 className="inline-flex items-center gap-2 teal-glow px-5 py-2.5 rounded-xl font-semibold text-sm transition-colors focus:outline-none"
-                style={{ backgroundColor: "#E8A020", color: "#FFFFFF" }}
+                style={{ backgroundColor: "#FFFFFF", color: "#000000" }}
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -220,9 +220,9 @@ export default async function FeeTrackerPage() {
           <div className="glass-card rounded-2xl p-8 text-center">
             <div
               className="inline-flex items-center justify-center w-14 h-14 rounded-full mb-4"
-              style={{ background: "rgba(232,160,32,0.1)" }}
+              style={{ background: "rgba(255,255,255,0.04)" }}
             >
-              <svg className="w-7 h-7" fill="none" stroke="#E8A020" viewBox="0 0 24 24">
+              <svg className="w-7 h-7" fill="none" stroke="#FFFFFF" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
@@ -259,7 +259,7 @@ export default async function FeeTrackerPage() {
 
                       <div className="flex items-center gap-4 text-xs flex-wrap" style={{ color: "rgba(255,255,255,0.5)" }}>
                         {waiver.amount_saved != null && (
-                          <span className="font-semibold" style={{ color: "#22C55E" }}>
+                          <span className="font-semibold" style={{ color: "#FFFFFF" }}>
                             ${Number(waiver.amount_saved).toFixed(2)} saved
                           </span>
                         )}
@@ -300,7 +300,7 @@ export default async function FeeTrackerPage() {
                         <button
                           type="submit"
                           className="text-xs px-2.5 py-1.5 rounded-lg font-medium transition-colors"
-                          style={{ color: "#E8A020", border: "1px solid rgba(232,160,32,0.35)", background: "rgba(232,160,32,0.08)" }}
+                          style={{ color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.14)", background: "rgba(232,160,32,0.08)" }}
                         >
                           Update
                         </button>
@@ -311,7 +311,7 @@ export default async function FeeTrackerPage() {
                         <button
                           type="submit"
                           className="p-2 rounded-lg transition-colors"
-                          style={{ color: "#EF4444", border: "1px solid rgba(239,68,68,0.25)", background: "rgba(239,68,68,0.08)" }}
+                          style={{ color: "#DC2626", border: "1px solid rgba(239,68,68,0.25)", background: "rgba(239,68,68,0.08)" }}
                           aria-label="Delete waiver"
                         >
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

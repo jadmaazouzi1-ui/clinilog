@@ -48,7 +48,7 @@ export default function OnboardingModal() {
           const active = step === s.num;
 
           const circleStyle: React.CSSProperties = completed
-            ? { background: "#E8A020", border: "2px solid #00D4FF" }
+            ? { background: "#FFFFFF", border: "2px solid #00D4FF" }
             : active
             ? { background: "transparent", border: "2px solid #00D4FF" }
             : { background: "transparent", border: "2px solid rgba(255,255,255,0.2)" };
@@ -56,7 +56,7 @@ export default function OnboardingModal() {
           const numColor = completed
             ? "transparent"
             : active
-            ? "#E8A020"
+            ? "#FFFFFF"
             : "rgba(255,255,255,0.3)";
 
           return (
@@ -93,7 +93,7 @@ export default function OnboardingModal() {
                 <span
                   style={{
                     fontSize: 10,
-                    color: active || completed ? "#E8A020" : "rgba(255,255,255,0.3)",
+                    color: active || completed ? "#FFFFFF" : "rgba(255,255,255,0.3)",
                     fontWeight: 500,
                   }}
                 >
@@ -109,7 +109,7 @@ export default function OnboardingModal() {
                     marginBottom: 18,
                     background:
                       step > s.num
-                        ? "#E8A020"
+                        ? "#FFFFFF"
                         : "rgba(255,255,255,0.12)",
                     borderRadius: 1,
                   }}
@@ -183,8 +183,7 @@ export default function OnboardingModal() {
   // ── Button styles ───────────────────────────────────────────────────────────
 
   const tealBtn: React.CSSProperties = {
-    backgroundColor: "#E8A020",
-    color: "#FFFFFF",
+    backgroundColor: "#FFFFFF", color: "#000000",
     padding: "10px 20px",
     borderRadius: 12,
     fontWeight: 600,
@@ -236,7 +235,7 @@ export default function OnboardingModal() {
           maxWidth: 512,
           width: "100%",
           background: "rgba(255,255,255,0.97)",
-          border: "1px solid rgba(232,160,32,0.2)",
+          border: "1px solid rgba(255,255,255,0.08)",
           borderRadius: 24,
           padding: 32,
           position: "relative",
@@ -460,7 +459,7 @@ export default function OnboardingModal() {
                 width: 64,
                 height: 64,
                 borderRadius: "50%",
-                background: "rgba(232,160,32,0.12)",
+                background: "rgba(255,255,255,0.04)",
                 border: "1.5px solid #00D4FF",
                 display: "flex",
                 alignItems: "center",
@@ -471,7 +470,7 @@ export default function OnboardingModal() {
               <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
                 <path
                   d="M5 14L11 20L23 8"
-                  stroke="#E8A020"
+                  stroke="#FFFFFF"
                   strokeWidth="2.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"

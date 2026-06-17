@@ -4,11 +4,11 @@ import { useState, useTransition, useMemo } from "react";
 import { GapGoal, GapYearData, saveGapYearData } from "./actions";
 
 const CATEGORIES: { value: GapGoal["category"]; label: string; color: string }[] = [
-  { value: "clinical",     label: "Clinical Hours",   color: "#E8A020" },
-  { value: "research",     label: "Research",         color: "#A78BFA" },
-  { value: "volunteering", label: "Volunteering",     color: "#22C55E" },
-  { value: "personal",     label: "Personal Growth",  color: "#F59E0B" },
-  { value: "financial",    label: "Financial",        color: "#38BDF8" },
+  { value: "clinical",     label: "Clinical Hours",   color: "#FFFFFF" },
+  { value: "research",     label: "Research",         color: "#FFFFFF" },
+  { value: "volunteering", label: "Volunteering",     color: "#FFFFFF" },
+  { value: "personal",     label: "Personal Growth",  color: "#FFFFFF" },
+  { value: "financial",    label: "Financial",        color: "#FFFFFF" },
 ];
 
 const MILESTONES: { id: string; label: string; due: string }[] = [
@@ -117,7 +117,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
       <div className="glass-card rounded-2xl p-6">
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div className="flex-1 min-w-[200px]">
-            <p className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: "rgba(232,160,32,0.7)" }}>Target Application Cycle</p>
+            <p className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: "rgba(255,255,255,0.35)" }}>Target Application Cycle</p>
             <select
               value={data.target_cycle_year ?? ""}
               onChange={(e) => persist({ target_cycle_year: e.target.value ? parseInt(e.target.value) : null })}
@@ -132,9 +132,9 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
           {countdown && (
             <div
               className="rounded-xl px-5 py-4 text-center flex-shrink-0"
-              style={{ background: "rgba(232,160,32,0.08)", border: "1px solid rgba(232,160,32,0.25)", minWidth: 180 }}
+              style={{ background: "rgba(232,160,32,0.08)", border: "1px solid rgba(255,255,255,0.1)", minWidth: 180 }}
             >
-              <p className="text-3xl font-bold" style={{ color: "#E8A020" }}>{countdown.days}</p>
+              <p className="text-3xl font-bold" style={{ color: "#FFFFFF" }}>{countdown.days}</p>
               <p className="text-xs mt-1" style={{ color: "rgba(255,255,255,0.6)" }}>days until {countdown.label}</p>
             </div>
           )}
@@ -158,11 +158,11 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
                 <li
                   key={g.id}
                   className="flex items-start gap-3 rounded-xl px-3.5 py-3"
-                  style={{ background: "rgba(232,160,32,0.04)", border: "1px solid rgba(232,160,32,0.1)" }}
+                  style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.04)" }}
                 >
                   <span
                     className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide flex-shrink-0 mt-0.5"
-                    style={{ background: `${meta.color}1f`, color: meta.color, border: `1px solid ${meta.color}40` }}
+                    style={{ background: "rgba(255,255,255,0.04)", color: "rgba(255,255,255,0.6)", border: "1px solid rgba(255,255,255,0.1)" }}
                   >
                     {meta.label}
                   </span>
@@ -173,7 +173,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
                   <button
                     onClick={() => removeGoal(g.id)}
                     className="p-1.5 rounded-lg transition-opacity hover:opacity-100 opacity-50"
-                    style={{ color: "#EF4444" }}
+                    style={{ color: "#DC2626" }}
                     aria-label="Remove goal"
                   >
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -207,7 +207,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
               onClick={addGoal}
               disabled={!newTitle.trim()}
               className="px-4 py-2.5 rounded-xl font-semibold text-sm disabled:opacity-40 disabled:cursor-not-allowed"
-              style={{ background: "#E8A020", color: "#FFFFFF" }}
+              style={{ background: "#FFFFFF", color: "#000000" }}
             >
               Add
             </button>
@@ -237,7 +237,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
             onClick={saveLog}
             disabled={!logText.trim()}
             className="px-4 py-2.5 rounded-xl font-semibold text-sm disabled:opacity-40 disabled:cursor-not-allowed"
-            style={{ background: "#E8A020", color: "#FFFFFF" }}
+            style={{ background: "#FFFFFF", color: "#000000" }}
           >
             Save
           </button>
@@ -251,13 +251,13 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
               <li
                 key={month}
                 className="rounded-xl px-3.5 py-3 flex items-start gap-3"
-                style={{ background: "rgba(232,160,32,0.04)", border: "1px solid rgba(232,160,32,0.1)" }}
+                style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.04)" }}
               >
-                <span className="text-xs font-bold uppercase tracking-wide flex-shrink-0" style={{ color: "#E8A020", minWidth: 76 }}>
+                <span className="text-xs font-bold uppercase tracking-wide flex-shrink-0" style={{ color: "#FFFFFF", minWidth: 76 }}>
                   {formatMonth(month)}
                 </span>
                 <p className="text-sm flex-1" style={{ color: "rgba(255,255,255,0.85)" }}>{text}</p>
-                <button onClick={() => deleteLog(month)} className="p-1 opacity-50 hover:opacity-100" style={{ color: "#EF4444" }} aria-label="Delete log">
+                <button onClick={() => deleteLog(month)} className="p-1 opacity-50 hover:opacity-100" style={{ color: "#DC2626" }} aria-label="Delete log">
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                   </svg>
@@ -275,14 +275,14 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
             <h2 className="text-base font-semibold" style={{ color: "#FFFFFF" }}>Application Milestones</h2>
             <p className="text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>{milestonesDone}/{MILESTONES.length} complete</p>
           </div>
-          <div className="w-32 h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(232,160,32,0.1)" }}>
+          <div className="w-32 h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.04)" }}>
             <div
               className="h-full rounded-full"
               style={{
                 width: "100%",
                 transform: `scaleX(${milestonesDone / MILESTONES.length})`,
                 transformOrigin: "left center",
-                background: "#E8A020",
+                background: "#FFFFFF",
                 transition: "transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
               }}
             />
@@ -299,18 +299,18 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
                   className="w-full text-left rounded-xl px-3.5 py-3 flex items-start gap-3 transition-colors"
                   style={{
                     background: done ? "rgba(232,160,32,0.08)" : "rgba(232,160,32,0.02)",
-                    border: `1px solid ${done ? "rgba(232,160,32,0.3)" : "rgba(232,160,32,0.08)"}`,
+                    border: `1px solid ${done ? "rgba(255,255,255,0.12)" : "rgba(232,160,32,0.08)"}`,
                   }}
                 >
                   <span
                     className="w-5 h-5 rounded-md flex items-center justify-center flex-shrink-0 mt-0.5"
                     style={{
-                      background: done ? "#E8A020" : "transparent",
-                      border: `1.5px solid ${done ? "#E8A020" : "rgba(232,160,32,0.4)"}`,
+                      background: done ? "#FFFFFF" : "transparent",
+                      border: `1.5px solid ${done ? "#FFFFFF" : "rgba(255,255,255,0.15)"}`,
                     }}
                   >
                     {done && (
-                      <svg className="w-3 h-3" fill="none" stroke="#1A1A2E" strokeWidth="3" viewBox="0 0 24 24">
+                      <svg className="w-3 h-3" fill="none" stroke="#000000" strokeWidth="3" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                       </svg>
                     )}
@@ -332,7 +332,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
       </div>
 
       {savedAt && (
-        <p className="text-xs text-center" style={{ color: "rgba(232,160,32,0.5)" }}>
+        <p className="text-xs text-center" style={{ color: "rgba(255,255,255,0.2)" }}>
           {isPending ? "Saving…" : `Saved at ${savedAt}`}
         </p>
       )}

@@ -32,10 +32,10 @@ export default function AMCASTracker({ experiences }: { experiences: Experience[
               <div className="flex items-center justify-between mb-1.5">
                 <span className="text-sm font-medium" style={{ color: "#FFFFFF" }}>{label}</span>
                 <span className="text-[11px] mono">
-                  <span style={{ color: met ? "#E8A020" : "rgba(255,255,255,0.85)" }}>{padded}</span>
-                  <span style={{ color: "rgba(255,255,255,0.35)" }}> / {minPadded}</span>
+                  <span style={{ color: "#FFFFFF" }}>{padded}</span>
+                  <span style={{ color: "rgba(255,255,255,0.25)" }}> / {minPadded}</span>
                   {met && (
-                    <span className="ml-1.5" style={{ color: "#22C55E" }}>✓</span>
+                    <span className="ml-1.5" style={{ color: "#FFFFFF" }}>✓</span>
                   )}
                 </span>
               </div>

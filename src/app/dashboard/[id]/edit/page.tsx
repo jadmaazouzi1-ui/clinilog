@@ -45,7 +45,7 @@ export default async function EditExperiencePage({
         <Link
           href={`/dashboard/${exp.id}`}
           className="inline-flex items-center gap-1.5 text-sm font-medium mb-8"
-          style={{ color: "#E8A020" }}
+          style={{ color: "#FFFFFF" }}
         >
           <svg
             className="w-4 h-4"
@@ -245,7 +245,7 @@ export default async function EditExperiencePage({
               <button
                 type="submit"
                 className="flex-1 inline-flex items-center justify-center gap-2 teal-glow px-6 py-3 rounded-xl font-semibold text-sm transition-colors focus:outline-none"
-                style={{ backgroundColor: "#E8A020", color: "#FFFFFF" }}
+                style={{ backgroundColor: "#FFFFFF", color: "#FFFFFF" }}
               >
                 Save Changes
               </button>

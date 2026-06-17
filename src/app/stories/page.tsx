@@ -8,7 +8,7 @@ const STORIES = [
   {
     name: "Maria",
     initial: "M",
-    color: "#E8A020",
+    color: "#FFFFFF",
     undergrad: "UC Riverside",
     medSchool: "UCLA David Geffen School of Medicine",
     background: "Daughter of Mexican immigrants; first in her family to attend a four-year university. Worked 25 hours a week at the family restaurant throughout college.",
@@ -17,7 +17,7 @@ const STORIES = [
   {
     name: "DeShawn",
     initial: "D",
-    color: "#22C55E",
+    color: "#FFFFFF",
     undergrad: "Howard University",
     medSchool: "Johns Hopkins School of Medicine",
     background: "Grew up in West Baltimore; first-generation college student raised by a single mother who worked as a home health aide.",
@@ -26,7 +26,7 @@ const STORIES = [
   {
     name: "Priya",
     initial: "P",
-    color: "#A78BFA",
+    color: "#FFFFFF",
     undergrad: "CUNY Brooklyn College",
     medSchool: "SUNY Downstate Health Sciences University",
     background: "Parents emigrated from Gujarat, India, and worked in a bodega. Commuted two hours each way to college while working weekends.",
@@ -35,7 +35,7 @@ const STORIES = [
   {
     name: "Carlos",
     initial: "C",
-    color: "#F59E0B",
+    color: "#FFFFFF",
     undergrad: "UT El Paso",
     medSchool: "UT Health San Antonio Long School of Medicine",
     background: "Born and raised on the US-Mexico border; first-generation American and first in his family to pursue a professional degree.",
@@ -44,7 +44,7 @@ const STORIES = [
   {
     name: "Aisha",
     initial: "A",
-    color: "#EF4444",
+    color: "#DC2626",
     undergrad: "Morgan State University",
     medSchool: "University of Maryland School of Medicine",
     background: "HBCU graduate from Baltimore; first in her extended family to enter the medical pipeline. Navigated the application process entirely without a pre-med advisor.",
@@ -53,7 +53,7 @@ const STORIES = [
   {
     name: "Kevin",
     initial: "K",
-    color: "#38BDF8",
+    color: "#FFFFFF",
     undergrad: "Cal State LA",
     medSchool: "UC San Francisco School of Medicine",
     background: "Filipino-American; parents worked as a nurse's aide and a factory worker. First in his family born in the United States.",
@@ -62,7 +62,7 @@ const STORIES = [
   {
     name: "Fatima",
     initial: "F",
-    color: "#6366F1",
+    color: "#FFFFFF",
     undergrad: "UMass Boston",
     medSchool: "Boston University School of Medicine",
     background: "Somali refugee family; arrived in the US at age 9. First person in her entire extended family to enter any healthcare profession.",
@@ -71,7 +71,7 @@ const STORIES = [
   {
     name: "James",
     initial: "J",
-    color: "#22C55E",
+    color: "#FFFFFF",
     undergrad: "University of New Mexico",
     medSchool: "UNM School of Medicine",
     background: "Diné (Navajo Nation); grew up in a rural community with limited healthcare access. First in his family to leave the reservation for college.",
@@ -80,13 +80,13 @@ const STORIES = [
 ];
 
 const STATUS_BADGES: Record<string, { bg: string; text: string; border: string }> = {
-  "#E8A020": { bg: "rgba(232,160,32,0.1)", text: "#E8A020", border: "rgba(232,160,32,0.25)" },
-  "#22C55E": { bg: "rgba(34,197,94,0.1)", text: "#22C55E", border: "rgba(34,197,94,0.25)" },
-  "#A78BFA": { bg: "rgba(167,139,250,0.1)", text: "#A78BFA", border: "rgba(167,139,250,0.25)" },
-  "#F59E0B": { bg: "rgba(245,158,11,0.1)", text: "#F59E0B", border: "rgba(245,158,11,0.25)" },
-  "#EF4444": { bg: "rgba(239,68,68,0.1)", text: "#EF4444", border: "rgba(239,68,68,0.25)" },
-  "#38BDF8": { bg: "rgba(56,189,248,0.1)", text: "#38BDF8", border: "rgba(56,189,248,0.25)" },
-  "#6366F1": { bg: "rgba(99,102,241,0.1)", text: "#6366F1", border: "rgba(99,102,241,0.25)" },
+  "#FFFFFF": { bg: "rgba(255,255,255,0.04)", text: "#FFFFFF", border: "rgba(255,255,255,0.1)" },
+  "#FFFFFF": { bg: "rgba(255,255,255,0.1)", text: "#FFFFFF", border: "rgba(255,255,255,0.1)" },
+  "#FFFFFF": { bg: "rgba(167,139,250,0.1)", text: "#FFFFFF", border: "rgba(167,139,250,0.25)" },
+  "#FFFFFF": { bg: "rgba(255,255,255,0.08)", text: "#FFFFFF", border: "rgba(255,255,255,0.08)" },
+  "#DC2626": { bg: "rgba(239,68,68,0.1)", text: "#DC2626", border: "rgba(239,68,68,0.25)" },
+  "#FFFFFF": { bg: "rgba(255,255,255,0.08)", text: "#FFFFFF", border: "rgba(255,255,255,0.08)" },
+  "#FFFFFF": { bg: "rgba(255,255,255,0.06)", text: "#FFFFFF", border: "rgba(255,255,255,0.06)" },
 };
 
 export default async function StoriesPage({
@@ -106,7 +106,7 @@ export default async function StoriesPage({
         <Link
           href="/dashboard"
           className="inline-flex items-center gap-1.5 text-sm font-medium mb-8"
-          style={{ color: "#E8A020" }}
+          style={{ color: "#FFFFFF" }}
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -132,7 +132,7 @@ export default async function StoriesPage({
         {submitted === "1" && (
           <div
             className="mb-8 text-sm rounded-xl px-4 py-3 flex items-center gap-2"
-            style={{ background: "rgba(34,197,94,0.1)", border: "1px solid rgba(34,197,94,0.3)", color: "#22C55E" }}
+            style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.1)", color: "#FFFFFF" }}
           >
             <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -144,7 +144,7 @@ export default async function StoriesPage({
         {pageError && (
           <div
             className="mb-8 text-sm rounded-xl px-4 py-3"
-            style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", color: "#EF4444" }}
+            style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", color: "#DC2626" }}
           >
             {decodeURIComponent(pageError)}
           </div>
@@ -153,14 +153,14 @@ export default async function StoriesPage({
         {/* Story cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {STORIES.map((s) => {
-            const badge = STATUS_BADGES[s.color] ?? STATUS_BADGES["#E8A020"];
+            const badge = STATUS_BADGES[s.color] ?? STATUS_BADGES["#FFFFFF"];
             return (
               <div key={s.name} className="glass-card rounded-2xl p-6 flex flex-col gap-4">
                 {/* Avatar + name row */}
                 <div className="flex items-center gap-4">
                   <div
                     className="w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg flex-shrink-0"
-                    style={{ backgroundColor: badge.bg, border: `2px solid ${badge.border}`, color: s.color }}
+                    style={{ backgroundColor: badge.bg, border: `2px solid ${badge.border}`, color: "rgba(255,255,255,0.7)" }}
                   >
                     {s.initial}
                   </div>
@@ -173,7 +173,7 @@ export default async function StoriesPage({
                 {/* Med school badge */}
                 <div
                   className="inline-flex items-center gap-1.5 self-start px-3 py-1 rounded-full text-xs font-medium"
-                  style={{ backgroundColor: badge.bg, border: `1px solid ${badge.border}`, color: s.color }}
+                  style={{ backgroundColor: badge.bg, border: `1px solid ${badge.border}`, color: "rgba(255,255,255,0.7)" }}
                 >
                   <svg className="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
@@ -189,7 +189,7 @@ export default async function StoriesPage({
                 {/* Quote */}
                 <blockquote
                   className="text-sm leading-relaxed border-l-2 pl-4 italic"
-                  style={{ color: "rgba(255,255,255,0.82)", borderColor: s.color }}
+                  style={{ color: "rgba(255,255,255,0.82)", borderColor: "rgba(255,255,255,0.15)" }}
                 >
                   &ldquo;{s.quote}&rdquo;
                 </blockquote>
@@ -201,7 +201,7 @@ export default async function StoriesPage({
         {/* Bottom CTA */}
         <div
           className="mt-10 rounded-2xl p-8 text-center"
-          style={{ background: "rgba(232,160,32,0.05)", border: "1px solid rgba(232,160,32,0.15)" }}
+          style={{ background: "rgba(232,160,32,0.05)", border: "1px solid rgba(255,255,255,0.05)" }}
         >
           <h2 className="text-lg font-bold mb-2" style={{ color: "#FFFFFF" }}>Got into medical school?</h2>
           <p className="text-sm mb-5" style={{ color: "rgba(255,255,255,0.55)" }}>

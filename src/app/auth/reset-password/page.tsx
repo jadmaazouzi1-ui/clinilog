@@ -41,13 +41,13 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "#1A1A2E" }}>
+    <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "#000000" }}>
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 mb-4">
-            <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#E8A020" }}>
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#1A1A2E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#FFFFFF" }}>
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="2,12 7,12 8,9 10,12 12,3 13,21 14,12 16,9 18,12 22,12" />
               </svg>
             </div>
@@ -59,9 +59,9 @@ export default function ResetPasswordPage() {
           <div className="glass-card rounded-2xl p-8 text-center">
             <div
               className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5"
-              style={{ backgroundColor: "rgba(34,197,94,0.1)", border: "1px solid rgba(34,197,94,0.25)" }}
+              style={{ backgroundColor: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.1)" }}
             >
-              <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="20 6 9 17 4 12" />
               </svg>
             </div>
@@ -83,7 +83,7 @@ export default function ResetPasswordPage() {
               {error && (
                 <div
                   className="mb-5 text-sm rounded-lg px-4 py-3"
-                  style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", color: "#EF4444" }}
+                  style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", color: "#DC2626" }}
                 >
                   {error}
                 </div>
@@ -127,7 +127,7 @@ export default function ResetPasswordPage() {
                   type="submit"
                   disabled={loading}
                   className="w-full teal-glow py-2.5 rounded-lg font-semibold text-sm focus:outline-none disabled:opacity-60 disabled:cursor-not-allowed"
-                  style={{ backgroundColor: "#E8A020", color: "#FFFFFF" }}
+                  style={{ backgroundColor: "#FFFFFF", color: "#000000" }}
                 >
                   {loading ? "Updating…" : "Update Password"}
                 </button>
@@ -135,7 +135,7 @@ export default function ResetPasswordPage() {
             </div>
 
             <p className="text-center text-sm mt-6">
-              <Link href="/auth/login" className="font-medium" style={{ color: "#E8A020" }}>
+              <Link href="/auth/login" className="font-medium" style={{ color: "#FFFFFF" }}>
                 ← Back to sign in
               </Link>
             </p>

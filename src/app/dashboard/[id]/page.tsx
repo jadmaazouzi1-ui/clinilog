@@ -15,7 +15,7 @@ const TYPE_LABELS: Record<ExperienceType, string> = {
 };
 
 const TYPE_BADGE_STYLES: Record<ExperienceType, React.CSSProperties> = {
-  shadowing:    { background: "rgba(232,160,32,0.1)",    color: "#E8A020",              border: "1px solid rgba(232,160,32,0.3)" },
+  shadowing:    { background: "rgba(255,255,255,0.06)",    color: "#FFFFFF",              border: "1px solid rgba(255,255,255,0.06)" },
   volunteer:    { background: "rgba(34,197,94,0.1)",   color: "#22C55E",              border: "1px solid rgba(34,197,94,0.3)" },
   clinical_work:{ background: "rgba(99,102,241,0.1)",   color: "#818CF8",              border: "1px solid rgba(99,102,241,0.3)" },
   research:     { background: "rgba(139,92,246,0.1)",   color: "#A78BFA",              border: "1px solid rgba(139,92,246,0.3)" },
@@ -67,7 +67,7 @@ export default async function ExperienceDetailPage({
         <Link
           href="/dashboard"
           className="inline-flex items-center gap-1.5 text-sm font-medium mb-8"
-          style={{ color: "#E8A020" }}
+          style={{ color: "#FFFFFF" }}
         >
           <svg
             className="w-4 h-4"
@@ -107,7 +107,7 @@ export default async function ExperienceDetailPage({
               <Link
                 href={`/dashboard/${exp.id}/edit`}
                 className="inline-flex items-center gap-1.5 text-sm font-medium px-3 py-1.5 rounded-lg transition-colors"
-                style={{ color: "#E8A020", border: "1px solid rgba(232,160,32,0.35)", background: "rgba(232,160,32,0.08)" }}
+                style={{ color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.06)", background: "rgba(255,255,255,0.06)" }}
               >
                 <svg
                   className="w-4 h-4"
@@ -153,7 +153,7 @@ export default async function ExperienceDetailPage({
           {/* Meta info */}
           <div
             className="flex items-center gap-6 text-sm mb-8 pb-6"
-            style={{ color: "rgba(255,255,255,0.6)", borderBottom: "1px solid rgba(232,160,32,0.1)" }}
+            style={{ color: "rgba(255,255,255,0.6)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}
           >
             <div className="flex items-center gap-1.5">
               <svg

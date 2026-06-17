@@ -23,7 +23,7 @@ export default async function NewExperiencePage() {
         <Link
           href="/dashboard"
           className="inline-flex items-center gap-1.5 text-sm font-medium mb-8"
-          style={{ color: "#E8A020" }}
+          style={{ color: "#FFFFFF" }}
         >
           <svg
             className="w-4 h-4"
@@ -54,7 +54,7 @@ export default async function NewExperiencePage() {
                 className="block text-sm font-medium mb-1.5"
                 style={{ color: "rgba(255,255,255,0.85)" }}
               >
-                Title <span style={{ color: "#EF4444" }}>*</span>
+                Title <span style={{ color: "#DC2626" }}>*</span>
               </label>
               <input
                 id="title"
@@ -73,7 +73,7 @@ export default async function NewExperiencePage() {
                 className="block text-sm font-medium mb-1.5"
                 style={{ color: "rgba(255,255,255,0.85)" }}
               >
-                Organization <span style={{ color: "#EF4444" }}>*</span>
+                Organization <span style={{ color: "#DC2626" }}>*</span>
               </label>
               <input
                 id="organization"
@@ -92,7 +92,7 @@ export default async function NewExperiencePage() {
                 className="block text-sm font-medium mb-1.5"
                 style={{ color: "rgba(255,255,255,0.85)" }}
               >
-                Type <span style={{ color: "#EF4444" }}>*</span>
+                Type <span style={{ color: "#DC2626" }}>*</span>
               </label>
               <select
                 id="experience_type"
@@ -117,7 +117,7 @@ export default async function NewExperiencePage() {
                   className="block text-sm font-medium mb-1.5"
                   style={{ color: "rgba(255,255,255,0.85)" }}
                 >
-                  Start Date <span style={{ color: "#EF4444" }}>*</span>
+                  Start Date <span style={{ color: "#DC2626" }}>*</span>
                 </label>
                 <input
                   id="start_date"
@@ -152,7 +152,7 @@ export default async function NewExperiencePage() {
                 className="block text-sm font-medium mb-1.5"
                 style={{ color: "rgba(255,255,255,0.85)" }}
               >
-                Hours <span style={{ color: "#EF4444" }}>*</span>
+                Hours <span style={{ color: "#DC2626" }}>*</span>
               </label>
               <input
                 id="hours"
@@ -204,7 +204,7 @@ export default async function NewExperiencePage() {
               <button
                 type="submit"
                 className="w-full inline-flex items-center justify-center gap-2 teal-glow px-6 py-3 rounded-xl font-semibold text-sm transition-colors focus:outline-none"
-                style={{ backgroundColor: "#E8A020", color: "#FFFFFF" }}
+                style={{ backgroundColor: "#FFFFFF", color: "#000000" }}
               >
                 Save Experience
               </button>

@@ -1,21 +1,21 @@
 @import "tailwindcss";
 
-/* ── Navy & Amber palette ─────────────────────────────────────────────── */
+/* ── Pure Black & White palette ──────────────────────────────────────── */
 :root {
-  --bg-primary: #1A1A2E;
-  --bg-card: #16213E;
-  --bg-surface: #0F3460;
-  --accent: #E8A020;
-  --accent-dim: rgba(232, 160, 32, 0.15);
-  --accent-border: rgba(232, 160, 32, 0.4);
-  --text-primary: #FFFFFF;
-  --text-secondary: rgba(255, 255, 255, 0.55);
-  --text-tertiary: rgba(255, 255, 255, 0.3);
-  --border: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.15);
-  --error: #EF4444;
-  --success: #22C55E;
-  --warning: #F59E0B;
+  --bg-primary:    #000000;
+  --bg-card:       #000000;
+  --bg-surface:    #000000;
+  --accent:        #FFFFFF;
+  --accent-dim:    rgba(255,255,255,0.04);
+  --accent-border: rgba(255,255,255,0.12);
+  --text-primary:  #FFFFFF;
+  --text-secondary: rgba(255,255,255,0.35);
+  --text-tertiary:  rgba(255,255,255,0.18);
+  --border:        rgba(255,255,255,0.06);
+  --border-strong: rgba(255,255,255,0.12);
+  --error:         #EF4444;
+  --success:       #FFFFFF;
+  --warning:       rgba(255,255,255,0.6);
 
   --font-sans: var(--font-inter), Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: var(--font-jetbrains-mono), "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
@@ -27,140 +27,124 @@
 }
 
 html {
-  background-color: var(--bg-primary);
-  /* Lock text size — prevents iOS Safari and some Android browsers from
-     auto-zooming text after orientation changes, navigations, or redirects.
-     This is the single most common cause of "zoomed out after sign out"
-     bugs that survive a hard refresh. */
+  background-color: #000000;
   -webkit-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  /* Defensive: explicit width prevents any browser's mobile-emulation
-     fallback from rendering at 980px and scaling down. */
   width: 100%;
 }
 
 body {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
+  background-color: #000000;
+  color: #FFFFFF;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   width: 100%;
-  /* No transforms, no zoom, no scale — ever. Listed explicitly so future
-     edits don't accidentally introduce a body-level transform. */
   transform: none;
   zoom: 1;
 }
 
-/* ── Legacy classes redefined to navy/amber ───────────────────────────── */
+/* ── Legacy classes redefined to B&W ─────────────────────────────────── */
 .dot-grid-bg,
 .graph-paper-bg {
-  background-color: var(--bg-primary);
+  background-color: #000000;
 }
 
 .glass-card,
 .clinical-card {
-  background: var(--bg-card);
-  border: 0.5px solid var(--border);
-  border-radius: 8px;
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  background: #000000;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 1px;
+  transition: border-color 0.2s ease;
 }
 
 .glass-card:hover,
 .clinical-card:hover {
-  border-color: var(--border-strong);
+  border-color: rgba(255,255,255,0.12);
 }
 
-/* Card tilt — 1.5° on hover */
-.tilt-card {
-  transition: transform 0.25s ease;
-  transform-style: preserve-3d;
-}
-.tilt-card:hover {
-  transform: perspective(900px) rotateX(1.5deg) rotateY(-1.5deg) translateY(-2px);
-}
-
-/* Red margin line on cards */
+/* Red margin line on cards — keep for clinical feel */
 .chart-margin {
   position: relative;
 }
 .chart-margin::before {
   content: "";
   position: absolute;
-  left: 12px;
-  top: 16px;
-  bottom: 16px;
+  left: 0;
+  top: 0;
+  bottom: 0;
   width: 2px;
-  background: var(--error);
-  border-radius: 1px;
+  background: #DC2626;
+  border-radius: 0;
 }
 
-/* ── Buttons ─────────────────────────────────────────────────────────── */
+/* ── Buttons ──────────────────────────────────────────────────────────── */
 .teal-glow,
 .btn-primary {
-  background: var(--accent) !important;
-  color: var(--bg-primary) !important;
-  border-radius: 2px !important;
-  font-weight: 500;
+  background: #FFFFFF !important;
+  color: #000000 !important;
+  border-radius: 1px !important;
+  font-weight: 600;
   letter-spacing: 0;
   box-shadow: none !important;
   transition: background 0.15s, opacity 0.15s;
 }
 .teal-glow:hover,
 .btn-primary:hover {
-  background: #D4901A !important;
+  background: rgba(255,255,255,0.88) !important;
 }
 
 .btn-ghost {
   background: transparent;
-  border: 0.5px solid var(--accent);
-  color: var(--accent);
-  border-radius: 2px;
+  border: 1px solid rgba(255,255,255,0.25);
+  color: #FFFFFF;
+  border-radius: 1px;
   font-weight: 500;
-  transition: background 0.15s;
+  transition: background 0.15s, border-color 0.15s;
 }
 .btn-ghost:hover {
-  background: var(--accent-dim);
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.4);
 }
 
-/* ── Inputs ──────────────────────────────────────────────────────────── */
+/* ── Inputs ───────────────────────────────────────────────────────────── */
 .input-dark {
-  background: var(--bg-surface) !important;
-  border: 1px solid var(--border) !important;
-  color: var(--text-primary) !important;
-  border-radius: 4px !important;
+  background: #000000 !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  color: #FFFFFF !important;
+  border-radius: 1px !important;
   font-family: var(--font-sans);
 }
 .input-dark:focus {
   outline: none !important;
-  border-color: var(--accent) !important;
-  box-shadow: 0 0 0 2px rgba(232, 160, 32, 0.2) !important;
+  border-color: #FFFFFF !important;
+  box-shadow: 0 0 0 1px #FFFFFF !important;
 }
 .input-dark::placeholder {
-  color: var(--text-tertiary) !important;
+  color: rgba(255,255,255,0.18) !important;
   opacity: 1;
 }
 .input-dark option {
-  background: var(--bg-surface);
-  color: var(--text-primary);
+  background: #000000;
+  color: #FFFFFF;
 }
 
-/* ── Section header with amber left accent ───────────────────────────── */
+/* ── Section header ───────────────────────────────────────────────────── */
 .dept-header {
-  font-family: var(--font-sans);
+  font-family: var(--font-mono);
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  font-size: 0.7rem;
+  font-size: 9px;
   font-weight: 600;
-  color: var(--text-secondary);
-  padding-left: 12px;
-  border-left: 2px solid var(--accent);
+  color: rgba(255,255,255,0.18);
   margin-bottom: 16px;
   line-height: 1;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
-/* ── Monospace data ──────────────────────────────────────────────────── */
+/* ── Monospace data ───────────────────────────────────────────────────── */
 .mono-stat,
 .mono {
   font-family: var(--font-mono);
@@ -168,54 +152,54 @@ body {
   letter-spacing: 0;
 }
 
-/* ── Vitals card ─────────────────────────────────────────────────────── */
+/* ── Vitals card ──────────────────────────────────────────────────────── */
 .vital-card {
-  background: var(--bg-card);
-  border: 0.5px solid var(--border);
-  border-radius: 8px;
-  padding: 18px 20px;
+  background: #000000;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 1px;
+  padding: 20px 24px;
 }
 .vital-card-label {
   font-family: var(--font-mono);
   text-transform: uppercase;
-  letter-spacing: 0.16em;
-  font-size: 10px;
-  font-weight: 500;
-  color: var(--text-secondary);
-  margin-bottom: 8px;
+  letter-spacing: 0.18em;
+  font-size: 9px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.18);
+  margin-bottom: 10px;
 }
 .vital-card-value {
   font-family: var(--font-mono);
   font-size: 1.875rem;
   font-weight: 500;
-  color: var(--accent);
+  color: #FFFFFF;
   font-variant-numeric: tabular-nums;
   line-height: 1.1;
 }
 .vital-card-value-sub {
   font-family: var(--font-mono);
   font-size: 0.7rem;
-  color: var(--text-tertiary);
+  color: rgba(255,255,255,0.18);
   margin-left: 6px;
 }
 
-/* ── Category tags ───────────────────────────────────────────────────── */
+/* ── Category tags ────────────────────────────────────────────────────── */
 .cat-tag {
   display: inline-flex;
   align-items: center;
   font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 500;
+  font-size: 9px;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   padding: 3px 7px;
-  border-radius: 2px;
-  background: var(--accent-dim);
-  color: var(--accent);
-  border: 0.5px solid var(--accent-border);
+  border-radius: 1px;
+  background: transparent;
+  color: rgba(255,255,255,0.5);
+  border: 1px solid rgba(255,255,255,0.12);
 }
 
-/* ── BETA pill ───────────────────────────────────────────────────────── */
+/* ── BETA pill ────────────────────────────────────────────────────────── */
 .beta-pill {
   display: inline-flex;
   align-items: center;
@@ -224,28 +208,29 @@ body {
   font-weight: 600;
   letter-spacing: 0.14em;
   padding: 2px 6px;
-  border-radius: 2px;
-  background: rgba(232, 160, 32, 0.18);
-  color: var(--accent);
+  border-radius: 1px;
+  background: transparent;
+  color: rgba(255,255,255,0.35);
+  border: 1px solid rgba(255,255,255,0.12);
   text-transform: uppercase;
 }
 
-/* ── Thin amber progress bar ─────────────────────────────────────────── */
+/* ── Thin progress bar ────────────────────────────────────────────────── */
 .thin-progress {
   height: 2px;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255,255,255,0.08);
   border-radius: 0;
   overflow: hidden;
 }
 .thin-progress > .fill {
   height: 100%;
   width: 100%;
-  background: var(--accent);
+  background: #FFFFFF;
   transform-origin: left center;
   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* ── Animations ──────────────────────────────────────────────────────── */
+/* ── Animations ───────────────────────────────────────────────────────── */
 @keyframes pageFadeIn {
   from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -254,29 +239,26 @@ body {
   animation: pageFadeIn 0.22s ease-out both;
 }
 
-/* Liquid pour for progress — GPU-accelerated via transform */
 @keyframes liquidPour {
   0%   { transform: scaleX(0); }
   100% { transform: scaleX(1); }
 }
 .liquid-fill {
-  background: var(--accent);
+  background: #FFFFFF;
   height: 100%;
   width: var(--fill, 100%);
   transform-origin: left center;
   animation: liquidPour 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-/* Cinematic archetype reveal */
 @keyframes archetypeReveal {
-  0%   { opacity: 0; transform: translateY(20px); filter: blur(8px); }
-  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+  0%   { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 .archetype-reveal {
-  animation: archetypeReveal 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: archetypeReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* Letter-by-letter cascade */
 @keyframes letterReveal {
   0%   { opacity: 0; transform: translateY(8px); }
   100% { opacity: 1; transform: translateY(0); }
@@ -287,7 +269,6 @@ body {
   animation: letterReveal 0.4s ease-out forwards;
 }
 
-/* Filmstrip */
 .filmstrip {
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -296,16 +277,14 @@ body {
   display: none;
 }
 
-/* Active sidebar item — background tint + amber text, no thick side bar */
+/* Active sidebar item */
 .chart-tab-active {
-  background: var(--bg-card);
-  color: var(--accent);
+  background: rgba(255,255,255,0.04);
+  color: #FFFFFF;
   font-weight: 500;
 }
 
-/* Sidebar collapse — width set in CSS so the transition declaration
-   doesn't include the literal word "width" in inline style. The transition
-   is intentional UX (one-shot click), not a continuous hover animation. */
+/* Sidebar collapse */
 .sidebar-collapse {
   width: 232px;
   transition-duration: 250ms;
@@ -313,4 +292,15 @@ body {
 }
 .sidebar-collapse.is-collapsed {
   width: 64px;
+}
+
+/* ── Ticker ───────────────────────────────────────────────────────────── */
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll 28s linear infinite;
 }

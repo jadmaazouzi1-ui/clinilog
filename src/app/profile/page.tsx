@@ -34,7 +34,7 @@ export default async function ProfilePage({
         <Link
           href="/dashboard"
           className="inline-flex items-center gap-1.5 text-sm font-medium mb-8"
-          style={{ color: "#E8A020" }}
+          style={{ color: "#FFFFFF" }}
         >
           <svg
             className="w-4 h-4"
@@ -55,7 +55,7 @@ export default async function ProfilePage({
         {saved === "1" && (
           <div
             className="mb-6 text-sm rounded-xl px-4 py-3"
-            style={{ background: "rgba(34,197,94,0.1)", border: "1px solid rgba(34,197,94,0.3)", color: "#22C55E" }}
+            style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.1)", color: "#FFFFFF" }}
           >
             Profile saved successfully.
           </div>
@@ -64,7 +64,7 @@ export default async function ProfilePage({
         {pageError && (
           <div
             className="mb-6 text-sm rounded-xl px-4 py-3"
-            style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", color: "#EF4444" }}
+            style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", color: "#DC2626" }}
           >
             Error: {decodeURIComponent(pageError)}
           </div>
@@ -255,7 +255,7 @@ export default async function ProfilePage({
               <button
                 type="submit"
                 className="w-full inline-flex items-center justify-center gap-2 teal-glow px-6 py-3 rounded-xl font-semibold text-sm transition-colors focus:outline-none"
-                style={{ backgroundColor: "#E8A020", color: "#FFFFFF" }}
+                style={{ backgroundColor: "#FFFFFF", color: "#000000" }}
               >
                 Save Profile
               </button>

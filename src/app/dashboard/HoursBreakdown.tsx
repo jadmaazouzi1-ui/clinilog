@@ -18,11 +18,11 @@ const TYPE_LABELS: Record<ExperienceType, string> = {
 };
 
 const COLORS: Record<ExperienceType, string> = {
-  shadowing:     "#E8A020",
-  clinical_work: "#6366F1",
-  volunteer:     "#22C55E",
-  research:      "#8B5CF6",
-  other:         "#475569",
+  shadowing:     "#FFFFFF",
+  clinical_work: "rgba(255,255,255,0.7)",
+  volunteer:     "rgba(255,255,255,0.5)",
+  research:      "rgba(255,255,255,0.35)",
+  other:         "rgba(255,255,255,0.18)",
 };
 
 export default function HoursBreakdown({
@@ -76,10 +76,10 @@ export default function HoursBreakdown({
                   return [`${n % 1 === 0 ? n : n.toFixed(1)} hrs`, ""];
                 }}
                 contentStyle={{
-                  borderRadius: "8px",
-                  border: "1px solid rgba(232,160,32,0.2)",
+                  borderRadius: 0,
+                  border: "1px solid rgba(255,255,255,0.1)",
                   fontSize: "12px",
-                  backgroundColor: "#16213E",
+                  backgroundColor: "#000000",
                   color: "#FFFFFF",
                 }}
               />

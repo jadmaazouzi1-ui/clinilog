@@ -155,17 +155,15 @@ export default function AIAdvisorButton() {
       <button
         onClick={() => setOpen(true)}
         aria-label="Open AI advisor"
-        className="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-transform hover:scale-110"
+        className="fixed bottom-6 right-6 z-40 w-12 h-12 flex items-center justify-center transition-opacity hover:opacity-80"
         style={{
-          backgroundColor: "#E8A020",
-          boxShadow: "0 0 20px rgba(232,160,32,0.5), 0 4px 16px rgba(0,0,0,0.4)",
+          backgroundColor: "#FFFFFF",
+          borderRadius: 1,
+          border: "none",
         }}
       >
-        {/* Stethoscope icon */}
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1A1A2E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6 6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3" />
-          <path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4" />
-          <circle cx="20" cy="10" r="2" />
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="2,12 7,12 8,9 10,12 12,3 13,21 14,12 16,9 18,12 22,12" />
         </svg>
       </button>
 
@@ -173,7 +171,7 @@ export default function AIAdvisorButton() {
       {open && (
         <div
           className="fixed inset-0 z-40"
-          style={{ backgroundColor: "rgba(0,0,0,0.4)" }}
+          style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
           onClick={() => setOpen(false)}
         />
       )}
@@ -183,36 +181,30 @@ export default function AIAdvisorButton() {
         className="fixed top-0 right-0 h-full z-50 flex flex-col"
         style={{
           width: "min(420px, 100vw)",
-          backgroundColor: "rgba(22,33,62,0.99)",
-          borderLeft: "1px solid rgba(232,160,32,0.2)",
+          backgroundColor: "#000000",
+          borderLeft: "1px solid rgba(255,255,255,0.08)",
           transform: open ? "translateX(0)" : "translateX(100%)",
-          transition: "transform 0.3s cubic-bezier(0.4,0,0.2,1)",
-          backdropFilter: "blur(16px)",
+          transition: "transform 0.28s cubic-bezier(0.4,0,0.2,1)",
         }}
       >
         {/* Header */}
         <div
           className="flex items-center gap-3 px-5 py-4 flex-shrink-0"
-          style={{ borderBottom: "1px solid rgba(232,160,32,0.15)" }}
+          style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
         >
-          <div
-            className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
-            style={{ backgroundColor: "rgba(232,160,32,0.15)", border: "1px solid rgba(232,160,32,0.3)" }}
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E8A020" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6 6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3" />
-              <path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4" />
-              <circle cx="20" cy="10" r="2" />
+          <div style={{ width: 28, height: 28, backgroundColor: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, borderRadius: 1 }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="2,12 7,12 8,9 10,12 12,3 13,21 14,12 16,9 18,12 22,12" />
             </svg>
           </div>
           <div className="flex-1 min-w-0">
             <p className="font-semibold text-sm" style={{ color: "#FFFFFF" }}>AI Pre-Med Advisor</p>
-            <p className="text-xs" style={{ color: "rgba(232,160,32,0.8)" }}>Powered by Gemini · Knows your profile</p>
+            <p className="text-xs mono" style={{ color: "rgba(255,255,255,0.25)", letterSpacing: "0.08em" }}>POWERED BY GEMINI · KNOWS YOUR PROFILE</p>
           </div>
           <button
             onClick={() => setOpen(false)}
-            className="p-1.5 rounded-lg transition-colors flex-shrink-0"
-            style={{ color: "rgba(255,255,255,0.5)" }}
+            className="p-1.5 transition-opacity hover:opacity-60 flex-shrink-0"
+            style={{ color: "rgba(255,255,255,0.4)" }}
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -226,22 +218,20 @@ export default function AIAdvisorButton() {
             <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
               {msg.role === "assistant" && (
                 <div
-                  className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 mr-2 mt-0.5"
-                  style={{ backgroundColor: "rgba(232,160,32,0.15)", border: "1px solid rgba(232,160,32,0.25)" }}
+                  className="w-6 h-6 flex items-center justify-center flex-shrink-0 mr-2 mt-0.5"
+                  style={{ backgroundColor: "#FFFFFF", borderRadius: 1 }}
                 >
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#E8A020" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6 6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3" />
-                    <path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4" />
-                    <circle cx="20" cy="10" r="2" />
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="2,12 7,12 8,9 10,12 12,3 13,21 14,12 16,9 18,12 22,12" />
                   </svg>
                 </div>
               )}
               <div
-                className="max-w-[78%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed"
+                className="max-w-[78%] px-4 py-2.5 text-sm leading-relaxed"
                 style={
                   msg.role === "user"
-                    ? { backgroundColor: "#E8A020", color: "#1A1A2E", borderBottomRightRadius: "4px", fontWeight: 500 }
-                    : { backgroundColor: "#16213E", color: "#FFFFFF", borderLeft: "2px solid #E8A020", borderBottomLeftRadius: "4px" }
+                    ? { backgroundColor: "#FFFFFF", color: "#000000", borderRadius: 1, fontWeight: 500 }
+                    : { backgroundColor: "#000000", color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 1 }
                 }
               >
                 {msg.content.split("\n").map((line, j) => (
@@ -256,26 +246,21 @@ export default function AIAdvisorButton() {
 
           {loading && (
             <div className="flex justify-start">
-              <div
-                className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 mr-2"
-                style={{ backgroundColor: "rgba(232,160,32,0.15)", border: "1px solid rgba(232,160,32,0.25)" }}
-              >
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#E8A020" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6 6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3" />
-                  <path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4" />
-                  <circle cx="20" cy="10" r="2" />
+              <div style={{ width: 24, height: 24, backgroundColor: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginRight: 8, borderRadius: 1 }}>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="2,12 7,12 8,9 10,12 12,3 13,21 14,12 16,9 18,12 22,12" />
                 </svg>
               </div>
               <div
-                className="rounded-2xl px-4 py-3 flex items-center gap-1.5"
-                style={{ backgroundColor: "#16213E", borderLeft: "2px solid #E8A020", borderBottomLeftRadius: "4px" }}
+                className="px-4 py-3 flex items-center gap-1.5"
+                style={{ backgroundColor: "#000000", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 1 }}
               >
                 {[0, 1, 2].map(d => (
                   <div
                     key={d}
-                    className="w-1.5 h-1.5 rounded-full"
+                    className="w-1.5 h-1.5"
                     style={{
-                      backgroundColor: "#E8A020",
+                      backgroundColor: "rgba(255,255,255,0.5)",
                       animation: `dot-pulse 1.2s cubic-bezier(0.65, 0, 0.35, 1) ${d * 0.18}s infinite`,
                     }}
                   />
@@ -289,11 +274,11 @@ export default function AIAdvisorButton() {
         {/* Input */}
         <div
           className="flex-shrink-0 px-4 py-4"
-          style={{ borderTop: "1px solid rgba(232,160,32,0.12)" }}
+          style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
         >
           <div
-            className="flex items-end gap-2 rounded-xl px-3 py-2 transition-shadow focus-within:[box-shadow:0_0_0_2px_rgba(232,160,32,0.25)] focus-within:[border-color:#E8A020]"
-            style={{ backgroundColor: "#16213E", border: "1px solid rgba(232,160,32,0.2)" }}
+            className="flex items-end gap-2 px-3 py-2"
+            style={{ backgroundColor: "#000000", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 1 }}
           >
             <textarea
               ref={inputRef}
@@ -313,26 +298,27 @@ export default function AIAdvisorButton() {
             <button
               onClick={sendMessage}
               disabled={!input.trim() || loading}
-              className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center transition-opacity"
+              className="flex-shrink-0 w-7 h-7 flex items-center justify-center transition-opacity"
               style={{
-                backgroundColor: input.trim() && !loading ? "#E8A020" : "rgba(232,160,32,0.25)",
-                opacity: input.trim() && !loading ? 1 : 0.6,
+                backgroundColor: input.trim() && !loading ? "#FFFFFF" : "rgba(255,255,255,0.12)",
+                borderRadius: 1,
+                opacity: input.trim() && !loading ? 1 : 0.5,
               }}
             >
-              <svg className="w-4 h-4" fill="none" stroke={input.trim() && !loading ? "#1A1A2E" : "#E8A020"} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+              <svg className="w-3.5 h-3.5" fill="none" stroke={input.trim() && !loading ? "#000000" : "#FFFFFF"} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
               </svg>
             </button>
           </div>
-          <p className="text-center mt-2 text-xs" style={{ color: "rgba(255,255,255,0.25)" }}>
-            Enter to send · Shift+Enter for new line
+          <p className="text-center mt-2 text-xs mono" style={{ color: "rgba(255,255,255,0.18)", letterSpacing: "0.08em" }}>
+            ENTER TO SEND · SHIFT+ENTER NEW LINE
           </p>
         </div>
       </div>
 
       <style>{`
         @keyframes dot-pulse {
-          0%, 100% { opacity: 0.25; }
+          0%, 100% { opacity: 0.2; }
           50%      { opacity: 1; }
         }
       `}</style>

@@ -178,27 +178,27 @@ type MissionFilter = "Primary Care & Underserved" | "Research" | "Osteopathic" |
 
 const MISSION_FILTERS: { label: string; value: MissionFilter; dot: string }[] = [
   { label: "Primary Care & Underserved", value: "Primary Care & Underserved", dot: "#2DD4BF" },
-  { label: "Research",                   value: "Research",                   dot: "#8B5CF6" },
+  { label: "Research",                   value: "Research",                   dot: "#FFFFFF" },
   { label: "Osteopathic (DO)",           value: "Osteopathic",                dot: "#F97316" },
-  { label: "Community Health",           value: "Community Health",           dot: "#F59E0B" },
-  { label: "Caribbean",                  value: "Caribbean",                  dot: "#38BDF8" },
+  { label: "Community Health",           value: "Community Health",           dot: "#FFFFFF" },
+  { label: "Caribbean",                  value: "Caribbean",                  dot: "#FFFFFF" },
 ];
 
 function getMissionBadgeStyle(mission: string): React.CSSProperties {
   const m = mission.toLowerCase();
   if (m.includes("caribbean"))
-    return { background: "rgba(56,189,248,0.1)", color: "#38BDF8", border: "1px solid rgba(56,189,248,0.3)" };
+    return { background: "rgba(255,255,255,0.08)", color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.08)" };
   if (m.includes("osteopathic"))
     return { background: "rgba(249,115,22,0.1)", color: "#FB923C", border: "1px solid rgba(249,115,22,0.3)" };
   if (m.includes("community health"))
-    return { background: "rgba(245,158,11,0.1)", color: "#FCD34D", border: "1px solid rgba(245,158,11,0.3)" };
+    return { background: "rgba(255,255,255,0.08)", color: "#FCD34D", border: "1px solid rgba(255,255,255,0.08)" };
   if (m.includes("underserved") && m.includes("primary"))
     return { background: "rgba(45,212,191,0.1)", color: "#2DD4BF", border: "1px solid rgba(45,212,191,0.3)" };
   if (m.includes("underserved"))
-    return { background: "rgba(34,197,94,0.1)", color: "#22C55E", border: "1px solid rgba(34,197,94,0.3)" };
+    return { background: "rgba(255,255,255,0.1)", color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.1)" };
   if (m.includes("primary care"))
-    return { background: "rgba(232,160,32,0.1)", color: "#E8A020", border: "1px solid rgba(232,160,32,0.3)" };
-  return { background: "rgba(139,92,246,0.1)", color: "#A78BFA", border: "1px solid rgba(139,92,246,0.3)" };
+    return { background: "rgba(255,255,255,0.04)", color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.12)" };
+  return { background: "rgba(255,255,255,0.08)", color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.08)" };
 }
 
 export default function SchoolList({ userEmail: _userEmail }: { userEmail: string }) {
@@ -260,15 +260,15 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
 
   // Inactive filter button style
   const inactiveFilterStyle: React.CSSProperties = {
-    background: "#16213E",
-    border: "1px solid rgba(232,160,32,0.15)",
+    background: "#000000",
+    border: "1px solid rgba(255,255,255,0.05)",
     color: "rgba(255,255,255,0.6)",
   };
   // Active filter button style
   const activeFilterStyle: React.CSSProperties = {
-    background: "rgba(232,160,32,0.15)",
+    background: "rgba(255,255,255,0.05)",
     border: "1px solid #00D4FF",
-    color: "#E8A020",
+    color: "#FFFFFF",
   };
 
   return (
@@ -301,7 +301,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
           </div>
         </div>
         <p className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>Highlights schools within ±0.3 GPA and ±5 MCAT points of your stats.</p>
-        <div className="mt-4 pt-4" style={{ borderTop: "1px solid rgba(232,160,32,0.1)" }}>
+        <div className="mt-4 pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.04)" }}>
           <label htmlFor="home-state" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(255,255,255,0.85)" }}>
             My Home State <span className="font-normal" style={{ color: "rgba(255,255,255,0.4)" }}>(optional — highlights in-state schools for you)</span>
           </label>
@@ -330,7 +330,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
               >
                 <span
                   className="w-2 h-2 rounded-full flex-shrink-0"
-                  style={{ backgroundColor: active ? "#E8A020" : f.dot }}
+                  style={{ backgroundColor: active ? "#FFFFFF" : f.dot }}
                 />
                 {f.label}
               </button>
@@ -338,7 +338,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
           })}
 
           {/* Divider */}
-          <span className="w-px h-5 mx-1 self-center flex-shrink-0" style={{ background: "rgba(232,160,32,0.15)" }} />
+          <span className="w-px h-5 mx-1 self-center flex-shrink-0" style={{ background: "rgba(255,255,255,0.05)" }} />
 
           {/* In-state pref filter buttons */}
           {(["In-State Friendly", "Out-of-State Friendly"] as const).map((pref) => {
@@ -352,7 +352,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
               >
                 <span
                   className="w-2 h-2 rounded-full flex-shrink-0"
-                  style={{ backgroundColor: active ? "#E8A020" : pref === "In-State Friendly" ? "#22C55E" : "#38BDF8" }}
+                  style={{ backgroundColor: active ? "#FFFFFF" : pref === "In-State Friendly" ? "#FFFFFF" : "#FFFFFF" }}
                 />
                 {pref}
               </button>
@@ -360,7 +360,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
           })}
 
           {/* Divider */}
-          <span className="w-px h-5 mx-1 self-center flex-shrink-0" style={{ background: "rgba(232,160,32,0.15)" }} />
+          <span className="w-px h-5 mx-1 self-center flex-shrink-0" style={{ background: "rgba(255,255,255,0.05)" }} />
 
           <select
             value={stateFilter} onChange={(e) => setStateFilter(e.target.value)}
@@ -380,7 +380,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
           >
             <span
               className="w-2 h-2 rounded-full flex-shrink-0"
-              style={{ backgroundColor: matchOnly ? "#E8A020" : "#6366F1" }}
+              style={{ backgroundColor: matchOnly ? "#FFFFFF" : "#FFFFFF" }}
             />
             My Stats Match
           </button>
@@ -391,7 +391,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
             <button
               type="button" onClick={clearAll}
               className="text-xs font-medium px-2 py-1"
-              style={{ color: "#E8A020" }}
+              style={{ color: "#FFFFFF" }}
             >
               Clear all
             </button>
@@ -413,9 +413,9 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
               className="glass-card rounded-2xl p-5 transition-all"
               style={
                 isInStateForUser
-                  ? { background: "rgba(34,197,94,0.08)", borderColor: "rgba(34,197,94,0.35)" }
+                  ? { background: "rgba(255,255,255,0.1)", borderColor: "rgba(255,255,255,0.1)" }
                   : match
-                  ? { background: "rgba(232,160,32,0.06)", borderColor: "rgba(232,160,32,0.35)" }
+                  ? { background: "rgba(232,160,32,0.06)", borderColor: "rgba(255,255,255,0.14)" }
                   : {}
               }
             >
@@ -425,7 +425,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
                   {isInStateForUser && (
                     <span
                       className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap"
-                      style={{ background: "rgba(34,197,94,0.12)", color: "#22C55E", border: "1px solid rgba(34,197,94,0.3)" }}
+                      style={{ background: "rgba(255,255,255,0.1)", color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.1)" }}
                     >
                       In-State for You ✓
                     </span>
@@ -433,7 +433,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
                   {match && !isInStateForUser && (
                     <span
                       className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap"
-                      style={{ background: "rgba(232,160,32,0.12)", color: "#E8A020", border: "1px solid rgba(232,160,32,0.3)" }}
+                      style={{ background: "rgba(255,255,255,0.04)", color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.12)" }}
                     >
                       Good Match
                     </span>
@@ -459,8 +459,8 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
                     className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                     style={
                       school.inStatePref === "In-State Friendly"
-                        ? { background: "rgba(34,197,94,0.1)", color: "#22C55E", border: "1px solid rgba(34,197,94,0.3)" }
-                        : { background: "rgba(56,189,248,0.1)", color: "#38BDF8", border: "1px solid rgba(56,189,248,0.3)" }
+                        ? { background: "rgba(255,255,255,0.1)", color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.1)" }
+                        : { background: "rgba(255,255,255,0.08)", color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.08)" }
                     }
                   >
                     {school.inStatePref}
@@ -471,14 +471,14 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
               <div className="flex items-center gap-3">
                 <div
                   className="flex items-center gap-1.5 rounded-lg px-3 py-1.5"
-                  style={{ background: "rgba(232,160,32,0.05)", border: "1px solid rgba(232,160,32,0.12)" }}
+                  style={{ background: "rgba(232,160,32,0.05)", border: "1px solid rgba(255,255,255,0.04)" }}
                 >
                   <span className="text-xs font-medium" style={{ color: "rgba(255,255,255,0.55)" }}>Avg GPA</span>
                   <span className="text-sm font-bold" style={{ color: "#FFFFFF" }}>{school.avgGpa.toFixed(2)}</span>
                 </div>
                 <div
                   className="flex items-center gap-1.5 rounded-lg px-3 py-1.5"
-                  style={{ background: "rgba(232,160,32,0.05)", border: "1px solid rgba(232,160,32,0.12)" }}
+                  style={{ background: "rgba(232,160,32,0.05)", border: "1px solid rgba(255,255,255,0.04)" }}
                 >
                   <span className="text-xs font-medium" style={{ color: "rgba(255,255,255,0.55)" }}>Avg MCAT</span>
                   <span className="text-sm font-bold" style={{ color: "#FFFFFF" }}>{school.avgMcat}</span>
@@ -491,7 +491,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
         {filtered.length === 0 && (
           <div className="col-span-1 sm:col-span-2 glass-card rounded-2xl p-10 text-center">
             <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>No schools match your current filters.</p>
-            <button type="button" onClick={clearAll} className="mt-3 text-sm font-medium" style={{ color: "#E8A020" }}>
+            <button type="button" onClick={clearAll} className="mt-3 text-sm font-medium" style={{ color: "#FFFFFF" }}>
               Clear all filters
             </button>
           </div>

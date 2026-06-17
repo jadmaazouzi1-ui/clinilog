@@ -9,8 +9,8 @@ type SalaryFilter = "" | "u300" | "300_500" | "500_700" | "700plus";
 type ResidencyFilter = "" | "3" | "4" | "5" | "6plus";
 
 function patientColor(level: PatientContact): string {
-  if (level === "High") return "#E8A020";
-  if (level === "Medium") return "#A78BFA";
+  if (level === "High") return "#FFFFFF";
+  if (level === "Medium") return "#FFFFFF";
   return "rgba(255,255,255,0.5)";
 }
 
@@ -28,7 +28,7 @@ function RatingDots({ value, color, label }: { value: Rating; color: string; lab
             key={i}
             className="w-2.5 h-2.5 rounded-full"
             style={{
-              backgroundColor: i <= value ? color : "rgba(232,160,32,0.12)",
+              backgroundColor: i <= value ? color : "rgba(255,255,255,0.04)",
               boxShadow: i <= value ? `0 0 6px ${color}55` : "none",
             }}
           />
@@ -120,7 +120,7 @@ export default function SpecialtyExplorer() {
             type="button"
             onClick={() => { setSearch(""); setComp(""); setLifestyle(""); setSalary(""); setResidency(""); }}
             className="text-xs font-medium"
-            style={{ color: "#E8A020" }}
+            style={{ color: "#FFFFFF" }}
           >
             Clear all filters
           </button>
@@ -164,15 +164,15 @@ function Card({ specialty: s, expanded, onToggle }: { specialty: Specialty; expa
   return (
     <div
       className="glass-card rounded-2xl p-5 cursor-pointer transition-all"
-      style={{ borderColor: expanded ? "rgba(232,160,32,0.5)" : undefined }}
+      style={{ borderColor: expanded ? "rgba(255,255,255,0.2)" : undefined }}
       onClick={onToggle}
     >
       <div className="flex items-start gap-4">
         <div
           className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-          style={{ background: "rgba(232,160,32,0.12)", border: "1px solid rgba(232,160,32,0.3)" }}
+          style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.12)" }}
         >
-          <svg className="w-5 h-5" fill="none" stroke="#E8A020" strokeWidth="1.75" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+          <svg className="w-5 h-5" fill="none" stroke="#FFFFFF" strokeWidth="1.75" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
             {ICON_PATHS[s.icon].split(" M").map((d, i) => (
               <path key={i} d={i === 0 ? d : `M${d}`} />
             ))}
@@ -200,10 +200,10 @@ function Card({ specialty: s, expanded, onToggle }: { specialty: Specialty; expa
       </div>
 
       {expanded && (
-        <div className="mt-5 pt-5 space-y-4" style={{ borderTop: "1px solid rgba(232,160,32,0.1)" }}>
+        <div className="mt-5 pt-5 space-y-4" style={{ borderTop: "1px solid rgba(255,255,255,0.04)" }}>
           <div className="space-y-2">
             <RatingDots value={s.competitiveness} color="#FF8A8A" label="Competitive" />
-            <RatingDots value={s.lifestyle} color="#E8A020" label="Lifestyle" />
+            <RatingDots value={s.lifestyle} color="#FFFFFF" label="Lifestyle" />
           </div>
 
           <div>
@@ -216,7 +216,7 @@ function Card({ specialty: s, expanded, onToggle }: { specialty: Specialty; expa
             <ul className="space-y-1.5">
               {s.topSchools.map((school) => (
                 <li key={school} className="text-xs flex items-start gap-2" style={{ color: "rgba(255,255,255,0.75)" }}>
-                  <span style={{ color: "#E8A020" }}>·</span>
+                  <span style={{ color: "#FFFFFF" }}>·</span>
                   {school}
                 </li>
               ))}

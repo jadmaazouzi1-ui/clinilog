@@ -64,7 +64,7 @@ export default async function LoginPage({
           </div>
 
           {sent === "1" ? (
-            <div className="glass-card rounded-2xl p-8 text-center">
+            <div className="glass-card rounded-lg p-8 text-center">
               <div
                 className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5"
                 style={{ backgroundColor: "rgba(232,160,32,0.1)", border: "1px solid rgba(232,160,32,0.25)" }}
@@ -93,7 +93,7 @@ export default async function LoginPage({
                 </p>
               </div>
 
-              <div className="glass-card rounded-2xl p-8">
+              <div className="glass-card rounded-lg p-8">
                 {pageError && (
                   <div
                     className="mb-5 text-sm rounded-lg px-4 py-3"
@@ -120,7 +120,7 @@ export default async function LoginPage({
                   <button
                     type="submit"
                     className="w-full teal-glow py-2.5 rounded-lg font-semibold text-sm focus:outline-none"
-                    style={{ backgroundColor: "#E8A020", color: "#FFFFFF" }}
+                    style={{ backgroundColor: "#E8A020", color: "#1A1A2E" }}
                   >
                     Send Reset Email
                   </button>
@@ -150,7 +150,7 @@ export default async function LoginPage({
           </p>
         </div>
 
-        <div className="glass-card rounded-2xl p-8">
+        <div className="glass-card rounded-lg p-8">
           {pageError && (
             <div
               className="mb-5 text-sm rounded-lg px-4 py-3"
@@ -198,7 +198,7 @@ export default async function LoginPage({
             <button
               type="submit"
               className="w-full teal-glow py-2.5 rounded-lg font-semibold text-sm focus:outline-none"
-              style={{ backgroundColor: "#E8A020", color: "#FFFFFF" }}
+              style={{ backgroundColor: "#E8A020", color: "#1A1A2E" }}
             >
               Sign In
             </button>

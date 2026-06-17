@@ -25,10 +25,10 @@ const CATEGORY_LABELS: Record<ImportRow["type"], CategoryDisplay> = {
 };
 
 const CATEGORY_COLOR: Record<ImportRow["type"], string> = {
-  shadowing:     "#E8A020",
-  volunteer:     "#22C55E",
-  clinical_work: "#818CF8",
-  research:      "#A78BFA",
+  shadowing:     "#FFFFFF",
+  volunteer:     "#FFFFFF",
+  clinical_work: "#FFFFFF",
+  research:      "#FFFFFF",
   other:         "rgba(255,255,255,0.6)",
 };
 
@@ -272,7 +272,7 @@ export default function ImportView() {
           <button
             onClick={downloadTemplate}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold flex-shrink-0 transition-opacity hover:opacity-90"
-            style={{ background: "rgba(232,160,32,0.12)", color: "#E8A020", border: "1px solid rgba(232,160,32,0.3)" }}
+            style={{ background: "rgba(255,255,255,0.04)", color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.12)" }}
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -301,7 +301,7 @@ export default function ImportView() {
             className="rounded-xl px-6 py-12 flex flex-col items-center justify-center cursor-pointer transition-all"
             style={{
               background: dragOver ? "rgba(232,160,32,0.08)" : "rgba(232,160,32,0.03)",
-              border: `2px dashed ${dragOver ? "#E8A020" : "rgba(232,160,32,0.25)"}`,
+              border: `2px dashed ${dragOver ? "#FFFFFF" : "rgba(255,255,255,0.1)"}`,
             }}
           >
             <input
@@ -316,9 +316,9 @@ export default function ImportView() {
             />
             <div
               className="w-12 h-12 rounded-xl flex items-center justify-center mb-3"
-              style={{ background: "rgba(232,160,32,0.12)", border: "1px solid rgba(232,160,32,0.3)" }}
+              style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.12)" }}
             >
-              <svg className="w-6 h-6" fill="none" stroke="#E8A020" strokeWidth="1.75" viewBox="0 0 24 24">
+              <svg className="w-6 h-6" fill="none" stroke="#FFFFFF" strokeWidth="1.75" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
               </svg>
             </div>
@@ -326,7 +326,7 @@ export default function ImportView() {
               {dragOver ? "Drop your file here" : "Drag and drop your CSV here"}
             </p>
             <p className="text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>
-              or <span style={{ color: "#E8A020" }}>click to browse</span> · CSV files only
+              or <span style={{ color: "#FFFFFF" }}>click to browse</span> · CSV files only
             </p>
           </div>
         </div>
@@ -338,8 +338,8 @@ export default function ImportView() {
           className="rounded-xl px-4 py-3 flex items-start gap-3"
           style={
             result.kind === "success"
-              ? { background: "rgba(34,197,94,0.1)", border: "1px solid rgba(34,197,94,0.3)", color: "#22C55E" }
-              : { background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", color: "#EF4444" }
+              ? { background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.1)", color: "#FFFFFF" }
+              : { background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", color: "#DC2626" }
           }
         >
           <svg className="w-5 h-5 flex-shrink-0 mt-px" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -362,8 +362,8 @@ export default function ImportView() {
                 Step 3 — Review and confirm
               </h2>
               <p className="text-xs" style={{ color: "rgba(255,255,255,0.55)" }}>
-                {fileName} · <span style={{ color: "#E8A020" }}>{validCount} selected</span>
-                {errorCount > 0 && <> · <span style={{ color: "#EF4444" }}>{errorCount} with errors</span></>}
+                {fileName} · <span style={{ color: "#FFFFFF" }}>{validCount} selected</span>
+                {errorCount > 0 && <> · <span style={{ color: "#DC2626" }}>{errorCount} with errors</span></>}
               </p>
             </div>
             <div className="flex items-center gap-2">
@@ -380,7 +380,7 @@ export default function ImportView() {
           <div className="overflow-x-auto -mx-2">
             <table className="w-full text-sm" style={{ minWidth: 720 }}>
               <thead>
-                <tr style={{ borderBottom: "1px solid rgba(232,160,32,0.15)" }}>
+                <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
                   <th className="text-left px-2 py-2" style={{ width: 30 }}>
                     <input
                       type="checkbox"
@@ -424,7 +424,7 @@ export default function ImportView() {
                         {hasError && (
                           <ul className="mt-1 space-y-0.5">
                             {r.errors.map((e, j) => (
-                              <li key={j} className="text-xs" style={{ color: "#EF4444" }}>· {e}</li>
+                              <li key={j} className="text-xs" style={{ color: "#DC2626" }}>· {e}</li>
                             ))}
                           </ul>
                         )}
@@ -464,7 +464,7 @@ export default function ImportView() {
           </div>
 
           {/* Import action */}
-          <div className="flex items-center justify-between gap-3 mt-6 pt-5 flex-wrap" style={{ borderTop: "1px solid rgba(232,160,32,0.1)" }}>
+          <div className="flex items-center justify-between gap-3 mt-6 pt-5 flex-wrap" style={{ borderTop: "1px solid rgba(255,255,255,0.04)" }}>
             <p className="text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>
               {validCount === 0
                 ? "No valid rows selected"
@@ -474,7 +474,7 @@ export default function ImportView() {
               onClick={doImport}
               disabled={validCount === 0 || isPending}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all disabled:opacity-40 disabled:cursor-not-allowed"
-              style={{ backgroundColor: "#E8A020", color: "#FFFFFF", boxShadow: validCount > 0 ? "0 0 18px rgba(232,160,32,0.45)" : "none" }}
+              style={{ backgroundColor: "#FFFFFF", color: "#000000", boxShadow: validCount > 0 ? "0 0 18px rgba(232,160,32,0.45)" : "none" }}
             >
               {isPending ? (
                 <>
