@@ -199,7 +199,7 @@ export default function AIAdvisorButton() {
           </div>
           <div className="flex-1 min-w-0">
             <p className="font-semibold text-sm" style={{ color: "#FFFFFF" }}>AI Pre-Med Advisor</p>
-            <p className="text-xs mono" style={{ color: "rgba(255,255,255,0.25)", letterSpacing: "0.08em" }}>POWERED BY GEMINI · KNOWS YOUR PROFILE</p>
+            <p className="text-xs mono" style={{ color: "rgba(255,255,255,0.45)", letterSpacing: "0.08em" }}>POWERED BY GEMINI · KNOWS YOUR PROFILE</p>
           </div>
           <button
             onClick={() => setOpen(false)}
@@ -310,7 +310,7 @@ export default function AIAdvisorButton() {
               </svg>
             </button>
           </div>
-          <p className="text-center mt-2 text-xs mono" style={{ color: "rgba(255,255,255,0.18)", letterSpacing: "0.08em" }}>
+          <p className="text-center mt-2 text-xs mono" style={{ color: "rgba(255,255,255,0.35)", letterSpacing: "0.08em" }}>
             ENTER TO SEND · SHIFT+ENTER NEW LINE
           </p>
         </div>

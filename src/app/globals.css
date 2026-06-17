@@ -9,8 +9,8 @@
   --accent-dim:    rgba(255,255,255,0.04);
   --accent-border: rgba(255,255,255,0.12);
   --text-primary:  #FFFFFF;
-  --text-secondary: rgba(255,255,255,0.35);
-  --text-tertiary:  rgba(255,255,255,0.18);
+  --text-secondary: rgba(255,255,255,0.55);
+  --text-tertiary:  rgba(255,255,255,0.35);
   --border:        rgba(255,255,255,0.06);
   --border-strong: rgba(255,255,255,0.12);
   --error:         #EF4444;
@@ -122,7 +122,7 @@ body {
   box-shadow: 0 0 0 1px #FFFFFF !important;
 }
 .input-dark::placeholder {
-  color: rgba(255,255,255,0.18) !important;
+  color: rgba(255,255,255,0.35) !important;
   opacity: 1;
 }
 .input-dark option {
@@ -137,7 +137,7 @@ body {
   letter-spacing: 0.18em;
   font-size: 9px;
   font-weight: 600;
-  color: rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.35);
   margin-bottom: 16px;
   line-height: 1;
   padding-bottom: 10px;
@@ -165,7 +165,7 @@ body {
   letter-spacing: 0.18em;
   font-size: 9px;
   font-weight: 600;
-  color: rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.35);
   margin-bottom: 10px;
 }
 .vital-card-value {
@@ -179,7 +179,7 @@ body {
 .vital-card-value-sub {
   font-family: var(--font-mono);
   font-size: 0.7rem;
-  color: rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.35);
   margin-left: 6px;
 }
 
@@ -210,7 +210,7 @@ body {
   padding: 2px 6px;
   border-radius: 1px;
   background: transparent;
-  color: rgba(255,255,255,0.35);
+  color: rgba(255,255,255,0.55);
   border: 1px solid rgba(255,255,255,0.12);
   text-transform: uppercase;
 }

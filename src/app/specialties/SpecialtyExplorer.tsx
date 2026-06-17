@@ -191,9 +191,9 @@ function Card({ specialty: s, expanded, onToggle }: { specialty: Specialty; expa
           </div>
           <div className="flex items-center gap-2 flex-wrap mt-1.5 text-xs" style={{ color: "rgba(255,255,255,0.55)" }}>
             <span>{formatSalary(s.salaryMin, s.salaryMax)}</span>
-            <span style={{ color: "rgba(255,255,255,0.25)" }}>·</span>
+            <span style={{ color: "rgba(255,255,255,0.45)" }}>·</span>
             <span>{s.residencyYears}-yr residency</span>
-            <span style={{ color: "rgba(255,255,255,0.25)" }}>·</span>
+            <span style={{ color: "rgba(255,255,255,0.45)" }}>·</span>
             <span style={{ color: patientColor(s.patientContact), fontWeight: 600 }}>{s.patientContact} patient contact</span>
           </div>
         </div>

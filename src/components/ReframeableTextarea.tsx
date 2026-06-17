@@ -111,7 +111,7 @@ export default function ReframeableTextarea({
           className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all"
           style={{
             backgroundColor: loading ? "rgba(255,255,255,0.05)" : "rgba(255,255,255,0.04)",
-            color: loading ? "rgba(255,255,255,0.25)" : "#FFFFFF",
+            color: loading ? "rgba(255,255,255,0.45)" : "#FFFFFF",
             border: "1px solid rgba(255,255,255,0.12)",
             cursor: loading ? "not-allowed" : "pointer",
           }}

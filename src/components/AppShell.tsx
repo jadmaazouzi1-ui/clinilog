@@ -203,7 +203,7 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
                 title={collapsed ? item.label : undefined}
                 className="group relative flex items-center gap-3 px-3 py-2 transition-colors duration-150"
                 style={{
-                  color: isActive ? "#FFFFFF" : "rgba(255,255,255,0.35)",
+                  color: isActive ? "#FFFFFF" : "rgba(255,255,255,0.55)",
                   backgroundColor: isActive ? "rgba(255,255,255,0.04)" : "transparent",
                   fontWeight: isActive ? 500 : 400,
                   borderLeft: isActive ? "2px solid #FFFFFF" : "2px solid transparent",
@@ -233,7 +233,7 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
             onClick={toggle}
             title={collapsed ? "Expand" : "Collapse"}
             className="w-full flex items-center gap-3 px-2.5 py-1.5 transition-colors"
-            style={{ color: "rgba(255,255,255,0.25)" }}
+            style={{ color: "rgba(255,255,255,0.45)" }}
           >
             <svg
               className="w-4 h-4 flex-shrink-0 transition-transform duration-300"
@@ -247,7 +247,7 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
 
           {!collapsed && (
             <div className="px-2.5 py-1">
-              <p className="text-[10px] mono truncate" style={{ color: "rgba(255,255,255,0.25)" }}>{userEmail}</p>
+              <p className="text-[10px] mono truncate" style={{ color: "rgba(255,255,255,0.45)" }}>{userEmail}</p>
             </div>
           )}
 
@@ -256,7 +256,7 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
               type="submit"
               title={collapsed ? "Sign Out" : undefined}
               className="w-full flex items-center gap-3 px-2.5 py-1.5 transition-colors"
-              style={{ color: "rgba(255,255,255,0.35)" }}
+              style={{ color: "rgba(255,255,255,0.55)" }}
             >
               <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -274,7 +274,7 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
             {crumbs.map((crumb, i) => (
               <span key={i} className="flex items-center gap-1.5">
                 {i > 0 && (
-                  <svg className="w-3 h-3 flex-shrink-0" fill="none" stroke="rgba(255,255,255,0.18)" viewBox="0 0 24 24">
+                  <svg className="w-3 h-3 flex-shrink-0" fill="none" stroke="rgba(255,255,255,0.35)" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 )}
@@ -282,12 +282,12 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
                   <Link
                     href={crumb.href}
                     className="text-[9px] mono uppercase tracking-widest font-medium hover:opacity-80"
-                    style={{ color: "rgba(255,255,255,0.35)" }}
+                    style={{ color: "rgba(255,255,255,0.55)" }}
                   >
                     {crumb.label}
                   </Link>
                 ) : (
-                  <span className="text-[9px] mono uppercase tracking-widest font-medium" style={{ color: "rgba(255,255,255,0.18)" }}>
+                  <span className="text-[9px] mono uppercase tracking-widest font-medium" style={{ color: "rgba(255,255,255,0.35)" }}>
                     {crumb.label}
                   </span>
                 )}

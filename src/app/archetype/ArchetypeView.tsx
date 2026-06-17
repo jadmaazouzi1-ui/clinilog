@@ -254,7 +254,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
         <div className="relative">
           <p
             className="text-xs font-bold uppercase tracking-[0.2em] mb-3"
-            style={{ color: "rgba(255,255,255,0.35)" }}
+            style={{ color: "rgba(255,255,255,0.55)" }}
           >
             Your Pre-Med Archetype
           </p>
@@ -280,7 +280,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
               </span>
             ))}
           </h1>
-          <p className="text-base italic mb-4" style={{ color: "rgba(255,255,255,0.35)" }}>
+          <p className="text-base italic mb-4" style={{ color: "rgba(255,255,255,0.55)" }}>
             &ldquo;{archetype.tagline}&rdquo;
           </p>
           <p className="text-sm leading-relaxed max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.7)" }}>
@@ -311,7 +311,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
             </button>
           </div>
           {generatedAt && (
-            <p className="text-xs mt-3" style={{ color: "rgba(255,255,255,0.35)" }}>
+            <p className="text-xs mt-3" style={{ color: "rgba(255,255,255,0.55)" }}>
               Generated {new Date(generatedAt).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}
             </p>
           )}
@@ -418,7 +418,7 @@ function Section({ title, color, children }: { title: string; color: string; chi
     <div className="glass-card rounded-2xl p-6">
       <p
         className="text-xs font-bold uppercase tracking-wider mb-3"
-        style={{ color: "rgba(255,255,255,0.35)" }}
+        style={{ color: "rgba(255,255,255,0.55)" }}
       >
         {title}
       </p>

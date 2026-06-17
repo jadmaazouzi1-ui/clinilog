@@ -25,7 +25,7 @@ const TYPE_BADGE_STYLES: Record<ExperienceType, React.CSSProperties> = {
   volunteer:    { background: "transparent", color: "rgba(255,255,255,0.5)", border: "1px solid rgba(255,255,255,0.12)" },
   clinical_work:{ background: "transparent", color: "rgba(255,255,255,0.5)", border: "1px solid rgba(255,255,255,0.12)" },
   research:     { background: "transparent", color: "rgba(255,255,255,0.5)", border: "1px solid rgba(255,255,255,0.12)" },
-  other:        { background: "transparent", color: "rgba(255,255,255,0.35)", border: "1px solid rgba(255,255,255,0.08)" },
+  other:        { background: "transparent", color: "rgba(255,255,255,0.55)", border: "1px solid rgba(255,255,255,0.08)" },
 };
 
 // Medical-record style dates throughout the dashboard

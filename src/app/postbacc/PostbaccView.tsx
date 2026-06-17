@@ -214,7 +214,7 @@ export default function PostbaccView({
                           <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                         </svg>
                       ) : (
-                        <span style={{ color: "rgba(255,255,255,0.25)" }}>—</span>
+                        <span style={{ color: "rgba(255,255,255,0.45)" }}>—</span>
                       )}
                     </td>
                     <td className="px-2 py-3 text-right">

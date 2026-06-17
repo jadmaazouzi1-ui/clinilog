@@ -117,7 +117,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
       <div className="glass-card rounded-2xl p-6">
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div className="flex-1 min-w-[200px]">
-            <p className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: "rgba(255,255,255,0.35)" }}>Target Application Cycle</p>
+            <p className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: "rgba(255,255,255,0.55)" }}>Target Application Cycle</p>
             <select
               value={data.target_cycle_year ?? ""}
               onChange={(e) => persist({ target_cycle_year: e.target.value ? parseInt(e.target.value) : null })}
@@ -306,7 +306,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
                     className="w-5 h-5 rounded-md flex items-center justify-center flex-shrink-0 mt-0.5"
                     style={{
                       background: done ? "#FFFFFF" : "transparent",
-                      border: `1.5px solid ${done ? "#FFFFFF" : "rgba(255,255,255,0.15)"}`,
+                      border: `1.5px solid ${done ? "#FFFFFF" : "rgba(255,255,255,0.3)"}`,
                     }}
                   >
                     {done && (

@@ -21,8 +21,8 @@ const COLORS: Record<ExperienceType, string> = {
   shadowing:     "#FFFFFF",
   clinical_work: "rgba(255,255,255,0.7)",
   volunteer:     "rgba(255,255,255,0.5)",
-  research:      "rgba(255,255,255,0.35)",
-  other:         "rgba(255,255,255,0.18)",
+  research:      "rgba(255,255,255,0.55)",
+  other:         "rgba(255,255,255,0.35)",
 };
 
 export default function HoursBreakdown({
