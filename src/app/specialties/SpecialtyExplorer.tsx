@@ -202,17 +202,17 @@ function Card({ specialty: s, expanded, onToggle }: { specialty: Specialty; expa
       {expanded && (
         <div className="mt-5 pt-5 space-y-4" style={{ borderTop: "1px solid rgba(255,255,255,0.04)" }}>
           <div className="space-y-2">
-            <RatingDots value={s.competitiveness} color="#FF8A8A" label="Competitive" />
+            <RatingDots value={s.competitiveness} color="#FFFFFF" label="Competitive" />
             <RatingDots value={s.lifestyle} color="#FFFFFF" label="Lifestyle" />
           </div>
 
           <div>
-            <p className="text-[10px] font-semibold uppercase tracking-wide mb-1.5" style={{ color: "rgba(232,160,32,0.7)" }}>Day in the Life</p>
+            <p className="text-[10px] font-semibold uppercase tracking-wide mb-1.5" style={{ color: "rgba(255,255,255,0.7)" }}>Day in the Life</p>
             <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.8)" }}>{s.summary}</p>
           </div>
 
           <div>
-            <p className="text-[10px] font-semibold uppercase tracking-wide mb-1.5" style={{ color: "rgba(232,160,32,0.7)" }}>Top Schools for This Path</p>
+            <p className="text-[10px] font-semibold uppercase tracking-wide mb-1.5" style={{ color: "rgba(255,255,255,0.7)" }}>Top Schools for This Path</p>
             <ul className="space-y-1.5">
               {s.topSchools.map((school) => (
                 <li key={school} className="text-xs flex items-start gap-2" style={{ color: "rgba(255,255,255,0.75)" }}>

@@ -196,7 +196,7 @@ export default async function StoriesPage({
         {/* Bottom CTA */}
         <div
           className="mt-10 rounded-2xl p-8 text-center"
-          style={{ background: "rgba(232,160,32,0.05)", border: "1px solid rgba(255,255,255,0.05)" }}
+          style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.05)" }}
         >
           <h2 className="text-lg font-bold mb-2" style={{ color: "#FFFFFF" }}>Got into medical school?</h2>
           <p className="text-sm mb-5" style={{ color: "rgba(255,255,255,0.55)" }}>

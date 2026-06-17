@@ -80,7 +80,7 @@ export default function ReframeableTextarea({
           className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm resize-none transition-all"
           style={{
             borderColor: hasReframed ? "rgba(255,255,255,0.2)" : undefined,
-            boxShadow: hasReframed ? "0 0 0 3px rgba(232,160,32,0.08)" : undefined,
+            boxShadow: hasReframed ? "0 0 0 3px rgba(255,255,255,0.08)" : undefined,
           }}
         />
         {/* Reframed badge */}

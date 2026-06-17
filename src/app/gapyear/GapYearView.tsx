@@ -132,7 +132,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
           {countdown && (
             <div
               className="rounded-xl px-5 py-4 text-center flex-shrink-0"
-              style={{ background: "rgba(232,160,32,0.08)", border: "1px solid rgba(255,255,255,0.1)", minWidth: 180 }}
+              style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.1)", minWidth: 180 }}
             >
               <p className="text-3xl font-bold" style={{ color: "#FFFFFF" }}>{countdown.days}</p>
               <p className="text-xs mt-1" style={{ color: "rgba(255,255,255,0.6)" }}>days until {countdown.label}</p>
@@ -298,8 +298,8 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
                   onClick={() => toggleMilestone(m.id)}
                   className="w-full text-left rounded-xl px-3.5 py-3 flex items-start gap-3 transition-colors"
                   style={{
-                    background: done ? "rgba(232,160,32,0.08)" : "rgba(232,160,32,0.02)",
-                    border: `1px solid ${done ? "rgba(255,255,255,0.12)" : "rgba(232,160,32,0.08)"}`,
+                    background: done ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.02)",
+                    border: `1px solid ${done ? "rgba(255,255,255,0.12)" : "rgba(255,255,255,0.08)"}`,
                   }}
                 >
                   <span

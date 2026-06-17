@@ -92,7 +92,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
               key={i}
               className="absolute inset-0 rounded-full"
               style={{
-                border: "2px solid #00D4FF",
+                border: "2px solid #FFFFFF",
                 animation: `pulse-ring 1.8s ease-out ${i * 0.6}s infinite`,
               }}
             />

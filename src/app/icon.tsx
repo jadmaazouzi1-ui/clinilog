@@ -10,7 +10,7 @@ export default function Icon() {
         style={{
           width: 32,
           height: 32,
-          background: "#1A1A2E",
+          background: "#FFFFFF",
           borderRadius: 7,
           display: "flex",
           alignItems: "center",
@@ -20,7 +20,7 @@ export default function Icon() {
         <svg width="22" height="22" viewBox="0 0 24 24">
           <polyline
             points="2,12 5,12 7,7 9,17 11,10 13,14 15,12 22,12"
-            stroke="#E8A020"
+            stroke="#000000"
             strokeWidth="2.5"
             fill="none"
             strokeLinecap="round"

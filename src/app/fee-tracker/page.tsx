@@ -102,7 +102,7 @@ export default async function FeeTrackerPage() {
             <div
               key={stat.label}
               className="rounded-xl p-5"
-              style={{ backgroundColor: "#000000", border: "1px solid rgba(232,160,32,0.14)" }}
+              style={{ backgroundColor: "#000000", border: "1px solid rgba(255,255,255,0.14)" }}
             >
               <p className="text-xs font-semibold uppercase tracking-wide mb-1" style={{ color: "rgba(255,255,255,0.6)" }}>
                 {stat.label}
@@ -300,7 +300,7 @@ export default async function FeeTrackerPage() {
                         <button
                           type="submit"
                           className="text-xs px-2.5 py-1.5 rounded-lg font-medium transition-colors"
-                          style={{ color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.14)", background: "rgba(232,160,32,0.08)" }}
+                          style={{ color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.14)", background: "rgba(255,255,255,0.08)" }}
                         >
                           Update
                         </button>

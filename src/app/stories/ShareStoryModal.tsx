@@ -11,7 +11,7 @@ export default function ShareStoryModal() {
       <button
         onClick={() => setOpen(true)}
         className="teal-glow inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm"
-        style={{ backgroundColor: "#E8A020", color: "#FFFFFF" }}
+        style={{ backgroundColor: "#FFFFFF", color: "#000000" }}
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -25,7 +25,7 @@ export default function ShareStoryModal() {
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ backgroundColor: "rgba(0,0,0,0.75)" }}>
       <div
         className="w-full max-w-lg rounded-2xl p-8 relative"
-        style={{ backgroundColor: "rgba(255,255,255,0.98)", border: "1px solid rgba(232,160,32,0.2)" }}
+        style={{ backgroundColor: "#000000", border: "1px solid rgba(255,255,255,0.12)" }}
       >
         {/* Close */}
         <button
@@ -121,7 +121,7 @@ export default function ShareStoryModal() {
             <button
               type="submit"
               className="teal-glow flex-1 py-2.5 rounded-xl font-semibold text-sm"
-              style={{ backgroundColor: "#E8A020", color: "#FFFFFF" }}
+              style={{ backgroundColor: "#FFFFFF", color: "#000000" }}
             >
               Submit Story
             </button>

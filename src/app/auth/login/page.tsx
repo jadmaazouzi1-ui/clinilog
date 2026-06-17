@@ -46,8 +46,8 @@ export default async function LoginPage({
 
   const LogoMark = () => (
     <div className="inline-flex items-center gap-2 mb-4">
-      <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#E8A020" }}>
-        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#1A1A2E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#FFFFFF" }}>
+        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
           <polyline points="2,12 7,12 8,9 10,12 12,3 13,21 14,12 16,9 18,12 22,12" />
         </svg>
       </div>
@@ -57,7 +57,7 @@ export default async function LoginPage({
 
   if (view === "forgot") {
     return (
-      <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "#1A1A2E" }}>
+      <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "#000000" }}>
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
             <LogoMark />
@@ -67,9 +67,9 @@ export default async function LoginPage({
             <div className="glass-card rounded-lg p-8 text-center">
               <div
                 className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5"
-                style={{ backgroundColor: "rgba(232,160,32,0.1)", border: "1px solid rgba(232,160,32,0.25)" }}
+                style={{ backgroundColor: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.15)" }}
               >
-                <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#E8A020" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                   <polyline points="22,6 12,13 2,6" />
                 </svg>
@@ -80,7 +80,7 @@ export default async function LoginPage({
               <p className="text-sm mb-6 leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
                 We sent a password reset link to your email address. It may take a minute to arrive.
               </p>
-              <Link href="/auth/login" className="text-sm font-medium" style={{ color: "#E8A020" }}>
+              <Link href="/auth/login" className="text-sm font-medium" style={{ color: "#FFFFFF" }}>
                 ← Back to sign in
               </Link>
             </div>
@@ -120,7 +120,7 @@ export default async function LoginPage({
                   <button
                     type="submit"
                     className="w-full teal-glow py-2.5 rounded-lg font-semibold text-sm focus:outline-none"
-                    style={{ backgroundColor: "#E8A020", color: "#1A1A2E" }}
+                    style={{ backgroundColor: "#FFFFFF", color: "#000000" }}
                   >
                     Send Reset Email
                   </button>
@@ -128,7 +128,7 @@ export default async function LoginPage({
               </div>
 
               <p className="text-center text-sm mt-6">
-                <Link href="/auth/login" className="font-medium" style={{ color: "#E8A020" }}>
+                <Link href="/auth/login" className="font-medium" style={{ color: "#FFFFFF" }}>
                   ← Back to sign in
                 </Link>
               </p>
@@ -140,7 +140,7 @@ export default async function LoginPage({
   }
 
   return (
-    <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "#1A1A2E" }}>
+    <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "#000000" }}>
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <LogoMark />
@@ -180,7 +180,7 @@ export default async function LoginPage({
                 <label htmlFor="password" className="block text-sm font-medium" style={{ color: "rgba(255,255,255,0.85)" }}>
                   Password
                 </label>
-                <Link href="/auth/login?view=forgot" className="text-xs font-medium" style={{ color: "#E8A020" }}>
+                <Link href="/auth/login?view=forgot" className="text-xs font-medium" style={{ color: "#FFFFFF" }}>
                   Forgot password?
                 </Link>
               </div>
@@ -198,7 +198,7 @@ export default async function LoginPage({
             <button
               type="submit"
               className="w-full teal-glow py-2.5 rounded-lg font-semibold text-sm focus:outline-none"
-              style={{ backgroundColor: "#E8A020", color: "#1A1A2E" }}
+              style={{ backgroundColor: "#FFFFFF", color: "#000000" }}
             >
               Sign In
             </button>
@@ -207,7 +207,7 @@ export default async function LoginPage({
 
         <p className="text-center text-sm mt-6" style={{ color: "rgba(255,255,255,0.5)" }}>
           Don&apos;t have an account?{" "}
-          <Link href="/auth/signup" className="font-medium" style={{ color: "#E8A020" }}>
+          <Link href="/auth/signup" className="font-medium" style={{ color: "#FFFFFF" }}>
             Create one free
           </Link>
         </p>

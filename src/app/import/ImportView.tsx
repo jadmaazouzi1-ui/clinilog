@@ -300,7 +300,7 @@ export default function ImportView() {
             onClick={() => inputRef.current?.click()}
             className="rounded-xl px-6 py-12 flex flex-col items-center justify-center cursor-pointer transition-all"
             style={{
-              background: dragOver ? "rgba(232,160,32,0.08)" : "rgba(232,160,32,0.03)",
+              background: dragOver ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.03)",
               border: `2px dashed ${dragOver ? "#FFFFFF" : "rgba(255,255,255,0.1)"}`,
             }}
           >
@@ -403,8 +403,8 @@ export default function ImportView() {
                     <tr
                       key={i}
                       style={{
-                        borderBottom: "1px solid rgba(232,160,32,0.06)",
-                        backgroundColor: hasError ? "rgba(239,68,68,0.05)" : (r.selected ? "rgba(232,160,32,0.03)" : "transparent"),
+                        borderBottom: "1px solid rgba(255,255,255,0.06)",
+                        backgroundColor: hasError ? "rgba(239,68,68,0.05)" : (r.selected ? "rgba(255,255,255,0.03)" : "transparent"),
                       }}
                     >
                       <td className="px-2 py-3 align-top">
@@ -474,7 +474,7 @@ export default function ImportView() {
               onClick={doImport}
               disabled={validCount === 0 || isPending}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all disabled:opacity-40 disabled:cursor-not-allowed"
-              style={{ backgroundColor: "#FFFFFF", color: "#000000", boxShadow: validCount > 0 ? "0 0 18px rgba(232,160,32,0.45)" : "none" }}
+              style={{ backgroundColor: "#FFFFFF", color: "#000000", boxShadow: validCount > 0 ? "0 0 18px rgba(255,255,255,0.45)" : "none" }}
             >
               {isPending ? (
                 <>

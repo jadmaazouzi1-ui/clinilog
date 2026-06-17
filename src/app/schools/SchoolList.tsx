@@ -177,9 +177,9 @@ const ALL_STATES = [...new Set(SCHOOLS.map((s) => s.state))].sort();
 type MissionFilter = "Primary Care & Underserved" | "Research" | "Osteopathic" | "Community Health" | "Caribbean";
 
 const MISSION_FILTERS: { label: string; value: MissionFilter; dot: string }[] = [
-  { label: "Primary Care & Underserved", value: "Primary Care & Underserved", dot: "#2DD4BF" },
+  { label: "Primary Care & Underserved", value: "Primary Care & Underserved", dot: "#FFFFFF" },
   { label: "Research",                   value: "Research",                   dot: "#FFFFFF" },
-  { label: "Osteopathic (DO)",           value: "Osteopathic",                dot: "#F97316" },
+  { label: "Osteopathic (DO)",           value: "Osteopathic",                dot: "#FFFFFF" },
   { label: "Community Health",           value: "Community Health",           dot: "#FFFFFF" },
   { label: "Caribbean",                  value: "Caribbean",                  dot: "#FFFFFF" },
 ];
@@ -189,11 +189,11 @@ function getMissionBadgeStyle(mission: string): React.CSSProperties {
   if (m.includes("caribbean"))
     return { background: "rgba(255,255,255,0.08)", color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.08)" };
   if (m.includes("osteopathic"))
-    return { background: "rgba(249,115,22,0.1)", color: "#FB923C", border: "1px solid rgba(249,115,22,0.3)" };
+    return { background: "rgba(255,255,255,0.1)", color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.3)" };
   if (m.includes("community health"))
-    return { background: "rgba(255,255,255,0.08)", color: "#FCD34D", border: "1px solid rgba(255,255,255,0.08)" };
+    return { background: "rgba(255,255,255,0.08)", color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.08)" };
   if (m.includes("underserved") && m.includes("primary"))
-    return { background: "rgba(45,212,191,0.1)", color: "#2DD4BF", border: "1px solid rgba(45,212,191,0.3)" };
+    return { background: "rgba(255,255,255,0.1)", color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.3)" };
   if (m.includes("underserved"))
     return { background: "rgba(255,255,255,0.1)", color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.1)" };
   if (m.includes("primary care"))
@@ -267,7 +267,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
   // Active filter button style
   const activeFilterStyle: React.CSSProperties = {
     background: "rgba(255,255,255,0.05)",
-    border: "1px solid #00D4FF",
+    border: "1px solid #FFFFFF",
     color: "#FFFFFF",
   };
 
@@ -415,7 +415,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
                 isInStateForUser
                   ? { background: "rgba(255,255,255,0.1)", borderColor: "rgba(255,255,255,0.1)" }
                   : match
-                  ? { background: "rgba(232,160,32,0.06)", borderColor: "rgba(255,255,255,0.14)" }
+                  ? { background: "rgba(255,255,255,0.06)", borderColor: "rgba(255,255,255,0.14)" }
                   : {}
               }
             >
@@ -471,14 +471,14 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
               <div className="flex items-center gap-3">
                 <div
                   className="flex items-center gap-1.5 rounded-lg px-3 py-1.5"
-                  style={{ background: "rgba(232,160,32,0.05)", border: "1px solid rgba(255,255,255,0.04)" }}
+                  style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.04)" }}
                 >
                   <span className="text-xs font-medium" style={{ color: "rgba(255,255,255,0.55)" }}>Avg GPA</span>
                   <span className="text-sm font-bold" style={{ color: "#FFFFFF" }}>{school.avgGpa.toFixed(2)}</span>
                 </div>
                 <div
                   className="flex items-center gap-1.5 rounded-lg px-3 py-1.5"
-                  style={{ background: "rgba(232,160,32,0.05)", border: "1px solid rgba(255,255,255,0.04)" }}
+                  style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.04)" }}
                 >
                   <span className="text-xs font-medium" style={{ color: "rgba(255,255,255,0.55)" }}>Avg MCAT</span>
                   <span className="text-sm font-bold" style={{ color: "#FFFFFF" }}>{school.avgMcat}</span>

@@ -48,9 +48,9 @@ export default function OnboardingModal() {
           const active = step === s.num;
 
           const circleStyle: React.CSSProperties = completed
-            ? { background: "#FFFFFF", border: "2px solid #00D4FF" }
+            ? { background: "#FFFFFF", border: "2px solid #FFFFFF" }
             : active
-            ? { background: "transparent", border: "2px solid #00D4FF" }
+            ? { background: "transparent", border: "2px solid #FFFFFF" }
             : { background: "transparent", border: "2px solid rgba(255,255,255,0.2)" };
 
           const numColor = completed
@@ -460,7 +460,7 @@ export default function OnboardingModal() {
                 height: 64,
                 borderRadius: "50%",
                 background: "rgba(255,255,255,0.04)",
-                border: "1.5px solid #00D4FF",
+                border: "1.5px solid #FFFFFF",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",

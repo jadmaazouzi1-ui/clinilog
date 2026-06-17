@@ -15,11 +15,11 @@ const TYPE_LABELS: Record<ExperienceType, string> = {
 };
 
 const TYPE_BADGE_STYLES: Record<ExperienceType, React.CSSProperties> = {
-  shadowing:    { background: "rgba(255,255,255,0.06)",    color: "#FFFFFF",              border: "1px solid rgba(255,255,255,0.06)" },
-  volunteer:    { background: "rgba(34,197,94,0.1)",   color: "#22C55E",              border: "1px solid rgba(34,197,94,0.3)" },
-  clinical_work:{ background: "rgba(99,102,241,0.1)",   color: "#818CF8",              border: "1px solid rgba(99,102,241,0.3)" },
-  research:     { background: "rgba(139,92,246,0.1)",   color: "#A78BFA",              border: "1px solid rgba(139,92,246,0.3)" },
-  other:        { background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.6)",border: "1px solid rgba(255,255,255,0.15)" },
+  shadowing:    { background: "transparent", color: "#FFFFFF",                border: "1px solid rgba(255,255,255,0.25)" },
+  clinical_work:{ background: "transparent", color: "rgba(255,255,255,0.75)", border: "1px solid rgba(255,255,255,0.18)" },
+  volunteer:    { background: "transparent", color: "rgba(255,255,255,0.6)",  border: "1px solid rgba(255,255,255,0.15)" },
+  research:     { background: "transparent", color: "rgba(255,255,255,0.5)",  border: "1px solid rgba(255,255,255,0.12)" },
+  other:        { background: "transparent", color: "rgba(255,255,255,0.45)", border: "1px solid rgba(255,255,255,0.1)" },
 };
 
 function formatDate(dateStr: string) {

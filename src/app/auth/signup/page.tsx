@@ -39,13 +39,13 @@ export default async function SignupPage({
   }
 
   return (
-    <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "#1A1A2E" }}>
+    <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "#000000" }}>
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 mb-4">
-            <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#E8A020" }}>
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#1A1A2E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#FFFFFF" }}>
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="2,12 7,12 8,9 10,12 12,3 13,21 14,12 16,9 18,12 22,12" />
               </svg>
             </div>
@@ -121,7 +121,7 @@ export default async function SignupPage({
             <button
               type="submit"
               className="w-full teal-glow py-2.5 rounded-lg font-semibold text-sm transition-colors focus:outline-none"
-              style={{ backgroundColor: "#E8A020", color: "#1A1A2E" }}
+              style={{ backgroundColor: "#FFFFFF", color: "#000000" }}
             >
               Create Account
             </button>
@@ -133,7 +133,7 @@ export default async function SignupPage({
           <Link
             href="/auth/login"
             className="font-medium"
-            style={{ color: "#E8A020" }}
+            style={{ color: "#FFFFFF" }}
           >
             Sign in
           </Link>

@@ -89,7 +89,7 @@ export default function PostbaccView({
                 onClick={() => persistProfile({ program_type: pt.value })}
                 className="text-left rounded-xl px-4 py-3 transition-all"
                 style={{
-                  background: active ? "rgba(255,255,255,0.04)" : "rgba(232,160,32,0.03)",
+                  background: active ? "rgba(255,255,255,0.04)" : "rgba(255,255,255,0.03)",
                   border: `1px solid ${active ? "#FFFFFF" : "rgba(255,255,255,0.04)"}`,
                   boxShadow: active ? "0 0 14px rgba(255,255,255,0.1)" : "none",
                 }}
@@ -168,7 +168,7 @@ export default function PostbaccView({
               type="submit"
               disabled={isPending}
               className="px-4 py-2.5 rounded-xl font-semibold text-sm disabled:opacity-40"
-              style={{ background: "#FFFFFF", color: "#FFFFFF" }}
+              style={{ background: "#FFFFFF", color: "#000000" }}
             >
               Add Course
             </button>
@@ -199,7 +199,7 @@ export default function PostbaccView({
               </thead>
               <tbody>
                 {initialCourses.map((c) => (
-                  <tr key={c.id} style={{ borderBottom: "1px solid rgba(232,160,32,0.06)" }}>
+                  <tr key={c.id} style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
                     <td className="px-2 py-3" style={{ color: "#FFFFFF" }}>{c.name}</td>
                     <td className="px-2 py-3" style={{ color: "rgba(255,255,255,0.65)" }}>{c.semester || "—"}</td>
                     <td className="px-2 py-3 text-right" style={{ color: "rgba(255,255,255,0.85)" }}>{c.credits}</td>
@@ -271,7 +271,7 @@ function GpaCard({ label, sub, value, goal, onGoalChange }: {
   return (
     <div className="glass-card rounded-2xl p-5">
       <div className="flex items-center justify-between mb-1">
-        <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: "rgba(232,160,32,0.7)" }}>{label}</p>
+        <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.7)" }}>{label}</p>
         {value !== null && (
           <span className="text-[10px] font-bold uppercase tracking-wide" style={{ color: metGoal ? "#FFFFFF" : "rgba(255,255,255,0.5)" }}>
             {metGoal ? "Goal Met ✓" : `${pct.toFixed(0)}% to goal`}
@@ -283,7 +283,7 @@ function GpaCard({ label, sub, value, goal, onGoalChange }: {
         <span className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>/ 4.00</span>
       </div>
 
-      <div className="w-full h-2 rounded-full overflow-hidden mb-3" style={{ background: "rgba(232,160,32,0.08)" }}>
+      <div className="w-full h-2 rounded-full overflow-hidden mb-3" style={{ background: "rgba(255,255,255,0.08)" }}>
         <div
           className="h-full rounded-full"
           style={{
@@ -298,7 +298,7 @@ function GpaCard({ label, sub, value, goal, onGoalChange }: {
 
       <p className="text-xs mb-2" style={{ color: "rgba(255,255,255,0.5)" }}>{sub}</p>
 
-      <div className="flex items-center gap-2 pt-2" style={{ borderTop: "1px solid rgba(232,160,32,0.08)" }}>
+      <div className="flex items-center gap-2 pt-2" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
         <label className="text-xs" style={{ color: "rgba(255,255,255,0.6)" }}>Goal:</label>
         <input
           type="number" min="2.0" max="4.0" step="0.05"

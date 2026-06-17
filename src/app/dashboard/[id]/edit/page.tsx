@@ -245,7 +245,7 @@ export default async function EditExperiencePage({
               <button
                 type="submit"
                 className="flex-1 inline-flex items-center justify-center gap-2 teal-glow px-6 py-3 rounded-xl font-semibold text-sm transition-colors focus:outline-none"
-                style={{ backgroundColor: "#FFFFFF", color: "#FFFFFF" }}
+                style={{ backgroundColor: "#FFFFFF", color: "#000000" }}
               >
                 Save Changes
               </button>
