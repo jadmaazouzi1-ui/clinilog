@@ -66,8 +66,12 @@ export default async function HomePage() {
           from { transform: translateX(0); }
           to   { transform: translateX(-50%); }
         }
+        .tool-row { transition: background 0.15s; }
+        .tool-row:hover { background: rgba(255,255,255,0.02); }
         .tool-row:hover .tool-tag { opacity: 1; }
         .tool-row .tool-tag { opacity: 0.5; transition: opacity 0.15s; }
+        .nav-link { color: rgba(255,255,255,0.35); transition: color 0.15s; }
+        .nav-link:hover { color: #FFFFFF; }
         a:hover, button:hover { opacity: inherit; }
       `}</style>
 
@@ -89,10 +93,7 @@ export default async function HomePage() {
             {/* Center: Nav links */}
             <nav style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
               {[["Schools", "/schools"], ["Archetype", "/archetype"], ["Resources", "/resources"], ["Stories", "/stories"], ["About", "/about"]].map(([label, href]) => (
-                <Link key={label} href={href} style={{ fontSize: "0.8125rem", color: "rgba(255,255,255,0.35)", textDecoration: "none", letterSpacing: "0", transition: "color 0.15s" }}
-                  onMouseEnter={e => (e.currentTarget.style.color = "#FFFFFF")}
-                  onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.35)")}
-                >{label}</Link>
+                <Link key={label} href={href} className="nav-link" style={{ fontSize: "0.8125rem", textDecoration: "none", letterSpacing: "0" }}>{label}</Link>
               ))}
             </nav>
             {/* Right: Auth */}
@@ -201,10 +202,7 @@ export default async function HomePage() {
                     padding: "1.75rem 1.5rem",
                     borderRight: (i + 1) % 4 !== 0 ? "1px solid rgba(255,255,255,0.06)" : "none",
                     borderBottom: i < 8 ? "1px solid rgba(255,255,255,0.06)" : "none",
-                    transition: "background 0.15s",
                   }}
-                  onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.02)")}
-                  onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
                 >
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.75rem" }}>
                     <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.18)", letterSpacing: "0.1em" }}>{t.n}</span>
