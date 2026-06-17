@@ -80,13 +80,8 @@ const STORIES = [
 ];
 
 const STATUS_BADGES: Record<string, { bg: string; text: string; border: string }> = {
-  "#FFFFFF": { bg: "rgba(255,255,255,0.04)", text: "#FFFFFF", border: "rgba(255,255,255,0.1)" },
-  "#FFFFFF": { bg: "rgba(255,255,255,0.1)", text: "#FFFFFF", border: "rgba(255,255,255,0.1)" },
-  "#FFFFFF": { bg: "rgba(167,139,250,0.1)", text: "#FFFFFF", border: "rgba(167,139,250,0.25)" },
-  "#FFFFFF": { bg: "rgba(255,255,255,0.08)", text: "#FFFFFF", border: "rgba(255,255,255,0.08)" },
+  "#FFFFFF": { bg: "rgba(255,255,255,0.04)", text: "#FFFFFF", border: "rgba(255,255,255,0.12)" },
   "#DC2626": { bg: "rgba(239,68,68,0.1)", text: "#DC2626", border: "rgba(239,68,68,0.25)" },
-  "#FFFFFF": { bg: "rgba(255,255,255,0.08)", text: "#FFFFFF", border: "rgba(255,255,255,0.08)" },
-  "#FFFFFF": { bg: "rgba(255,255,255,0.06)", text: "#FFFFFF", border: "rgba(255,255,255,0.06)" },
 };
 
 export default async function StoriesPage({
