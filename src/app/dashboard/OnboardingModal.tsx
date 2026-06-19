@@ -234,8 +234,8 @@ export default function OnboardingModal() {
         style={{
           maxWidth: 512,
           width: "100%",
-          background: "rgba(255,255,255,0.97)",
-          border: "1px solid rgba(255,255,255,0.08)",
+          background: "#000000",
+          border: "1px solid rgba(255,255,255,0.12)",
           borderRadius: 24,
           padding: 32,
           position: "relative",

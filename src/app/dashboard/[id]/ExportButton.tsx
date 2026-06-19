@@ -138,7 +138,8 @@ export default function ExportButton({ experience }: ExportButtonProps) {
   return (
     <button
       onClick={handleExport}
-      className="inline-flex items-center gap-1.5 text-sm font-medium text-indigo-600 border border-indigo-200 bg-white hover:bg-indigo-50 px-3 py-1.5 rounded-lg transition-colors"
+      className="inline-flex items-center gap-1.5 text-sm font-medium px-3 py-1.5 rounded-lg transition-opacity hover:opacity-80"
+      style={{ color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.14)", background: "transparent" }}
     >
       <svg
         className="w-4 h-4"

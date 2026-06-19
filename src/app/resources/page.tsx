@@ -184,7 +184,7 @@ const CATEGORIES = [
       {
         title: "SDN Pre-Med Forum",
         description: "Student Doctor Network's pre-med discussion board — the largest community for application questions and advice.",
-        url: "https://forums.studentdoctor.net/forums/pre-medical-general.6",
+        url: "https://forums.studentdoctor.net/forums/pre-medical-md.10/",
       },
       {
         title: "r/premed",

@@ -160,7 +160,7 @@ export default function PostbaccView({
                 type="checkbox"
                 checked={cBcpm}
                 onChange={(e) => setCBcpm(e.target.checked)}
-                className="accent-amber-500 w-4 h-4"
+                className="accent-white w-4 h-4"
               />
               BCPM course (Bio, Chem, Physics, Math)
             </label>

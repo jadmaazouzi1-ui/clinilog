@@ -386,7 +386,7 @@ export default function ImportView() {
                       type="checkbox"
                       checked={allChecked}
                       onChange={(e) => toggleAll(e.target.checked)}
-                      className="accent-amber-500"
+                      className="accent-white"
                     />
                   </th>
                   <th className="text-left px-2 py-2 text-xs font-semibold uppercase tracking-wide" style={{ color: "rgba(255,255,255,0.5)" }}>Title</th>
@@ -413,7 +413,7 @@ export default function ImportView() {
                           disabled={hasError}
                           checked={r.selected && !hasError}
                           onChange={() => toggleRow(i)}
-                          className="accent-amber-500"
+                          className="accent-white"
                           style={{ opacity: hasError ? 0.3 : 1 }}
                         />
                       </td>
