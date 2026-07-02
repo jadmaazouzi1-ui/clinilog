@@ -185,7 +185,7 @@ export default function OnboardingModal() {
   const tealBtn: React.CSSProperties = {
     backgroundColor: "#FFFFFF", color: "#000000",
     padding: "10px 20px",
-    borderRadius: 12,
+    borderRadius: 1,
     fontWeight: 600,
     fontSize: 14,
     border: "none",
@@ -198,7 +198,7 @@ export default function OnboardingModal() {
     background: "transparent",
     color: "rgba(255,255,255,0.5)",
     padding: "10px 20px",
-    borderRadius: 12,
+    borderRadius: 1,
     fontWeight: 500,
     fontSize: 14,
     border: "1px solid rgba(255,255,255,0.15)",
@@ -236,7 +236,7 @@ export default function OnboardingModal() {
           width: "100%",
           background: "#000000",
           border: "1px solid rgba(255,255,255,0.12)",
-          borderRadius: 24,
+          borderRadius: 1,
           padding: 32,
           position: "relative",
         }}
@@ -251,7 +251,7 @@ export default function OnboardingModal() {
             top: 14,
             right: 14,
             padding: 6,
-            borderRadius: 8,
+            borderRadius: 1,
             background: "transparent",
             border: "none",
             color: "rgba(255,255,255,0.4)",
@@ -272,7 +272,7 @@ export default function OnboardingModal() {
         {step === 1 && (
           <div>
             <h2 style={{ fontSize: 20, fontWeight: 700, color: "#FFFFFF", marginBottom: 8 }}>
-              Welcome to CliniLog 👋
+              Welcome to CliniLog
             </h2>
             <p style={{ fontSize: 14, color: "rgba(255,255,255,0.6)", marginBottom: 24 }}>
               Let&apos;s set up your profile so we can personalize your experience.

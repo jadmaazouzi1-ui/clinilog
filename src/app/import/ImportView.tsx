@@ -474,16 +474,12 @@ export default function ImportView() {
               onClick={doImport}
               disabled={validCount === 0 || isPending}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all disabled:opacity-40 disabled:cursor-not-allowed"
-              style={{ backgroundColor: "#FFFFFF", color: "#000000", boxShadow: validCount > 0 ? "0 0 18px rgba(255,255,255,0.45)" : "none" }}
+              style={{ backgroundColor: "#FFFFFF", color: "#000000", boxShadow: "none" }}
             >
               {isPending ? (
-                <>
-                  <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                  </svg>
+                <span className="mono text-[10px] font-semibold uppercase tracking-[0.18em]">
                   Importing…
-                </>
+                </span>
               ) : (
                 <>
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

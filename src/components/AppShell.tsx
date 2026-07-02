@@ -281,13 +281,13 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
                 {crumb.href ? (
                   <Link
                     href={crumb.href}
-                    className="text-[9px] mono uppercase tracking-widest font-medium hover:opacity-80"
+                    className="text-[10px] mono uppercase tracking-widest font-medium hover:opacity-80"
                     style={{ color: "rgba(255,255,255,0.55)" }}
                   >
                     {crumb.label}
                   </Link>
                 ) : (
-                  <span className="text-[9px] mono uppercase tracking-widest font-medium" style={{ color: "rgba(255,255,255,0.35)" }}>
+                  <span className="text-[10px] mono uppercase tracking-widest font-medium" style={{ color: "rgba(255,255,255,0.35)" }}>
                     {crumb.label}
                   </span>
                 )}
@@ -317,7 +317,7 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
               }}
             >
               {item.icon}
-              <span className="text-[9px] mono font-medium leading-none uppercase tracking-wide">{item.label}</span>
+              <span className="text-[10px] mono font-medium leading-none uppercase tracking-wide">{item.label}</span>
             </Link>
           );
         })}

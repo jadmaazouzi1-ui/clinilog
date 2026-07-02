@@ -66,13 +66,37 @@ export default async function HomePage() {
           from { transform: translateX(0); }
           to   { transform: translateX(-50%); }
         }
-        .tool-row { transition: background 0.15s; }
+        .tool-row { transition: background 0.15s; background: #000000; }
         .tool-row:hover { background: rgba(255,255,255,0.02); }
         .tool-row:hover .tool-tag { opacity: 1; }
         .tool-row .tool-tag { opacity: 0.5; transition: opacity 0.15s; }
         .nav-link { color: rgba(255,255,255,0.55); transition: color 0.15s; }
         .nav-link:hover { color: #FFFFFF; }
         a:hover, button:hover { opacity: inherit; }
+
+        /* Responsive layout */
+        .split-2col {
+          display: grid;
+          grid-template-columns: 1fr 1px 1fr;
+        }
+        .tools-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 1px;
+          background: rgba(255,255,255,0.06);
+        }
+        @media (max-width: 900px) {
+          .tools-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 767px) {
+          .split-2col { grid-template-columns: 1fr; }
+          .split-divider { display: none; }
+          .nav-center { display: none; }
+          .ekg-label-left { display: none; }
+        }
+        @media (max-width: 500px) {
+          .tools-grid { grid-template-columns: 1fr; }
+        }
       `}</style>
 
       <div style={{ backgroundColor: "#000000", color: "#FFFFFF", minHeight: "100vh", fontFamily: "var(--font-inter, Inter, system-ui, sans-serif)" }}>
@@ -88,10 +112,10 @@ export default async function HomePage() {
                 </svg>
               </div>
               <span style={{ fontWeight: 600, fontSize: "0.875rem", color: "#FFFFFF", letterSpacing: "-0.01em" }}>CliniLog</span>
-              <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.55)", border: "1px solid rgba(255,255,255,0.12)", padding: "2px 5px", letterSpacing: "0.1em", textTransform: "uppercase" }}>BETA</span>
+              <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "10px", color: "rgba(255,255,255,0.55)", border: "1px solid rgba(255,255,255,0.12)", padding: "2px 5px", letterSpacing: "0.1em", textTransform: "uppercase" }}>BETA</span>
             </div>
             {/* Center: Nav links */}
-            <nav style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
+            <nav className="nav-center" style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
               {[["Schools", "/schools"], ["Archetype", "/archetype"], ["Resources", "/resources"], ["Stories", "/stories"], ["About", "/about"]].map(([label, href]) => (
                 <Link key={label} href={href} className="nav-link" style={{ fontSize: "0.8125rem", textDecoration: "none", letterSpacing: "0" }}>{label}</Link>
               ))}
@@ -108,7 +132,7 @@ export default async function HomePage() {
 
         {/* ── Ticker ── */}
         <div style={{ borderBottom: "1px solid rgba(255,255,255,0.06)", overflow: "hidden", position: "relative" }}>
-          <div className="ticker-track" style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.16em", padding: "8px 0" }}>
+          <div className="ticker-track" style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "10px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.16em", padding: "8px 0" }}>
             <span style={{ paddingRight: "4rem" }}>{tickerText}</span>
             <span style={{ paddingRight: "4rem" }}>{tickerText}</span>
           </div>
@@ -116,12 +140,12 @@ export default async function HomePage() {
 
         {/* ── Hero — 2 column split ── */}
         <section style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-          <div style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1px 1fr" }}>
+          <div className="split-2col" style={{ maxWidth: 1200, margin: "0 auto" }}>
             {/* Left */}
             <div style={{ padding: "5rem 3rem 5rem 2rem" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "2rem" }}>
                 <div className="pulse-dot" style={{ width: 6, height: 6, backgroundColor: "#FFFFFF", borderRadius: "50%" }} />
-                <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.55)", letterSpacing: "0.2em", textTransform: "uppercase" }}>PRE-MED PLATFORM — 2026</span>
+                <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "10px", color: "rgba(255,255,255,0.55)", letterSpacing: "0.2em", textTransform: "uppercase" }}>PRE-MED PLATFORM — 2026</span>
               </div>
               <h1 style={{ fontSize: "clamp(2.25rem, 4.5vw, 3rem)", fontWeight: 700, lineHeight: 1.08, letterSpacing: "-0.03em", color: "#FFFFFF", marginBottom: "1.5rem" }}>
                 Your medical journey,<br />
@@ -143,7 +167,7 @@ export default async function HomePage() {
               </div>
             </div>
             {/* Vertical divider */}
-            <div style={{ backgroundColor: "rgba(255,255,255,0.06)" }} />
+            <div className="split-divider" style={{ backgroundColor: "rgba(255,255,255,0.06)" }} />
             {/* Right: 2x2 stat grid */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gridTemplateRows: "1fr 1fr" }}>
               {[
@@ -157,7 +181,7 @@ export default async function HomePage() {
                   borderRight: i % 2 === 0 ? "1px solid rgba(255,255,255,0.06)" : "none",
                   borderBottom: i < 2 ? "1px solid rgba(255,255,255,0.06)" : "none",
                 }}>
-                  <p style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: "0.75rem" }}>{s.tag}</p>
+                  <p style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "10px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: "0.75rem" }}>{s.tag}</p>
                   <p style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "2.25rem", fontWeight: 500, color: "#FFFFFF", lineHeight: 1, letterSpacing: "-0.02em", marginBottom: "0.375rem" }}>{s.num}</p>
                   <p style={{ fontSize: "0.8125rem", color: "rgba(255,255,255,0.45)" }}>{s.label}</p>
                 </div>
@@ -169,7 +193,7 @@ export default async function HomePage() {
         {/* ── EKG bar ── */}
         <div style={{ borderBottom: "1px solid rgba(255,255,255,0.06)", overflow: "hidden" }}>
           <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 2rem", display: "grid", gridTemplateColumns: "auto 1fr auto", alignItems: "center", gap: "2rem", height: 56 }}>
-            <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.18em", textTransform: "uppercase", flexShrink: 0 }}>CLINICAL HOURS — REAL TIME</span>
+            <span className="ekg-label-left" style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "10px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.18em", textTransform: "uppercase", flexShrink: 0 }}>CLINICAL HOURS — REAL TIME</span>
             <div style={{ overflow: "hidden", height: 40 }}>
               <div className="ekg-track">
                 {[0, 1].map(i => (
@@ -189,24 +213,20 @@ export default async function HomePage() {
           <div style={{ maxWidth: 1200, margin: "0 auto" }}>
             {/* Header row */}
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1rem 2rem", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-              <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.18em", textTransform: "uppercase" }}>ALL TOOLS</span>
-              <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.18em", textTransform: "uppercase" }}>12 INCLUDED — FREE</span>
+              <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "10px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.18em", textTransform: "uppercase" }}>ALL TOOLS</span>
+              <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "10px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.18em", textTransform: "uppercase" }}>12 INCLUDED — FREE</span>
             </div>
             {/* 4-column grid */}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)" }}>
+            <div className="tools-grid">
               {TOOLS.map((t, i) => (
                 <div
                   key={t.n}
                   className="tool-row"
-                  style={{
-                    padding: "1.75rem 1.5rem",
-                    borderRight: (i + 1) % 4 !== 0 ? "1px solid rgba(255,255,255,0.06)" : "none",
-                    borderBottom: i < 8 ? "1px solid rgba(255,255,255,0.06)" : "none",
-                  }}
+                  style={{ padding: "1.75rem 1.5rem" }}
                 >
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.75rem" }}>
-                    <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.1em" }}>{t.n}</span>
-                    <span className="tool-tag" style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.55)", border: "1px solid rgba(255,255,255,0.1)", padding: "2px 5px", letterSpacing: "0.1em", textTransform: "uppercase" }}>{t.tag}</span>
+                    <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "10px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.1em" }}>{t.n}</span>
+                    <span className="tool-tag" style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "10px", color: "rgba(255,255,255,0.55)", border: "1px solid rgba(255,255,255,0.1)", padding: "2px 5px", letterSpacing: "0.1em", textTransform: "uppercase" }}>{t.tag}</span>
                   </div>
                   <p style={{ fontWeight: 600, fontSize: "0.875rem", color: "#FFFFFF", marginBottom: "0.5rem", lineHeight: 1.3 }}>{t.name}</p>
                   <p style={{ fontSize: "0.8125rem", color: "rgba(255,255,255,0.28)", lineHeight: 1.55 }}>{t.desc}</p>
@@ -218,10 +238,10 @@ export default async function HomePage() {
 
         {/* ── How It Works + Sample Log — 2 col ── */}
         <section style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-          <div style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1px 1fr" }}>
+          <div className="split-2col" style={{ maxWidth: 1200, margin: "0 auto" }}>
             {/* Left: How it works */}
             <div style={{ padding: "4rem 3rem 4rem 2rem" }}>
-              <p style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: "1.5rem" }}>HOW IT WORKS</p>
+              <p style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "10px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: "1.5rem" }}>HOW IT WORKS</p>
               <h2 style={{ fontSize: "1.75rem", fontWeight: 700, letterSpacing: "-0.025em", color: "#FFFFFF", lineHeight: 1.1, marginBottom: "2.5rem" }}>
                 From sign-up to story<br />in four steps.
               </h2>
@@ -243,18 +263,18 @@ export default async function HomePage() {
               </div>
             </div>
             {/* Divider */}
-            <div style={{ backgroundColor: "rgba(255,255,255,0.06)" }} />
+            <div className="split-divider" style={{ backgroundColor: "rgba(255,255,255,0.06)" }} />
             {/* Right: Sample log */}
             <div style={{ padding: "4rem 2rem 4rem 3rem" }}>
-              <p style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: "1.5rem" }}>SAMPLE LOG</p>
+              <p style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "10px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: "1.5rem" }}>SAMPLE LOG</p>
               <h2 style={{ fontSize: "1.75rem", fontWeight: 700, letterSpacing: "-0.025em", color: "#FFFFFF", lineHeight: 1.1, marginBottom: "2.5rem" }}>
                 What your dashboard<br />will look like.
               </h2>
               {/* Log table header */}
               <div style={{ display: "grid", gridTemplateColumns: "1fr auto auto", gap: "1rem", padding: "0.5rem 0", borderBottom: "1px solid rgba(255,255,255,0.06)", marginBottom: "0" }}>
-                <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.14em", textTransform: "uppercase" }}>ORGANIZATION</span>
-                <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.14em", textTransform: "uppercase" }}>TYPE</span>
-                <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.14em", textTransform: "uppercase" }}>HRS</span>
+                <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "10px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.14em", textTransform: "uppercase" }}>ORGANIZATION</span>
+                <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "10px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.14em", textTransform: "uppercase" }}>TYPE</span>
+                <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "10px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.14em", textTransform: "uppercase" }}>HRS</span>
               </div>
               {SAMPLE_LOG.map((row, i) => (
                 <div key={i} style={{ display: "grid", gridTemplateColumns: "1fr auto auto", gap: "1rem", padding: "1rem 0", borderBottom: "1px solid rgba(255,255,255,0.06)", alignItems: "center" }}>
@@ -262,7 +282,7 @@ export default async function HomePage() {
                     <div style={{ width: 2, height: 16, backgroundColor: "#DC2626", flexShrink: 0 }} />
                     <span style={{ fontSize: "0.875rem", color: "#FFFFFF", fontWeight: 500 }}>{row.org}</span>
                   </div>
-                  <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.55)", border: "1px solid rgba(255,255,255,0.08)", padding: "2px 6px", textTransform: "uppercase", letterSpacing: "0.1em" }}>{row.type}</span>
+                  <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "10px", color: "rgba(255,255,255,0.55)", border: "1px solid rgba(255,255,255,0.08)", padding: "2px 6px", textTransform: "uppercase", letterSpacing: "0.1em" }}>{row.type}</span>
                   <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "0.875rem", color: "rgba(255,255,255,0.6)" }}>{row.hours}</span>
                 </div>
               ))}
@@ -277,13 +297,13 @@ export default async function HomePage() {
 
         {/* ── Archetype preview — 2 col ── */}
         <section style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-          <div style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1px 1fr" }}>
+          <div className="split-2col" style={{ maxWidth: 1200, margin: "0 auto" }}>
             {/* Left */}
             <div style={{ padding: "4rem 3rem 4rem 2rem" }}>
-              <p style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: "1.5rem" }}>PRE-MED ARCHETYPE</p>
+              <p style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "10px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: "1.5rem" }}>PRE-MED ARCHETYPE</p>
               <div style={{ border: "1px solid rgba(255,255,255,0.12)", padding: "1.5rem", marginBottom: "1.75rem", borderRadius: 1 }}>
                 <div style={{ display: "flex", alignItems: "baseline", gap: "0.75rem", marginBottom: "0.75rem" }}>
-                  <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.45)", letterSpacing: "0.14em" }}>01 / 15</span>
+                  <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "10px", color: "rgba(255,255,255,0.45)", letterSpacing: "0.14em" }}>01 / 15</span>
                   <span style={{ fontSize: "1.125rem", fontWeight: 700, color: "#FFFFFF", letterSpacing: "-0.01em" }}>The Community Healer</span>
                 </div>
                 <p style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.4)", lineHeight: 1.6 }}>
@@ -295,10 +315,10 @@ export default async function HomePage() {
               </p>
             </div>
             {/* Divider */}
-            <div style={{ backgroundColor: "rgba(255,255,255,0.06)" }} />
+            <div className="split-divider" style={{ backgroundColor: "rgba(255,255,255,0.06)" }} />
             {/* Right: School match grid */}
             <div style={{ padding: "4rem 2rem 4rem 3rem" }}>
-              <p style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: "1.5rem" }}>SCHOOL MATCHES</p>
+              <p style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "10px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: "1.5rem" }}>SCHOOL MATCHES</p>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 1, backgroundColor: "rgba(255,255,255,0.06)" }}>
                 {[
                   { name: "UCSF", match: "01" },
@@ -307,7 +327,7 @@ export default async function HomePage() {
                   { name: "Wake Forest SOM", match: "04" },
                 ].map((s) => (
                   <div key={s.name} style={{ backgroundColor: "#000000", padding: "1.75rem 1.5rem" }}>
-                    <p style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "0.625rem" }}>MATCH {s.match}</p>
+                    <p style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "10px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "0.625rem" }}>MATCH {s.match}</p>
                     <p style={{ fontWeight: 600, fontSize: "0.9375rem", color: "#FFFFFF" }}>{s.name}</p>
                   </div>
                 ))}
@@ -323,7 +343,7 @@ export default async function HomePage() {
 
         {/* ── Closing CTA — 2 col ── */}
         <section style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-          <div style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1px 1fr" }}>
+          <div className="split-2col" style={{ maxWidth: 1200, margin: "0 auto" }}>
             {/* Left */}
             <div style={{ padding: "5rem 3rem 5rem 2rem" }}>
               <h2 style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.05, color: "#FFFFFF", marginBottom: "2rem" }}>
@@ -337,14 +357,14 @@ export default async function HomePage() {
               </Link>
             </div>
             {/* Divider */}
-            <div style={{ backgroundColor: "rgba(255,255,255,0.06)" }} />
+            <div className="split-divider" style={{ backgroundColor: "rgba(255,255,255,0.06)" }} />
             {/* Right: Pricing rows */}
             <div style={{ padding: "5rem 2rem 5rem 3rem" }}>
-              <p style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: "1.5rem" }}>WHAT YOU GET</p>
+              <p style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "10px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: "1.5rem" }}>WHAT YOU GET</p>
               {TOOLS.map((t, i) => (
                 <div key={t.n} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0.75rem 0", borderBottom: i < TOOLS.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none" }}>
                   <span style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.5)" }}>{t.name}</span>
-                  <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.45)", border: "1px solid rgba(255,255,255,0.08)", padding: "2px 7px", letterSpacing: "0.1em" }}>FREE</span>
+                  <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "10px", color: "rgba(255,255,255,0.45)", border: "1px solid rgba(255,255,255,0.08)", padding: "2px 7px", letterSpacing: "0.1em" }}>FREE</span>
                 </div>
               ))}
             </div>
@@ -354,12 +374,12 @@ export default async function HomePage() {
         {/* ── Footer ── */}
         <footer style={{ borderTop: "1px solid rgba(255,255,255,0.06)", padding: "1.25rem 2rem" }}>
           <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <p style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.14em", textTransform: "uppercase" }}>
+            <p style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "10px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.14em", textTransform: "uppercase" }}>
               © {new Date().getFullYear()} CLINILOG — ALL RIGHTS RESERVED
             </p>
             <div style={{ display: "flex", gap: "1.5rem" }}>
               {[["SCHOOLS", "/schools"], ["ARCHETYPE", "/archetype"], ["RESOURCES", "/resources"], ["STORIES", "/stories"], ["ABOUT", "/about"]].map(([label, href]) => (
-                <Link key={label} href={href} style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "9px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.14em", textDecoration: "none", textTransform: "uppercase" }}>
+                <Link key={label} href={href} style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "10px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.14em", textDecoration: "none", textTransform: "uppercase" }}>
                   {label}
                 </Link>
               ))}

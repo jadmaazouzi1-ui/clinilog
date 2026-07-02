@@ -91,7 +91,7 @@ export default function PostbaccView({
                 style={{
                   background: active ? "rgba(255,255,255,0.04)" : "rgba(255,255,255,0.03)",
                   border: `1px solid ${active ? "#FFFFFF" : "rgba(255,255,255,0.04)"}`,
-                  boxShadow: active ? "0 0 14px rgba(255,255,255,0.1)" : "none",
+                  
                 }}
               >
                 <p className="text-sm font-bold mb-0.5" style={{ color: active ? "#FFFFFF" : "#FFFFFF" }}>{pt.label}</p>

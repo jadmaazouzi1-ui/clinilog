@@ -80,7 +80,7 @@ export default function ReframeableTextarea({
           className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm resize-none transition-all"
           style={{
             borderColor: hasReframed ? "rgba(255,255,255,0.2)" : undefined,
-            boxShadow: hasReframed ? "0 0 0 3px rgba(255,255,255,0.08)" : undefined,
+            
           }}
         />
         {/* Reframed badge */}
@@ -117,18 +117,7 @@ export default function ReframeableTextarea({
           }}
         >
           {loading ? (
-            <>
-              {/* Spinner */}
-              <svg
-                className="w-3.5 h-3.5 animate-spin"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" />
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-              </svg>
-              Reframing…
-            </>
+            <span className="loading-text">Reframing</span>
           ) : (
             <>
               {/* Sparkle / wand icon */}

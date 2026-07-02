@@ -29,7 +29,7 @@ function RatingDots({ value, color, label }: { value: Rating; color: string; lab
             className="w-2.5 h-2.5 rounded-full"
             style={{
               backgroundColor: i <= value ? color : "rgba(255,255,255,0.04)",
-              boxShadow: i <= value ? `0 0 6px ${color}55` : "none",
+              
             }}
           />
         ))}

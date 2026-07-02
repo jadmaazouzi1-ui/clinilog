@@ -84,40 +84,14 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
   // ── Loading state ────────────────────────────────────────────────────
   if (loading) {
     return (
-      <div className="glass-card rounded-2xl p-12 text-center">
-        <div className="relative w-20 h-20 mx-auto mb-6">
-          {/* Pulsing rings */}
-          {[0, 1, 2].map((i) => (
-            <div
-              key={i}
-              className="absolute inset-0 rounded-full"
-              style={{
-                border: "2px solid #FFFFFF",
-                animation: `pulse-ring 1.8s ease-out ${i * 0.6}s infinite`,
-              }}
-            />
-          ))}
-          <div
-            className="absolute inset-3 rounded-full flex items-center justify-center"
-            style={{ backgroundColor: "#FFFFFF", boxShadow: "0 0 30px rgba(255,255,255,0.25)" }}
-          >
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="2,12 7,12 8,9 10,12 12,3 13,21 14,12 16,9 18,12 22,12" />
-            </svg>
-          </div>
-        </div>
+      <div className="glass-card p-12 text-center">
+        <p className="loading-text mb-6">Analyzing experience data</p>
         <h1 className="text-xl font-bold mb-2" style={{ color: "#FFFFFF" }}>
           Analyzing your experiences…
         </h1>
         <p className="text-sm max-w-md mx-auto" style={{ color: "rgba(255,255,255,0.55)" }}>
           Reading every hour, every reflection, every organization. This usually takes 10–20 seconds.
         </p>
-        <style>{`
-          @keyframes pulse-ring {
-            0%   { transform: scale(0.7); opacity: 0.7; }
-            100% { transform: scale(1.4); opacity: 0; }
-          }
-        `}</style>
       </div>
     );
   }
@@ -244,13 +218,6 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
           transition: "opacity 0.8s, transform 0.8s",
         }}
       >
-        {/* Glow background */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: `radial-gradient(circle at center, ${color}1a 0%, transparent 60%)`,
-          }}
-        />
         <div className="relative">
           <p
             className="text-xs font-bold uppercase tracking-[0.2em] mb-3"
@@ -262,8 +229,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
             className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4"
             style={{
               backgroundColor: `${color}1f`,
-              border: `2px solid ${color}`,
-              boxShadow: `0 0 40px ${color}55`,
+              border: `1px solid ${color}`,
             }}
           >
             <svg className="w-8 h-8" fill="none" stroke={color} strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
