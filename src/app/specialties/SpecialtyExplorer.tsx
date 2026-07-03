@@ -9,9 +9,9 @@ type SalaryFilter = "" | "u300" | "300_500" | "500_700" | "700plus";
 type ResidencyFilter = "" | "3" | "4" | "5" | "6plus";
 
 function patientColor(level: PatientContact): string {
-  if (level === "High") return "#FFFFFF";
-  if (level === "Medium") return "#FFFFFF";
-  return "rgba(255,255,255,0.5)";
+  if (level === "High") return "#000000";
+  if (level === "Medium") return "#000000";
+  return "rgba(0,0,0,0.5)";
 }
 
 function formatSalary(min: number, max: number): string {
@@ -21,20 +21,20 @@ function formatSalary(min: number, max: number): string {
 function RatingDots({ value, color, label }: { value: Rating; color: string; label: string }) {
   return (
     <div className="flex items-center gap-2">
-      <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: "rgba(255,255,255,0.5)", minWidth: 96 }}>{label}</span>
+      <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: "rgba(0,0,0,0.5)", minWidth: 96 }}>{label}</span>
       <div className="flex gap-1">
         {[1, 2, 3, 4, 5].map((i) => (
           <span
             key={i}
             className="w-2.5 h-2.5 rounded-full"
             style={{
-              backgroundColor: i <= value ? color : "rgba(255,255,255,0.04)",
+              backgroundColor: i <= value ? color : "rgba(0,0,0,0.04)",
               
             }}
           />
         ))}
       </div>
-      <span className="text-[10px]" style={{ color: "rgba(255,255,255,0.45)" }}>{value}/5</span>
+      <span className="text-[10px]" style={{ color: "rgba(0,0,0,0.45)" }}>{value}/5</span>
     </div>
   );
 }
@@ -120,15 +120,15 @@ export default function SpecialtyExplorer() {
             type="button"
             onClick={() => { setSearch(""); setComp(""); setLifestyle(""); setSalary(""); setResidency(""); }}
             className="text-xs font-medium"
-            style={{ color: "#FFFFFF" }}
+            style={{ color: "#000000" }}
           >
             Clear all filters
           </button>
         )}
       </div>
 
-      <p className="text-sm mb-4 font-medium" style={{ color: "rgba(255,255,255,0.5)" }}>
-        Showing <span className="font-semibold" style={{ color: "#FFFFFF" }}>{filtered.length}</span> of {SPECIALTIES.length} specialties
+      <p className="text-sm mb-4 font-medium" style={{ color: "rgba(0,0,0,0.5)" }}>
+        Showing <span className="font-semibold" style={{ color: "#000000" }}>{filtered.length}</span> of {SPECIALTIES.length} specialties
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -136,7 +136,7 @@ export default function SpecialtyExplorer() {
           <Card key={s.id} specialty={s} expanded={openId === s.id} onToggle={() => setOpenId(openId === s.id ? null : s.id)} />
         ))}
         {filtered.length === 0 && (
-          <div className="col-span-full glass-card rounded-2xl p-8 text-center text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
+          <div className="col-span-full glass-card rounded-2xl p-8 text-center text-sm" style={{ color: "rgba(0,0,0,0.5)" }}>
             No specialties match your filters.
           </div>
         )}
@@ -148,7 +148,7 @@ export default function SpecialtyExplorer() {
 function FilterSelect({ label, value, onChange, options }: { label: string; value: string; onChange: (v: string) => void; options: { value: string; label: string }[] }) {
   return (
     <div>
-      <label className="block text-xs font-semibold uppercase tracking-wide mb-1.5" style={{ color: "rgba(255,255,255,0.5)" }}>{label}</label>
+      <label className="block text-xs font-semibold uppercase tracking-wide mb-1.5" style={{ color: "rgba(0,0,0,0.5)" }}>{label}</label>
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
@@ -164,15 +164,15 @@ function Card({ specialty: s, expanded, onToggle }: { specialty: Specialty; expa
   return (
     <div
       className="glass-card rounded-2xl p-5 cursor-pointer transition-all"
-      style={{ borderColor: expanded ? "rgba(255,255,255,0.2)" : undefined }}
+      style={{ borderColor: expanded ? "rgba(0,0,0,0.2)" : undefined }}
       onClick={onToggle}
     >
       <div className="flex items-start gap-4">
         <div
           className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-          style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.12)" }}
+          style={{ background: "#FFFFFF", border: "2px solid #000000" }}
         >
-          <svg className="w-5 h-5" fill="none" stroke="#FFFFFF" strokeWidth="1.75" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+          <svg className="w-5 h-5" fill="none" stroke="#000000" strokeWidth="1.75" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
             {ICON_PATHS[s.icon].split(" M").map((d, i) => (
               <path key={i} d={i === 0 ? d : `M${d}`} />
             ))}
@@ -180,43 +180,43 @@ function Card({ specialty: s, expanded, onToggle }: { specialty: Specialty; expa
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-2">
-            <h3 className="text-sm font-bold leading-tight" style={{ color: "#FFFFFF" }}>{s.name}</h3>
+            <h3 className="text-sm font-bold leading-tight" style={{ color: "#000000" }}>{s.name}</h3>
             <svg
               className="w-4 h-4 flex-shrink-0 transition-transform"
-              style={{ transform: expanded ? "rotate(180deg)" : "none", color: "rgba(255,255,255,0.4)" }}
+              style={{ transform: expanded ? "rotate(180deg)" : "none", color: "rgba(0,0,0,0.4)" }}
               fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"
             >
               <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
             </svg>
           </div>
-          <div className="flex items-center gap-2 flex-wrap mt-1.5 text-xs" style={{ color: "rgba(255,255,255,0.55)" }}>
+          <div className="flex items-center gap-2 flex-wrap mt-1.5 text-xs" style={{ color: "rgba(0,0,0,0.55)" }}>
             <span>{formatSalary(s.salaryMin, s.salaryMax)}</span>
-            <span style={{ color: "rgba(255,255,255,0.45)" }}>·</span>
+            <span style={{ color: "rgba(0,0,0,0.45)" }}>·</span>
             <span>{s.residencyYears}-yr residency</span>
-            <span style={{ color: "rgba(255,255,255,0.45)" }}>·</span>
+            <span style={{ color: "rgba(0,0,0,0.45)" }}>·</span>
             <span style={{ color: patientColor(s.patientContact), fontWeight: 600 }}>{s.patientContact} patient contact</span>
           </div>
         </div>
       </div>
 
       {expanded && (
-        <div className="mt-5 pt-5 space-y-4" style={{ borderTop: "1px solid rgba(255,255,255,0.04)" }}>
+        <div className="mt-5 pt-5 space-y-4" style={{ borderTop: "2px solid #000000" }}>
           <div className="space-y-2">
-            <RatingDots value={s.competitiveness} color="#FFFFFF" label="Competitive" />
-            <RatingDots value={s.lifestyle} color="#FFFFFF" label="Lifestyle" />
+            <RatingDots value={s.competitiveness} color="#000000" label="Competitive" />
+            <RatingDots value={s.lifestyle} color="#000000" label="Lifestyle" />
           </div>
 
           <div>
-            <p className="text-[10px] font-semibold uppercase tracking-wide mb-1.5" style={{ color: "rgba(255,255,255,0.7)" }}>Day in the Life</p>
-            <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.8)" }}>{s.summary}</p>
+            <p className="text-[10px] font-semibold uppercase tracking-wide mb-1.5" style={{ color: "rgba(0,0,0,0.7)" }}>Day in the Life</p>
+            <p className="text-xs leading-relaxed" style={{ color: "rgba(0,0,0,0.8)" }}>{s.summary}</p>
           </div>
 
           <div>
-            <p className="text-[10px] font-semibold uppercase tracking-wide mb-1.5" style={{ color: "rgba(255,255,255,0.7)" }}>Top Schools for This Path</p>
+            <p className="text-[10px] font-semibold uppercase tracking-wide mb-1.5" style={{ color: "rgba(0,0,0,0.7)" }}>Top Schools for This Path</p>
             <ul className="space-y-1.5">
               {s.topSchools.map((school) => (
-                <li key={school} className="text-xs flex items-start gap-2" style={{ color: "rgba(255,255,255,0.75)" }}>
-                  <span style={{ color: "#FFFFFF" }}>·</span>
+                <li key={school} className="text-xs flex items-start gap-2" style={{ color: "rgba(0,0,0,0.75)" }}>
+                  <span style={{ color: "#000000" }}>·</span>
                   {school}
                 </li>
               ))}

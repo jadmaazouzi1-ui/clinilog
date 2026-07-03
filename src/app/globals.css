@@ -1,21 +1,21 @@
 @import "tailwindcss";
 
-/* ── Pure Black & White palette ──────────────────────────────────────── */
+/* ── DATA BRUTALIST — pure white, pure black, 2px borders, zero radius ── */
 :root {
-  --bg-primary:    #000000;
-  --bg-card:       #000000;
-  --bg-surface:    #000000;
-  --accent:        #FFFFFF;
-  --accent-dim:    rgba(255,255,255,0.04);
-  --accent-border: rgba(255,255,255,0.12);
-  --text-primary:  #FFFFFF;
-  --text-secondary: rgba(255,255,255,0.55);
-  --text-tertiary:  rgba(255,255,255,0.35);
-  --border:        rgba(255,255,255,0.06);
-  --border-strong: rgba(255,255,255,0.12);
-  --error:         #EF4444;
-  --success:       #FFFFFF;
-  --warning:       rgba(255,255,255,0.6);
+  --bg-primary:    #FFFFFF;
+  --bg-card:       #FFFFFF;
+  --bg-surface:    #FFFFFF;
+  --accent:        #000000;
+  --accent-dim:    rgba(0,0,0,0.04);
+  --accent-border: #000000;
+  --text-primary:  #000000;
+  --text-secondary: rgba(0,0,0,0.55);
+  --text-tertiary:  rgba(0,0,0,0.35);
+  --border:        #000000;
+  --border-strong: #000000;
+  --error:         #000000;
+  --success:       #000000;
+  --warning:       rgba(0,0,0,0.6);
 
   --font-sans: var(--font-inter), Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: var(--font-jetbrains-mono), "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
@@ -26,21 +26,22 @@
   --color-foreground: var(--text-primary);
 }
 
-/* Flatten every Tailwind radius utility to a 1px hairline corner.
-   rounded-full is left intact for genuine circles (dots, avatars). */
+/* Zero radius on every Tailwind radius utility. rounded-full also flattened —
+   brutalism has no circles. */
 @theme {
-  --radius-xs: 1px;
-  --radius-sm: 1px;
-  --radius-md: 1px;
-  --radius-lg: 1px;
-  --radius-xl: 1px;
-  --radius-2xl: 1px;
-  --radius-3xl: 1px;
-  --radius-4xl: 1px;
+  --radius-xs: 0px;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-2xl: 0px;
+  --radius-3xl: 0px;
+  --radius-4xl: 0px;
 }
+.rounded-full { border-radius: 0 !important; }
 
 html {
-  background-color: #000000;
+  background-color: #FFFFFF;
   -webkit-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   text-size-adjust: 100%;
@@ -48,8 +49,8 @@ html {
 }
 
 body {
-  background-color: #000000;
-  color: #FFFFFF;
+  background-color: #FFFFFF;
+  color: #000000;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -58,105 +59,111 @@ body {
   zoom: 1;
 }
 
-/* ── Legacy classes redefined to B&W ─────────────────────────────────── */
+/* Headings: 900 weight, uppercase, tight tracking */
+h1, h2, h3 {
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+/* ── Legacy background classes ────────────────────────────────────────── */
 .dot-grid-bg,
 .graph-paper-bg {
-  background-color: #000000;
+  background-color: #FFFFFF;
 }
 
+/* ── Cards: white, 2px black border, zero radius, hover stays flat ───── */
 .glass-card,
 .clinical-card {
-  background: #000000;
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 1px;
-  transition: border-color 0.2s ease;
-}
-
-.glass-card:hover,
-.clinical-card:hover {
-  border-color: rgba(255,255,255,0.12);
-}
-
-/* Red margin line on cards — keep for clinical feel */
-.chart-margin {
-  position: relative;
-}
-.chart-margin::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: #DC2626;
+  background: #FFFFFF;
+  border: 2px solid #000000;
   border-radius: 0;
+  box-shadow: none;
+}
+
+/* Left margin line removed — brutalism has no decorative color strips */
+.chart-margin::before {
+  display: none;
 }
 
 /* ── Buttons ──────────────────────────────────────────────────────────── */
+/* Primary: black bg, white text; hover inverts */
 .teal-glow,
 .btn-primary {
-  background: #FFFFFF !important;
-  color: #000000 !important;
-  border-radius: 1px !important;
-  font-weight: 600;
-  letter-spacing: 0;
+  background: #000000 !important;
+  color: #FFFFFF !important;
+  border: 2px solid #000000 !important;
+  border-radius: 0 !important;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
   box-shadow: none !important;
-  transition: background 0.15s, opacity 0.15s;
+  transition: none;
 }
 .teal-glow:hover,
 .btn-primary:hover {
-  background: rgba(255,255,255,0.88) !important;
+  background: #FFFFFF !important;
+  color: #000000 !important;
 }
 
+/* Ghost: white bg, black text, 2px border; hover inverts */
 .btn-ghost {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.25);
-  color: #FFFFFF;
-  border-radius: 1px;
-  font-weight: 500;
-  transition: background 0.15s, border-color 0.15s;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  color: #000000;
+  border-radius: 0;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  transition: none;
 }
 .btn-ghost:hover {
-  background: rgba(255,255,255,0.04);
-  border-color: rgba(255,255,255,0.4);
+  background: #000000;
+  color: #FFFFFF;
 }
 
-/* ── Inputs ───────────────────────────────────────────────────────────── */
+/* ── Inputs: white bg, 2px black border, focus thickens to 4px ring ──── */
 .input-dark {
-  background: #000000 !important;
-  border: 1px solid rgba(255,255,255,0.1) !important;
-  color: #FFFFFF !important;
-  border-radius: 1px !important;
+  background: #FFFFFF !important;
+  border: 2px solid #000000 !important;
+  color: #000000 !important;
+  border-radius: 0 !important;
   font-family: var(--font-sans);
 }
 .input-dark:focus {
   outline: none !important;
-  border-color: #FFFFFF !important;
-  box-shadow: 0 0 0 1px #FFFFFF !important;
+  border-color: #000000 !important;
+  box-shadow: 0 0 0 2px #000000 !important; /* 2px border + 2px ring = 4px black edge */
 }
 .input-dark::placeholder {
-  color: rgba(255,255,255,0.35) !important;
+  color: rgba(0,0,0,0.4) !important;
   opacity: 1;
   font-family: var(--font-mono);
   font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.input-dark option {
+  background: #FFFFFF;
+  color: #000000;
 }
 
-/* Minimal monospace loading indicator — replaces generic spinners */
+/* Minimal monospace loading indicator */
 .loading-text {
   font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 600;
+  font-size: 11px;
+  font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.55);
+  color: #000000;
 }
 .loading-text::after {
   content: "";
   display: inline-block;
-  width: 6px;
-  height: 10px;
+  width: 7px;
+  height: 11px;
   margin-left: 6px;
-  background: rgba(255,255,255,0.55);
+  background: #000000;
   vertical-align: -1px;
   animation: cursor-blink 1s steps(2) infinite;
 }
@@ -164,23 +171,19 @@ body {
   0%, 49%  { opacity: 1; }
   50%, 100% { opacity: 0; }
 }
-.input-dark option {
-  background: #000000;
-  color: #FFFFFF;
-}
 
-/* ── Section header ───────────────────────────────────────────────────── */
+/* ── Section header: uppercase bold, 2px bottom border ───────────────── */
 .dept-header {
   font-family: var(--font-mono);
   text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-size: 10px;
-  font-weight: 600;
-  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.14em;
+  font-size: 11px;
+  font-weight: 800;
+  color: #000000;
   margin-bottom: 16px;
   line-height: 1;
   padding-bottom: 10px;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 2px solid #000000;
 }
 
 /* ── Monospace data ───────────────────────────────────────────────────── */
@@ -193,49 +196,49 @@ body {
 
 /* ── Vitals card ──────────────────────────────────────────────────────── */
 .vital-card {
-  background: #000000;
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 1px;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  border-radius: 0;
   padding: 20px 24px;
 }
 .vital-card-label {
   font-family: var(--font-mono);
   text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-size: 10px;
-  font-weight: 600;
-  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.14em;
+  font-size: 11px;
+  font-weight: 800;
+  color: #000000;
   margin-bottom: 10px;
 }
 .vital-card-value {
   font-family: var(--font-mono);
   font-size: 1.875rem;
-  font-weight: 500;
-  color: #FFFFFF;
+  font-weight: 700;
+  color: #000000;
   font-variant-numeric: tabular-nums;
   line-height: 1.1;
 }
 .vital-card-value-sub {
   font-family: var(--font-mono);
   font-size: 0.7rem;
-  color: rgba(255,255,255,0.35);
+  color: rgba(0,0,0,0.5);
   margin-left: 6px;
 }
 
-/* ── Category tags ────────────────────────────────────────────────────── */
+/* ── Category tags: uppercase text in 2px bordered box ───────────────── */
 .cat-tag {
   display: inline-flex;
   align-items: center;
   font-family: var(--font-mono);
   font-size: 10px;
-  font-weight: 600;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
   padding: 3px 7px;
-  border-radius: 1px;
-  background: transparent;
-  color: rgba(255,255,255,0.5);
-  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 0;
+  background: #FFFFFF;
+  color: #000000;
+  border: 2px solid #000000;
 }
 
 /* ── BETA pill ────────────────────────────────────────────────────────── */
@@ -244,38 +247,39 @@ body {
   align-items: center;
   font-family: var(--font-mono);
   font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
+  font-weight: 800;
+  letter-spacing: 0.1em;
   padding: 2px 6px;
-  border-radius: 1px;
-  background: transparent;
-  color: rgba(255,255,255,0.55);
-  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 0;
+  background: #FFFFFF;
+  color: #000000;
+  border: 2px solid #000000;
   text-transform: uppercase;
 }
 
-/* ── Thin progress bar ────────────────────────────────────────────────── */
+/* ── Progress bars: 2px black bordered track, black fill ─────────────── */
 .thin-progress {
-  height: 2px;
-  background: rgba(255,255,255,0.08);
+  height: 10px;
+  background: #FFFFFF;
+  border: 2px solid #000000;
   border-radius: 0;
   overflow: hidden;
 }
 .thin-progress > .fill {
   height: 100%;
   width: 100%;
-  background: #FFFFFF;
+  background: #000000;
   transform-origin: left center;
   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* ── Animations ───────────────────────────────────────────────────────── */
+/* ── Animations (kept minimal) ────────────────────────────────────────── */
 @keyframes pageFadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 .page-fade-in {
-  animation: pageFadeIn 0.22s ease-out both;
+  animation: pageFadeIn 0.15s ease-out both;
 }
 
 @keyframes liquidPour {
@@ -283,29 +287,19 @@ body {
   100% { transform: scaleX(1); }
 }
 .liquid-fill {
-  background: #FFFFFF;
+  background: #000000;
   height: 100%;
   width: var(--fill, 100%);
   transform-origin: left center;
-  animation: liquidPour 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: liquidPour 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-@keyframes archetypeReveal {
-  0%   { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
 .archetype-reveal {
-  animation: archetypeReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: none;
 }
 
-@keyframes letterReveal {
-  0%   { opacity: 0; transform: translateY(8px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
 .letter-reveal > span {
   display: inline-block;
-  opacity: 0;
-  animation: letterReveal 0.4s ease-out forwards;
 }
 
 .filmstrip {
@@ -316,11 +310,11 @@ body {
   display: none;
 }
 
-/* Active sidebar item */
+/* Active sidebar item: full invert */
 .chart-tab-active {
-  background: rgba(255,255,255,0.04);
+  background: #000000;
   color: #FFFFFF;
-  font-weight: 500;
+  font-weight: 800;
 }
 
 /* Sidebar collapse */

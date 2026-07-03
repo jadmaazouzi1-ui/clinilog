@@ -18,11 +18,11 @@ const TYPE_LABELS: Record<ExperienceType, string> = {
 };
 
 const COLORS: Record<ExperienceType, string> = {
-  shadowing:     "#FFFFFF",
-  clinical_work: "rgba(255,255,255,0.7)",
-  volunteer:     "rgba(255,255,255,0.5)",
-  research:      "rgba(255,255,255,0.55)",
-  other:         "rgba(255,255,255,0.35)",
+  shadowing:     "#000000",
+  clinical_work: "rgba(0,0,0,0.7)",
+  volunteer:     "rgba(0,0,0,0.5)",
+  research:      "rgba(0,0,0,0.55)",
+  other:         "rgba(0,0,0,0.35)",
 };
 
 export default function HoursBreakdown({
@@ -77,10 +77,10 @@ export default function HoursBreakdown({
                 }}
                 contentStyle={{
                   borderRadius: 0,
-                  border: "1px solid rgba(255,255,255,0.1)",
+                  border: "2px solid #000000",
                   fontSize: "12px",
-                  backgroundColor: "#000000",
-                  color: "#FFFFFF",
+                  backgroundColor: "#FFFFFF",
+                  color: "#000000",
                 }}
               />
             </PieChart>
@@ -98,13 +98,13 @@ export default function HoursBreakdown({
                   className="w-3 h-3 rounded-full flex-shrink-0"
                   style={{ backgroundColor: COLORS[entry.type] }}
                 />
-                <span className="text-sm flex-1" style={{ color: "#FFFFFF" }}>
+                <span className="text-sm flex-1" style={{ color: "#000000" }}>
                   {entry.label}
                 </span>
-                <span className="text-sm font-semibold" style={{ color: "#FFFFFF" }}>
+                <span className="text-sm font-semibold" style={{ color: "#000000" }}>
                   {hrs} hrs
                 </span>
-                <span className="text-xs w-10 text-right" style={{ color: "rgba(255,255,255,0.4)" }}>
+                <span className="text-xs w-10 text-right" style={{ color: "rgba(0,0,0,0.4)" }}>
                   {pct}%
                 </span>
               </div>

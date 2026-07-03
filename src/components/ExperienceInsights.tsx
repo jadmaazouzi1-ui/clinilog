@@ -80,11 +80,11 @@ const RECOMMENDATIONS = {
 };
 
 const STAGE_META: Record<Stage, { label: string; tone: string; color: string; bg: string }> = {
-  freshman:  { label: "Freshman",        tone: "Building your foundation",       color: "#FFFFFF", bg: "rgba(255,255,255,0.1)"  },
-  sophomore: { label: "Sophomore",       tone: "Hitting midpoint goals",         color: "#FFFFFF", bg: "rgba(255,255,255,0.08)"   },
-  junior:    { label: "Junior",          tone: "Cycle is approaching",           color: "#FFFFFF", bg: "rgba(255,255,255,0.08)"  },
-  senior:    { label: "Senior",          tone: "Apply-cycle territory",          color: "#FFFFFF", bg: "rgba(255,255,255,0.1)"   },
-  postgrad:  { label: "Post-grad / Gap", tone: "Strengthen your final profile",  color: "#FFFFFF", bg: "rgba(255,255,255,0.08)" },
+  freshman:  { label: "Freshman",        tone: "Building your foundation",       color: "#000000", bg: "rgba(0,0,0,0.1)"  },
+  sophomore: { label: "Sophomore",       tone: "Hitting midpoint goals",         color: "#000000", bg: "rgba(0,0,0,0.08)"   },
+  junior:    { label: "Junior",          tone: "Cycle is approaching",           color: "#000000", bg: "rgba(0,0,0,0.08)"  },
+  senior:    { label: "Senior",          tone: "Apply-cycle territory",          color: "#000000", bg: "rgba(0,0,0,0.1)"   },
+  postgrad:  { label: "Post-grad / Gap", tone: "Strengthen your final profile",  color: "#000000", bg: "rgba(0,0,0,0.08)" },
 };
 
 function computeStage(gradYear: number | null | undefined): Stage | null {
@@ -119,26 +119,26 @@ export default function ExperienceInsights({
       <div className="mb-8">
         <div
           className="glass-card rounded-2xl p-6 flex items-start gap-4 flex-wrap"
-          style={{ borderColor: "rgba(255,255,255,0.12)" }}
+          style={{ borderColor: "#000000" }}
         >
           <div
             className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-            style={{ background: "rgba(255,255,255,0.04)", color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.12)" }}
+            style={{ background: "#FFFFFF", color: "#000000", border: "2px solid #000000" }}
           >
             {ICONS.user}
           </div>
           <div className="flex-1 min-w-0">
-            <h2 className="text-base font-semibold mb-1" style={{ color: "#FFFFFF" }}>
+            <h2 className="text-base font-semibold mb-1" style={{ color: "#000000" }}>
               Tell us where you&apos;re at
             </h2>
-            <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.65)" }}>
+            <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(0,0,0,0.65)" }}>
               Add your graduation year on your profile so we can tailor insights to where
               you are in your pre-med journey — freshmen get different advice than seniors.
             </p>
             <Link
               href="/profile"
               className="inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-2 rounded-xl transition-opacity hover:opacity-90"
-              style={{ background: "#FFFFFF", color: "#000000" }}
+              style={{ background: "#000000", color: "#FFFFFF" }}
             >
               Complete your profile
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -159,7 +159,7 @@ export default function ExperienceInsights({
       <div className="flex items-end justify-between mb-4 flex-wrap gap-2">
         <div>
           <p className="dept-header" style={{ marginBottom: 6 }}>— Experience Insights</p>
-          <p className="text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>
+          <p className="text-xs" style={{ color: "rgba(0,0,0,0.5)" }}>
             Personalized tips based on what you&apos;ve logged so far.
           </p>
         </div>
@@ -193,10 +193,10 @@ export default function ExperienceInsights({
               >
                 {tip.icon}
               </div>
-              <h3 className="text-sm font-semibold mb-1.5" style={{ color: "#FFFFFF" }}>
+              <h3 className="text-sm font-semibold mb-1.5" style={{ color: "#000000" }}>
                 {tip.title}
               </h3>
-              <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
+              <p className="text-xs leading-relaxed" style={{ color: "rgba(0,0,0,0.65)" }}>
                 {tip.body}
               </p>
             </div>
@@ -209,12 +209,12 @@ export default function ExperienceInsights({
 
 function paletteFor(kind: Tip["kind"]) {
   if (kind === "positive") {
-    return { color: "#FFFFFF", bg: "rgba(255,255,255,0.04)", border: "rgba(255,255,255,0.12)" };
+    return { color: "#000000", bg: "rgba(0,0,0,0.04)", border: "rgba(0,0,0,0.12)" };
   }
   if (kind === "warn") {
-    return { color: "#FFFFFF", bg: "rgba(255,255,255,0.08)", border: "rgba(255,255,255,0.08)" };
+    return { color: "#000000", bg: "rgba(0,0,0,0.08)", border: "rgba(0,0,0,0.08)" };
   }
-  return { color: "#FFFFFF", bg: "rgba(255,255,255,0.12)", border: "rgba(255,255,255,0.3)" };
+  return { color: "#000000", bg: "rgba(0,0,0,0.12)", border: "rgba(0,0,0,0.3)" };
 }
 
 // ── Tip generation, stage-aware ───────────────────────────────────────────

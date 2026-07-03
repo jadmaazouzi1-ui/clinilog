@@ -12,6 +12,9 @@ export default async function SignupPage({
   const { data: { user: existingUser } } = await supabaseInit.auth.getUser();
   if (existingUser) redirect("/dashboard");
 
+  const params = await searchParams;
+  const pageError = params?.error;
+
   async function signup(formData: FormData) {
     "use server";
 
@@ -39,32 +42,35 @@ export default async function SignupPage({
   }
 
   return (
-    <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "#000000" }}>
+    <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "#FFFFFF" }}>
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 mb-4">
-            <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#FFFFFF" }}>
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="2,12 7,12 8,9 10,12 12,3 13,21 14,12 16,9 18,12 22,12" />
-              </svg>
-            </div>
-            <span className="font-semibold text-xl" style={{ color: "#FFFFFF" }}>CliniLog</span>
+          <div className="inline-flex items-center mb-4">
+            <span className="text-2xl" style={{ color: "#000000", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.02em" }}>CliniLog</span>
           </div>
-          <h1 className="text-2xl font-bold" style={{ color: "#FFFFFF" }}>Create your account</h1>
-          <p className="text-sm mt-1" style={{ color: "rgba(255,255,255,0.6)" }}>
+          <h1 className="text-2xl font-bold" style={{ color: "#000000" }}>Create your account</h1>
+          <p className="text-sm mt-1" style={{ color: "rgba(0,0,0,0.6)" }}>
             Start logging your clinical experiences today
           </p>
         </div>
 
         {/* Card */}
         <div className="glass-card rounded-lg p-8">
+          {pageError && (
+            <div
+              className="mb-5 text-sm px-4 py-3"
+              style={{ background: "#FFFFFF", border: "2px solid #000000", color: "#000000" }}
+            >
+              {decodeURIComponent(pageError)}
+            </div>
+          )}
           <form action={signup} className="space-y-5">
             <div>
               <label
                 htmlFor="name"
                 className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(255,255,255,0.85)" }}
+                style={{ color: "rgba(0,0,0,0.85)" }}
               >
                 Full name
               </label>
@@ -83,7 +89,7 @@ export default async function SignupPage({
               <label
                 htmlFor="email"
                 className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(255,255,255,0.85)" }}
+                style={{ color: "rgba(0,0,0,0.85)" }}
               >
                 Email address
               </label>
@@ -102,7 +108,7 @@ export default async function SignupPage({
               <label
                 htmlFor="password"
                 className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(255,255,255,0.85)" }}
+                style={{ color: "rgba(0,0,0,0.85)" }}
               >
                 Password
               </label>
@@ -121,19 +127,19 @@ export default async function SignupPage({
             <button
               type="submit"
               className="w-full teal-glow py-2.5 rounded-lg font-semibold text-sm transition-colors focus:outline-none"
-              style={{ backgroundColor: "#FFFFFF", color: "#000000" }}
+              style={{ backgroundColor: "#000000", color: "#FFFFFF" }}
             >
               Create Account
             </button>
           </form>
         </div>
 
-        <p className="text-center text-sm mt-6" style={{ color: "rgba(255,255,255,0.5)" }}>
+        <p className="text-center text-sm mt-6" style={{ color: "rgba(0,0,0,0.5)" }}>
           Already have an account?{" "}
           <Link
             href="/auth/login"
             className="font-medium"
-            style={{ color: "#FFFFFF" }}
+            style={{ color: "#000000" }}
           >
             Sign in
           </Link>

@@ -34,7 +34,7 @@ export default async function ProfilePage({
         <Link
           href="/dashboard"
           className="inline-flex items-center gap-1.5 text-sm font-medium mb-8"
-          style={{ color: "#FFFFFF" }}
+          style={{ color: "#000000" }}
         >
           <svg
             className="w-4 h-4"
@@ -55,7 +55,7 @@ export default async function ProfilePage({
         {saved === "1" && (
           <div
             className="mb-6 text-sm rounded-xl px-4 py-3"
-            style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.1)", color: "#FFFFFF" }}
+            style={{ background: "rgba(0,0,0,0.1)", border: "2px solid #000000", color: "#000000" }}
           >
             Profile saved successfully.
           </div>
@@ -64,14 +64,14 @@ export default async function ProfilePage({
         {pageError && (
           <div
             className="mb-6 text-sm rounded-xl px-4 py-3"
-            style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", color: "#DC2626" }}
+            style={{ background: "rgba(0,0,0,0.1)", border: "2px solid #000000", color: "#000000" }}
           >
             Error: {decodeURIComponent(pageError)}
           </div>
         )}
 
         <div className="glass-card rounded-2xl p-8">
-          <h1 className="text-xl font-bold mb-6" style={{ color: "#FFFFFF" }}>Your Profile</h1>
+          <h1 className="text-xl font-bold mb-6" style={{ color: "#000000" }}>Your Profile</h1>
 
           <form action={upsertProfile} className="space-y-6">
             {/* Full Name */}
@@ -79,7 +79,7 @@ export default async function ProfilePage({
               <label
                 htmlFor="full_name"
                 className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(255,255,255,0.85)" }}
+                style={{ color: "rgba(0,0,0,0.85)" }}
               >
                 Full Name
               </label>
@@ -98,7 +98,7 @@ export default async function ProfilePage({
               <label
                 htmlFor="undergraduate_school"
                 className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(255,255,255,0.85)" }}
+                style={{ color: "rgba(0,0,0,0.85)" }}
               >
                 Undergraduate School
               </label>
@@ -215,7 +215,7 @@ export default async function ProfilePage({
               <label
                 htmlFor="graduation_year"
                 className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(255,255,255,0.85)" }}
+                style={{ color: "rgba(0,0,0,0.85)" }}
               >
                 Graduation Year
               </label>
@@ -236,7 +236,7 @@ export default async function ProfilePage({
               <label
                 htmlFor="intended_specialty"
                 className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(255,255,255,0.85)" }}
+                style={{ color: "rgba(0,0,0,0.85)" }}
               >
                 Intended Specialty
               </label>
@@ -255,7 +255,7 @@ export default async function ProfilePage({
               <button
                 type="submit"
                 className="w-full inline-flex items-center justify-center gap-2 teal-glow px-6 py-3 rounded-xl font-semibold text-sm transition-colors focus:outline-none"
-                style={{ backgroundColor: "#FFFFFF", color: "#000000" }}
+                style={{ backgroundColor: "#000000", color: "#FFFFFF" }}
               >
                 Save Profile
               </button>

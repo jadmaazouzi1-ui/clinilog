@@ -48,16 +48,16 @@ export default function OnboardingModal() {
           const active = step === s.num;
 
           const circleStyle: React.CSSProperties = completed
-            ? { background: "#FFFFFF", border: "2px solid #FFFFFF" }
+            ? { background: "#000000", border: "2px solid #000000" }
             : active
-            ? { background: "transparent", border: "2px solid #FFFFFF" }
-            : { background: "transparent", border: "2px solid rgba(255,255,255,0.2)" };
+            ? { background: "transparent", border: "2px solid #000000" }
+            : { background: "transparent", border: "2px solid #000000" };
 
           const numColor = completed
             ? "transparent"
             : active
-            ? "#FFFFFF"
-            : "rgba(255,255,255,0.3)";
+            ? "#000000"
+            : "rgba(0,0,0,0.3)";
 
           return (
             <div key={s.num} className="flex items-center">
@@ -78,7 +78,7 @@ export default function OnboardingModal() {
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                       <path
                         d="M2.5 7L5.5 10L11.5 4"
-                        stroke="white"
+                        stroke="black"
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -93,7 +93,7 @@ export default function OnboardingModal() {
                 <span
                   style={{
                     fontSize: 10,
-                    color: active || completed ? "#FFFFFF" : "rgba(255,255,255,0.3)",
+                    color: active || completed ? "#000000" : "rgba(0,0,0,0.3)",
                     fontWeight: 500,
                   }}
                 >
@@ -109,8 +109,8 @@ export default function OnboardingModal() {
                     marginBottom: 18,
                     background:
                       step > s.num
-                        ? "#FFFFFF"
-                        : "rgba(255,255,255,0.12)",
+                        ? "#000000"
+                        : "rgba(0,0,0,0.12)",
                     borderRadius: 1,
                   }}
                 />
@@ -183,7 +183,7 @@ export default function OnboardingModal() {
   // ── Button styles ───────────────────────────────────────────────────────────
 
   const tealBtn: React.CSSProperties = {
-    backgroundColor: "#FFFFFF", color: "#000000",
+    backgroundColor: "#000000", color: "#FFFFFF",
     padding: "10px 20px",
     borderRadius: 1,
     fontWeight: 600,
@@ -196,12 +196,12 @@ export default function OnboardingModal() {
 
   const ghostBtn: React.CSSProperties = {
     background: "transparent",
-    color: "rgba(255,255,255,0.5)",
+    color: "rgba(0,0,0,0.5)",
     padding: "10px 20px",
     borderRadius: 1,
     fontWeight: 500,
     fontSize: 14,
-    border: "1px solid rgba(255,255,255,0.15)",
+    border: "2px solid #000000",
     cursor: isPending ? "not-allowed" : "pointer",
     opacity: isPending ? 0.6 : 1,
     transition: "opacity 0.15s",
@@ -211,7 +211,7 @@ export default function OnboardingModal() {
     display: "block",
     fontSize: 12,
     fontWeight: 500,
-    color: "rgba(255,255,255,0.6)",
+    color: "rgba(0,0,0,0.6)",
     marginBottom: 6,
   };
 
@@ -226,7 +226,7 @@ export default function OnboardingModal() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "rgba(0,0,0,0.75)",
+        background: "rgba(255,255,255,0.75)",
         padding: "16px",
       }}
     >
@@ -234,8 +234,8 @@ export default function OnboardingModal() {
         style={{
           maxWidth: 512,
           width: "100%",
-          background: "#000000",
-          border: "1px solid rgba(255,255,255,0.12)",
+          background: "#FFFFFF",
+          border: "2px solid #000000",
           borderRadius: 1,
           padding: 32,
           position: "relative",
@@ -254,7 +254,7 @@ export default function OnboardingModal() {
             borderRadius: 1,
             background: "transparent",
             border: "none",
-            color: "rgba(255,255,255,0.4)",
+            color: "rgba(0,0,0,0.4)",
             cursor: isPending ? "not-allowed" : "pointer",
             display: "flex",
             alignItems: "center",
@@ -271,10 +271,10 @@ export default function OnboardingModal() {
         {/* ── Step 1 ── */}
         {step === 1 && (
           <div>
-            <h2 style={{ fontSize: 20, fontWeight: 700, color: "#FFFFFF", marginBottom: 8 }}>
+            <h2 style={{ fontSize: 20, fontWeight: 700, color: "#000000", marginBottom: 8 }}>
               Welcome to CliniLog
             </h2>
-            <p style={{ fontSize: 14, color: "rgba(255,255,255,0.6)", marginBottom: 24 }}>
+            <p style={{ fontSize: 14, color: "rgba(0,0,0,0.6)", marginBottom: 24 }}>
               Let&apos;s set up your profile so we can personalize your experience.
             </p>
 
@@ -354,10 +354,10 @@ export default function OnboardingModal() {
         {/* ── Step 2 ── */}
         {step === 2 && (
           <div>
-            <h2 style={{ fontSize: 20, fontWeight: 700, color: "#FFFFFF", marginBottom: 8 }}>
+            <h2 style={{ fontSize: 20, fontWeight: 700, color: "#000000", marginBottom: 8 }}>
               Log your first experience
             </h2>
-            <p style={{ fontSize: 14, color: "rgba(255,255,255,0.6)", marginBottom: 24 }}>
+            <p style={{ fontSize: 14, color: "rgba(0,0,0,0.6)", marginBottom: 24 }}>
               Add a clinical experience you&apos;ve already completed, or use our example to get started.
             </p>
 
@@ -459,8 +459,8 @@ export default function OnboardingModal() {
                 width: 64,
                 height: 64,
                 borderRadius: "50%",
-                background: "rgba(255,255,255,0.04)",
-                border: "1.5px solid #FFFFFF",
+                background: "#FFFFFF",
+                border: "2px solid #000000",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -470,7 +470,7 @@ export default function OnboardingModal() {
               <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
                 <path
                   d="M5 14L11 20L23 8"
-                  stroke="#FFFFFF"
+                  stroke="#000000"
                   strokeWidth="2.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -478,13 +478,13 @@ export default function OnboardingModal() {
               </svg>
             </div>
 
-            <h2 style={{ fontSize: 22, fontWeight: 700, color: "#FFFFFF", marginBottom: 10 }}>
+            <h2 style={{ fontSize: 22, fontWeight: 700, color: "#000000", marginBottom: 10 }}>
               Your CliniLog is ready
             </h2>
             <p
               style={{
                 fontSize: 14,
-                color: "rgba(255,255,255,0.6)",
+                color: "rgba(0,0,0,0.6)",
                 marginBottom: 28,
                 maxWidth: 360,
                 margin: "0 auto 28px",

@@ -25,11 +25,11 @@ const CATEGORY_LABELS: Record<ImportRow["type"], CategoryDisplay> = {
 };
 
 const CATEGORY_COLOR: Record<ImportRow["type"], string> = {
-  shadowing:     "#FFFFFF",
-  volunteer:     "#FFFFFF",
-  clinical_work: "#FFFFFF",
-  research:      "#FFFFFF",
-  other:         "rgba(255,255,255,0.6)",
+  shadowing:     "#000000",
+  volunteer:     "#000000",
+  clinical_work: "#000000",
+  research:      "#000000",
+  other:         "rgba(0,0,0,0.6)",
 };
 
 // ── CSV parsing ────────────────────────────────────────────────────────────
@@ -261,10 +261,10 @@ export default function ImportView() {
       <div className="glass-card rounded-2xl p-6">
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div className="flex-1 min-w-0">
-            <h2 className="text-sm font-semibold mb-1" style={{ color: "#FFFFFF" }}>
+            <h2 className="text-sm font-semibold mb-1" style={{ color: "#000000" }}>
               Step 1 — Download the template
             </h2>
-            <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
+            <p className="text-xs leading-relaxed" style={{ color: "rgba(0,0,0,0.55)" }}>
               Fill it in with your experiences, then upload below. Columns: Experience Name,
               Organization, Category, Start Date, End Date (optional), Hours, Description (optional).
             </p>
@@ -272,7 +272,7 @@ export default function ImportView() {
           <button
             onClick={downloadTemplate}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold flex-shrink-0 transition-opacity hover:opacity-90"
-            style={{ background: "rgba(255,255,255,0.04)", color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.12)" }}
+            style={{ background: "#FFFFFF", color: "#000000", border: "2px solid #000000" }}
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -285,7 +285,7 @@ export default function ImportView() {
       {/* Upload area */}
       {!rows && (
         <div className="glass-card rounded-2xl p-6">
-          <h2 className="text-sm font-semibold mb-3" style={{ color: "#FFFFFF" }}>
+          <h2 className="text-sm font-semibold mb-3" style={{ color: "#000000" }}>
             Step 2 — Upload your CSV
           </h2>
           <div
@@ -300,8 +300,8 @@ export default function ImportView() {
             onClick={() => inputRef.current?.click()}
             className="rounded-xl px-6 py-12 flex flex-col items-center justify-center cursor-pointer transition-all"
             style={{
-              background: dragOver ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.03)",
-              border: `2px dashed ${dragOver ? "#FFFFFF" : "rgba(255,255,255,0.1)"}`,
+              background: dragOver ? "rgba(0,0,0,0.08)" : "rgba(0,0,0,0.03)",
+              border: `2px dashed ${dragOver ? "#000000" : "rgba(0,0,0,0.1)"}`,
             }}
           >
             <input
@@ -316,17 +316,17 @@ export default function ImportView() {
             />
             <div
               className="w-12 h-12 rounded-xl flex items-center justify-center mb-3"
-              style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.12)" }}
+              style={{ background: "#FFFFFF", border: "2px solid #000000" }}
             >
-              <svg className="w-6 h-6" fill="none" stroke="#FFFFFF" strokeWidth="1.75" viewBox="0 0 24 24">
+              <svg className="w-6 h-6" fill="none" stroke="#000000" strokeWidth="1.75" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
               </svg>
             </div>
-            <p className="text-sm font-semibold mb-1" style={{ color: "#FFFFFF" }}>
+            <p className="text-sm font-semibold mb-1" style={{ color: "#000000" }}>
               {dragOver ? "Drop your file here" : "Drag and drop your CSV here"}
             </p>
-            <p className="text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>
-              or <span style={{ color: "#FFFFFF" }}>click to browse</span> · CSV files only
+            <p className="text-xs" style={{ color: "rgba(0,0,0,0.5)" }}>
+              or <span style={{ color: "#000000" }}>click to browse</span> · CSV files only
             </p>
           </div>
         </div>
@@ -338,8 +338,8 @@ export default function ImportView() {
           className="rounded-xl px-4 py-3 flex items-start gap-3"
           style={
             result.kind === "success"
-              ? { background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.1)", color: "#FFFFFF" }
-              : { background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", color: "#DC2626" }
+              ? { background: "rgba(0,0,0,0.1)", border: "2px solid #000000", color: "#000000" }
+              : { background: "rgba(0,0,0,0.1)", border: "2px solid #000000", color: "#000000" }
           }
         >
           <svg className="w-5 h-5 flex-shrink-0 mt-px" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -358,19 +358,19 @@ export default function ImportView() {
         <div className="glass-card rounded-2xl p-6">
           <div className="flex items-center justify-between gap-3 flex-wrap mb-4">
             <div>
-              <h2 className="text-sm font-semibold mb-1" style={{ color: "#FFFFFF" }}>
+              <h2 className="text-sm font-semibold mb-1" style={{ color: "#000000" }}>
                 Step 3 — Review and confirm
               </h2>
-              <p className="text-xs" style={{ color: "rgba(255,255,255,0.55)" }}>
-                {fileName} · <span style={{ color: "#FFFFFF" }}>{validCount} selected</span>
-                {errorCount > 0 && <> · <span style={{ color: "#DC2626" }}>{errorCount} with errors</span></>}
+              <p className="text-xs" style={{ color: "rgba(0,0,0,0.55)" }}>
+                {fileName} · <span style={{ color: "#000000" }}>{validCount} selected</span>
+                {errorCount > 0 && <> · <span style={{ color: "#000000" }}>{errorCount} with errors</span></>}
               </p>
             </div>
             <div className="flex items-center gap-2">
               <button
                 onClick={reset}
                 className="text-xs font-medium px-3 py-1.5 rounded-lg transition-colors"
-                style={{ color: "rgba(255,255,255,0.6)", border: "1px solid rgba(255,255,255,0.15)" }}
+                style={{ color: "rgba(0,0,0,0.6)", border: "2px solid #000000" }}
               >
                 Choose different file
               </button>
@@ -380,7 +380,7 @@ export default function ImportView() {
           <div className="overflow-x-auto -mx-2">
             <table className="w-full text-sm" style={{ minWidth: 720 }}>
               <thead>
-                <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+                <tr style={{ borderBottom: "2px solid #000000" }}>
                   <th className="text-left px-2 py-2" style={{ width: 30 }}>
                     <input
                       type="checkbox"
@@ -389,11 +389,11 @@ export default function ImportView() {
                       className="accent-white"
                     />
                   </th>
-                  <th className="text-left px-2 py-2 text-xs font-semibold uppercase tracking-wide" style={{ color: "rgba(255,255,255,0.5)" }}>Title</th>
-                  <th className="text-left px-2 py-2 text-xs font-semibold uppercase tracking-wide" style={{ color: "rgba(255,255,255,0.5)" }}>Organization</th>
-                  <th className="text-left px-2 py-2 text-xs font-semibold uppercase tracking-wide" style={{ color: "rgba(255,255,255,0.5)" }}>Category</th>
-                  <th className="text-left px-2 py-2 text-xs font-semibold uppercase tracking-wide" style={{ color: "rgba(255,255,255,0.5)" }}>Dates</th>
-                  <th className="text-right px-2 py-2 text-xs font-semibold uppercase tracking-wide" style={{ color: "rgba(255,255,255,0.5)" }}>Hours</th>
+                  <th className="text-left px-2 py-2 text-xs font-semibold uppercase tracking-wide" style={{ color: "rgba(0,0,0,0.5)" }}>Title</th>
+                  <th className="text-left px-2 py-2 text-xs font-semibold uppercase tracking-wide" style={{ color: "rgba(0,0,0,0.5)" }}>Organization</th>
+                  <th className="text-left px-2 py-2 text-xs font-semibold uppercase tracking-wide" style={{ color: "rgba(0,0,0,0.5)" }}>Category</th>
+                  <th className="text-left px-2 py-2 text-xs font-semibold uppercase tracking-wide" style={{ color: "rgba(0,0,0,0.5)" }}>Dates</th>
+                  <th className="text-right px-2 py-2 text-xs font-semibold uppercase tracking-wide" style={{ color: "rgba(0,0,0,0.5)" }}>Hours</th>
                 </tr>
               </thead>
               <tbody>
@@ -403,8 +403,8 @@ export default function ImportView() {
                     <tr
                       key={i}
                       style={{
-                        borderBottom: "1px solid rgba(255,255,255,0.06)",
-                        backgroundColor: hasError ? "rgba(239,68,68,0.05)" : (r.selected ? "rgba(255,255,255,0.03)" : "transparent"),
+                        borderBottom: "2px solid #000000",
+                        backgroundColor: hasError ? "rgba(0,0,0,0.05)" : (r.selected ? "rgba(0,0,0,0.03)" : "transparent"),
                       }}
                     >
                       <td className="px-2 py-3 align-top">
@@ -418,18 +418,18 @@ export default function ImportView() {
                         />
                       </td>
                       <td className="px-2 py-3 align-top">
-                        <p className="font-medium" style={{ color: hasError ? "rgba(239,68,68,0.85)" : "#FFFFFF" }}>
+                        <p className="font-medium" style={{ color: hasError ? "rgba(0,0,0,0.85)" : "#000000" }}>
                           {r.row?.title || r.raw[0] || "—"}
                         </p>
                         {hasError && (
                           <ul className="mt-1 space-y-0.5">
                             {r.errors.map((e, j) => (
-                              <li key={j} className="text-xs" style={{ color: "#DC2626" }}>· {e}</li>
+                              <li key={j} className="text-xs" style={{ color: "#000000" }}>· {e}</li>
                             ))}
                           </ul>
                         )}
                       </td>
-                      <td className="px-2 py-3 align-top text-xs" style={{ color: "rgba(255,255,255,0.7)" }}>
+                      <td className="px-2 py-3 align-top text-xs" style={{ color: "rgba(0,0,0,0.7)" }}>
                         {r.row?.organization || r.raw[1] || "—"}
                       </td>
                       <td className="px-2 py-3 align-top">
@@ -445,15 +445,15 @@ export default function ImportView() {
                             {CATEGORY_LABELS[r.row.type]}
                           </span>
                         ) : (
-                          <span className="text-xs" style={{ color: "rgba(239,68,68,0.7)" }}>—</span>
+                          <span className="text-xs" style={{ color: "rgba(0,0,0,0.7)" }}>—</span>
                         )}
                       </td>
-                      <td className="px-2 py-3 align-top text-xs whitespace-nowrap" style={{ color: "rgba(255,255,255,0.65)" }}>
+                      <td className="px-2 py-3 align-top text-xs whitespace-nowrap" style={{ color: "rgba(0,0,0,0.65)" }}>
                         {r.row?.start_date || "—"}
                         {r.row?.end_date && <> → {r.row.end_date}</>}
                         {r.row?.start_date && !r.row?.end_date && <> → Present</>}
                       </td>
-                      <td className="px-2 py-3 align-top text-right font-semibold text-xs whitespace-nowrap" style={{ color: "#FFFFFF" }}>
+                      <td className="px-2 py-3 align-top text-right font-semibold text-xs whitespace-nowrap" style={{ color: "#000000" }}>
                         {r.row ? formatHours(r.row.hours) : "—"}
                       </td>
                     </tr>
@@ -464,8 +464,8 @@ export default function ImportView() {
           </div>
 
           {/* Import action */}
-          <div className="flex items-center justify-between gap-3 mt-6 pt-5 flex-wrap" style={{ borderTop: "1px solid rgba(255,255,255,0.04)" }}>
-            <p className="text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>
+          <div className="flex items-center justify-between gap-3 mt-6 pt-5 flex-wrap" style={{ borderTop: "2px solid #000000" }}>
+            <p className="text-xs" style={{ color: "rgba(0,0,0,0.5)" }}>
               {validCount === 0
                 ? "No valid rows selected"
                 : `Ready to import ${validCount} experience${validCount === 1 ? "" : "s"}.`}
@@ -474,7 +474,7 @@ export default function ImportView() {
               onClick={doImport}
               disabled={validCount === 0 || isPending}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all disabled:opacity-40 disabled:cursor-not-allowed"
-              style={{ backgroundColor: "#FFFFFF", color: "#000000", boxShadow: "none" }}
+              style={{ backgroundColor: "#000000", color: "#FFFFFF", boxShadow: "none" }}
             >
               {isPending ? (
                 <span className="mono text-[10px] font-semibold uppercase tracking-[0.18em]">

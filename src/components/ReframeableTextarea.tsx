@@ -79,7 +79,7 @@ export default function ReframeableTextarea({
           placeholder={placeholder}
           className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm resize-none transition-all"
           style={{
-            borderColor: hasReframed ? "rgba(255,255,255,0.2)" : undefined,
+            borderColor: hasReframed ? "rgba(0,0,0,0.2)" : undefined,
             
           }}
         />
@@ -87,7 +87,7 @@ export default function ReframeableTextarea({
         {hasReframed && (
           <div
             className="absolute top-2.5 right-3 flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold"
-            style={{ backgroundColor: "rgba(255,255,255,0.04)", color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.1)" }}
+            style={{ backgroundColor: "#FFFFFF", color: "#000000", border: "2px solid #000000" }}
           >
             <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
@@ -99,7 +99,7 @@ export default function ReframeableTextarea({
 
       {/* Error */}
       {error && (
-        <p className="text-xs" style={{ color: "#DC2626" }}>{error}</p>
+        <p className="text-xs" style={{ color: "#000000" }}>{error}</p>
       )}
 
       {/* Action row */}
@@ -110,9 +110,9 @@ export default function ReframeableTextarea({
           disabled={loading}
           className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all"
           style={{
-            backgroundColor: loading ? "rgba(255,255,255,0.05)" : "rgba(255,255,255,0.04)",
-            color: loading ? "rgba(255,255,255,0.45)" : "#FFFFFF",
-            border: "1px solid rgba(255,255,255,0.12)",
+            backgroundColor: loading ? "rgba(0,0,0,0.05)" : "rgba(0,0,0,0.04)",
+            color: loading ? "rgba(0,0,0,0.45)" : "#000000",
+            border: "2px solid #000000",
             cursor: loading ? "not-allowed" : "pointer",
           }}
         >
@@ -134,7 +134,7 @@ export default function ReframeableTextarea({
             type="button"
             onClick={handleUndo}
             className="inline-flex items-center gap-1.5 text-xs font-medium transition-opacity hover:opacity-80"
-            style={{ color: "rgba(255,255,255,0.45)" }}
+            style={{ color: "rgba(0,0,0,0.45)" }}
           >
             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />

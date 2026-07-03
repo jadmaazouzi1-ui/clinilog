@@ -11,7 +11,7 @@ export default function ShareStoryModal() {
       <button
         onClick={() => setOpen(true)}
         className="teal-glow inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm"
-        style={{ backgroundColor: "#FFFFFF", color: "#000000" }}
+        style={{ backgroundColor: "#000000", color: "#FFFFFF" }}
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -22,32 +22,32 @@ export default function ShareStoryModal() {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ backgroundColor: "rgba(0,0,0,0.75)" }}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ backgroundColor: "rgba(255,255,255,0.75)" }}>
       <div
         className="w-full max-w-lg rounded-2xl p-8 relative"
-        style={{ backgroundColor: "#000000", border: "1px solid rgba(255,255,255,0.12)" }}
+        style={{ backgroundColor: "#FFFFFF", border: "2px solid #000000" }}
       >
         {/* Close */}
         <button
           onClick={() => setOpen(false)}
           className="absolute top-4 right-4 p-1.5 rounded-lg transition-colors"
-          style={{ color: "rgba(255,255,255,0.5)" }}
+          style={{ color: "rgba(0,0,0,0.5)" }}
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
 
-        <h2 className="text-xl font-bold mb-1" style={{ color: "#FFFFFF" }}>Share Your Story</h2>
-        <p className="text-sm mb-6" style={{ color: "rgba(255,255,255,0.55)" }}>
+        <h2 className="text-xl font-bold mb-1" style={{ color: "#000000" }}>Share Your Story</h2>
+        <p className="text-sm mb-6" style={{ color: "rgba(0,0,0,0.55)" }}>
           Inspire the next generation of first-gen pre-med students. All submissions are reviewed before publishing.
         </p>
 
         <form action={submitStory} className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium mb-1.5" style={{ color: "rgba(255,255,255,0.85)" }}>
-                First Name <span style={{ color: "#EF4444" }}>*</span>
+              <label className="block text-sm font-medium mb-1.5" style={{ color: "rgba(0,0,0,0.85)" }}>
+                First Name <span style={{ color: "#000000" }}>*</span>
               </label>
               <input
                 name="name"
@@ -58,7 +58,7 @@ export default function ShareStoryModal() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1.5" style={{ color: "rgba(255,255,255,0.85)" }}>
+              <label className="block text-sm font-medium mb-1.5" style={{ color: "rgba(0,0,0,0.85)" }}>
                 Undergrad School
               </label>
               <input
@@ -71,8 +71,8 @@ export default function ShareStoryModal() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1.5" style={{ color: "rgba(255,255,255,0.85)" }}>
-              Medical School Accepted To <span style={{ color: "#EF4444" }}>*</span>
+            <label className="block text-sm font-medium mb-1.5" style={{ color: "rgba(0,0,0,0.85)" }}>
+              Medical School Accepted To <span style={{ color: "#000000" }}>*</span>
             </label>
             <input
               name="medical_school"
@@ -84,8 +84,8 @@ export default function ShareStoryModal() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1.5" style={{ color: "rgba(255,255,255,0.85)" }}>
-              Your First-Gen Background <span style={{ color: "#EF4444" }}>*</span>
+            <label className="block text-sm font-medium mb-1.5" style={{ color: "rgba(0,0,0,0.85)" }}>
+              Your First-Gen Background <span style={{ color: "#000000" }}>*</span>
             </label>
             <input
               name="background"
@@ -97,8 +97,8 @@ export default function ShareStoryModal() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1.5" style={{ color: "rgba(255,255,255,0.85)" }}>
-              Your Story <span style={{ color: "#EF4444" }}>*</span>
+            <label className="block text-sm font-medium mb-1.5" style={{ color: "rgba(0,0,0,0.85)" }}>
+              Your Story <span style={{ color: "#000000" }}>*</span>
             </label>
             <textarea
               name="quote"
@@ -114,14 +114,14 @@ export default function ShareStoryModal() {
               type="button"
               onClick={() => setOpen(false)}
               className="text-sm font-medium px-4 py-2.5 rounded-xl transition-colors"
-              style={{ color: "rgba(255,255,255,0.5)", border: "1px solid rgba(255,255,255,0.12)" }}
+              style={{ color: "rgba(0,0,0,0.5)", border: "2px solid #000000" }}
             >
               Cancel
             </button>
             <button
               type="submit"
               className="teal-glow flex-1 py-2.5 rounded-xl font-semibold text-sm"
-              style={{ backgroundColor: "#FFFFFF", color: "#000000" }}
+              style={{ backgroundColor: "#000000", color: "#FFFFFF" }}
             >
               Submit Story
             </button>

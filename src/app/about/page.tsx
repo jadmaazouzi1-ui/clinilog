@@ -2,25 +2,20 @@ import Link from "next/link";
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#000000", color: "#FFFFFF" }}>
+    <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#FFFFFF", color: "#000000" }}>
       {/* ── Navbar ── */}
-      <header className="relative z-20 px-6 py-4" style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+      <header className="relative z-20 px-6 py-4" style={{ borderBottom: "2px solid #000000" }}>
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 hover:opacity-90 transition-opacity">
-            <div className="w-8 h-8 rounded-md flex items-center justify-center" style={{ backgroundColor: "#FFFFFF" }}>
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="2,12 7,12 8,9 10,12 12,3 13,21 14,12 16,9 18,12 22,12" />
-              </svg>
-            </div>
-            <span className="font-medium text-base tracking-tight" style={{ color: "#FFFFFF" }}>CliniLog</span>
+            <span className="text-xl" style={{ color: "#000000", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.02em" }}>CliniLog</span>
             <span className="beta-pill">BETA</span>
           </Link>
           <div className="flex items-center gap-4">
-            <Link href="/about" className="text-sm font-medium" style={{ color: "#FFFFFF" }}>About</Link>
+            <Link href="/about" className="text-sm font-medium" style={{ color: "#000000" }}>About</Link>
             <Link
               href="/auth/login"
               className="text-sm font-semibold px-5 py-2 rounded-md transition-colors"
-              style={{ color: "#FFFFFF", border: "0.5px solid #FFFFFF" }}
+              style={{ color: "#000000", border: "0.5px solid #000000" }}
             >
               Sign In
             </Link>
@@ -31,11 +26,11 @@ export default function AboutPage() {
       {/* ── Hero ── */}
       <section className="px-6 py-24 sm:py-32">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="text-[11px] mono uppercase tracking-[0.22em] mb-5" style={{ color: "#FFFFFF" }}>
+          <p className="text-[11px] mono uppercase tracking-[0.22em] mb-5" style={{ color: "#000000" }}>
             About CliniLog
           </p>
-          <h1 className="text-3xl sm:text-5xl font-medium leading-tight tracking-tight" style={{ color: "#FFFFFF" }}>
-            The pre-med journey deserves <span style={{ color: "#FFFFFF" }}>better tools</span>.
+          <h1 className="text-3xl sm:text-5xl font-medium leading-tight tracking-tight" style={{ color: "#000000" }}>
+            The pre-med journey deserves <span style={{ color: "#000000" }}>better tools</span>.
           </h1>
         </div>
       </section>
@@ -44,7 +39,7 @@ export default function AboutPage() {
       <section className="px-6 pb-20">
         <div className="max-w-3xl mx-auto">
           <p className="dept-header">— Our Story</p>
-          <p className="text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.8)" }}>
+          <p className="text-lg leading-relaxed" style={{ color: "rgba(0,0,0,0.8)" }}>
             CliniLog started from a simple observation — pre-med students, especially those navigating
             without guidance, spend more time figuring out the system than actually building their experience.
             We built the tool to change that. A place to track every hour, understand your strengths,
@@ -59,11 +54,11 @@ export default function AboutPage() {
           <p className="dept-header">— Our Mission</p>
           <div
             className="rounded-lg p-8"
-            style={{ backgroundColor: "#000000", border: "0.5px solid rgba(255,255,255,0.12)" }}
+            style={{ backgroundColor: "#FFFFFF", border: "2px solid #000000" }}
           >
-            <p className="text-xl leading-relaxed" style={{ color: "#FFFFFF" }}>
+            <p className="text-xl leading-relaxed" style={{ color: "#000000" }}>
               Make the pre-med journey more organized, more accessible, and less intimidating —
-              <span style={{ color: "#FFFFFF" }}> for every student, regardless of background.</span>
+              <span style={{ color: "#000000" }}> for every student, regardless of background.</span>
             </p>
           </div>
         </div>
@@ -97,26 +92,26 @@ export default function AboutPage() {
               <div
                 key={v.num}
                 className="rounded-lg p-6 flex flex-col"
-                style={{ backgroundColor: "#000000", border: "0.5px solid rgba(255,255,255,0.08)" }}
+                style={{ backgroundColor: "#FFFFFF", border: "2px solid #000000" }}
               >
                 <div className="flex items-center gap-3 mb-4">
                   <span
                     className="mono text-sm font-medium px-2 py-0.5 rounded"
-                    style={{ background: "rgba(255,255,255,0.04)", color: "#FFFFFF", border: "0.5px solid rgba(255,255,255,0.12)" }}
+                    style={{ background: "#FFFFFF", color: "#000000", border: "2px solid #000000" }}
                   >
                     {v.num}
                   </span>
                   <div
                     className="w-9 h-9 rounded-md flex items-center justify-center"
-                    style={{ background: "rgba(255,255,255,0.04)", border: "0.5px solid rgba(255,255,255,0.12)" }}
+                    style={{ background: "#FFFFFF", border: "2px solid #000000" }}
                   >
-                    <svg className="w-5 h-5" fill="none" stroke="#FFFFFF" strokeWidth="1.5" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5" fill="none" stroke="#000000" strokeWidth="1.5" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d={v.iconPath} />
                     </svg>
                   </div>
                 </div>
-                <h3 className="text-lg font-medium mb-2" style={{ color: "#FFFFFF" }}>{v.title}</h3>
-                <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>{v.desc}</p>
+                <h3 className="text-lg font-medium mb-2" style={{ color: "#000000" }}>{v.title}</h3>
+                <p className="text-sm leading-relaxed" style={{ color: "rgba(0,0,0,0.55)" }}>{v.desc}</p>
               </div>
             ))}
           </div>
@@ -127,18 +122,18 @@ export default function AboutPage() {
       <section className="px-6 pb-24">
         <div
           className="max-w-3xl mx-auto rounded-lg p-12 text-center"
-          style={{ backgroundColor: "#000000", border: "0.5px solid rgba(255,255,255,0.12)" }}
+          style={{ backgroundColor: "#FFFFFF", border: "2px solid #000000" }}
         >
-          <h2 className="text-2xl sm:text-3xl font-medium mb-3" style={{ color: "#FFFFFF" }}>
+          <h2 className="text-2xl sm:text-3xl font-medium mb-3" style={{ color: "#000000" }}>
             Ready to get organized?
           </h2>
-          <p className="text-base mb-8" style={{ color: "rgba(255,255,255,0.6)" }}>
+          <p className="text-base mb-8" style={{ color: "rgba(0,0,0,0.6)" }}>
             Build your pre-med journey in one place. Free, forever.
           </p>
           <Link
             href="/auth/signup"
             className="inline-flex items-center gap-2 px-8 py-3.5 rounded-md font-semibold text-base transition-colors"
-            style={{ backgroundColor: "#FFFFFF", color: "#000000" }}
+            style={{ backgroundColor: "#000000", color: "#FFFFFF" }}
           >
             Get Started Free
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -151,16 +146,16 @@ export default function AboutPage() {
       {/* ── Footer ── */}
       <footer
         className="px-6 py-8 mt-auto"
-        style={{ borderTop: "1px solid rgba(255,255,255,0.08)", backgroundColor: "#000000" }}
+        style={{ borderTop: "2px solid #000000", backgroundColor: "#FFFFFF" }}
       >
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
+          <p className="text-xs" style={{ color: "rgba(0,0,0,0.4)" }}>
             &copy; {new Date().getFullYear()} CliniLog. The all-in-one pre-med toolkit.
           </p>
           <div className="flex items-center gap-5">
-            <Link href="/about" className="text-xs" style={{ color: "rgba(255,255,255,0.6)" }}>About</Link>
-            <Link href="/auth/login" className="text-xs" style={{ color: "rgba(255,255,255,0.6)" }}>Sign In</Link>
-            <Link href="/auth/signup" className="text-xs" style={{ color: "#FFFFFF" }}>Get Started</Link>
+            <Link href="/about" className="text-xs" style={{ color: "rgba(0,0,0,0.6)" }}>About</Link>
+            <Link href="/auth/login" className="text-xs" style={{ color: "rgba(0,0,0,0.6)" }}>Sign In</Link>
+            <Link href="/auth/signup" className="text-xs" style={{ color: "#000000" }}>Get Started</Link>
           </div>
         </div>
       </footer>

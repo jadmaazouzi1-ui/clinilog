@@ -41,17 +41,12 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "#000000" }}>
+    <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "#FFFFFF" }}>
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 mb-4">
-            <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#FFFFFF" }}>
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="2,12 7,12 8,9 10,12 12,3 13,21 14,12 16,9 18,12 22,12" />
-              </svg>
-            </div>
-            <span className="font-semibold text-xl" style={{ color: "#FFFFFF" }}>CliniLog</span>
+            <span className="text-xl" style={{ color: "#000000", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.02em" }}>CliniLog</span>
           </div>
         </div>
 
@@ -59,22 +54,22 @@ export default function ResetPasswordPage() {
           <div className="glass-card rounded-2xl p-8 text-center">
             <div
               className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5"
-              style={{ backgroundColor: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.1)" }}
+              style={{ backgroundColor: "rgba(0,0,0,0.1)", border: "2px solid #000000" }}
             >
-              <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="20 6 9 17 4 12" />
               </svg>
             </div>
-            <h2 className="text-lg font-bold mb-2" style={{ color: "#FFFFFF" }}>Password updated</h2>
-            <p className="text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>
+            <h2 className="text-lg font-bold mb-2" style={{ color: "#000000" }}>Password updated</h2>
+            <p className="text-sm" style={{ color: "rgba(0,0,0,0.6)" }}>
               Redirecting you to your dashboard…
             </p>
           </div>
         ) : (
           <>
             <div className="text-center mb-8">
-              <h1 className="text-2xl font-bold" style={{ color: "#FFFFFF" }}>Set a new password</h1>
-              <p className="text-sm mt-1" style={{ color: "rgba(255,255,255,0.6)" }}>
+              <h1 className="text-2xl font-bold" style={{ color: "#000000" }}>Set a new password</h1>
+              <p className="text-sm mt-1" style={{ color: "rgba(0,0,0,0.6)" }}>
                 Choose a strong password for your account
               </p>
             </div>
@@ -83,7 +78,7 @@ export default function ResetPasswordPage() {
               {error && (
                 <div
                   className="mb-5 text-sm rounded-lg px-4 py-3"
-                  style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", color: "#DC2626" }}
+                  style={{ background: "rgba(0,0,0,0.1)", border: "2px solid #000000", color: "#000000" }}
                 >
                   {error}
                 </div>
@@ -91,7 +86,7 @@ export default function ResetPasswordPage() {
 
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                  <label htmlFor="password" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(255,255,255,0.85)" }}>
+                  <label htmlFor="password" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(0,0,0,0.85)" }}>
                     New password
                   </label>
                   <input
@@ -108,7 +103,7 @@ export default function ResetPasswordPage() {
                 </div>
 
                 <div>
-                  <label htmlFor="confirm" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(255,255,255,0.85)" }}>
+                  <label htmlFor="confirm" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(0,0,0,0.85)" }}>
                     Confirm new password
                   </label>
                   <input
@@ -127,7 +122,7 @@ export default function ResetPasswordPage() {
                   type="submit"
                   disabled={loading}
                   className="w-full teal-glow py-2.5 rounded-lg font-semibold text-sm focus:outline-none disabled:opacity-60 disabled:cursor-not-allowed"
-                  style={{ backgroundColor: "#FFFFFF", color: "#000000" }}
+                  style={{ backgroundColor: "#000000", color: "#FFFFFF" }}
                 >
                   {loading ? "Updating…" : "Update Password"}
                 </button>
@@ -135,7 +130,7 @@ export default function ResetPasswordPage() {
             </div>
 
             <p className="text-center text-sm mt-6">
-              <Link href="/auth/login" className="font-medium" style={{ color: "#FFFFFF" }}>
+              <Link href="/auth/login" className="font-medium" style={{ color: "#000000" }}>
                 ← Back to sign in
               </Link>
             </p>
