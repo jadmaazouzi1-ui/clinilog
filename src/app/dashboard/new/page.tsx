@@ -18,7 +18,7 @@ export default async function NewExperiencePage() {
 
   return (
     <AppShell userEmail={user.email ?? ""} activePath="/dashboard" breadcrumbs={[{ label: "Dashboard", href: "/dashboard" }, { label: "Log Experience" }]}>
-      <main className="max-w-2xl mx-auto px-6 py-10">
+      <main className="w-full px-6 py-8">
         {/* Back link */}
         <Link
           href="/dashboard"

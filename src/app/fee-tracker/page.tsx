@@ -75,7 +75,7 @@ export default async function FeeTrackerPage() {
   return (
     <AppShell userEmail={user.email ?? ""} activePath="/fee-tracker">
 
-      <main className="max-w-5xl mx-auto px-6 py-10">
+      <main className="w-full px-6 py-8">
         {/* Back link */}
         <Link
           href="/dashboard"

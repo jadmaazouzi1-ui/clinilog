@@ -94,7 +94,7 @@ export default async function StoriesPage({
   return (
     <AppShell userEmail={user.email ?? ""} activePath="/stories">
 
-      <main className="max-w-5xl mx-auto px-6 py-10">
+      <main className="w-full px-6 py-8">
         <Link
           href="/dashboard"
           className="inline-flex items-center gap-1.5 text-sm font-medium mb-8"

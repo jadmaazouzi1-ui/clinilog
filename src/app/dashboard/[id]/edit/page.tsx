@@ -40,7 +40,7 @@ export default async function EditExperiencePage({
 
   return (
     <AppShell userEmail={user.email ?? ""} activePath="/dashboard" breadcrumbs={[{ label: "Dashboard", href: "/dashboard" }, { label: exp.title, href: `/dashboard/${exp.id}` }, { label: "Edit" }]}>
-      <main className="max-w-2xl mx-auto px-6 py-10">
+      <main className="w-full px-6 py-8">
         {/* Back link */}
         <Link
           href={`/dashboard/${exp.id}`}

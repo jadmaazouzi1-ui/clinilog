@@ -28,7 +28,7 @@ export default async function ArchetypePage() {
 
   return (
     <AppShell userEmail={user.email ?? ""} activePath="/archetype">
-      <main className="max-w-3xl mx-auto px-6 py-10">
+      <main className="w-full px-6 py-8">
         <ArchetypeView
           initialAnalysis={storedAnalysis}
           experienceCount={count}

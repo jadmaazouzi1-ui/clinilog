@@ -29,7 +29,7 @@ export default async function ProfilePage({
   return (
     <AppShell userEmail={user.email ?? ""} activePath="/profile">
 
-      <main className="max-w-2xl mx-auto px-6 py-10">
+      <main className="w-full px-6 py-8">
         {/* Back link */}
         <Link
           href="/dashboard"

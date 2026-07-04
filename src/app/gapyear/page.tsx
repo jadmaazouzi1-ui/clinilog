@@ -21,7 +21,7 @@ export default async function GapYearPage() {
 
   return (
     <AppShell userEmail={user.email ?? ""} activePath="/gapyear">
-      <main className="max-w-4xl mx-auto px-6 py-10">
+      <main className="w-full px-6 py-8">
         <div className="mb-8">
           <h1 className="text-2xl font-bold mb-2" style={{ color: "#000000" }}>Gap Year Planner</h1>
           <p className="text-sm" style={{ color: "rgba(0,0,0,0.6)" }}>

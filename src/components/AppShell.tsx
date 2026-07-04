@@ -52,7 +52,7 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
     <div className="min-h-screen" style={{ backgroundColor: "#FFFFFF" }}>
       {/* Sidebar — desktop. Text labels only, 2px black right border. */}
       <aside
-        className="hidden md:flex flex-col fixed top-0 left-0 h-full z-40 w-[232px]"
+        className="hidden md:flex flex-col fixed top-0 left-0 h-full z-40 w-[180px]"
         style={{
           backgroundColor: "#FFFFFF",
           borderRight: "2px solid #000000",
@@ -126,7 +126,7 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
       `}</style>
 
       {/* Main content */}
-      <div className="md:ml-[232px] pb-16 md:pb-0">
+      <div className="md:ml-[180px] pb-16 md:pb-0">
         {crumbs.length > 0 && (
           <div className="flex items-center gap-1.5 px-6 pt-5 pb-1">
             {crumbs.map((crumb, i) => (

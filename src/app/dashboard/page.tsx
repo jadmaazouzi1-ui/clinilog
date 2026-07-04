@@ -77,7 +77,7 @@ export default async function DashboardPage({
     <AppShell userEmail={user.email ?? ""} activePath="/dashboard">
       {showOnboarding && <OnboardingModal />}
 
-      <main className="max-w-5xl mx-auto px-6 py-10">
+      <main className="w-full px-6 py-8">
         {pageError && (
           <div
             className="mb-6 text-sm rounded-xl px-4 py-3"
