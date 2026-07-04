@@ -24,7 +24,7 @@ export default function Navbar({ userEmail, activePath }: NavbarProps) {
       <div className="max-w-5xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-          <span className="text-xl" style={{ color: "#000000", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.02em" }}>CliniLog</span>
+          <span className="text-xl" style={{ color: "#000000", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.02em" }}>ClinicLog</span>
         </Link>
 
         {/* Desktop nav */}

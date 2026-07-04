@@ -47,7 +47,7 @@ export default async function SignupPage({
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center mb-4">
-            <span className="text-2xl" style={{ color: "#000000", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.02em" }}>CliniLog</span>
+            <span className="text-2xl" style={{ color: "#000000", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.02em" }}>ClinicLog</span>
           </div>
           <h1 className="text-2xl font-bold" style={{ color: "#000000" }}>Create your account</h1>
           <p className="text-sm mt-1" style={{ color: "rgba(0,0,0,0.6)" }}>

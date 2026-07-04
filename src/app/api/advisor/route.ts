@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
 
   const { messages, userContext } = await req.json();
 
-  const systemPrompt = `You are an expert pre-medical advisor at CliniLog, an all-in-one platform for pre-med students. You are warm, encouraging, and deeply knowledgeable about the medical school application process.
+  const systemPrompt = `You are an expert pre-medical advisor at ClinicLog, an all-in-one platform for pre-med students. You are warm, encouraging, and deeply knowledgeable about the medical school application process.
 
 Here is the student's current profile and logged activity:
 ${userContext}

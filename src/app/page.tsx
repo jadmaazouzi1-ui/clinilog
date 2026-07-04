@@ -109,7 +109,7 @@ export default async function HomePage() {
           <div className="nav-grid" style={{ height: 56 }}>
             {/* Left: wordmark */}
             <div style={{ display: "flex", alignItems: "center", padding: "0 1.5rem" }}>
-              <span style={{ fontWeight: 900, fontSize: "1rem", textTransform: "uppercase", letterSpacing: "-0.01em" }}>CliniLog</span>
+              <span style={{ fontWeight: 900, fontSize: "1rem", textTransform: "uppercase", letterSpacing: "-0.01em" }}>ClinicLog</span>
               <span style={{ fontFamily: MONO, fontSize: "10px", fontWeight: 800, border: "2px solid #000000", padding: "1px 5px", marginLeft: 10, letterSpacing: "0.1em" }}>BETA</span>
             </div>
             <div style={{ background: "#000000" }} />
@@ -257,7 +257,7 @@ export default async function HomePage() {
         <footer style={{ padding: "1.25rem 1.5rem" }}>
           <div style={{ maxWidth: 1280, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "1rem" }}>
             <p style={{ fontFamily: MONO, fontSize: "10px", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase" }}>
-              © {new Date().getFullYear()} CLINILOG — ALL RIGHTS RESERVED
+              © {new Date().getFullYear()} CLINICLOG — ALL RIGHTS RESERVED
             </p>
             <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap" }}>
               {[["SCHOOLS", "/schools"], ["ARCHETYPE", "/archetype"], ["RESOURCES", "/resources"], ["STORIES", "/stories"], ["ABOUT", "/about"]].map(([label, href]) => (

@@ -6,7 +6,7 @@ export default function VerifyEmailPage() {
       <div className="w-full max-w-md text-center">
         {/* Logo */}
         <div className="inline-flex items-center gap-2 mb-8">
-          <span className="text-xl" style={{ color: "#000000", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.02em" }}>CliniLog</span>
+          <span className="text-xl" style={{ color: "#000000", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.02em" }}>ClinicLog</span>
         </div>
 
         {/* Icon */}
@@ -34,7 +34,7 @@ export default function VerifyEmailPage() {
         </h1>
         <p className="text-base leading-relaxed mb-8" style={{ color: "rgba(0,0,0,0.55)" }}>
           We sent a confirmation link to your email address. Click the link to
-          activate your CliniLog account and start logging your clinical
+          activate your ClinicLog account and start logging your clinical
           experiences.
         </p>
 
@@ -43,7 +43,7 @@ export default function VerifyEmailPage() {
             Next steps
           </h2>
           <ol className="space-y-2.5 text-sm" style={{ color: "rgba(0,0,0,0.55)" }}>
-            {["Open your email inbox", "Find the email from CliniLog", "Click the confirmation link to activate your account"].map((step, i) => (
+            {["Open your email inbox", "Find the email from ClinicLog", "Click the confirmation link to activate your account"].map((step, i) => (
               <li key={i} className="flex items-start gap-2.5">
                 <span
                   className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold mt-0.5"

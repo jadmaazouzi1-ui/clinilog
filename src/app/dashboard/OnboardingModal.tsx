@@ -272,7 +272,7 @@ export default function OnboardingModal() {
         {step === 1 && (
           <div>
             <h2 style={{ fontSize: 20, fontWeight: 700, color: "#000000", marginBottom: 8 }}>
-              Welcome to CliniLog
+              Welcome to ClinicLog
             </h2>
             <p style={{ fontSize: 14, color: "rgba(0,0,0,0.6)", marginBottom: 24 }}>
               Let&apos;s set up your profile so we can personalize your experience.
@@ -479,7 +479,7 @@ export default function OnboardingModal() {
             </div>
 
             <h2 style={{ fontSize: 22, fontWeight: 700, color: "#000000", marginBottom: 10 }}>
-              Your CliniLog is ready
+              Your ClinicLog is ready
             </h2>
             <p
               style={{

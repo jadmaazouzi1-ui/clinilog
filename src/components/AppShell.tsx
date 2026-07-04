@@ -65,7 +65,7 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
               className="whitespace-nowrap"
               style={{ color: "#000000", fontWeight: 900, fontSize: "1rem", textTransform: "uppercase", letterSpacing: "-0.01em" }}
             >
-              CliniLog
+              ClinicLog
             </span>
             <span className="beta-pill">BETA</span>
           </Link>

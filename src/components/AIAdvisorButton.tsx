@@ -94,7 +94,7 @@ export default function AIAdvisorButton() {
       if (messages.length === 0) {
         setMessages([{
           role: "assistant",
-          content: "Hi! I'm your AI pre-med advisor. I can see your CliniLog profile and logged hours. What questions do you have about your medical school journey?",
+          content: "Hi! I'm your AI pre-med advisor. I can see your ClinicLog profile and logged hours. What questions do you have about your medical school journey?",
         }]);
       }
       setTimeout(() => inputRef.current?.focus(), 300);

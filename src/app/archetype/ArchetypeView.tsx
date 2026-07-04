@@ -188,10 +188,10 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
     }
     if (line) ctx.fillText(line.trim(), w / 2, y);
 
-    // CliniLog brand
+    // ClinicLog brand
     ctx.fillStyle = "rgba(0,0,0,0.4)";
     ctx.font = "bold 24px -apple-system, system-ui, sans-serif";
-    ctx.fillText("CliniLog · Your Pre-Med Journey, Organized", w / 2, h - 50);
+    ctx.fillText("ClinicLog · Your Pre-Med Journey, Organized", w / 2, h - 50);
 
     // Download
     canvas.toBlob((blob) => {

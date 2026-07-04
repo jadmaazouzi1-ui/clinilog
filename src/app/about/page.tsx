@@ -7,7 +7,7 @@ export default function AboutPage() {
       <header className="relative z-20 px-6 py-4" style={{ borderBottom: "2px solid #000000" }}>
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 hover:opacity-90 transition-opacity">
-            <span className="text-xl" style={{ color: "#000000", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.02em" }}>CliniLog</span>
+            <span className="text-xl" style={{ color: "#000000", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.02em" }}>ClinicLog</span>
             <span className="beta-pill">BETA</span>
           </Link>
           <div className="flex items-center gap-4">
@@ -27,7 +27,7 @@ export default function AboutPage() {
       <section className="px-6 py-24 sm:py-32">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-[11px] mono uppercase tracking-[0.22em] mb-5" style={{ color: "#000000" }}>
-            About CliniLog
+            About ClinicLog
           </p>
           <h1 className="text-3xl sm:text-5xl font-medium leading-tight tracking-tight" style={{ color: "#000000" }}>
             The pre-med journey deserves <span style={{ color: "#000000" }}>better tools</span>.
@@ -40,7 +40,7 @@ export default function AboutPage() {
         <div className="max-w-3xl mx-auto">
           <p className="dept-header">— Our Story</p>
           <p className="text-lg leading-relaxed" style={{ color: "rgba(0,0,0,0.8)" }}>
-            CliniLog started from a simple observation — pre-med students, especially those navigating
+            ClinicLog started from a simple observation — pre-med students, especially those navigating
             without guidance, spend more time figuring out the system than actually building their experience.
             We built the tool to change that. A place to track every hour, understand your strengths,
             find the right schools, and build a narrative that reflects who you actually are.
@@ -79,7 +79,7 @@ export default function AboutPage() {
               {
                 num: "02",
                 title: "Clarity",
-                desc: "Your hours and experiences deserve more than a spreadsheet. CliniLog turns scattered data into a clear narrative.",
+                desc: "Your hours and experiences deserve more than a spreadsheet. ClinicLog turns scattered data into a clear narrative.",
                 iconPath: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z",
               },
               {
@@ -150,7 +150,7 @@ export default function AboutPage() {
       >
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs" style={{ color: "rgba(0,0,0,0.4)" }}>
-            &copy; {new Date().getFullYear()} CliniLog. The all-in-one pre-med toolkit.
+            &copy; {new Date().getFullYear()} ClinicLog. The all-in-one pre-med toolkit.
           </p>
           <div className="flex items-center gap-5">
             <Link href="/about" className="text-xs" style={{ color: "rgba(0,0,0,0.6)" }}>About</Link>

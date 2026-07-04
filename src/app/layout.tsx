@@ -13,7 +13,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CliniLog: Your Pre-Med Journey, Organized",
+  title: "ClinicLog — Your Pre-Med Journey, Organized",
   description:
     "Track your clinical hours, explore 150+ medical schools, and build your path to medicine in one free tool.",
 };
