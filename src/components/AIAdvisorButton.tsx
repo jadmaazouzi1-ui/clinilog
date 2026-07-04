@@ -44,6 +44,7 @@ export default function AIAdvisorButton() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [remaining, setRemaining] = useState<number | null>(null);
   const [userCtx, setUserCtx] = useState<string>("");
   const [ctxLoaded, setCtxLoaded] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -121,7 +122,7 @@ export default function AIAdvisorButton() {
         body: JSON.stringify({ messages: newMessages, userContext: userCtx }),
       });
       const raw = await res.text();
-      let data: { reply?: string; error?: string } = {};
+      let data: { reply?: string; error?: string; remaining?: number } = {};
       try {
         data = JSON.parse(raw);
       } catch {
@@ -129,6 +130,8 @@ export default function AIAdvisorButton() {
         setMessages(prev => [...prev, { role: "assistant", content: `Server returned non-JSON (status ${res.status}): ${snippet || "empty body"}` }]);
         return;
       }
+      if (typeof data.remaining === "number") setRemaining(data.remaining);
+      if (res.status === 429) setRemaining(0);
       if (data.reply) {
         setMessages(prev => [...prev, { role: "assistant", content: data.reply! }]);
       } else {
@@ -192,7 +195,9 @@ export default function AIAdvisorButton() {
         >
           <div className="flex-1 min-w-0">
             <p className="text-sm" style={{ color: "#000000", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.02em" }}>AI Pre-Med Advisor</p>
-            <p className="text-xs mono" style={{ color: "rgba(0,0,0,0.45)", letterSpacing: "0.08em" }}>POWERED BY GEMINI · KNOWS YOUR PROFILE</p>
+            <p className="text-xs mono" style={{ color: "rgba(0,0,0,0.45)", letterSpacing: "0.08em" }}>
+              {remaining !== null ? `${remaining} OF 20 MESSAGES LEFT TODAY` : "POWERED BY GEMINI · KNOWS YOUR PROFILE"}
+            </p>
           </div>
           <button
             onClick={() => setOpen(false)}

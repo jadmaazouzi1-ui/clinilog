@@ -1,6 +1,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { checkUserRateLimit } from "@/lib/rateLimit";
 import { ARCHETYPES, ArchetypeAnalysis } from "@/lib/archetypes";
 import { formatHours } from "@/lib/types";
 
@@ -13,6 +14,14 @@ export async function POST() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const limit = await checkUserRateLimit(supabase, "archetype");
+  if (!limit.allowed) {
+    return NextResponse.json(
+      { error: "Daily archetype limit reached (3/day). Come back tomorrow." },
+      { status: 429 }
+    );
+  }
 
   // Pull profile + experiences
   const [profileRes, expRes] = await Promise.all([

@@ -4,6 +4,7 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
+import { sanitizeText, sanitizeOptional, parseHours, CAPS } from "@/lib/sanitize";
 
 export async function saveOnboardingProfile(data: {
   fullName: string;
@@ -14,12 +15,13 @@ export async function saveOnboardingProfile(data: {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return;
+  const gradYear = data.gradYear ? parseInt(data.gradYear) : null;
   await supabase.from("profiles").upsert({
     id: user.id,
-    full_name: data.fullName || null,
-    undergraduate_school: data.school || null,
-    graduation_year: data.gradYear ? parseInt(data.gradYear) : null,
-    intended_specialty: data.specialty || null,
+    full_name: sanitizeOptional(data.fullName, 100),
+    undergraduate_school: sanitizeOptional(data.school, 100),
+    graduation_year: gradYear !== null && gradYear >= 2000 && gradYear <= 2100 ? gradYear : null,
+    intended_specialty: sanitizeOptional(data.specialty, 100),
   });
 }
 
@@ -33,16 +35,18 @@ export async function saveOnboardingExperience(data: {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return;
-  const hours = parseFloat(data.hours);
-  if (!data.title || !data.organization || !data.type || isNaN(hours)) return;
+  const hours = parseHours(data.hours);
+  const title = sanitizeText(data.title, CAPS.title);
+  const organization = sanitizeText(data.organization, CAPS.organization);
+  if (!title || !organization || !data.type || hours === null) return;
   await supabase.from("experiences").insert({
     user_id: user.id,
-    title: data.title,
-    organization: data.organization,
+    title,
+    organization,
     type: data.type,
     hours,
     start_date: new Date().toISOString().split("T")[0],
-    description: data.description || "",
+    description: sanitizeText(data.description, CAPS.description),
   });
   revalidatePath("/dashboard");
 }

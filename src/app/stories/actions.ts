@@ -18,13 +18,14 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
+import { sanitizeText, CAPS } from "@/lib/sanitize";
 
 export async function submitStory(formData: FormData) {
-  const name = (formData.get("name") as string)?.trim();
-  const undergrad_school = (formData.get("undergrad_school") as string)?.trim();
-  const medical_school = (formData.get("medical_school") as string)?.trim();
-  const background = (formData.get("background") as string)?.trim();
-  const quote = (formData.get("quote") as string)?.trim();
+  const name = sanitizeText(formData.get("name"), 100);
+  const undergrad_school = sanitizeText(formData.get("undergrad_school"), 100);
+  const medical_school = sanitizeText(formData.get("medical_school"), 100);
+  const background = sanitizeText(formData.get("background"), CAPS.generic);
+  const quote = sanitizeText(formData.get("quote"), CAPS.generic);
 
   if (!name || !medical_school || !background || !quote) {
     redirect("/stories?error=Please+fill+in+all+required+fields");

@@ -1,10 +1,26 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextRequest, NextResponse } from "next/server";
+import { createClient } from "@/lib/supabase/server";
+import { checkUserRateLimit } from "@/lib/rateLimit";
 
 export async function POST(req: NextRequest) {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
     return NextResponse.json({ error: "AI advisor is not configured." }, { status: 503 });
+  }
+
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const limit = await checkUserRateLimit(supabase, "advisor");
+  if (!limit.allowed) {
+    return NextResponse.json(
+      { error: "Daily AI limit reached. Come back tomorrow.", remaining: 0 },
+      { status: 429 }
+    );
   }
 
   const { messages, userContext } = await req.json();
@@ -47,7 +63,7 @@ Always address the student directly and warmly. You are their advocate.`;
     const result = await chat.sendMessage(lastMessage);
     const text = result.response.text();
 
-    return NextResponse.json({ reply: text });
+    return NextResponse.json({ reply: text, remaining: limit.remaining });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Unknown error";
     console.error("[/api/advisor] Gemini call failed:", message);

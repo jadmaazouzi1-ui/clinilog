@@ -1,6 +1,8 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import { headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
+import { checkAuthRateLimit, clientIpFrom } from "@/lib/rateLimit";
 
 export default async function SignupPage({
   searchParams,
@@ -23,6 +25,12 @@ export default async function SignupPage({
     const password = formData.get("password") as string;
 
     const supabase = await createClient();
+
+    const ip = clientIpFrom(await headers());
+    const limit = await checkAuthRateLimit(supabase, `ip:${ip}`, "signup", 5, 3600);
+    if (!limit.allowed) {
+      redirect(`/auth/signup?error=${encodeURIComponent("Too many signup attempts. Please try again later.")}`);
+    }
 
     const { error } = await supabase.auth.signUp({
       email,

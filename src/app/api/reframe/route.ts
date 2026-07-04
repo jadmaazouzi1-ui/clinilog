@@ -1,10 +1,26 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextRequest, NextResponse } from "next/server";
+import { createClient } from "@/lib/supabase/server";
+import { checkUserRateLimit } from "@/lib/rateLimit";
 
 export async function POST(req: NextRequest) {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
     return NextResponse.json({ error: "AI reframe is not configured." }, { status: 503 });
+  }
+
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const limit = await checkUserRateLimit(supabase, "reframe");
+  if (!limit.allowed) {
+    return NextResponse.json(
+      { error: "Daily reframe limit reached (10/day). Come back tomorrow." },
+      { status: 429 }
+    );
   }
 
   const { description } = await req.json();

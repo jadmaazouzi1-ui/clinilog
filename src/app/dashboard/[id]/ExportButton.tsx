@@ -1,6 +1,7 @@
 "use client";
 
 import { Experience, ExperienceType, formatHours } from "@/lib/types";
+import { recordPdfExport } from "../export-actions";
 
 const TYPE_LABELS: Record<ExperienceType, string> = {
   shadowing: "Shadowing",
@@ -25,6 +26,11 @@ interface ExportButtonProps {
 
 export default function ExportButton({ experience }: ExportButtonProps) {
   const handleExport = async () => {
+    const gate = await recordPdfExport();
+    if (!gate.allowed) {
+      alert(gate.error ?? "Export limit reached.");
+      return;
+    }
     const { jsPDF } = await import("jspdf");
     const doc = new jsPDF({ unit: "pt", format: "letter" });
 

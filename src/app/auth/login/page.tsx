@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
+import { checkAuthRateLimit, clientIpFrom } from "@/lib/rateLimit";
 
 export default async function LoginPage({
   searchParams,
@@ -23,6 +24,13 @@ export default async function LoginPage({
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
     const supabase = await createClient();
+
+    const ip = clientIpFrom(await headers());
+    const limit = await checkAuthRateLimit(supabase, `ip:${ip}`, "login", 10, 3600);
+    if (!limit.allowed) {
+      redirect(`/auth/login?error=${encodeURIComponent("Too many login attempts. Please try again in an hour.")}`);
+    }
+
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
       redirect(`/auth/login?error=${encodeURIComponent(error.message)}`);
@@ -32,8 +40,14 @@ export default async function LoginPage({
 
   async function forgotPassword(formData: FormData) {
     "use server";
-    const email = formData.get("email") as string;
+    const email = ((formData.get("email") as string) || "").trim().toLowerCase();
     const supabase = await createClient();
+
+    const emailLimit = await checkAuthRateLimit(supabase, `email:${email}`, "forgot_password", 3, 3600);
+    if (!emailLimit.allowed) {
+      redirect(`/auth/login?view=forgot&error=${encodeURIComponent("Password reset already sent. Check your email or try again later.")}`);
+    }
+
     const headersList = await headers();
     const host = headersList.get("host") ?? "";
     const proto = headersList.get("x-forwarded-proto") ?? "https";

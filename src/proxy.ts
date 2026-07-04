@@ -34,10 +34,26 @@ export async function proxy(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // Redirect unauthenticated users away from /dashboard
-  if (!user && request.nextUrl.pathname.startsWith("/dashboard")) {
+  const PROTECTED_PREFIXES = [
+    "/dashboard", "/schools", "/archetype", "/profile", "/resources",
+    "/stories", "/specialties", "/gapyear", "/postbacc", "/fee-tracker",
+    "/import",
+  ];
+  const path = request.nextUrl.pathname;
+  const isProtected = PROTECTED_PREFIXES.some((p) => path.startsWith(p));
+
+  // Unauthenticated users cannot reach any protected route.
+  // (Each page also re-checks server-side — defense in depth.)
+  if (!user && isProtected) {
     const url = request.nextUrl.clone();
     url.pathname = "/auth/login";
+    return NextResponse.redirect(url);
+  }
+
+  // Email must be verified before using the app.
+  if (user && isProtected && !user.email_confirmed_at) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/auth/verify-email";
     return NextResponse.redirect(url);
   }
 
