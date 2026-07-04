@@ -1,17 +1,17 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 
-// Hardcoded production URL — guarantees sign-out always lands on the
-// canonical site even when the request comes from a Netlify preview
-// deployment (e.g. `deploy-preview-42--clinilogmd.netlify.app`).
-const PRODUCTION_URL = "https://clinilogmd.netlify.app";
+// Hardcoded canonical domain — guarantees sign-out always lands on the
+// custom domain, never a Netlify/preview URL or localhost.
+const PRODUCTION_URL = "https://cliniclogmd.com";
 
 export async function POST() {
   const supabase = await createClient();
-  // Pass an explicit redirectTo so Supabase doesn't fall back to the
-  // current window/request origin (which would be the preview URL).
   await supabase.auth.signOut();
 
+  // Explicit absolute redirect so the browser leaves whatever host the
+  // request came from (Netlify subdomain, deploy preview, localhost)
+  // and lands on the canonical custom domain.
   return NextResponse.redirect(`${PRODUCTION_URL}/`, {
     status: 303,
     headers: {
