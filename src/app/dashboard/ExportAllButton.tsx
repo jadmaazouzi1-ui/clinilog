@@ -112,7 +112,7 @@ export default function ExportAllButton({ experiences }: ExportAllButtonProps) {
       // Date range + hours
       doc.setFontSize(10);
       doc.setTextColor(75, 85, 99);
-      const dateRange = `${formatDate(experience.start_date)} — ${
+      const dateRange = `${formatDate(experience.start_date)} - ${
         experience.end_date ? formatDate(experience.end_date) : "Present"
       }`;
       doc.text(dateRange, margin, y);

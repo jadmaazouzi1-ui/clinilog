@@ -42,7 +42,7 @@ export default function ExportButton({ experience }: ExportButtonProps) {
     // Header
     doc.setFont("helvetica", "bold");
     doc.setFontSize(16);
-    doc.text("ClinicLog — Clinical Experience Record", margin, y);
+    doc.text("ClinicLog - Clinical Experience Record", margin, y);
     y += 6;
 
     // Header underline
@@ -73,7 +73,7 @@ export default function ExportButton({ experience }: ExportButtonProps) {
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
     doc.setTextColor(75, 85, 99); // gray-600
-    const dateRange = `${formatDate(experience.start_date)} — ${
+    const dateRange = `${formatDate(experience.start_date)} - ${
       experience.end_date ? formatDate(experience.end_date) : "Present"
     }`;
     doc.text(dateRange, margin, y);

@@ -247,7 +247,7 @@ export default async function DashboardPage({
           </div>
         ) : (
           <>
-          <p className="dept-header">— Recent Experiences</p>
+          <p className="dept-header">Recent Experiences</p>
           <div className="space-y-4">
             {experienceList.map((experience) => (
               <div

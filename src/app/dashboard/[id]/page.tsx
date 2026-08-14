@@ -173,8 +173,8 @@ export default async function ExperienceDetailPage({
               <span>
                 {formatDate(exp.start_date)}
                 {exp.end_date
-                  ? ` — ${formatDate(exp.end_date)}`
-                  : " — Present"}
+                  ? ` - ${formatDate(exp.end_date)}`
+                  : " - Present"}
               </span>
             </div>
             <div className="flex items-center gap-1.5">

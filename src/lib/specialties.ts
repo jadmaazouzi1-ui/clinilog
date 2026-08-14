@@ -21,11 +21,11 @@ export interface Specialty {
 
 export const SPECIALTIES: Specialty[] = [
   { id: "internal_medicine", name: "Internal Medicine", icon: "stethoscope", competitiveness: 2, salaryMin: 230000, salaryMax: 290000, lifestyle: 3, residencyYears: 3,
-    summary: "The intellectual workhorse of adult medicine — diagnosing complex multi-system illness in hospitalized or outpatient adults. The most common gateway to subspecialty fellowships like cardiology, GI, and oncology.",
+    summary: "The intellectual workhorse of adult medicine - diagnosing complex multi-system illness in hospitalized or outpatient adults. The most common gateway to subspecialty fellowships like cardiology, GI, and oncology.",
     topSchools: ["Johns Hopkins School of Medicine", "Harvard Medical School", "Duke University School of Medicine", "UCSF School of Medicine"], patientContact: "High" },
 
   { id: "family_medicine", name: "Family Medicine", icon: "heart", competitiveness: 1, salaryMin: 240000, salaryMax: 300000, lifestyle: 4, residencyYears: 3,
-    summary: "Lifelong care across every age and most conditions — the bedrock of primary care. High variety, strong patient relationships, and the most flexible practice settings.",
+    summary: "Lifelong care across every age and most conditions - the bedrock of primary care. High variety, strong patient relationships, and the most flexible practice settings.",
     topSchools: ["University of New Mexico School of Medicine", "Oregon Health & Science University", "University of Washington School of Medicine", "University of Minnesota Medical School"], patientContact: "High" },
 
   { id: "pediatrics", name: "Pediatrics", icon: "baby", competitiveness: 2, salaryMin: 220000, salaryMax: 270000, lifestyle: 3, residencyYears: 3,
@@ -41,11 +41,11 @@ export const SPECIALTIES: Specialty[] = [
     topSchools: ["UCSF School of Medicine", "Brigham & Women's (Harvard)", "Northwestern Feinberg School of Medicine", "University of Pennsylvania (Penn)"], patientContact: "High" },
 
   { id: "psychiatry", name: "Psychiatry", icon: "psyche", competitiveness: 2, salaryMin: 280000, salaryMax: 350000, lifestyle: 4, residencyYears: 4,
-    summary: "Diagnosis and treatment of mental illness through medication, psychotherapy, and crisis intervention. One of the most flexible specialties — strong telepsych and outpatient options.",
+    summary: "Diagnosis and treatment of mental illness through medication, psychotherapy, and crisis intervention. One of the most flexible specialties - strong telepsych and outpatient options.",
     topSchools: ["Yale School of Medicine", "Columbia Vagelos P&S", "University of Pittsburgh School of Medicine", "Icahn School of Medicine at Mount Sinai"], patientContact: "High" },
 
   { id: "emergency_medicine", name: "Emergency Medicine", icon: "shield", competitiveness: 2, salaryMin: 350000, salaryMax: 430000, lifestyle: 3, residencyYears: 3,
-    summary: "Front-line acute care — anything that walks through the ED doors. Shift-based schedule means good work-life separation but rotating nights, weekends, and holidays.",
+    summary: "Front-line acute care - anything that walks through the ED doors. Shift-based schedule means good work-life separation but rotating nights, weekends, and holidays.",
     topSchools: ["University of Cincinnati College of Medicine", "Denver Health (Univ. of Colorado)", "Brigham & Women's (Harvard)", "University of Pittsburgh School of Medicine"], patientContact: "High" },
 
   { id: "anesthesiology", name: "Anesthesiology", icon: "lung", competitiveness: 3, salaryMin: 400000, salaryMax: 500000, lifestyle: 3, residencyYears: 4,
@@ -57,7 +57,7 @@ export const SPECIALTIES: Specialty[] = [
     topSchools: ["University of Pennsylvania (Penn)", "Massachusetts General Hospital (Harvard)", "Mayo Clinic Alix School of Medicine", "Stanford School of Medicine"], patientContact: "Low" },
 
   { id: "pathology", name: "Pathology", icon: "atom", competitiveness: 2, salaryMin: 320000, salaryMax: 390000, lifestyle: 4, residencyYears: 4,
-    summary: "Diagnosis through tissue, blood, and molecular analysis — the 'doctor's doctor.' Excellent lifestyle and intellectual rigor with minimal patient contact.",
+    summary: "Diagnosis through tissue, blood, and molecular analysis - the 'doctor's doctor.' Excellent lifestyle and intellectual rigor with minimal patient contact.",
     topSchools: ["Johns Hopkins School of Medicine", "Massachusetts General Hospital (Harvard)", "University of Michigan Medical School", "Washington University School of Medicine"], patientContact: "Low" },
 
   { id: "dermatology", name: "Dermatology", icon: "shield", competitiveness: 5, salaryMin: 450000, salaryMax: 560000, lifestyle: 5, residencyYears: 4,
@@ -69,15 +69,15 @@ export const SPECIALTIES: Specialty[] = [
     topSchools: ["Hospital for Special Surgery (Weill Cornell)", "Mayo Clinic Alix School of Medicine", "Washington University School of Medicine", "Duke University School of Medicine"], patientContact: "High" },
 
   { id: "neurosurgery", name: "Neurosurgery", icon: "brain", competitiveness: 5, salaryMin: 700000, salaryMax: 900000, lifestyle: 1, residencyYears: 7,
-    summary: "Surgical care of the brain, spine, and peripheral nerves. The longest residency in medicine with the most demanding hours — but also the highest compensation.",
+    summary: "Surgical care of the brain, spine, and peripheral nerves. The longest residency in medicine with the most demanding hours - but also the highest compensation.",
     topSchools: ["Barrow Neurological Institute (Univ. of Arizona)", "Johns Hopkins School of Medicine", "UCSF School of Medicine", "Massachusetts General Hospital (Harvard)"], patientContact: "High" },
 
   { id: "cardiology", name: "Cardiology", icon: "heart", competitiveness: 4, salaryMin: 490000, salaryMax: 620000, lifestyle: 2, residencyYears: 6,
-    summary: "Adult heart disease management — clinic, hospital, cath lab, or electrophysiology. Requires IM residency plus 3-year fellowship; procedural subspecialties pay highest.",
+    summary: "Adult heart disease management - clinic, hospital, cath lab, or electrophysiology. Requires IM residency plus 3-year fellowship; procedural subspecialties pay highest.",
     topSchools: ["Cleveland Clinic Lerner College of Medicine", "Mayo Clinic Alix School of Medicine", "Johns Hopkins School of Medicine", "Brigham & Women's (Harvard)"], patientContact: "High" },
 
   { id: "oncology", name: "Hematology / Oncology", icon: "atom", competitiveness: 3, salaryMin: 410000, salaryMax: 520000, lifestyle: 3, residencyYears: 6,
-    summary: "Care of cancer and blood disorders — emotionally intense but deeply meaningful. Requires IM residency plus 3-year fellowship; both academic and community paths viable.",
+    summary: "Care of cancer and blood disorders - emotionally intense but deeply meaningful. Requires IM residency plus 3-year fellowship; both academic and community paths viable.",
     topSchools: ["MD Anderson (Univ. of Texas)", "Memorial Sloan Kettering (Weill Cornell)", "Dana-Farber (Harvard)", "Johns Hopkins School of Medicine"], patientContact: "High" },
 
   { id: "neurology", name: "Neurology", icon: "brain", competitiveness: 2, salaryMin: 290000, salaryMax: 360000, lifestyle: 3, residencyYears: 4,
@@ -85,11 +85,11 @@ export const SPECIALTIES: Specialty[] = [
     topSchools: ["Massachusetts General Hospital (Harvard)", "Johns Hopkins School of Medicine", "UCSF School of Medicine", "Columbia Vagelos P&S"], patientContact: "High" },
 
   { id: "ophthalmology", name: "Ophthalmology", icon: "eye", competitiveness: 5, salaryMin: 410000, salaryMax: 520000, lifestyle: 4, residencyYears: 4,
-    summary: "Medical and surgical care of the eye. High procedural variety, strong income, and excellent lifestyle — making it one of the most competitive matches in medicine.",
+    summary: "Medical and surgical care of the eye. High procedural variety, strong income, and excellent lifestyle - making it one of the most competitive matches in medicine.",
     topSchools: ["Wilmer Eye Institute (Johns Hopkins)", "Bascom Palmer (Univ. of Miami)", "Wills Eye Hospital (Thomas Jefferson)", "Massachusetts Eye and Ear (Harvard)"], patientContact: "High" },
 
   { id: "plastic_surgery", name: "Plastic Surgery", icon: "scalpel", competitiveness: 5, salaryMin: 540000, salaryMax: 680000, lifestyle: 2, residencyYears: 6,
-    summary: "Reconstructive and aesthetic surgery — burns, trauma, microsurgery, and cosmetic procedures. Six-year integrated residency and a fiercely competitive match.",
+    summary: "Reconstructive and aesthetic surgery - burns, trauma, microsurgery, and cosmetic procedures. Six-year integrated residency and a fiercely competitive match.",
     topSchools: ["NYU Grossman School of Medicine", "University of Pennsylvania (Penn)", "Johns Hopkins School of Medicine", "Northwestern Feinberg School of Medicine"], patientContact: "High" },
 
   { id: "urology", name: "Urology", icon: "kidney", competitiveness: 5, salaryMin: 480000, salaryMax: 590000, lifestyle: 3, residencyYears: 5,
@@ -97,7 +97,7 @@ export const SPECIALTIES: Specialty[] = [
     topSchools: ["UCSF School of Medicine", "Mayo Clinic Alix School of Medicine", "Vanderbilt University School of Medicine", "Cleveland Clinic Lerner College of Medicine"], patientContact: "High" },
 
   { id: "ent", name: "Otolaryngology (ENT)", icon: "shield", competitiveness: 5, salaryMin: 470000, salaryMax: 580000, lifestyle: 3, residencyYears: 5,
-    summary: "Head and neck surgery — ear, sinus, throat, thyroid, and oncologic resection. Highly competitive with diverse subspecialty options and strong outpatient lifestyle.",
+    summary: "Head and neck surgery - ear, sinus, throat, thyroid, and oncologic resection. Highly competitive with diverse subspecialty options and strong outpatient lifestyle.",
     topSchools: ["University of Iowa Carver COM", "Johns Hopkins School of Medicine", "Stanford School of Medicine", "Massachusetts Eye and Ear (Harvard)"], patientContact: "High" },
 
   { id: "pmr", name: "Physical Medicine & Rehab", icon: "bone", competitiveness: 2, salaryMin: 280000, salaryMax: 340000, lifestyle: 4, residencyYears: 4,
@@ -129,7 +129,7 @@ export const SPECIALTIES: Specialty[] = [
     topSchools: ["Mount Sinai Geriatrics (Icahn SOM)", "Johns Hopkins School of Medicine", "Duke University School of Medicine", "UCSF School of Medicine"], patientContact: "High" },
 
   { id: "sleep_medicine", name: "Sleep Medicine", icon: "psyche", competitiveness: 2, salaryMin: 260000, salaryMax: 320000, lifestyle: 5, residencyYears: 4,
-    summary: "Diagnosis and treatment of sleep disorders — most commonly entered after pulmonary, neurology, or psychiatry training. Excellent lifestyle with predictable hours.",
+    summary: "Diagnosis and treatment of sleep disorders - most commonly entered after pulmonary, neurology, or psychiatry training. Excellent lifestyle with predictable hours.",
     topSchools: ["Stanford Center for Sleep Sciences", "Brigham & Women's (Harvard)", "Mayo Clinic Alix School of Medicine", "University of Pennsylvania (Penn)"], patientContact: "High" },
 
   { id: "palliative", name: "Palliative Care", icon: "heart", competitiveness: 1, salaryMin: 230000, salaryMax: 290000, lifestyle: 3, residencyYears: 4,
@@ -137,7 +137,7 @@ export const SPECIALTIES: Specialty[] = [
     topSchools: ["Mount Sinai Palliative Care (Icahn SOM)", "Massachusetts General Hospital (Harvard)", "Cleveland Clinic Lerner College of Medicine", "UCSF School of Medicine"], patientContact: "High" },
 
   { id: "pediatric_surgery", name: "Pediatric Surgery", icon: "baby", competitiveness: 5, salaryMin: 460000, salaryMax: 580000, lifestyle: 1, residencyYears: 7,
-    summary: "Surgical care of newborns, infants, and children — congenital defects, oncologic, and trauma. Requires general surgery residency plus 2-year fellowship; one of the most competitive fellowships in medicine.",
+    summary: "Surgical care of newborns, infants, and children - congenital defects, oncologic, and trauma. Requires general surgery residency plus 2-year fellowship; one of the most competitive fellowships in medicine.",
     topSchools: ["Boston Children's (Harvard)", "CHOP (Penn)", "Texas Children's (Baylor)", "Cincinnati Children's (Univ. of Cincinnati COM)"], patientContact: "High" },
 ];
 

@@ -49,7 +49,7 @@ export default function HoursBreakdown({
     <div
       className="glass-card rounded-2xl p-6 mb-8"
     >
-      <p className="dept-header mb-6">— Hours Breakdown</p>
+      <p className="dept-header mb-6">Hours Breakdown</p>
 
       <div className="flex flex-col sm:flex-row items-center gap-8">
         {/* Donut chart */}

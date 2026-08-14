@@ -38,9 +38,9 @@ export default function AboutPage() {
       {/* ── Story ── */}
       <section className="px-6 pb-20">
         <div className="max-w-3xl mx-auto">
-          <p className="dept-header">— Our Story</p>
+          <p className="dept-header">Our Story</p>
           <p className="text-lg leading-relaxed" style={{ color: "rgba(0,0,0,0.8)" }}>
-            ClinicLog started from a simple observation — pre-med students, especially those navigating
+            ClinicLog started from a simple observation - pre-med students, especially those navigating
             without guidance, spend more time figuring out the system than actually building their experience.
             We built the tool to change that. A place to track every hour, understand your strengths,
             find the right schools, and build a narrative that reflects who you actually are.
@@ -51,13 +51,13 @@ export default function AboutPage() {
       {/* ── Mission ── */}
       <section className="px-6 pb-20">
         <div className="max-w-3xl mx-auto">
-          <p className="dept-header">— Our Mission</p>
+          <p className="dept-header">Our Mission</p>
           <div
             className="rounded-lg p-8"
             style={{ backgroundColor: "#FFFFFF", border: "2px solid #000000" }}
           >
             <p className="text-xl leading-relaxed" style={{ color: "#000000" }}>
-              Make the pre-med journey more organized, more accessible, and less intimidating —
+              Make the pre-med journey more organized, more accessible, and less intimidating -
               <span style={{ color: "#000000" }}> for every student, regardless of background.</span>
             </p>
           </div>
@@ -67,7 +67,7 @@ export default function AboutPage() {
       {/* ── Values ── */}
       <section className="px-6 pb-20">
         <div className="max-w-5xl mx-auto">
-          <p className="dept-header">— What We Believe</p>
+          <p className="dept-header">What We Believe</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-2">
             {[
               {

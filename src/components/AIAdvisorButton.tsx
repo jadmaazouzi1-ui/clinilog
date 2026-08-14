@@ -106,6 +106,16 @@ export default function AIAdvisorButton() {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  // Opened from the mobile Tools modal, which has no route to link to for
+  // "AI Advisor" since it's this floating widget rather than a page.
+  useEffect(() => {
+    function handleExternalOpen() {
+      setOpen(true);
+    }
+    window.addEventListener("cliniclog:open-advisor", handleExternalOpen);
+    return () => window.removeEventListener("cliniclog:open-advisor", handleExternalOpen);
+  }, []);
+
   async function sendMessage() {
     const text = input.trim();
     if (!text || loading) return;
@@ -154,11 +164,15 @@ export default function AIAdvisorButton() {
 
   return (
     <>
-      {/* Floating button */}
+      {/* Floating button. On mobile it sits above the 64px bottom tab bar
+          (plus the iPhone safe-area inset) so it never overlaps or blocks
+          taps on the tabs underneath it - that overlap was the root cause
+          of the bottom nav being untappable. Desktop keeps its original
+          bottom-6 position since there's no bottom nav there. */}
       <button
         onClick={() => setOpen(true)}
         aria-label="Open AI advisor"
-        className="fixed bottom-6 right-6 z-40 w-12 h-12 flex items-center justify-center transition-opacity hover:opacity-80"
+        className="fixed right-6 z-40 w-12 h-12 flex items-center justify-center transition-opacity hover:opacity-80 bottom-[calc(64px+env(safe-area-inset-bottom)+16px)] md:bottom-6"
         style={{
           backgroundColor: "#000000",
           borderRadius: 0,

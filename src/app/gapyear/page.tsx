@@ -25,7 +25,7 @@ export default async function GapYearPage() {
         <div className="mb-8">
           <h1 className="text-2xl font-bold mb-2" style={{ color: "#000000" }}>Gap Year Planner</h1>
           <p className="text-sm" style={{ color: "rgba(0,0,0,0.6)" }}>
-            Plan, track, and stay accountable through your gap year — all in one place.
+            Plan, track, and stay accountable through your gap year - all in one place.
           </p>
         </div>
         <GapYearView initial={initial} />

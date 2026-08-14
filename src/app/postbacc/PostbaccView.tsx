@@ -201,7 +201,7 @@ export default function PostbaccView({
                 {initialCourses.map((c) => (
                   <tr key={c.id} style={{ borderBottom: "2px solid #000000" }}>
                     <td className="px-2 py-3" style={{ color: "#000000" }}>{c.name}</td>
-                    <td className="px-2 py-3" style={{ color: "rgba(0,0,0,0.65)" }}>{c.semester || "—"}</td>
+                    <td className="px-2 py-3" style={{ color: "rgba(0,0,0,0.65)" }}>{c.semester || "-"}</td>
                     <td className="px-2 py-3 text-right" style={{ color: "rgba(0,0,0,0.85)" }}>{c.credits}</td>
                     <td className="px-2 py-3 text-center">
                       <span className="inline-flex items-center justify-center w-9 px-2 py-0.5 rounded-md text-xs font-bold" style={{ background: "#FFFFFF", color: "#000000", border: "2px solid #000000" }}>
@@ -214,7 +214,7 @@ export default function PostbaccView({
                           <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                         </svg>
                       ) : (
-                        <span style={{ color: "rgba(0,0,0,0.45)" }}>—</span>
+                        <span style={{ color: "rgba(0,0,0,0.45)" }}>-</span>
                       )}
                     </td>
                     <td className="px-2 py-3 text-right">

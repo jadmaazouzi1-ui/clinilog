@@ -17,7 +17,7 @@ export default function AMCASTracker({ experiences }: { experiences: Experience[
 
   return (
     <div className="glass-card rounded-2xl p-6 mb-8">
-      <p className="dept-header">— AMCAS Hours Tracker</p>
+      <p className="dept-header">AMCAS Hours Tracker</p>
 
       <div className="space-y-5 mt-4">
         {TARGETS.map(({ type, label, min }) => {

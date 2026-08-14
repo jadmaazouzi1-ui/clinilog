@@ -136,7 +136,7 @@ function rowsFromCsv(matrix: string[][]): ParsedRow[] {
     if (!organization) errors.push("Missing organization");
 
     const type = CATEGORY_MAP[catText];
-    if (!type) errors.push(`Invalid category "${get(catCol)}" — use one of: Clinical Work, Shadowing, Research, Volunteering, Other`);
+    if (!type) errors.push(`Invalid category "${get(catCol)}" - use one of: Clinical Work, Shadowing, Research, Volunteering, Other`);
 
     const start_date = normalizeDate(startRaw);
     if (!start_date) errors.push("Invalid or missing start date");
@@ -262,7 +262,7 @@ export default function ImportView() {
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div className="flex-1 min-w-0">
             <h2 className="text-sm font-semibold mb-1" style={{ color: "#000000" }}>
-              Step 1 — Download the template
+              Step 1 - Download the template
             </h2>
             <p className="text-xs leading-relaxed" style={{ color: "rgba(0,0,0,0.55)" }}>
               Fill it in with your experiences, then upload below. Columns: Experience Name,
@@ -286,7 +286,7 @@ export default function ImportView() {
       {!rows && (
         <div className="glass-card rounded-2xl p-6">
           <h2 className="text-sm font-semibold mb-3" style={{ color: "#000000" }}>
-            Step 2 — Upload your CSV
+            Step 2 - Upload your CSV
           </h2>
           <div
             onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
@@ -359,7 +359,7 @@ export default function ImportView() {
           <div className="flex items-center justify-between gap-3 flex-wrap mb-4">
             <div>
               <h2 className="text-sm font-semibold mb-1" style={{ color: "#000000" }}>
-                Step 3 — Review and confirm
+                Step 3 - Review and confirm
               </h2>
               <p className="text-xs" style={{ color: "rgba(0,0,0,0.55)" }}>
                 {fileName} · <span style={{ color: "#000000" }}>{validCount} selected</span>
@@ -419,7 +419,7 @@ export default function ImportView() {
                       </td>
                       <td className="px-2 py-3 align-top">
                         <p className="font-medium" style={{ color: hasError ? "rgba(0,0,0,0.85)" : "#000000" }}>
-                          {r.row?.title || r.raw[0] || "—"}
+                          {r.row?.title || r.raw[0] || "-"}
                         </p>
                         {hasError && (
                           <ul className="mt-1 space-y-0.5">
@@ -430,7 +430,7 @@ export default function ImportView() {
                         )}
                       </td>
                       <td className="px-2 py-3 align-top text-xs" style={{ color: "rgba(0,0,0,0.7)" }}>
-                        {r.row?.organization || r.raw[1] || "—"}
+                        {r.row?.organization || r.raw[1] || "-"}
                       </td>
                       <td className="px-2 py-3 align-top">
                         {r.row?.type ? (
@@ -445,16 +445,16 @@ export default function ImportView() {
                             {CATEGORY_LABELS[r.row.type]}
                           </span>
                         ) : (
-                          <span className="text-xs" style={{ color: "rgba(0,0,0,0.7)" }}>—</span>
+                          <span className="text-xs" style={{ color: "rgba(0,0,0,0.7)" }}>-</span>
                         )}
                       </td>
                       <td className="px-2 py-3 align-top text-xs whitespace-nowrap" style={{ color: "rgba(0,0,0,0.65)" }}>
-                        {r.row?.start_date || "—"}
+                        {r.row?.start_date || "-"}
                         {r.row?.end_date && <> → {r.row.end_date}</>}
                         {r.row?.start_date && !r.row?.end_date && <> → Present</>}
                       </td>
                       <td className="px-2 py-3 align-top text-right font-semibold text-xs whitespace-nowrap" style={{ color: "#000000" }}>
-                        {r.row ? formatHours(r.row.hours) : "—"}
+                        {r.row ? formatHours(r.row.hours) : "-"}
                       </td>
                     </tr>
                   );

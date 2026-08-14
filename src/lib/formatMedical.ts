@@ -2,7 +2,7 @@
 
 /** Convert a YYYY-MM-DD string or Date to medical chart format: "2026.02.04". */
 export function formatMedicalDate(input: string | Date | null | undefined): string {
-  if (!input) return "—";
+  if (!input) return "-";
   let d: Date;
   if (typeof input === "string") {
     // Accept YYYY-MM-DD directly (avoids tz off-by-one)
@@ -14,13 +14,13 @@ export function formatMedicalDate(input: string | Date | null | undefined): stri
   } else {
     d = input;
   }
-  if (Number.isNaN(d.getTime())) return "—";
+  if (Number.isNaN(d.getTime())) return "-";
   return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}.${String(d.getDate()).padStart(2, "0")}`;
 }
 
 /** Full timestamp: "2026.02.04 | 04:22" */
 export function formatMedicalTimestamp(input: string | Date | null | undefined): string {
-  if (!input) return "—";
+  if (!input) return "-";
   let d: Date;
   if (typeof input === "string") {
     if (/^\d{4}-\d{2}-\d{2}$/.test(input)) {
@@ -31,7 +31,7 @@ export function formatMedicalTimestamp(input: string | Date | null | undefined):
   } else {
     d = input;
   }
-  if (Number.isNaN(d.getTime())) return "—";
+  if (Number.isNaN(d.getTime())) return "-";
   const date = `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}.${String(d.getDate()).padStart(2, "0")}`;
   const time = `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
   return `${date} | ${time}`;

@@ -29,6 +29,6 @@ export function calcGpa(items: { credits: number; grade: string }[]): number | n
 }
 
 export function formatGpa(value: number | null): string {
-  if (value === null) return "—";
+  if (value === null) return "-";
   return value.toFixed(2);
 }

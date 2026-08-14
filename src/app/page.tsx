@@ -127,7 +127,7 @@ export default async function HomePage() {
           .split-2col { grid-template-columns: 1fr; }
           .split-divider { display: none; }
           /* nav-center / nav-auth-desktop carry an inline display:flex style,
-             which beats a plain class rule — !important is required here. */
+             which beats a plain class rule - !important is required here. */
           .nav-center { display: none !important; }
           .nav-auth-desktop { display: none !important; }
           .ekg-label-left { display: none; }
@@ -235,12 +235,12 @@ export default async function HomePage() {
           <div className="split-2col" style={{ maxWidth: 1280, margin: "0 auto" }}>
             {/* Left */}
             <div style={{ padding: "4.5rem 3rem 4.5rem 1.5rem" }}>
-              <p style={{ fontFamily: MONO, fontSize: "11px", fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "1.5rem" }}>PRE-MED PLATFORM — 2026</p>
+              <p style={{ fontFamily: MONO, fontSize: "11px", fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "1.5rem" }}>PRE-MED PLATFORM - 2026</p>
               <h1 className="hero-headline" style={{ fontSize: "clamp(3rem, 7vw, 5.5rem)", fontWeight: 900, lineHeight: 0.95, letterSpacing: "-0.03em", textTransform: "uppercase", marginBottom: "2rem" }}>
                 Track.<br />Build.<br />Apply.
               </h1>
               <p style={{ fontSize: "0.9375rem", lineHeight: 1.6, color: "rgba(0,0,0,0.7)", marginBottom: "2.5rem", maxWidth: 420 }}>
-                Track clinical hours, discover your archetype, explore 149 medical schools, and build your path to medicine — completely free.
+                Track clinical hours, discover your archetype, explore 149 medical schools, and build your path to medicine - completely free.
               </p>
               <div className="hero-actions" style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
                 <Link href="/auth/signup" className="invert-btn hero-btn" style={{ fontSize: "0.875rem", padding: "0.875rem 1.75rem" }}>
@@ -273,7 +273,7 @@ export default async function HomePage() {
         {/* ── EKG bar — black heartbeat line on white ── */}
         <div style={{ borderBottom: "2px solid #000000", overflow: "hidden" }}>
           <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 1.5rem", display: "grid", gridTemplateColumns: "auto 1fr auto", alignItems: "center", gap: "2rem", height: 56 }}>
-            <span className="ekg-label-left" style={{ fontFamily: MONO, fontSize: "11px", fontWeight: 800, letterSpacing: "0.16em", textTransform: "uppercase", flexShrink: 0 }}>CLINICAL HOURS — REAL TIME</span>
+            <span className="ekg-label-left" style={{ fontFamily: MONO, fontSize: "11px", fontWeight: 800, letterSpacing: "0.16em", textTransform: "uppercase", flexShrink: 0 }}>CLINICAL HOURS - REAL TIME</span>
             <div style={{ overflow: "hidden", height: 40 }}>
               <div className="ekg-track">
                 {[0, 1].map(i => (
@@ -293,7 +293,7 @@ export default async function HomePage() {
           <div style={{ maxWidth: 1280, margin: "0 auto" }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1rem 1.5rem", borderBottom: "2px solid #000000" }}>
               <span style={{ fontFamily: MONO, fontSize: "11px", fontWeight: 800, letterSpacing: "0.16em", textTransform: "uppercase" }}>ALL TOOLS</span>
-              <span style={{ fontFamily: MONO, fontSize: "11px", fontWeight: 800, letterSpacing: "0.16em", textTransform: "uppercase" }}>12 INCLUDED — FREE</span>
+              <span style={{ fontFamily: MONO, fontSize: "11px", fontWeight: 800, letterSpacing: "0.16em", textTransform: "uppercase" }}>12 INCLUDED - FREE</span>
             </div>
             <div className="tools-grid">
               {TOOLS.map((t) => (
@@ -336,7 +336,7 @@ export default async function HomePage() {
             <div className="split-divider" style={{ backgroundColor: "#000000" }} />
             <div style={{ padding: "4rem 1.5rem 4rem 3rem", display: "flex", flexDirection: "column", justifyContent: "center", gap: "1.5rem" }}>
               <p style={{ fontSize: "0.9375rem", color: "rgba(0,0,0,0.7)", lineHeight: 1.6, maxWidth: 420 }}>
-                Every tool — hours tracking, 149 schools, AI archetype analysis, narrative building — free forever. No credit card required.
+                Every tool - hours tracking, 149 schools, AI archetype analysis, narrative building - free forever. No credit card required.
               </p>
               <Link href="/auth/signup" className="invert-btn" style={{ fontSize: "0.9375rem", padding: "1rem 2rem", alignSelf: "flex-start" }}>
                 Get started free
@@ -349,7 +349,7 @@ export default async function HomePage() {
         <footer style={{ padding: "1.25rem 1.5rem" }}>
           <div style={{ maxWidth: 1280, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "1rem" }}>
             <p style={{ fontFamily: MONO, fontSize: "10px", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase" }}>
-              © {new Date().getFullYear()} CLINICLOG — ALL RIGHTS RESERVED
+              © {new Date().getFullYear()} CLINICLOG - ALL RIGHTS RESERVED
             </p>
             <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap" }}>
               {[["SCHOOLS", "/schools"], ["ARCHETYPE", "/archetype"], ["RESOURCES", "/resources"], ["STORIES", "/stories"], ["ABOUT", "/about"]].map(([label, href]) => (

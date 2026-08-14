@@ -303,7 +303,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
         <p className="text-xs" style={{ color: "rgba(0,0,0,0.4)" }}>Highlights schools within ±0.3 GPA and ±5 MCAT points of your stats.</p>
         <div className="mt-4 pt-4" style={{ borderTop: "2px solid #000000" }}>
           <label htmlFor="home-state" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(0,0,0,0.85)" }}>
-            My Home State <span className="font-normal" style={{ color: "rgba(0,0,0,0.4)" }}>(optional — highlights in-state schools for you)</span>
+            My Home State <span className="font-normal" style={{ color: "rgba(0,0,0,0.4)" }}>(optional - highlights in-state schools for you)</span>
           </label>
           <select
             id="home-state"

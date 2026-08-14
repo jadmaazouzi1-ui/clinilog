@@ -12,7 +12,7 @@ const STORIES = [
     undergrad: "UC Riverside",
     medSchool: "UCLA David Geffen School of Medicine",
     background: "Daughter of Mexican immigrants; first in her family to attend a four-year university. Worked 25 hours a week at the family restaurant throughout college.",
-    quote: "My parents never knew what the MCAT was, but they knew what sacrifice looked like — and that taught me everything I needed. Every early morning study session was for the patients in my community who looked like me and had no one advocating for them. Getting that acceptance letter was the most surreal moment of my life.",
+    quote: "My parents never knew what the MCAT was, but they knew what sacrifice looked like - and that taught me everything I needed. Every early morning study session was for the patients in my community who looked like me and had no one advocating for them. Getting that acceptance letter was the most surreal moment of my life.",
   },
   {
     name: "DeShawn",
@@ -39,7 +39,7 @@ const STORIES = [
     undergrad: "UT El Paso",
     medSchool: "UT Health San Antonio Long School of Medicine",
     background: "Born and raised on the US-Mexico border; first-generation American and first in his family to pursue a professional degree.",
-    quote: "Growing up on the border, I saw the health disparities between two communities separated by a river. My MCAT score didn't define me — my 300+ hours volunteering at a free clinic did. I'm going to practice medicine in El Paso because my community deserves doctors who never left.",
+    quote: "Growing up on the border, I saw the health disparities between two communities separated by a river. My MCAT score didn't define me - my 300+ hours volunteering at a free clinic did. I'm going to practice medicine in El Paso because my community deserves doctors who never left.",
   },
   {
     name: "Aisha",
@@ -57,7 +57,7 @@ const STORIES = [
     undergrad: "Cal State LA",
     medSchool: "UC San Francisco School of Medicine",
     background: "Filipino-American; parents worked as a nurse's aide and a factory worker. First in his family born in the United States.",
-    quote: "My mom worked nights in a nursing home so I could study during the day. I never took a Kaplan course — I used free resources, Anki decks, and study groups in the library. Cal State LA gave me every opportunity I needed; I just had to take them. UCSF doesn't just want students from fancy schools — they want students with a real reason to be there.",
+    quote: "My mom worked nights in a nursing home so I could study during the day. I never took a Kaplan course - I used free resources, Anki decks, and study groups in the library. Cal State LA gave me every opportunity I needed; I just had to take them. UCSF doesn't just want students from fancy schools - they want students with a real reason to be there.",
   },
   {
     name: "Fatima",
@@ -75,7 +75,7 @@ const STORIES = [
     undergrad: "University of New Mexico",
     medSchool: "UNM School of Medicine",
     background: "Diné (Navajo Nation); grew up in a rural community with limited healthcare access. First in his family to leave the reservation for college.",
-    quote: "On the Navajo Nation, the nearest hospital is sometimes two hours away. I've seen what that distance costs families. I almost quit sophomore year — the imposter syndrome was overwhelming. But my community kept me going. I'm going back to serve the people who raised me, and I'm taking everything I learn at UNM with me.",
+    quote: "On the Navajo Nation, the nearest hospital is sometimes two hours away. I've seen what that distance costs families. I almost quit sophomore year - the imposter syndrome was overwhelming. But my community kept me going. I'm going back to serve the people who raised me, and I'm taking everything I learn at UNM with me.",
   },
 ];
 
@@ -113,7 +113,7 @@ export default async function StoriesPage({
               First-Gen Success Stories
             </h1>
             <p className="text-sm leading-relaxed max-w-xl" style={{ color: "rgba(0,0,0,0.55)" }}>
-              Real students. Real obstacles. Real acceptance letters. These are the journeys of first-generation pre-med students who made it — and want you to know you can too.
+              Real students. Real obstacles. Real acceptance letters. These are the journeys of first-generation pre-med students who made it - and want you to know you can too.
             </p>
           </div>
           <div className="flex-shrink-0">
@@ -197,7 +197,7 @@ export default async function StoriesPage({
         >
           <h2 className="text-lg font-bold mb-2" style={{ color: "#000000" }}>Got into medical school?</h2>
           <p className="text-sm mb-5" style={{ color: "rgba(0,0,0,0.55)" }}>
-            Your story could be the one that keeps someone else going. Share it — we&apos;ll review it and add it to this page.
+            Your story could be the one that keeps someone else going. Share it - we&apos;ll review it and add it to this page.
           </p>
           <ShareStoryModal />
         </div>
