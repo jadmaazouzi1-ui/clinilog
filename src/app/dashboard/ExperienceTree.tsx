@@ -1,239 +1,326 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { Experience, ExperienceType, formatHours } from "@/lib/types";
 
-const VIEW_W = 400;
-const VIEW_H = 360;
-const BASE_X = VIEW_W / 2;
-const BASE_Y = VIEW_H - 20;
-const BASE_TRUNK_HEIGHT = 90;
-const HEIGHT_PER_LEVEL = 36;
+// ── Layout constants (SVG units; scaled to CSS pixels via viewBox) ──────
+// VIEW_H and the angle/length limits below are sized together so that even
+// the steepest branch (a +/-55deg category branch plus its widest sub-branch
+// spread) stays inside the viewBox - verified against a standalone
+// re-implementation of this math before shipping.
+const VIEW_W = 1100;
+const VIEW_H = 460;
+const TRUNK_Y = VIEW_H / 2;
+const TRUNK_START_X = 70;
+const BASE_TRUNK_LEN = 90;
+const LEN_PER_LEVEL = 30;
+const MAIN_BRANCH_LEN = 150;
+const SUB_BRANCH_MIN_LEN = 55;
+const SUB_BRANCH_HOURS_FACTOR = 0.7;
+const SUB_BRANCH_MAX_LEN = 90;
+const SUB_SPREAD_DEG = 28;
 const MILESTONES = [50, 100, 150, 200];
+
+const CATEGORY_ORDER: ExperienceType[] = ["clinical_work", "shadowing", "research", "volunteer", "other"];
+const CATEGORY_ANGLE: Record<ExperienceType, number> = {
+  clinical_work: -55,
+  shadowing: -20,
+  research: 0,
+  volunteer: 20,
+  other: 55,
+};
+const CATEGORY_LABEL: Record<ExperienceType, string> = {
+  clinical_work: "Clinical Work",
+  shadowing: "Shadowing",
+  research: "Research",
+  volunteer: "Volunteering",
+  other: "Other",
+};
 
 type Vec = { x: number; y: number };
 
-function rotate(v: Vec, deg: number): Vec {
+function dirFromAngle(deg: number): Vec {
   const r = (deg * Math.PI) / 180;
-  return {
-    x: v.x * Math.cos(r) - v.y * Math.sin(r),
-    y: v.x * Math.sin(r) + v.y * Math.cos(r),
-  };
+  return { x: Math.cos(r), y: Math.sin(r) };
 }
 
-function normalize(v: Vec): Vec {
-  const len = Math.hypot(v.x, v.y) || 1;
-  return { x: v.x / len, y: v.y / len };
-}
-
-// Base direction per category (SVG space, y grows downward, so "up" is -y).
-// "Other" cycles through the compass points none of the four categories use.
-const BASE_DIR: Record<ExperienceType, Vec> = {
-  clinical_work: { x: 0, y: -1 },                 // straight up
-  shadowing: normalize({ x: 1, y: -0.2 }),        // right
-  research: normalize({ x: -1, y: -0.2 }),        // left
-  volunteer: normalize({ x: -0.75, y: -0.75 }),   // upper-left
-  other: { x: 0, y: 0 },                          // resolved per-index below
-};
-
-const OTHER_DIRS: Vec[] = [
-  normalize({ x: 0.75, y: 0.75 }),   // lower-right
-  normalize({ x: -0.75, y: 0.75 }),  // lower-left
-  normalize({ x: 0, y: 1 }),         // straight down
-  normalize({ x: 0.75, y: -0.75 }),  // upper-right
-];
-
-const THICKNESS: Record<ExperienceType, number> = {
-  clinical_work: 6,
-  shadowing: 3.5,
-  research: 1.8,
-  volunteer: 3.5,
-  other: 2.5,
-};
-
-interface Branch {
+interface SubBranch {
   id: string;
   title: string;
+  organization: string;
+  type: ExperienceType;
+  hours: number;
+  start_date: string;
+  description: string;
+  origin: Vec;
+  tip: Vec;
+}
+
+interface MainBranch {
   type: ExperienceType;
   origin: Vec;
   tip: Vec;
-  thickness: number;
+  subs: SubBranch[];
 }
 
-export default function ExperienceTree({ experiences }: { experiences: Experience[] }) {
-  const router = useRouter();
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
+// ── Category node shapes: filled/hollow circle, square, or triangle ────
+function CategoryNode({ type, cx, cy, selected }: { type: ExperienceType; cx: number; cy: number; selected: boolean }) {
+  const r = selected ? 8 : 7; // >= 12px diameter always
+  const stroke = "#000000";
+  const strokeWidth = 2;
 
-  const { branches, trunkTopY, trunkThickness, totalHours, milestoneYs } = useMemo(() => {
-    // Growth order: oldest-logged experience grows first, working up the trunk.
+  switch (type) {
+    case "clinical_work":
+      return <circle cx={cx} cy={cy} r={r} fill="#000000" stroke={stroke} strokeWidth={strokeWidth} />;
+    case "shadowing":
+      return <circle cx={cx} cy={cy} r={r} fill="#FFFFFF" stroke={stroke} strokeWidth={strokeWidth} />;
+    case "research":
+      return <rect x={cx - r} y={cy - r} width={r * 2} height={r * 2} fill="#000000" stroke={stroke} strokeWidth={strokeWidth} />;
+    case "volunteer":
+      return <rect x={cx - r} y={cy - r} width={r * 2} height={r * 2} fill="#FFFFFF" stroke={stroke} strokeWidth={strokeWidth} />;
+    case "other": {
+      const h = r * 1.9;
+      const points = `${cx},${cy - h * 0.62} ${cx - h * 0.58},${cy + h * 0.5} ${cx + h * 0.58},${cy + h * 0.5}`;
+      return <polygon points={points} fill="#000000" stroke={stroke} strokeWidth={strokeWidth} />;
+    }
+  }
+}
+
+const LEGEND_ITEMS: { type: ExperienceType; label: string }[] = CATEGORY_ORDER.map((t) => ({ type: t, label: CATEGORY_LABEL[t] }));
+
+export default function ExperienceTree({ experiences }: { experiences: Experience[] }) {
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+
+  const { mainBranches, trunkEndX, trunkThickness, totalHours, milestoneTicks, branchCount } = useMemo(() => {
     const ordered = [...experiences].sort(
       (a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
     );
 
     const totalHours = ordered.reduce((s, e) => s + e.hours, 0);
     const level = Math.min(Math.floor(totalHours / 50), MILESTONES.length);
-    const trunkHeight = BASE_TRUNK_HEIGHT + level * HEIGHT_PER_LEVEL;
-    const trunkTopY = BASE_Y - trunkHeight;
-    const trunkThickness = Math.min(4 + totalHours / 12, 22);
+    const trunkLen = BASE_TRUNK_LEN + level * LEN_PER_LEVEL;
+    const trunkEndX = TRUNK_START_X + trunkLen;
+    const trunkThickness = Math.max(6, Math.min(6 + totalHours / 15, 24));
 
-    let otherIdx = 0;
+    const byCategory = new Map<ExperienceType, Experience[]>();
+    for (const exp of ordered) {
+      const list = byCategory.get(exp.type) ?? [];
+      list.push(exp);
+      byCategory.set(exp.type, list);
+    }
+
+    const trunkOrigin: Vec = { x: trunkEndX, y: TRUNK_Y };
+    const mainBranches: MainBranch[] = [];
+
+    for (const type of CATEGORY_ORDER) {
+      const list = byCategory.get(type);
+      if (!list || list.length === 0) continue;
+
+      const angle = CATEGORY_ANGLE[type];
+      const dir = dirFromAngle(angle);
+      const mainTip: Vec = { x: trunkOrigin.x + dir.x * MAIN_BRANCH_LEN, y: trunkOrigin.y + dir.y * MAIN_BRANCH_LEN };
+
+      const subs: SubBranch[] = list.map((exp, i) => {
+        const spreadFrac = list.length > 1 ? i / (list.length - 1) - 0.5 : 0;
+        const subAngle = angle + spreadFrac * SUB_SPREAD_DEG;
+        const subDir = dirFromAngle(subAngle);
+        const length = Math.min(SUB_BRANCH_MIN_LEN + exp.hours * SUB_BRANCH_HOURS_FACTOR, SUB_BRANCH_MAX_LEN);
+        const tip: Vec = { x: mainTip.x + subDir.x * length, y: mainTip.y + subDir.y * length };
+        return {
+          id: exp.id,
+          title: exp.title,
+          organization: exp.organization,
+          type: exp.type,
+          hours: exp.hours,
+          start_date: exp.start_date,
+          description: exp.description,
+          origin: mainTip,
+          tip,
+        };
+      });
+
+      mainBranches.push({ type, origin: trunkOrigin, tip: mainTip, subs });
+    }
+
+    // Milestone ticks placed along the trunk at the x-fraction where each
+    // achieved 50-hour threshold was crossed.
     let cumulative = 0;
-    const milestoneYs: { hours: number; y: number }[] = [];
-    let nextMilestoneIdx = 0;
-
-    const branches: Branch[] = ordered.map((exp, i) => {
-      const t = (i + 1) / (ordered.length + 1);
-      const origin: Vec = { x: BASE_X, y: BASE_Y - t * trunkHeight };
-
-      let dir = BASE_DIR[exp.type];
-      if (exp.type === "other") {
-        dir = OTHER_DIRS[otherIdx % OTHER_DIRS.length];
-        otherIdx += 1;
-      }
-      // Small deterministic jitter so same-category branches fan out
-      // rather than stacking exactly on top of one another.
-      const jitter = ((i * 37) % 21) - 10;
-      dir = rotate(dir, jitter);
-
-      const length = Math.min(24 + Math.min(exp.hours, 60) * 0.55, 62);
-      const tip: Vec = { x: origin.x + dir.x * length, y: origin.y + dir.y * length };
-
+    let nextIdx = 0;
+    const milestoneTicks: { hours: number; x: number }[] = [];
+    for (const exp of ordered) {
       cumulative += exp.hours;
-      while (nextMilestoneIdx < MILESTONES.length && cumulative >= MILESTONES[nextMilestoneIdx]) {
-        milestoneYs.push({ hours: MILESTONES[nextMilestoneIdx], y: origin.y });
-        nextMilestoneIdx += 1;
+      while (nextIdx < MILESTONES.length && cumulative >= MILESTONES[nextIdx]) {
+        milestoneTicks.push({ hours: MILESTONES[nextIdx], x: TRUNK_START_X + trunkLen * ((nextIdx + 1) / MILESTONES.length) });
+        nextIdx += 1;
       }
+    }
 
-      return {
-        id: exp.id,
-        title: exp.title,
-        type: exp.type,
-        origin,
-        tip,
-        thickness: THICKNESS[exp.type],
-      };
-    });
-
-    return { branches, trunkTopY, trunkThickness, totalHours, milestoneYs };
+    const branchCount = ordered.length;
+    return { mainBranches, trunkEndX, trunkThickness, totalHours, milestoneTicks, branchCount };
   }, [experiences]);
 
-  const hovered = branches.find((b) => b.id === hoveredId) ?? null;
+  const selected = mainBranches.flatMap((m) => m.subs).find((s) => s.id === selectedId) ?? null;
 
   return (
     <div className="glass-card rounded-2xl p-6 mb-8">
       <p className="dept-header">Your Clinical Tree</p>
 
-      <div style={{ width: "100%", maxWidth: 460, margin: "0 auto" }}>
-        <svg
-          viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
-          width="100%"
-          height="auto"
-          style={{ display: "block" }}
-        >
-          {/* Ground line */}
-          <line x1={BASE_X - 60} y1={BASE_Y} x2={BASE_X + 60} y2={BASE_Y} stroke="#000000" strokeWidth={1} opacity={0.2} />
+      <style>{`
+        .tree-scroll-wrap { width: 100%; }
+        .tree-svg-el { width: 100%; height: auto; display: block; min-height: 300px; }
+        @media (max-width: 640px) {
+          .tree-scroll-wrap { overflow-x: auto; }
+          .tree-svg-el { width: 640px; height: 220px; min-width: 640px; min-height: 0; }
+        }
+      `}</style>
+
+      <div className="tree-scroll-wrap">
+        <svg className="tree-svg-el" viewBox={`0 0 ${VIEW_W} ${VIEW_H}`} preserveAspectRatio="xMidYMid meet">
+          {/* Vertical "CLINICLOG MD" label on the far left */}
+          <text
+            x={28}
+            y={TRUNK_Y}
+            fontSize={11}
+            fontWeight={800}
+            letterSpacing={2}
+            fontFamily="var(--font-jetbrains-mono, monospace)"
+            fill="#000000"
+            textAnchor="middle"
+            transform={`rotate(-90 28 ${TRUNK_Y})`}
+          >
+            CLINICLOG MD
+          </text>
 
           {/* Trunk */}
           <line
-            x1={BASE_X}
-            y1={BASE_Y}
-            x2={BASE_X}
-            y2={trunkTopY}
+            x1={TRUNK_START_X}
+            y1={TRUNK_Y}
+            x2={trunkEndX}
+            y2={TRUNK_Y}
             stroke="#000000"
             strokeWidth={trunkThickness}
             strokeLinecap="round"
           />
 
-          {/* Milestone level markers */}
-          {milestoneYs.map((m) => (
+          {/* Milestone ticks along the trunk */}
+          {milestoneTicks.map((m) => (
             <g key={m.hours}>
               <line
-                x1={BASE_X - trunkThickness - 6}
-                y1={m.y}
-                x2={BASE_X + trunkThickness + 6}
-                y2={m.y}
+                x1={m.x}
+                y1={TRUNK_Y - trunkThickness / 2 - 8}
+                x2={m.x}
+                y2={TRUNK_Y + trunkThickness / 2 + 8}
                 stroke="#000000"
                 strokeWidth={1}
                 strokeDasharray="3 2"
               />
-              <text
-                x={BASE_X + trunkThickness + 10}
-                y={m.y + 3}
-                fontSize={8}
-                fontFamily="var(--font-jetbrains-mono, monospace)"
-                fontWeight={700}
-                fill="#000000"
-              >
+              <text x={m.x} y={TRUNK_Y - trunkThickness / 2 - 12} fontSize={8} fontWeight={700} fontFamily="var(--font-jetbrains-mono, monospace)" fill="#000000" textAnchor="middle">
                 {m.hours}
               </text>
             </g>
           ))}
 
-          {/* Branches */}
-          {branches.map((b) => {
-            const isHovered = hoveredId === b.id;
-            return (
-              <g
-                key={b.id}
-                onMouseEnter={() => setHoveredId(b.id)}
-                onMouseLeave={() => setHoveredId((cur) => (cur === b.id ? null : cur))}
-                onClick={() => router.push(`/dashboard/${b.id}/edit`)}
-                style={{ cursor: "pointer" }}
-              >
-                <line
-                  x1={b.origin.x}
-                  y1={b.origin.y}
-                  x2={b.tip.x}
-                  y2={b.tip.y}
-                  stroke="#000000"
-                  strokeWidth={b.thickness}
-                  strokeLinecap="round"
-                  opacity={isHovered ? 1 : 0.85}
-                />
-                {/* Leaf node */}
-                <circle
-                  cx={b.tip.x}
-                  cy={b.tip.y}
-                  r={isHovered ? 6 : 4.5}
-                  fill={isHovered ? "#000000" : "#FFFFFF"}
-                  stroke="#000000"
-                  strokeWidth={2}
-                />
-              </g>
-            );
-          })}
-
-          {/* Hover tooltip */}
-          {hovered && (
-            <g>
-              <rect
-                x={Math.min(Math.max(hovered.tip.x - 55, 4), VIEW_W - 114)}
-                y={Math.max(hovered.tip.y - 30, 4)}
-                width={110}
-                height={20}
-                fill="#FFFFFF"
-                stroke="#000000"
-                strokeWidth={1.5}
-              />
+          {/* Main category branches + their sub-branches */}
+          {mainBranches.map((main) => (
+            <g key={main.type}>
+              <line x1={main.origin.x} y1={main.origin.y} x2={main.tip.x} y2={main.tip.y} stroke="#000000" strokeWidth={4} strokeLinecap="round" />
               <text
-                x={Math.min(Math.max(hovered.tip.x - 55, 4), VIEW_W - 114) + 6}
-                y={Math.max(hovered.tip.y - 30, 4) + 14}
-                fontSize={9}
+                x={main.tip.x}
+                y={main.tip.y + (main.tip.y < main.origin.y ? -10 : main.tip.y > main.origin.y ? 16 : -10)}
+                fontSize={8}
+                fontWeight={800}
+                letterSpacing={0.5}
                 fontFamily="var(--font-jetbrains-mono, monospace)"
-                fontWeight={700}
-                fill="#000000"
+                fill="rgba(0,0,0,0.55)"
+                textAnchor="middle"
               >
-                {hovered.title.length > 16 ? hovered.title.slice(0, 15) + "…" : hovered.title}
+                {CATEGORY_LABEL[main.type].toUpperCase()}
               </text>
+
+              {main.subs.map((sub) => {
+                const isSelected = selectedId === sub.id;
+                const label = sub.title.length > 15 ? sub.title.slice(0, 15) + "…" : sub.title;
+                const labelRight = sub.tip.x >= sub.origin.x;
+                return (
+                  <g key={sub.id} onClick={() => setSelectedId(sub.id)} style={{ cursor: "pointer" }}>
+                    <line
+                      x1={sub.origin.x}
+                      y1={sub.origin.y}
+                      x2={sub.tip.x}
+                      y2={sub.tip.y}
+                      stroke="#000000"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      opacity={isSelected ? 1 : 0.75}
+                    />
+                    <CategoryNode type={sub.type} cx={sub.tip.x} cy={sub.tip.y} selected={isSelected} />
+                    <text
+                      x={sub.tip.x + (labelRight ? 11 : -11)}
+                      y={sub.tip.y + 3}
+                      fontSize={8}
+                      fontWeight={isSelected ? 800 : 600}
+                      fontFamily="var(--font-jetbrains-mono, monospace)"
+                      fill="#000000"
+                      textAnchor={labelRight ? "start" : "end"}
+                    >
+                      {label}
+                    </text>
+                  </g>
+                );
+              })}
             </g>
-          )}
+          ))}
         </svg>
       </div>
 
-      <div className="flex items-center justify-center gap-8 mt-2">
+      {/* Legend */}
+      <div className="flex flex-wrap items-center gap-x-5 gap-y-2 mt-4 pt-4" style={{ borderTop: "1px solid rgba(0,0,0,0.12)" }}>
+        {LEGEND_ITEMS.map((item) => (
+          <div key={item.type} className="flex items-center gap-1.5">
+            <svg width={16} height={16} viewBox="0 0 16 16">
+              <CategoryNode type={item.type} cx={8} cy={8} selected={false} />
+            </svg>
+            <span className="text-[10px] mono font-bold uppercase tracking-wide" style={{ color: "rgba(0,0,0,0.65)" }}>
+              {item.label}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      {/* Click-to-reveal detail panel */}
+      {selected && (
+        <div className="mt-4 p-4" style={{ border: "2px solid #000000", background: "#FFFFFF" }}>
+          <div className="flex items-start justify-between gap-3 mb-2">
+            <div>
+              <p className="text-sm font-bold" style={{ color: "#000000" }}>{selected.title}</p>
+              <p className="text-xs mt-0.5" style={{ color: "rgba(0,0,0,0.6)" }}>{selected.organization}</p>
+            </div>
+            <button
+              onClick={() => setSelectedId(null)}
+              aria-label="Close"
+              style={{ background: "transparent", border: "none", cursor: "pointer", fontSize: 16, lineHeight: 1, color: "#000000" }}
+            >
+              &times;
+            </button>
+          </div>
+          <div className="flex flex-wrap items-center gap-4 mb-2 mono text-[11px]" style={{ color: "rgba(0,0,0,0.7)" }}>
+            <span>{CATEGORY_LABEL[selected.type].toUpperCase()}</span>
+            <span>{formatHours(selected.hours)} HRS</span>
+            <span>{selected.start_date}</span>
+          </div>
+          {selected.description && (
+            <p className="text-xs leading-relaxed mb-3" style={{ color: "rgba(0,0,0,0.7)" }}>{selected.description}</p>
+          )}
+          <Link href={`/dashboard/${selected.id}/edit`} className="text-xs font-bold uppercase tracking-wide" style={{ color: "#000000", textDecoration: "underline" }}>
+            Edit →
+          </Link>
+        </div>
+      )}
+
+      <div className="flex items-center justify-center gap-8 mt-4">
         <p className="text-xs mono" style={{ color: "rgba(0,0,0,0.6)" }}>
-          BRANCHES: <span style={{ fontWeight: 700, color: "#000000" }}>{String(branches.length).padStart(3, "0")}</span>
+          BRANCHES: <span style={{ fontWeight: 700, color: "#000000" }}>{String(branchCount).padStart(3, "0")}</span>
         </p>
         <p className="text-xs mono" style={{ color: "rgba(0,0,0,0.6)" }}>
           LEAVES (HRS): <span style={{ fontWeight: 700, color: "#000000" }}>{formatHours(totalHours)}</span>
