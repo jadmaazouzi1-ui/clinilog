@@ -6,6 +6,7 @@ import { Experience, ExperienceType } from "@/lib/types";
 import ExportAllButton from "./ExportAllButton";
 import HoursBreakdown from "./HoursBreakdown";
 import AMCASTracker from "./AMCASTracker";
+import ExperienceTree from "./ExperienceTree";
 import AppShell from "@/components/AppShell";
 import OnboardingModal from "./OnboardingModal";
 import ExperienceInsights from "@/components/ExperienceInsights";
@@ -191,6 +192,7 @@ export default async function DashboardPage({
           gradYear={profile?.graduation_year ?? null}
         />
 
+        <ExperienceTree experiences={experienceList} />
         <HoursBreakdown experiences={experienceList} />
         <AMCASTracker experiences={experienceList} />
 

@@ -2,144 +2,43 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import {
-  saveOnboardingProfile,
-  saveOnboardingExperience,
-  markOnboardingComplete,
-} from "./onboarding-actions";
+import { saveOnboardingExperience, markOnboardingComplete } from "./onboarding-actions";
+
+const TOTAL_STEPS = 6;
 
 export default function OnboardingModal() {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-
   const [step, setStep] = useState(1);
   const [done, setDone] = useState(false);
 
-  // Step 1 fields
-  const [fullName, setFullName] = useState("");
-  const [school, setSchool] = useState("");
-  const [gradYear, setGradYear] = useState("");
-  const [specialty, setSpecialty] = useState("");
-
-  // Step 2 fields
+  // Step 6 fields — the user's first real experience entry.
   const [expTitle, setExpTitle] = useState("Hospital Shadowing");
   const [expOrg, setExpOrg] = useState("Local Hospital");
   const [expType, setExpType] = useState("shadowing");
   const [expHours, setExpHours] = useState("8");
   const [expDesc, setExpDesc] = useState(
-    "Shadowed physicians across multiple departments, observing patient consultations and procedures. Gained insight into the daily responsibilities of hospital-based medicine."
+    "Shadowed physicians across multiple departments, observing patient consultations and procedures."
   );
 
   if (done) return null;
 
-  // ── Progress indicator ──────────────────────────────────────────────────────
-
-  const steps = [
-    { num: 1, label: "Profile" },
-    { num: 2, label: "Experience" },
-    { num: 3, label: "Explore" },
-  ];
-
-  function StepIndicator() {
-    return (
-      <div className="flex items-center justify-center mb-8">
-        {steps.map((s, idx) => {
-          const completed = step > s.num;
-          const active = step === s.num;
-
-          const circleStyle: React.CSSProperties = completed
-            ? { background: "#000000", border: "2px solid #000000" }
-            : active
-            ? { background: "transparent", border: "2px solid #000000" }
-            : { background: "transparent", border: "2px solid #000000" };
-
-          const numColor = completed
-            ? "transparent"
-            : active
-            ? "#000000"
-            : "rgba(0,0,0,0.3)";
-
-          return (
-            <div key={s.num} className="flex items-center">
-              <div className="flex flex-col items-center gap-1">
-                <div
-                  style={{
-                    ...circleStyle,
-                    width: 32,
-                    height: 32,
-                    borderRadius: "50%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    flexShrink: 0,
-                  }}
-                >
-                  {completed ? (
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                      <path
-                        d="M2.5 7L5.5 10L11.5 4"
-                        stroke="black"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  ) : (
-                    <span style={{ fontSize: 12, fontWeight: 600, color: numColor }}>
-                      {s.num}
-                    </span>
-                  )}
-                </div>
-                <span
-                  style={{
-                    fontSize: 10,
-                    color: active || completed ? "#000000" : "rgba(0,0,0,0.3)",
-                    fontWeight: 500,
-                  }}
-                >
-                  {s.label}
-                </span>
-              </div>
-
-              {idx < steps.length - 1 && (
-                <div
-                  style={{
-                    width: 64,
-                    height: 2,
-                    marginBottom: 18,
-                    background:
-                      step > s.num
-                        ? "#000000"
-                        : "rgba(0,0,0,0.12)",
-                    borderRadius: 1,
-                  }}
-                />
-              )}
-            </div>
-          );
-        })}
-      </div>
-    );
+  function goNext() {
+    setStep((s) => Math.min(s + 1, TOTAL_STEPS));
+  }
+  function goBack() {
+    setStep((s) => Math.max(s - 1, 1));
   }
 
-  // ── Shared input style ──────────────────────────────────────────────────────
-
-  const inputProps: React.InputHTMLAttributes<HTMLInputElement> = {
-    className: "input-dark px-3.5 py-2.5 rounded-xl text-sm w-full",
-  };
-
-  // ── Step 1 ──────────────────────────────────────────────────────────────────
-
-  function handleSaveProfile() {
+  function handleSkip() {
     startTransition(async () => {
-      await saveOnboardingProfile({ fullName, school, gradYear, specialty });
-      setStep(2);
+      await markOnboardingComplete();
+      setDone(true);
+      router.refresh();
     });
   }
 
-  // ── Step 2 ──────────────────────────────────────────────────────────────────
-
-  function handleSaveExperience() {
+  function handleFirstEntrySubmit() {
     startTransition(async () => {
       await saveOnboardingExperience({
         title: expTitle,
@@ -148,74 +47,56 @@ export default function OnboardingModal() {
         hours: expHours,
         description: expDesc,
       });
-      setStep(3);
-    });
-  }
-
-  // ── Step 3 ──────────────────────────────────────────────────────────────────
-
-  function handleExploreSchools() {
-    startTransition(async () => {
-      await markOnboardingComplete();
-      router.push("/schools");
-      router.refresh();
-    });
-  }
-
-  function handleGoToDashboard() {
-    startTransition(async () => {
       await markOnboardingComplete();
       setDone(true);
       router.refresh();
     });
   }
 
-  // Called from "Skip" buttons and the X close button — marks onboarding
-  // complete so the modal never shows again, then dismisses.
-  function handleSkipOnboarding() {
-    startTransition(async () => {
-      await markOnboardingComplete();
-      setDone(true);
-      router.refresh();
-    });
-  }
+  // ── Shared styles ──────────────────────────────────────────────────────
+  const inputProps = { className: "input-dark px-3.5 py-2.5 rounded-xl text-sm w-full" };
 
-  // ── Button styles ───────────────────────────────────────────────────────────
-
-  const tealBtn: React.CSSProperties = {
+  const primaryBtn: React.CSSProperties = {
     backgroundColor: "#000000", color: "#FFFFFF",
-    padding: "10px 20px",
-    borderRadius: 1,
-    fontWeight: 600,
-    fontSize: 14,
-    border: "none",
-    cursor: isPending ? "not-allowed" : "pointer",
-    opacity: isPending ? 0.7 : 1,
-    transition: "opacity 0.15s",
-  };
-
-  const ghostBtn: React.CSSProperties = {
-    background: "transparent",
-    color: "rgba(0,0,0,0.5)",
-    padding: "10px 20px",
-    borderRadius: 1,
-    fontWeight: 500,
-    fontSize: 14,
+    padding: "0.75rem 1.5rem",
+    fontWeight: 800,
+    fontSize: 13,
+    textTransform: "uppercase",
+    letterSpacing: "0.04em",
     border: "2px solid #000000",
     cursor: isPending ? "not-allowed" : "pointer",
     opacity: isPending ? 0.6 : 1,
-    transition: "opacity 0.15s",
   };
-
+  const ghostBtn: React.CSSProperties = {
+    background: "#FFFFFF",
+    color: "#000000",
+    padding: "0.75rem 1.5rem",
+    fontWeight: 800,
+    fontSize: 13,
+    textTransform: "uppercase",
+    letterSpacing: "0.04em",
+    border: "2px solid #000000",
+    cursor: isPending ? "not-allowed" : "pointer",
+    opacity: isPending ? 0.6 : 1,
+  };
   const labelStyle: React.CSSProperties = {
     display: "block",
-    fontSize: 12,
-    fontWeight: 500,
-    color: "rgba(0,0,0,0.6)",
+    fontFamily: "var(--font-jetbrains-mono, monospace)",
+    fontSize: 10,
+    fontWeight: 800,
+    textTransform: "uppercase",
+    letterSpacing: "0.08em",
+    color: "rgba(0,0,0,0.55)",
     marginBottom: 6,
   };
-
-  // ── Render ──────────────────────────────────────────────────────────────────
+  // A bordered, non-interactive mockup used to preview a page/feature
+  // inside onboarding without mounting the real (data-fetching) component.
+  const previewBox: React.CSSProperties = {
+    border: "2px solid #000000",
+    padding: "1.25rem",
+    marginBottom: "1.5rem",
+    background: "#FFFFFF",
+  };
 
   return (
     <div
@@ -224,197 +105,192 @@ export default function OnboardingModal() {
         inset: 0,
         zIndex: 9999,
         display: "flex",
-        alignItems: "center",
+        alignItems: "flex-start",
         justifyContent: "center",
-        background: "rgba(255,255,255,0.75)",
-        padding: "16px",
+        background: "#FFFFFF",
+        overflowY: "auto",
       }}
     >
-      <div
-        style={{
-          maxWidth: 512,
-          width: "100%",
-          background: "#FFFFFF",
-          border: "2px solid #000000",
-          borderRadius: 1,
-          padding: 32,
-          position: "relative",
-        }}
-      >
-        {/* Close (X) button — also marks onboarding complete */}
-        <button
-          onClick={handleSkipOnboarding}
-          disabled={isPending}
-          aria-label="Close onboarding"
-          style={{
-            position: "absolute",
-            top: 14,
-            right: 14,
-            padding: 6,
-            borderRadius: 1,
-            background: "transparent",
-            border: "none",
-            color: "rgba(0,0,0,0.4)",
-            cursor: isPending ? "not-allowed" : "pointer",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-
-        <StepIndicator />
-
-        {/* ── Step 1 ── */}
-        {step === 1 && (
-          <div>
-            <h2 style={{ fontSize: 20, fontWeight: 700, color: "#000000", marginBottom: 8 }}>
-              Welcome to ClinicLog
-            </h2>
-            <p style={{ fontSize: 14, color: "rgba(0,0,0,0.6)", marginBottom: 24 }}>
-              Let&apos;s set up your profile so we can personalize your experience.
-            </p>
-
-            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-              <div>
-                <label style={labelStyle}>Full Name</label>
-                <input
-                  {...inputProps}
-                  type="text"
-                  placeholder="Jane Smith"
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                />
-              </div>
-              <div>
-                <label style={labelStyle}>School</label>
-                <input
-                  {...inputProps}
-                  type="text"
-                  placeholder="University of California, Los Angeles"
-                  value={school}
-                  onChange={(e) => setSchool(e.target.value)}
-                />
-              </div>
-              <div>
-                <label style={labelStyle}>Graduation Year</label>
-                <input
-                  {...inputProps}
-                  type="number"
-                  min={2020}
-                  max={2040}
-                  placeholder="2026"
-                  value={gradYear}
-                  onChange={(e) => setGradYear(e.target.value)}
-                />
-              </div>
-              <div>
-                <label style={labelStyle}>Intended Specialty</label>
-                <input
-                  {...inputProps}
-                  type="text"
-                  placeholder="Internal Medicine"
-                  value={specialty}
-                  onChange={(e) => setSpecialty(e.target.value)}
-                />
-              </div>
-            </div>
-
+      <div style={{ maxWidth: 560, width: "100%", padding: "0 1.25rem 3rem" }}>
+        {/* Progress bar */}
+        <div style={{ position: "sticky", top: 0, background: "#FFFFFF", paddingTop: "1.5rem", paddingBottom: "1rem", zIndex: 1 }}>
+          <div className="flex items-center justify-between mb-2">
+            <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: 11, fontWeight: 800, letterSpacing: "0.1em" }}>
+              SETUP
+            </span>
+            <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: 11, fontWeight: 800, letterSpacing: "0.1em" }}>
+              {step} OF {TOTAL_STEPS}
+            </span>
+          </div>
+          <div style={{ height: 6, background: "#FFFFFF", border: "2px solid #000000" }}>
             <div
               style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginTop: 28,
-                gap: 12,
+                height: "100%",
+                width: `${(step / TOTAL_STEPS) * 100}%`,
+                background: "#000000",
               }}
-            >
-              <button
-                style={ghostBtn}
-                disabled={isPending}
-                onClick={handleSkipOnboarding}
-              >
-                Skip onboarding
-              </button>
-              <button
-                style={tealBtn}
-                className="teal-glow"
-                disabled={isPending}
-                onClick={handleSaveProfile}
-              >
-                {isPending ? "Saving…" : "Save & Continue →"}
-              </button>
-            </div>
+            />
+          </div>
+        </div>
+
+        {/* ── Step 1: Welcome ── */}
+        {step === 1 && (
+          <div>
+            <h2 style={{ fontSize: 26, fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "#000000", marginBottom: 12 }}>
+              Welcome to ClinicLog MD
+            </h2>
+            <p style={{ fontSize: 15, lineHeight: 1.6, color: "rgba(0,0,0,0.65)", marginBottom: 32 }}>
+              A single free record for every clinical hour, every school comparison, and every step of your medical school application.
+            </p>
           </div>
         )}
 
-        {/* ── Step 2 ── */}
+        {/* ── Step 2: Hours Tracker ── */}
         {step === 2 && (
           <div>
-            <h2 style={{ fontSize: 20, fontWeight: 700, color: "#000000", marginBottom: 8 }}>
-              Log your first experience
+            <p style={labelStyle}>Feature 1 of 4</p>
+            <h2 style={{ fontSize: 22, fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "#000000", marginBottom: 16 }}>
+              Hours Tracker
             </h2>
-            <p style={{ fontSize: 14, color: "rgba(0,0,0,0.6)", marginBottom: 24 }}>
-              Add a clinical experience you&apos;ve already completed, or use our example to get started.
+            <div style={previewBox}>
+              <div style={{ display: "grid", gap: 10 }}>
+                {[
+                  ["Title", "Hospital Shadowing"],
+                  ["Organization", "City General Hospital"],
+                  ["Category", "Clinical Work"],
+                  ["Hours", "12.5"],
+                ].map(([k, v]) => (
+                  <div key={k} style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid rgba(0,0,0,0.15)", paddingBottom: 6 }}>
+                    <span style={{ fontSize: 12, color: "rgba(0,0,0,0.5)", textTransform: "uppercase", letterSpacing: "0.04em" }}>{k}</span>
+                    <span style={{ fontSize: 13, fontWeight: 700 }}>{v}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <p style={{ fontSize: 14, lineHeight: 1.6, color: "rgba(0,0,0,0.65)", marginBottom: 8 }}>
+              Log every clinical hour as you go - dates, hours, descriptions, and category. This becomes your application foundation.
             </p>
+          </div>
+        )}
 
-            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+        {/* ── Step 3: School Explorer ── */}
+        {step === 3 && (
+          <div>
+            <p style={labelStyle}>Feature 2 of 4</p>
+            <h2 style={{ fontSize: 22, fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "#000000", marginBottom: 16 }}>
+              School Explorer
+            </h2>
+            <div style={previewBox}>
+              <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
+                <thead>
+                  <tr>
+                    {["SCHOOL", "AVG GPA", "AVG MCAT"].map((h) => (
+                      <th key={h} style={{ textAlign: "left", padding: "4px 0", borderBottom: "2px solid #000000", fontSize: 10, letterSpacing: "0.06em" }}>{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    ["UCLA David Geffen SOM", "3.72", "515"],
+                    ["Morehouse School of Medicine", "3.55", "504"],
+                    ["Johns Hopkins SOM", "3.91", "521"],
+                  ].map((row) => (
+                    <tr key={row[0]}>
+                      {row.map((cell, i) => (
+                        <td key={i} style={{ padding: "6px 0", borderBottom: "1px solid rgba(0,0,0,0.12)" }}>{cell}</td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p style={{ fontSize: 14, lineHeight: 1.6, color: "rgba(0,0,0,0.65)", marginBottom: 8 }}>
+              Filter 149 medical schools by GPA, MCAT, mission focus, and state preference to find programs that match your profile.
+            </p>
+          </div>
+        )}
+
+        {/* ── Step 4: Your Archetype ── */}
+        {step === 4 && (
+          <div>
+            <p style={labelStyle}>Feature 3 of 4</p>
+            <h2 style={{ fontSize: 22, fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "#000000", marginBottom: 16 }}>
+              Your Archetype
+            </h2>
+            <div style={{ ...previewBox, textAlign: "center" }}>
+              <p style={{ fontSize: 10, letterSpacing: "0.12em", color: "rgba(0,0,0,0.5)", marginBottom: 8 }}>01 / 15</p>
+              <p style={{ fontSize: 18, fontWeight: 900, textTransform: "uppercase", marginBottom: 6 }}>The Community Healer</p>
+              <p style={{ fontSize: 13, fontStyle: "italic", color: "rgba(0,0,0,0.6)" }}>Medicine as service. Service as identity.</p>
+            </div>
+            <p style={{ fontSize: 14, lineHeight: 1.6, color: "rgba(0,0,0,0.65)", marginBottom: 8 }}>
+              After logging 3 or more experiences, ClinicLog MD analyzes your profile and assigns you one of 15 pre-med archetypes with personalized school matches.
+            </p>
+          </div>
+        )}
+
+        {/* ── Step 5: AI Tools ── */}
+        {step === 5 && (
+          <div>
+            <p style={labelStyle}>Feature 4 of 4</p>
+            <h2 style={{ fontSize: 22, fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "#000000", marginBottom: 16 }}>
+              AI Tools
+            </h2>
+            <div style={previewBox}>
+              <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 8 }}>
+                <span style={{ background: "#000000", color: "#FFFFFF", padding: "6px 10px", fontSize: 12, maxWidth: "75%" }}>
+                  Am I ready to apply with 120 clinical hours?
+                </span>
+              </div>
+              <div style={{ display: "flex", justifyContent: "flex-start" }}>
+                <span style={{ background: "#FFFFFF", border: "2px solid #000000", padding: "6px 10px", fontSize: 12, maxWidth: "75%" }}>
+                  120 hours is a solid clinical base - let&apos;s look at your research and volunteering next.
+                </span>
+              </div>
+            </div>
+            <p style={{ fontSize: 14, lineHeight: 1.6, color: "rgba(0,0,0,0.65)", marginBottom: 8 }}>
+              Your AI Pre-Med Advisor knows your hours and profile. Ask it anything about med school, applications, or your journey.
+            </p>
+          </div>
+        )}
+
+        {/* ── Step 6: Your First Entry ── */}
+        {step === 6 && (
+          <div>
+            <h2 style={{ fontSize: 22, fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "#000000", marginBottom: 8 }}>
+              Your First Entry
+            </h2>
+            <p style={{ fontSize: 14, color: "rgba(0,0,0,0.65)", marginBottom: 20 }}>
+              Let&apos;s log your first experience to get started.
+            </p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               <div>
                 <label style={labelStyle}>Title</label>
-                <input
-                  {...inputProps}
-                  type="text"
-                  name="title"
-                  value={expTitle}
-                  onChange={(e) => setExpTitle(e.target.value)}
-                />
+                <input {...inputProps} type="text" value={expTitle} onChange={(e) => setExpTitle(e.target.value)} />
               </div>
               <div>
                 <label style={labelStyle}>Organization</label>
-                <input
-                  {...inputProps}
-                  type="text"
-                  name="organization"
-                  value={expOrg}
-                  onChange={(e) => setExpOrg(e.target.value)}
-                />
+                <input {...inputProps} type="text" value={expOrg} onChange={(e) => setExpOrg(e.target.value)} />
               </div>
-              <div>
-                <label style={labelStyle}>Type</label>
-                <select
-                  className="input-dark px-3.5 py-2.5 rounded-xl text-sm w-full"
-                  name="type"
-                  value={expType}
-                  onChange={(e) => setExpType(e.target.value)}
-                >
-                  <option value="shadowing">Shadowing</option>
-                  <option value="volunteer">Volunteer</option>
-                  <option value="clinical_work">Clinical Work</option>
-                  <option value="research">Research</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-              <div>
-                <label style={labelStyle}>Hours</label>
-                <input
-                  {...inputProps}
-                  type="number"
-                  name="hours"
-                  min={0.1}
-                  max={1000}
-                  step="any"
-                  value={expHours}
-                  onChange={(e) => setExpHours(e.target.value)}
-                />
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label style={labelStyle}>Category</label>
+                  <select className="input-dark px-3.5 py-2.5 rounded-xl text-sm w-full" value={expType} onChange={(e) => setExpType(e.target.value)}>
+                    <option value="shadowing">Shadowing</option>
+                    <option value="volunteer">Volunteer</option>
+                    <option value="clinical_work">Clinical Work</option>
+                    <option value="research">Research</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                <div>
+                  <label style={labelStyle}>Hours</label>
+                  <input {...inputProps} type="number" min={0.1} max={1000} step="any" value={expHours} onChange={(e) => setExpHours(e.target.value)} />
+                </div>
               </div>
               <div>
                 <label style={labelStyle}>Description</label>
                 <textarea
                   className="input-dark px-3.5 py-2.5 rounded-xl text-sm w-full"
-                  name="description"
                   rows={3}
                   value={expDesc}
                   onChange={(e) => setExpDesc(e.target.value)}
@@ -422,96 +298,41 @@ export default function OnboardingModal() {
                 />
               </div>
             </div>
-
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginTop: 28,
-                gap: 12,
-              }}
-            >
-              <button
-                style={ghostBtn}
-                disabled={isPending}
-                onClick={handleSkipOnboarding}
-              >
-                Skip onboarding
-              </button>
-              <button
-                style={tealBtn}
-                className="teal-glow"
-                disabled={isPending}
-                onClick={handleSaveExperience}
-              >
-                {isPending ? "Saving…" : "Save Experience & Continue →"}
-              </button>
-            </div>
           </div>
         )}
 
-        {/* ── Step 3 ── */}
-        {step === 3 && (
-          <div style={{ textAlign: "center" }}>
-            <div
-              style={{
-                width: 64,
-                height: 64,
-                borderRadius: "50%",
-                background: "#FFFFFF",
-                border: "2px solid #000000",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                margin: "0 auto 20px",
-              }}
-            >
-              <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                <path
-                  d="M5 14L11 20L23 8"
-                  stroke="#000000"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
+        {/* ── Nav row ── */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 32, gap: 12 }}>
+          <button style={ghostBtn} disabled={isPending || step === 1} onClick={goBack} aria-disabled={step === 1}>
+            Back
+          </button>
+          {step < TOTAL_STEPS ? (
+            <button style={primaryBtn} disabled={isPending} onClick={goNext}>
+              Next
+            </button>
+          ) : (
+            <button style={primaryBtn} disabled={isPending} onClick={handleFirstEntrySubmit}>
+              {isPending ? "Saving..." : "Finish"}
+            </button>
+          )}
+        </div>
 
-            <h2 style={{ fontSize: 22, fontWeight: 700, color: "#000000", marginBottom: 10 }}>
-              Your ClinicLog is ready
-            </h2>
-            <p
-              style={{
-                fontSize: 14,
-                color: "rgba(0,0,0,0.6)",
-                marginBottom: 28,
-                maxWidth: 360,
-                margin: "0 auto 28px",
-              }}
-            >
-              Start exploring 150+ medical schools or head to your dashboard to log more experiences.
-            </p>
-
-            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              <button
-                style={{ ...tealBtn, width: "100%", padding: "12px 20px" }}
-                className="teal-glow"
-                disabled={isPending}
-                onClick={handleExploreSchools}
-              >
-                {isPending ? "Loading…" : "Explore Schools →"}
-              </button>
-              <button
-                style={{ ...ghostBtn, width: "100%", padding: "12px 20px" }}
-                disabled={isPending}
-                onClick={handleGoToDashboard}
-              >
-                Go to Dashboard
-              </button>
-            </div>
-          </div>
-        )}
+        <div style={{ textAlign: "center", marginTop: 20 }}>
+          <button
+            onClick={handleSkip}
+            disabled={isPending}
+            style={{
+              background: "none",
+              border: "none",
+              fontSize: 12,
+              color: "rgba(0,0,0,0.45)",
+              textDecoration: "underline",
+              cursor: isPending ? "not-allowed" : "pointer",
+            }}
+          >
+            Skip setup
+          </button>
+        </div>
       </div>
     </div>
   );

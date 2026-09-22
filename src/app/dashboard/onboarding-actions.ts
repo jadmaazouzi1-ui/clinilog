@@ -4,26 +4,7 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
-import { sanitizeText, sanitizeOptional, parseHours, CAPS } from "@/lib/sanitize";
-
-export async function saveOnboardingProfile(data: {
-  fullName: string;
-  school: string;
-  gradYear: string;
-  specialty: string;
-}) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return;
-  const gradYear = data.gradYear ? parseInt(data.gradYear) : null;
-  await supabase.from("profiles").upsert({
-    id: user.id,
-    full_name: sanitizeOptional(data.fullName, 100),
-    undergraduate_school: sanitizeOptional(data.school, 100),
-    graduation_year: gradYear !== null && gradYear >= 2000 && gradYear <= 2100 ? gradYear : null,
-    intended_specialty: sanitizeOptional(data.specialty, 100),
-  });
-}
+import { sanitizeText, parseHours, CAPS } from "@/lib/sanitize";
 
 export async function saveOnboardingExperience(data: {
   title: string;
