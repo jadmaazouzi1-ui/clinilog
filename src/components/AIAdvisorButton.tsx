@@ -174,9 +174,9 @@ export default function AIAdvisorButton() {
         aria-label="Open AI advisor"
         className="fixed right-6 z-40 w-12 h-12 flex items-center justify-center transition-opacity hover:opacity-80 bottom-[calc(64px+env(safe-area-inset-bottom)+16px)] md:bottom-6"
         style={{
-          backgroundColor: "#000000",
-          borderRadius: 0,
-          border: "2px solid #000000",
+          backgroundColor: "var(--accent)",
+          borderRadius: 16,
+          border: "1px solid var(--border-strong)",
         }}
       >
         <span className="mono" style={{ color: "#FFFFFF", fontSize: 12, fontWeight: 800, letterSpacing: "0.08em" }}>AI</span>
@@ -197,7 +197,7 @@ export default function AIAdvisorButton() {
         style={{
           width: "min(420px, 100vw)",
           backgroundColor: "#FFFFFF",
-          borderLeft: "2px solid #000000",
+          borderLeft: "1px solid var(--border-strong)",
           transform: open ? "translateX(0)" : "translateX(100%)",
           transition: "transform 0.28s cubic-bezier(0.4,0,0.2,1)",
         }}
@@ -205,18 +205,18 @@ export default function AIAdvisorButton() {
         {/* Header */}
         <div
           className="flex items-center gap-3 px-5 py-4 flex-shrink-0"
-          style={{ borderBottom: "2px solid #000000" }}
+          style={{ borderBottom: "1px solid var(--border-strong)" }}
         >
           <div className="flex-1 min-w-0">
-            <p className="text-sm" style={{ color: "#000000", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.02em" }}>AI Pre-Med Advisor</p>
-            <p className="text-xs mono" style={{ color: "rgba(0,0,0,0.45)", letterSpacing: "0.08em" }}>
+            <p className="text-sm" style={{ color: "var(--text-primary)", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.02em" }}>AI Pre-Med Advisor</p>
+            <p className="text-xs mono" style={{ color: "rgba(22,36,29,0.45)", letterSpacing: "0.08em" }}>
               {remaining !== null ? `${remaining} OF 20 MESSAGES LEFT TODAY` : "POWERED BY GEMINI · KNOWS YOUR PROFILE"}
             </p>
           </div>
           <button
             onClick={() => setOpen(false)}
             className="p-1.5 transition-opacity hover:opacity-60 flex-shrink-0"
-            style={{ color: "#000000" }}
+            style={{ color: "var(--text-primary)" }}
           >
             <span className="mono text-[11px] font-bold tracking-widest">CLOSE</span>
           </button>
@@ -230,8 +230,8 @@ export default function AIAdvisorButton() {
                 className="max-w-[78%] px-4 py-2.5 text-sm leading-relaxed"
                 style={
                   msg.role === "user"
-                    ? { backgroundColor: "#000000", color: "#FFFFFF", border: "2px solid #000000", borderRadius: 0, fontWeight: 500 }
-                    : { backgroundColor: "#FFFFFF", color: "#000000", border: "2px solid #000000", borderRadius: 0 }
+                    ? { backgroundColor: "var(--accent)", color: "#FFFFFF", border: "1px solid var(--border-strong)", borderRadius: 16, fontWeight: 500 }
+                    : { backgroundColor: "#FFFFFF", color: "var(--text-primary)", border: "1px solid var(--border-strong)", borderRadius: 16 }
                 }
               >
                 {msg.content.split("\n").map((line, j) => (
@@ -248,7 +248,7 @@ export default function AIAdvisorButton() {
             <div className="flex justify-start">
               <div
                 className="px-4 py-3"
-                style={{ backgroundColor: "#FFFFFF", border: "2px solid #000000", borderRadius: 0 }}
+                style={{ backgroundColor: "#FFFFFF", border: "1px solid var(--border-strong)", borderRadius: 16 }}
               >
                 <span className="loading-text">Thinking</span>
               </div>
@@ -260,11 +260,11 @@ export default function AIAdvisorButton() {
         {/* Input */}
         <div
           className="flex-shrink-0 px-4 py-4"
-          style={{ borderTop: "2px solid #000000" }}
+          style={{ borderTop: "1px solid var(--border-strong)" }}
         >
           <div
             className="flex items-end gap-2 px-3 py-2"
-            style={{ backgroundColor: "#FFFFFF", border: "2px solid #000000", borderRadius: 0 }}
+            style={{ backgroundColor: "#FFFFFF", border: "1px solid var(--border-strong)", borderRadius: 16 }}
           >
             <textarea
               ref={inputRef}
@@ -274,7 +274,7 @@ export default function AIAdvisorButton() {
               placeholder="Ask about MCAT, clinical hours, schools..."
               rows={1}
               className="flex-1 bg-transparent text-sm resize-none outline-none leading-relaxed"
-              style={{ color: "#000000", maxHeight: "120px" }}
+              style={{ color: "var(--text-primary)", maxHeight: "120px" }}
               onInput={e => {
                 const el = e.currentTarget;
                 el.style.height = "auto";
@@ -286,16 +286,16 @@ export default function AIAdvisorButton() {
               disabled={!input.trim() || loading}
               className="flex-shrink-0 px-3 py-1.5 mono text-[11px] font-bold tracking-widest"
               style={{
-                backgroundColor: input.trim() && !loading ? "#000000" : "#FFFFFF",
-                color: input.trim() && !loading ? "#FFFFFF" : "rgba(0,0,0,0.4)",
-                border: "2px solid #000000",
-                borderRadius: 0,
+                backgroundColor: input.trim() && !loading ? "var(--text-primary)" : "#FFFFFF",
+                color: input.trim() && !loading ? "#FFFFFF" : "rgba(22,36,29,0.4)",
+                border: "1px solid var(--border-strong)",
+                borderRadius: 16,
               }}
             >
               SEND
             </button>
           </div>
-          <p className="text-center mt-2 text-xs mono" style={{ color: "rgba(0,0,0,0.35)", letterSpacing: "0.08em" }}>
+          <p className="text-center mt-2 text-xs mono" style={{ color: "rgba(22,36,29,0.35)", letterSpacing: "0.08em" }}>
             ENTER TO SEND · SHIFT+ENTER NEW LINE
           </p>
         </div>

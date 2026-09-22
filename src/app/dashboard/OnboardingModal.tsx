@@ -57,25 +57,25 @@ export default function OnboardingModal() {
   const inputProps = { className: "input-dark px-3.5 py-2.5 rounded-xl text-sm w-full" };
 
   const primaryBtn: React.CSSProperties = {
-    backgroundColor: "#000000", color: "#FFFFFF",
+    backgroundColor: "var(--accent)", color: "#FFFFFF",
     padding: "0.75rem 1.5rem",
     fontWeight: 800,
     fontSize: 13,
     textTransform: "uppercase",
     letterSpacing: "0.04em",
-    border: "2px solid #000000",
+    border: "1px solid var(--border-strong)",
     cursor: isPending ? "not-allowed" : "pointer",
     opacity: isPending ? 0.6 : 1,
   };
   const ghostBtn: React.CSSProperties = {
     background: "#FFFFFF",
-    color: "#000000",
+    color: "var(--text-primary)",
     padding: "0.75rem 1.5rem",
     fontWeight: 800,
     fontSize: 13,
     textTransform: "uppercase",
     letterSpacing: "0.04em",
-    border: "2px solid #000000",
+    border: "1px solid var(--border-strong)",
     cursor: isPending ? "not-allowed" : "pointer",
     opacity: isPending ? 0.6 : 1,
   };
@@ -86,13 +86,13 @@ export default function OnboardingModal() {
     fontWeight: 800,
     textTransform: "uppercase",
     letterSpacing: "0.08em",
-    color: "rgba(0,0,0,0.55)",
+    color: "rgba(22,36,29,0.55)",
     marginBottom: 6,
   };
   // A bordered, non-interactive mockup used to preview a page/feature
   // inside onboarding without mounting the real (data-fetching) component.
   const previewBox: React.CSSProperties = {
-    border: "2px solid #000000",
+    border: "1px solid var(--border-strong)",
     padding: "1.25rem",
     marginBottom: "1.5rem",
     background: "#FFFFFF",
@@ -122,12 +122,12 @@ export default function OnboardingModal() {
               {step} OF {TOTAL_STEPS}
             </span>
           </div>
-          <div style={{ height: 6, background: "#FFFFFF", border: "2px solid #000000" }}>
+          <div style={{ height: 6, background: "#FFFFFF", border: "1px solid var(--border-strong)" }}>
             <div
               style={{
                 height: "100%",
                 width: `${(step / TOTAL_STEPS) * 100}%`,
-                background: "#000000",
+                background: "var(--accent)",
               }}
             />
           </div>
@@ -136,10 +136,10 @@ export default function OnboardingModal() {
         {/* ── Step 1: Welcome ── */}
         {step === 1 && (
           <div>
-            <h2 style={{ fontSize: 26, fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "#000000", marginBottom: 12 }}>
+            <h2 style={{ fontSize: 26, fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "var(--text-primary)", marginBottom: 12 }}>
               Welcome to ClinicLog MD
             </h2>
-            <p style={{ fontSize: 15, lineHeight: 1.6, color: "rgba(0,0,0,0.65)", marginBottom: 32 }}>
+            <p style={{ fontSize: 15, lineHeight: 1.6, color: "rgba(22,36,29,0.65)", marginBottom: 32 }}>
               A single free record for every clinical hour, every school comparison, and every step of your medical school application.
             </p>
           </div>
@@ -149,7 +149,7 @@ export default function OnboardingModal() {
         {step === 2 && (
           <div>
             <p style={labelStyle}>Feature 1 of 4</p>
-            <h2 style={{ fontSize: 22, fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "#000000", marginBottom: 16 }}>
+            <h2 style={{ fontSize: 22, fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "var(--text-primary)", marginBottom: 16 }}>
               Hours Tracker
             </h2>
             <div style={previewBox}>
@@ -160,14 +160,14 @@ export default function OnboardingModal() {
                   ["Category", "Clinical Work"],
                   ["Hours", "12.5"],
                 ].map(([k, v]) => (
-                  <div key={k} style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid rgba(0,0,0,0.15)", paddingBottom: 6 }}>
-                    <span style={{ fontSize: 12, color: "rgba(0,0,0,0.5)", textTransform: "uppercase", letterSpacing: "0.04em" }}>{k}</span>
+                  <div key={k} style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid rgba(22,36,29,0.15)", paddingBottom: 6 }}>
+                    <span style={{ fontSize: 12, color: "rgba(22,36,29,0.5)", textTransform: "uppercase", letterSpacing: "0.04em" }}>{k}</span>
                     <span style={{ fontSize: 13, fontWeight: 700 }}>{v}</span>
                   </div>
                 ))}
               </div>
             </div>
-            <p style={{ fontSize: 14, lineHeight: 1.6, color: "rgba(0,0,0,0.65)", marginBottom: 8 }}>
+            <p style={{ fontSize: 14, lineHeight: 1.6, color: "rgba(22,36,29,0.65)", marginBottom: 8 }}>
               Log every clinical hour as you go - dates, hours, descriptions, and category. This becomes your application foundation.
             </p>
           </div>
@@ -177,7 +177,7 @@ export default function OnboardingModal() {
         {step === 3 && (
           <div>
             <p style={labelStyle}>Feature 2 of 4</p>
-            <h2 style={{ fontSize: 22, fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "#000000", marginBottom: 16 }}>
+            <h2 style={{ fontSize: 22, fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "var(--text-primary)", marginBottom: 16 }}>
               School Explorer
             </h2>
             <div style={previewBox}>
@@ -185,7 +185,7 @@ export default function OnboardingModal() {
                 <thead>
                   <tr>
                     {["SCHOOL", "AVG GPA", "AVG MCAT"].map((h) => (
-                      <th key={h} style={{ textAlign: "left", padding: "4px 0", borderBottom: "2px solid #000000", fontSize: 10, letterSpacing: "0.06em" }}>{h}</th>
+                      <th key={h} style={{ textAlign: "left", padding: "4px 0", borderBottom: "1px solid var(--border-strong)", fontSize: 10, letterSpacing: "0.06em" }}>{h}</th>
                     ))}
                   </tr>
                 </thead>
@@ -197,14 +197,14 @@ export default function OnboardingModal() {
                   ].map((row) => (
                     <tr key={row[0]}>
                       {row.map((cell, i) => (
-                        <td key={i} style={{ padding: "6px 0", borderBottom: "1px solid rgba(0,0,0,0.12)" }}>{cell}</td>
+                        <td key={i} style={{ padding: "6px 0", borderBottom: "1px solid rgba(22,36,29,0.12)" }}>{cell}</td>
                       ))}
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
-            <p style={{ fontSize: 14, lineHeight: 1.6, color: "rgba(0,0,0,0.65)", marginBottom: 8 }}>
+            <p style={{ fontSize: 14, lineHeight: 1.6, color: "rgba(22,36,29,0.65)", marginBottom: 8 }}>
               Filter 149 medical schools by GPA, MCAT, mission focus, and state preference to find programs that match your profile.
             </p>
           </div>
@@ -214,15 +214,15 @@ export default function OnboardingModal() {
         {step === 4 && (
           <div>
             <p style={labelStyle}>Feature 3 of 4</p>
-            <h2 style={{ fontSize: 22, fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "#000000", marginBottom: 16 }}>
+            <h2 style={{ fontSize: 22, fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "var(--text-primary)", marginBottom: 16 }}>
               Your Archetype
             </h2>
             <div style={{ ...previewBox, textAlign: "center" }}>
-              <p style={{ fontSize: 10, letterSpacing: "0.12em", color: "rgba(0,0,0,0.5)", marginBottom: 8 }}>01 / 15</p>
+              <p style={{ fontSize: 10, letterSpacing: "0.12em", color: "rgba(22,36,29,0.5)", marginBottom: 8 }}>01 / 15</p>
               <p style={{ fontSize: 18, fontWeight: 900, textTransform: "uppercase", marginBottom: 6 }}>The Community Healer</p>
-              <p style={{ fontSize: 13, fontStyle: "italic", color: "rgba(0,0,0,0.6)" }}>Medicine as service. Service as identity.</p>
+              <p style={{ fontSize: 13, fontStyle: "italic", color: "rgba(22,36,29,0.6)" }}>Medicine as service. Service as identity.</p>
             </div>
-            <p style={{ fontSize: 14, lineHeight: 1.6, color: "rgba(0,0,0,0.65)", marginBottom: 8 }}>
+            <p style={{ fontSize: 14, lineHeight: 1.6, color: "rgba(22,36,29,0.65)", marginBottom: 8 }}>
               After logging 3 or more experiences, ClinicLog MD analyzes your profile and assigns you one of 15 pre-med archetypes with personalized school matches.
             </p>
           </div>
@@ -232,22 +232,22 @@ export default function OnboardingModal() {
         {step === 5 && (
           <div>
             <p style={labelStyle}>Feature 4 of 4</p>
-            <h2 style={{ fontSize: 22, fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "#000000", marginBottom: 16 }}>
+            <h2 style={{ fontSize: 22, fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "var(--text-primary)", marginBottom: 16 }}>
               AI Tools
             </h2>
             <div style={previewBox}>
               <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 8 }}>
-                <span style={{ background: "#000000", color: "#FFFFFF", padding: "6px 10px", fontSize: 12, maxWidth: "75%" }}>
+                <span style={{ background: "var(--accent)", color: "#FFFFFF", padding: "6px 10px", fontSize: 12, maxWidth: "75%" }}>
                   Am I ready to apply with 120 clinical hours?
                 </span>
               </div>
               <div style={{ display: "flex", justifyContent: "flex-start" }}>
-                <span style={{ background: "#FFFFFF", border: "2px solid #000000", padding: "6px 10px", fontSize: 12, maxWidth: "75%" }}>
+                <span style={{ background: "#FFFFFF", border: "1px solid var(--border-strong)", padding: "6px 10px", fontSize: 12, maxWidth: "75%" }}>
                   120 hours is a solid clinical base - let&apos;s look at your research and volunteering next.
                 </span>
               </div>
             </div>
-            <p style={{ fontSize: 14, lineHeight: 1.6, color: "rgba(0,0,0,0.65)", marginBottom: 8 }}>
+            <p style={{ fontSize: 14, lineHeight: 1.6, color: "rgba(22,36,29,0.65)", marginBottom: 8 }}>
               Your AI Pre-Med Advisor knows your hours and profile. Ask it anything about med school, applications, or your journey.
             </p>
           </div>
@@ -256,10 +256,10 @@ export default function OnboardingModal() {
         {/* ── Step 6: Your First Entry ── */}
         {step === 6 && (
           <div>
-            <h2 style={{ fontSize: 22, fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "#000000", marginBottom: 8 }}>
+            <h2 style={{ fontSize: 22, fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "var(--text-primary)", marginBottom: 8 }}>
               Your First Entry
             </h2>
-            <p style={{ fontSize: 14, color: "rgba(0,0,0,0.65)", marginBottom: 20 }}>
+            <p style={{ fontSize: 14, color: "rgba(22,36,29,0.65)", marginBottom: 20 }}>
               Let&apos;s log your first experience to get started.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
@@ -325,7 +325,7 @@ export default function OnboardingModal() {
               background: "none",
               border: "none",
               fontSize: 12,
-              color: "rgba(0,0,0,0.45)",
+              color: "rgba(22,36,29,0.45)",
               textDecoration: "underline",
               cursor: isPending ? "not-allowed" : "pointer",
             }}

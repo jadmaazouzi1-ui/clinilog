@@ -12,8 +12,8 @@ export default async function SpecialtiesPage() {
     <AppShell userEmail={user.email ?? ""} activePath="/specialties">
       <main className="w-full px-6 py-8">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold mb-2" style={{ color: "#000000" }}>Specialty Explorer</h1>
-          <p className="text-sm" style={{ color: "rgba(0,0,0,0.6)" }}>
+          <h1 className="text-2xl font-bold mb-2" style={{ color: "var(--text-primary)" }}>Specialty Explorer</h1>
+          <p className="text-sm" style={{ color: "rgba(22,36,29,0.6)" }}>
             Compare 30 medical specialties across competitiveness, lifestyle, salary, and patient contact.
           </p>
         </div>

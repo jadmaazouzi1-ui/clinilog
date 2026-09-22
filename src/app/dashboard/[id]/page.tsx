@@ -15,11 +15,11 @@ const TYPE_LABELS: Record<ExperienceType, string> = {
 };
 
 const TYPE_BADGE_STYLES: Record<ExperienceType, React.CSSProperties> = {
-  shadowing:    { background: "transparent", color: "#000000",                border: "2px solid #000000" },
-  clinical_work:{ background: "transparent", color: "rgba(0,0,0,0.75)", border: "2px solid #000000" },
-  volunteer:    { background: "transparent", color: "rgba(0,0,0,0.6)",  border: "2px solid #000000" },
-  research:     { background: "transparent", color: "rgba(0,0,0,0.5)",  border: "2px solid #000000" },
-  other:        { background: "transparent", color: "rgba(0,0,0,0.45)", border: "2px solid #000000" },
+  shadowing:    { background: "transparent", color: "var(--text-primary)",                border: "1px solid var(--border-strong)" },
+  clinical_work:{ background: "transparent", color: "rgba(22,36,29,0.75)", border: "1px solid var(--border-strong)" },
+  volunteer:    { background: "transparent", color: "rgba(22,36,29,0.6)",  border: "1px solid var(--border-strong)" },
+  research:     { background: "transparent", color: "rgba(22,36,29,0.5)",  border: "1px solid var(--border-strong)" },
+  other:        { background: "transparent", color: "rgba(22,36,29,0.45)", border: "1px solid var(--border-strong)" },
 };
 
 function formatDate(dateStr: string) {
@@ -67,7 +67,7 @@ export default async function ExperienceDetailPage({
         <Link
           href="/dashboard"
           className="inline-flex items-center gap-1.5 text-sm font-medium mb-8"
-          style={{ color: "#000000" }}
+          style={{ color: "var(--text-primary)" }}
         >
           <svg
             className="w-4 h-4"
@@ -90,7 +90,7 @@ export default async function ExperienceDetailPage({
           <div className="flex items-start justify-between gap-4 mb-6">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-3 flex-wrap mb-1">
-                <h1 className="text-xl font-bold" style={{ color: "#000000" }}>{exp.title}</h1>
+                <h1 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>{exp.title}</h1>
                 <span
                   className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                   style={TYPE_BADGE_STYLES[exp.type as ExperienceType]}
@@ -98,7 +98,7 @@ export default async function ExperienceDetailPage({
                   {TYPE_LABELS[exp.type as ExperienceType]}
                 </span>
               </div>
-              <p className="text-sm" style={{ color: "rgba(0,0,0,0.6)" }}>{exp.organization}</p>
+              <p className="text-sm" style={{ color: "rgba(22,36,29,0.6)" }}>{exp.organization}</p>
             </div>
 
             {/* Action buttons */}
@@ -107,7 +107,7 @@ export default async function ExperienceDetailPage({
               <Link
                 href={`/dashboard/${exp.id}/edit`}
                 className="inline-flex items-center gap-1.5 text-sm font-medium px-3 py-1.5 rounded-lg transition-colors"
-                style={{ color: "#000000", border: "2px solid #000000", background: "#FFFFFF" }}
+                style={{ color: "var(--text-primary)", border: "1px solid var(--border-strong)", background: "#FFFFFF" }}
               >
                 <svg
                   className="w-4 h-4"
@@ -128,7 +128,7 @@ export default async function ExperienceDetailPage({
                 <button
                   type="submit"
                   className="inline-flex items-center gap-1.5 text-sm font-medium px-3 py-1.5 rounded-lg transition-colors"
-                  style={{ color: "#000000", border: "2px solid #000000", background: "#FFFFFF" }}
+                  style={{ color: "var(--text-primary)", border: "1px solid var(--border-strong)", background: "#FFFFFF" }}
                   aria-label="Delete experience"
                 >
                   <svg
@@ -153,7 +153,7 @@ export default async function ExperienceDetailPage({
           {/* Meta info */}
           <div
             className="flex items-center gap-6 text-sm mb-8 pb-6"
-            style={{ color: "rgba(0,0,0,0.6)", borderBottom: "2px solid #000000" }}
+            style={{ color: "rgba(22,36,29,0.6)", borderBottom: "1px solid var(--border-strong)" }}
           >
             <div className="flex items-center gap-1.5">
               <svg
@@ -161,7 +161,7 @@ export default async function ExperienceDetailPage({
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
-                style={{ color: "rgba(0,0,0,0.4)" }}
+                style={{ color: "rgba(22,36,29,0.4)" }}
               >
                 <path
                   strokeLinecap="round"
@@ -183,7 +183,7 @@ export default async function ExperienceDetailPage({
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
-                style={{ color: "rgba(0,0,0,0.4)" }}
+                style={{ color: "rgba(22,36,29,0.4)" }}
               >
                 <path
                   strokeLinecap="round"
@@ -192,7 +192,7 @@ export default async function ExperienceDetailPage({
                   d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-              <span className="font-semibold" style={{ color: "rgba(0,0,0,0.85)" }}>
+              <span className="font-semibold" style={{ color: "rgba(22,36,29,0.85)" }}>
                 {formatHours(exp.hours)} hrs
               </span>
             </div>
@@ -202,11 +202,11 @@ export default async function ExperienceDetailPage({
           <div className="mb-8">
             <h2
               className="text-sm font-semibold uppercase tracking-wide mb-3"
-              style={{ color: "rgba(0,0,0,0.5)" }}
+              style={{ color: "rgba(22,36,29,0.5)" }}
             >
               Description
             </h2>
-            <p className="text-sm leading-relaxed whitespace-pre-wrap" style={{ color: "rgba(0,0,0,0.85)" }}>
+            <p className="text-sm leading-relaxed whitespace-pre-wrap" style={{ color: "rgba(22,36,29,0.85)" }}>
               {exp.description}
             </p>
           </div>
@@ -216,11 +216,11 @@ export default async function ExperienceDetailPage({
             <div>
               <h2
                 className="text-sm font-semibold uppercase tracking-wide mb-3"
-                style={{ color: "rgba(0,0,0,0.5)" }}
+                style={{ color: "rgba(22,36,29,0.5)" }}
               >
                 Reflection
               </h2>
-              <p className="text-sm leading-relaxed whitespace-pre-wrap" style={{ color: "rgba(0,0,0,0.85)" }}>
+              <p className="text-sm leading-relaxed whitespace-pre-wrap" style={{ color: "rgba(22,36,29,0.85)" }}>
                 {exp.reflection}
               </p>
             </div>

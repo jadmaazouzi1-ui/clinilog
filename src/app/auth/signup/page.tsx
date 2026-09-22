@@ -50,15 +50,15 @@ export default async function SignupPage({
   }
 
   return (
-    <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "#FFFFFF" }}>
+    <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "var(--bg-page)" }}>
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center mb-4">
-            <span className="text-2xl" style={{ color: "#000000", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.02em" }}>ClinicLog</span>
+            <span className="text-2xl" style={{ color: "var(--text-primary)", fontWeight: 900, letterSpacing: "-0.02em" }}>ClinicLog MD</span>
           </div>
-          <h1 className="text-2xl font-bold" style={{ color: "#000000" }}>Create your account</h1>
-          <p className="text-sm mt-1" style={{ color: "rgba(0,0,0,0.6)" }}>
+          <h1 className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>Create your account</h1>
+          <p className="text-sm mt-1" style={{ color: "rgba(22,36,29,0.6)" }}>
             Start logging your clinical experiences today
           </p>
         </div>
@@ -68,7 +68,7 @@ export default async function SignupPage({
           {pageError && (
             <div
               className="mb-5 text-sm px-4 py-3"
-              style={{ background: "#FFFFFF", border: "2px solid #000000", color: "#000000" }}
+              style={{ background: "#FFFFFF", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }}
             >
               {decodeURIComponent(pageError)}
             </div>
@@ -78,7 +78,7 @@ export default async function SignupPage({
               <label
                 htmlFor="name"
                 className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(0,0,0,0.85)" }}
+                style={{ color: "rgba(22,36,29,0.85)" }}
               >
                 Full name
               </label>
@@ -97,7 +97,7 @@ export default async function SignupPage({
               <label
                 htmlFor="email"
                 className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(0,0,0,0.85)" }}
+                style={{ color: "rgba(22,36,29,0.85)" }}
               >
                 Email address
               </label>
@@ -116,7 +116,7 @@ export default async function SignupPage({
               <label
                 htmlFor="password"
                 className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(0,0,0,0.85)" }}
+                style={{ color: "rgba(22,36,29,0.85)" }}
               >
                 Password
               </label>
@@ -135,19 +135,19 @@ export default async function SignupPage({
             <button
               type="submit"
               className="w-full teal-glow py-2.5 rounded-lg font-semibold text-sm transition-colors focus:outline-none"
-              style={{ backgroundColor: "#000000", color: "#FFFFFF" }}
+              style={{ backgroundColor: "var(--accent)", color: "#FFFFFF" }}
             >
               Create Account
             </button>
           </form>
         </div>
 
-        <p className="text-center text-sm mt-6" style={{ color: "rgba(0,0,0,0.5)" }}>
+        <p className="text-center text-sm mt-6" style={{ color: "rgba(22,36,29,0.5)" }}>
           Already have an account?{" "}
           <Link
             href="/auth/login"
             className="font-medium"
-            style={{ color: "#000000" }}
+            style={{ color: "var(--text-primary)" }}
           >
             Sign in
           </Link>

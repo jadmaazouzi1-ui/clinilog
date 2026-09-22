@@ -37,7 +37,7 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col" style={{ backgroundColor: "#FFFFFF", color: "#000000" }}>{children}</body>
+      <body className="min-h-full flex flex-col" style={{ backgroundColor: "#FFFFFF", color: "var(--text-primary)" }}>{children}</body>
     </html>
   );
 }
