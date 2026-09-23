@@ -55,15 +55,15 @@ const LEAF_KIND: Record<ExperienceType, LeafKind> = {
 };
 
 const VB_W = 880;
-const VB_H = 400;
+const VB_H = 330;
 
 /* The bough: enters thick at the left edge and tapers away to the right,
    with a gentle organic sway. Cropped at the left like a botanical plate. */
 const TRUNK: Cubic = [
-  { x: -12, y: 238 },
-  { x: 236, y: 288 },
-  { x: 566, y: 158 },
-  { x: 862, y: 186 },
+  { x: -12, y: 200 },
+  { x: 236, y: 248 },
+  { x: 566, y: 126 },
+  { x: 862, y: 152 },
 ];
 const TRUNK_W_BASE = 26;
 const TRUNK_W_TIP = 2.5;
