@@ -77,17 +77,14 @@ export default function ReframeableTextarea({
           value={value}
           onChange={e => setValue(e.target.value)}
           placeholder={placeholder}
-          className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm resize-none transition-all"
-          style={{
-            borderColor: hasReframed ? "rgba(22,36,29,0.2)" : undefined,
-            
-          }}
+          className="field-input resize-none"
+          style={{ borderBottomColor: hasReframed ? "var(--accent)" : undefined }}
         />
         {/* Reframed badge */}
         {hasReframed && (
           <div
-            className="absolute top-2.5 right-3 flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold"
-            style={{ backgroundColor: "#FFFFFF", color: "var(--text-primary)", border: "1px solid var(--border-strong)" }}
+            className="absolute top-1 right-0 flex items-center gap-1 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest"
+            style={{ backgroundColor: "var(--accent-soft)", color: "var(--accent)", border: "1px solid var(--accent-border)", borderRadius: "var(--radius)" }}
           >
             <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
@@ -99,7 +96,7 @@ export default function ReframeableTextarea({
 
       {/* Error */}
       {error && (
-        <p className="text-xs" style={{ color: "var(--text-primary)" }}>{error}</p>
+        <p className="text-xs" style={{ color: "var(--margin-rule)" }}>{error}</p>
       )}
 
       {/* Action row */}
@@ -108,11 +105,13 @@ export default function ReframeableTextarea({
           type="button"
           onClick={handleReframe}
           disabled={loading}
-          className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all"
+          className="inline-flex items-center gap-2 text-xs font-semibold transition-colors"
           style={{
-            backgroundColor: loading ? "rgba(22,36,29,0.05)" : "rgba(22,36,29,0.04)",
-            color: loading ? "rgba(22,36,29,0.45)" : "var(--text-primary)",
+            padding: "6px var(--sp-2)",
+            backgroundColor: "#FFFFFF",
+            color: loading ? "var(--text-tertiary)" : "var(--text-primary)",
             border: "1px solid var(--border-strong)",
+            borderRadius: "var(--radius)",
             cursor: loading ? "not-allowed" : "pointer",
           }}
         >

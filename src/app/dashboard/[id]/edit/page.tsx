@@ -40,7 +40,7 @@ export default async function EditExperiencePage({
 
   return (
     <AppShell userEmail={user.email ?? ""} activePath="/dashboard" breadcrumbs={[{ label: "Dashboard", href: "/dashboard" }, { label: exp.title, href: `/dashboard/${exp.id}` }, { label: "Edit" }]}>
-      <main className="w-full px-6 py-8">
+      <main className="w-full" style={{ padding: "var(--sp-3)", maxWidth: 820 }}>
         {/* Back link */}
         <Link
           href={`/dashboard/${exp.id}`}
@@ -63,7 +63,7 @@ export default async function EditExperiencePage({
           Back to Dashboard
         </Link>
 
-        <div className="glass-card rounded-2xl p-8">
+        <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
           <h1 className="text-xl font-bold mb-6" style={{ color: "var(--text-primary)" }}>
             Edit Experience
           </h1>
@@ -82,8 +82,7 @@ export default async function EditExperiencePage({
             <div>
               <label
                 htmlFor="title"
-                className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(22,36,29,0.85)" }}
+                className="field-label"
               >
                 Title <span style={{ color: "var(--text-primary)" }}>*</span>
               </label>
@@ -94,7 +93,7 @@ export default async function EditExperiencePage({
                 required
                 defaultValue={exp.title}
                 placeholder="e.g. Cardiology Shadowing at UCSF"
-                className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm"
+                className="field-input"
               />
             </div>
 
@@ -102,8 +101,7 @@ export default async function EditExperiencePage({
             <div>
               <label
                 htmlFor="organization"
-                className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(22,36,29,0.85)" }}
+                className="field-label"
               >
                 Organization <span style={{ color: "var(--text-primary)" }}>*</span>
               </label>
@@ -114,7 +112,7 @@ export default async function EditExperiencePage({
                 required
                 defaultValue={exp.organization}
                 placeholder="e.g. UCSF Medical Center"
-                className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm"
+                className="field-input"
               />
             </div>
 
@@ -122,8 +120,7 @@ export default async function EditExperiencePage({
             <div>
               <label
                 htmlFor="experience_type"
-                className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(22,36,29,0.85)" }}
+                className="field-label"
               >
                 Type <span style={{ color: "var(--text-primary)" }}>*</span>
               </label>
@@ -132,7 +129,7 @@ export default async function EditExperiencePage({
                 name="experience_type"
                 required
                 defaultValue={exp.type}
-                className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm"
+                className="field-input"
               >
                 <option value="">Select a type...</option>
                 <option value="shadowing">Shadowing</option>
@@ -148,8 +145,7 @@ export default async function EditExperiencePage({
               <div>
                 <label
                   htmlFor="start_date"
-                  className="block text-sm font-medium mb-1.5"
-                  style={{ color: "rgba(22,36,29,0.85)" }}
+                  className="field-label"
                 >
                   Start Date <span style={{ color: "var(--text-primary)" }}>*</span>
                 </label>
@@ -159,14 +155,13 @@ export default async function EditExperiencePage({
                   type="date"
                   required
                   defaultValue={exp.start_date}
-                  className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm"
+                  className="field-input"
                 />
               </div>
               <div>
                 <label
                   htmlFor="end_date"
-                  className="block text-sm font-medium mb-1.5"
-                  style={{ color: "rgba(22,36,29,0.85)" }}
+                  className="field-label"
                 >
                   End Date{" "}
                   <span className="font-normal" style={{ color: "rgba(22,36,29,0.4)" }}>(optional)</span>
@@ -176,7 +171,7 @@ export default async function EditExperiencePage({
                   name="end_date"
                   type="date"
                   defaultValue={exp.end_date ?? ""}
-                  className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm"
+                  className="field-input"
                 />
               </div>
             </div>
@@ -185,8 +180,7 @@ export default async function EditExperiencePage({
             <div>
               <label
                 htmlFor="hours"
-                className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(22,36,29,0.85)" }}
+                className="field-label"
               >
                 Hours <span style={{ color: "var(--text-primary)" }}>*</span>
               </label>
@@ -200,7 +194,7 @@ export default async function EditExperiencePage({
                 step="any"
                 defaultValue={exp.hours}
                 placeholder="e.g. 40"
-                className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm"
+                className="field-input"
               />
             </div>
 
@@ -208,8 +202,7 @@ export default async function EditExperiencePage({
             <div>
               <label
                 htmlFor="description"
-                className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(22,36,29,0.85)" }}
+                className="field-label"
               >
                 Description{" "}
                 <span className="font-normal" style={{ color: "rgba(22,36,29,0.4)" }}>(optional)</span>
@@ -224,8 +217,7 @@ export default async function EditExperiencePage({
             <div>
               <label
                 htmlFor="reflection"
-                className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(22,36,29,0.85)" }}
+                className="field-label"
               >
                 Reflection{" "}
                 <span className="font-normal" style={{ color: "rgba(22,36,29,0.4)" }}>(optional)</span>
@@ -236,7 +228,7 @@ export default async function EditExperiencePage({
                 rows={4}
                 defaultValue={exp.reflection ?? ""}
                 placeholder="What did you learn? How did this shape your interest in medicine?"
-                className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm resize-none"
+                className="field-input"
               />
             </div>
 

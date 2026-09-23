@@ -250,7 +250,7 @@ export default async function FeeTrackerPage() {
                           {waiver.name}
                         </h3>
                         <span
-                          className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                          className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-xs font-medium"
                           style={badgeStyle}
                         >
                           {waiver.status}

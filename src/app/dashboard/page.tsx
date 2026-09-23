@@ -11,7 +11,7 @@ import AppShell from "@/components/AppShell";
 import OnboardingModal from "./OnboardingModal";
 import ExperienceInsights from "@/components/ExperienceInsights";
 import CountUp from "@/components/CountUp";
-import { formatMedicalDate, formatMedicalHours } from "@/lib/formatMedical";
+import { formatMedicalDate, formatMedicalHours, buildRecordNumbers } from "@/lib/formatMedical";
 
 const TYPE_LABELS: Record<ExperienceType, string> = {
   shadowing: "Shadowing",
@@ -74,6 +74,9 @@ export default async function DashboardPage({
     ? String(user.user_metadata.full_name).split(" ")[0]
     : null;
 
+  // Stable EXP-0001 style record numbers, oldest entry first.
+  const recordNumbers = buildRecordNumbers(experienceList);
+
   const keyNumbers: { label: string; value: number; decimals: number; padWidth?: number; suffix?: string }[] = [
     { label: "TOTAL HOURS",   value: totalHours,             decimals: 1, padWidth: 3 },
     { label: "ENTRIES LOGGED", value: experienceList.length, decimals: 0, padWidth: 2 },
@@ -85,61 +88,73 @@ export default async function DashboardPage({
     <AppShell userEmail={user.email ?? ""} activePath="/dashboard">
       {showOnboarding && <OnboardingModal />}
 
-      <main className="w-full px-6 md:px-8 py-6">
+      {/* chart-margin draws the 2px red prescription-pad rule 40px in, and
+          indents the content clear of it at md and up. */}
+      <main
+        className="w-full chart-margin"
+        style={{ paddingTop: "var(--sp-3)", paddingRight: "var(--sp-3)", paddingBottom: "var(--sp-3)" }}
+      >
         {pageError && (
           <div
-            className="mb-6 text-sm rounded-xl px-4 py-3"
-            style={{ background: "rgba(229,72,77,0.08)", border: "1px solid rgba(229,72,77,0.25)", color: "var(--error)" }}
+            className="text-sm"
+            style={{
+              marginBottom: "var(--sp-3)",
+              padding: "10px var(--sp-2)",
+              background: "rgba(193,18,31,0.06)",
+              border: "1px solid rgba(193,18,31,0.28)",
+              borderLeft: "2px solid var(--margin-rule)",
+              borderRadius: "var(--radius)",
+              color: "var(--margin-rule)",
+            }}
           >
             Error: {decodeURIComponent(pageError)}
           </div>
         )}
 
-        {/* Top bar: greeting + avatar + action */}
-        <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div
-              className="flex items-center justify-center flex-shrink-0"
-              style={{ width: 40, height: 40, borderRadius: "50%", background: "var(--accent-soft)", color: "var(--accent)", fontWeight: 700, fontSize: 16 }}
-            >
-              {(firstName ?? user.email ?? "?").charAt(0).toUpperCase()}
-            </div>
-            <div>
-              <h1 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>
-                {greeting()}{firstName ? `, ${firstName}` : ""}.
-              </h1>
-              <p className="text-xs mt-0.5" style={{ color: "var(--text-secondary)" }}>
-                Here&apos;s an overview of your clinical journey so far.
-              </p>
-            </div>
+        {/* Chart header: patient-style identity block on the left */}
+        <div
+          className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4"
+          style={{ marginBottom: "var(--sp-3)" }}
+        >
+          <div>
+            <p className="exp-id" style={{ marginBottom: 6 }}>
+              {formatMedicalDate(new Date())} / {user.email}
+            </p>
+            <h1 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>
+              {greeting()}{firstName ? `, ${firstName}` : ""}.
+            </h1>
+            <p className="text-xs" style={{ color: "var(--text-secondary)", marginTop: 2 }}>
+              Here&apos;s an overview of your clinical journey so far.
+            </p>
           </div>
 
           {experienceList.length > 0 && (
-            <div className="flex items-center gap-3 sm:flex-shrink-0">
+            <div className="flex items-center gap-2 sm:flex-shrink-0">
               <ExportAllButton experiences={experienceList} />
               <Link
                 href="/dashboard/new"
-                className="inline-flex items-center gap-2 teal-glow px-4 py-2.5 rounded-full font-semibold text-sm whitespace-nowrap flex-1 sm:flex-none justify-center"
+                className="teal-glow inline-flex items-center justify-center text-sm whitespace-nowrap"
+                style={{ padding: "10px var(--sp-2)", textDecoration: "none" }}
               >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                </svg>
                 Log new hours
               </Link>
             </div>
           )}
         </div>
 
-        {/* Your Path — category orb graph */}
+        {/* Your Path: organic branch grown from the logged categories */}
         <PathVisualization experiences={experienceList} />
 
         {/* Your progress: donut + key numbers */}
         <p className="dept-header">Your Progress</p>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8">
+        <div
+          className="grid grid-cols-1 lg:grid-cols-2"
+          style={{ gap: "var(--sp-2)", marginBottom: "var(--sp-4)" }}
+        >
           <HoursBreakdown experiences={experienceList} />
-          <div className="grid grid-cols-2 gap-4 content-start">
+          <div className="grid grid-cols-2 content-start" style={{ gap: "var(--sp-2)" }}>
             {keyNumbers.map((stat) => (
-              <div key={stat.label} className="vital-card">
+              <div key={stat.label} className="vital-card tick-corners">
                 <p className="vital-card-label">{stat.label}</p>
                 <span className="vital-card-value">
                   <CountUp to={stat.value} decimals={stat.decimals} padWidth={stat.padWidth} />
@@ -154,32 +169,24 @@ export default async function DashboardPage({
         {showArchetypeBanner && (
           <Link
             href="/archetype"
-            className="glass-card block mb-8 px-5 py-4"
+            className="glass-card block"
+            style={{ padding: "var(--sp-2)", marginBottom: "var(--sp-4)", textDecoration: "none" }}
           >
             <div className="flex items-center gap-4 flex-wrap">
-              <div
-                className="w-11 h-11 rounded-2xl flex items-center justify-center flex-shrink-0"
-                style={{ background: "linear-gradient(135deg, var(--accent), var(--accent-bright))" }}
-              >
-                <svg className="w-6 h-6" fill="none" stroke="#FFFFFF" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                </svg>
-              </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-bold mb-0.5" style={{ color: "var(--text-primary)" }}>
+                <p className="exp-id" style={{ marginBottom: 4 }}>{archetypeReady ? "ASSESSMENT ON FILE" : "ASSESSMENT PENDING"}</p>
+                <p className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>
                   {archetypeReady ? "Your Pre-Med Archetype is ready" : "Your Pre-Med Archetype is ready to be revealed"}
                 </p>
-                <p className="text-xs" style={{ color: "var(--text-secondary)" }}>
+                <p className="text-xs" style={{ color: "var(--text-secondary)", marginTop: 2 }}>
                   {archetypeReady ? "View your personalized profile and ideal med schools." : "See your personalized profile based on your logged experiences."}
                 </p>
               </div>
               <span
-                className="teal-glow inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold flex-shrink-0"
+                className="btn-ghost inline-flex items-center text-sm flex-shrink-0"
+                style={{ padding: "8px var(--sp-2)" }}
               >
                 {archetypeReady ? "View" : "Reveal"}
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
               </span>
             </div>
           </Link>
@@ -195,64 +202,55 @@ export default async function DashboardPage({
 
         {/* Content area */}
         {experienceList.length === 0 ? (
-          <div className="glass-card rounded-2xl p-8 text-center">
-            <div
-              className="inline-flex items-center justify-center w-14 h-14 rounded-full mb-4"
-              style={{ background: "var(--bg-soft)" }}
-            >
-              <svg className="w-7 h-7" fill="none" stroke="var(--accent)" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
-                />
-              </svg>
-            </div>
-            <h2 className="text-lg font-semibold mb-2" style={{ color: "var(--text-primary)" }}>
+          <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
+            <p className="exp-id" style={{ marginBottom: "var(--sp-1)" }}>RECORD EMPTY</p>
+            <h2 className="text-lg font-semibold" style={{ color: "var(--text-primary)", marginBottom: "var(--sp-1)" }}>
               No experiences yet
             </h2>
-            <p className="text-sm mb-6 max-w-sm mx-auto" style={{ color: "var(--text-secondary)" }}>
+            <p className="text-sm" style={{ color: "var(--text-secondary)", maxWidth: 420, marginBottom: "var(--sp-3)" }}>
               Start documenting your clinical rotations, volunteer hours, and
               shadowing experiences to build your application story.
             </p>
             <Link
               href="/dashboard/new"
-              className="teal-glow inline-flex items-center gap-2 px-6 py-2.5 rounded-full font-semibold text-sm"
+              className="teal-glow inline-flex items-center text-sm"
+              style={{ padding: "10px var(--sp-3)", textDecoration: "none" }}
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-              </svg>
               Log new hours
             </Link>
           </div>
         ) : (
           <>
           <p className="dept-header" id="recent-experiences">Recent Experiences</p>
-          <div className="space-y-4">
+          <div style={{ display: "grid", gap: "var(--sp-2)" }}>
             {experienceList.map((experience) => (
-              <div key={experience.id} className="glass-card rounded-2xl p-6">
+              <div key={experience.id} className="glass-card" style={{ padding: "var(--sp-2)" }}>
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
-                    {/* Title + tags */}
-                    <div className="flex items-center gap-2 flex-wrap mb-1">
-                      <h3 className="text-base font-semibold" style={{ color: "var(--text-primary)" }}>
-                        <Link href={`/dashboard/${experience.id}`} className="hover:opacity-80 transition-opacity">
-                          {experience.title}
-                        </Link>
-                      </h3>
+                    {/* Record number sits above the title, as a chart header */}
+                    <div className="flex items-center gap-2 flex-wrap" style={{ marginBottom: 4 }}>
+                      <span className="exp-id">{recordNumbers.get(experience.id)}</span>
                       <span className="cat-tag">
                         {TYPE_LABELS[experience.type as ExperienceType]}
                       </span>
                     </div>
 
-                    <p className="text-sm mb-3" style={{ color: "var(--text-secondary)" }}>
+                    <h3 className="text-base font-semibold" style={{ color: "var(--text-primary)" }}>
+                      <Link href={`/dashboard/${experience.id}`} style={{ textDecoration: "none", color: "inherit" }}>
+                        {experience.title}
+                      </Link>
+                    </h3>
+                    <p className="text-sm" style={{ color: "var(--text-secondary)", marginBottom: "var(--sp-1)" }}>
                       {experience.organization}
                     </p>
-                    <div className="flex items-center gap-4 text-xs mb-4 mono" style={{ color: "var(--text-tertiary)" }}>
+
+                    <div
+                      className="flex items-center gap-4 text-xs mono"
+                      style={{ color: "var(--text-tertiary)", marginBottom: "var(--sp-1)" }}
+                    >
                       <span>
                         {formatDate(experience.start_date)}
-                        {experience.end_date ? ` → ${formatDate(experience.end_date)}` : " → Present"}
+                        {experience.end_date ? ` to ${formatDate(experience.end_date)}` : " to PRESENT"}
                       </span>
                       <span className="font-medium" style={{ color: "var(--text-secondary)" }}>
                         {formatMedicalHours(experience.hours)}
@@ -264,11 +262,12 @@ export default async function DashboardPage({
                     </p>
                   </div>
 
-                  {/* Edit + Delete buttons */}
-                  <div className="flex items-center gap-1.5 flex-shrink-0">
+                  {/* Edit + Delete */}
+                  <div className="flex items-center gap-2 flex-shrink-0">
                     <Link
                       href={`/dashboard/${experience.id}/edit`}
-                      className="btn-ghost px-3 py-1.5 text-xs font-semibold"
+                      className="btn-ghost text-xs font-semibold"
+                      style={{ padding: "6px var(--sp-1)", textDecoration: "none" }}
                       aria-label="Edit experience"
                     >
                       Edit
@@ -276,8 +275,15 @@ export default async function DashboardPage({
                     <form action={deleteExperience.bind(null, experience.id)}>
                       <button
                         type="submit"
-                        className="px-3 py-1.5 text-xs font-semibold rounded-full"
-                        style={{ color: "var(--error)", background: "rgba(229,72,77,0.08)", border: "1px solid transparent" }}
+                        className="text-xs font-semibold"
+                        style={{
+                          padding: "6px var(--sp-1)",
+                          color: "var(--margin-rule)",
+                          background: "#FFFFFF",
+                          border: "1px solid rgba(193,18,31,0.3)",
+                          borderRadius: "var(--radius)",
+                          cursor: "pointer",
+                        }}
                         aria-label="Delete experience"
                       >
                         Delete

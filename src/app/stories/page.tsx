@@ -164,7 +164,7 @@ export default async function StoriesPage({
 
                 {/* Med school badge */}
                 <div
-                  className="inline-flex items-center gap-1.5 self-start px-3 py-1 rounded-full text-xs font-medium"
+                  className="inline-flex items-center gap-1.5 self-start px-3 py-1 rounded-sm text-xs font-medium"
                   style={{ backgroundColor: badge.bg, border: `2px solid ${badge.border}`, color: "var(--text-primary)" }}
                 >
                   <svg className="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

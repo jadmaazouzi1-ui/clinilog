@@ -35,8 +35,9 @@ Reframe the following clinical experience description into polished, AMCAS-ready
 - Highlight direct patient interaction or clinical impact where present
 - Showcase specific skills developed (clinical reasoning, communication, empathy, teamwork)
 - Use active voice and precise, professional language
-- Feel authentic and personal — not generic or corporate
+- Feel authentic and personal, not generic or corporate
 - Be 2–4 concise, compelling sentences
+- Never use em dashes. Use a comma, a colon, or a new sentence instead
 
 Original description:
 """

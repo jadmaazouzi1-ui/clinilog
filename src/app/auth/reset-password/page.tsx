@@ -44,14 +44,14 @@ export default function ResetPasswordPage() {
     <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "var(--bg-page)" }}>
       <div className="w-full max-w-md">
         {/* Logo */}
-        <div className="text-center mb-8">
+        <div className="mb-8">
           <div className="inline-flex items-center gap-2 mb-4">
             <span className="text-xl" style={{ color: "var(--text-primary)", fontWeight: 900, letterSpacing: "-0.02em" }}>ClinicLog MD</span>
           </div>
         </div>
 
         {done ? (
-          <div className="glass-card rounded-2xl p-8 text-center">
+          <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
             <div
               className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5"
               style={{ backgroundColor: "rgba(22,36,29,0.1)", border: "1px solid var(--border-strong)" }}
@@ -67,18 +67,18 @@ export default function ResetPasswordPage() {
           </div>
         ) : (
           <>
-            <div className="text-center mb-8">
+            <div className="mb-8">
               <h1 className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>Set a new password</h1>
               <p className="text-sm mt-1" style={{ color: "rgba(22,36,29,0.6)" }}>
                 Choose a strong password for your account
               </p>
             </div>
 
-            <div className="glass-card rounded-2xl p-8">
+            <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
               {error && (
                 <div
-                  className="mb-5 text-sm rounded-lg px-4 py-3"
-                  style={{ background: "rgba(22,36,29,0.1)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }}
+                  className="mb-5 text-sm"
+                  style={{ padding: "10px var(--sp-2)", borderRadius: "var(--radius)", background: "rgba(193,18,31,0.06)", border: "1px solid rgba(193,18,31,0.28)", borderLeft: "2px solid var(--margin-rule)", color: "var(--margin-rule)" }}
                 >
                   {error}
                 </div>
@@ -86,7 +86,7 @@ export default function ResetPasswordPage() {
 
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                  <label htmlFor="password" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(22,36,29,0.85)" }}>
+                  <label htmlFor="password" className="field-label">
                     New password
                   </label>
                   <input
@@ -97,13 +97,13 @@ export default function ResetPasswordPage() {
                     autoComplete="new-password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="input-dark w-full px-3.5 py-2.5 rounded-lg text-sm"
+                    className="field-input"
                     placeholder="At least 8 characters"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="confirm" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(22,36,29,0.85)" }}>
+                  <label htmlFor="confirm" className="field-label">
                     Confirm new password
                   </label>
                   <input
@@ -113,7 +113,7 @@ export default function ResetPasswordPage() {
                     autoComplete="new-password"
                     value={confirm}
                     onChange={(e) => setConfirm(e.target.value)}
-                    className="input-dark w-full px-3.5 py-2.5 rounded-lg text-sm"
+                    className="field-input"
                     placeholder="••••••••"
                   />
                 </div>
@@ -121,15 +121,14 @@ export default function ResetPasswordPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full teal-glow py-2.5 rounded-lg font-semibold text-sm focus:outline-none disabled:opacity-60 disabled:cursor-not-allowed"
-                  style={{ backgroundColor: "var(--accent)", color: "#FFFFFF" }}
+                  className="w-full teal-glow font-semibold text-sm focus:outline-none disabled:opacity-60 disabled:cursor-not-allowed" style={{ padding: "11px 0" }}
                 >
                   {loading ? "Updating…" : "Update Password"}
                 </button>
               </form>
             </div>
 
-            <p className="text-center text-sm mt-6">
+            <p className="text-sm mt-6">
               <Link href="/auth/login" className="font-medium" style={{ color: "var(--text-primary)" }}>
                 ← Back to sign in
               </Link>

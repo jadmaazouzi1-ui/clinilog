@@ -161,7 +161,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
                   style={{ background: "#FFFFFF", border: "1px solid var(--border-strong)" }}
                 >
                   <span
-                    className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide flex-shrink-0 mt-0.5"
+                    className="inline-flex items-center px-2 py-0.5 rounded-sm text-[10px] font-bold uppercase tracking-wide flex-shrink-0 mt-0.5"
                     style={{ background: "#FFFFFF", color: "rgba(22,36,29,0.6)", border: "1px solid var(--border-strong)" }}
                   >
                     {meta.label}
@@ -275,9 +275,9 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
             <h2 className="text-base font-semibold" style={{ color: "var(--text-primary)" }}>Application Milestones</h2>
             <p className="text-xs" style={{ color: "rgba(22,36,29,0.5)" }}>{milestonesDone}/{MILESTONES.length} complete</p>
           </div>
-          <div className="w-32 h-1.5 rounded-full overflow-hidden" style={{ background: "#FFFFFF" }}>
+          <div className="w-32 h-1.5 rounded-none overflow-hidden" style={{ background: "#FFFFFF" }}>
             <div
-              className="h-full rounded-full"
+              className="h-full rounded-sm"
               style={{
                 width: "100%",
                 transform: `scaleX(${milestonesDone / MILESTONES.length})`,

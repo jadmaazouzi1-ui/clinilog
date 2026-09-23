@@ -38,7 +38,7 @@ export default function VerifyEmailPage() {
           experiences.
         </p>
 
-        <div className="glass-card rounded-2xl p-6 text-left mb-6">
+        <div className="glass-card tick-corners" style={{ padding: "var(--sp-3)", textAlign: "left", marginBottom: "var(--sp-3)" }}>
           <h2 className="text-sm font-semibold mb-3" style={{ color: "rgba(22,36,29,0.85)" }}>
             Next steps
           </h2>

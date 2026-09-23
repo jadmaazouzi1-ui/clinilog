@@ -1,40 +1,33 @@
-// Medical-record-style formatters used across the Clinical Precision UI.
+// Medical-record-style formatters used across the clinical chart UI.
 
-/** Convert a YYYY-MM-DD string or Date to medical chart format: "2026.02.04". */
-export function formatMedicalDate(input: string | Date | null | undefined): string {
-  if (!input) return "-";
-  let d: Date;
-  if (typeof input === "string") {
-    // Accept YYYY-MM-DD directly (avoids tz off-by-one)
-    if (/^\d{4}-\d{2}-\d{2}$/.test(input)) {
-      const [y, m, day] = input.split("-").map((s) => parseInt(s, 10));
-      return `${y}.${String(m).padStart(2, "0")}.${String(day).padStart(2, "0")}`;
-    }
-    d = new Date(input);
-  } else {
-    d = input;
+const MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+
+/** Parse a YYYY-MM-DD string without tripping the timezone off-by-one. */
+function parseLoose(input: string | Date): Date | null {
+  if (input instanceof Date) return Number.isNaN(input.getTime()) ? null : input;
+  if (/^\d{4}-\d{2}-\d{2}$/.test(input)) {
+    const [y, m, d] = input.split("-").map((s) => parseInt(s, 10));
+    return new Date(y, m - 1, d);
   }
-  if (Number.isNaN(d.getTime())) return "-";
-  return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}.${String(d.getDate()).padStart(2, "0")}`;
+  const d = new Date(input);
+  return Number.isNaN(d.getTime()) ? null : d;
 }
 
-/** Full timestamp: "2026.02.04 | 04:22" */
+/** Medical record date format: "04 JUL 2026". */
+export function formatMedicalDate(input: string | Date | null | undefined): string {
+  if (!input) return "--";
+  const d = parseLoose(input);
+  if (!d) return "--";
+  return `${String(d.getDate()).padStart(2, "0")} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`;
+}
+
+/** Full timestamp: "04 JUL 2026 | 04:22" */
 export function formatMedicalTimestamp(input: string | Date | null | undefined): string {
-  if (!input) return "-";
-  let d: Date;
-  if (typeof input === "string") {
-    if (/^\d{4}-\d{2}-\d{2}$/.test(input)) {
-      d = new Date(input + "T00:00:00");
-    } else {
-      d = new Date(input);
-    }
-  } else {
-    d = input;
-  }
-  if (Number.isNaN(d.getTime())) return "-";
-  const date = `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}.${String(d.getDate()).padStart(2, "0")}`;
+  if (!input) return "--";
+  const d = parseLoose(input);
+  if (!d) return "--";
   const time = `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
-  return `${date} | ${time}`;
+  return `${formatMedicalDate(d)} | ${time}`;
 }
 
 /** Medical chart-style hours display: "HRS: 072.5" */
@@ -46,4 +39,30 @@ export function formatMedicalHours(value: number): string {
   if (rounded % 1 === 0) return `HRS: ${padded}`;
   const decimal = ((rounded * 10) % 10).toFixed(0);
   return `HRS: ${padded}.${decimal}`;
+}
+
+/**
+ * Patient-ID style record number for an experience: "EXP-0031".
+ * `seq` is the entry's 1-based position in the user's own log, ordered by
+ * when it was created, so an entry's number never changes as more are added.
+ */
+export function formatExperienceId(seq: number): string {
+  return `EXP-${String(Math.max(1, Math.floor(seq))).padStart(4, "0")}`;
+}
+
+/**
+ * Build a stable id → record-number map from a user's experiences.
+ * Sorted by created_at ascending (falling back to id) so the oldest entry is
+ * EXP-0001 regardless of what order the caller fetched them in.
+ */
+export function buildRecordNumbers(
+  experiences: { id: string; created_at?: string | null }[]
+): Map<string, string> {
+  const ordered = [...experiences].sort((a, b) => {
+    const at = a.created_at ?? "";
+    const bt = b.created_at ?? "";
+    if (at !== bt) return at < bt ? -1 : 1;
+    return a.id < b.id ? -1 : 1;
+  });
+  return new Map(ordered.map((e, i) => [e.id, formatExperienceId(i + 1)]));
 }

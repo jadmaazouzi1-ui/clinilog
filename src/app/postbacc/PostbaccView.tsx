@@ -281,9 +281,9 @@ function GpaCard({ label, sub, value, goal, onGoalChange }: {
         <span className="text-sm" style={{ color: "rgba(22,36,29,0.5)" }}>/ 4.00</span>
       </div>
 
-      <div className="w-full h-2 rounded-full overflow-hidden mb-3" style={{ background: "#FFFFFF" }}>
+      <div className="w-full h-2 rounded-none overflow-hidden mb-3" style={{ background: "#FFFFFF" }}>
         <div
-          className="h-full rounded-full"
+          className="h-full rounded-sm"
           style={{
             width: "100%",
             transform: `scaleX(${pct / 100})`,

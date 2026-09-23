@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { ARCHETYPES, ArchetypeAnalysis, getArchetype } from "@/lib/archetypes";
+import { formatMedicalDate } from "@/lib/formatMedical";
 
 interface Props {
   initialAnalysis: ArchetypeAnalysis | null;
@@ -278,7 +279,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
           </div>
           {generatedAt && (
             <p className="text-xs mt-3" style={{ color: "rgba(22,36,29,0.55)" }}>
-              Generated {new Date(generatedAt).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}
+              Generated {formatMedicalDate(generatedAt)}
             </p>
           )}
         </div>

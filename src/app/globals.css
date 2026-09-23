@@ -1,6 +1,10 @@
 @import "tailwindcss";
 
-/* ── SOFT CLINICAL — mint/sage palette, glass cards, soft shadows, rounded ── */
+/* ──────────────────────────────────────────────────────────────────────────
+   CLINICAL CHART — sage/green palette rendered as a medical document.
+   Flat surfaces, hairline rules, one small radius, perforated dividers,
+   red prescription-pad margin rule, registration tick marks.
+   ────────────────────────────────────────────────────────────────────────── */
 :root {
   --bg-page:       #F3F7F4;
   --bg-card:       #FFFFFF;
@@ -20,22 +24,39 @@
   --text-tertiary:  #94A39B;
   --text-on-dark:   #EAF3ED;
 
-  --border:        rgba(16,24,20,0.08);
-  --border-strong: rgba(16,24,20,0.14);
-  --error:         #E5484D;
+  --border:        rgba(16,24,20,0.10);
+  --border-strong: rgba(16,24,20,0.16);
+  --error:         #C1121F;
   --success:       #2D6A4F;
   --warning:       #F4A261;
 
-  --radius-sm: 10px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
-  --radius-pill: 999px;
+  /* Red rule from prescription pads / chart margins */
+  --margin-rule:      #C1121F;
+  --margin-rule-soft: rgba(193,18,31,0.45);
 
-  --shadow-card: 0 1px 2px rgba(16,24,20,0.04), 0 8px 24px rgba(16,24,20,0.05);
-  --shadow-card-hover: 0 2px 4px rgba(16,24,20,0.05), 0 12px 32px rgba(16,24,20,0.08);
-  --shadow-hero: 0 20px 60px rgba(11,61,46,0.35);
+  /* ── ONE radius, everywhere. Never mixed. ──
+     Circles (avatars, donut) use border-radius:50% and are exempt. */
+  --radius:      3px;
+  --radius-sm:   3px;
+  --radius-md:   3px;
+  --radius-lg:   3px;
+  --radius-pill: 3px;
 
-  /* Category chart palette (used consistently for donuts, legends, node graphs) */
+  /* ── Strict 8px section rhythm ── */
+  --sp-1:  8px;
+  --sp-2: 16px;
+  --sp-3: 24px;
+  --sp-4: 32px;
+  --sp-5: 40px;
+  --sp-6: 48px;
+  --sp-8: 64px;
+
+  /* Flat document: no card shadows. Only the dark hero panel lifts. */
+  --shadow-card:       none;
+  --shadow-card-hover: none;
+  --shadow-hero:       0 1px 0 rgba(16,24,20,0.10);
+
+  /* Category palette (charts, legends, leaf fills) */
   --cat-clinical:  #2D6A4F;
   --cat-shadowing: #74C69D;
   --cat-research:  #7C6FE0;
@@ -51,15 +72,19 @@
   --color-foreground: var(--text-primary);
 }
 
+/* Collapse Tailwind's entire radius scale onto the single 3px value, so no
+   `rounded-xl` / `rounded-2xl` left anywhere in the app can reintroduce a
+   soft-SaaS corner. `rounded-full` is deliberately untouched: it is only
+   used for genuine circles (avatars, status dots). */
 @theme {
-  --radius-xs: 8px;
-  --radius-sm: 10px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
-  --radius-xl: 24px;
-  --radius-2xl: 28px;
-  --radius-3xl: 32px;
-  --radius-4xl: 36px;
+  --radius-xs:  3px;
+  --radius-sm:  3px;
+  --radius-md:  3px;
+  --radius-lg:  3px;
+  --radius-xl:  3px;
+  --radius-2xl: 3px;
+  --radius-3xl: 3px;
+  --radius-4xl: 3px;
 }
 
 html {
@@ -90,69 +115,190 @@ h1, h2, h3 {
   background-color: var(--bg-page);
 }
 
-/* ── Cards: white, soft border, large radius, gentle shadow on hover ──── */
+/* ══════════════════════════════════════════════════════════════════════
+   CARDS — flat chart panels. Hairline border, no shadow, no lift.
+   Hover reveals a thin red margin rule on the leading edge instead of
+   the generic shadow-and-scale pattern.
+   ══════════════════════════════════════════════════════════════════════ */
 .glass-card,
 .clinical-card {
   background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  box-shadow: inset 0 0 0 0 var(--margin-rule);
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
 }
 .glass-card:hover,
 .clinical-card:hover {
-  box-shadow: var(--shadow-card-hover);
+  border-color: var(--border-strong);
+  box-shadow: inset 2px 0 0 0 var(--margin-rule);
 }
 
+/* ══════════════════════════════════════════════════════════════════════
+   RED MARGIN RULE — 2px vertical line 40px from the left edge, as on a
+   prescription pad. Applied to content-heavy pages.
+   ══════════════════════════════════════════════════════════════════════ */
+/* Pages using this must NOT set padding-left inline: an inline shorthand
+   (`padding: X`) beats any stylesheet rule and would drop the content back
+   on top of the rule. Set top/right/bottom inline and leave left to this. */
+.chart-margin {
+  position: relative;
+  padding-left: var(--sp-3);
+}
 .chart-margin::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 40px;
+  width: 2px;
+  background: var(--margin-rule-soft);
+  pointer-events: none;
   display: none;
 }
+@media (min-width: 768px) {
+  .chart-margin::before { display: block; }
+  /* Clear the rule: content starts to the right of it. */
+  .chart-margin { padding-left: var(--sp-8); }
+}
 
-/* ── Buttons ──────────────────────────────────────────────────────────── */
-/* Primary: deep green, white text, soft shadow, lightens on hover */
+/* ══════════════════════════════════════════════════════════════════════
+   REGISTRATION TICK MARKS — thin L-shaped corner marks, as on medical
+   forms. Eight background layers (h + v per corner) on one pseudo-element.
+   ══════════════════════════════════════════════════════════════════════ */
+.tick-corners { position: relative; }
+.tick-corners::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-image:
+    linear-gradient(var(--tick-color, var(--border-strong)), var(--tick-color, var(--border-strong))),
+    linear-gradient(var(--tick-color, var(--border-strong)), var(--tick-color, var(--border-strong))),
+    linear-gradient(var(--tick-color, var(--border-strong)), var(--tick-color, var(--border-strong))),
+    linear-gradient(var(--tick-color, var(--border-strong)), var(--tick-color, var(--border-strong))),
+    linear-gradient(var(--tick-color, var(--border-strong)), var(--tick-color, var(--border-strong))),
+    linear-gradient(var(--tick-color, var(--border-strong)), var(--tick-color, var(--border-strong))),
+    linear-gradient(var(--tick-color, var(--border-strong)), var(--tick-color, var(--border-strong))),
+    linear-gradient(var(--tick-color, var(--border-strong)), var(--tick-color, var(--border-strong)));
+  background-size:
+    9px 1px, 1px 9px,
+    9px 1px, 1px 9px,
+    9px 1px, 1px 9px,
+    9px 1px, 1px 9px;
+  background-position:
+    8px 8px, 8px 8px,
+    calc(100% - 8px) 8px, calc(100% - 8px) 8px,
+    8px calc(100% - 8px), 8px calc(100% - 8px),
+    calc(100% - 8px) calc(100% - 8px), calc(100% - 8px) calc(100% - 8px);
+}
+/* Ticks on the dark hero panel */
+.tick-corners-light { --tick-color: rgba(255,255,255,0.32); }
+
+/* ══════════════════════════════════════════════════════════════════════
+   PERFORATED TEAR LINE — dashed rule, as on a detachable form.
+   ══════════════════════════════════════════════════════════════════════ */
+.tear-line {
+  border: 0;
+  border-top: 1px dashed var(--border-strong);
+  margin: var(--sp-4) 0;
+  height: 0;
+}
+.tear-line-tight { margin: var(--sp-2) 0; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   BUTTONS — square-ish, flat, no glow, no translate.
+   ══════════════════════════════════════════════════════════════════════ */
 .teal-glow,
 .btn-primary {
   background: var(--accent) !important;
   color: #FFFFFF !important;
   border: 1px solid var(--accent) !important;
-  border-radius: var(--radius-pill) !important;
+  border-radius: var(--radius) !important;
   font-weight: 600;
-  box-shadow: 0 4px 14px rgba(45,106,79,0.28) !important;
-  transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+  letter-spacing: 0.01em;
+  box-shadow: none !important;
+  transition: background 0.15s ease, border-color 0.15s ease;
 }
 .teal-glow:hover,
 .btn-primary:hover {
-  background: #245B42 !important;
-  box-shadow: 0 6px 18px rgba(45,106,79,0.36) !important;
-  transform: translateY(-1px);
+  background: #1F5138 !important;
+  border-color: #1F5138 !important;
+  box-shadow: none !important;
+  transform: none;
 }
 
-/* Ghost: white bg, green text, soft border */
 .btn-ghost {
   background: #FFFFFF;
   border: 1px solid var(--border-strong);
   color: var(--text-primary);
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius);
   font-weight: 600;
-  transition: background 0.18s ease, border-color 0.18s ease;
+  transition: background 0.15s ease, border-color 0.15s ease;
 }
 .btn-ghost:hover {
   background: var(--bg-soft);
   border-color: var(--accent-border);
 }
 
-/* ── Inputs: white bg, soft border, green focus ring ──────────────────── */
+/* ══════════════════════════════════════════════════════════════════════
+   INTAKE-FORM FIELDS — label above, hairline underline below, no box.
+   `.field-input` is the chart-style default; `.input-dark` is the boxed
+   fallback kept for selects and dense grids.
+   ══════════════════════════════════════════════════════════════════════ */
+.field-label {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-secondary);
+  margin-bottom: var(--sp-1);
+}
+
+.field-input {
+  display: block;
+  width: 100%;
+  background: transparent !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--border-strong) !important;
+  border-radius: 0 !important;
+  padding: 6px 2px !important;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  color: var(--text-primary) !important;
+  transition: border-color 0.15s ease;
+}
+.field-input:focus {
+  outline: none !important;
+  border-bottom-color: var(--accent) !important;
+  box-shadow: 0 1px 0 0 var(--accent) !important;
+}
+.field-input::placeholder {
+  color: var(--text-tertiary) !important;
+  opacity: 1;
+}
+.field-input option {
+  background: #FFFFFF;
+  color: var(--text-primary);
+}
+/* Native date/select controls need a little breathing room from the rule */
+select.field-input,
+input[type="date"].field-input { padding-right: var(--sp-1) !important; }
+
 .input-dark {
   background: #FFFFFF !important;
   border: 1px solid var(--border-strong) !important;
   color: var(--text-primary) !important;
-  border-radius: var(--radius-sm) !important;
+  border-radius: var(--radius) !important;
   font-family: var(--font-sans);
 }
 .input-dark:focus {
   outline: none !important;
   border-color: var(--accent) !important;
-  box-shadow: 0 0 0 3px var(--accent-soft) !important;
+  box-shadow: 0 0 0 2px var(--accent-soft) !important;
 }
 .input-dark::placeholder {
   color: var(--text-tertiary) !important;
@@ -165,42 +311,85 @@ h1, h2, h3 {
   color: var(--text-primary);
 }
 
+/* ══════════════════════════════════════════════════════════════════════
+   READ-ONLY CHART FIELD — labelled value on a hairline, for data display
+   that would otherwise be a boxed card.
+   ══════════════════════════════════════════════════════════════════════ */
+.data-field {
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+.data-field-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-tertiary);
+  margin-bottom: 3px;
+}
+.data-field-value {
+  display: block;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   PATIENT-ID STYLE RECORD NUMBER — "EXP-0031"
+   ══════════════════════════════════════════════════════════════════════ */
+.exp-id {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--text-tertiary);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
 /* Minimal loading indicator */
 .loading-text {
-  font-family: var(--font-sans);
-  font-size: 13px;
+  font-family: var(--font-mono);
+  font-size: 12px;
   font-weight: 600;
+  letter-spacing: 0.04em;
   color: var(--text-secondary);
 }
 .loading-text::after {
   content: "";
   display: inline-block;
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
   margin-left: 6px;
-  border-radius: 50%;
-  background: var(--accent-bright);
+  background: var(--accent);
   vertical-align: 1px;
-  animation: cursor-blink 1s ease-in-out infinite;
+  animation: cursor-blink 1s steps(2, start) infinite;
 }
 @keyframes cursor-blink {
-  0%, 100% { opacity: 0.3; }
+  0%, 100% { opacity: 0.25; }
   50%      { opacity: 1; }
 }
 
-/* ── Section header: soft uppercase label, no border ───────────────────── */
+/* ══════════════════════════════════════════════════════════════════════
+   SECTION HEADER — small-caps form label sitting on a perforated rule.
+   Used app-wide, so this single rule gives every section a tear line.
+   ══════════════════════════════════════════════════════════════════════ */
 .dept-header {
   font-family: var(--font-sans);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 12px;
+  letter-spacing: 0.14em;
+  font-size: 10px;
   font-weight: 700;
   color: var(--text-secondary);
-  margin-bottom: 16px;
+  padding-bottom: var(--sp-1);
+  margin-bottom: var(--sp-2);
+  border-bottom: 1px dashed var(--border-strong);
   line-height: 1;
 }
 
-/* ── Monospace data (kept for numeric alignment only) ─────────────────── */
+/* ── Monospace data ───────────────────────────────────────────────────── */
 .mono-stat,
 .mono {
   font-family: var(--font-mono);
@@ -208,91 +397,94 @@ h1, h2, h3 {
   letter-spacing: 0;
 }
 
-/* ── Vitals / stat card ────────────────────────────────────────────────── */
+/* ── Vitals / stat cell: flat, hairline, left-aligned ─────────────────── */
 .vital-card {
   background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
-  padding: 20px 24px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  box-shadow: none;
+  padding: var(--sp-2);
 }
 .vital-card-label {
   font-family: var(--font-sans);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-size: 11px;
+  letter-spacing: 0.12em;
+  font-size: 10px;
   font-weight: 700;
   color: var(--text-tertiary);
-  margin-bottom: 10px;
+  margin-bottom: var(--sp-1);
 }
 .vital-card-value {
-  font-family: var(--font-sans);
-  font-size: 1.875rem;
-  font-weight: 700;
+  font-family: var(--font-mono);
+  font-size: 1.75rem;
+  font-weight: 600;
   color: var(--text-primary);
   font-variant-numeric: tabular-nums;
   line-height: 1.1;
+  letter-spacing: -0.01em;
 }
 .vital-card-value-sub {
-  font-family: var(--font-sans);
+  font-family: var(--font-mono);
   font-size: 0.75rem;
   color: var(--text-tertiary);
-  margin-left: 6px;
+  margin-left: 4px;
 }
 
-/* ── Category tags: soft pill, tinted per category ────────────────────── */
+/* ── Category tag: squared chip with a hairline ───────────────────────── */
 .cat-tag {
-  display: inline-flex;
-  align-items: center;
-  font-family: var(--font-sans);
-  font-size: 11px;
-  font-weight: 600;
-  padding: 4px 10px;
-  border-radius: var(--radius-pill);
-  background: var(--accent-soft);
-  color: var(--accent);
-  border: 1px solid transparent;
-}
-
-/* ── BETA pill ────────────────────────────────────────────────────────── */
-.beta-pill {
   display: inline-flex;
   align-items: center;
   font-family: var(--font-sans);
   font-size: 10px;
   font-weight: 700;
-  padding: 2px 8px;
-  border-radius: var(--radius-pill);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 3px var(--sp-1);
+  border-radius: var(--radius);
   background: var(--accent-soft);
   color: var(--accent);
-  border: 1px solid transparent;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  border: 1px solid var(--accent-border);
 }
 
-/* ── Progress bars: soft track, gradient fill ─────────────────────────── */
+/* ── BETA marker ──────────────────────────────────────────────────────── */
+.beta-pill {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* ── Progress: flat bar, square ends ─────────────────────────────────── */
 .thin-progress {
-  height: 8px;
+  height: 6px;
   background: var(--bg-soft);
-  border: none;
-  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  border-radius: 0;
   overflow: hidden;
 }
 .thin-progress > .fill {
   height: 100%;
   width: 100%;
-  background: linear-gradient(90deg, var(--accent), var(--accent-bright));
+  background: var(--accent);
   transform-origin: left center;
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* ── Animations ───────────────────────────────────────────────────────── */
 @keyframes pageFadeIn {
-  from { opacity: 0; transform: translateY(4px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 .page-fade-in {
-  animation: pageFadeIn 0.25s ease-out both;
+  animation: pageFadeIn 0.2s ease-out both;
 }
 
 @keyframes liquidPour {
@@ -300,15 +492,15 @@ h1, h2, h3 {
   100% { transform: scaleX(1); }
 }
 .liquid-fill {
-  background: linear-gradient(90deg, var(--accent), var(--accent-bright));
+  background: var(--accent);
   height: 100%;
   width: var(--fill, 100%);
   transform-origin: left center;
-  animation: liquidPour 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: liquidPour 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .archetype-reveal {
-  animation: pageFadeIn 0.4s ease-out both;
+  animation: pageFadeIn 0.3s ease-out both;
 }
 
 .letter-reveal > span {
@@ -323,17 +515,18 @@ h1, h2, h3 {
   display: none;
 }
 
-/* Active sidebar item */
+/* Active sidebar item: left rule marks position, as in a chart index */
 .chart-tab-active {
   background: var(--accent-soft);
   color: var(--accent);
   font-weight: 600;
+  box-shadow: inset 2px 0 0 0 var(--accent);
 }
 
 /* Sidebar collapse */
 .sidebar-collapse {
   width: 232px;
-  transition-duration: 250ms;
+  transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 .sidebar-collapse.is-collapsed {

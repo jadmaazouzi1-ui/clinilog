@@ -16,26 +16,18 @@ interface AppShellProps {
   children: React.ReactNode;
 }
 
-function Icon({ d, viewBox = "0 0 24 24" }: { d: string; viewBox?: string }) {
-  return (
-    <svg width="18" height="18" viewBox={viewBox} fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-      <path d={d} />
-    </svg>
-  );
-}
-
 const NAV_ITEMS = [
-  { href: "/dashboard",   label: "Overview",    icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" },
-  { href: "/archetype",   label: "My Archetype", icon: "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" },
-  { href: "/schools",     label: "Schools",      icon: "M3 21V7l9-4 9 4v14M9 21V12h6v9" },
-  { href: "/specialties", label: "Specialties",  icon: "M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" },
-  { href: "/gapyear",     label: "Gap Year",     icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" },
-  { href: "/postbacc",    label: "Post-bacc",    icon: "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" },
-  { href: "/resources",   label: "Resources",    icon: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" },
-  { href: "/fee-tracker", label: "Fee Tracker",  icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" },
-  { href: "/stories",     label: "Stories",      icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zm10 10v-2a4 4 0 00-3-3.87m-4-11.13a4 4 0 010 7.75" },
-  { href: "/import",      label: "Import CSV",   icon: "M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" },
-  { href: "/profile",     label: "Profile",      icon: "M4 20c0-4 3.6-7 8-7s8 3 8 7M12 12a4 4 0 100-8 4 4 0 000 8z" },
+  { href: "/dashboard",   label: "Overview",    code: "OV" },
+  { href: "/archetype",   label: "My Archetype", code: "AR" },
+  { href: "/schools",     label: "Schools",      code: "SC" },
+  { href: "/specialties", label: "Specialties",  code: "SP" },
+  { href: "/gapyear",     label: "Gap Year",     code: "GY" },
+  { href: "/postbacc",    label: "Post-bacc",    code: "PB" },
+  { href: "/resources",   label: "Resources",    code: "RS" },
+  { href: "/fee-tracker", label: "Fee Tracker",  code: "FT" },
+  { href: "/stories",     label: "Stories",      code: "ST" },
+  { href: "/import",      label: "Import CSV",   code: "IM" },
+  { href: "/profile",     label: "Profile",      code: "PR" },
 ];
 
 const BOTTOM_TABS = [
@@ -126,7 +118,19 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
                   borderRadius: "var(--radius-sm)",
                 }}
               >
-                <Icon d={item.icon} />
+                <span
+                  className="mono"
+                  style={{
+                    flexShrink: 0,
+                    width: 22,
+                    fontSize: 10,
+                    fontWeight: 600,
+                    letterSpacing: "0.06em",
+                    color: isActive ? "var(--accent)" : "var(--text-tertiary)",
+                  }}
+                >
+                  {item.code}
+                </span>
                 {item.label}
               </Link>
             );

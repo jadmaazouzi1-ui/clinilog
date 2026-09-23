@@ -424,7 +424,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
                   <h3 className="text-sm font-bold leading-snug" style={{ color: "var(--text-primary)" }}>{school.name}</h3>
                   {isInStateForUser && (
                     <span
-                      className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap"
+                      className="inline-flex items-center px-2 py-0.5 rounded-sm text-xs font-semibold whitespace-nowrap"
                       style={{ background: "rgba(22,36,29,0.1)", color: "var(--text-primary)", border: "1px solid var(--border-strong)" }}
                     >
                       In-State for You ✓
@@ -432,7 +432,7 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
                   )}
                   {match && !isInStateForUser && (
                     <span
-                      className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap"
+                      className="inline-flex items-center px-2 py-0.5 rounded-sm text-xs font-semibold whitespace-nowrap"
                       style={{ background: "#FFFFFF", color: "var(--text-primary)", border: "1px solid var(--border-strong)" }}
                     >
                       Good Match
@@ -443,20 +443,20 @@ export default function SchoolList({ userEmail: _userEmail }: { userEmail: strin
 
               <div className="flex items-center gap-2 flex-wrap mb-3">
                 <span
-                  className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                  className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-xs font-medium"
                   style={{ background: "#FFFFFF", color: "rgba(22,36,29,0.55)", border: "1px solid var(--border-strong)" }}
                 >
                   {school.state}
                 </span>
                 <span
-                  className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                  className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-xs font-medium"
                   style={getMissionBadgeStyle(school.mission)}
                 >
                   {school.mission}
                 </span>
                 {school.inStatePref !== "Neutral" && (
                   <span
-                    className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                    className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-xs font-medium"
                     style={
                       school.inStatePref === "In-State Friendly"
                         ? { background: "rgba(22,36,29,0.1)", color: "var(--text-primary)", border: "1px solid var(--border-strong)" }

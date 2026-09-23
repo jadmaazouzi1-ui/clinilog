@@ -68,12 +68,12 @@ export default async function LoginPage({
     return (
       <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "var(--bg-page)" }}>
         <div className="w-full max-w-md">
-          <div className="text-center mb-8">
+          <div className="mb-8">
             <LogoMark />
           </div>
 
           {sent === "1" ? (
-            <div className="glass-card rounded-lg p-8 text-center">
+            <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
               <div
                 className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5"
                 style={{ backgroundColor: "#FFFFFF", border: "1px solid var(--border-strong)" }}
@@ -95,25 +95,25 @@ export default async function LoginPage({
             </div>
           ) : (
             <>
-              <div className="text-center mb-8">
+              <div className="mb-8">
                 <h1 className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>Reset your password</h1>
                 <p className="text-sm mt-1" style={{ color: "rgba(22,36,29,0.6)" }}>
                   Enter your email and we&apos;ll send you a reset link
                 </p>
               </div>
 
-              <div className="glass-card rounded-lg p-8">
+              <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
                 {pageError && (
                   <div
-                    className="mb-5 text-sm rounded-lg px-4 py-3"
-                    style={{ background: "#FFFFFF", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }}
+                    className="mb-5 text-sm"
+                    style={{ padding: "10px var(--sp-2)", background: "rgba(193,18,31,0.06)", border: "1px solid rgba(193,18,31,0.28)", borderLeft: "2px solid var(--margin-rule)", borderRadius: "var(--radius)", color: "var(--margin-rule)" }}
                   >
                     {decodeURIComponent(pageError)}
                   </div>
                 )}
                 <form action={forgotPassword} className="space-y-5">
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(22,36,29,0.85)" }}>
+                    <label htmlFor="email" className="field-label">
                       Email address
                     </label>
                     <input
@@ -122,21 +122,20 @@ export default async function LoginPage({
                       type="email"
                       required
                       autoComplete="email"
-                      className="input-dark w-full px-3.5 py-2.5 rounded-lg text-sm"
+                      className="field-input"
                       placeholder="you@university.edu"
                     />
                   </div>
                   <button
                     type="submit"
-                    className="w-full teal-glow py-2.5 rounded-lg font-semibold text-sm focus:outline-none"
-                    style={{ backgroundColor: "var(--accent)", color: "#FFFFFF" }}
+                    className="w-full teal-glow font-semibold text-sm focus:outline-none" style={{ padding: "11px 0" }}
                   >
                     Send Reset Email
                   </button>
                 </form>
               </div>
 
-              <p className="text-center text-sm mt-6">
+              <p className="text-sm mt-6">
                 <Link href="/auth/login" className="font-medium" style={{ color: "var(--text-primary)" }}>
                   ← Back to sign in
                 </Link>
@@ -151,7 +150,7 @@ export default async function LoginPage({
   return (
     <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "var(--bg-page)" }}>
       <div className="w-full max-w-md">
-        <div className="text-center mb-8">
+        <div className="mb-8">
           <LogoMark />
           <h1 className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>Welcome back</h1>
           <p className="text-sm mt-1" style={{ color: "rgba(22,36,29,0.6)" }}>
@@ -159,18 +158,18 @@ export default async function LoginPage({
           </p>
         </div>
 
-        <div className="glass-card rounded-lg p-8">
+        <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
           {pageError && (
             <div
-              className="mb-5 text-sm rounded-lg px-4 py-3"
-              style={{ background: "#FFFFFF", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }}
+              className="mb-5 text-sm"
+                    style={{ padding: "10px var(--sp-2)", background: "rgba(193,18,31,0.06)", border: "1px solid rgba(193,18,31,0.28)", borderLeft: "2px solid var(--margin-rule)", borderRadius: "var(--radius)", color: "var(--margin-rule)" }}
             >
               {decodeURIComponent(pageError)}
             </div>
           )}
           <form action={login} className="space-y-5">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(22,36,29,0.85)" }}>
+              <label htmlFor="email" className="field-label">
                 Email address
               </label>
               <input
@@ -179,14 +178,14 @@ export default async function LoginPage({
                 type="email"
                 required
                 autoComplete="email"
-                className="input-dark w-full px-3.5 py-2.5 rounded-lg text-sm"
+                className="field-input"
                 placeholder="you@university.edu"
               />
             </div>
 
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <label htmlFor="password" className="block text-sm font-medium" style={{ color: "rgba(22,36,29,0.85)" }}>
+                <label htmlFor="password" className="field-label">
                   Password
                 </label>
                 <Link href="/auth/login?view=forgot" className="text-xs font-medium" style={{ color: "var(--text-primary)" }}>
@@ -199,22 +198,21 @@ export default async function LoginPage({
                 type="password"
                 required
                 autoComplete="current-password"
-                className="input-dark w-full px-3.5 py-2.5 rounded-lg text-sm"
+                className="field-input"
                 placeholder="••••••••"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full teal-glow py-2.5 rounded-lg font-semibold text-sm focus:outline-none"
-              style={{ backgroundColor: "var(--accent)", color: "#FFFFFF" }}
+              className="w-full teal-glow font-semibold text-sm focus:outline-none" style={{ padding: "11px 0" }}
             >
               Sign In
             </button>
           </form>
         </div>
 
-        <p className="text-center text-sm mt-6" style={{ color: "rgba(22,36,29,0.5)" }}>
+        <p className="text-sm mt-6" style={{ color: "rgba(22,36,29,0.5)" }}>
           Don&apos;t have an account?{" "}
           <Link href="/auth/signup" className="font-medium" style={{ color: "var(--text-primary)" }}>
             Create one free

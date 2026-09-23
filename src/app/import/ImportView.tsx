@@ -435,7 +435,7 @@ export default function ImportView() {
                       <td className="px-2 py-3 align-top">
                         {r.row?.type ? (
                           <span
-                            className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium"
+                            className="inline-flex items-center px-2 py-0.5 rounded-sm text-xs font-medium"
                             style={{
                               background: `${CATEGORY_COLOR[r.row.type]}1a`,
                               color: CATEGORY_COLOR[r.row.type],

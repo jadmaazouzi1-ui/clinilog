@@ -53,7 +53,7 @@ export default async function SignupPage({
     <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "var(--bg-page)" }}>
       <div className="w-full max-w-md">
         {/* Logo */}
-        <div className="text-center mb-8">
+        <div className="mb-8">
           <div className="inline-flex items-center mb-4">
             <span className="text-2xl" style={{ color: "var(--text-primary)", fontWeight: 900, letterSpacing: "-0.02em" }}>ClinicLog MD</span>
           </div>
@@ -64,7 +64,7 @@ export default async function SignupPage({
         </div>
 
         {/* Card */}
-        <div className="glass-card rounded-lg p-8">
+        <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
           {pageError && (
             <div
               className="mb-5 text-sm px-4 py-3"
@@ -77,8 +77,7 @@ export default async function SignupPage({
             <div>
               <label
                 htmlFor="name"
-                className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(22,36,29,0.85)" }}
+                className="field-label"
               >
                 Full name
               </label>
@@ -88,7 +87,7 @@ export default async function SignupPage({
                 type="text"
                 required
                 autoComplete="name"
-                className="input-dark w-full px-3.5 py-2.5 rounded-lg text-sm transition"
+                className="field-input"
                 placeholder="Jane Smith"
               />
             </div>
@@ -96,8 +95,7 @@ export default async function SignupPage({
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(22,36,29,0.85)" }}
+                className="field-label"
               >
                 Email address
               </label>
@@ -107,7 +105,7 @@ export default async function SignupPage({
                 type="email"
                 required
                 autoComplete="email"
-                className="input-dark w-full px-3.5 py-2.5 rounded-lg text-sm transition"
+                className="field-input"
                 placeholder="you@university.edu"
               />
             </div>
@@ -115,8 +113,7 @@ export default async function SignupPage({
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(22,36,29,0.85)" }}
+                className="field-label"
               >
                 Password
               </label>
@@ -127,22 +124,21 @@ export default async function SignupPage({
                 required
                 minLength={8}
                 autoComplete="new-password"
-                className="input-dark w-full px-3.5 py-2.5 rounded-lg text-sm transition"
+                className="field-input"
                 placeholder="At least 8 characters"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full teal-glow py-2.5 rounded-lg font-semibold text-sm transition-colors focus:outline-none"
-              style={{ backgroundColor: "var(--accent)", color: "#FFFFFF" }}
+              className="w-full teal-glow font-semibold text-sm focus:outline-none" style={{ padding: "11px 0" }}
             >
               Create Account
             </button>
           </form>
         </div>
 
-        <p className="text-center text-sm mt-6" style={{ color: "rgba(22,36,29,0.5)" }}>
+        <p className="text-sm mt-6" style={{ color: "rgba(22,36,29,0.5)" }}>
           Already have an account?{" "}
           <Link
             href="/auth/login"

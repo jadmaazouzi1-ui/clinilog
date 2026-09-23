@@ -46,15 +46,17 @@ export default function HoursBreakdown({
   if (data.length === 0) return null;
 
   return (
-    <div className="glass-card rounded-2xl p-6 mb-8">
-      <div className="flex items-center justify-between mb-6">
-        <p className="dept-header" style={{ marginBottom: 0 }}>Experience Hours</p>
-        <a href="#recent-experiences" className="text-xs font-semibold" style={{ color: "var(--accent)" }}>
-          See all experiences →
+    <div className="glass-card tick-corners" style={{ padding: "var(--sp-2)" }}>
+      <div className="flex items-baseline justify-between" style={{ marginBottom: "var(--sp-2)" }}>
+        <p className="dept-header" style={{ marginBottom: 0, border: 0, paddingBottom: 0 }}>
+          Experience Hours
+        </p>
+        <a href="#recent-experiences" className="exp-id" style={{ color: "var(--accent)" }}>
+          SEE ALL
         </a>
       </div>
 
-      <div className="flex flex-col sm:flex-row items-center gap-8">
+      <div className="flex flex-col sm:flex-row items-center" style={{ gap: "var(--sp-3)" }}>
         {/* Donut chart with center total */}
         <div className="relative w-48 h-48 flex-shrink-0">
           <ResponsiveContainer width="100%" height="100%">
@@ -79,44 +81,53 @@ export default function HoursBreakdown({
                   return [`${n % 1 === 0 ? n : n.toFixed(1)} hrs`, ""];
                 }}
                 contentStyle={{
-                  borderRadius: 12,
-                  border: "1px solid var(--border)",
+                  borderRadius: 3,
+                  border: "1px solid var(--border-strong)",
                   fontSize: "12px",
+                  fontFamily: "var(--font-mono)",
                   backgroundColor: "#FFFFFF",
                   color: "var(--text-primary)",
-                  boxShadow: "var(--shadow-card)",
+                  boxShadow: "none",
                 }}
               />
             </PieChart>
           </ResponsiveContainer>
           <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-            <span className="font-bold" style={{ color: "var(--text-primary)", fontSize: "1.5rem", lineHeight: 1 }}>
+            <span className="mono font-semibold" style={{ color: "var(--text-primary)", fontSize: "1.5rem", lineHeight: 1 }}>
               {formatHours(totalHours)}
             </span>
-            <span style={{ color: "var(--text-tertiary)", fontSize: "0.6875rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.04em" }}>
-              total hours
+            <span style={{ color: "var(--text-tertiary)", fontSize: "0.625rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", marginTop: 2 }}>
+              total hrs
             </span>
           </div>
         </div>
 
-        {/* Legend */}
-        <div className="flex-1 w-full space-y-3">
+        {/* Breakdown: labelled rows on hairlines, as on an intake sheet */}
+        <div className="flex-1 w-full">
           {data.map((entry) => {
             const pct = Math.round((entry.hours / totalHours) * 100);
             const hrs = formatHours(entry.hours);
             return (
-              <div key={entry.type} className="flex items-center gap-3">
+              <div
+                key={entry.type}
+                className="flex items-baseline gap-2"
+                style={{
+                  padding: "6px 0",
+                  borderBottom: "1px solid var(--border)",
+                  boxShadow: `inset 3px 0 0 -1px ${COLORS[entry.type]}`,
+                  paddingLeft: 8,
+                }}
+              >
                 <span
-                  className="w-2.5 h-2.5 rounded-full flex-shrink-0"
-                  style={{ backgroundColor: COLORS[entry.type] }}
-                />
-                <span className="text-sm flex-1" style={{ color: "var(--text-primary)" }}>
+                  className="flex-1 text-xs font-bold uppercase"
+                  style={{ color: "var(--text-secondary)", letterSpacing: "0.08em" }}
+                >
                   {entry.label}
                 </span>
-                <span className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>
-                  {hrs} hrs
+                <span className="mono text-sm font-semibold" style={{ color: "var(--text-primary)" }}>
+                  {hrs}
                 </span>
-                <span className="text-xs w-10 text-right" style={{ color: "var(--text-tertiary)" }}>
+                <span className="mono text-xs w-10 text-right" style={{ color: "var(--text-tertiary)" }}>
                   {pct}%
                 </span>
               </div>

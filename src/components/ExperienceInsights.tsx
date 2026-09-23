@@ -164,7 +164,7 @@ export default function ExperienceInsights({
           </p>
         </div>
         <span
-          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold"
+          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-sm text-xs font-semibold"
           style={{
             background: meta.bg,
             color: meta.color,

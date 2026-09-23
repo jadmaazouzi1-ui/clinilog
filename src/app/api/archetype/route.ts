@@ -52,11 +52,11 @@ export async function POST() {
   const expList = exps
     .map(
       (e, i) =>
-        `${i + 1}. "${e.title}" at ${e.organization} — ${e.type.replace("_", " ")}, ${formatHours(e.hours ?? 0)} hrs\n   Description: ${e.description ?? "(none)"}${e.reflection ? `\n   Reflection: ${e.reflection}` : ""}`
+        `${i + 1}. "${e.title}" at ${e.organization} (${e.type.replace("_", " ")}), ${formatHours(e.hours ?? 0)} hrs\n   Description: ${e.description ?? "(none)"}${e.reflection ? `\n   Reflection: ${e.reflection}` : ""}`
     )
     .join("\n\n");
 
-  const archetypeList = ARCHETYPES.map((a) => `- ${a.id}: ${a.name} — ${a.description}`).join("\n");
+  const archetypeList = ARCHETYPES.map((a) => `- ${a.id}: ${a.name}: ${a.description}`).join("\n");
 
   const systemPrompt = `You are an expert pre-medical advisor analyzing a student's full clinical and academic profile to identify their dominant pre-med archetype.
 
@@ -67,7 +67,7 @@ ${archetypeList}
 Return ONLY a valid JSON object (no markdown, no code blocks, no extra text) with this exact shape:
 {
   "archetype_id": "<one of the archetype ids above>",
-  "why_paragraph": "<2-4 sentences explaining why this archetype fits THEIR specific profile — MUST reference actual organization names from their experiences and actual hour counts>",
+  "why_paragraph": "<2-4 sentences explaining why this archetype fits THEIR specific profile, and MUST reference actual organization names from their experiences and actual hour counts>",
   "strengths": ["<strength 1>", "<strength 2>", "<strength 3>"],
   "statement_angle": "<2-3 sentence suggested narrative direction for their personal statement>",
   "experiences_to_add": ["<suggestion 1>", "<suggestion 2>", "<suggestion 3 (optional)>"]
@@ -87,6 +87,8 @@ Hours by category: ${Object.entries(hoursByType).map(([k, v]) => `${k.replace("_
 Experiences (${exps.length}):
 
 ${expList}
+
+Style: never use em dashes in any string you return. Use a comma, a colon, or a new sentence instead.
 
 Now analyze and return the JSON.`;
 
