@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { School, SCHOOLS, ALL_STATES } from "@/lib/schools";
+import { School, SCHOOLS, ALL_STATES, hasPublishedStats } from "@/lib/schools";
 import SchoolActions from "./SchoolActions";
 import ExportTargetList from "./ExportTargetList";
 import { EmptyState } from "@/components/EmptyStates";
@@ -59,7 +59,11 @@ export default function SchoolList({
 
   function isGoodMatch(school: School): boolean {
     if (!bothEntered) return false;
-    return Math.abs(school.avgGpa - gpaNum) <= 0.3 && Math.abs(school.avgMcat - mcatNum) <= 5;
+    // A school with no published averages cannot be matched against. Treating
+    // null as 0 would make every such school look wildly out of range; treating
+    // it as a match would be worse. It is simply not comparable.
+    if (!hasPublishedStats(school)) return false;
+    return Math.abs(school.avgGpa! - gpaNum) <= 0.3 && Math.abs(school.avgMcat! - mcatNum) <= 5;
   }
 
   function toggleMission(value: MissionFilter) {
@@ -331,14 +335,14 @@ export default function SchoolList({
                   style={{ background: "#FFFFFF", border: "1px solid var(--border-strong)" }}
                 >
                   <span className="text-xs font-medium" style={{ color: "rgba(22,36,29,0.55)" }}>Avg GPA</span>
-                  <span className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>{school.avgGpa.toFixed(2)}</span>
+                  <span className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>{school.avgGpa === null ? "Not reported" : school.avgGpa.toFixed(2)}</span>
                 </div>
                 <div
                   className="flex items-center gap-1.5 rounded-lg px-3 py-1.5"
                   style={{ background: "#FFFFFF", border: "1px solid var(--border-strong)" }}
                 >
                   <span className="text-xs font-medium" style={{ color: "rgba(22,36,29,0.55)" }}>Avg MCAT</span>
-                  <span className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>{school.avgMcat}</span>
+                  <span className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>{school.avgMcat === null ? "Not reported" : school.avgMcat}</span>
                 </div>
               </div>
             </div>

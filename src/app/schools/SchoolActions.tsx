@@ -118,7 +118,7 @@ interface Gap {
 function buildGaps(school: School, gpa: number | null, mcat: number | null, hours: number): Gap[] {
   const gaps: Gap[] = [];
 
-  if (gpa !== null && !Number.isNaN(gpa)) {
+  if (gpa !== null && !Number.isNaN(gpa) && school.avgGpa !== null) {
     const diff = school.avgGpa - gpa;
     gaps.push({
       label: "GPA",
@@ -132,7 +132,7 @@ function buildGaps(school: School, gpa: number | null, mcat: number | null, hour
     });
   }
 
-  if (mcat !== null && !Number.isNaN(mcat)) {
+  if (mcat !== null && !Number.isNaN(mcat) && school.avgMcat !== null) {
     const diff = school.avgMcat - mcat;
     gaps.push({
       label: "MCAT",
@@ -146,9 +146,10 @@ function buildGaps(school: School, gpa: number | null, mcat: number | null, hour
     });
   }
 
-  // Schools in this dataset publish GPA and MCAT but not hour expectations,
-  // so this row is measured against a general competitive benchmark and
-  // labelled as such rather than attributed to the school.
+  // No school in this dataset publishes an hours expectation, so this row is
+  // measured against a general competitive benchmark and labelled as such
+  // rather than attributed to the school. It is shown even where GPA and MCAT
+  // are unreported, since it does not depend on the school's own figures.
   const BENCHMARK = 150;
   gaps.push({
     label: "Hours (general benchmark)",
