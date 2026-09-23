@@ -267,6 +267,58 @@ export default async function ProfilePage({
               />
             </div>
 
+            <hr className="tear-line" />
+
+            {/* Committee letter tracker */}
+            <p className="dept-header">Committee Letter</p>
+            <div style={{ marginBottom: "var(--sp-2)" }}>
+              <label className="flex items-center gap-2 text-sm" style={{ color: "var(--text-primary)", cursor: "pointer" }}>
+                <input
+                  type="checkbox"
+                  name="committee_letter_required"
+                  defaultChecked={profile?.committee_letter_required ?? false}
+                  style={{ accentColor: "var(--accent)", width: 15, height: 15 }}
+                />
+                My schools require a committee letter
+              </label>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2" style={{ gap: "var(--sp-2)", marginBottom: "var(--sp-2)" }}>
+              <div>
+                <label htmlFor="committee_letter_status" className="field-label">STATUS</label>
+                <select
+                  id="committee_letter_status"
+                  name="committee_letter_status"
+                  defaultValue={profile?.committee_letter_status ?? "Not Started"}
+                  className="field-input"
+                >
+                  {["Not Started", "Requested", "In Progress", "Submitted", "Not Required"].map((s) => (
+                    <option key={s} value={s}>{s}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label htmlFor="amcas_target_date" className="field-label">AMCAS OPENS (COUNTDOWN TARGET)</label>
+                <input
+                  id="amcas_target_date"
+                  name="amcas_target_date"
+                  type="date"
+                  defaultValue={profile?.amcas_target_date ?? ""}
+                  className="field-input"
+                />
+              </div>
+            </div>
+            <div style={{ marginBottom: "var(--sp-2)" }}>
+              <label htmlFor="committee_letter_notes" className="field-label">NOTES</label>
+              <textarea
+                id="committee_letter_notes"
+                name="committee_letter_notes"
+                rows={3}
+                defaultValue={profile?.committee_letter_notes ?? ""}
+                placeholder="Deadline for the committee packet, who to contact"
+                className="field-input resize-none"
+              />
+            </div>
+
             {/* Submit */}
             <div className="pt-2">
               <button

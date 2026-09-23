@@ -15,6 +15,16 @@ export default async function SchoolsPage() {
     redirect("/auth/login");
   }
 
+  const [{ data: apps }, { data: exps }] = await Promise.all([
+    supabase.from("school_applications").select("school_name,status"),
+    supabase.from("experiences").select("hours"),
+  ]);
+
+  const statuses: Record<string, "Target" | "Applying"> = {};
+  for (const a of apps ?? []) statuses[a.school_name] = a.status;
+  const clinicalHours = (exps ?? []).reduce((sum, e) => sum + Number(e.hours ?? 0), 0);
+  const userName = String(user.user_metadata?.full_name ?? user.email ?? "");
+
   return (
     <AppShell userEmail={user.email ?? ""} activePath="/schools">
       <main className="w-full px-6 py-8">
@@ -28,7 +38,12 @@ export default async function SchoolsPage() {
           </svg>
           Back to Dashboard
         </Link>
-        <SchoolList userEmail={user.email ?? ""} />
+        <SchoolList
+          userEmail={user.email ?? ""}
+          statuses={statuses}
+          clinicalHours={clinicalHours}
+          userName={userName}
+        />
       </main>
     </AppShell>
   );

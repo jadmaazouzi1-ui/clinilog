@@ -21,6 +21,9 @@ const NAV_ITEMS = [
   { href: "/dashboard",   label: "Overview",    code: "OV" },
   { href: "/archetype",   label: "My Archetype", code: "AR" },
   { href: "/schools",     label: "Schools",      code: "SC" },
+  { href: "/applications", label: "Applications", code: "AP" },
+  { href: "/interviews",  label: "Interviews",   code: "IV" },
+  { href: "/recommendations", label: "Letters",  code: "LR" },
   { href: "/specialties", label: "Specialties",  code: "SP" },
   { href: "/gapyear",     label: "Gap Year",     code: "GY" },
   { href: "/postbacc",    label: "Post-bacc",    code: "PB" },
@@ -39,6 +42,9 @@ const BOTTOM_TABS = [
 const PROFILE_TAB = { href: "/profile", label: "Profile" };
 
 const TOOLS_MODAL_ITEMS: { label: string; href: string }[] = [
+  { label: "My Applications",    href: "/applications" },
+  { label: "Interview Log",      href: "/interviews" },
+  { label: "Letters",            href: "/recommendations" },
   { label: "Narrative Builder",  href: "/archetype" },
   { label: "Reframe Engine",     href: "/dashboard/new" },
   { label: "Specialty Explorer", href: "/specialties" },
@@ -55,6 +61,9 @@ const AUTO_BREADCRUMBS: Record<string, BreadcrumbItem[]> = {
   "/dashboard": [{ label: "Overview" }],
   "/archetype": [{ label: "Overview", href: "/dashboard" }, { label: "My Archetype" }],
   "/schools":   [{ label: "Schools" }],
+  "/applications": [{ label: "Overview", href: "/dashboard" }, { label: "My Applications" }],
+  "/interviews": [{ label: "Overview", href: "/dashboard" }, { label: "Interview Log" }],
+  "/recommendations": [{ label: "Overview", href: "/dashboard" }, { label: "Letters" }],
   "/specialties": [{ label: "Specialties" }],
   "/gapyear":   [{ label: "Gap Year Planner" }],
   "/postbacc":  [{ label: "Post-bacc Tracker" }],

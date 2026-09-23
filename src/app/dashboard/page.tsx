@@ -11,6 +11,7 @@ import AppShell from "@/components/AppShell";
 import OnboardingModal from "./OnboardingModal";
 import ExperienceInsights from "@/components/ExperienceInsights";
 import CountUp from "@/components/CountUp";
+import DashboardSignals from "@/components/DashboardSignals";
 import { formatMedicalDate, formatMedicalHours, buildRecordNumbers } from "@/lib/formatMedical";
 import {
   EkgDivider,
@@ -65,7 +66,7 @@ export default async function DashboardPage({
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("onboarding_complete, archetype_id, graduation_year")
+    .select("onboarding_complete, archetype_id, graduation_year, amcas_target_date")
     .eq("id", user.id)
     .single();
 
@@ -151,6 +152,11 @@ export default async function DashboardPage({
             </div>
           )}
         </div>
+
+        <DashboardSignals
+          experiences={experienceList}
+          amcasTarget={profile?.amcas_target_date ?? null}
+        />
 
         {/* Your Path: organic branch grown from the logged categories */}
         <PathVisualization experiences={experienceList} />
