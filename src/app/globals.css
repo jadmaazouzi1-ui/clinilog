@@ -810,3 +810,219 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   --leaf-volunteer: #828282;
   --leaf-other:     #5E5E5E;
 }
+
+/* ══════════════════════════════════════════════════════════════════════
+   ROUTE TRANSITIONS
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* Slim progress bar pinned to the top of the viewport during navigation. */
+.route-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 200;
+  pointer-events: none;
+  background: transparent;
+}
+.route-progress > span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: var(--accent);
+  transform-origin: left center;
+  animation: routeCrawl 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+/* On completion the bar runs out to full width quickly, then fades. */
+.route-progress.is-done > span {
+  animation: routeFinish 200ms ease-out forwards;
+}
+@keyframes routeCrawl {
+  0%   { transform: scaleX(0); opacity: 1; }
+  60%  { transform: scaleX(0.72); }
+  100% { transform: scaleX(0.9); opacity: 1; }
+}
+@keyframes routeFinish {
+  0%   { transform: scaleX(0.9); opacity: 1; }
+  70%  { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0; }
+}
+
+/* ── View transitions ──────────────────────────────────────────────────
+   Only the page content animates. The sidebar and the mobile tab bar are
+   given stable transition names, so the browser treats each as the same
+   element on both sides of the navigation and holds it still instead of
+   cross-fading it. Without this they visibly flicker, because AppShell is
+   rendered inside each page rather than in a layout and therefore remounts
+   on every route change. */
+.app-sidebar   { view-transition-name: app-sidebar; }
+.app-bottomnav { view-transition-name: app-bottomnav; }
+.app-content   { view-transition-name: app-content; }
+
+::view-transition-group(app-sidebar),
+::view-transition-group(app-bottomnav) {
+  animation: none;
+}
+::view-transition-old(app-content) {
+  animation: 140ms cubic-bezier(0.4, 0, 1, 1) both routeFadeOut;
+}
+::view-transition-new(app-content) {
+  animation: 180ms cubic-bezier(0, 0, 0.2, 1) both routeFadeIn;
+}
+@keyframes routeFadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-4px); }
+}
+@keyframes routeFadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(app-content),
+  ::view-transition-new(app-content) { animation: none; }
+  .route-progress > span { animation: none; transform: scaleX(1); }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   PRINT
+   Pages should print as clean documents: no chrome, no dark panels, no
+   interactive affordances, and links that reveal their destination.
+   ══════════════════════════════════════════════════════════════════════ */
+@media print {
+  .app-sidebar,
+  .app-bottomnav,
+  .route-progress,
+  .no-print,
+  button,
+  [role="button"] { display: none !important; }
+
+  html, body {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+  }
+
+  main { padding: 0 !important; margin: 0 !important; max-width: none !important; }
+
+  /* The red chart rule is a screen device; on paper it wastes toner. */
+  .chart-margin::before { display: none !important; }
+  .chart-margin { padding-left: 0 !important; }
+
+  .glass-card, .vital-card, .clinical-card {
+    border: 1px solid #000000 !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .tick-corners::after { display: none !important; }
+
+  .dept-header {
+    border-bottom: 1px solid #000000 !important;
+    color: #000000 !important;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #444444;
+  }
+
+  table, tr, td, th, li { break-inside: avoid; page-break-inside: avoid; }
+  h1, h2, h3, .dept-header { break-after: avoid; page-break-after: avoid; }
+
+  @page { margin: 16mm; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   DARK THEME
+   The same rules inverted: dark field, light ink, hairlines that read
+   against the field rather than against paper. Set on <html> as
+   data-theme="dark". The monochrome dashboard scope overrides these in
+   turn, since it sets its own values further down the tree.
+   ══════════════════════════════════════════════════════════════════════ */
+:root[data-theme="dark"] {
+  --bg-page:       #0C0F0D;
+  --bg-card:       #141814;
+  --bg-surface:    #141814;
+  --bg-soft:       #1C221E;
+
+  --accent:        #74C69D;
+  --accent-bright: #95D5B2;
+  --accent-soft:   rgba(116, 198, 157, 0.12);
+  --accent-border: rgba(116, 198, 157, 0.3);
+
+  --text-primary:   #E8F1EB;
+  --text-secondary: #A3B2AA;
+  --text-tertiary:  #6F7D75;
+
+  --border:        rgba(232, 241, 235, 0.12);
+  --border-strong: rgba(232, 241, 235, 0.2);
+
+  --margin-rule:      #FF6B6B;
+  --margin-rule-soft: rgba(255, 107, 107, 0.4);
+
+  --cat-clinical:  #74C69D;
+  --cat-shadowing: #B7E4C7;
+  --cat-research:  #B9AEFF;
+  --cat-volunteer: #F4A261;
+  --cat-other:     #4CC9F0;
+}
+
+/* The monochrome dashboard inverts too, rather than staying a white sheet
+   inside a dark app. */
+:root[data-theme="dark"] .mono-scope {
+  --bg-page:   #000000;
+  --bg-card:   #0A0A0A;
+  --bg-soft:   #161616;
+  --accent:        #FFFFFF;
+  --accent-bright: #CCCCCC;
+  --accent-soft:   rgba(255, 255, 255, 0.08);
+  --accent-border: rgba(255, 255, 255, 0.22);
+  --text-primary:   #FFFFFF;
+  --text-secondary: #BBBBBB;
+  --text-tertiary:  #777777;
+  --border:        rgba(255, 255, 255, 0.14);
+  --border-strong: rgba(255, 255, 255, 0.26);
+  --cat-clinical:  #FFFFFF;
+  --cat-shadowing: #CCCCCC;
+  --cat-research:  #999999;
+  --cat-volunteer: #666666;
+  --cat-other:     #444444;
+  --bg-hero-1: #0A0A0A;
+  --bg-hero-2: #141414;
+  --bg-hero-3: #1E1E1E;
+  background-color: #000000;
+  color: #FFFFFF;
+}
+
+/* Surfaces that were hardcoded white in markup need to follow the theme. */
+:root[data-theme="dark"] .btn-ghost,
+:root[data-theme="dark"] .input-dark,
+:root[data-theme="dark"] .input-dark option,
+:root[data-theme="dark"] .field-input option {
+  background: var(--bg-card) !important;
+  color: var(--text-primary) !important;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  padding: 5px 8px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.theme-toggle:hover {
+  border-color: var(--accent-border);
+  color: var(--text-primary);
+}

@@ -36,8 +36,26 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      // The theme script writes data-theme before React hydrates, so the
+      // server and client markup differ on <html> by design.
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col" style={{ backgroundColor: "#FFFFFF", color: "var(--text-primary)" }}>{children}</body>
+      <head>
+        {/* Runs before first paint: without it the light theme renders for a
+            frame before the stored preference is applied. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{var t=localStorage.getItem('cliniclog-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t)}}catch(e){}",
+          }}
+        />
+      </head>
+      <body
+        className="min-h-full flex flex-col"
+        style={{ backgroundColor: "var(--bg-page)", color: "var(--text-primary)" }}
+      >
+        {children}
+      </body>
     </html>
   );
 }

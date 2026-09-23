@@ -24,6 +24,10 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  experimental: {
+    // React's <ViewTransition> integration, used for the cross-route fade.
+    viewTransition: true,
+  },
   async headers() {
     return [
       {

@@ -1,13 +1,14 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 import { checkAuthRateLimit, clientIpFrom } from "@/lib/rateLimit";
+import { REFERRAL_COOKIE } from "@/lib/referral";
 
 export default async function SignupPage({
   searchParams,
 }: {
-  searchParams?: Promise<{ error?: string }>;
+  searchParams?: Promise<{ error?: string; ref?: string }>;
 }) {
   // Already-authed users skip the signup form.
   const supabaseInit = await createClient();
@@ -16,10 +17,17 @@ export default async function SignupPage({
 
   const params = await searchParams;
   const pageError = params?.error;
+  // Only A-Z and 2-9 are ever issued, so anything else is discarded rather
+  // than stored and echoed back.
+  const refCode = (params?.ref ?? "").toUpperCase().replace(/[^A-Z2-9]/g, "").slice(0, 12);
 
   async function signup(formData: FormData) {
     "use server";
 
+    const referral = String(formData.get("referral_code") ?? "")
+      .toUpperCase()
+      .replace(/[^A-Z2-9]/g, "")
+      .slice(0, 12);
     const name = formData.get("name") as string;
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
@@ -44,6 +52,19 @@ export default async function SignupPage({
 
     if (error) {
       redirect(`/auth/signup?error=${encodeURIComponent(error.message)}`);
+    }
+
+    // Held until the new account first signs in: with email confirmation there
+    // is no session yet, so the referral row cannot be written here.
+    if (referral) {
+      const jar = await cookies();
+      jar.set(REFERRAL_COOKIE, referral, {
+        maxAge: 60 * 60 * 24 * 30,
+        httpOnly: true,
+        sameSite: "lax",
+        secure: process.env.NODE_ENV === "production",
+        path: "/",
+      });
     }
 
     redirect("/auth/verify-email");
@@ -74,6 +95,7 @@ export default async function SignupPage({
             </div>
           )}
           <form action={signup} className="space-y-5">
+            <input type="hidden" name="referral_code" value={refCode} />
             <div>
               <label
                 htmlFor="name"

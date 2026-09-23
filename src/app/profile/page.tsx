@@ -4,6 +4,10 @@ import { createClient } from "@/lib/supabase/server";
 import { upsertProfile } from "./actions";
 import AppShell from "@/components/AppShell";
 import { VitalFlat, VitalOk } from "@/components/MedicalIcons";
+import ReferralPanel from "./ReferralPanel";
+import WalletCard from "@/components/WalletCard";
+import { ensureReferralCode, referralCount } from "@/lib/referral";
+import { Experience } from "@/lib/types";
 
 export default async function ProfilePage({
   searchParams,
@@ -26,6 +30,13 @@ export default async function ProfilePage({
     .select("*")
     .eq("id", user.id)
     .single();
+
+  const [referral, refCount, { data: expRows }] = await Promise.all([
+    ensureReferralCode(user.id),
+    referralCount(user.id),
+    supabase.from("experiences").select("*"),
+  ]);
+  const experiences: Experience[] = (expRows ?? []) as Experience[];
 
   return (
     <AppShell userEmail={user.email ?? ""} activePath="/profile">
@@ -330,6 +341,30 @@ export default async function ProfilePage({
               </button>
             </div>
           </form>
+        </div>
+
+        {/* Referrals */}
+        <div className="glass-card tick-corners" style={{ padding: "var(--sp-3)", marginTop: "var(--sp-3)" }}>
+          <p className="dept-header">Refer a Classmate</p>
+          <p className="text-sm" style={{ color: "var(--text-secondary)", marginBottom: "var(--sp-2)" }}>
+            Anyone who signs up through your link is counted here. Nothing is charged either way;
+            ClinicLog MD is free.
+          </p>
+          <ReferralPanel code={referral} count={refCount} />
+        </div>
+
+        {/* Wallet card */}
+        <div className="glass-card tick-corners" style={{ padding: "var(--sp-3)", marginTop: "var(--sp-3)" }}>
+          <p className="dept-header">Wallet Card</p>
+          <p className="text-sm" style={{ color: "var(--text-secondary)", marginBottom: "var(--sp-2)" }}>
+            A condensed PDF at wallet dimensions with your totals and top placements,
+            handy to have on you before an interview.
+          </p>
+          <WalletCard
+            name={profile?.full_name ?? user.email ?? "Applicant"}
+            experiences={experiences}
+            archetype={profile?.archetype_id ?? null}
+          />
         </div>
       </main>
     </AppShell>

@@ -139,13 +139,25 @@ export function TabIndex({ n }: { n: number }) {
  * SVG between two flexible rules rather than a stretched full-width one, so
  * the beat keeps its shape at any container width.
  */
-export function EkgDivider({ className }: { className?: string }) {
+export function EkgDivider({
+  className,
+  rich = false,
+}: {
+  className?: string;
+  rich?: boolean;
+}) {
+  // `rich` is the milestone trace, shown once a user passes 100 logged hours:
+  // a fuller complex with a P wave and T wave rather than a single spike.
+  // Deliberately quiet, with no badge or announcement attached to it.
+  const d = rich
+    ? "M0 8h10q2 0 3-2.5T16 8h4l2.5-6L27 17l3.5-11 2.5 7 2-3h4q2 0 3-3t3 3h6q2 0 3-2.5T61 8h11"
+    : "M0 8h18l3-5 4 10 3.5-8 2.5 4.5 2-1.5H72";
   return (
     <div className={`ekg-divider${className ? ` ${className}` : ""}`} role="separator">
       <span />
       <svg width="72" height="16" viewBox="0 0 72 16" fill="none" aria-hidden="true">
         <path
-          d="M0 8h18l3-5 4 10 3.5-8 2.5 4.5 2-1.5H72"
+          d={d}
           stroke="var(--border-strong)"
           strokeWidth="1.2"
           strokeLinecap="round"

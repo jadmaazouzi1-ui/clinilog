@@ -14,6 +14,8 @@ export const USER_LIMITS = {
   archetype:  { max: 3,  window: 86400 },
   csv_import: { max: 3,  window: 86400 },
   pdf_export: { max: 10, window: 86400 },
+  outline:    { max: 3,  window: 86400 },
+  mock_interview: { max: 3, window: 86400 },
 } as const;
 
 export type UserLimitAction = keyof typeof USER_LIMITS;

@@ -4,6 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import AIAdvisorButton from "./AIAdvisorButton";
 import { RecordNo } from "./MedicalIcons";
+import RouteProgress, { LinkPending } from "./RouteProgress";
+import ThemeToggle from "./ThemeToggle";
+import PageView from "./PageView";
 
 export interface BreadcrumbItem {
   label: string;
@@ -24,6 +27,8 @@ const NAV_ITEMS = [
   { href: "/applications", label: "Applications", code: "AP" },
   { href: "/interviews",  label: "Interviews",   code: "IV" },
   { href: "/recommendations", label: "Letters",  code: "LR" },
+  { href: "/outline",     label: "Statement",    code: "PS" },
+  { href: "/mock-interview", label: "Mock Interview", code: "MI" },
   { href: "/specialties", label: "Specialties",  code: "SP" },
   { href: "/gapyear",     label: "Gap Year",     code: "GY" },
   { href: "/postbacc",    label: "Post-bacc",    code: "PB" },
@@ -45,6 +50,8 @@ const TOOLS_MODAL_ITEMS: { label: string; href: string }[] = [
   { label: "My Applications",    href: "/applications" },
   { label: "Interview Log",      href: "/interviews" },
   { label: "Letters",            href: "/recommendations" },
+  { label: "Statement Outline",  href: "/outline" },
+  { label: "Mock Interview",     href: "/mock-interview" },
   { label: "Narrative Builder",  href: "/archetype" },
   { label: "Reframe Engine",     href: "/dashboard/new" },
   { label: "Specialty Explorer", href: "/specialties" },
@@ -54,6 +61,7 @@ const TOOLS_MODAL_ITEMS: { label: string; href: string }[] = [
   { label: "Fee Tracker",        href: "/fee-tracker" },
   { label: "Import CSV",         href: "/import" },
   { label: "Stories",            href: "/stories" },
+  { label: "Changelog",          href: "/changelog" },
   { label: "About",              href: "/about" },
 ];
 
@@ -64,6 +72,9 @@ const AUTO_BREADCRUMBS: Record<string, BreadcrumbItem[]> = {
   "/applications": [{ label: "Overview", href: "/dashboard" }, { label: "My Applications" }],
   "/interviews": [{ label: "Overview", href: "/dashboard" }, { label: "Interview Log" }],
   "/recommendations": [{ label: "Overview", href: "/dashboard" }, { label: "Letters" }],
+  "/outline": [{ label: "Overview", href: "/dashboard" }, { label: "Statement Outline" }],
+  "/mock-interview": [{ label: "Overview", href: "/dashboard" }, { label: "Mock Interview" }],
+  "/admin/insights": [{ label: "Overview", href: "/dashboard" }, { label: "Insights" }],
   "/specialties": [{ label: "Specialties" }],
   "/gapyear":   [{ label: "Gap Year Planner" }],
   "/postbacc":  [{ label: "Post-bacc Tracker" }],
@@ -92,9 +103,11 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
       className={`min-h-screen${activePath === "/dashboard" ? " mono-scope" : ""}`}
       style={{ backgroundColor: "var(--bg-page)" }}
     >
+      <RouteProgress />
+      <PageView />
       {/* Sidebar - desktop */}
       <aside
-        className="hidden md:flex flex-col fixed top-0 left-0 h-full z-40 w-[220px]"
+        className="app-sidebar hidden md:flex flex-col fixed top-0 left-0 h-full z-40 w-[220px]"
         style={{
           backgroundColor: "#FFFFFF",
           borderRight: "1px solid var(--border)",
@@ -126,6 +139,7 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
               <Link
                 key={item.href}
                 href={item.href}
+                prefetch
                 className={`binder-tab flex items-center gap-3 px-3 py-2.5${isActive ? " is-active" : ""}`}
                 style={{
                   color: isActive ? "var(--accent)" : "var(--text-secondary)",
@@ -149,6 +163,7 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
                   {item.code}
                 </span>
                 {item.label}
+                <LinkPending />
               </Link>
             );
           })}
@@ -217,15 +232,18 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
               </span>
             ))}
           </div>
-          <RecordNo page={activePath} />
+          <div className="flex items-center gap-2 flex-shrink-0">
+            <ThemeToggle />
+            <RecordNo page={activePath} />
+          </div>
         </div>
 
-        <div className="page-fade-in">{children}</div>
+        <div className="app-content page-fade-in">{children}</div>
       </div>
 
       {/* Mobile bottom nav */}
       <nav
-        className="md:hidden fixed bottom-0 left-0 right-0 z-50 flex items-stretch"
+        className="app-bottomnav md:hidden fixed bottom-0 left-0 right-0 z-50 flex items-stretch"
         style={{
           height: 64,
           backgroundColor: "#FFFFFF",
@@ -239,12 +257,26 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
             <Link
               key={item.href}
               href={item.href}
-              className="bottom-tab-soft flex-1 flex items-center justify-center"
+              prefetch
+              aria-current={isActive ? "page" : undefined}
+              className="bottom-tab-soft flex-1 flex flex-col items-center justify-center gap-1"
               style={{
                 color: isActive ? "var(--accent)" : "var(--text-tertiary)",
               }}
             >
               <span className="text-[11px] font-semibold leading-none">{item.label}</span>
+              {/* Fixed-height rule in both states: the active marker must not
+                  change the tab's box, or the bar shifts on every navigation. */}
+              <span
+                aria-hidden="true"
+                style={{
+                  display: "block",
+                  width: 18,
+                  height: 2,
+                  background: isActive ? "currentColor" : "transparent",
+                }}
+              />
+              <LinkPending />
             </Link>
           );
         })}
@@ -330,6 +362,7 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
                 }}
               >
                 {item.label}
+                <LinkPending />
               </Link>
             ))}
           </div>

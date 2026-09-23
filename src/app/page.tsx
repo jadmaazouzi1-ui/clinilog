@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { ARCHETYPES } from "@/lib/archetypes";
+import { SCHOOLS } from "@/lib/schools";
 import {
   Cubic,
   LeafKind,
@@ -13,21 +14,16 @@ import {
   taperedRibbon,
 } from "@/lib/branch";
 
-const FEATURES = [
+const FEATURES: { title: string; body: string }[] = [
   { title: "Hours Tracker",     body: "Log clinical, shadowing, research, and volunteer hours with dates, organizations, and reflections attached to every entry." },
-  { title: "School Explorer",   body: "Filter 149 accredited medical schools by GPA, MCAT, mission focus, and state preference." },
+  { title: "School Explorer",   body: `Filter ${SCHOOLS.length} accredited MD, DO and offshore programs by GPA, MCAT, mission focus, and state preference.` },
   { title: "Archetype Engine",  body: "After three or more logged experiences, AI assigns one of fifteen defined pre-med archetypes with matched schools." },
   { title: "Narrative Builder", body: "Synthesizes your logged experience data into a cohesive application narrative for personal statements." },
   { title: "AI Advisor",        body: "A standing advisor with access to your logged hours, GPA, and goals, available for consultation any time." },
   { title: "Post-bacc Tracker", body: "Calculates BCPM and cumulative GPA in real time as you log post-baccalaureate coursework." },
 ];
 
-const STATS = [
-  { value: "149", label: "Medical schools indexed" },
-  { value: "15",  label: "Pre-med archetypes" },
-  { value: "12",  label: "Tools included" },
-  { value: "$0",  label: "Cost, forever" },
-];
+
 
 const CASE_IDS = ["community_healer", "scientist", "first_gen_grinder"];
 const CASES = CASE_IDS
@@ -95,6 +91,25 @@ export default async function HomePage() {
   const { data: { user } } = await supabase.auth.getUser();
   if (user) redirect("/dashboard");
 
+  // Real platform totals. public_stats() is a security-definer RPC returning
+  // two scalars, so no row is exposed to an anonymous visitor.
+  const { data: stats } = await supabase.rpc("public_stats").single<{
+    total_hours: number;
+    total_users: number;
+  }>();
+
+  const loggedHours = Math.round(Number(stats?.total_hours ?? 0));
+  const STATS = [
+    { value: String(SCHOOLS.length), label: "Medical schools indexed" },
+    // Shown live once there is a number worth showing; below that it reads as
+    // an empty product rather than a growing one.
+    loggedHours >= 500
+      ? { value: loggedHours.toLocaleString("en-US"), label: "Hours logged by students" }
+      : { value: "15", label: "Pre-med archetypes" },
+    { value: "12", label: "Tools included" },
+    { value: "$0", label: "Cost, forever" },
+  ];
+
   return (
     <div style={{ backgroundColor: "var(--bg-page)", color: "var(--text-primary)", minHeight: "100vh" }}>
       <style>{`
@@ -145,7 +160,7 @@ export default async function HomePage() {
             Your clinical journey, organized.
           </h1>
           <p className="text-base" style={{ color: "var(--text-secondary)", lineHeight: 1.65, maxWidth: 440, marginBottom: "var(--sp-4)" }}>
-            Track clinical hours, discover your pre-med archetype, explore 149 medical schools, and build your path to medicine, completely free.
+            Track clinical hours, discover your pre-med archetype, explore {SCHOOLS.length} medical schools, and build your path to medicine, completely free.
           </p>
           <div className="flex items-center gap-3 flex-wrap">
             <Link href="/auth/signup" className="teal-glow text-sm" style={{ padding: "12px var(--sp-3)", textDecoration: "none" }}>Get started free</Link>
@@ -263,7 +278,7 @@ export default async function HomePage() {
         <div className="max-w-6xl mx-auto px-6 flex flex-wrap items-center justify-between gap-4" style={{ paddingTop: "var(--sp-3)", paddingBottom: "var(--sp-3)" }}>
           <p className="text-xs" style={{ color: "var(--text-tertiary)" }}>&copy; {new Date().getFullYear()} ClinicLog MD. All rights reserved.</p>
           <div className="flex gap-5 flex-wrap">
-            {[["Schools", "/schools"], ["Archetype", "/archetype"], ["Resources", "/resources"], ["Stories", "/stories"], ["About", "/about"]].map(([label, href]) => (
+            {[["Schools", "/schools"], ["Archetype", "/archetype"], ["Resources", "/resources"], ["Stories", "/stories"], ["Changelog", "/changelog"], ["Badge", "/badge"], ["About", "/about"]].map(([label, href]) => (
               <Link key={label} href={href} className="nav-link text-xs">{label}</Link>
             ))}
           </div>

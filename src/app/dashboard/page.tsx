@@ -12,6 +12,7 @@ import OnboardingModal from "./OnboardingModal";
 import ExperienceInsights from "@/components/ExperienceInsights";
 import CountUp from "@/components/CountUp";
 import DashboardSignals from "@/components/DashboardSignals";
+import { claimPendingReferral } from "@/lib/referral";
 import { formatMedicalDate, formatMedicalHours, buildRecordNumbers } from "@/lib/formatMedical";
 import {
   EkgDivider,
@@ -56,6 +57,9 @@ export default async function DashboardPage({
   if (!user) {
     redirect("/auth/login");
   }
+
+  // A referral can only be recorded once the referred account has a session.
+  await claimPendingReferral(user.id);
 
   const { data: experiences } = await supabase
     .from("experiences")
@@ -156,6 +160,7 @@ export default async function DashboardPage({
         <DashboardSignals
           experiences={experienceList}
           amcasTarget={profile?.amcas_target_date ?? null}
+          archetype={profile?.archetype_id ?? null}
         />
 
         {/* Your Path: organic branch grown from the logged categories */}
@@ -185,7 +190,7 @@ export default async function DashboardPage({
           </div>
         </div>
 
-        <EkgDivider />
+        <EkgDivider rich={totalHours >= 100} />
 
         {/* Archetype banner: shown once user has 3+ experiences */}
         {showArchetypeBanner && (
@@ -222,7 +227,7 @@ export default async function DashboardPage({
 
         <AMCASTracker experiences={experienceList} />
 
-        <EkgDivider />
+        <EkgDivider rich={totalHours >= 100} />
 
         {/* Content area */}
         {experienceList.length === 0 ? (

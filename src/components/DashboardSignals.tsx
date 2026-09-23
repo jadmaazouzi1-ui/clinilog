@@ -2,7 +2,8 @@ import Link from "next/link";
 import { Experience, formatHours } from "@/lib/types";
 import { formatMedicalDate } from "@/lib/formatMedical";
 import { daysUntil, defaultAmcasTarget } from "@/lib/appTypes";
-import { daysSinceLastEntry, historyMonths, onThisDay, weekStreak } from "@/lib/signals";
+import { daysSinceLastEntry, historyMonths, onThisDay, priorMonthSummary, weekStreak } from "@/lib/signals";
+import RecapCard from "./RecapCard";
 
 /**
  * The quiet dashboard signals: AMCAS countdown, logging streak, a dormancy
@@ -12,9 +13,11 @@ import { daysSinceLastEntry, historyMonths, onThisDay, weekStreak } from "@/lib/
 export default function DashboardSignals({
   experiences,
   amcasTarget,
+  archetype = null,
 }: {
   experiences: Experience[];
   amcasTarget: string | null;
+  archetype?: string | null;
 }) {
   const target = amcasTarget || defaultAmcasTarget();
   const days = daysUntil(target);
@@ -23,6 +26,10 @@ export default function DashboardSignals({
   const anniversary = historyMonths(experiences) >= 6 ? onThisDay(experiences) : null;
 
   const showDormant = dormant !== null && dormant >= 10;
+
+  // Offered only when the month just gone actually had activity, so it never
+  // produces a card reading zero.
+  const recap = priorMonthSummary(experiences);
 
   return (
     <>
@@ -88,6 +95,32 @@ export default function DashboardSignals({
           >
             Log recent hours
           </Link>
+        </div>
+      )}
+
+      {/* Monthly recap */}
+      {recap.entries > 0 && (
+        <div
+          className="flex items-center justify-between gap-3 flex-wrap"
+          style={{
+            padding: "10px var(--sp-2)",
+            border: "1px solid var(--border-strong)",
+            borderRadius: "var(--radius)",
+            background: "var(--bg-card)",
+            marginBottom: "var(--sp-2)",
+          }}
+        >
+          <p className="text-sm" style={{ color: "var(--text-primary)" }}>
+            <span className="exp-id" style={{ marginRight: 8 }}>{recap.monthLabel.toUpperCase()}</span>
+            {formatHours(recap.hours)} hours across {recap.entries} {recap.entries === 1 ? "entry" : "entries"}.
+          </p>
+          <RecapCard
+            monthLabel={recap.monthLabel}
+            hours={recap.hours}
+            entries={recap.entries}
+            topCategory={recap.topCategory}
+            archetype={archetype}
+          />
         </div>
       )}
 
