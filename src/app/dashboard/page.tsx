@@ -99,7 +99,7 @@ export default async function DashboardPage({
       {/* chart-margin draws the 2px red prescription-pad rule 40px in, and
           indents the content clear of it at md and up. */}
       <main
-        className="w-full chart-margin watermark-ekg"
+        className="w-full chart-margin"
         style={{ paddingTop: "var(--sp-3)", paddingRight: "var(--sp-3)", paddingBottom: "var(--sp-3)" }}
       >
         {pageError && (
@@ -174,8 +174,7 @@ export default async function DashboardPage({
           <HoursBreakdown experiences={experienceList} />
           <div className="grid grid-cols-2 content-start" style={{ gap: "var(--sp-2)" }}>
             {keyNumbers.map((stat) => (
-              <div key={stat.label} className="vital-card tick-corners relative">
-                <span className="pulse-dot" />
+              <div key={stat.label} className="vital-card tick-corners">
                 <p className="vital-card-label">{stat.label}</p>
                 <span className="vital-card-value">
                   <CountUp to={stat.value} decimals={stat.decimals} padWidth={stat.padWidth} />

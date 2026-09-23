@@ -63,6 +63,14 @@
   --cat-volunteer: #F4A261;
   --cat-other:     #4CC9F0;
 
+  /* Leaf fills for the dark path panel: lightened so they read on the
+     hero gradient, and tokenised so a scope can override them. */
+  --leaf-clinical:  #B7E4C7;
+  --leaf-shadowing: #74C69D;
+  --leaf-research:  #B9AEFF;
+  --leaf-volunteer: #F4A261;
+  --leaf-other:     #4CC9F0;
+
   --font-sans: var(--font-inter), Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: var(--font-jetbrains-mono), "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
 }
@@ -600,23 +608,6 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   pointer-events: none;
 }
 
-/* ── Live-status pulse, as on a monitor ────────────────────────────────── */
-.pulse-dot {
-  position: absolute;
-  top: 9px;
-  right: 9px;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--accent-bright);
-  animation: vitalPulse 2s ease-in-out infinite;
-  pointer-events: none;
-}
-@keyframes vitalPulse {
-  0%, 100% { opacity: 0.2; }
-  50%      { opacity: 1; }
-}
-
 /* ── EKG section divider ───────────────────────────────────────────────── */
 .ekg-divider {
   display: flex;
@@ -753,34 +744,69 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   text-transform: uppercase;
 }
 
-/* ── Background watermark ──────────────────────────────────────────────── */
-/* Uses ::after, not ::before: page containers also carry .chart-margin, which
-   owns ::before for the red rule, and an element has only one of each. Sharing
-   it silently merged the two rules and left a 2px-wide watermark. For the same
-   reason .watermark-ekg must not be combined with .tick-corners, which owns
-   ::after; the former is for page containers, the latter for cards.
-   `isolation` is also required: without its own stacking context, a negative-z
-   pseudo-element paints beneath the opaque background on an ancestor and is
-   invisible at any opacity. */
-.watermark-ekg {
-  position: relative;
-  isolation: isolate;
-}
-.watermark-ekg::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  opacity: 0.04;
-  background-repeat: repeat;
-  background-size: 300px 110px;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='110' viewBox='0 0 300 110'><path d='M0 70h70l8-14 9 30 9-26 6 14 5-4h60l8-14 9 30 9-26 6 14 5-4h91' fill='none' stroke='%2316241D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/><path d='M258 16h10v10h10v10h-10v10h-10V36h-10V26h10z' fill='none' stroke='%2316241D' stroke-width='2' stroke-linejoin='round'/></svg>");
-}
-
 /* ── Motion preferences ────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  .pulse-dot { animation: none; opacity: 0.75; }
   .ekg-loader-trace { animation: none; stroke-dasharray: none; }
   .loading-text::after { animation: none; opacity: 0.8; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   MONOCHROME SCOPE
+   Redefines the design tokens on a container. Custom properties inherit,
+   so every descendant flips to black and white without a single component
+   needing to know about it. Applied to the dashboard only; the rest of the
+   app keeps the green palette, so the two look deliberately different.
+
+   The red margin rule is intentionally NOT overridden: it is the one
+   permitted accent.
+   ══════════════════════════════════════════════════════════════════════ */
+.mono-scope {
+  --bg-page:       #FFFFFF;
+  --bg-card:       #FFFFFF;
+  --bg-surface:    #FFFFFF;
+  --bg-soft:       #F2F2F2;
+
+  --accent:        #000000;
+  --accent-bright: #333333;
+  --accent-soft:   rgba(0, 0, 0, 0.05);
+  --accent-border: rgba(0, 0, 0, 0.2);
+
+  --text-primary:   #000000;
+  --text-secondary: #444444;
+  --text-tertiary:  #888888;
+
+  --border:        rgba(0, 0, 0, 0.12);
+  --border-strong: rgba(0, 0, 0, 0.24);
+
+  --success: #000000;
+  --warning: #666666;
+
+  /* Data series: five steps of grey, each distinguishable on white. */
+  --cat-clinical:  #000000;
+  --cat-shadowing: #333333;
+  --cat-research:  #666666;
+  --cat-volunteer: #999999;
+  --cat-other:     #CCCCCC;
+
+  background-color: #FFFFFF;
+  /* Redefining the token is not enough on its own: text that sets no colour
+     of its own inherits from <body>, which sits outside this scope and still
+     resolves --text-primary to the green-black. Setting colour here gives
+     inherited text a black to inherit. */
+  color: #000000;
+}
+
+/* The dark hero panel would read as a colour block in a monochrome page,
+   so the path visualisation inverts to black instead. */
+.mono-scope {
+  --bg-hero-1: #000000;
+  --bg-hero-2: #111111;
+  --bg-hero-3: #1C1C1C;
+
+  /* Leaves on a black panel: five light steps rather than five hues. */
+  --leaf-clinical:  #FFFFFF;
+  --leaf-shadowing: #D6D6D6;
+  --leaf-research:  #ABABAB;
+  --leaf-volunteer: #828282;
+  --leaf-other:     #5E5E5E;
 }

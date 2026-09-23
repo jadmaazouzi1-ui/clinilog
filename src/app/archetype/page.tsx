@@ -29,7 +29,7 @@ export default async function ArchetypePage() {
   return (
     <AppShell userEmail={user.email ?? ""} activePath="/archetype">
       <main
-        className="w-full chart-margin watermark-ekg"
+        className="w-full chart-margin"
         style={{ paddingTop: "var(--sp-3)", paddingRight: "var(--sp-3)", paddingBottom: "var(--sp-4)" }}
       >
         <ArchetypeView

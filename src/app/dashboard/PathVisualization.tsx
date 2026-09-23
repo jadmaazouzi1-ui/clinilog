@@ -38,11 +38,11 @@ const CATEGORY_LABEL: Record<ExperienceType, string> = {
    almost exactly the dark panel's own background, so leaves drawn in it would
    disappear. Hue is preserved, lightness is raised. */
 const CATEGORY_COLOR: Record<ExperienceType, string> = {
-  clinical_work: "#B7E4C7",
-  shadowing: "#74C69D",
-  research: "#B9AEFF",
-  volunteer: "#F4A261",
-  other: "#4CC9F0",
+  clinical_work: "var(--leaf-clinical)",
+  shadowing: "var(--leaf-shadowing)",
+  research: "var(--leaf-research)",
+  volunteer: "var(--leaf-volunteer)",
+  other: "var(--leaf-other)",
 };
 /* Leaf silhouette per category, so a limb is identifiable by shape alone
    and not by colour only. */

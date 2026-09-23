@@ -58,15 +58,15 @@ export default function HoursBreakdown({
 
       <div className="flex flex-col sm:flex-row items-center" style={{ gap: "var(--sp-3)" }}>
         {/* Donut chart with center total */}
-        <div className="relative w-48 h-48 flex-shrink-0">
+        <div className="relative w-40 h-40 flex-shrink-0">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie
                 data={data}
                 cx="50%"
                 cy="50%"
-                innerRadius={58}
-                outerRadius={80}
+                innerRadius={48}
+                outerRadius={67}
                 paddingAngle={data.length > 1 ? 3 : 0}
                 dataKey="hours"
                 strokeWidth={0}
@@ -110,24 +110,33 @@ export default function HoursBreakdown({
             return (
               <div
                 key={entry.type}
-                className="flex items-baseline gap-2"
                 style={{
-                  padding: "6px 0",
+                  // Fixed 3-column grid: label takes the slack, and the two
+                  // numerics sit in their own narrow columns so the percentage
+                  // reads as attached to its hours value instead of drifting
+                  // out to the card edge.
+                  display: "grid",
+                  gridTemplateColumns: "minmax(0, 1fr) auto auto",
+                  columnGap: 10,
+                  alignItems: "baseline",
+                  padding: "6px 0 6px 8px",
                   borderBottom: "1px solid var(--border)",
                   boxShadow: `inset 3px 0 0 -1px ${COLORS[entry.type]}`,
-                  paddingLeft: 8,
                 }}
               >
                 <span
-                  className="flex-1 text-xs font-bold uppercase"
+                  className="text-[11px] font-bold uppercase"
                   style={{ color: "var(--text-secondary)", letterSpacing: "0.08em" }}
                 >
                   {entry.label}
                 </span>
-                <span className="mono text-sm font-semibold" style={{ color: "var(--text-primary)" }}>
+                <span
+                  className="mono text-sm font-semibold text-right"
+                  style={{ color: "var(--text-primary)" }}
+                >
                   {hrs}
                 </span>
-                <span className="mono text-xs w-10 text-right" style={{ color: "var(--text-tertiary)" }}>
+                <span className="mono text-xs text-right" style={{ color: "var(--text-tertiary)", minWidth: 30 }}>
                   {pct}%
                 </span>
               </div>
