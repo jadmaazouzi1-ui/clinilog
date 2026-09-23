@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { EkgLoader, VitalFlat } from "@/components/MedicalIcons";
 
 interface ReframeableTextareaProps {
   defaultValue?: string;
@@ -96,7 +97,10 @@ export default function ReframeableTextarea({
 
       {/* Error */}
       {error && (
-        <p className="text-xs" style={{ color: "var(--margin-rule)" }}>{error}</p>
+        <p className="text-xs flex items-center gap-2 flex-wrap" style={{ color: "var(--margin-rule)" }}>
+          <VitalFlat />
+          {error}
+        </p>
       )}
 
       {/* Action row */}
@@ -116,7 +120,7 @@ export default function ReframeableTextarea({
           }}
         >
           {loading ? (
-            <span className="loading-text">Reframing</span>
+            <EkgLoader label="Reframing" width={56} />
           ) : (
             <>
               {/* Sparkle / wand icon */}

@@ -12,6 +12,13 @@ import OnboardingModal from "./OnboardingModal";
 import ExperienceInsights from "@/components/ExperienceInsights";
 import CountUp from "@/components/CountUp";
 import { formatMedicalDate, formatMedicalHours, buildRecordNumbers } from "@/lib/formatMedical";
+import {
+  EkgDivider,
+  IconClipboard,
+  IconPulse,
+  TabIndex,
+  VitalFlat,
+} from "@/components/MedicalIcons";
 
 const TYPE_LABELS: Record<ExperienceType, string> = {
   shadowing: "Shadowing",
@@ -91,7 +98,7 @@ export default async function DashboardPage({
       {/* chart-margin draws the 2px red prescription-pad rule 40px in, and
           indents the content clear of it at md and up. */}
       <main
-        className="w-full chart-margin"
+        className="w-full chart-margin watermark-ekg"
         style={{ paddingTop: "var(--sp-3)", paddingRight: "var(--sp-3)", paddingBottom: "var(--sp-3)" }}
       >
         {pageError && (
@@ -107,7 +114,10 @@ export default async function DashboardPage({
               color: "var(--margin-rule)",
             }}
           >
-            Error: {decodeURIComponent(pageError)}
+            <span className="flex items-center gap-2 flex-wrap">
+              <VitalFlat />
+              {decodeURIComponent(pageError)}
+            </span>
           </div>
         )}
 
@@ -129,7 +139,7 @@ export default async function DashboardPage({
           </div>
 
           {experienceList.length > 0 && (
-            <div className="flex items-center gap-2 sm:flex-shrink-0">
+            <div className="flex items-center gap-3 sm:flex-shrink-0">
               <ExportAllButton experiences={experienceList} />
               <Link
                 href="/dashboard/new"
@@ -146,7 +156,11 @@ export default async function DashboardPage({
         <PathVisualization experiences={experienceList} />
 
         {/* Your progress: donut + key numbers */}
-        <p className="dept-header">Your Progress</p>
+        <p className="dept-header flex items-center gap-2">
+          <IconPulse size={13} />
+          Your Progress
+          <TabIndex n={1} />
+        </p>
         <div
           className="grid grid-cols-1 lg:grid-cols-2"
           style={{ gap: "var(--sp-2)", marginBottom: "var(--sp-4)" }}
@@ -154,7 +168,8 @@ export default async function DashboardPage({
           <HoursBreakdown experiences={experienceList} />
           <div className="grid grid-cols-2 content-start" style={{ gap: "var(--sp-2)" }}>
             {keyNumbers.map((stat) => (
-              <div key={stat.label} className="vital-card tick-corners">
+              <div key={stat.label} className="vital-card tick-corners relative">
+                <span className="pulse-dot" />
                 <p className="vital-card-label">{stat.label}</p>
                 <span className="vital-card-value">
                   <CountUp to={stat.value} decimals={stat.decimals} padWidth={stat.padWidth} />
@@ -165,7 +180,9 @@ export default async function DashboardPage({
           </div>
         </div>
 
-        {/* Archetype banner — shown once user has 3+ experiences */}
+        <EkgDivider />
+
+        {/* Archetype banner: shown once user has 3+ experiences */}
         {showArchetypeBanner && (
           <Link
             href="/archetype"
@@ -200,6 +217,8 @@ export default async function DashboardPage({
 
         <AMCASTracker experiences={experienceList} />
 
+        <EkgDivider />
+
         {/* Content area */}
         {experienceList.length === 0 ? (
           <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
@@ -221,10 +240,14 @@ export default async function DashboardPage({
           </div>
         ) : (
           <>
-          <p className="dept-header" id="recent-experiences">Recent Experiences</p>
+          <p className="dept-header flex items-center gap-2" id="recent-experiences">
+            <IconClipboard size={13} />
+            Recent Experiences
+            <TabIndex n={3} />
+          </p>
           <div style={{ display: "grid", gap: "var(--sp-2)" }}>
             {experienceList.map((experience) => (
-              <div key={experience.id} className="glass-card" style={{ padding: "var(--sp-2)" }}>
+              <div key={experience.id} className="glass-card tear-tab" style={{ padding: "var(--sp-2)" }}>
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
                     {/* Record number sits above the title, as a chart header */}

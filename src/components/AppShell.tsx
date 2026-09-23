@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import AIAdvisorButton from "./AIAdvisorButton";
+import { RecordNo } from "./MedicalIcons";
 
 export interface BreadcrumbItem {
   label: string;
@@ -109,7 +110,7 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
               <Link
                 key={item.href}
                 href={item.href}
-                className="flex items-center gap-3 px-3 py-2.5"
+                className={`binder-tab flex items-center gap-3 px-3 py-2.5${isActive ? " is-active" : ""}`}
                 style={{
                   color: isActive ? "var(--accent)" : "var(--text-secondary)",
                   backgroundColor: isActive ? "var(--accent-soft)" : "transparent",
@@ -177,8 +178,8 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
 
       {/* Main content */}
       <div className="md:ml-[220px] pb-[80px] md:pb-0">
-        {crumbs.length > 0 && (
-          <div className="flex items-center gap-1.5 px-6 md:px-8 pt-6 pb-1">
+        <div className="flex items-center justify-between gap-3 px-6 md:px-8 pt-6 pb-1">
+          <div className="flex items-center gap-1.5 flex-wrap min-w-0">
             {crumbs.map((crumb, i) => (
               <span key={i} className="flex items-center gap-1.5">
                 {i > 0 && (
@@ -200,7 +201,8 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
               </span>
             ))}
           </div>
-        )}
+          <RecordNo page={activePath} />
+        </div>
 
         <div className="page-fade-in">{children}</div>
       </div>

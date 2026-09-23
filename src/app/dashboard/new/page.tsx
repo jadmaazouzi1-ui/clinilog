@@ -4,6 +4,8 @@ import { createClient } from "@/lib/supabase/server";
 import { createExperience } from "../actions";
 import AppShell from "@/components/AppShell";
 import ReframeableTextarea from "@/components/ReframeableTextarea";
+import { IconClipboard, TabIndex } from "@/components/MedicalIcons";
+import { formatMedicalDate } from "@/lib/formatMedical";
 
 const TYPES = [
   ["shadowing", "Shadowing"],
@@ -48,17 +50,24 @@ export default async function NewExperiencePage() {
 
         {/* Form head: title left, record number right, as on a chart sheet */}
         <div
-          className="flex flex-wrap items-end justify-between gap-2"
+          className="flex flex-wrap items-start justify-between gap-3"
           style={{ marginBottom: "var(--sp-1)" }}
         >
-          <h1 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>
-            Experience intake
-          </h1>
-          <span className="exp-id">RECORD {nextRecord}</span>
+          <div className="flex items-start gap-3">
+            <span className="rx-mark" aria-hidden="true">&#8478;</span>
+            <div>
+              <h1 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>
+                Experience intake
+              </h1>
+              <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
+                Complete every required field. Hours count toward your AMCAS totals.
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-col items-end gap-1">
+            <span className="exp-id">WILL FILE AS {nextRecord}</span>
+          </div>
         </div>
-        <p className="text-sm" style={{ color: "var(--text-secondary)", marginBottom: "var(--sp-3)" }}>
-          Complete every required field. Hours are counted toward your AMCAS totals.
-        </p>
 
         <div
           className="tick-corners"
@@ -70,18 +79,22 @@ export default async function NewExperiencePage() {
           }}
         >
           <form action={createExperience}>
-            <p className="dept-header">Section A / Placement</p>
+            <p className="dept-header flex items-center gap-2">
+              <IconClipboard size={13} />
+              Section A / Placement
+              <TabIndex n={1} />
+            </p>
 
             <div style={{ marginBottom: "var(--sp-3)" }}>
               <label htmlFor="title" className="field-label">
-                Title <span style={{ color: "var(--margin-rule)" }}>*</span>
+                TTL <span style={{ color: "var(--margin-rule)" }}>*</span>
               </label>
               <input
                 id="title"
                 name="title"
                 type="text"
                 required
-                placeholder="Cardiology shadowing at UCSF"
+                placeholder="Title, e.g. Cardiology shadowing at UCSF"
                 className="field-input"
               />
             </div>
@@ -92,23 +105,23 @@ export default async function NewExperiencePage() {
             >
               <div>
                 <label htmlFor="organization" className="field-label">
-                  Organization <span style={{ color: "var(--margin-rule)" }}>*</span>
+                  ORG <span style={{ color: "var(--margin-rule)" }}>*</span>
                 </label>
                 <input
                   id="organization"
                   name="organization"
                   type="text"
                   required
-                  placeholder="UCSF Medical Center"
+                  placeholder="Organization, e.g. UCSF Medical Center"
                   className="field-input"
                 />
               </div>
               <div>
                 <label htmlFor="experience_type" className="field-label">
-                  Category <span style={{ color: "var(--margin-rule)" }}>*</span>
+                  CAT <span style={{ color: "var(--margin-rule)" }}>*</span>
                 </label>
                 <select id="experience_type" name="experience_type" required className="field-input">
-                  <option value="">Select</option>
+                  <option value="">Category</option>
                   {TYPES.map(([value, label]) => (
                     <option key={value} value={value}>
                       {label}
@@ -120,7 +133,10 @@ export default async function NewExperiencePage() {
 
             <hr className="tear-line" />
 
-            <p className="dept-header">Section B / Dates and hours</p>
+            <p className="dept-header flex items-center gap-2">
+              Section B / Dates and hours
+              <TabIndex n={2} />
+            </p>
 
             <div
               className="grid grid-cols-1 sm:grid-cols-3"
@@ -128,19 +144,19 @@ export default async function NewExperiencePage() {
             >
               <div>
                 <label htmlFor="start_date" className="field-label">
-                  Start date <span style={{ color: "var(--margin-rule)" }}>*</span>
+                  DOS START <span style={{ color: "var(--margin-rule)" }}>*</span>
                 </label>
                 <input id="start_date" name="start_date" type="date" required className="field-input" />
               </div>
               <div>
                 <label htmlFor="end_date" className="field-label">
-                  End date <span style={{ color: "var(--text-tertiary)" }}>(optional)</span>
+                  DOS END <span style={{ color: "var(--text-tertiary)" }}>(optional)</span>
                 </label>
                 <input id="end_date" name="end_date" type="date" className="field-input" />
               </div>
               <div>
                 <label htmlFor="hours" className="field-label">
-                  Total hours <span style={{ color: "var(--margin-rule)" }}>*</span>
+                  HRS <span style={{ color: "var(--margin-rule)" }}>*</span>
                 </label>
                 <input
                   id="hours"
@@ -150,7 +166,7 @@ export default async function NewExperiencePage() {
                   min="0.1"
                   max="1000"
                   step="any"
-                  placeholder="40"
+                  placeholder="Hours, e.g. 40"
                   className="field-input mono"
                 />
               </div>
@@ -158,26 +174,35 @@ export default async function NewExperiencePage() {
 
             <hr className="tear-line" />
 
-            <p className="dept-header">Section C / Narrative</p>
+            <p className="dept-header flex items-center gap-2">
+              Section C / Narrative
+              <TabIndex n={3} />
+            </p>
 
             <div style={{ marginBottom: "var(--sp-3)" }}>
               <label htmlFor="description" className="field-label">
-                Description <span style={{ color: "var(--text-tertiary)" }}>(optional)</span>
+                DESC <span style={{ color: "var(--text-tertiary)" }}>(optional)</span>
               </label>
-              <ReframeableTextarea placeholder="What did you do?" />
+              <ReframeableTextarea placeholder="Description: what did you do?" />
             </div>
 
             <div style={{ marginBottom: "var(--sp-4)" }}>
               <label htmlFor="reflection" className="field-label">
-                Reflection <span style={{ color: "var(--text-tertiary)" }}>(optional)</span>
+                REFL <span style={{ color: "var(--text-tertiary)" }}>(optional)</span>
               </label>
               <textarea
                 id="reflection"
                 name="reflection"
                 rows={4}
-                placeholder="What did you learn? How did this shape your interest in medicine?"
+                placeholder="Reflection: what did you learn? How did this shape your interest in medicine?"
                 className="field-input resize-none"
               />
+            </div>
+
+            <div className="signature-line" style={{ maxWidth: 320 }}>
+              <span className="signature-caption">
+                Logged by {user.email} on {formatMedicalDate(new Date())}
+              </span>
             </div>
 
             <hr className="tear-line" />

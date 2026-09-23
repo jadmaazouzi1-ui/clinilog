@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { upsertProfile } from "./actions";
 import AppShell from "@/components/AppShell";
+import { VitalFlat, VitalOk } from "@/components/MedicalIcons";
 
 export default async function ProfilePage({
   searchParams,
@@ -54,19 +55,35 @@ export default async function ProfilePage({
 
         {saved === "1" && (
           <div
-            className="mb-6 text-sm rounded-xl px-4 py-3"
-            style={{ background: "rgba(22,36,29,0.1)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }}
+            className="mb-6 text-sm flex items-center gap-3 flex-wrap"
+            style={{
+              padding: "10px var(--sp-2)",
+              background: "var(--accent-soft)",
+              border: "1px solid var(--accent-border)",
+              borderLeft: "2px solid var(--accent)",
+              borderRadius: "var(--radius)",
+              color: "var(--text-primary)",
+            }}
           >
+            <VitalOk />
             Profile saved successfully.
           </div>
         )}
 
         {pageError && (
           <div
-            className="mb-6 text-sm rounded-xl px-4 py-3"
-            style={{ background: "rgba(22,36,29,0.1)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }}
+            className="mb-6 text-sm flex items-center gap-3 flex-wrap"
+            style={{
+              padding: "10px var(--sp-2)",
+              background: "rgba(193,18,31,0.06)",
+              border: "1px solid rgba(193,18,31,0.28)",
+              borderLeft: "2px solid var(--margin-rule)",
+              borderRadius: "var(--radius)",
+              color: "var(--margin-rule)",
+            }}
           >
-            Error: {decodeURIComponent(pageError)}
+            <VitalFlat />
+            {decodeURIComponent(pageError)}
           </div>
         )}
 

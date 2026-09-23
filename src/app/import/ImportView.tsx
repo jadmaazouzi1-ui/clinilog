@@ -4,6 +4,7 @@ import { useState, useRef, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { bulkImportExperiences, ImportRow } from "./actions";
 import { formatHours } from "@/lib/types";
+import { VitalFlat, VitalOk } from "@/components/MedicalIcons";
 
 type CategoryDisplay = "Clinical Work" | "Shadowing" | "Research" | "Volunteering" | "Other";
 
@@ -335,20 +336,28 @@ export default function ImportView() {
       {/* Result banner */}
       {result && (
         <div
-          className="rounded-xl px-4 py-3 flex items-start gap-3"
+          className="flex items-start gap-3 flex-wrap"
           style={
             result.kind === "success"
-              ? { background: "rgba(22,36,29,0.1)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }
-              : { background: "rgba(22,36,29,0.1)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }
+              ? {
+                  padding: "10px var(--sp-2)",
+                  background: "var(--accent-soft)",
+                  border: "1px solid var(--accent-border)",
+                  borderLeft: "2px solid var(--accent)",
+                  borderRadius: "var(--radius)",
+                  color: "var(--text-primary)",
+                }
+              : {
+                  padding: "10px var(--sp-2)",
+                  background: "rgba(193,18,31,0.06)",
+                  border: "1px solid rgba(193,18,31,0.28)",
+                  borderLeft: "2px solid var(--margin-rule)",
+                  borderRadius: "var(--radius)",
+                  color: "var(--margin-rule)",
+                }
           }
         >
-          <svg className="w-5 h-5 flex-shrink-0 mt-px" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            {result.kind === "success" ? (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            )}
-          </svg>
+          {result.kind === "success" ? <VitalOk /> : <VitalFlat />}
           <p className="text-sm font-medium flex-1">{result.msg}</p>
         </div>
       )}

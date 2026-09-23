@@ -543,3 +543,244 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   width: max-content;
   animation: ticker-scroll 28s linear infinite;
 }
+
+/* ══════════════════════════════════════════════════════════════════════
+   MEDICAL CHART ELEMENTS
+   Identifiers, tear-off perforations, vitals indicators, binder tabs,
+   EKG dividers and loaders. Paired with src/components/MedicalIcons.tsx.
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* Chart number, top-right of a page */
+.record-no {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: rgba(22, 36, 29, 0.3);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Binder index marker beside a section title */
+.tab-index {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--text-tertiary);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  padding: 1px 5px;
+  white-space: nowrap;
+}
+
+/* ── Tear-off perforation along a card's top edge ──────────────────────
+   One pseudo-element carries both layers so it never collides with
+   .tick-corners, which owns ::after. Notches are punched in the page
+   colour, so this belongs on cards sitting directly on the page. */
+.tear-tab {
+  position: relative;
+  padding-top: 22px !important;
+}
+.tear-tab::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 13px;
+  background-image:
+    radial-gradient(circle at 5px 0, var(--bg-page) 0 4px, transparent 4.5px),
+    repeating-linear-gradient(90deg, var(--border-strong) 0 4px, transparent 4px 9px);
+  background-size: 14px 13px, 100% 1px;
+  background-position: 0 0, 0 10px;
+  background-repeat: repeat-x, no-repeat;
+  pointer-events: none;
+}
+
+/* ── Live-status pulse, as on a monitor ────────────────────────────────── */
+.pulse-dot {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent-bright);
+  animation: vitalPulse 2s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes vitalPulse {
+  0%, 100% { opacity: 0.2; }
+  50%      { opacity: 1; }
+}
+
+/* ── EKG section divider ───────────────────────────────────────────────── */
+.ekg-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-1);
+  margin: var(--sp-4) 0;
+}
+.ekg-divider > span {
+  flex: 1;
+  height: 1px;
+  background: var(--border-strong);
+}
+
+/* ── EKG loader, in place of a spinner ─────────────────────────────────── */
+.ekg-loader {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+}
+.ekg-loader-trace {
+  stroke-dasharray: 34 300;
+  animation: ekgSweep 1.5s linear infinite;
+}
+@keyframes ekgSweep {
+  from { stroke-dashoffset: 40; }
+  to   { stroke-dashoffset: -294; }
+}
+.ekg-loader-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+.sr-only-live {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Vital-sign status marks ───────────────────────────────────────────── */
+.vital-ok {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--accent);
+}
+.vital-ok-range {
+  position: relative;
+  display: inline-block;
+  width: 42px;
+  height: 3px;
+  background: var(--bg-soft);
+  border-left: 1px solid var(--accent-border);
+  border-right: 1px solid var(--accent-border);
+}
+.vital-ok-range > i {
+  position: absolute;
+  left: 50%;
+  top: -2px;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 7px;
+  background: var(--accent);
+}
+.vital-ok-label,
+.vital-flat-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+.vital-flat {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--margin-rule);
+}
+
+/* ── Oscilloscope progress readout ─────────────────────────────────────── */
+.oscilloscope {
+  display: block;
+  width: 100%;
+  height: 30px;
+  overflow: visible;
+}
+
+/* ── Sidebar chart-binder tabs ─────────────────────────────────────────── */
+.binder-tab {
+  position: relative;
+}
+.binder-tab::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 5px;
+  bottom: 5px;
+  width: 3px;
+  background: var(--text-primary);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  pointer-events: none;
+}
+.binder-tab:hover::before { opacity: 0.4; }
+.binder-tab.is-active::before { opacity: 1; }
+
+/* ── Prescription-pad form ─────────────────────────────────────────────── */
+.rx-mark {
+  font-family: var(--font-mono);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent);
+  letter-spacing: -0.02em;
+}
+.signature-line {
+  border-top: 1px solid var(--text-primary);
+  padding-top: 5px;
+  margin-top: var(--sp-4);
+}
+.signature-caption {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+}
+
+/* ── Background watermark ──────────────────────────────────────────────── */
+/* Uses ::after, not ::before: page containers also carry .chart-margin, which
+   owns ::before for the red rule, and an element has only one of each. Sharing
+   it silently merged the two rules and left a 2px-wide watermark. For the same
+   reason .watermark-ekg must not be combined with .tick-corners, which owns
+   ::after; the former is for page containers, the latter for cards.
+   `isolation` is also required: without its own stacking context, a negative-z
+   pseudo-element paints beneath the opaque background on an ancestor and is
+   invisible at any opacity. */
+.watermark-ekg {
+  position: relative;
+  isolation: isolate;
+}
+.watermark-ekg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.04;
+  background-repeat: repeat;
+  background-size: 300px 110px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='110' viewBox='0 0 300 110'><path d='M0 70h70l8-14 9 30 9-26 6 14 5-4h60l8-14 9 30 9-26 6 14 5-4h91' fill='none' stroke='%2316241D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/><path d='M258 16h10v10h10v10h-10v10h-10V36h-10V26h10z' fill='none' stroke='%2316241D' stroke-width='2' stroke-linejoin='round'/></svg>");
+}
+
+/* ── Motion preferences ────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .pulse-dot { animation: none; opacity: 0.75; }
+  .ekg-loader-trace { animation: none; stroke-dasharray: none; }
+  .loading-text::after { animation: none; opacity: 0.8; }
+}

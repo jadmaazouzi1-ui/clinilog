@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { ARCHETYPES, ArchetypeAnalysis, getArchetype } from "@/lib/archetypes";
 import { formatMedicalDate } from "@/lib/formatMedical";
+import { EkgLoader, IconCaduceus, VitalFlat } from "@/components/MedicalIcons";
 
 interface Props {
   initialAnalysis: ArchetypeAnalysis | null;
@@ -18,6 +19,16 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
   const [generatedAt, setGeneratedAt] = useState<string | null>(initialGeneratedAt);
   const [revealed, setRevealed] = useState(initialAnalysis !== null);
   const cardRef = useRef<HTMLDivElement>(null);
+
+  // How much evidence the assessment rests on. Three entries is the minimum
+  // the analysis will run on, so that floor reads as LOW rather than as a
+  // confident result drawn from almost nothing.
+  const confidence =
+    experienceCount >= 10
+      ? { level: "HIGH", color: "var(--accent)" }
+      : experienceCount >= 6
+      ? { level: "MODERATE", color: "var(--warning)" }
+      : { level: "LOW", color: "var(--margin-rule)" };
 
   async function runAnalysis() {
     setLoading(true);
@@ -85,13 +96,13 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
   // ── Loading state ────────────────────────────────────────────────────
   if (loading) {
     return (
-      <div className="glass-card p-12 text-center">
-        <p className="loading-text mb-6">Analyzing experience data</p>
-        <h1 className="text-xl font-bold mb-2" style={{ color: "var(--text-primary)" }}>
-          Analyzing your experiences…
+      <div className="glass-card tick-corners" style={{ padding: "var(--sp-6) var(--sp-3)" }}>
+        <EkgLoader label="Analyzing experience data" width={150} />
+        <h1 className="text-xl font-bold" style={{ color: "var(--text-primary)", marginTop: "var(--sp-2)", marginBottom: 4 }}>
+          Analyzing your experiences
         </h1>
-        <p className="text-sm max-w-md mx-auto" style={{ color: "rgba(22,36,29,0.55)" }}>
-          Reading every hour, every reflection, every organization. This usually takes 10–20 seconds.
+        <p className="text-sm" style={{ color: "var(--text-secondary)", maxWidth: 440 }}>
+          Reading every hour, every reflection, every organization. This usually takes 10 to 20 seconds.
         </p>
       </div>
     );
@@ -100,14 +111,13 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
   // ── Error state ──────────────────────────────────────────────────────
   if (error && !analysis) {
     return (
-      <div className="glass-card rounded-2xl p-10 text-center">
-        <h1 className="text-lg font-bold mb-3" style={{ color: "var(--text-primary)" }}>Couldn&apos;t generate your archetype</h1>
-        <p className="text-sm mb-6 max-w-md mx-auto" style={{ color: "rgba(22,36,29,0.6)" }}>{error}</p>
-        <button
-          onClick={runAnalysis}
-          className="inline-flex items-center gap-2 teal-glow px-5 py-2.5 rounded-xl font-semibold text-sm"
-          style={{ backgroundColor: "var(--accent)", color: "#FFFFFF" }}
-        >
+      <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)", borderLeft: "2px solid var(--margin-rule)" }}>
+        <VitalFlat />
+        <h1 className="text-lg font-bold" style={{ color: "var(--text-primary)", marginTop: "var(--sp-1)", marginBottom: 4 }}>
+          Couldn&apos;t generate your archetype
+        </h1>
+        <p className="text-sm" style={{ color: "var(--text-secondary)", maxWidth: 440, marginBottom: "var(--sp-3)" }}>{error}</p>
+        <button onClick={runAnalysis} className="teal-glow text-sm" style={{ padding: "10px var(--sp-3)" }}>
           Try again
         </button>
       </div>
@@ -192,7 +202,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
     // ClinicLog brand
     ctx.fillStyle = "rgba(22,36,29,0.4)";
     ctx.font = "bold 24px -apple-system, system-ui, sans-serif";
-    ctx.fillText("ClinicLog · Your Pre-Med Journey, Organized", w / 2, h - 50);
+    ctx.fillText("ClinicLog MD · Your Pre-Med Journey, Organized", w / 2, h - 50);
 
     // Download
     canvas.toBlob((blob) => {
@@ -211,31 +221,26 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
       {/* Reveal hero — cinematic fade-in */}
       <div
         ref={cardRef}
-        className="glass-card rounded-2xl p-8 text-center relative overflow-hidden archetype-reveal"
+        className="glass-card tick-corners relative overflow-hidden archetype-reveal"
         style={{
-          borderColor: `${color}40`,
+          padding: "var(--sp-4) var(--sp-3)",
+          borderLeft: `2px solid ${color}`,
           opacity: revealed ? 1 : 0,
           transform: revealed ? "translateY(0) scale(1)" : "translateY(20px) scale(0.95)",
           transition: "opacity 0.8s, transform 0.8s",
         }}
       >
         <div className="relative">
-          <p
-            className="text-xs font-bold uppercase tracking-[0.2em] mb-3"
-            style={{ color: "rgba(22,36,29,0.55)" }}
-          >
-            Your Pre-Med Archetype
-          </p>
-          <div
-            className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4"
-            style={{
-              backgroundColor: `${color}1f`,
-              border: `1px solid ${color}`,
-            }}
-          >
-            <svg className="w-8 h-8" fill="none" stroke={color} strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
-              <path d={archetype.iconPath} />
-            </svg>
+          <div className="flex items-start justify-between gap-3 flex-wrap" style={{ marginBottom: "var(--sp-2)" }}>
+            <p className="dept-header flex items-center gap-2" style={{ border: 0, padding: 0, margin: 0 }}>
+              <IconCaduceus size={13} />
+              Assessment
+            </p>
+            <div className="flex items-center gap-3">
+              <span className="exp-id" style={{ color: confidence.color }}>
+                CONFIDENCE: {confidence.level}
+              </span>
+            </div>
           </div>
           <h1 className="text-3xl sm:text-4xl font-bold mb-2 letter-reveal" style={{ color: "var(--text-primary)" }}>
             {archetype.name.split("").map((ch, i) => (
@@ -247,14 +252,14 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
               </span>
             ))}
           </h1>
-          <p className="text-base italic mb-4" style={{ color: "rgba(22,36,29,0.55)" }}>
+          <p className="text-base italic mb-4" style={{ color: "var(--text-secondary)" }}>
             &ldquo;{archetype.tagline}&rdquo;
           </p>
-          <p className="text-sm leading-relaxed max-w-xl mx-auto" style={{ color: "rgba(22,36,29,0.7)" }}>
+          <p className="text-sm leading-relaxed" style={{ color: "var(--text-primary)", maxWidth: 620 }}>
             {archetype.description}
           </p>
 
-          <div className="flex items-center justify-center gap-3 mt-6 flex-wrap">
+          <div className="flex items-center gap-3 mt-6 flex-wrap">
             <button
               onClick={downloadCard}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-opacity hover:opacity-90"
@@ -286,7 +291,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
       </div>
 
       {/* Why this archetype */}
-      <Section title="Why This Archetype" color={color}>
+      <Section title="Findings" color={color}>
         <p className="text-sm leading-relaxed" style={{ color: "rgba(22,36,29,0.85)" }}>
           {analysis.why_paragraph}
         </p>
@@ -312,7 +317,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
       </Section>
 
       {/* Ideal schools */}
-      <Section title="Schools That Love Your Archetype" color={color}>
+      <Section title="Recommendations / Schools" color={color}>
         <ul className="space-y-2">
           {archetype.idealSchools.map((s, i) => (
             <li
@@ -350,7 +355,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
       </Section>
 
       {/* Experiences to add */}
-      <Section title="Experiences To Add" color={color}>
+      <Section title="Recommendations / Next Steps" color={color}>
         <ul className="space-y-3">
           {analysis.experiences_to_add.map((s, i) => (
             <li key={i} className="flex items-start gap-3">
