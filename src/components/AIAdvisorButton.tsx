@@ -193,10 +193,17 @@ export default function AIAdvisorButton() {
 
       {/* Drawer */}
       <div
-        className="fixed top-0 right-0 h-full z-50 flex flex-col"
+        className="fixed top-0 right-0 z-50 flex flex-col"
         style={{
           width: "min(420px, 100vw)",
-          backgroundColor: "#FFFFFF",
+          // 100dvh, not 100vh or h-full: the dynamic viewport unit shrinks
+          // when the mobile keyboard opens, which keeps the composer visible
+          // instead of pushing it behind the keyboard. vh is the fallback for
+          // browsers without dvh.
+          height: "100vh",
+          maxHeight: "100dvh",
+          minHeight: "100dvh",
+          backgroundColor: "var(--bg-card)",
           borderLeft: "1px solid var(--border-strong)",
           transform: open ? "translateX(0)" : "translateX(100%)",
           transition: "transform 0.28s cubic-bezier(0.4,0,0.2,1)",
@@ -209,7 +216,7 @@ export default function AIAdvisorButton() {
         >
           <div className="flex-1 min-w-0">
             <p className="text-sm" style={{ color: "var(--text-primary)", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.02em" }}>AI Pre-Med Advisor</p>
-            <p className="text-xs mono" style={{ color: "rgba(22,36,29,0.45)", letterSpacing: "0.08em" }}>
+            <p className="text-xs mono" style={{ color: "var(--text-tertiary)", letterSpacing: "0.08em" }}>
               {remaining !== null ? `${remaining} OF 20 MESSAGES LEFT TODAY` : "POWERED BY GEMINI · KNOWS YOUR PROFILE"}
             </p>
           </div>
@@ -230,8 +237,8 @@ export default function AIAdvisorButton() {
                 className="max-w-[78%] px-4 py-2.5 text-sm leading-relaxed"
                 style={
                   msg.role === "user"
-                    ? { backgroundColor: "var(--accent)", color: "#FFFFFF", border: "1px solid var(--border-strong)", borderRadius: 16, fontWeight: 500 }
-                    : { backgroundColor: "#FFFFFF", color: "var(--text-primary)", border: "1px solid var(--border-strong)", borderRadius: 16 }
+                    ? { backgroundColor: "var(--accent)", color: "var(--on-accent)", border: "1px solid var(--border-strong)", borderRadius: 16, fontWeight: 500 }
+                    : { backgroundColor: "var(--bg-card)", color: "var(--text-primary)", border: "1px solid var(--border-strong)", borderRadius: 16 }
                 }
               >
                 {msg.content.split("\n").map((line, j) => (
@@ -248,7 +255,7 @@ export default function AIAdvisorButton() {
             <div className="flex justify-start">
               <div
                 className="px-4 py-3"
-                style={{ backgroundColor: "#FFFFFF", border: "1px solid var(--border-strong)", borderRadius: 16 }}
+                style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border-strong)", borderRadius: 16 }}
               >
                 <span className="loading-text">Thinking</span>
               </div>
@@ -264,7 +271,7 @@ export default function AIAdvisorButton() {
         >
           <div
             className="flex items-end gap-2 px-3 py-2"
-            style={{ backgroundColor: "#FFFFFF", border: "1px solid var(--border-strong)", borderRadius: 16 }}
+            style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border-strong)", borderRadius: 16 }}
           >
             <textarea
               ref={inputRef}
@@ -287,7 +294,7 @@ export default function AIAdvisorButton() {
               className="flex-shrink-0 px-3 py-1.5 mono text-[11px] font-bold tracking-widest"
               style={{
                 backgroundColor: input.trim() && !loading ? "var(--text-primary)" : "#FFFFFF",
-                color: input.trim() && !loading ? "#FFFFFF" : "rgba(22,36,29,0.4)",
+                color: input.trim() && !loading ? "#FFFFFF" : "var(--text-tertiary)",
                 border: "1px solid var(--border-strong)",
                 borderRadius: 16,
               }}
@@ -295,7 +302,7 @@ export default function AIAdvisorButton() {
               SEND
             </button>
           </div>
-          <p className="text-center mt-2 text-xs mono" style={{ color: "rgba(22,36,29,0.35)", letterSpacing: "0.08em" }}>
+          <p className="text-center mt-2 text-xs mono" style={{ color: "var(--text-tertiary)", letterSpacing: "0.08em" }}>
             ENTER TO SEND · SHIFT+ENTER NEW LINE
           </p>
         </div>

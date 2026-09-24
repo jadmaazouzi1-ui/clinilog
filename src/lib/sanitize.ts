@@ -51,4 +51,44 @@ export const CAPS = {
   description: 700,
   reflection: 500,
   generic: 500,
+  schoolName: 160,
+  prompt: 2000,
+  notes: 1000,
+  personName: 120,
+  relationship: 120,
 } as const;
+
+/**
+ * Parse a bounded integer, returning null when out of range or unparseable.
+ * Used for word limits, fees and similar numeric form fields that have no
+ * business being negative or enormous.
+ */
+export function parseBoundedInt(input: unknown, min: number, max: number): number | null {
+  const n = typeof input === "number" ? input : parseInt(String(input ?? "").trim(), 10);
+  if (!Number.isFinite(n) || n < min || n > max) return null;
+  return Math.round(n);
+}
+
+/** Parse a bounded, non-negative money value rounded to whole units. */
+export function parseMoney(input: unknown, max = 100000): number {
+  const n = typeof input === "number" ? input : parseFloat(String(input ?? "").trim());
+  if (!Number.isFinite(n) || n < 0) return 0;
+  return Math.min(Math.round(n * 100) / 100, max);
+}
+
+/** Validate a YYYY-MM-DD date, allowing future dates. Returns null if bad. */
+export function parseDateAny(input: unknown): string | null {
+  if (typeof input !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(input)) return null;
+  const d = new Date(input + "T00:00:00Z");
+  if (Number.isNaN(d.getTime())) return null;
+  // Guard against absurd years that would break date maths downstream.
+  const year = parseInt(input.slice(0, 4), 10);
+  if (year < 1900 || year > 2200) return null;
+  return input;
+}
+
+/** One of a fixed allow-list, or the supplied fallback. Never trusts input. */
+export function parseEnum<T extends string>(input: unknown, allowed: readonly T[], fallback: T): T {
+  const v = String(input ?? "").trim();
+  return (allowed as readonly string[]).includes(v) ? (v as T) : fallback;
+}

@@ -21,7 +21,7 @@ export default function BadgeCode({ label, code }: { label: string; code: string
     <div style={{ marginBottom: "var(--sp-4)" }}>
       <div className="flex items-center justify-between gap-3" style={{ marginBottom: 6 }}>
         <span className="exp-id">{label}</span>
-        <button onClick={copy} className="btn-ghost text-xs font-semibold" style={{ padding: "5px var(--sp-1)" }}>
+        <button onClick={copy} className="btn-ghost text-xs font-semibold" style={{ padding: "8px var(--sp-2)", minHeight: 34 }}>
           {copied ? "Copied" : "Copy"}
         </button>
       </div>

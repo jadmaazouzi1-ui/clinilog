@@ -71,7 +71,7 @@ export default async function EditExperiencePage({
           {pageError && (
             <div
               className="mb-6 text-sm rounded-xl px-4 py-3"
-              style={{ background: "rgba(22,36,29,0.1)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }}
+              style={{ background: "var(--bg-soft)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }}
             >
               Error: {decodeURIComponent(pageError)}
             </div>
@@ -164,7 +164,7 @@ export default async function EditExperiencePage({
                   className="field-label"
                 >
                   DOS END{" "}
-                  <span className="font-normal" style={{ color: "rgba(22,36,29,0.4)" }}>(optional)</span>
+                  <span className="font-normal" style={{ color: "var(--text-tertiary)" }}>(optional)</span>
                 </label>
                 <input
                   id="end_date"
@@ -205,7 +205,7 @@ export default async function EditExperiencePage({
                 className="field-label"
               >
                 DESC{" "}
-                <span className="font-normal" style={{ color: "rgba(22,36,29,0.4)" }}>(optional)</span>
+                <span className="font-normal" style={{ color: "var(--text-tertiary)" }}>(optional)</span>
               </label>
               <ReframeableTextarea
                 defaultValue={exp.description ?? ""}
@@ -220,7 +220,7 @@ export default async function EditExperiencePage({
                 className="field-label"
               >
                 REFL{" "}
-                <span className="font-normal" style={{ color: "rgba(22,36,29,0.4)" }}>(optional)</span>
+                <span className="font-normal" style={{ color: "var(--text-tertiary)" }}>(optional)</span>
               </label>
               <textarea
                 id="reflection"
@@ -237,14 +237,14 @@ export default async function EditExperiencePage({
               <button
                 type="submit"
                 className="flex-1 inline-flex items-center justify-center gap-2 teal-glow px-6 py-3 rounded-xl font-semibold text-sm transition-colors focus:outline-none"
-                style={{ backgroundColor: "var(--accent)", color: "#FFFFFF" }}
+                style={{ backgroundColor: "var(--accent)", color: "var(--on-accent)" }}
               >
                 Save Changes
               </button>
               <Link
                 href={`/dashboard/${exp.id}`}
                 className="inline-flex items-center justify-center px-6 py-3 rounded-xl font-semibold text-sm transition-colors"
-                style={{ color: "rgba(22,36,29,0.7)", border: "1px solid var(--border-strong)", background: "transparent" }}
+                style={{ color: "var(--border-strong)", border: "1px solid var(--border-strong)", background: "transparent" }}
               >
                 Cancel
               </Link>

@@ -76,7 +76,7 @@ export default async function LoginPage({
             <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
               <div
                 className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5"
-                style={{ backgroundColor: "#FFFFFF", border: "1px solid var(--border-strong)" }}
+                style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border-strong)" }}
               >
                 <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="var(--text-primary)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
@@ -86,7 +86,7 @@ export default async function LoginPage({
               <h2 className="text-lg font-bold mb-2" style={{ color: "var(--text-primary)" }}>
                 Check your email
               </h2>
-              <p className="text-sm mb-6 leading-relaxed" style={{ color: "rgba(22,36,29,0.6)" }}>
+              <p className="text-sm mb-6 leading-relaxed" style={{ color: "var(--text-secondary)" }}>
                 We sent a password reset link to your email address. It may take a minute to arrive.
               </p>
               <Link href="/auth/login" className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>
@@ -97,7 +97,7 @@ export default async function LoginPage({
             <>
               <div className="mb-8">
                 <h1 className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>Reset your password</h1>
-                <p className="text-sm mt-1" style={{ color: "rgba(22,36,29,0.6)" }}>
+                <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>
                   Enter your email and we&apos;ll send you a reset link
                 </p>
               </div>
@@ -153,7 +153,7 @@ export default async function LoginPage({
         <div className="mb-8">
           <LogoMark />
           <h1 className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>Welcome back</h1>
-          <p className="text-sm mt-1" style={{ color: "rgba(22,36,29,0.6)" }}>
+          <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>
             Sign in to your account to continue
           </p>
         </div>
@@ -212,7 +212,7 @@ export default async function LoginPage({
           </form>
         </div>
 
-        <p className="text-sm mt-6" style={{ color: "rgba(22,36,29,0.5)" }}>
+        <p className="text-sm mt-6" style={{ color: "var(--text-secondary)" }}>
           Don&apos;t have an account?{" "}
           <Link href="/auth/signup" className="font-medium" style={{ color: "var(--text-primary)" }}>
             Create one free

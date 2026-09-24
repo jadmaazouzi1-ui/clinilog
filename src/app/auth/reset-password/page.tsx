@@ -54,14 +54,14 @@ export default function ResetPasswordPage() {
           <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
             <div
               className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5"
-              style={{ backgroundColor: "rgba(22,36,29,0.1)", border: "1px solid var(--border-strong)" }}
+              style={{ backgroundColor: "var(--bg-soft)", border: "1px solid var(--border-strong)" }}
             >
               <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="var(--text-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="20 6 9 17 4 12" />
               </svg>
             </div>
             <h2 className="text-lg font-bold mb-2" style={{ color: "var(--text-primary)" }}>Password updated</h2>
-            <p className="text-sm" style={{ color: "rgba(22,36,29,0.6)" }}>
+            <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
               Redirecting you to your dashboard…
             </p>
           </div>
@@ -69,7 +69,7 @@ export default function ResetPasswordPage() {
           <>
             <div className="mb-8">
               <h1 className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>Set a new password</h1>
-              <p className="text-sm mt-1" style={{ color: "rgba(22,36,29,0.6)" }}>
+              <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>
                 Choose a strong password for your account
               </p>
             </div>

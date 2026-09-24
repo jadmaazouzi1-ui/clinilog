@@ -185,7 +185,7 @@ export default function RecommendationsView({ letters }: { letters: Recommendati
                       onClick={() => deleteRecommendation(l.id)}
                       className="text-xs font-semibold"
                       style={{
-                        padding: "7px var(--sp-2)", color: "var(--margin-rule)", background: "#FFFFFF",
+                        padding: "7px var(--sp-2)", color: "var(--margin-rule)", background: "var(--bg-card)",
                         border: "1px solid rgba(193,18,31,0.3)", borderRadius: "var(--radius)", cursor: "pointer",
                       }}
                     >

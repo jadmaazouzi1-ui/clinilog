@@ -48,7 +48,7 @@ export default function SchoolActions({
               borderRadius: "var(--radius)",
               cursor: pending ? "wait" : "pointer",
               border: `1px solid ${status === s ? "var(--accent)" : "var(--border-strong)"}`,
-              background: status === s ? "var(--accent-soft)" : "#FFFFFF",
+              background: status === s ? "var(--accent-soft)" : "var(--bg-card)",
               color: status === s ? "var(--accent)" : "var(--text-tertiary)",
             }}
           >
@@ -65,7 +65,7 @@ export default function SchoolActions({
               letterSpacing: "0.08em",
               borderRadius: "var(--radius)",
               border: "1px solid var(--border-strong)",
-              background: "#FFFFFF",
+              background: "var(--bg-card)",
               color: "var(--text-secondary)",
               cursor: "pointer",
             }}

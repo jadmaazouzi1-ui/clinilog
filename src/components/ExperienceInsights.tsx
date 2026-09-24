@@ -80,11 +80,11 @@ const RECOMMENDATIONS = {
 };
 
 const STAGE_META: Record<Stage, { label: string; tone: string; color: string; bg: string }> = {
-  freshman:  { label: "Freshman",        tone: "Building your foundation",       color: "var(--text-primary)", bg: "rgba(22,36,29,0.1)"  },
-  sophomore: { label: "Sophomore",       tone: "Hitting midpoint goals",         color: "var(--text-primary)", bg: "rgba(22,36,29,0.08)"   },
-  junior:    { label: "Junior",          tone: "Cycle is approaching",           color: "var(--text-primary)", bg: "rgba(22,36,29,0.08)"  },
-  senior:    { label: "Senior",          tone: "Apply-cycle territory",          color: "var(--text-primary)", bg: "rgba(22,36,29,0.1)"   },
-  postgrad:  { label: "Post-grad / Gap", tone: "Strengthen your final profile",  color: "var(--text-primary)", bg: "rgba(22,36,29,0.08)" },
+  freshman:  { label: "Freshman",        tone: "Building your foundation",       color: "var(--text-primary)", bg: "var(--text-tertiary)"  },
+  sophomore: { label: "Sophomore",       tone: "Hitting midpoint goals",         color: "var(--text-primary)", bg: "var(--text-tertiary)"   },
+  junior:    { label: "Junior",          tone: "Cycle is approaching",           color: "var(--text-primary)", bg: "var(--text-tertiary)"  },
+  senior:    { label: "Senior",          tone: "Apply-cycle territory",          color: "var(--text-primary)", bg: "var(--text-tertiary)"   },
+  postgrad:  { label: "Post-grad / Gap", tone: "Strengthen your final profile",  color: "var(--text-primary)", bg: "var(--text-tertiary)" },
 };
 
 function computeStage(gradYear: number | null | undefined): Stage | null {
@@ -123,7 +123,7 @@ export default function ExperienceInsights({
         >
           <div
             className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-            style={{ background: "#FFFFFF", color: "var(--text-primary)", border: "1px solid var(--border-strong)" }}
+            style={{ background: "var(--bg-card)", color: "var(--text-primary)", border: "1px solid var(--border-strong)" }}
           >
             {ICONS.user}
           </div>
@@ -131,14 +131,14 @@ export default function ExperienceInsights({
             <h2 className="text-base font-semibold mb-1" style={{ color: "var(--text-primary)" }}>
               Tell us where you&apos;re at
             </h2>
-            <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(22,36,29,0.65)" }}>
+            <p className="text-sm leading-relaxed mb-3" style={{ color: "var(--text-secondary)" }}>
               Add your graduation year on your profile so we can tailor insights to where
               you are in your pre-med journey - freshmen get different advice than seniors.
             </p>
             <Link
               href="/profile"
               className="inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-2 rounded-xl transition-opacity hover:opacity-90"
-              style={{ background: "var(--accent)", color: "#FFFFFF" }}
+              style={{ background: "var(--accent)", color: "var(--on-accent)" }}
             >
               Complete your profile
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -159,7 +159,7 @@ export default function ExperienceInsights({
       <div className="flex items-end justify-between mb-4 flex-wrap gap-2">
         <div>
           <p className="dept-header" style={{ marginBottom: 6 }}>Experience Insights</p>
-          <p className="text-xs" style={{ color: "rgba(22,36,29,0.5)" }}>
+          <p className="text-xs" style={{ color: "var(--text-secondary)" }}>
             Personalized tips based on what you&apos;ve logged so far.
           </p>
         </div>
@@ -196,7 +196,7 @@ export default function ExperienceInsights({
               <h3 className="text-sm font-semibold mb-1.5" style={{ color: "var(--text-primary)" }}>
                 {tip.title}
               </h3>
-              <p className="text-xs leading-relaxed" style={{ color: "rgba(22,36,29,0.65)" }}>
+              <p className="text-xs leading-relaxed" style={{ color: "var(--text-secondary)" }}>
                 {tip.body}
               </p>
             </div>
@@ -209,12 +209,12 @@ export default function ExperienceInsights({
 
 function paletteFor(kind: Tip["kind"]) {
   if (kind === "positive") {
-    return { color: "var(--text-primary)", bg: "rgba(22,36,29,0.04)", border: "rgba(22,36,29,0.12)" };
+    return { color: "var(--text-primary)", bg: "var(--text-tertiary)", border: "var(--text-tertiary)" };
   }
   if (kind === "warn") {
-    return { color: "var(--text-primary)", bg: "rgba(22,36,29,0.08)", border: "rgba(22,36,29,0.08)" };
+    return { color: "var(--text-primary)", bg: "var(--text-tertiary)", border: "var(--text-tertiary)" };
   }
-  return { color: "var(--text-primary)", bg: "rgba(22,36,29,0.12)", border: "rgba(22,36,29,0.3)" };
+  return { color: "var(--text-primary)", bg: "var(--text-tertiary)", border: "var(--text-tertiary)" };
 }
 
 // ── Tip generation, stage-aware ───────────────────────────────────────────

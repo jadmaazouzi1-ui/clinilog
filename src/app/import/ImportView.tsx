@@ -30,7 +30,7 @@ const CATEGORY_COLOR: Record<ImportRow["type"], string> = {
   volunteer:     "var(--text-primary)",
   clinical_work: "var(--text-primary)",
   research:      "var(--text-primary)",
-  other:         "rgba(22,36,29,0.6)",
+  other:         "var(--text-secondary)",
 };
 
 // ── CSV parsing ────────────────────────────────────────────────────────────
@@ -265,7 +265,7 @@ export default function ImportView() {
             <h2 className="text-sm font-semibold mb-1" style={{ color: "var(--text-primary)" }}>
               Step 1 - Download the template
             </h2>
-            <p className="text-xs leading-relaxed" style={{ color: "rgba(22,36,29,0.55)" }}>
+            <p className="text-xs leading-relaxed" style={{ color: "var(--text-secondary)" }}>
               Fill it in with your experiences, then upload below. Columns: Experience Name,
               Organization, Category, Start Date, End Date (optional), Hours, Description (optional).
             </p>
@@ -273,7 +273,7 @@ export default function ImportView() {
           <button
             onClick={downloadTemplate}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold flex-shrink-0 transition-opacity hover:opacity-90"
-            style={{ background: "#FFFFFF", color: "var(--text-primary)", border: "1px solid var(--border-strong)" }}
+            style={{ background: "var(--bg-card)", color: "var(--text-primary)", border: "1px solid var(--border-strong)" }}
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -301,8 +301,8 @@ export default function ImportView() {
             onClick={() => inputRef.current?.click()}
             className="rounded-xl px-6 py-12 flex flex-col items-center justify-center cursor-pointer transition-all"
             style={{
-              background: dragOver ? "rgba(22,36,29,0.08)" : "rgba(22,36,29,0.03)",
-              border: `2px dashed ${dragOver ? "var(--text-primary)" : "rgba(22,36,29,0.1)"}`,
+              background: dragOver ? "var(--bg-soft)" : "var(--bg-soft)",
+              border: `2px dashed ${dragOver ? "var(--text-primary)" : "var(--border)"}`,
             }}
           >
             <input
@@ -317,7 +317,7 @@ export default function ImportView() {
             />
             <div
               className="w-12 h-12 rounded-xl flex items-center justify-center mb-3"
-              style={{ background: "#FFFFFF", border: "1px solid var(--border-strong)" }}
+              style={{ background: "var(--bg-card)", border: "1px solid var(--border-strong)" }}
             >
               <svg className="w-6 h-6" fill="none" stroke="var(--text-primary)" strokeWidth="1.75" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
@@ -326,7 +326,7 @@ export default function ImportView() {
             <p className="text-sm font-semibold mb-1" style={{ color: "var(--text-primary)" }}>
               {dragOver ? "Drop your file here" : "Drag and drop your CSV here"}
             </p>
-            <p className="text-xs" style={{ color: "rgba(22,36,29,0.5)" }}>
+            <p className="text-xs" style={{ color: "var(--text-secondary)" }}>
               or <span style={{ color: "var(--text-primary)" }}>click to browse</span> · CSV files only
             </p>
           </div>
@@ -370,7 +370,7 @@ export default function ImportView() {
               <h2 className="text-sm font-semibold mb-1" style={{ color: "var(--text-primary)" }}>
                 Step 3 - Review and confirm
               </h2>
-              <p className="text-xs" style={{ color: "rgba(22,36,29,0.55)" }}>
+              <p className="text-xs" style={{ color: "var(--text-secondary)" }}>
                 {fileName} · <span style={{ color: "var(--text-primary)" }}>{validCount} selected</span>
                 {errorCount > 0 && <> · <span style={{ color: "var(--text-primary)" }}>{errorCount} with errors</span></>}
               </p>
@@ -379,7 +379,7 @@ export default function ImportView() {
               <button
                 onClick={reset}
                 className="text-xs font-medium px-3 py-1.5 rounded-lg transition-colors"
-                style={{ color: "rgba(22,36,29,0.6)", border: "1px solid var(--border-strong)" }}
+                style={{ color: "var(--text-secondary)", border: "1px solid var(--border-strong)" }}
               >
                 Choose different file
               </button>
@@ -398,11 +398,11 @@ export default function ImportView() {
                       className="accent-white"
                     />
                   </th>
-                  <th className="text-left px-2 py-2 text-xs font-semibold uppercase tracking-wide" style={{ color: "rgba(22,36,29,0.5)" }}>Title</th>
-                  <th className="text-left px-2 py-2 text-xs font-semibold uppercase tracking-wide" style={{ color: "rgba(22,36,29,0.5)" }}>Organization</th>
-                  <th className="text-left px-2 py-2 text-xs font-semibold uppercase tracking-wide" style={{ color: "rgba(22,36,29,0.5)" }}>Category</th>
-                  <th className="text-left px-2 py-2 text-xs font-semibold uppercase tracking-wide" style={{ color: "rgba(22,36,29,0.5)" }}>Dates</th>
-                  <th className="text-right px-2 py-2 text-xs font-semibold uppercase tracking-wide" style={{ color: "rgba(22,36,29,0.5)" }}>Hours</th>
+                  <th className="text-left px-2 py-2 text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--text-secondary)" }}>Title</th>
+                  <th className="text-left px-2 py-2 text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--text-secondary)" }}>Organization</th>
+                  <th className="text-left px-2 py-2 text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--text-secondary)" }}>Category</th>
+                  <th className="text-left px-2 py-2 text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--text-secondary)" }}>Dates</th>
+                  <th className="text-right px-2 py-2 text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--text-secondary)" }}>Hours</th>
                 </tr>
               </thead>
               <tbody>
@@ -413,7 +413,7 @@ export default function ImportView() {
                       key={i}
                       style={{
                         borderBottom: "1px solid var(--border-strong)",
-                        backgroundColor: hasError ? "rgba(22,36,29,0.05)" : (r.selected ? "rgba(22,36,29,0.03)" : "transparent"),
+                        backgroundColor: hasError ? "var(--bg-soft)" : (r.selected ? "var(--bg-soft)" : "transparent"),
                       }}
                     >
                       <td className="px-2 py-3 align-top">
@@ -427,7 +427,7 @@ export default function ImportView() {
                         />
                       </td>
                       <td className="px-2 py-3 align-top">
-                        <p className="font-medium" style={{ color: hasError ? "rgba(22,36,29,0.85)" : "var(--text-primary)" }}>
+                        <p className="font-medium" style={{ color: hasError ? "var(--text-primary)" : "var(--text-primary)" }}>
                           {r.row?.title || r.raw[0] || "-"}
                         </p>
                         {hasError && (
@@ -438,7 +438,7 @@ export default function ImportView() {
                           </ul>
                         )}
                       </td>
-                      <td className="px-2 py-3 align-top text-xs" style={{ color: "rgba(22,36,29,0.7)" }}>
+                      <td className="px-2 py-3 align-top text-xs" style={{ color: "var(--text-secondary)" }}>
                         {r.row?.organization || r.raw[1] || "-"}
                       </td>
                       <td className="px-2 py-3 align-top">
@@ -454,10 +454,10 @@ export default function ImportView() {
                             {CATEGORY_LABELS[r.row.type]}
                           </span>
                         ) : (
-                          <span className="text-xs" style={{ color: "rgba(22,36,29,0.7)" }}>-</span>
+                          <span className="text-xs" style={{ color: "var(--text-secondary)" }}>-</span>
                         )}
                       </td>
-                      <td className="px-2 py-3 align-top text-xs whitespace-nowrap" style={{ color: "rgba(22,36,29,0.65)" }}>
+                      <td className="px-2 py-3 align-top text-xs whitespace-nowrap" style={{ color: "var(--text-secondary)" }}>
                         {r.row?.start_date || "-"}
                         {r.row?.end_date && <> → {r.row.end_date}</>}
                         {r.row?.start_date && !r.row?.end_date && <> → Present</>}
@@ -474,7 +474,7 @@ export default function ImportView() {
 
           {/* Import action */}
           <div className="flex items-center justify-between gap-3 mt-6 pt-5 flex-wrap" style={{ borderTop: "1px solid var(--border-strong)" }}>
-            <p className="text-xs" style={{ color: "rgba(22,36,29,0.5)" }}>
+            <p className="text-xs" style={{ color: "var(--text-secondary)" }}>
               {validCount === 0
                 ? "No valid rows selected"
                 : `Ready to import ${validCount} experience${validCount === 1 ? "" : "s"}.`}
@@ -483,7 +483,7 @@ export default function ImportView() {
               onClick={doImport}
               disabled={validCount === 0 || isPending}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all disabled:opacity-40 disabled:cursor-not-allowed"
-              style={{ backgroundColor: "var(--accent)", color: "#FFFFFF", boxShadow: "none" }}
+              style={{ backgroundColor: "var(--accent)", color: "var(--on-accent)", boxShadow: "none" }}
             >
               {isPending ? (
                 <span className="mono text-[10px] font-semibold uppercase tracking-[0.18em]">

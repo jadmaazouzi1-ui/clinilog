@@ -2,6 +2,18 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import {
+  CAPS,
+  parseBoundedInt,
+  parseDateAny,
+  parseEnum,
+  parseMoney,
+  sanitizeOptional,
+  sanitizeText,
+} from "@/lib/sanitize";
+
+const SECONDARY_STATUSES = ["Not Started", "Draft", "Submitted"] as const;
+const WAIVER_STATUSES = ["None", "Requested", "Approved", "Denied"] as const;
 
 async function requireUser() {
   const supabase = await createClient();
@@ -13,10 +25,13 @@ async function requireUser() {
 /** Mark a school as Target or Applying. Idempotent per user + school. */
 export async function setSchoolStatus(schoolName: string, status: "Target" | "Applying") {
   const { supabase, user } = await requireUser();
+  const name = sanitizeText(schoolName, CAPS.schoolName);
+  if (!name) return;
+  const safeStatus = parseEnum(status, ["Target", "Applying"] as const, "Target");
   await supabase
     .from("school_applications")
     .upsert(
-      { user_id: user.id, school_name: schoolName, status, updated_at: new Date().toISOString() },
+      { user_id: user.id, school_name: name, status: safeStatus, updated_at: new Date().toISOString() },
       { onConflict: "user_id,school_name" }
     );
   revalidatePath("/applications");
@@ -34,20 +49,16 @@ export async function removeSchool(id: string) {
 export async function updateApplication(id: string, formData: FormData) {
   const { supabase } = await requireUser();
 
-  const wordLimitRaw = String(formData.get("word_limit") ?? "").trim();
-  const feeRaw = String(formData.get("secondary_fee") ?? "").trim();
-  const deadline = String(formData.get("deadline") ?? "").trim();
-
   await supabase
     .from("school_applications")
     .update({
-      secondary_prompt: String(formData.get("secondary_prompt") ?? "").trim() || null,
-      word_limit: wordLimitRaw ? Number(wordLimitRaw) : null,
-      secondary_status: String(formData.get("secondary_status") ?? "Not Started"),
-      deadline: deadline || null,
-      secondary_fee: feeRaw ? Number(feeRaw) : 0,
-      fee_waiver_status: String(formData.get("fee_waiver_status") ?? "None"),
-      notes: String(formData.get("notes") ?? "").trim() || null,
+      secondary_prompt: sanitizeOptional(formData.get("secondary_prompt"), CAPS.prompt),
+      word_limit: parseBoundedInt(formData.get("word_limit"), 1, 10000),
+      secondary_status: parseEnum(formData.get("secondary_status"), SECONDARY_STATUSES, "Not Started"),
+      deadline: parseDateAny(formData.get("deadline")),
+      secondary_fee: parseMoney(formData.get("secondary_fee"), 5000),
+      fee_waiver_status: parseEnum(formData.get("fee_waiver_status"), WAIVER_STATUSES, "None"),
+      notes: sanitizeOptional(formData.get("notes"), CAPS.notes),
       updated_at: new Date().toISOString(),
     })
     .eq("id", id);
@@ -60,7 +71,10 @@ export async function setSecondaryStatus(id: string, secondary_status: string) {
   const { supabase } = await requireUser();
   await supabase
     .from("school_applications")
-    .update({ secondary_status, updated_at: new Date().toISOString() })
+    .update({
+      secondary_status: parseEnum(secondary_status, SECONDARY_STATUSES, "Not Started"),
+      updated_at: new Date().toISOString(),
+    })
     .eq("id", id);
   revalidatePath("/applications");
 }

@@ -20,6 +20,19 @@ export const USER_LIMITS = {
 
 export type UserLimitAction = keyof typeof USER_LIMITS;
 
+/**
+ * Actions that cost real money per call. If the limiter itself fails these
+ * deny rather than allow: an outage turning into unmetered paid API calls is
+ * a worse failure than the feature being briefly unavailable.
+ */
+const FAIL_CLOSED: ReadonlySet<string> = new Set([
+  "advisor",
+  "archetype",
+  "reframe",
+  "outline",
+  "mock_interview",
+]);
+
 export async function checkUserRateLimit(
   supabase: SupabaseClient,
   action: UserLimitAction
@@ -31,8 +44,10 @@ export async function checkUserRateLimit(
     p_window_secs: window,
   });
   if (error || !data) {
-    // Fail open: a rate-limiter outage should not take the feature down.
     console.error(`[rateLimit] rpc failed for ${action}:`, error?.message);
+    // Cheap actions fail open so an outage does not take them down; paid
+    // ones fail closed so an outage cannot be used to bypass the quota.
+    if (FAIL_CLOSED.has(action)) return { allowed: false, remaining: 0 };
     return { allowed: true, remaining: max };
   }
   return { allowed: !!data.allowed, remaining: Number(data.remaining ?? 0) };

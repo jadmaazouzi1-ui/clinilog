@@ -15,7 +15,7 @@ export default async function ImportPage() {
           <h1 className="text-2xl font-bold mb-2" style={{ color: "var(--text-primary)" }}>
             Bulk Import Experiences
           </h1>
-          <p className="text-sm" style={{ color: "rgba(22,36,29,0.6)" }}>
+          <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
             Already tracking your experiences in a spreadsheet? Import them all at once.
           </p>
         </div>

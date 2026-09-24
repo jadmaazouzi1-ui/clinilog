@@ -8,7 +8,7 @@ const CATEGORIES = [
     id: "essentials",
     label: "Pre-Med Essentials",
     color: "var(--text-primary)",
-    bgColor: "rgba(22,36,29,0.04)",
+    bgColor: "var(--text-tertiary)",
     borderColor: "var(--text-primary)",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -37,7 +37,7 @@ const CATEGORIES = [
     id: "mcat",
     label: "MCAT Prep (Free)",
     color: "var(--text-primary)",
-    bgColor: "rgba(22,36,29,0.04)",
+    bgColor: "var(--text-tertiary)",
     borderColor: "var(--text-primary)",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -76,7 +76,7 @@ const CATEGORIES = [
     id: "fee",
     label: "Fee Assistance",
     color: "var(--text-primary)",
-    bgColor: "rgba(22,36,29,0.1)",
+    bgColor: "var(--text-tertiary)",
     borderColor: "var(--text-primary)",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -105,7 +105,7 @@ const CATEGORIES = [
     id: "pipeline",
     label: "Pipeline Programs",
     color: "var(--text-primary)",
-    bgColor: "rgba(22,36,29,0.08)",
+    bgColor: "var(--text-tertiary)",
     borderColor: "var(--text-primary)",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -139,7 +139,7 @@ const CATEGORIES = [
     id: "financial",
     label: "Financial Aid",
     color: "var(--text-primary)",
-    bgColor: "rgba(22,36,29,0.08)",
+    bgColor: "var(--text-tertiary)",
     borderColor: "var(--text-primary)",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -168,7 +168,7 @@ const CATEGORIES = [
     id: "firstgen",
     label: "First-Gen Specific",
     color: "var(--text-primary)",
-    bgColor: "rgba(22,36,29,0.06)",
+    bgColor: "var(--text-tertiary)",
     borderColor: "var(--text-primary)",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -197,7 +197,7 @@ const CATEGORIES = [
     id: "study",
     label: "Free Study Materials",
     color: "var(--text-primary)",
-    bgColor: "rgba(22,36,29,0.08)",
+    bgColor: "var(--text-tertiary)",
     borderColor: "var(--text-primary)",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -254,7 +254,7 @@ export default async function ResourcesPage() {
         {/* Page heading */}
         <div className="mb-10">
           <h1 className="text-2xl font-bold mb-2" style={{ color: "var(--text-primary)" }}>Resource Library</h1>
-          <p className="text-sm" style={{ color: "rgba(22,36,29,0.6)" }}>
+          <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
             Free tools, programs, and guides for every pre-med journey
           </p>
         </div>
@@ -272,7 +272,7 @@ export default async function ResourcesPage() {
                   {category.icon}
                 </div>
                 <h2 className="text-base font-semibold" style={{ color: "var(--text-primary)" }}>{category.label}</h2>
-                <div className="flex-1 h-px" style={{ backgroundColor: "#FFFFFF" }} />
+                <div className="flex-1 h-px" style={{ backgroundColor: "var(--border-strong)" }} />
               </div>
 
               {/* Cards grid */}
@@ -286,7 +286,7 @@ export default async function ResourcesPage() {
                       <h3 className="text-sm font-semibold mb-1.5" style={{ color: "var(--text-primary)" }}>
                         {resource.title}
                       </h3>
-                      <p className="text-xs leading-relaxed" style={{ color: "rgba(22,36,29,0.6)" }}>
+                      <p className="text-xs leading-relaxed" style={{ color: "var(--text-secondary)" }}>
                         {resource.description}
                       </p>
                     </div>

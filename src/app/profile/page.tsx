@@ -107,7 +107,7 @@ export default async function ProfilePage({
               <label
                 htmlFor="full_name"
                 className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(22,36,29,0.85)" }}
+                style={{ color: "var(--text-primary)" }}
               >
                 Full Name
               </label>
@@ -126,7 +126,7 @@ export default async function ProfilePage({
               <label
                 htmlFor="undergraduate_school"
                 className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(22,36,29,0.85)" }}
+                style={{ color: "var(--text-primary)" }}
               >
                 Undergraduate School
               </label>
@@ -243,7 +243,7 @@ export default async function ProfilePage({
               <label
                 htmlFor="graduation_year"
                 className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(22,36,29,0.85)" }}
+                style={{ color: "var(--text-primary)" }}
               >
                 Graduation Year
               </label>
@@ -264,7 +264,7 @@ export default async function ProfilePage({
               <label
                 htmlFor="intended_specialty"
                 className="block text-sm font-medium mb-1.5"
-                style={{ color: "rgba(22,36,29,0.85)" }}
+                style={{ color: "var(--text-primary)" }}
               >
                 Intended Specialty
               </label>
@@ -335,7 +335,7 @@ export default async function ProfilePage({
               <button
                 type="submit"
                 className="w-full inline-flex items-center justify-center gap-2 teal-glow px-6 py-3 rounded-xl font-semibold text-sm transition-colors focus:outline-none"
-                style={{ backgroundColor: "var(--accent)", color: "#FFFFFF" }}
+                style={{ backgroundColor: "var(--accent)", color: "var(--on-accent)" }}
               >
                 Save Profile
               </button>

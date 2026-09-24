@@ -128,7 +128,7 @@ export default function ApplicationsView({ apps }: { apps: SchoolApplication[] }
                         borderRadius: "var(--radius)",
                         cursor: "pointer",
                         border: `1px solid ${a.secondary_status === s ? "var(--accent)" : "var(--border-strong)"}`,
-                        background: a.secondary_status === s ? "var(--accent-soft)" : "#FFFFFF",
+                        background: a.secondary_status === s ? "var(--accent-soft)" : "var(--bg-card)",
                         color: a.secondary_status === s ? "var(--accent)" : "var(--text-tertiary)",
                       }}
                     >
@@ -203,7 +203,7 @@ export default function ApplicationsView({ apps }: { apps: SchoolApplication[] }
                       style={{
                         padding: "7px var(--sp-2)",
                         color: "var(--margin-rule)",
-                        background: "#FFFFFF",
+                        background: "var(--bg-card)",
                         border: "1px solid rgba(193,18,31,0.3)",
                         borderRadius: "var(--radius)",
                         cursor: "pointer",

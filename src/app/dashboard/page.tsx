@@ -312,7 +312,7 @@ export default async function DashboardPage({
                         style={{
                           padding: "6px var(--sp-1)",
                           color: "var(--margin-rule)",
-                          background: "#FFFFFF",
+                          background: "var(--bg-card)",
                           border: "1px solid rgba(193,18,31,0.3)",
                           borderRadius: "var(--radius)",
                           cursor: "pointer",

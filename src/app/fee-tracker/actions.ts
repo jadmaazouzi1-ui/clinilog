@@ -20,6 +20,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { CAPS, parseDateAny, parseMoney, sanitizeOptional, sanitizeText } from "@/lib/sanitize";
 
 export async function addWaiver(formData: FormData) {
   const supabase = await createClient();
@@ -32,22 +33,19 @@ export async function addWaiver(formData: FormData) {
     redirect("/auth/login");
   }
 
-  const name = formData.get("name") as string;
-  const amountSavedRaw = formData.get("amount_saved") as string;
-  const status = formData.get("status") as string;
-  const deadlineRaw = formData.get("deadline") as string;
-  const notes = formData.get("notes") as string;
-
-  const amount_saved = amountSavedRaw ? parseFloat(amountSavedRaw) : null;
-  const deadline = deadlineRaw || null;
+  const name = sanitizeText(formData.get("name"), CAPS.generic);
+  const amountSaved = parseMoney(formData.get("amount_saved"), 100000);
+  const status = sanitizeText(formData.get("status"), 40) || "Not Applied";
+  const deadline = parseDateAny(formData.get("deadline"));
+  const notes = sanitizeOptional(formData.get("notes"), CAPS.notes);
 
   await supabase.from("fee_waivers").insert({
     user_id: user.id,
     name,
-    amount_saved,
-    status: status || "Not Applied",
+    amount_saved: amountSaved,
+    status,
     deadline,
-    notes: notes || null,
+    notes,
   });
 
   redirect("/fee-tracker");

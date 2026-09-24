@@ -107,7 +107,7 @@ export default async function ExperienceDetailPage({
                   style={{
                     padding: "6px var(--sp-2)",
                     color: "var(--margin-rule)",
-                    background: "#FFFFFF",
+                    background: "var(--bg-card)",
                     border: "1px solid rgba(193,18,31,0.3)",
                     borderRadius: "var(--radius)",
                     cursor: "pointer",

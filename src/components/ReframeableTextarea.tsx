@@ -112,7 +112,7 @@ export default function ReframeableTextarea({
           className="inline-flex items-center gap-2 text-xs font-semibold transition-colors"
           style={{
             padding: "6px var(--sp-2)",
-            backgroundColor: "#FFFFFF",
+            backgroundColor: "var(--bg-card)",
             color: loading ? "var(--text-tertiary)" : "var(--text-primary)",
             border: "1px solid var(--border-strong)",
             borderRadius: "var(--radius)",
@@ -137,7 +137,7 @@ export default function ReframeableTextarea({
             type="button"
             onClick={handleUndo}
             className="inline-flex items-center gap-1.5 text-xs font-medium transition-opacity hover:opacity-80"
-            style={{ color: "rgba(22,36,29,0.45)" }}
+            style={{ color: "var(--text-tertiary)" }}
           >
             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />

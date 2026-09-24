@@ -79,7 +79,7 @@ export default async function SignupPage({
             <span className="text-2xl" style={{ color: "var(--text-primary)", fontWeight: 900, letterSpacing: "-0.02em" }}>ClinicLog MD</span>
           </div>
           <h1 className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>Create your account</h1>
-          <p className="text-sm mt-1" style={{ color: "rgba(22,36,29,0.6)" }}>
+          <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>
             Start logging your clinical experiences today
           </p>
         </div>
@@ -89,7 +89,7 @@ export default async function SignupPage({
           {pageError && (
             <div
               className="mb-5 text-sm px-4 py-3"
-              style={{ background: "#FFFFFF", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }}
+              style={{ background: "var(--bg-card)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }}
             >
               {decodeURIComponent(pageError)}
             </div>
@@ -160,7 +160,7 @@ export default async function SignupPage({
           </form>
         </div>
 
-        <p className="text-sm mt-6" style={{ color: "rgba(22,36,29,0.5)" }}>
+        <p className="text-sm mt-6" style={{ color: "var(--text-secondary)" }}>
           Already have an account?{" "}
           <Link
             href="/auth/login"

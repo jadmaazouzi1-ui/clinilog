@@ -85,7 +85,7 @@ export default function HoursBreakdown({
                   border: "1px solid var(--border-strong)",
                   fontSize: "12px",
                   fontFamily: "var(--font-mono)",
-                  backgroundColor: "#FFFFFF",
+                  backgroundColor: "var(--bg-card)",
                   color: "var(--text-primary)",
                   boxShadow: "none",
                 }}

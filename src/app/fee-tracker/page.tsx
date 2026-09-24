@@ -8,22 +8,22 @@ type WaiverStatus = "Not Applied" | "Applied" | "Approved" | "Denied";
 
 const STATUS_STYLES: Record<WaiverStatus, { background: string; color: string; border: string }> = {
   "Not Applied": {
-    background: "#FFFFFF",
-    color: "rgba(22,36,29,0.5)",
+    background: "var(--bg-card)",
+    color: "var(--text-secondary)",
     border: "1px solid var(--border-strong)",
   },
   Applied: {
-    background: "#FFFFFF",
+    background: "var(--bg-card)",
     color: "var(--text-primary)",
     border: "1px solid var(--border-strong)",
   },
   Approved: {
-    background: "rgba(22,36,29,0.1)",
+    background: "var(--bg-soft)",
     color: "var(--text-primary)",
     border: "1px solid var(--border-strong)",
   },
   Denied: {
-    background: "rgba(22,36,29,0.1)",
+    background: "var(--bg-soft)",
     color: "var(--text-primary)",
     border: "1px solid var(--border-strong)",
   },
@@ -91,7 +91,7 @@ export default async function FeeTrackerPage() {
         {/* Page heading */}
         <div className="mb-8">
           <h1 className="text-2xl font-bold mb-1" style={{ color: "var(--text-primary)" }}>Fee Assistance Tracker</h1>
-          <p className="text-sm" style={{ color: "rgba(22,36,29,0.6)" }}>
+          <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
             Track your fee waiver applications and see how much you&apos;ve saved.
           </p>
         </div>
@@ -102,14 +102,14 @@ export default async function FeeTrackerPage() {
             <div
               key={stat.label}
               className="rounded-xl p-5"
-              style={{ backgroundColor: "#FFFFFF", border: "1px solid var(--border-strong)" }}
+              style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border-strong)" }}
             >
-              <p className="text-xs font-semibold uppercase tracking-wide mb-1" style={{ color: "rgba(22,36,29,0.6)" }}>
+              <p className="text-xs font-semibold uppercase tracking-wide mb-1" style={{ color: "var(--text-secondary)" }}>
                 {stat.label}
               </p>
               <div className="flex items-baseline gap-1.5">
                 <span className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>{stat.value}</span>
-                <span className="text-xs font-medium" style={{ color: "rgba(22,36,29,0.5)" }}>{stat.unit}</span>
+                <span className="text-xs font-medium" style={{ color: "var(--text-secondary)" }}>{stat.unit}</span>
               </div>
             </div>
           ))}
@@ -122,7 +122,7 @@ export default async function FeeTrackerPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Name */}
               <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(22,36,29,0.85)" }}>
+                <label htmlFor="name" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text-primary)" }}>
                   Program / Waiver Name <span style={{ color: "var(--text-primary)" }}>*</span>
                 </label>
                 <input
@@ -137,9 +137,9 @@ export default async function FeeTrackerPage() {
 
               {/* Amount Saved */}
               <div>
-                <label htmlFor="amount_saved" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(22,36,29,0.85)" }}>
+                <label htmlFor="amount_saved" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text-primary)" }}>
                   Amount Saved ($){" "}
-                  <span className="font-normal" style={{ color: "rgba(22,36,29,0.4)" }}>(optional)</span>
+                  <span className="font-normal" style={{ color: "var(--text-tertiary)" }}>(optional)</span>
                 </label>
                 <input
                   id="amount_saved"
@@ -154,7 +154,7 @@ export default async function FeeTrackerPage() {
 
               {/* Status */}
               <div>
-                <label htmlFor="status" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(22,36,29,0.85)" }}>
+                <label htmlFor="status" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text-primary)" }}>
                   Status
                 </label>
                 <select
@@ -172,9 +172,9 @@ export default async function FeeTrackerPage() {
 
               {/* Deadline */}
               <div>
-                <label htmlFor="deadline" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(22,36,29,0.85)" }}>
+                <label htmlFor="deadline" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text-primary)" }}>
                   Deadline{" "}
-                  <span className="font-normal" style={{ color: "rgba(22,36,29,0.4)" }}>(optional)</span>
+                  <span className="font-normal" style={{ color: "var(--text-tertiary)" }}>(optional)</span>
                 </label>
                 <input
                   id="deadline"
@@ -187,9 +187,9 @@ export default async function FeeTrackerPage() {
 
             {/* Notes */}
             <div>
-              <label htmlFor="notes" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(22,36,29,0.85)" }}>
+              <label htmlFor="notes" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text-primary)" }}>
                 Notes{" "}
-                <span className="font-normal" style={{ color: "rgba(22,36,29,0.4)" }}>(optional)</span>
+                <span className="font-normal" style={{ color: "var(--text-tertiary)" }}>(optional)</span>
               </label>
               <textarea
                 id="notes"
@@ -204,7 +204,7 @@ export default async function FeeTrackerPage() {
               <button
                 type="submit"
                 className="inline-flex items-center gap-2 teal-glow px-5 py-2.5 rounded-xl font-semibold text-sm transition-colors focus:outline-none"
-                style={{ backgroundColor: "var(--accent)", color: "#FFFFFF" }}
+                style={{ backgroundColor: "var(--accent)", color: "var(--on-accent)" }}
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -220,20 +220,20 @@ export default async function FeeTrackerPage() {
           <div className="glass-card rounded-2xl p-8 text-center">
             <div
               className="inline-flex items-center justify-center w-14 h-14 rounded-full mb-4"
-              style={{ background: "#FFFFFF" }}
+              style={{ background: "var(--bg-card)" }}
             >
               <svg className="w-7 h-7" fill="none" stroke="var(--text-primary)" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <h2 className="text-lg font-semibold mb-2" style={{ color: "var(--text-primary)" }}>No waivers tracked yet</h2>
-            <p className="text-sm max-w-sm mx-auto" style={{ color: "rgba(22,36,29,0.6)" }}>
+            <p className="text-sm max-w-sm mx-auto" style={{ color: "var(--text-secondary)" }}>
               Add your first fee waiver above to start tracking your applications and savings.
             </p>
           </div>
         ) : (
           <div className="space-y-3">
-            <h2 className="text-sm font-semibold uppercase tracking-wide mb-4" style={{ color: "rgba(22,36,29,0.5)" }}>
+            <h2 className="text-sm font-semibold uppercase tracking-wide mb-4" style={{ color: "var(--text-secondary)" }}>
               Your Waivers
             </h2>
             {waiverList.map((waiver) => {
@@ -257,7 +257,7 @@ export default async function FeeTrackerPage() {
                         </span>
                       </div>
 
-                      <div className="flex items-center gap-4 text-xs flex-wrap" style={{ color: "rgba(22,36,29,0.5)" }}>
+                      <div className="flex items-center gap-4 text-xs flex-wrap" style={{ color: "var(--text-secondary)" }}>
                         {waiver.amount_saved != null && (
                           <span className="font-semibold" style={{ color: "var(--text-primary)" }}>
                             ${Number(waiver.amount_saved).toFixed(2)} saved
@@ -269,7 +269,7 @@ export default async function FeeTrackerPage() {
                       </div>
 
                       {waiver.notes && (
-                        <p className="mt-2 text-xs leading-relaxed" style={{ color: "rgba(22,36,29,0.6)" }}>
+                        <p className="mt-2 text-xs leading-relaxed" style={{ color: "var(--text-secondary)" }}>
                           {waiver.notes}
                         </p>
                       )}
@@ -300,7 +300,7 @@ export default async function FeeTrackerPage() {
                         <button
                           type="submit"
                           className="text-xs px-2.5 py-1.5 rounded-lg font-medium transition-colors"
-                          style={{ color: "var(--text-primary)", border: "1px solid var(--border-strong)", background: "#FFFFFF" }}
+                          style={{ color: "var(--text-primary)", border: "1px solid var(--border-strong)", background: "var(--bg-card)" }}
                         >
                           Update
                         </button>
@@ -311,7 +311,7 @@ export default async function FeeTrackerPage() {
                         <button
                           type="submit"
                           className="px-2.5 py-1.5 mono text-[10px] font-bold tracking-widest nav-item-brutal"
-                          style={{ color: "var(--text-primary)", border: "1px solid var(--border-strong)", background: "#FFFFFF" }}
+                          style={{ color: "var(--text-primary)", border: "1px solid var(--border-strong)", background: "var(--bg-card)" }}
                           aria-label="Delete waiver"
                         >
                           DELETE

@@ -109,7 +109,7 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
       <aside
         className="app-sidebar hidden md:flex flex-col fixed top-0 left-0 h-full z-40 w-[220px]"
         style={{
-          backgroundColor: "#FFFFFF",
+          backgroundColor: "var(--bg-card)",
           borderRight: "1px solid var(--border)",
         }}
       >
@@ -246,7 +246,7 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
         className="app-bottomnav md:hidden fixed bottom-0 left-0 right-0 z-50 flex items-stretch"
         style={{
           height: 64,
-          backgroundColor: "#FFFFFF",
+          backgroundColor: "var(--bg-card)",
           borderTop: "1px solid var(--border)",
           paddingBottom: "env(safe-area-inset-bottom)",
         }}
@@ -310,7 +310,7 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
       {toolsOpen && (
         <div
           className="md:hidden fixed inset-0 z-[60] flex flex-col"
-          style={{ backgroundColor: "#FFFFFF" }}
+          style={{ backgroundColor: "var(--bg-card)" }}
           role="dialog"
           aria-modal="true"
           aria-label="All tools"
@@ -365,6 +365,29 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
                 <LinkPending />
               </Link>
             ))}
+
+            {/* Sign out lives in the desktop sidebar, which is hidden below
+                768px. Without this there is no way to sign out on a phone. */}
+            <div style={{ paddingTop: "var(--sp-2)", marginTop: "var(--sp-2)", borderTop: "1px dashed var(--border-strong)" }}>
+              <p className="exp-id" style={{ padding: "0 16px 6px" }}>{userEmail}</p>
+              <form action="/auth/signout" method="POST">
+                <button
+                  type="submit"
+                  className="tools-modal-item w-full text-left px-4 py-3.5"
+                  style={{
+                    fontSize: "0.9375rem",
+                    fontWeight: 600,
+                    color: "var(--margin-rule)",
+                    background: "transparent",
+                    border: "none",
+                    borderRadius: "var(--radius)",
+                    cursor: "pointer",
+                  }}
+                >
+                  Sign out
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       )}

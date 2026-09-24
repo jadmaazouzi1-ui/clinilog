@@ -30,6 +30,7 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
+import { CAPS, sanitizeOptional, sanitizeText } from "@/lib/sanitize";
 
 export interface PostbaccCourse {
   id: string;
@@ -55,14 +56,14 @@ export async function addCourse(form: FormData) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { error: "Unauthorized" };
 
-  const name = (form.get("name") as string)?.trim();
-  const semester = (form.get("semester") as string)?.trim() || null;
+  const name = sanitizeText(form.get("name"), CAPS.generic);
+  const semester = sanitizeOptional(form.get("semester"), 60);
   const credits = parseFloat(form.get("credits") as string);
-  const grade = (form.get("grade") as string)?.trim();
+  const grade = sanitizeText(form.get("grade"), 8);
   const is_bcpm = form.get("is_bcpm") === "on";
 
-  if (!name || !grade || !Number.isFinite(credits) || credits <= 0) {
-    return { error: "Course name, grade, and a valid credit value are required." };
+  if (!name || !grade || !Number.isFinite(credits) || credits <= 0 || credits > 12) {
+    return { error: "Course name, grade, and a credit value between 0 and 12 are required." };
   }
 
   const { error } = await supabase.from("postbacc_courses").insert({

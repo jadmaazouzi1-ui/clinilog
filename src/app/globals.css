@@ -18,6 +18,10 @@
   --accent-bright: #52B788;
   --accent-soft:   rgba(45,106,79,0.08);
   --accent-border: rgba(45,106,79,0.22);
+  /* Foreground for anything sitting on --accent. Inverts with the theme,
+     because a light accent needs dark text on it. */
+  --on-accent:     #FFFFFF;
+  --accent-hover:  #1F5138;
 
   --text-primary:   #16241D;
   --text-secondary: #5B6B63;
@@ -221,7 +225,7 @@ h1, h2, h3 {
 .teal-glow,
 .btn-primary {
   background: var(--accent) !important;
-  color: #FFFFFF !important;
+  color: var(--on-accent) !important;
   border: 1px solid var(--accent) !important;
   border-radius: var(--radius) !important;
   font-weight: 600;
@@ -231,8 +235,8 @@ h1, h2, h3 {
 }
 .teal-glow:hover,
 .btn-primary:hover {
-  background: #1F5138 !important;
-  border-color: #1F5138 !important;
+  background: var(--accent-hover) !important;
+  border-color: var(--accent-hover) !important;
   box-shadow: none !important;
   transform: none;
 }
@@ -770,6 +774,8 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   --accent-bright: #333333;
   --accent-soft:   rgba(0, 0, 0, 0.05);
   --accent-border: rgba(0, 0, 0, 0.2);
+  --on-accent:     #FFFFFF;
+  --accent-hover:  #333333;
 
   --text-primary:   #000000;
   --text-secondary: #444444;
@@ -951,6 +957,8 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   --accent-bright: #95D5B2;
   --accent-soft:   rgba(116, 198, 157, 0.12);
   --accent-border: rgba(116, 198, 157, 0.3);
+  --on-accent:     #08110C;
+  --accent-hover:  #95D5B2;
 
   --text-primary:   #E8F1EB;
   --text-secondary: #A3B2AA;
@@ -979,6 +987,8 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   --accent-bright: #CCCCCC;
   --accent-soft:   rgba(255, 255, 255, 0.08);
   --accent-border: rgba(255, 255, 255, 0.22);
+  --on-accent:     #000000;
+  --accent-hover:  #DDDDDD;
   --text-primary:   #FFFFFF;
   --text-secondary: #BBBBBB;
   --text-tertiary:  #777777;
