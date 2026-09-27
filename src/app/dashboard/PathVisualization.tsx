@@ -235,12 +235,12 @@ export default function PathVisualization({ experiences }: { experiences: Experi
   const { branches, totalHours } = useMemo(() => buildBranches(experiences), [experiences]);
   const active = branches.find((b) => b.type === selected) ?? null;
 
-  const LIMB = "rgba(226,240,232,0.38)";
-  const LIMB_ON = "rgba(240,250,244,0.72)";
+  const LIMB = "var(--limb, rgba(226,240,232,0.38))";
+  const LIMB_ON = "var(--limb-active, rgba(240,250,244,0.72))";
 
   return (
     <section
-      className="tick-corners tick-corners-light relative overflow-hidden"
+      className="path-panel tick-corners tick-corners-light relative overflow-hidden"
       style={{
         background: "linear-gradient(135deg, var(--bg-hero-1), var(--bg-hero-2) 58%, var(--bg-hero-3))",
         border: "1px solid rgba(255,255,255,0.10)",

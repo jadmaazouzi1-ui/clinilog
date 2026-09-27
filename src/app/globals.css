@@ -1036,3 +1036,38 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   border-color: var(--accent-border);
   color: var(--text-primary);
 }
+
+/* ══════════════════════════════════════════════════════════════════════
+   PATH PANEL — the one coloured element inside the monochrome dashboard.
+
+   Greyscale flattened the category distinction this drawing exists to
+   show, so the panel keeps the green treatment while the rest of the
+   dashboard stays white, black and hairline.
+
+   Declaring the tokens on the panel itself, rather than as a descendant
+   override, is deliberate: a custom property is resolved from declarations
+   matching THAT element, and inheritance only applies when none do. So this
+   one rule wins over both .mono-scope and its dark-theme variant without
+   needing to out-specify either.
+   ══════════════════════════════════════════════════════════════════════ */
+.path-panel {
+  --bg-hero-1: #0B3D2E;
+  --bg-hero-2: #145C3F;
+  --bg-hero-3: #1F7A52;
+
+  --leaf-clinical:  #B7E4C7;
+  --leaf-shadowing: #74C69D;
+  --leaf-research:  #B9AEFF;
+  --leaf-volunteer: #F4A261;
+  --leaf-other:     #4CC9F0;
+
+  /* Limb tone: pale sage reads as green against the gradient, where the
+     monochrome scope rendered it as plain grey. */
+  --limb:        rgba(226, 240, 232, 0.38);
+  --limb-active: rgba(240, 250, 244, 0.75);
+
+  /* .mono-scope sets colour: #000 on itself, which every descendant
+     inherits. Inside a dark panel that is invisible, so the subtree gets a
+     light colour to inherit instead. */
+  color: #FFFFFF;
+}
