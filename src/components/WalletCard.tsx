@@ -2,6 +2,16 @@
 
 import { Experience, formatHours } from "@/lib/types";
 
+/* Brand values mirrored from the --green-* scale in globals.css. jsPDF and
+   canvas render outside the DOM, so they cannot resolve CSS variables; these
+   must be kept in step with that scale by hand. */
+const GREEN_900: [number, number, number] = [20, 52, 42];
+const GREEN_700: [number, number, number] = [31, 77, 58];
+const GREEN_500: [number, number, number] = [47, 122, 87];
+const GREEN_300: [number, number, number] = [143, 194, 165];
+const INK: [number, number, number] = [14, 26, 21];
+
+
 /**
  * Wallet card PDF, at true card dimensions (3.375 x 2.125 in = 243 x 153 pt),
  * laid out like an insurance or medical ID card: issuer strip, holder name,
@@ -28,7 +38,7 @@ export default function WalletCard({
     const top3 = [...experiences].sort((a, b) => Number(b.hours) - Number(a.hours)).slice(0, 3);
 
     // Issuer strip
-    doc.setFillColor(0, 0, 0);
+    doc.setFillColor(...GREEN_700);
     doc.rect(0, 0, W, 22, "F");
     doc.setTextColor(255, 255, 255);
     doc.setFont("helvetica", "bold");
@@ -39,12 +49,12 @@ export default function WalletCard({
     doc.text("EXPERIENCE RECORD", W - M, 14.5, { align: "right" });
 
     // Holder
-    doc.setTextColor(0, 0, 0);
+    doc.setTextColor(...INK);
     doc.setFont("courier", "normal");
     doc.setFontSize(6);
-    doc.setTextColor(120);
+    doc.setTextColor(...GREEN_500);
     doc.text("HOLDER", M, 38);
-    doc.setTextColor(0);
+    doc.setTextColor(...INK);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(11);
     doc.text(name.length > 30 ? `${name.slice(0, 29)}…` : name, M, 51);
@@ -52,12 +62,12 @@ export default function WalletCard({
     if (archetype) {
       doc.setFont("courier", "normal");
       doc.setFontSize(6.5);
-      doc.setTextColor(90);
+      doc.setTextColor(...GREEN_500);
       doc.text(archetype.toUpperCase(), M, 62);
     }
 
     // Figures row
-    doc.setDrawColor(200);
+    doc.setDrawColor(...GREEN_300);
     doc.line(M, 70, W - M, 70);
 
     const cols: [string, string][] = [
@@ -69,23 +79,23 @@ export default function WalletCard({
       const x = M + i * ((W - M * 2) / 3);
       doc.setFont("courier", "normal");
       doc.setFontSize(5.5);
-      doc.setTextColor(120);
+      doc.setTextColor(...GREEN_500);
       doc.text(label, x, 80);
       doc.setFont("courier", "bold");
       doc.setFontSize(12);
-      doc.setTextColor(0);
+      doc.setTextColor(...INK);
       doc.text(value, x, 93);
     });
 
-    doc.setDrawColor(200);
+    doc.setDrawColor(...GREEN_300);
     doc.line(M, 100, W - M, 100);
 
     // Top placements
     doc.setFont("courier", "normal");
     doc.setFontSize(5.5);
-    doc.setTextColor(120);
+    doc.setTextColor(...GREEN_500);
     doc.text("TOP PLACEMENTS", M, 110);
-    doc.setTextColor(0);
+    doc.setTextColor(...INK);
 
     let y = 120;
     for (const e of top3) {
@@ -101,7 +111,7 @@ export default function WalletCard({
     if (top3.length === 0) {
       doc.setFont("helvetica", "italic");
       doc.setFontSize(7);
-      doc.setTextColor(140);
+      doc.setTextColor(...GREEN_300);
       doc.text("No experiences logged yet", M, y);
     }
 

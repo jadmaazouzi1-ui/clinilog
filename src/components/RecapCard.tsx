@@ -3,6 +3,17 @@
 import { useRef, useState } from "react";
 import { formatHours } from "@/lib/types";
 
+/* Brand values mirrored from the --green-* scale in globals.css. A canvas
+   renders outside the DOM and cannot resolve CSS variables, so these must be
+   kept in step with that scale by hand. Printed on white so the PNG stays
+   legible when it is printed or posted on a light background. */
+const GREEN_900 = "#14342A";
+const GREEN_700 = "#1F4D3A";
+const GREEN_500 = "#2F7A57";
+const GREEN_300 = "#8FC2A5";
+const GREEN_100 = "#E6F2EA";
+const INK = "#0E1A15";
+
 const TYPE_LABELS: Record<string, string> = {
   shadowing: "Shadowing",
   volunteer: "Volunteering",
@@ -50,7 +61,7 @@ export default function RecapCard({
     ctx.fillRect(0, 0, W, H);
 
     // Issuer strip
-    ctx.fillStyle = "#000000";
+    ctx.fillStyle = GREEN_700;
     ctx.fillRect(0, 0, W, 54);
     ctx.fillStyle = "#FFFFFF";
     ctx.font = "700 15px ui-sans-serif, system-ui, sans-serif";
@@ -61,7 +72,7 @@ export default function RecapCard({
     ctx.textAlign = "left";
 
     // Registration ticks
-    ctx.strokeStyle = "#000000";
+    ctx.strokeStyle = GREEN_300;
     ctx.lineWidth = 1;
     const tick = (x: number, y: number, dx: number, dy: number) => {
       ctx.beginPath();
@@ -75,38 +86,38 @@ export default function RecapCard({
     tick(W - 20, H - 20, -14, -14);
 
     // Period
-    ctx.fillStyle = "#888888";
+    ctx.fillStyle = GREEN_500;
     ctx.font = "600 11px ui-monospace, Menlo, monospace";
     ctx.fillText("PERIOD", 32, 108);
-    ctx.fillStyle = "#000000";
+    ctx.fillStyle = INK;
     ctx.font = "700 30px ui-sans-serif, system-ui, sans-serif";
     ctx.fillText(monthLabel, 32, 142);
 
     // Perforated rule
-    ctx.strokeStyle = "#CCCCCC";
+    ctx.strokeStyle = GREEN_300;
     ctx.setLineDash([5, 5]);
     ctx.beginPath(); ctx.moveTo(32, 168); ctx.lineTo(W - 32, 168); ctx.stroke();
     ctx.setLineDash([]);
 
     // Headline figure
-    ctx.fillStyle = "#888888";
+    ctx.fillStyle = GREEN_500;
     ctx.font = "600 11px ui-monospace, Menlo, monospace";
     ctx.fillText("HOURS LOGGED", 32, 206);
-    ctx.fillStyle = "#000000";
+    ctx.fillStyle = INK;
     ctx.font = "700 92px ui-monospace, Menlo, monospace";
     ctx.fillText(formatHours(hours), 32, 290);
 
     // Secondary figures
     const row = (label: string, value: string, y: number) => {
-      ctx.fillStyle = "#888888";
+      ctx.fillStyle = GREEN_500;
       ctx.font = "600 11px ui-monospace, Menlo, monospace";
       ctx.fillText(label, 32, y);
-      ctx.fillStyle = "#000000";
+      ctx.fillStyle = INK;
       ctx.font = "700 26px ui-monospace, Menlo, monospace";
       ctx.textAlign = "right";
       ctx.fillText(value, W - 32, y + 4);
       ctx.textAlign = "left";
-      ctx.strokeStyle = "#E4E4E4";
+      ctx.strokeStyle = GREEN_100;
       ctx.beginPath(); ctx.moveTo(32, y + 22); ctx.lineTo(W - 32, y + 22); ctx.stroke();
     };
     row("ENTRIES ADDED", String(entries).padStart(2, "0"), 350);
@@ -114,7 +125,7 @@ export default function RecapCard({
     if (archetype) row("ARCHETYPE", archetype.replace(/_/g, " ").toUpperCase(), 454);
 
     // EKG footer
-    ctx.strokeStyle = "#000000";
+    ctx.strokeStyle = GREEN_700;
     ctx.lineWidth = 1.6;
     ctx.beginPath();
     let x = 32;
@@ -131,7 +142,7 @@ export default function RecapCard({
     }
     ctx.stroke();
 
-    ctx.fillStyle = "#888888";
+    ctx.fillStyle = GREEN_500;
     ctx.font = "500 11px ui-monospace, Menlo, monospace";
     ctx.fillText("cliniclogmd.com", 32, H - 44);
 

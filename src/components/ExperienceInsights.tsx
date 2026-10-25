@@ -80,11 +80,11 @@ const RECOMMENDATIONS = {
 };
 
 const STAGE_META: Record<Stage, { label: string; tone: string; color: string; bg: string }> = {
-  freshman:  { label: "Freshman",        tone: "Building your foundation",       color: "var(--text-primary)", bg: "var(--text-tertiary)"  },
-  sophomore: { label: "Sophomore",       tone: "Hitting midpoint goals",         color: "var(--text-primary)", bg: "var(--text-tertiary)"   },
-  junior:    { label: "Junior",          tone: "Cycle is approaching",           color: "var(--text-primary)", bg: "var(--text-tertiary)"  },
-  senior:    { label: "Senior",          tone: "Apply-cycle territory",          color: "var(--text-primary)", bg: "var(--text-tertiary)"   },
-  postgrad:  { label: "Post-grad / Gap", tone: "Strengthen your final profile",  color: "var(--text-primary)", bg: "var(--text-tertiary)" },
+  freshman: { label: "Freshman",        tone: "Building your foundation",       color: "var(--accent)", bg: "var(--accent-soft)" },
+  sophomore: { label: "Sophomore",       tone: "Hitting midpoint goals",         color: "var(--accent)", bg: "var(--accent-soft)" },
+  junior: { label: "Junior",          tone: "Cycle is approaching",           color: "var(--accent)", bg: "var(--accent-soft)" },
+  senior: { label: "Senior",          tone: "Apply-cycle territory",          color: "var(--accent)", bg: "var(--accent-soft)" },
+  postgrad: { label: "Post-grad / Gap", tone: "Strengthen your final profile",  color: "var(--accent)", bg: "var(--accent-soft)" },
 };
 
 function computeStage(gradYear: number | null | undefined): Stage | null {
@@ -208,13 +208,15 @@ export default function ExperienceInsights({
 }
 
 function paletteFor(kind: Tip["kind"]) {
+  // Separated by weight within the ramp rather than by hue, so the three
+  // kinds are distinguishable without introducing a second colour.
   if (kind === "positive") {
-    return { color: "var(--text-primary)", bg: "var(--text-tertiary)", border: "var(--text-tertiary)" };
+    return { color: "var(--green-700)", bg: "var(--green-100)", border: "var(--border-strong)" };
   }
   if (kind === "warn") {
-    return { color: "var(--text-primary)", bg: "var(--text-tertiary)", border: "var(--text-tertiary)" };
+    return { color: "var(--green-900)", bg: "var(--bg-soft)", border: "var(--border-strong)" };
   }
-  return { color: "var(--text-primary)", bg: "var(--text-tertiary)", border: "var(--text-tertiary)" };
+  return { color: "var(--text-secondary)", bg: "var(--bg-soft)", border: "var(--border)" };
 }
 
 // ── Tip generation, stage-aware ───────────────────────────────────────────

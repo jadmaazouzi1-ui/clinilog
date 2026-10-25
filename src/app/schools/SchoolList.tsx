@@ -10,11 +10,11 @@ import { EmptyState } from "@/components/EmptyStates";
 type MissionFilter = "Primary Care & Underserved" | "Research" | "Osteopathic" | "Community Health" | "Caribbean";
 
 const MISSION_FILTERS: { label: string; value: MissionFilter; dot: string }[] = [
-  { label: "Primary Care & Underserved", value: "Primary Care & Underserved", dot: "var(--text-primary)" },
-  { label: "Research",                   value: "Research",                   dot: "var(--text-primary)" },
-  { label: "Osteopathic (DO)",           value: "Osteopathic",                dot: "var(--text-primary)" },
-  { label: "Community Health",           value: "Community Health",           dot: "var(--text-primary)" },
-  { label: "Caribbean",                  value: "Caribbean",                  dot: "var(--text-primary)" },
+  { label: "Primary Care & Underserved", value: "Primary Care & Underserved", dot: "var(--accent)" },
+  { label: "Research",                   value: "Research",                   dot: "var(--accent)" },
+  { label: "Osteopathic (DO)",           value: "Osteopathic",                dot: "var(--accent)" },
+  { label: "Community Health",           value: "Community Health",           dot: "var(--accent)" },
+  { label: "Caribbean",                  value: "Caribbean",                  dot: "var(--accent)" },
 ];
 
 function getMissionBadgeStyle(mission: string): React.CSSProperties {
@@ -120,7 +120,7 @@ export default function SchoolList({
   const activeFilterStyle: React.CSSProperties = {
     background: "var(--accent)",
     border: "1px solid var(--border-strong)",
-    color: "#FFFFFF",
+    color: "var(--on-accent)",
   };
 
   return (

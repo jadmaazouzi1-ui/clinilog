@@ -95,12 +95,8 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
   }
 
   return (
-    // The dashboard runs in the monochrome scope; every other route keeps the
-    // green palette. Scoping here rather than on <main> means the sidebar and
-    // page background switch together, instead of leaving a green frame
-    // around a white content area.
     <div
-      className={`min-h-screen${activePath === "/dashboard" ? " mono-scope" : ""}`}
+      className="min-h-screen"
       style={{ backgroundColor: "var(--bg-page)" }}
     >
       <RouteProgress />

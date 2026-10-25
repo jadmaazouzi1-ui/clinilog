@@ -40,10 +40,10 @@ const HERO_BOUGH: Cubic = [
 ];
 
 const HERO_FORKS: { t: number; side: number; len: number; w: number; kind: LeafKind; color: string; leaf: number }[] = [
-  { t: 0.20, side: -1, len: 92, w: 7.5, kind: "solid",   color: "#B7E4C7", leaf: 22 },
-  { t: 0.44, side:  1, len: 70, w: 5.5, kind: "hollow",  color: "#74C69D", leaf: 17 },
-  { t: 0.62, side: -1, len: 80, w: 6,   kind: "diamond", color: "#B9AEFF", leaf: 16 },
-  { t: 0.84, side:  1, len: 54, w: 4,   kind: "round",   color: "#F4A261", leaf: 13 },
+  { t: 0.20, side: -1, len: 92, w: 7.5, kind: "solid",   color: "var(--leaf-clinical)", leaf: 22 },
+  { t: 0.44, side:  1, len: 70, w: 5.5, kind: "hollow",  color: "var(--leaf-shadowing)", leaf: 17 },
+  { t: 0.62, side: -1, len: 80, w: 6,   kind: "diamond", color: "var(--leaf-research)", leaf: 16 },
+  { t: 0.84, side:  1, len: 54, w: 4,   kind: "round",   color: "var(--leaf-volunteer)", leaf: 13 },
 ];
 
 function HeroBranch() {
@@ -62,7 +62,7 @@ function HeroBranch() {
       </defs>
       <rect width="440" height="300" fill="url(#herogrid)" />
 
-      <path d={taperedRibbon(HERO_BOUGH, 22, 2, 30)} fill="rgba(226,240,232,0.38)" />
+      <path d={taperedRibbon(HERO_BOUGH, 22, 2, 30)} fill="var(--limb)" />
 
       {HERO_FORKS.map((f, i) => {
         const origin = bezPoint(HERO_BOUGH, f.t);
@@ -71,7 +71,7 @@ function HeroBranch() {
         const tipA = angleAt(limb, 1);
         return (
           <g key={i}>
-            <path d={taperedRibbon(limb, f.w, 1, 16)} fill="rgba(226,240,232,0.38)" />
+            <path d={taperedRibbon(limb, f.w, 1, 16)} fill="var(--limb)" />
             <path
               d={leafPath(f.kind, f.leaf)}
               transform={`translate(${r2(tip.x)} ${r2(tip.y)}) rotate(${r2(tipA)})`}
@@ -133,7 +133,7 @@ export default async function HomePage() {
               className="flex items-center justify-center flex-shrink-0"
               style={{ width: 30, height: 30, borderRadius: "var(--radius)", background: "var(--accent)" }}
             >
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--on-accent)" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="2,12 7,12 8,9 10,12 12,3 13,21 14,12 16,9 18,12 22,12" />
               </svg>
             </div>
@@ -257,7 +257,7 @@ export default async function HomePage() {
             padding: "var(--sp-6) var(--sp-4)",
           }}
         >
-          <h2 className="font-bold" style={{ fontSize: "2rem", color: "#FFFFFF", marginBottom: "var(--sp-1)" }}>
+          <h2 className="font-bold" style={{ fontSize: "2rem", color: "var(--text-on-dark)", marginBottom: "var(--sp-1)" }}>
             Your path to medicine starts here.
           </h2>
           <p className="text-sm" style={{ color: "rgba(255,255,255,0.7)", maxWidth: 440, marginBottom: "var(--sp-3)" }}>
@@ -266,7 +266,7 @@ export default async function HomePage() {
           <Link
             href="/auth/signup"
             className="inline-block text-sm font-semibold"
-            style={{ background: "#FFFFFF", color: "var(--accent)", textDecoration: "none", padding: "12px var(--sp-3)", borderRadius: "var(--radius)" }}
+            style={{ background: "var(--green-100)", color: "var(--green-900)", textDecoration: "none", padding: "12px var(--sp-3)", borderRadius: "var(--radius)" }}
           >
             Get started free
           </Link>

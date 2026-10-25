@@ -33,10 +33,11 @@ const CATEGORY_LABEL: Record<ExperienceType, string> = {
   volunteer: "Volunteering",
   other: "Other",
 };
-/* Leaf colours are a lightened variant of the chart palette: the --cat-*
-   tokens are tuned for the white donut card, and --cat-clinical (#2D6A4F) is
-   almost exactly the dark panel's own background, so leaves drawn in it would
-   disappear. Hue is preserved, lightness is raised. */
+/* Leaf colours come from the --leaf-* ramp, which is the chart ramp shifted
+   light. The --cat-* values are tuned against the white donut card, and the
+   darker end of that ramp is close enough to this panel's own gradient that a
+   mark drawn in it would vanish. Category identity is carried by shape, so
+   these only need to separate each mark from the field. */
 const CATEGORY_COLOR: Record<ExperienceType, string> = {
   clinical_work: "var(--leaf-clinical)",
   shadowing: "var(--leaf-shadowing)",
@@ -282,7 +283,7 @@ export default function PathVisualization({ experiences }: { experiences: Experi
         >
           Your Path
         </p>
-        <p className="mono" style={{ color: "rgba(255,255,255,0.55)", fontSize: 10, letterSpacing: "0.06em" }}>
+        <p className="mono" style={{ color: "var(--on-dark-muted)", fontSize: 10, letterSpacing: "0.06em" }}>
           {formatHours(totalHours)} HRS / {experiences.length} {experiences.length === 1 ? "ENTRY" : "ENTRIES"}
         </p>
       </header>
@@ -295,7 +296,7 @@ export default function PathVisualization({ experiences }: { experiences: Experi
           <p style={{ color: "rgba(255,255,255,0.9)", fontSize: 15, fontWeight: 600, marginBottom: 6 }}>
             Nothing has grown here yet.
           </p>
-          <p style={{ color: "rgba(255,255,255,0.55)", fontSize: 13, maxWidth: 340, lineHeight: 1.6 }}>
+          <p style={{ color: "var(--on-dark-muted)", fontSize: 13, maxWidth: 340, lineHeight: 1.6 }}>
             Log your first experience and a limb appears for its category. Each limb thickens and puts
             out new forks as you add hours to it.
           </p>
@@ -450,7 +451,7 @@ export default function PathVisualization({ experiences }: { experiences: Experi
                 <span
                   className="flex items-center gap-1.5"
                   style={{
-                    color: "rgba(255,255,255,0.55)",
+                    color: "var(--on-dark-muted)",
                     fontSize: 9,
                     fontWeight: 700,
                     textTransform: "uppercase",
@@ -473,7 +474,7 @@ export default function PathVisualization({ experiences }: { experiences: Experi
                   style={{ color: "#FFFFFF", fontSize: 14, fontWeight: 600, display: "block" }}
                 >
                   {formatHours(b.hours)}
-                  <span style={{ fontSize: 9, color: "rgba(255,255,255,0.5)", marginLeft: 4 }}>
+                  <span style={{ fontSize: 9, color: "var(--on-dark-muted)", marginLeft: 4 }}>
                     HRS / {b.count}
                   </span>
                 </span>
@@ -496,7 +497,7 @@ export default function PathVisualization({ experiences }: { experiences: Experi
           }}
         >
           <p style={{ color: "#FFFFFF", fontSize: 13, fontWeight: 600 }}>{CATEGORY_LABEL[active.type]}</p>
-          <p style={{ color: "rgba(255,255,255,0.7)", fontSize: 12, marginTop: 2 }}>
+          <p style={{ color: "var(--on-dark-muted)", fontSize: 12, marginTop: 2 }}>
             {formatHours(active.hours)} hours across {active.count}{" "}
             {active.count === 1 ? "entry" : "entries"}. This limb thickens and forks again as you log more.
           </p>

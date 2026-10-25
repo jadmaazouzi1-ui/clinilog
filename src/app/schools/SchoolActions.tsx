@@ -48,8 +48,8 @@ export default function SchoolActions({
               borderRadius: "var(--radius)",
               cursor: pending ? "wait" : "pointer",
               border: `1px solid ${status === s ? "var(--accent)" : "var(--border-strong)"}`,
-              background: status === s ? "var(--accent-soft)" : "var(--bg-card)",
-              color: status === s ? "var(--accent)" : "var(--text-tertiary)",
+              background: status === s ? "var(--accent)" : "var(--bg-card)",
+              color: status === s ? "var(--on-accent)" : "var(--text-tertiary)",
             }}
           >
             {s}

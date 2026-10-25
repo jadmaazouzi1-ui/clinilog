@@ -68,21 +68,21 @@ export function scoreExperience(exp: Pick<Experience, "hours" | "type" | "descri
 
 export function scoreColor(score: number): { color: string; bg: string; border: string; label: string } {
   if (score >= 71) return {
-    color: "#22C55E",
-    bg: "rgba(34,197,94,0.12)",
-    border: "rgba(34,197,94,0.3)",
+    color: "var(--green-700)",
+    bg: "var(--green-100)",
+    border: "var(--border-strong)",
     label: "Strong",
   };
   if (score >= 40) return {
-    color: "#F59E0B",
-    bg: "rgba(245,158,11,0.12)",
-    border: "rgba(245,158,11,0.3)",
+    color: "var(--green-500)",
+    bg: "var(--bg-soft)",
+    border: "var(--border)",
     label: "Developing",
   };
   return {
-    color: "#EF4444",
-    bg: "rgba(239,68,68,0.12)",
-    border: "rgba(239,68,68,0.3)",
+    color: "var(--text-secondary)",
+    bg: "var(--bg-soft)",
+    border: "var(--border)",
     label: "Needs Work",
   };
 }

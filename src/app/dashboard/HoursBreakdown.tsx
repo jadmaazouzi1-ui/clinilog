@@ -69,7 +69,8 @@ export default function HoursBreakdown({
                 outerRadius={67}
                 paddingAngle={data.length > 1 ? 3 : 0}
                 dataKey="hours"
-                strokeWidth={0}
+                stroke="var(--border-strong)"
+                strokeWidth={1}
               >
                 {data.map((entry) => (
                   <Cell key={entry.type} fill={COLORS[entry.type]} />

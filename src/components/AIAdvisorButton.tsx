@@ -179,14 +179,14 @@ export default function AIAdvisorButton() {
           border: "1px solid var(--border-strong)",
         }}
       >
-        <span className="mono" style={{ color: "#FFFFFF", fontSize: 12, fontWeight: 800, letterSpacing: "0.08em" }}>AI</span>
+        <span className="mono" style={{ color: "var(--on-accent)", fontSize: 12, fontWeight: 800, letterSpacing: "0.08em" }}>AI</span>
       </button>
 
       {/* Backdrop */}
       {open && (
         <div
           className="fixed inset-0 z-40"
-          style={{ backgroundColor: "rgba(255,255,255,0.6)" }}
+          style={{ backgroundColor: "rgba(14,26,21,0.45)" }}
           onClick={() => setOpen(false)}
         />
       )}
@@ -237,8 +237,8 @@ export default function AIAdvisorButton() {
                 className="max-w-[78%] px-4 py-2.5 text-sm leading-relaxed"
                 style={
                   msg.role === "user"
-                    ? { backgroundColor: "var(--accent)", color: "var(--on-accent)", border: "1px solid var(--border-strong)", borderRadius: 16, fontWeight: 500 }
-                    : { backgroundColor: "var(--bg-card)", color: "var(--text-primary)", border: "1px solid var(--border-strong)", borderRadius: 16 }
+                    ? { backgroundColor: "var(--accent)", color: "var(--on-accent)", border: "1px solid var(--border-strong)", borderRadius: 0, fontWeight: 500 }
+                    : { backgroundColor: "var(--bg-card)", color: "var(--text-primary)", border: "1px solid var(--border-strong)", borderRadius: 0 }
                 }
               >
                 {msg.content.split("\n").map((line, j) => (
@@ -255,7 +255,7 @@ export default function AIAdvisorButton() {
             <div className="flex justify-start">
               <div
                 className="px-4 py-3"
-                style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border-strong)", borderRadius: 16 }}
+                style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border-strong)", borderRadius: 0 }}
               >
                 <span className="loading-text">Thinking</span>
               </div>
@@ -271,7 +271,7 @@ export default function AIAdvisorButton() {
         >
           <div
             className="flex items-end gap-2 px-3 py-2"
-            style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border-strong)", borderRadius: 16 }}
+            style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border-strong)", borderRadius: 0 }}
           >
             <textarea
               ref={inputRef}
@@ -293,7 +293,7 @@ export default function AIAdvisorButton() {
               disabled={!input.trim() || loading}
               className="flex-shrink-0 px-3 py-1.5 mono text-[11px] font-bold tracking-widest"
               style={{
-                backgroundColor: input.trim() && !loading ? "var(--text-primary)" : "#FFFFFF",
+                backgroundColor: input.trim() && !loading ? "var(--accent)" : "var(--bg-card)",
                 color: input.trim() && !loading ? "#FFFFFF" : "var(--text-tertiary)",
                 border: "1px solid var(--border-strong)",
                 borderRadius: 16,

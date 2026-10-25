@@ -5,46 +5,72 @@
    Flat surfaces, hairline rules, one small radius, perforated dividers,
    red prescription-pad margin rule, registration tick marks.
    ────────────────────────────────────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════════════
+   BRAND SCALE
+   One green ramp drives the whole site. Components reference the semantic
+   tokens below, never these directly and never a raw hex, so a brand change
+   is a change to this block alone.
+   ══════════════════════════════════════════════════════════════════════ */
 :root {
-  --bg-page:       #F3F7F4;
+  --green-900: #14342A;
+  --green-700: #1F4D3A;
+  --green-500: #2F7A57;
+  --green-300: #8FC2A5;
+  --green-100: #E6F2EA;
+  --green-50:  #F5FAF7;
+  --ink:       #0E1A15;
+
+  /* Rule colour at two weights: solid for 2px emphasis borders, 15% for
+     hairline dividers. */
+  --rule:        #1F4D3A;
+  --rule-hair:   rgba(31, 77, 58, 0.15);
+
+  /* ── Semantic surface tokens ── */
+  --bg-page:       var(--green-50);
   --bg-card:       #FFFFFF;
   --bg-surface:    #FFFFFF;
-  --bg-soft:       #EAF3ED;
-  --bg-hero-1:     #0B3D2E;
-  --bg-hero-2:     #145C3F;
-  --bg-hero-3:     #1F7A52;
+  --bg-soft:       var(--green-100);
+  --bg-hero-1:     var(--green-900);
+  --bg-hero-2:     #1A4234;
+  --bg-hero-3:     var(--green-700);
 
-  --accent:        #2D6A4F;
-  --accent-bright: #52B788;
-  --accent-soft:   rgba(45,106,79,0.08);
-  --accent-border: rgba(45,106,79,0.22);
-  /* Foreground for anything sitting on --accent. Inverts with the theme,
-     because a light accent needs dark text on it. */
+  --accent:        var(--green-700);
+  --accent-bright: var(--green-500);
+  --accent-soft:   var(--green-100);
+  --accent-border: var(--rule-hair);
   --on-accent:     #FFFFFF;
-  --accent-hover:  #1F5138;
+  --accent-hover:  var(--green-500);
 
-  --text-primary:   #16241D;
-  --text-secondary: #5B6B63;
-  --text-tertiary:  #94A39B;
-  --text-on-dark:   #EAF3ED;
+  --text-primary:   var(--ink);
+  --text-secondary: #40594D;
+  --text-tertiary:  #5D7568;
+  --text-on-dark:   var(--green-100);
+  /* Secondary text on the dark panel. White at 0.5 alpha measured 3.4:1 over
+     the gradient's lightest stop, under the 4.5 needed at these sizes; this
+     holds the same hierarchy at 5.3:1. */
+  --on-dark-muted:  rgba(230, 242, 234, 0.78);
 
-  --border:        rgba(16,24,20,0.10);
-  --border-strong: rgba(16,24,20,0.16);
-  --error:         #C1121F;
-  --success:       #2D6A4F;
-  --warning:       #F4A261;
+  --border:        var(--rule-hair);
+  --border-strong: rgba(31, 77, 58, 0.34);
 
-  /* Red rule from prescription pads / chart margins */
-  --margin-rule:      #C1121F;
-  --margin-rule-soft: rgba(193,18,31,0.45);
+  /* Error stays red: it is the one semantic colour that must not be green,
+     because a failed save reading as brand-coloured is unreadable as a
+     failure. Everything decorative that used to be red is now --green-500. */
+  --error:         #B3261E;
+  --success:       var(--green-700);
+  --warning:       var(--green-500);
+
+  /* The chart margin rule is decorative, so it follows the brand. */
+  --margin-rule:      var(--green-500);
+  --margin-rule-soft: rgba(47, 122, 87, 0.45);
 
   /* ── ONE radius, everywhere. Never mixed. ──
      Circles (avatars, donut) use border-radius:50% and are exempt. */
-  --radius:      3px;
-  --radius-sm:   3px;
-  --radius-md:   3px;
-  --radius-lg:   3px;
-  --radius-pill: 3px;
+  --radius:      0px;
+  --radius-sm:   0px;
+  --radius-md:   0px;
+  --radius-lg:   0px;
+  --radius-pill: 0px;
 
   /* ── Strict 8px section rhythm ── */
   --sp-1:  8px;
@@ -55,29 +81,34 @@
   --sp-6: 48px;
   --sp-8: 64px;
 
-  /* Flat document: no card shadows. Only the dark hero panel lifts. */
+  /* Flat document: no card shadows. */
   --shadow-card:       none;
   --shadow-card-hover: none;
-  --shadow-hero:       0 1px 0 rgba(16,24,20,0.10);
+  --shadow-hero:       0 1px 0 var(--rule-hair);
 
-  /* Category palette (charts, legends, leaf fills) */
-  --cat-clinical:  #2D6A4F;
-  --cat-shadowing: #74C69D;
-  --cat-research:  #7C6FE0;
-  --cat-volunteer: #F4A261;
-  --cat-other:     #4CC9F0;
+  /* Five data series, separated by value rather than hue. Ordered darkest to
+     lightest so a legend reads as a ramp. */
+  --cat-clinical:  var(--green-900);
+  --cat-shadowing: var(--green-700);
+  --cat-research:  var(--green-500);
+  --cat-volunteer: #4E9B75;
+  --cat-other:     var(--green-300);
 
-  /* Leaf fills for the dark path panel: lightened so they read on the
-     hero gradient, and tokenised so a scope can override them. */
-  --leaf-clinical:  #B7E4C7;
-  --leaf-shadowing: #74C69D;
-  --leaf-research:  #B9AEFF;
-  --leaf-volunteer: #F4A261;
-  --leaf-other:     #4CC9F0;
+  /* The same five, for the dark Your Path panel: inverted so the darkest
+     series becomes the lightest mark on a dark field. */
+  --leaf-clinical:  #FFFFFF;
+  --leaf-shadowing: #D6E8DC;
+  --leaf-research:  #AECFBB;
+  --leaf-volunteer: var(--green-300);
+  --leaf-other:     #6FA98B;
+
+  --limb:        rgba(230, 242, 234, 0.34);
+  --limb-active: rgba(245, 250, 247, 0.72);
 
   --font-sans: var(--font-inter), Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: var(--font-jetbrains-mono), "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
 }
+
 
 @theme inline {
   --color-background: var(--bg-page);
@@ -89,14 +120,14 @@
    soft-SaaS corner. `rounded-full` is deliberately untouched: it is only
    used for genuine circles (avatars, status dots). */
 @theme {
-  --radius-xs:  3px;
-  --radius-sm:  3px;
-  --radius-md:  3px;
-  --radius-lg:  3px;
-  --radius-xl:  3px;
-  --radius-2xl: 3px;
-  --radius-3xl: 3px;
-  --radius-4xl: 3px;
+  --radius-xs:  0px;
+  --radius-sm:  0px;
+  --radius-md:  0px;
+  --radius-lg:  0px;
+  --radius-xl:  0px;
+  --radius-2xl: 0px;
+  --radius-3xl: 0px;
+  --radius-4xl: 0px;
 }
 
 html {
@@ -242,16 +273,18 @@ h1, h2, h3 {
 }
 
 .btn-ghost {
-  background: #FFFFFF;
-  border: 1px solid var(--border-strong);
-  color: var(--text-primary);
+  /* Ghost: surface background, brand border and brand text. */
+  background: var(--bg-card);
+  border: 1px solid var(--accent);
+  color: var(--accent);
   border-radius: var(--radius);
   font-weight: 600;
   transition: background 0.15s ease, border-color 0.15s ease;
 }
 .btn-ghost:hover {
-  background: var(--bg-soft);
-  border-color: var(--accent-border);
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
 }
 
 /* ══════════════════════════════════════════════════════════════════════
@@ -568,7 +601,7 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.12em;
-  color: rgba(22, 36, 29, 0.3);
+  color: var(--text-tertiary);
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
 }
@@ -735,7 +768,7 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   letter-spacing: -0.02em;
 }
 .signature-line {
-  border-top: 1px solid var(--text-primary);
+  border-top: 1px solid var(--accent);
   padding-top: 5px;
   margin-top: var(--sp-4);
 }
@@ -752,69 +785,6 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
 @media (prefers-reduced-motion: reduce) {
   .ekg-loader-trace { animation: none; stroke-dasharray: none; }
   .loading-text::after { animation: none; opacity: 0.8; }
-}
-
-/* ══════════════════════════════════════════════════════════════════════
-   MONOCHROME SCOPE
-   Redefines the design tokens on a container. Custom properties inherit,
-   so every descendant flips to black and white without a single component
-   needing to know about it. Applied to the dashboard only; the rest of the
-   app keeps the green palette, so the two look deliberately different.
-
-   The red margin rule is intentionally NOT overridden: it is the one
-   permitted accent.
-   ══════════════════════════════════════════════════════════════════════ */
-.mono-scope {
-  --bg-page:       #FFFFFF;
-  --bg-card:       #FFFFFF;
-  --bg-surface:    #FFFFFF;
-  --bg-soft:       #F2F2F2;
-
-  --accent:        #000000;
-  --accent-bright: #333333;
-  --accent-soft:   rgba(0, 0, 0, 0.05);
-  --accent-border: rgba(0, 0, 0, 0.2);
-  --on-accent:     #FFFFFF;
-  --accent-hover:  #333333;
-
-  --text-primary:   #000000;
-  --text-secondary: #444444;
-  --text-tertiary:  #888888;
-
-  --border:        rgba(0, 0, 0, 0.12);
-  --border-strong: rgba(0, 0, 0, 0.24);
-
-  --success: #000000;
-  --warning: #666666;
-
-  /* Data series: five steps of grey, each distinguishable on white. */
-  --cat-clinical:  #000000;
-  --cat-shadowing: #333333;
-  --cat-research:  #666666;
-  --cat-volunteer: #999999;
-  --cat-other:     #CCCCCC;
-
-  background-color: #FFFFFF;
-  /* Redefining the token is not enough on its own: text that sets no colour
-     of its own inherits from <body>, which sits outside this scope and still
-     resolves --text-primary to the green-black. Setting colour here gives
-     inherited text a black to inherit. */
-  color: #000000;
-}
-
-/* The dark hero panel would read as a colour block in a monochrome page,
-   so the path visualisation inverts to black instead. */
-.mono-scope {
-  --bg-hero-1: #000000;
-  --bg-hero-2: #111111;
-  --bg-hero-3: #1C1C1C;
-
-  /* Leaves on a black panel: five light steps rather than five hues. */
-  --leaf-clinical:  #FFFFFF;
-  --leaf-shadowing: #D6D6D6;
-  --leaf-research:  #ABABAB;
-  --leaf-volunteer: #828282;
-  --leaf-other:     #5E5E5E;
 }
 
 /* ══════════════════════════════════════════════════════════════════════
@@ -906,7 +876,7 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
 
   html, body {
     background: #FFFFFF !important;
-    color: #000000 !important;
+    color: #0E1A15 !important;
   }
 
   main { padding: 0 !important; margin: 0 !important; max-width: none !important; }
@@ -916,7 +886,7 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   .chart-margin { padding-left: 0 !important; }
 
   .glass-card, .vital-card, .clinical-card {
-    border: 1px solid #000000 !important;
+    border: 1px solid #1F4D3A !important;
     break-inside: avoid;
     page-break-inside: avoid;
   }
@@ -924,14 +894,14 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   .tick-corners::after { display: none !important; }
 
   .dept-header {
-    border-bottom: 1px solid #000000 !important;
-    color: #000000 !important;
+    border-bottom: 1px solid #1F4D3A !important;
+    color: #1F4D3A !important;
   }
 
   a[href^="http"]::after {
     content: " (" attr(href) ")";
     font-size: 9pt;
-    color: #444444;
+    color: #2F7A57;
   }
 
   table, tr, td, th, li { break-inside: avoid; page-break-inside: avoid; }
@@ -944,67 +914,51 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
    DARK THEME
    The same rules inverted: dark field, light ink, hairlines that read
    against the field rather than against paper. Set on <html> as
-   data-theme="dark". The monochrome dashboard scope overrides these in
-   turn, since it sets its own values further down the tree.
+   data-theme="dark".
    ══════════════════════════════════════════════════════════════════════ */
 :root[data-theme="dark"] {
-  --bg-page:       #0C0F0D;
-  --bg-card:       #141814;
-  --bg-surface:    #141814;
-  --bg-soft:       #1C221E;
+  --bg-page:       var(--green-900);
+  --bg-card:       #193D31;
+  --bg-surface:    #193D31;
+  --bg-soft:       #214A3B;
 
-  --accent:        #74C69D;
-  --accent-bright: #95D5B2;
-  --accent-soft:   rgba(116, 198, 157, 0.12);
-  --accent-border: rgba(116, 198, 157, 0.3);
-  --on-accent:     #08110C;
-  --accent-hover:  #95D5B2;
+  --accent:        var(--green-300);
+  --accent-bright: var(--green-100);
+  --accent-soft:   rgba(143, 194, 165, 0.14);
+  --accent-border: rgba(143, 194, 165, 0.32);
+  /* A light accent needs dark text on it. */
+  --on-accent:     var(--green-900);
+  --accent-hover:  var(--green-100);
 
-  --text-primary:   #E8F1EB;
-  --text-secondary: #A3B2AA;
-  --text-tertiary:  #6F7D75;
+  --text-primary:   var(--green-100);
+  --text-secondary: #A9C7B7;
+  --text-tertiary:  #9DBCAA;
 
-  --border:        rgba(232, 241, 235, 0.12);
-  --border-strong: rgba(232, 241, 235, 0.2);
+  --border:        rgba(230, 242, 234, 0.14);
+  --border-strong: rgba(230, 242, 234, 0.26);
+  --rule-hair:     rgba(230, 242, 234, 0.14);
 
-  --margin-rule:      #FF6B6B;
-  --margin-rule-soft: rgba(255, 107, 107, 0.4);
+  --margin-rule:      var(--green-300);
+  --margin-rule-soft: rgba(143, 194, 165, 0.4);
 
-  --cat-clinical:  #74C69D;
-  --cat-shadowing: #B7E4C7;
-  --cat-research:  #B9AEFF;
-  --cat-volunteer: #F4A261;
-  --cat-other:     #4CC9F0;
-}
+  --error:   #F2B8B5;
+  --success: var(--green-300);
+  --warning: var(--green-300);
 
-/* The monochrome dashboard inverts too, rather than staying a white sheet
-   inside a dark app. */
-:root[data-theme="dark"] .mono-scope {
-  --bg-page:   #000000;
-  --bg-card:   #0A0A0A;
-  --bg-soft:   #161616;
-  --accent:        #FFFFFF;
-  --accent-bright: #CCCCCC;
-  --accent-soft:   rgba(255, 255, 255, 0.08);
-  --accent-border: rgba(255, 255, 255, 0.22);
-  --on-accent:     #000000;
-  --accent-hover:  #DDDDDD;
-  --text-primary:   #FFFFFF;
-  --text-secondary: #BBBBBB;
-  --text-tertiary:  #777777;
-  --border:        rgba(255, 255, 255, 0.14);
-  --border-strong: rgba(255, 255, 255, 0.26);
+  /* On a dark field the ramp inverts: lightest series first. */
   --cat-clinical:  #FFFFFF;
-  --cat-shadowing: #CCCCCC;
-  --cat-research:  #999999;
-  --cat-volunteer: #666666;
-  --cat-other:     #444444;
-  --bg-hero-1: #0A0A0A;
-  --bg-hero-2: #141414;
-  --bg-hero-3: #1E1E1E;
-  background-color: #000000;
-  color: #FFFFFF;
+  --cat-shadowing: #D6E8DC;
+  --cat-research:  #AECFBB;
+  --cat-volunteer: var(--green-300);
+  --cat-other:     #6FA98B;
+
+  /* No hero override in dark: the root gradient starts at the page colour and
+     lightens to --green-700, which reads as elevation. Darkening it instead
+     made the panel sit below an already-dark page and lose its edge, and it
+     would also have pushed the leaf marks under the 3:1 they need. */
 }
+
+
 
 /* Surfaces that were hardcoded white in markup need to follow the theme. */
 :root[data-theme="dark"] .btn-ghost,
@@ -1038,36 +992,11 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
 }
 
 /* ══════════════════════════════════════════════════════════════════════
-   PATH PANEL — the one coloured element inside the monochrome dashboard.
-
-   Greyscale flattened the category distinction this drawing exists to
-   show, so the panel keeps the green treatment while the rest of the
-   dashboard stays white, black and hairline.
-
-   Declaring the tokens on the panel itself, rather than as a descendant
-   override, is deliberate: a custom property is resolved from declarations
-   matching THAT element, and inheritance only applies when none do. So this
-   one rule wins over both .mono-scope and its dark-theme variant without
-   needing to out-specify either.
+   PATH PANEL
+   The hero tokens now come from the root scale, so this only has to give the
+   subtree a light colour to inherit: <body> sets --text-primary, which is
+   near-black ink, and that is invisible on the dark green field.
    ══════════════════════════════════════════════════════════════════════ */
 .path-panel {
-  --bg-hero-1: #0B3D2E;
-  --bg-hero-2: #145C3F;
-  --bg-hero-3: #1F7A52;
-
-  --leaf-clinical:  #B7E4C7;
-  --leaf-shadowing: #74C69D;
-  --leaf-research:  #B9AEFF;
-  --leaf-volunteer: #F4A261;
-  --leaf-other:     #4CC9F0;
-
-  /* Limb tone: pale sage reads as green against the gradient, where the
-     monochrome scope rendered it as plain grey. */
-  --limb:        rgba(226, 240, 232, 0.38);
-  --limb-active: rgba(240, 250, 244, 0.75);
-
-  /* .mono-scope sets colour: #000 on itself, which every descendant
-     inherits. Inside a dark panel that is invisible, so the subtree gets a
-     light colour to inherit instead. */
-  color: #FFFFFF;
+  color: var(--text-on-dark);
 }

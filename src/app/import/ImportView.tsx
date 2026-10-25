@@ -395,7 +395,7 @@ export default function ImportView() {
                       type="checkbox"
                       checked={allChecked}
                       onChange={(e) => toggleAll(e.target.checked)}
-                      className="accent-white"
+                      style={{ accentColor: "var(--accent)" }}
                     />
                   </th>
                   <th className="text-left px-2 py-2 text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--text-secondary)" }}>Title</th>
@@ -422,12 +422,11 @@ export default function ImportView() {
                           disabled={hasError}
                           checked={r.selected && !hasError}
                           onChange={() => toggleRow(i)}
-                          className="accent-white"
-                          style={{ opacity: hasError ? 0.3 : 1 }}
+                          style={{ accentColor: "var(--accent)", opacity: hasError ? 0.3 : 1 }}
                         />
                       </td>
                       <td className="px-2 py-3 align-top">
-                        <p className="font-medium" style={{ color: hasError ? "var(--text-primary)" : "var(--text-primary)" }}>
+                        <p className="font-medium" style={{ color: hasError ? "var(--text-tertiary)" : "var(--text-primary)" }}>
                           {r.row?.title || r.raw[0] || "-"}
                         </p>
                         {hasError && (
