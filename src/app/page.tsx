@@ -1,88 +1,182 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { ARCHETYPES } from "@/lib/archetypes";
 import { SCHOOLS } from "@/lib/schools";
-import {
-  Cubic,
-  LeafKind,
-  angleAt,
-  bezPoint,
-  leafPath,
-  makeLimb,
-  r2,
-  taperedRibbon,
-} from "@/lib/branch";
+import { SITE_URL } from "@/lib/site";
+import "./landing.css";
 
-const FEATURES: { title: string; body: string }[] = [
-  { title: "Hours Tracker",     body: "Log clinical, shadowing, research, and volunteer hours with dates, organizations, and reflections attached to every entry." },
-  { title: "School Explorer",   body: `Filter ${SCHOOLS.length} accredited MD, DO and offshore programs by GPA, MCAT, mission focus, and state preference.` },
-  { title: "Archetype Engine",  body: "After three or more logged experiences, AI assigns one of fifteen defined pre-med archetypes with matched schools." },
-  { title: "Narrative Builder", body: "Synthesizes your logged experience data into a cohesive application narrative for personal statements." },
-  { title: "AI Advisor",        body: "A standing advisor with access to your logged hours, GPA, and goals, available for consultation any time." },
-  { title: "Post-bacc Tracker", body: "Calculates BCPM and cumulative GPA in real time as you log post-baccalaureate coursework." },
+const TITLE = "ClinicLog MD: clinical hours tracker for pre-med students";
+const DESCRIPTION = `Log clinical, shadowing, research and volunteer hours in AMCAS categories, compare your GPA and MCAT with ${SCHOOLS.length} medical schools, and draft your application story from what you logged.`;
+
+export const metadata: Metadata = {
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: SITE_URL },
+  openGraph: {
+    type: "website",
+    url: SITE_URL,
+    siteName: "ClinicLog MD",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
+  twitter: {
+    card: "summary",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
+};
+
+/* ── Sample dashboard ──
+   One illustrative student, labelled as such on the page. The school count
+   is not typed in: it runs the same range rule as the school explorer
+   (GPA within 0.3 and MCAT within 5 of the school average) over the real
+   school list, so it stays true when the list changes. */
+const SAMPLE = {
+  gpa: 3.72,
+  mcat: 513,
+  hours: [
+    { label: "Clinical work", hours: 212, target: 100 },
+    { label: "Shadowing", hours: 48, target: 40 },
+    { label: "Research", hours: 120, target: 20 },
+    { label: "Volunteering", hours: 26, target: 40 },
+  ],
+};
+const SAMPLE_TOTAL = SAMPLE.hours.reduce((n, h) => n + h.hours, 0);
+const SAMPLE_IN_RANGE = SCHOOLS.filter(
+  (s) =>
+    s.avgGpa !== null &&
+    s.avgMcat !== null &&
+    Math.abs(s.avgGpa - SAMPLE.gpa) <= 0.3 &&
+    Math.abs(s.avgMcat - SAMPLE.mcat) <= 5,
+).length;
+
+const ABSTRACTS = [
+  {
+    n: "01",
+    title: "Log hours in AMCAS categories",
+    body: "Record clinical work, shadowing, research and volunteering with dates, the organization and a short reflection. Totals update against common targets for each category, and you can import past entries from a spreadsheet.",
+  },
+  {
+    n: "02",
+    title: "Find schools that match your numbers",
+    body: `Enter your GPA and MCAT to see which of ${SCHOOLS.length} MD, DO and Caribbean programs fall within range of their published averages. Filter by state, mission and in-state preference.`,
+  },
+  {
+    n: "03",
+    title: "Build your story from your entries",
+    body: "Once you have three or more experiences logged, ClinicLog MD reads them together, names the pattern they form and outlines a personal statement grounded in what you actually did.",
+  },
 ];
 
+const TOOLS = [
+  { name: "Applications", body: "Track each school you apply to, its secondary essays and where every application stands." },
+  { name: "Interviews", body: "Keep a log of interview dates and notes, and practice common questions with written feedback." },
+  { name: "Letters", body: "Follow each recommendation letter from request to submission." },
+  { name: "Post-bacc tracker", body: "Recalculates BCPM and cumulative GPA as you add post-baccalaureate courses." },
+  { name: "Gap year planner", body: "Set goals for the year and record what you did each month." },
+  { name: "AI advisor", body: "Ask questions and get answers that draw on your logged hours, GPA and goals." },
+];
 
-
-const CASE_IDS = ["community_healer", "scientist", "first_gen_grinder"];
+const CASE_IDS = ["clinical_immersive", "scientist", "community_healer"];
 const CASES = CASE_IDS
   .map((id) => ARCHETYPES.find((a) => a.id === id))
   .filter((a): a is (typeof ARCHETYPES)[number] => !!a);
 
-/* ── Static hero branch, built from the same geometry the dashboard uses ── */
+/* Live platform totals. Each one is shown only once it is large enough to
+   mean something; below that it reads as an empty product. A slow or failed
+   query hides the block rather than holding up the page or showing zeros. */
+const MIN_HOURS = 1000;
+const MIN_STUDENTS = 50;
+const STATS_TIMEOUT_MS = 1200;
 
-const HERO_BOUGH: Cubic = [
-  { x: -10, y: 182 },
-  { x: 116, y: 210 },
-  { x: 276, y: 116 },
-  { x: 452, y: 140 },
+type PublicStats = { total_hours: number; total_users: number };
+
+async function loadStats(supabase: Awaited<ReturnType<typeof createClient>>) {
+  const query = supabase
+    .rpc("public_stats")
+    .single<PublicStats>()
+    .then(({ data }) => data, () => null);
+  const timeout = new Promise<null>((resolve) => setTimeout(() => resolve(null), STATS_TIMEOUT_MS));
+  const data = await Promise.race([query, timeout]);
+
+  const out: { label: string; value: string }[] = [];
+  const hours = Math.round(Number(data?.total_hours ?? 0));
+  const students = Math.round(Number(data?.total_users ?? 0));
+  if (hours >= MIN_HOURS) out.push({ label: "Hours logged by students", value: hours.toLocaleString("en-US") });
+  if (students >= MIN_STUDENTS) out.push({ label: "Students with a record", value: students.toLocaleString("en-US") });
+  return out;
+}
+
+const NAV = [
+  { label: "How it works", href: "#how-it-works" },
+  { label: "Tools", href: "#tools" },
+  { label: "Archetypes", href: "#archetypes" },
+  { label: "About", href: "/about" },
 ];
 
-const HERO_FORKS: { t: number; side: number; len: number; w: number; kind: LeafKind; color: string; leaf: number }[] = [
-  { t: 0.20, side: -1, len: 92, w: 7.5, kind: "solid",   color: "var(--leaf-clinical)", leaf: 22 },
-  { t: 0.44, side:  1, len: 70, w: 5.5, kind: "hollow",  color: "var(--leaf-shadowing)", leaf: 17 },
-  { t: 0.62, side: -1, len: 80, w: 6,   kind: "diamond", color: "var(--leaf-research)", leaf: 16 },
-  { t: 0.84, side:  1, len: 54, w: 4,   kind: "round",   color: "var(--leaf-volunteer)", leaf: 13 },
+const FOOTER = [
+  { label: "About", href: "/about" },
+  { label: "Changelog", href: "/changelog" },
+  { label: "Privacy", href: "/privacy" },
+  { label: "Terms", href: "/terms" },
 ];
 
-function HeroBranch() {
+function LogoMark() {
   return (
-    <svg
-      viewBox="0 0 440 300"
-      className="w-full"
-      style={{ display: "block", height: "auto" }}
-      preserveAspectRatio="xMidYMid meet"
-      aria-hidden="true"
-    >
-      <defs>
-        <pattern id="herogrid" width="36" height="36" patternUnits="userSpaceOnUse">
-          <path d="M36,0 L0,0 L0,36" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
-        </pattern>
-      </defs>
-      <rect width="440" height="300" fill="url(#herogrid)" />
+    <span className="lp-logo-mark" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="2,12 7,12 8,9 10,12 12,3 13,21 14,12 16,9 18,12 22,12" />
+      </svg>
+    </span>
+  );
+}
 
-      <path d={taperedRibbon(HERO_BOUGH, 22, 2, 30)} fill="var(--limb)" />
-
-      {HERO_FORKS.map((f, i) => {
-        const origin = bezPoint(HERO_BOUGH, f.t);
-        const limb = makeLimb(origin, angleAt(HERO_BOUGH, f.t) + f.side * 34, f.len, f.side * 12);
-        const tip = limb[3];
-        const tipA = angleAt(limb, 1);
-        return (
-          <g key={i}>
-            <path d={taperedRibbon(limb, f.w, 1, 16)} fill="var(--limb)" />
-            <path
-              d={leafPath(f.kind, f.leaf)}
-              transform={`translate(${r2(tip.x)} ${r2(tip.y)}) rotate(${r2(tipA)})`}
-              fill={f.kind === "hollow" ? "none" : f.color}
-              stroke={f.kind === "hollow" ? f.color : "none"}
-              strokeWidth={f.kind === "hollow" ? 1.6 : 0}
-            />
-          </g>
-        );
-      })}
-    </svg>
+function SampleDashboard() {
+  return (
+    <figure className="lp-sample" aria-labelledby="sample-caption">
+      <div className="lp-sample-top">
+        <span className="lp-sample-title">AMCAS hours</span>
+        <span className="lp-label">Sample dashboard</span>
+      </div>
+      <div className="lp-bars">
+        {SAMPLE.hours.map((h) => (
+          <div key={h.label}>
+            <div className="lp-bar-row">
+              <span className="lp-bar-name">{h.label}</span>
+              <span className="lp-bar-num">
+                <b>{h.hours}</b> <span>/ {h.target} hrs</span>
+              </span>
+            </div>
+            <div className="lp-bar-track" aria-hidden="true">
+              <div className="lp-bar-fill" style={{ width: `${Math.min(100, (h.hours / h.target) * 100)}%` }} />
+            </div>
+          </div>
+        ))}
+      </div>
+      <dl className="lp-sample-foot">
+        <div>
+          <dt className="lp-label">Total hours</dt>
+          <dd className="lp-readout-value">{SAMPLE_TOTAL}</dd>
+        </div>
+        <div>
+          <dt className="lp-label">GPA</dt>
+          <dd className="lp-readout-value">{SAMPLE.gpa.toFixed(2)}</dd>
+        </div>
+        <div>
+          <dt className="lp-label">MCAT</dt>
+          <dd className="lp-readout-value">{SAMPLE.mcat}</dd>
+        </div>
+        <div>
+          <dt className="lp-label">In range</dt>
+          <dd className="lp-readout-value">{SAMPLE_IN_RANGE}</dd>
+        </div>
+      </dl>
+      <figcaption id="sample-caption" className="lp-label" style={{ marginTop: 16, textTransform: "none", letterSpacing: "0.02em" }}>
+        Sample student for illustration. In range counts schools within 0.3 GPA and 5 MCAT points of their averages.
+      </figcaption>
+    </figure>
   );
 }
 
@@ -91,197 +185,178 @@ export default async function HomePage() {
   const { data: { user } } = await supabase.auth.getUser();
   if (user) redirect("/dashboard");
 
-  // Real platform totals. public_stats() is a security-definer RPC returning
-  // two scalars, so no row is exposed to an anonymous visitor.
-  const { data: stats } = await supabase.rpc("public_stats").single<{
-    total_hours: number;
-    total_users: number;
-  }>();
-
-  const loggedHours = Math.round(Number(stats?.total_hours ?? 0));
-  const STATS = [
-    { value: String(SCHOOLS.length), label: "Medical schools indexed" },
-    // Shown live once there is a number worth showing; below that it reads as
-    // an empty product rather than a growing one.
-    loggedHours >= 500
-      ? { value: loggedHours.toLocaleString("en-US"), label: "Hours logged by students" }
-      : { value: "15", label: "Pre-med archetypes" },
-    { value: "12", label: "Tools included" },
-    { value: "$0", label: "Cost, forever" },
-  ];
+  const stats = await loadStats(supabase);
 
   return (
-    <div style={{ backgroundColor: "var(--bg-page)", color: "var(--text-primary)", minHeight: "100vh" }}>
-      <style>{`
-        .nav-link { color: var(--text-secondary); text-decoration: none; font-weight: 500; }
-        .nav-link:hover { color: var(--text-primary); }
-        .mobile-menu-btn { display: none; }
-        @media (max-width: 767px) {
-          .nav-center, .nav-auth-desktop { display: none !important; }
-          .mobile-menu-btn { display: flex !important; }
-        }
-      `}</style>
-
-      {/* Navbar */}
-      <header
-        className="sticky top-0 z-50"
-        style={{ backgroundColor: "rgba(243,247,244,0.92)", backdropFilter: "blur(8px)", borderBottom: "1px solid var(--border-strong)" }}
-      >
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5" style={{ textDecoration: "none" }}>
-            <div
-              className="flex items-center justify-center flex-shrink-0"
-              style={{ width: 30, height: 30, borderRadius: "var(--radius)", background: "var(--accent)" }}
-            >
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--on-accent)" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="2,12 7,12 8,9 10,12 12,3 13,21 14,12 16,9 18,12 22,12" />
-              </svg>
-            </div>
-            <span className="font-bold" style={{ fontSize: "1.0625rem", color: "var(--text-primary)" }}>ClinicLog MD</span>
+    <div className="lp">
+      <header className="lp-header">
+        <div className="lp-wrap lp-header-row">
+          <Link href="/" className="lp-logo">
+            <LogoMark />
+            ClinicLog MD
           </Link>
-          <nav className="nav-center flex items-center gap-8">
-            {[["Schools", "/schools"], ["Archetype", "/archetype"], ["Resources", "/resources"], ["Stories", "/stories"], ["About", "/about"]].map(([label, href]) => (
-              <Link key={label} href={href} className="nav-link text-sm">{label}</Link>
+          <nav className="lp-nav" aria-label="Main">
+            {NAV.map((l) => (
+              <Link key={l.href} href={l.href} className="lp-link">{l.label}</Link>
             ))}
           </nav>
-          <div className="nav-auth-desktop flex items-center gap-3">
-            <Link href="/auth/login" className="nav-link text-sm">Sign in</Link>
-            <Link href="/auth/signup" className="teal-glow text-sm" style={{ padding: "8px 16px", textDecoration: "none" }}>Get started</Link>
+          <div className="lp-nav-auth">
+            <Link href="/auth/login" className="lp-btn lp-btn-secondary lp-btn-sm">Sign in</Link>
+            <Link href="/auth/signup" className="lp-btn lp-btn-primary lp-btn-sm">Create account</Link>
           </div>
-          <Link href="/auth/signup" className="mobile-menu-btn teal-glow text-sm" style={{ padding: "8px 16px", textDecoration: "none" }}>Get started</Link>
+          <details className="lp-menu">
+            <summary aria-label="Menu">
+              <svg className="lp-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" /></svg>
+              <svg className="lp-icon-close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M6 18L18 6M6 6l12 12" /></svg>
+            </summary>
+            <nav className="lp-menu-panel" aria-label="Mobile">
+              {NAV.map((l) => (
+                <Link key={l.href} href={l.href} className="lp-link">{l.label}</Link>
+              ))}
+              <div className="lp-actions">
+                <Link href="/auth/login" className="lp-btn lp-btn-secondary">Sign in</Link>
+                <Link href="/auth/signup" className="lp-btn lp-btn-primary">Create account</Link>
+              </div>
+            </nav>
+          </details>
         </div>
       </header>
 
-      {/* Hero */}
-      <section className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center" style={{ paddingTop: "var(--sp-6)", paddingBottom: "var(--sp-5)" }}>
-        <div>
-          <span className="beta-pill" style={{ marginBottom: "var(--sp-2)" }}>Free for pre-med students</span>
-          <h1 className="font-bold" style={{ fontSize: "clamp(2.25rem, 5vw, 3.25rem)", lineHeight: 1.08, letterSpacing: "-0.02em", marginBottom: "var(--sp-2)" }}>
-            Your clinical journey, organized.
-          </h1>
-          <p className="text-base" style={{ color: "var(--text-secondary)", lineHeight: 1.65, maxWidth: 440, marginBottom: "var(--sp-4)" }}>
-            Track clinical hours, discover your pre-med archetype, explore {SCHOOLS.length} medical schools, and build your path to medicine, completely free.
-          </p>
-          <div className="flex items-center gap-3 flex-wrap">
-            <Link href="/auth/signup" className="teal-glow text-sm" style={{ padding: "12px var(--sp-3)", textDecoration: "none" }}>Get started free</Link>
-            <Link href="/auth/login" className="btn-ghost text-sm" style={{ padding: "12px var(--sp-3)", textDecoration: "none" }}>Sign in</Link>
+      <main>
+        <div className="lp-wrap">
+          {/* Journal header row */}
+          <div className="lp-masthead">
+            <span className="lp-label">Record for pre-med applicants</span>
+            <span className="lp-label lp-masthead-aside">Hours &middot; Schools &middot; Story</span>
           </div>
-        </div>
 
-        {/* Branch illustration: the same drawing the dashboard grows from your data */}
-        <div
-          className="tick-corners tick-corners-light relative overflow-hidden"
-          style={{
-            background: "linear-gradient(135deg, var(--bg-hero-1), var(--bg-hero-2) 58%, var(--bg-hero-3))",
-            border: "1px solid rgba(255,255,255,0.10)",
-            borderRadius: "var(--radius)",
-          }}
-        >
-          <p
-            className="absolute"
-            style={{ top: 14, left: 16, color: "rgba(255,255,255,0.85)", fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", zIndex: 1 }}
-          >
-            Your Path
-          </p>
-          <HeroBranch />
-          <p
-            className="mono absolute"
-            style={{ bottom: 14, left: 16, color: "rgba(255,255,255,0.5)", fontSize: 10, letterSpacing: "0.06em" }}
-          >
-            EVERY LIMB IS A CATEGORY. IT THICKENS AS YOU LOG.
-          </p>
-        </div>
-      </section>
-
-      {/* Stats: chart readouts on hairlines, left aligned */}
-      <section className="max-w-6xl mx-auto px-6" style={{ paddingBottom: "var(--sp-5)" }}>
-        <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: "var(--sp-3)" }}>
-          {STATS.map((s) => (
-            <div key={s.label} className="data-field">
-              <span className="data-field-label">{s.label}</span>
-              <span className="mono" style={{ fontSize: "2rem", fontWeight: 600, color: "var(--accent)", lineHeight: 1.1 }}>
-                {s.value}
-              </span>
+          {/* Hero: two column editorial layout */}
+          <section className="lp-hero" aria-labelledby="hero-title">
+            <div>
+              <h1 id="hero-title" className="lp-h1">Track your clinical hours for AMCAS and see where you fit.</h1>
+              <p className="lp-lead">
+                Log every clinical, shadowing, research and volunteer hour as it happens. ClinicLog MD
+                totals them by AMCAS category, compares your GPA and MCAT with {SCHOOLS.length} medical
+                schools, and turns what you logged into material for your personal statement.
+              </p>
+              <div className="lp-actions">
+                <Link href="/auth/signup" className="lp-btn lp-btn-primary">Create account</Link>
+                <Link href="/auth/login" className="lp-btn lp-btn-secondary">Sign in</Link>
+              </div>
             </div>
-          ))}
+            <SampleDashboard />
+          </section>
         </div>
-      </section>
 
-      <div className="max-w-6xl mx-auto px-6"><hr className="tear-line" /></div>
-
-      {/* Features: numbered entries, no decorative icons */}
-      <section className="max-w-6xl mx-auto px-6" style={{ paddingTop: "var(--sp-4)", paddingBottom: "var(--sp-5)" }}>
-        <p className="dept-header">Everything you need</p>
-        <h2 className="font-bold" style={{ fontSize: "2rem", marginBottom: "var(--sp-4)" }}>Twelve tools, zero cost.</h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3" style={{ gap: "var(--sp-2)" }}>
-          {FEATURES.map((f, i) => (
-            <div key={f.title} className="glass-card" style={{ padding: "var(--sp-2)" }}>
-              <span className="exp-id" style={{ display: "block", marginBottom: "var(--sp-1)" }}>
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <p className="font-semibold" style={{ fontSize: "1.0625rem", marginBottom: 6 }}>{f.title}</p>
-              <p className="text-sm" style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>{f.body}</p>
+        {stats.length > 0 && (
+          <section className="lp-section" aria-labelledby="stats-title">
+            <div className="lp-wrap">
+              <h2 id="stats-title" className="lp-label lp-kicker">On ClinicLog MD so far</h2>
+              <dl className="lp-stats">
+                {stats.map((s) => (
+                  <div key={s.label} className="lp-stat">
+                    <dt className="lp-label">{s.label}</dt>
+                    <dd className="lp-stat-value">{s.value}</dd>
+                  </div>
+                ))}
+              </dl>
             </div>
-          ))}
-        </div>
-      </section>
+          </section>
+        )}
 
-      <div className="max-w-6xl mx-auto px-6"><hr className="tear-line" /></div>
-
-      {/* Archetype case studies */}
-      <section className="max-w-6xl mx-auto px-6" style={{ paddingTop: "var(--sp-4)", paddingBottom: "var(--sp-5)" }}>
-        <p className="dept-header">Find your fit</p>
-        <h2 className="font-bold" style={{ fontSize: "2rem", marginBottom: "var(--sp-4)" }}>Fifteen pre-med archetypes.</h2>
-        <div className="grid md:grid-cols-3" style={{ gap: "var(--sp-2)" }}>
-          {CASES.map((c) => (
-            <div key={c.id} className="glass-card" style={{ padding: "var(--sp-2)" }}>
-              <p className="font-semibold" style={{ fontSize: "1.0625rem" }}>{c.name}</p>
-              <p className="text-sm italic" style={{ color: "var(--accent)", marginBottom: "var(--sp-1)" }}>{c.tagline}</p>
-              <p className="text-sm" style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>{c.description}</p>
+        {/* Abstracts */}
+        <section id="how-it-works" className="lp-section" aria-labelledby="how-title">
+          <div className="lp-wrap">
+            <div className="lp-head">
+              <span className="lp-label lp-kicker">How it works</span>
+              <h2 id="how-title" className="lp-h2">Hours, schools and your story.</h2>
             </div>
-          ))}
-        </div>
-        <p style={{ marginTop: "var(--sp-3)" }}>
-          <Link href="/archetype" className="text-sm font-semibold" style={{ color: "var(--accent)" }}>See all fifteen archetypes &rarr;</Link>
-        </p>
-      </section>
+            <div className="lp-abstracts">
+              {ABSTRACTS.map((a) => (
+                <article key={a.n} className="lp-abstract">
+                  <span className="lp-label">Abstract {a.n}</span>
+                  <h3 className="lp-h3">{a.title}</h3>
+                  <p className="lp-body">{a.body}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
 
-      {/* Closing CTA */}
-      <section className="max-w-6xl mx-auto px-6" style={{ paddingBottom: "var(--sp-6)" }}>
-        <div
-          className="tick-corners tick-corners-light"
-          style={{
-            background: "linear-gradient(135deg, var(--bg-hero-1), var(--bg-hero-2) 58%, var(--bg-hero-3))",
-            border: "1px solid rgba(255,255,255,0.10)",
-            borderRadius: "var(--radius)",
-            padding: "var(--sp-6) var(--sp-4)",
-          }}
-        >
-          <h2 className="font-bold" style={{ fontSize: "2rem", color: "var(--text-on-dark)", marginBottom: "var(--sp-1)" }}>
-            Your path to medicine starts here.
-          </h2>
-          <p className="text-sm" style={{ color: "rgba(255,255,255,0.7)", maxWidth: 440, marginBottom: "var(--sp-3)" }}>
-            Every tool, free forever. No credit card, no trial period, no upsell.
-          </p>
-          <Link
-            href="/auth/signup"
-            className="inline-block text-sm font-semibold"
-            style={{ background: "var(--green-100)", color: "var(--green-900)", textDecoration: "none", padding: "12px var(--sp-3)", borderRadius: "var(--radius)" }}
-          >
-            Get started free
-          </Link>
-        </div>
-      </section>
+        {/* Data table */}
+        <section id="tools" className="lp-section" aria-labelledby="tools-title">
+          <div className="lp-wrap">
+            <div className="lp-head">
+              <span className="lp-label lp-kicker">Also in your account</span>
+              <h2 id="tools-title" className="lp-h2">Tools for the rest of the cycle.</h2>
+            </div>
+            <table className="lp-table">
+              <thead>
+                <tr>
+                  <th scope="col" className="lp-label">Tool</th>
+                  <th scope="col" className="lp-label">What it does</th>
+                </tr>
+              </thead>
+              <tbody>
+                {TOOLS.map((t) => (
+                  <tr key={t.name}>
+                    <th scope="row">{t.name}</th>
+                    <td>{t.body}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
 
-      {/* Footer */}
-      <footer style={{ borderTop: "1px solid var(--border-strong)" }}>
-        <div className="max-w-6xl mx-auto px-6 flex flex-wrap items-center justify-between gap-4" style={{ paddingTop: "var(--sp-3)", paddingBottom: "var(--sp-3)" }}>
-          <p className="text-xs" style={{ color: "var(--text-tertiary)" }}>&copy; {new Date().getFullYear()} ClinicLog MD. All rights reserved.</p>
-          <div className="flex gap-5 flex-wrap">
-            {[["Schools", "/schools"], ["Archetype", "/archetype"], ["Resources", "/resources"], ["Stories", "/stories"], ["Changelog", "/changelog"], ["Badge", "/badge"], ["About", "/about"], ["Privacy", "/privacy"], ["Terms", "/terms"]].map(([label, href]) => (
-              <Link key={label} href={href} className="nav-link text-xs">{label}</Link>
+        {/* Case studies */}
+        <section id="archetypes" className="lp-section" aria-labelledby="cases-title">
+          <div className="lp-wrap">
+            <div className="lp-head">
+              <span className="lp-label lp-kicker">Case studies</span>
+              <h2 id="cases-title" className="lp-h2">See the pattern in your experiences.</h2>
+              <p className="lp-body">
+                After three logged experiences, ClinicLog MD matches you to one of {ARCHETYPES.length} pre-med
+                archetypes and lists schools whose mission fits it. Three of them:
+              </p>
+            </div>
+            <div className="lp-cases">
+              {CASES.map((c) => (
+                <article key={c.id} className="lp-case">
+                  <h3 className="lp-h3">{c.name}</h3>
+                  <p className="lp-case-tag">{c.tagline}</p>
+                  <p className="lp-body">{c.description}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Closing */}
+        <section className="lp-section" aria-labelledby="close-title">
+          <div className="lp-wrap lp-close">
+            <div>
+              <h2 id="close-title" className="lp-h2">Start with the hours you already have.</h2>
+              <p className="lp-body" style={{ marginTop: 16 }}>
+                Add past experiences one at a time or import them from a spreadsheet, then keep logging as you go.
+              </p>
+            </div>
+            <div className="lp-actions">
+              <Link href="/auth/signup" className="lp-btn lp-btn-primary">Start logging hours</Link>
+              <Link href="/auth/login" className="lp-btn lp-btn-secondary">Sign in</Link>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="lp-footer">
+        <div className="lp-wrap lp-footer-row">
+          <p>&copy; {new Date().getFullYear()} ClinicLog MD</p>
+          <nav aria-label="Footer">
+            {FOOTER.map((l) => (
+              <Link key={l.href} href={l.href} className="lp-link">{l.label}</Link>
             ))}
-          </div>
+          </nav>
         </div>
       </footer>
     </div>

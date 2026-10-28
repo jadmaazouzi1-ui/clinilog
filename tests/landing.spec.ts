@@ -1,70 +1,84 @@
 import { test, expect } from "@playwright/test";
 
+// Words that describe price or plan on the landing page. Matched as whole
+// words, case-insensitive, against the full server HTML, which includes the
+// <head> tags, hidden text, aria-labels and the hydration payload.
+const COST_TERMS = [
+  "free", "free forever", "no cost", "no credit card", "credit card", "always free",
+  "forever", "pricing", "price", "cost", "plans", "upgrade", "premium", "pro",
+  "subscription", "unlimited", "founding member",
+];
+
+test.describe("Landing page copy", () => {
+  test("HTML contains no cost wording and no em dash", async ({ request }) => {
+    const res = await request.get("/");
+    expect(res.ok()).toBeTruthy();
+    const html = await res.text();
+
+    const hits = COST_TERMS.filter((t) => new RegExp(`\\b${t}\\b`, "i").test(html));
+    if (html.includes("$0")) hits.push("$0");
+    expect(hits, `cost wording found: ${hits.join(", ")}`).toEqual([]);
+
+    expect(html.includes("\u2014"), "em dash found").toBe(false);
+    expect(html.includes("&mdash;"), "em dash entity found").toBe(false);
+  });
+});
+
 test.describe("Landing page", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
   });
 
-  test("PRE-MED PLATFORM eyebrow text is visible", async ({ page }) => {
-    await expect(page.getByText(/PRE-MED PLATFORM/i).first()).toBeVisible();
-  });
-
   test("hero headline is visible", async ({ page }) => {
-    // Headline reads: Your Pre-Med Journey, Organized
-    await expect(page.getByRole("heading", { name: /your pre-med journey, organized/i })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1, name: /track your clinical hours for amcas/i })).toBeVisible();
   });
 
-  test("Get Started Free button links to /auth/signup", async ({ page }) => {
-    const cta = page.getByRole("link", { name: /get started free/i }).first();
+  test("Create account links to /auth/signup", async ({ page }) => {
+    const cta = page.getByRole("link", { name: /^create account$/i }).first();
     await expect(cta).toBeVisible();
     await expect(cta).toHaveAttribute("href", "/auth/signup");
   });
 
-  test("Sign In link is visible in hero navbar", async ({ page }) => {
+  test("Sign in links to /auth/login", async ({ page }) => {
     const signIn = page.getByRole("link", { name: /^sign in$/i }).first();
     await expect(signIn).toBeVisible();
     await expect(signIn).toHaveAttribute("href", "/auth/login");
   });
 
-  test("all 12 feature cards are visible", async ({ page }) => {
-    const titles = [
-      "Track Every Hour",
-      "Explore 150+ Schools",
-      "Export to PDF",
-      "Narrative Builder",
-      "AI Pre-Med Advisor",
-      "Reframe Engine",
-      "Pre-Med Archetype",
-      "Specialty Explorer",
-      "Resource Library",
-      "Gap Year Planner",
-      "Post-bacc Tracker",
-      "First-Gen Stories",
-    ];
-    for (const title of titles) {
-      await expect(page.getByRole("heading", { name: title, exact: true })).toBeVisible();
+  test("sample dashboard is labelled", async ({ page }) => {
+    await expect(page.getByText(/sample dashboard/i)).toBeVisible();
+  });
+
+  test("section headings are present", async ({ page }) => {
+    for (const name of [/hours, schools and your story/i, /tools for the rest of the cycle/i, /see the pattern in your experiences/i, /start with the hours you already have/i]) {
+      await expect(page.getByRole("heading", { name })).toBeVisible();
     }
   });
 
-  test("How It Works section is present", async ({ page }) => {
-    await expect(page.getByRole("heading", { name: /how it works/i })).toBeVisible();
-  });
-
-  test("footer link columns exist", async ({ page }) => {
-    await expect(page.getByText(/^Product$/).first()).toBeVisible();
-    await expect(page.getByText(/^Planning$/).first()).toBeVisible();
-    await expect(page.getByText(/^Community$/).first()).toBeVisible();
+  test("footer links resolve", async ({ page }) => {
+    const footer = page.getByRole("navigation", { name: "Footer" });
+    for (const label of ["About", "Changelog", "Privacy", "Terms"]) {
+      await expect(footer.getByRole("link", { name: label, exact: true })).toBeVisible();
+    }
   });
 
   test("About link in navbar navigates to /about", async ({ page }) => {
-    await page.getByRole("link", { name: /^about$/i }).first().click();
+    await page.getByRole("navigation", { name: "Main" }).getByRole("link", { name: /^about$/i }).click();
     await expect(page).toHaveURL(/\/about/);
   });
 
-  test("Floating stat cards show 149 / 015 / 012", async ({ page }) => {
-    await expect(page.getByText("149").first()).toBeVisible();
-    await expect(page.getByText("015").first()).toBeVisible();
-    await expect(page.getByText("012").first()).toBeVisible();
+  test("mobile menu opens and shows sign in", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.getByLabel("Menu").click();
+    const menu = page.getByRole("navigation", { name: "Mobile" });
+    await expect(menu.getByRole("link", { name: /^create account$/i })).toBeVisible();
+    await expect(menu.getByRole("link", { name: /^sign in$/i })).toBeVisible();
+  });
+
+  test("no horizontal scroll at 390px", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+    expect(overflow).toBeLessThanOrEqual(0);
   });
 });
 
