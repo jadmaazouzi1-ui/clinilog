@@ -12,6 +12,7 @@ import OnboardingModal from "./OnboardingModal";
 import ExperienceInsights from "@/components/ExperienceInsights";
 import CountUp from "@/components/CountUp";
 import DashboardSignals from "@/components/DashboardSignals";
+import TourOffer from "@/components/tour/TourOffer";
 import { claimPendingReferral } from "@/lib/referral";
 import { formatMedicalDate, formatMedicalHours, buildRecordNumbers } from "@/lib/formatMedical";
 import {
@@ -145,17 +146,22 @@ export default async function DashboardPage({
 
           {experienceList.length > 0 && (
             <div className="flex items-center gap-3 sm:flex-shrink-0">
-              <ExportAllButton experiences={experienceList} />
+              <span data-tour="export-all" className="inline-flex">
+                <ExportAllButton experiences={experienceList} />
+              </span>
               <Link
                 href="/dashboard/new"
                 className="teal-glow inline-flex items-center justify-center text-sm whitespace-nowrap"
                 style={{ padding: "10px var(--sp-2)", textDecoration: "none" }}
+                data-tour="log-new"
               >
                 Log new hours
               </Link>
             </div>
           )}
         </div>
+
+        {!showOnboarding && <TourOffer onboardingComplete={!!profile?.onboarding_complete} />}
 
         <DashboardSignals
           experiences={experienceList}
@@ -164,7 +170,9 @@ export default async function DashboardPage({
         />
 
         {/* Your Path: organic branch grown from the logged categories */}
-        <PathVisualization experiences={experienceList} />
+        <div data-tour="path">
+          <PathVisualization experiences={experienceList} />
+        </div>
 
         {/* Your progress: donut + key numbers */}
         <p className="dept-header flex items-center gap-2">
@@ -176,8 +184,10 @@ export default async function DashboardPage({
           className="grid grid-cols-1 lg:grid-cols-2"
           style={{ gap: "var(--sp-2)", marginBottom: "var(--sp-4)" }}
         >
-          <HoursBreakdown experiences={experienceList} />
-          <div className="grid grid-cols-2 content-start" style={{ gap: "var(--sp-2)" }}>
+          <div data-tour="hours-breakdown">
+            <HoursBreakdown experiences={experienceList} />
+          </div>
+          <div className="grid grid-cols-2 content-start" style={{ gap: "var(--sp-2)" }} data-tour="key-stats">
             {keyNumbers.map((stat) => (
               <div key={stat.label} className="vital-card tick-corners">
                 <p className="vital-card-label">{stat.label}</p>
@@ -220,12 +230,16 @@ export default async function DashboardPage({
         )}
 
         {/* Experience Insights — personalized tips */}
-        <ExperienceInsights
-          experiences={experienceList}
-          gradYear={profile?.graduation_year ?? null}
-        />
+        <div data-tour="insights">
+          <ExperienceInsights
+            experiences={experienceList}
+            gradYear={profile?.graduation_year ?? null}
+          />
+        </div>
 
-        <AMCASTracker experiences={experienceList} />
+        <div data-tour="amcas-tracker">
+          <AMCASTracker experiences={experienceList} />
+        </div>
 
         <EkgDivider rich={totalHours >= 100} />
 
@@ -244,6 +258,7 @@ export default async function DashboardPage({
               href="/dashboard/new"
               className="teal-glow inline-flex items-center text-sm"
               style={{ padding: "10px var(--sp-3)", textDecoration: "none" }}
+              data-tour="log-new"
             >
               Log new hours
             </Link>
@@ -255,8 +270,8 @@ export default async function DashboardPage({
             Recent Experiences
             <TabIndex n={3} />
           </p>
-          <div style={{ display: "grid", gap: "var(--sp-2)" }}>
-            {experienceList.map((experience) => (
+          <div style={{ display: "grid", gap: "var(--sp-2)" }} data-tour="recent">
+            {experienceList.map((experience, index) => (
               <div key={experience.id} className="glass-card tear-tab" style={{ padding: "var(--sp-2)" }}>
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
@@ -296,7 +311,7 @@ export default async function DashboardPage({
                   </div>
 
                   {/* Edit + Delete */}
-                  <div className="flex items-center gap-2 flex-shrink-0">
+                  <div className="flex items-center gap-2 flex-shrink-0" data-tour={index === 0 ? "entry-actions" : undefined}>
                     <Link
                       href={`/dashboard/${experience.id}/edit`}
                       className="btn-ghost text-xs font-semibold"

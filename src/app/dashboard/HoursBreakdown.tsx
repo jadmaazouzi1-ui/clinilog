@@ -51,7 +51,7 @@ export default function HoursBreakdown({
         <p className="dept-header" style={{ marginBottom: 0, border: 0, paddingBottom: 0 }}>
           Experience Hours
         </p>
-        <a href="#recent-experiences" className="exp-id" style={{ color: "var(--accent)" }}>
+        <a href="#recent-experiences" className="exp-id" style={{ color: "var(--accent)" }} data-tour="see-all">
           SEE ALL
         </a>
       </div>

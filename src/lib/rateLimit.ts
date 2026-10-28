@@ -17,6 +17,7 @@ export const USER_LIMITS = {
   outline:    { max: 10, window: 86400 },
   mock_interview: { max: 10, window: 86400 },
   data_export: { max: 5, window: 86400 },
+  feedback:   { max: 3,  window: 86400 },
 } as const;
 
 export type UserLimitAction = keyof typeof USER_LIMITS;

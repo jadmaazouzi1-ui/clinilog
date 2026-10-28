@@ -129,7 +129,7 @@ export default async function LoginPage({
                       required
                       autoComplete="email"
                       className="field-input"
-                      placeholder="you@university.edu"
+                      placeholder="you@wfu.edu"
                     />
                   </div>
                   <button
@@ -185,7 +185,7 @@ export default async function LoginPage({
                 required
                 autoComplete="email"
                 className="field-input"
-                placeholder="you@university.edu"
+                placeholder="you@wfu.edu"
               />
             </div>
 

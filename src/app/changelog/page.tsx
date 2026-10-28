@@ -2,6 +2,8 @@ import Link from "next/link";
 import { CHANGELOG } from "@/lib/changelog";
 import { formatMedicalDate } from "@/lib/formatMedical";
 import { EkgDivider, RecordNo } from "@/components/MedicalIcons";
+import ChangelogNote from "@/components/tour/ChangelogNote";
+import TourRoot from "@/components/tour/TourRoot";
 
 export const metadata = {
   title: "Changelog | ClinicLog MD",
@@ -24,6 +26,7 @@ export default function ChangelogPage() {
       </header>
 
       <main className="max-w-3xl mx-auto px-6" style={{ paddingTop: "var(--sp-6)", paddingBottom: "var(--sp-8)" }}>
+        <ChangelogNote />
         <p className="dept-header">Changelog</p>
         <h1 className="text-3xl font-bold" style={{ color: "var(--text-primary)", marginBottom: "var(--sp-1)" }}>
           What has shipped.
@@ -51,6 +54,7 @@ export default function ChangelogPage() {
           </article>
         ))}
       </main>
+      <TourRoot />
     </div>
   );
 }

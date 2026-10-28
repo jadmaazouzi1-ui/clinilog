@@ -265,7 +265,7 @@ export default function ImportView() {
   return (
     <div className="space-y-6">
       {/* Template download card */}
-      <div className="glass-card rounded-2xl p-6">
+      <div className="glass-card rounded-2xl p-6" data-tour="import-template">
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div className="flex-1 min-w-0">
             <h2 className="text-sm font-semibold mb-1" style={{ color: "var(--text-primary)" }}>
@@ -291,7 +291,7 @@ export default function ImportView() {
 
       {/* Upload area */}
       {!rows && (
-        <div className="glass-card rounded-2xl p-6">
+        <div className="glass-card rounded-2xl p-6" data-tour="import-upload">
           <h2 className="text-sm font-semibold mb-3" style={{ color: "var(--text-primary)" }}>
             Step 2 - Upload your CSV
           </h2>

@@ -10,6 +10,12 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: "2026-10-28",
+    title: "Guided tour and Help Center",
+    body: "Short tours now explain each page on the page itself, once, when you first need them. Open Help from the header, the sidebar, Tools or Profile to replay any tour, search how-to answers, or report a problem. Sign-up is now limited to @wfu.edu addresses.",
+    tags: ["Help", "Tour"],
+  },
+  {
     date: "2026-09-23",
     title: "Application cycle tools",
     body: "Secondary essay tracking, an interview log with waitlist movement, a letter of recommendation tracker, and a running application budget. Schools can now be marked Target or Applying from the Schools page.",

@@ -35,6 +35,7 @@ export default function DashboardSignals({
     <>
       {/* Readout strip */}
       <div
+        data-tour="signals"
         className="flex items-center gap-x-6 gap-y-2 flex-wrap"
         style={{
           padding: "10px var(--sp-2)",
@@ -101,6 +102,7 @@ export default function DashboardSignals({
       {/* Monthly recap */}
       {recap.entries > 0 && (
         <div
+          data-tour="recap"
           className="flex items-center justify-between gap-3 flex-wrap"
           style={{
             padding: "10px var(--sp-2)",

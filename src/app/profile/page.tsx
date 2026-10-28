@@ -6,6 +6,7 @@ import AppShell from "@/components/AppShell";
 import { VitalFlat, VitalOk } from "@/components/MedicalIcons";
 import ReferralPanel from "./ReferralPanel";
 import AccountData from "./AccountData";
+import HelpButton from "@/components/tour/HelpButton";
 import WalletCard from "@/components/WalletCard";
 import { ensureReferralCode, referralCount } from "@/lib/referral";
 import { Experience } from "@/lib/types";
@@ -100,7 +101,10 @@ export default async function ProfilePage({
         )}
 
         <div className="glass-card rounded-2xl p-8">
-          <h1 className="text-xl font-bold mb-6" style={{ color: "var(--text-primary)" }}>Your Profile</h1>
+          <div className="flex items-start justify-between gap-3 mb-6">
+            <h1 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>Your Profile</h1>
+            <HelpButton className="md:hidden" tourId="help-profile" />
+          </div>
 
           <form action={upsertProfile} className="space-y-6">
             {/* Full Name */}
@@ -240,7 +244,7 @@ export default async function ProfilePage({
             </div>
 
             {/* Graduation Year */}
-            <div>
+            <div data-tour="profile-grad-year">
               <label
                 htmlFor="graduation_year"
                 className="block text-sm font-medium mb-1.5"
@@ -345,7 +349,7 @@ export default async function ProfilePage({
         </div>
 
         {/* Referrals */}
-        <div className="glass-card tick-corners" style={{ padding: "var(--sp-3)", marginTop: "var(--sp-3)" }}>
+        <div className="glass-card tick-corners" style={{ padding: "var(--sp-3)", marginTop: "var(--sp-3)" }} data-tour="referral">
           <p className="dept-header">Refer a Classmate</p>
           <p className="text-sm" style={{ color: "var(--text-secondary)", marginBottom: "var(--sp-2)" }}>
             Anyone who signs up through your link is counted here. Nothing is charged either way;
@@ -355,7 +359,7 @@ export default async function ProfilePage({
         </div>
 
         {/* Wallet card */}
-        <div className="glass-card tick-corners" style={{ padding: "var(--sp-3)", marginTop: "var(--sp-3)" }}>
+        <div className="glass-card tick-corners" style={{ padding: "var(--sp-3)", marginTop: "var(--sp-3)" }} data-tour="wallet-card">
           <p className="dept-header">Wallet Card</p>
           <p className="text-sm" style={{ color: "var(--text-secondary)", marginBottom: "var(--sp-2)" }}>
             A condensed PDF at wallet dimensions with your totals and top placements,
@@ -368,7 +372,7 @@ export default async function ProfilePage({
           />
         </div>
         {/* Export and deletion */}
-        <div className="glass-card tick-corners" style={{ padding: "var(--sp-3)", marginTop: "var(--sp-3)" }}>
+        <div className="glass-card tick-corners" style={{ padding: "var(--sp-3)", marginTop: "var(--sp-3)" }} data-tour="account-data">
           <AccountData />
         </div>
       </main>

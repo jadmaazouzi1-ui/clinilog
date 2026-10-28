@@ -69,7 +69,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
   // ── Not enough experiences ────────────────────────────────────────────
   if (experienceCount < 3) {
     return (
-      <div className="glass-card rounded-2xl p-10 text-center">
+      <div className="glass-card rounded-2xl p-10 text-center" data-tour="archetype-locked">
         <div
           className="inline-flex items-center justify-center w-14 h-14 rounded-full mb-4"
           style={{ background: "var(--bg-card)" }}
@@ -221,6 +221,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
       {/* Reveal hero — cinematic fade-in */}
       <div
         ref={cardRef}
+        data-tour="archetype-result"
         className="glass-card tick-corners relative overflow-hidden archetype-reveal"
         style={{
           padding: "var(--sp-4) var(--sp-3)",
@@ -271,6 +272,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
               Download Card
             </button>
             <button
+              data-tour="archetype-regenerate"
               onClick={runAnalysis}
               disabled={loading}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-opacity"
@@ -317,6 +319,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
       </Section>
 
       {/* Ideal schools */}
+      <div data-tour="archetype-schools">
       <Section title="Recommendations / Schools" color={color}>
         <ul className="space-y-2">
           {archetype.idealSchools.map((s, i) => (
@@ -346,6 +349,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
           </svg>
         </Link>
       </Section>
+      </div>
 
       {/* Statement angle */}
       <Section title="Your Ideal Personal Statement Angle" color={color}>

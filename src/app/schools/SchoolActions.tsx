@@ -36,6 +36,7 @@ export default function SchoolActions({
   return (
     <div style={{ marginTop: "var(--sp-1)", paddingTop: "var(--sp-1)", borderTop: "1px dashed var(--border-strong)" }}>
       <div className="flex items-center gap-2 flex-wrap">
+        <span className="inline-flex items-center gap-2" data-tour="school-add">
         {(["Target", "Applying"] as const).map((s) => (
           <button
             key={s}
@@ -55,9 +56,11 @@ export default function SchoolActions({
             {s}
           </button>
         ))}
+        </span>
 
         {status && gaps.length > 0 && (
           <button
+            data-tour="school-gap"
             onClick={() => setOpen(!open)}
             className="text-[10px] font-bold uppercase"
             style={{

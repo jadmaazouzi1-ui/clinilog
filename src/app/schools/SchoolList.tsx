@@ -133,7 +133,7 @@ export default function SchoolList({
       </div>
 
       {/* Stats inputs */}
-      <div className="glass-card rounded-2xl p-6 mb-6">
+      <div className="glass-card rounded-2xl p-6 mb-6" data-tour="schools-stats">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-3">
           <div>
             <label htmlFor="gpa-input" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text-primary)" }}>GPA</label>
@@ -153,7 +153,7 @@ export default function SchoolList({
           </div>
         </div>
         <p className="text-xs" style={{ color: "var(--text-tertiary)" }}>Highlights schools within ±0.3 GPA and ±5 MCAT points of your stats.</p>
-        <div className="mt-4 pt-4" style={{ borderTop: "1px solid var(--border-strong)" }}>
+        <div className="mt-4 pt-4" style={{ borderTop: "1px solid var(--border-strong)" }} data-tour="schools-home-state">
           <label htmlFor="home-state" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text-primary)" }}>
             My Home State <span className="font-normal" style={{ color: "var(--text-tertiary)" }}>(optional - highlights in-state schools for you)</span>
           </label>
@@ -170,7 +170,7 @@ export default function SchoolList({
       </div>
 
       {/* Filter bar */}
-      <div className="glass-card rounded-2xl p-4 mb-5">
+      <div className="glass-card rounded-2xl p-4 mb-5" data-tour="schools-filters">
         <div className="flex gap-2 overflow-x-auto pb-2" style={{ scrollbarWidth: "none" }}>
           {MISSION_FILTERS.map((f) => {
             const active = missionFilters.has(f.value);

@@ -7,6 +7,9 @@ import { RecordNo } from "./MedicalIcons";
 import RouteProgress, { LinkPending } from "./RouteProgress";
 import ThemeToggle from "./ThemeToggle";
 import PageView from "./PageView";
+import TourRoot from "./tour/TourRoot";
+import HelpButton from "./tour/HelpButton";
+import PageTourLink from "./tour/PageTourLink";
 
 export interface BreadcrumbItem {
   label: string;
@@ -183,6 +186,9 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
             </div>
             <p className="text-xs truncate flex-1" style={{ color: "var(--text-secondary)" }}>{userEmail}</p>
           </div>
+          <div className="px-3 pt-1">
+            <HelpButton tourId="help-sidebar" />
+          </div>
           <form action="/auth/signout" method="POST">
             <button
               type="submit"
@@ -229,7 +235,11 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
             ))}
           </div>
           <div className="flex items-center gap-2 flex-shrink-0">
-            <ThemeToggle />
+            <PageTourLink />
+            <HelpButton className="hidden md:inline-flex" tourId="help-button" />
+            <span data-tour="theme-toggle" className="inline-flex">
+              <ThemeToggle />
+            </span>
             <RecordNo page={activePath} />
           </div>
         </div>
@@ -328,6 +338,9 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
           </div>
 
           <div className="flex-1 overflow-y-auto p-3 space-y-1">
+            <div onClick={() => setToolsOpen(false)}>
+              <HelpButton block tourId="help-tools" />
+            </div>
             <button
               type="button"
               onClick={openAdvisor}
@@ -389,6 +402,7 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
       )}
 
       <AIAdvisorButton />
+      <TourRoot />
     </div>
   );
 }

@@ -91,6 +91,7 @@ export default function AIAdvisorButton() {
 
   useEffect(() => {
     if (open) {
+      window.dispatchEvent(new CustomEvent("cliniclog:advisor-opened"));
       loadContext();
       if (messages.length === 0) {
         setMessages([{
@@ -213,6 +214,7 @@ export default function AIAdvisorButton() {
         <div
           className="flex items-center gap-3 px-5 py-4 flex-shrink-0"
           style={{ borderBottom: "1px solid var(--border-strong)" }}
+          data-tour="advisor-header"
         >
           <div className="flex-1 min-w-0">
             <p className="text-sm" style={{ color: "var(--text-primary)", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.02em" }}>AI Pre-Med Advisor</p>
@@ -272,6 +274,7 @@ export default function AIAdvisorButton() {
           <div
             className="flex items-end gap-2 px-3 py-2"
             style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border-strong)", borderRadius: 0 }}
+            data-tour="advisor-input"
           >
             <textarea
               ref={inputRef}

@@ -85,6 +85,7 @@ export default async function NewExperiencePage() {
               <TabIndex n={1} />
             </p>
 
+            <div data-tour="f-placement">
             <div style={{ marginBottom: "var(--sp-3)" }}>
               <label htmlFor="title" className="field-label">
                 TTL <span style={{ color: "var(--margin-rule)" }}>*</span>
@@ -130,6 +131,7 @@ export default async function NewExperiencePage() {
                 </select>
               </div>
             </div>
+            </div>
 
             <hr className="tear-line" />
 
@@ -141,6 +143,7 @@ export default async function NewExperiencePage() {
             <div
               className="grid grid-cols-1 sm:grid-cols-3"
               style={{ gap: "var(--sp-3)", marginBottom: "var(--sp-3)" }}
+              data-tour="f-dates"
             >
               <div>
                 <label htmlFor="start_date" className="field-label">
@@ -179,14 +182,14 @@ export default async function NewExperiencePage() {
               <TabIndex n={3} />
             </p>
 
-            <div style={{ marginBottom: "var(--sp-3)" }}>
+            <div style={{ marginBottom: "var(--sp-3)" }} data-tour="f-desc">
               <label htmlFor="description" className="field-label">
                 DESC <span style={{ color: "var(--text-tertiary)" }}>(optional)</span>
               </label>
               <ReframeableTextarea placeholder="Description: what did you do?" />
             </div>
 
-            <div style={{ marginBottom: "var(--sp-4)" }}>
+            <div style={{ marginBottom: "var(--sp-4)" }} data-tour="f-reflection">
               <label htmlFor="reflection" className="field-label">
                 REFL <span style={{ color: "var(--text-tertiary)" }}>(optional)</span>
               </label>
@@ -212,6 +215,7 @@ export default async function NewExperiencePage() {
                 type="submit"
                 className="teal-glow text-sm"
                 style={{ padding: "10px var(--sp-3)" }}
+                data-tour="f-save"
               >
                 Save to record
               </button>

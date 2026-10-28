@@ -22,6 +22,7 @@ const TABLES = [
   "postbacc_courses",
   "postbacc_profile",
   "referrals",
+  "tour_progress",
 ] as const;
 
 export async function GET() {
