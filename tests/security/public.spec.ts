@@ -44,6 +44,12 @@ test("5. security headers are present", async ({ request }) => {
   expect(h["content-security-policy"]).toContain("frame-ancestors 'none'");
   expect(h["content-security-policy"]).toContain("object-src 'none'");
   expect(h["content-security-policy"]).not.toContain("unsafe-eval");
+  // Scripts need a per-request nonce; no blanket inline-script allowance.
+  const scriptSrc = (csp: string) => csp.split(";").find((d) => d.trim().startsWith("script-src")) ?? "";
+  expect(scriptSrc(h["content-security-policy"])).not.toContain("unsafe-inline");
+  expect(scriptSrc(h["content-security-policy"])).toMatch(/'nonce-[A-Za-z0-9+/=]{16,}'/);
+  const again = (await request.get("/")).headers()["content-security-policy"];
+  expect(scriptSrc(again)).not.toBe(scriptSrc(h["content-security-policy"]));
   expect(h["strict-transport-security"]).toContain("max-age=63072000");
   expect(h["x-frame-options"]).toBe("DENY");
   expect(h["x-content-type-options"]).toBe("nosniff");
@@ -134,4 +140,14 @@ test("11. login and reset do not reveal whether an email is registered", async (
   await page.waitForURL(/error=/);
   const msg = decodeURIComponent(new URL(page.url()).searchParams.get("error") ?? "");
   expect(msg).not.toMatch(/not found|no user|does not exist|not registered/i);
+});
+
+test("12. sign-up refuses non-@wfu.edu emails, even straight to Supabase", async () => {
+  test.skip(!SUPABASE_URL || !ANON_KEY, "needs NEXT_PUBLIC_SUPABASE_* in .env.local");
+  // Refused by a trigger before the row exists, so no account or email is created.
+  const { data, error } = await anonClient().auth.signUp({
+    email: `probe-${Date.now()}@example.com`, password: "Correct-Horse-Battery-9",
+  });
+  expect(error).not.toBeNull();
+  expect(data.user).toBeNull();
 });

@@ -1,10 +1,55 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
+const isDev = process.env.NODE_ENV !== "production";
+
+// The only third-party origin the browser talks to is this project's Supabase
+// instance. Gemini and Resend are called from server routes only. Pinned to
+// the project host rather than *.supabase.co so an injected script cannot
+// send data to an attacker-owned Supabase project.
+const supabaseOrigins = (() => {
+  try {
+    const host = new URL(process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").host;
+    return host ? `https://${host} wss://${host}` : "https://*.supabase.co";
+  } catch {
+    return "https://*.supabase.co";
+  }
+})();
+
+// Scripts run only with this request's nonce: an injected <script> or inline
+// handler cannot guess it. Next.js reads the nonce from the request's CSP
+// header and stamps it on its own scripts. Styles keep 'unsafe-inline'
+// because the UI uses style attributes, which a nonce cannot cover.
+function contentSecurityPolicy(nonce: string) {
+  return [
+    "default-src 'self'",
+    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${isDev ? " 'unsafe-eval'" : ""}`,
+    "style-src 'self' 'unsafe-inline'",
+    "img-src 'self' data: blob:",
+    "font-src 'self' data:",
+    `connect-src 'self' ${supabaseOrigins}`,
+    "frame-ancestors 'none'",
+    "base-uri 'self'",
+    "form-action 'self'",
+    "object-src 'none'",
+    ...(isDev ? [] : ["upgrade-insecure-requests"]),
+  ].join("; ");
+}
+
 export async function proxy(request: NextRequest) {
-  let supabaseResponse = NextResponse.next({
-    request,
-  });
+  const nonce = btoa(crypto.randomUUID());
+  const csp = contentSecurityPolicy(nonce);
+
+  // Rebuilt from request.headers each time so cookies refreshed by Supabase
+  // below still reach the page being rendered.
+  const next = () => {
+    const headers = new Headers(request.headers);
+    headers.set("x-nonce", nonce);
+    headers.set("Content-Security-Policy", csp);
+    return NextResponse.next({ request: { headers } });
+  };
+
+  let supabaseResponse = next();
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -18,9 +63,7 @@ export async function proxy(request: NextRequest) {
           cookiesToSet.forEach(({ name, value }) =>
             request.cookies.set(name, value)
           );
-          supabaseResponse = NextResponse.next({
-            request,
-          });
+          supabaseResponse = next();
           cookiesToSet.forEach(({ name, value, options }) =>
             supabaseResponse.cookies.set(name, value, options)
           );
@@ -51,7 +94,7 @@ export async function proxy(request: NextRequest) {
     const url = request.nextUrl.clone();
     url.pathname = "/auth/login";
     url.search = "";
-    return NextResponse.redirect(url);
+    return withCsp(NextResponse.redirect(url), csp);
   }
 
   // Email must be verified before using any authenticated page.
@@ -59,7 +102,7 @@ export async function proxy(request: NextRequest) {
     const url = request.nextUrl.clone();
     url.pathname = "/auth/verify-email";
     url.search = "";
-    return NextResponse.redirect(url);
+    return withCsp(NextResponse.redirect(url), csp);
   }
 
   // Authenticated pages hold personal data: never let a shared cache keep them.
@@ -67,7 +110,12 @@ export async function proxy(request: NextRequest) {
     supabaseResponse.headers.set("Cache-Control", "private, no-store, max-age=0");
   }
 
-  return supabaseResponse;
+  return withCsp(supabaseResponse, csp);
+}
+
+function withCsp(response: NextResponse, csp: string) {
+  response.headers.set("Content-Security-Policy", csp);
+  return response;
 }
 
 export const config = {

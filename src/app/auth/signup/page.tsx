@@ -4,6 +4,7 @@ import { cookies, headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 import { checkAuthRateLimit, clientIpFrom } from "@/lib/rateLimit";
 import { REFERRAL_COOKIE } from "@/lib/referral";
+import { isAllowedSignupEmail } from "@/lib/allowedEmail";
 
 export default async function SignupPage({
   searchParams,
@@ -31,6 +32,10 @@ export default async function SignupPage({
     const name = String(formData.get("name") ?? "").trim().slice(0, 100);
     const email = String(formData.get("email") ?? "").trim().toLowerCase().slice(0, 320);
     const password = String(formData.get("password") ?? "");
+
+    if (!isAllowedSignupEmail(email)) {
+      redirect(`/auth/signup?error=${encodeURIComponent("Sign up with your Wake Forest email address (@wfu.edu).")}`);
+    }
 
     // Enforced here, not only by the input's minLength, which a client can
     // remove. Supabase applies its own minimum too, set to the same value.
@@ -142,7 +147,9 @@ export default async function SignupPage({
                 required
                 autoComplete="email"
                 className="field-input"
-                placeholder="you@university.edu"
+                placeholder="you@wfu.edu"
+                pattern=".+@[Ww][Ff][Uu]\.[Ee][Dd][Uu]"
+                title="Use your @wfu.edu email address"
               />
             </div>
 
@@ -161,7 +168,7 @@ export default async function SignupPage({
                 minLength={10}
                 autoComplete="new-password"
                 className="field-input"
-                placeholder="At least 8 characters"
+                placeholder="At least 10 characters"
               />
             </div>
 

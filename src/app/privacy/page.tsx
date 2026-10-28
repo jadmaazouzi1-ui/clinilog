@@ -45,6 +45,11 @@ export default function PrivacyPage() {
 
       <h2>We do not sell your data</h2>
       <p>We do not sell, rent or trade your personal information, and we do not use it for advertising.</p>
+      <p>
+        ClinicLog MD is independent of Wake Forest University. Your entries are not shared with the
+        university, its advisors or its health professions committee. Anything you want them to see,
+        you share yourself.
+      </p>
 
       <h2>Emails</h2>
       <p>

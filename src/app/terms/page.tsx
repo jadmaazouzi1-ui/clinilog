@@ -12,6 +12,10 @@ export default function TermsPage() {
         A free tool for organizing your pre-med experiences and application planning. It is not an
         admissions service, and nothing on the site guarantees admission anywhere.
       </p>
+      <p>
+        Accounts are open to Wake Forest students with an @wfu.edu email address. ClinicLog MD is an
+        independent project. It is not run, sponsored or endorsed by Wake Forest University.
+      </p>
 
       <h2>Accuracy</h2>
       <p>
