@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient as createAdminClient } from "@supabase/supabase-js";
+import { unsubscribeUrl } from "@/lib/unsubscribe";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -22,7 +23,9 @@ export const maxDuration = 60;
 export async function GET(request: Request) {
   const cronSecret = process.env.CRON_SECRET;
   const auth = request.headers.get("authorization");
-  if (cronSecret && auth !== `Bearer ${cronSecret}`) {
+  // Fails closed: with no secret configured the endpoint refuses everyone.
+  // A missing CRON_SECRET used to leave it open to anyone.
+  if (!cronSecret || auth !== `Bearer ${cronSecret}`) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -54,7 +57,8 @@ export async function GET(request: Request) {
     .gte("created_at", monthAgo);
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.error("[weekly-digest]", error.message);
+    return NextResponse.json({ error: "Digest query failed" }, { status: 500 });
   }
 
   const byUser = new Map<string, { weekHours: number; weekEntries: number }>();
@@ -67,6 +71,9 @@ export async function GET(request: Request) {
     byUser.set(row.user_id, cur);
   }
 
+  const { data: optedOut } = await admin.from("profiles").select("id").eq("digest_opt_out", true);
+  const optedOutIds = new Set((optedOut ?? []).map((r) => r.id));
+
   const { data: usersPage } = await admin.auth.admin.listUsers({ page: 1, perPage: 1000 });
   const emailById = new Map((usersPage?.users ?? []).map((u) => [u.id, u.email]));
 
@@ -76,7 +83,9 @@ export async function GET(request: Request) {
   for (const [userId, totals] of byUser) {
     const email = emailById.get(userId);
     // Nothing logged this week: the digest would be an empty report.
-    if (!email || totals.weekEntries === 0) {
+    const unsub = unsubscribeUrl(userId);
+    // No unsubscribe link means no email: never send one people cannot stop.
+    if (!email || totals.weekEntries === 0 || optedOutIds.has(userId) || !unsub) {
       skipped += 1;
       continue;
     }
@@ -106,7 +115,7 @@ export async function GET(request: Request) {
       <p style="margin:0 0 20px;font-size:14px;line-height:1.6;color:#5B6B63">${encouragement}</p>
       <a href="https://www.cliniclogmd.com/dashboard" style="display:inline-block;background:#2D6A4F;color:#fff;text-decoration:none;padding:10px 18px;border-radius:3px;font-size:14px;font-weight:600">Open your dashboard</a>
     </div>
-    <p style="margin:16px 0 0;font-size:11px;color:#94A39B">You receive this because you logged hours in the last 30 days. It stops automatically if you go quiet.</p>
+    <p style="margin:16px 0 0;font-size:11px;color:#6B8578">You receive this because you logged hours in the last 30 days. It stops automatically if you go quiet. <a href="${unsub}" style="color:#1F4D3A">Unsubscribe</a></p>
   </div>
 </body></html>`;
 
@@ -121,6 +130,10 @@ export async function GET(request: Request) {
         to: [email],
         subject: `${hours} hours logged this week`,
         html,
+        headers: {
+          "List-Unsubscribe": `<${unsub}>`,
+          "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+        },
       }),
     });
 

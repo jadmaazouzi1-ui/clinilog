@@ -1000,3 +1000,11 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
 .path-panel {
   color: var(--text-on-dark);
 }
+
+/* Readable long-form copy for the Privacy and Terms pages. */
+.legal-prose h2 { font-size: 1.125rem; font-weight: 700; color: var(--text-primary); margin: var(--sp-4) 0 var(--sp-1); }
+.legal-prose p, .legal-prose li { font-size: 0.9375rem; line-height: 1.7; color: var(--text-secondary); }
+.legal-prose p { margin-bottom: var(--sp-2); }
+.legal-prose ul { list-style: disc; padding-left: 1.25rem; margin-bottom: var(--sp-2); }
+.legal-prose li { margin-bottom: 4px; }
+.legal-prose strong { color: var(--text-primary); }

@@ -4,8 +4,27 @@ import { createClient } from "@/lib/supabase/server";
 import { checkUserRateLimit } from "@/lib/rateLimit";
 import { ARCHETYPES, ArchetypeAnalysis } from "@/lib/archetypes";
 import { formatHours } from "@/lib/types";
+import { z } from "zod";
+import { UNTRUSTED_DATA_RULES, fence } from "@/lib/aiGuard";
+import { forbiddenOrigin, isSameOrigin, secondsUntilUtcMidnight, serverError, tooManyRequests } from "@/lib/http";
 
-export async function POST() {
+// Model output is stored on the profile and rendered later, so it is
+// validated against a closed schema first: known archetype id only, bounded
+// strings, bounded arrays, and no extra keys carried into the database.
+const ARCHETYPE_IDS = ARCHETYPES.map((a) => a.id) as [string, ...string[]];
+const Analysis = z
+  .object({
+    archetype_id: z.enum(ARCHETYPE_IDS),
+    why_paragraph: z.string().min(1).max(1500),
+    strengths: z.array(z.string().min(1).max(300)).min(1).max(6),
+    statement_angle: z.string().min(1).max(1200),
+    experiences_to_add: z.array(z.string().min(1).max(300)).max(6),
+  })
+  .strip();
+
+export async function POST(req: Request) {
+  if (!isSameOrigin(req)) return forbiddenOrigin();
+
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
     return NextResponse.json({ error: "AI is not configured." }, { status: 503 });
@@ -17,10 +36,7 @@ export async function POST() {
 
   const limit = await checkUserRateLimit(supabase, "archetype");
   if (!limit.allowed) {
-    return NextResponse.json(
-      { error: "Daily archetype limit reached (3/day). Come back tomorrow." },
-      { status: 429 }
-    );
+    return tooManyRequests("Daily archetype limit reached (3/day). Come back tomorrow.", secondsUntilUtcMidnight());
   }
 
   // Pull profile + experiences
@@ -86,7 +102,9 @@ Hours by category: ${Object.entries(hoursByType).map(([k, v]) => `${k.replace("_
 
 Experiences (${exps.length}):
 
-${expList}
+${UNTRUSTED_DATA_RULES}
+
+${fence("experiences", expList, 12000)}
 
 Style: never use em dashes in any string you return. Use a comma, a colon, or a new sentence instead.
 
@@ -106,14 +124,11 @@ Now analyze and return the JSON.`;
     const text = result.response.text();
     let parsed: ArchetypeAnalysis;
     try {
-      parsed = JSON.parse(text);
+      parsed = Analysis.parse(JSON.parse(text));
     } catch {
-      return NextResponse.json({ error: "AI returned malformed response. Please regenerate." }, { status: 502 });
-    }
-
-    // Validate archetype_id
-    if (!ARCHETYPES.find((a) => a.id === parsed.archetype_id)) {
-      return NextResponse.json({ error: `AI returned unknown archetype: ${parsed.archetype_id}` }, { status: 502 });
+      // Neither the raw output nor the rejected id is echoed back: both are
+      // model output, which is untrusted.
+      return NextResponse.json({ error: "The analysis could not be completed. Please regenerate." }, { status: 502 });
     }
 
     // Persist
@@ -128,8 +143,6 @@ Now analyze and return the JSON.`;
 
     return NextResponse.json({ analysis: parsed });
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Unknown error";
-    console.error("[/api/archetype] Gemini call failed:", message);
-    return NextResponse.json({ error: `Archetype analysis failed: ${message}` }, { status: 500 });
+    return serverError("api/archetype", err);
   }
 }

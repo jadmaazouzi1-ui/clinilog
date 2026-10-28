@@ -103,7 +103,8 @@ export async function bulkImportExperiences(rows: ImportRow[]): Promise<ImportRe
   const { error } = await supabase.from("experiences").insert(payload);
 
   if (error) {
-    return { success: false, inserted: 0, error: error.message };
+    console.error("[import]", error.message);
+    return { success: false, inserted: 0, error: "The import could not be saved. Nothing was added; please try again." };
   }
 
   return { success: true, inserted: payload.length };

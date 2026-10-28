@@ -39,15 +39,16 @@ export async function setSchoolStatus(schoolName: string, status: "Target" | "Ap
 }
 
 export async function removeSchool(id: string) {
-  const { supabase } = await requireUser();
-  await supabase.from("school_applications").delete().eq("id", id);
+  const { supabase, user } = await requireUser();
+  await supabase.from("school_applications").delete().eq("id", id)
+    .eq("user_id", user.id);
   revalidatePath("/applications");
   revalidatePath("/schools");
 }
 
 /** Update the secondary-essay fields and budget line for one school. */
 export async function updateApplication(id: string, formData: FormData) {
-  const { supabase } = await requireUser();
+  const { supabase, user } = await requireUser();
 
   await supabase
     .from("school_applications")
@@ -61,20 +62,22 @@ export async function updateApplication(id: string, formData: FormData) {
       notes: sanitizeOptional(formData.get("notes"), CAPS.notes),
       updated_at: new Date().toISOString(),
     })
-    .eq("id", id);
+    .eq("id", id)
+    .eq("user_id", user.id);
 
   revalidatePath("/applications");
 }
 
 /** Quick status cycle from the list view, without opening the editor. */
 export async function setSecondaryStatus(id: string, secondary_status: string) {
-  const { supabase } = await requireUser();
+  const { supabase, user } = await requireUser();
   await supabase
     .from("school_applications")
     .update({
       secondary_status: parseEnum(secondary_status, SECONDARY_STATUSES, "Not Started"),
       updated_at: new Date().toISOString(),
     })
-    .eq("id", id);
+    .eq("id", id)
+    .eq("user_id", user.id);
   revalidatePath("/applications");
 }

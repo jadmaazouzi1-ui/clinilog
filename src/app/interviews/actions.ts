@@ -31,7 +31,7 @@ export async function createInterview(formData: FormData) {
 }
 
 export async function updateInterview(id: string, formData: FormData) {
-  const { supabase } = await requireUser();
+  const { supabase, user } = await requireUser();
   const school = sanitizeText(formData.get("school_name"), CAPS.schoolName);
   if (!school) return;
   await supabase
@@ -44,22 +44,25 @@ export async function updateInterview(id: string, formData: FormData) {
       reflection: sanitizeOptional(formData.get("reflection"), CAPS.reflection),
       updated_at: new Date().toISOString(),
     })
-    .eq("id", id);
+    .eq("id", id)
+    .eq("user_id", user.id);
   revalidatePath("/interviews");
 }
 
 export async function setInterviewStatus(id: string, status: string) {
-  const { supabase } = await requireUser();
+  const { supabase, user } = await requireUser();
   await supabase
     .from("interviews")
     .update({ status: parseEnum(status, STATUSES, "Scheduled"), updated_at: new Date().toISOString() })
-    .eq("id", id);
+    .eq("id", id)
+    .eq("user_id", user.id);
   revalidatePath("/interviews");
 }
 
 export async function deleteInterview(id: string) {
-  const { supabase } = await requireUser();
-  await supabase.from("interviews").delete().eq("id", id);
+  const { supabase, user } = await requireUser();
+  await supabase.from("interviews").delete().eq("id", id)
+    .eq("user_id", user.id);
   revalidatePath("/interviews");
 }
 
@@ -78,7 +81,8 @@ export async function addWaitlistUpdate(interviewId: string, formData: FormData)
 }
 
 export async function deleteWaitlistUpdate(id: string) {
-  const { supabase } = await requireUser();
-  await supabase.from("waitlist_updates").delete().eq("id", id);
+  const { supabase, user } = await requireUser();
+  await supabase.from("waitlist_updates").delete().eq("id", id)
+    .eq("user_id", user.id);
   revalidatePath("/interviews");
 }

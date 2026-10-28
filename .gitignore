@@ -48,3 +48,7 @@ next-env.d.ts
 /test-results
 /playwright-report
 /playwright/.cache
+
+# local build and debug output (was committed, includes source maps)
+tmp/
+!.env.test.local.example

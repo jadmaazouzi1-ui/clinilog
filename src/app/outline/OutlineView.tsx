@@ -41,7 +41,7 @@ export default function OutlineView({ ready }: { ready: boolean }) {
         >
           {outline ? "Regenerate outline" : "Generate outline"}
         </button>
-        <span className="exp-id">3 PER DAY</span>
+        <span className="exp-id">10 PER DAY</span>
       </div>
 
       {loading && (

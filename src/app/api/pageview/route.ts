@@ -1,8 +1,11 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { forbiddenOrigin, isSameOrigin } from "@/lib/http";
 
 /** Record a page view for the owner-only analytics page. */
 export async function POST(request: Request) {
+  if (!isSameOrigin(request)) return forbiddenOrigin();
+
   let path = "";
   try {
     const body = await request.json();

@@ -278,7 +278,7 @@ export default async function HomePage() {
         <div className="max-w-6xl mx-auto px-6 flex flex-wrap items-center justify-between gap-4" style={{ paddingTop: "var(--sp-3)", paddingBottom: "var(--sp-3)" }}>
           <p className="text-xs" style={{ color: "var(--text-tertiary)" }}>&copy; {new Date().getFullYear()} ClinicLog MD. All rights reserved.</p>
           <div className="flex gap-5 flex-wrap">
-            {[["Schools", "/schools"], ["Archetype", "/archetype"], ["Resources", "/resources"], ["Stories", "/stories"], ["Changelog", "/changelog"], ["Badge", "/badge"], ["About", "/about"]].map(([label, href]) => (
+            {[["Schools", "/schools"], ["Archetype", "/archetype"], ["Resources", "/resources"], ["Stories", "/stories"], ["Changelog", "/changelog"], ["Badge", "/badge"], ["About", "/about"], ["Privacy", "/privacy"], ["Terms", "/terms"]].map(([label, href]) => (
               <Link key={label} href={href} className="nav-link text-xs">{label}</Link>
             ))}
           </div>

@@ -74,7 +74,8 @@ export async function createExperience(formData: FormData) {
   });
 
   if (error) {
-    redirect(`/dashboard?error=${encodeURIComponent(error.message)}`);
+    console.error("[dashboard]", error.message);
+    redirect(`/dashboard?error=${encodeURIComponent("Something went wrong saving that. Please try again.")}`);
   }
 
   redirect("/dashboard");
@@ -125,7 +126,8 @@ export async function updateExperience(id: string, formData: FormData) {
     .eq("user_id", user.id);
 
   if (error) {
-    redirect(`/dashboard/${id}/edit?error=${encodeURIComponent(error.message)}`);
+    console.error("[dashboard]", error.message);
+    redirect(`/dashboard/${id}/edit?error=${encodeURIComponent("Something went wrong saving that. Please try again.")}`);
   }
 
   redirect(`/dashboard/${id}`);
@@ -149,7 +151,8 @@ export async function deleteExperience(id: string) {
     .eq("user_id", user.id);
 
   if (error) {
-    redirect(`/dashboard?error=${encodeURIComponent(error.message)}`);
+    console.error("[dashboard]", error.message);
+    redirect(`/dashboard?error=${encodeURIComponent("Something went wrong saving that. Please try again.")}`);
   }
 
   redirect("/dashboard");

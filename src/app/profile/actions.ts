@@ -46,7 +46,8 @@ export async function upsertProfile(formData: FormData) {
   });
 
   if (error) {
-    redirect(`/profile?error=${encodeURIComponent(error.message)}`);
+    console.error("[profile]", error.message);
+    redirect(`/profile?error=${encodeURIComponent("Something went wrong saving that. Please try again.")}`);
   }
 
   redirect("/profile?saved=1");

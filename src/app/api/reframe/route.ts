@@ -2,8 +2,12 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { checkUserRateLimit } from "@/lib/rateLimit";
+import { forbiddenOrigin, isSameOrigin, secondsUntilUtcMidnight, serverError, tooManyRequests } from "@/lib/http";
+import { UNTRUSTED_DATA_RULES, fence } from "@/lib/aiGuard";
 
 export async function POST(req: NextRequest) {
+  if (!isSameOrigin(req)) return forbiddenOrigin();
+
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
     return NextResponse.json({ error: "AI reframe is not configured." }, { status: 503 });
@@ -17,15 +21,23 @@ export async function POST(req: NextRequest) {
 
   const limit = await checkUserRateLimit(supabase, "reframe");
   if (!limit.allowed) {
-    return NextResponse.json(
-      { error: "Daily reframe limit reached (10/day). Come back tomorrow." },
-      { status: 429 }
-    );
+    return tooManyRequests("Daily reframe limit reached (10/day). Come back tomorrow.", secondsUntilUtcMidnight());
   }
 
-  const { description } = await req.json();
-  if (!description?.trim()) {
+  let description = "";
+  try {
+    const body = await req.json();
+    description = typeof body?.description === "string" ? body.description.trim() : "";
+  } catch {
+    return NextResponse.json({ error: "Invalid request." }, { status: 400 });
+  }
+  if (!description) {
     return NextResponse.json({ error: "No description provided." }, { status: 400 });
+  }
+  // Bounded: matches the description field's own cap, and stops one request
+  // from sending an arbitrarily large prompt.
+  if (description.length > 2000) {
+    return NextResponse.json({ error: "Description is too long to reframe (2,000 characters max)." }, { status: 413 });
   }
 
   const prompt = `You are an expert medical school application advisor helping a pre-med student craft their AMCAS application.
@@ -39,10 +51,10 @@ Reframe the following clinical experience description into polished, AMCAS-ready
 - Be 2–4 concise, compelling sentences
 - Never use em dashes. Use a comma, a colon, or a new sentence instead
 
+${UNTRUSTED_DATA_RULES}
+
 Original description:
-"""
-${description.trim()}
-"""
+${fence("description", description, 2000)}
 
 Return only the reframed description text. No preamble, no quotes, no explanation.`;
 
@@ -58,11 +70,6 @@ Return only the reframed description text. No preamble, no quotes, no explanatio
 
     return NextResponse.json({ reframed });
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Unknown error";
-    console.error("[/api/reframe] Gemini call failed:", message);
-    return NextResponse.json(
-      { error: `Reframe failed: ${message}` },
-      { status: 500 }
-    );
+    return serverError("api/reframe", err);
   }
 }

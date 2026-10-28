@@ -17,8 +17,8 @@ export default function ResetPasswordPage() {
     e.preventDefault();
     setError("");
 
-    if (password.length < 8) {
-      setError("Password must be at least 8 characters.");
+    if (password.length < 10) {
+      setError("Password must be at least 10 characters.");
       return;
     }
     if (password !== confirm) {
@@ -32,7 +32,10 @@ export default function ResetPasswordPage() {
     setLoading(false);
 
     if (updateError) {
-      setError(updateError.message);
+      // Password-policy errors are actionable; anything else is not shown raw.
+      setError(/password/i.test(updateError.message)
+        ? "That password is too weak or has appeared in a data breach. Choose a different one."
+        : "This reset link has expired or was already used. Request a new one.");
       return;
     }
 
@@ -93,7 +96,7 @@ export default function ResetPasswordPage() {
                     id="password"
                     type="password"
                     required
-                    minLength={8}
+                    minLength={10}
                     autoComplete="new-password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}

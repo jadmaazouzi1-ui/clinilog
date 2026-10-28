@@ -28,9 +28,15 @@ export default async function SignupPage({
       .toUpperCase()
       .replace(/[^A-Z2-9]/g, "")
       .slice(0, 12);
-    const name = formData.get("name") as string;
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
+    const name = String(formData.get("name") ?? "").trim().slice(0, 100);
+    const email = String(formData.get("email") ?? "").trim().toLowerCase().slice(0, 320);
+    const password = String(formData.get("password") ?? "");
+
+    // Enforced here, not only by the input's minLength, which a client can
+    // remove. Supabase applies its own minimum too, set to the same value.
+    if (password.length < 10 || password.length > 128) {
+      redirect(`/auth/signup?error=${encodeURIComponent("Use a password of at least 10 characters.")}`);
+    }
 
     const supabase = await createClient();
 
@@ -51,7 +57,15 @@ export default async function SignupPage({
     });
 
     if (error) {
-      redirect(`/auth/signup?error=${encodeURIComponent(error.message)}`);
+      console.error("[signup]", error.message);
+      // Only password-policy failures are shown, because the user can act on
+      // them. Anything else, including "already registered", takes the same
+      // path as a successful signup so the form cannot reveal which emails
+      // have accounts.
+      if (/password/i.test(error.message)) {
+        redirect(`/auth/signup?error=${encodeURIComponent("That password is too weak or has appeared in a data breach. Choose a different one.")}`);
+      }
+      redirect("/auth/verify-email");
     }
 
     // Held until the new account first signs in: with email confirmation there
@@ -144,7 +158,7 @@ export default async function SignupPage({
                 name="password"
                 type="password"
                 required
-                minLength={8}
+                minLength={10}
                 autoComplete="new-password"
                 className="field-input"
                 placeholder="At least 8 characters"
@@ -157,6 +171,11 @@ export default async function SignupPage({
             >
               Create Account
             </button>
+            <p className="text-xs text-center" style={{ color: "var(--text-tertiary)", marginTop: "var(--sp-2)" }}>
+              By creating an account you agree to the{" "}
+              <Link href="/terms" style={{ color: "var(--text-secondary)", textDecoration: "underline" }}>Terms</Link> and{" "}
+              <Link href="/privacy" style={{ color: "var(--text-secondary)", textDecoration: "underline" }}>Privacy Policy</Link>.
+            </p>
           </form>
         </div>
 

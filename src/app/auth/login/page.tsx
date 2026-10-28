@@ -3,6 +3,7 @@ import Link from "next/link";
 import { headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 import { checkAuthRateLimit, clientIpFrom } from "@/lib/rateLimit";
+import { SITE_URL } from "@/lib/site";
 
 export default async function LoginPage({
   searchParams,
@@ -33,28 +34,33 @@ export default async function LoginPage({
 
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
-      redirect(`/auth/login?error=${encodeURIComponent(error.message)}`);
+      console.error("[login]", error.message);
+      redirect(`/auth/login?error=${encodeURIComponent("Incorrect email or password, or the email is not yet confirmed.")}`);
     }
     redirect("/dashboard");
   }
 
   async function forgotPassword(formData: FormData) {
     "use server";
-    const email = ((formData.get("email") as string) || "").trim().toLowerCase();
+    const email = ((formData.get("email") as string) || "").trim().toLowerCase().slice(0, 320);
     const supabase = await createClient();
 
+    // Limited per IP as well as per email: the per-email limit alone let one
+    // client walk through many addresses.
+    const ip = clientIpFrom(await headers());
+    const ipLimit = await checkAuthRateLimit(supabase, `ip:${ip}`, "forgot_password_ip", 3, 3600);
     const emailLimit = await checkAuthRateLimit(supabase, `email:${email}`, "forgot_password", 3, 3600);
-    if (!emailLimit.allowed) {
-      redirect(`/auth/login?view=forgot&error=${encodeURIComponent("Password reset already sent. Check your email or try again later.")}`);
+
+    // The reset link points at the canonical origin, never at the request's
+    // Host header, which the client controls and could aim at another domain.
+    if (ipLimit.allowed && emailLimit.allowed && email) {
+      await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${SITE_URL}/auth/callback?next=/auth/reset-password`,
+      });
     }
 
-    const headersList = await headers();
-    const host = headersList.get("host") ?? "";
-    const proto = headersList.get("x-forwarded-proto") ?? "https";
-    const origin = `${proto}://${host}`;
-    await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${origin}/auth/callback?next=/auth/reset-password`,
-    });
+    // Identical response whether or not the account exists, and whether or not
+    // a limit was hit, so the form cannot be used to discover registered emails.
     redirect("/auth/login?view=forgot&sent=1");
   }
 

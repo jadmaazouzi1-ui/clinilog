@@ -3,8 +3,12 @@ import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { checkUserRateLimit } from "@/lib/rateLimit";
 import { buildAiProfile } from "@/lib/aiProfile";
+import { forbiddenOrigin, isSameOrigin, secondsUntilUtcMidnight, serverError, tooManyRequests } from "@/lib/http";
+import { UNTRUSTED_DATA_RULES, fence } from "@/lib/aiGuard";
 
-export async function POST() {
+export async function POST(req: Request) {
+  if (!isSameOrigin(req)) return forbiddenOrigin();
+
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
     return NextResponse.json({ error: "The question generator is not configured." }, { status: 503 });
@@ -16,10 +20,7 @@ export async function POST() {
 
   const limit = await checkUserRateLimit(supabase, "mock_interview");
   if (!limit.allowed) {
-    return NextResponse.json(
-      { error: "Daily regenerate limit reached (3/day). Come back tomorrow." },
-      { status: 429 }
-    );
+    return tooManyRequests("Daily limit reached (10/day). Come back tomorrow.", secondsUntilUtcMidnight());
   }
 
   const { experiences, summary } = await buildAiProfile(supabase, user.id);
@@ -34,7 +35,9 @@ export async function POST() {
 
 Use the applicant's real logged data below. Traditional questions should reference their actual experiences by name. MMI scenarios should be ethical or situational prompts of the kind used in a multiple mini interview, and should not reference their file directly.
 
-${summary}
+${UNTRUSTED_DATA_RULES}
+
+${fence("student_record", summary, 8000)}
 
 Return ONLY a valid JSON object (no markdown, no code fences) with this exact shape:
 {
@@ -59,7 +62,6 @@ Now produce the questions.`;
     const questions = JSON.parse(text);
     return NextResponse.json({ questions, remaining: limit.remaining });
   } catch (err) {
-    const msg = err instanceof Error ? err.message : "Unknown error";
-    return NextResponse.json({ error: `Could not generate questions: ${msg}` }, { status: 502 });
+    return serverError("api/mock-interview", err);
   }
 }

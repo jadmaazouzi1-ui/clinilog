@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import AppShell from "@/components/AppShell";
 import { formatMedicalDate } from "@/lib/formatMedical";
@@ -27,7 +27,10 @@ export default async function AdminInsightsPage() {
   // Checked here for a clean redirect, and again inside admin_insights(),
   // which raises for any other caller. The RPC is the real boundary: this
   // check alone would be bypassable by calling the function directly.
-  if ((user.email ?? "").toLowerCase() !== ADMIN_EMAIL) redirect("/dashboard");
+  // The email comes from the server-verified session (getUser), never from a
+  // header, cookie or query string, and a non-admin gets a plain 404 so the
+  // page's existence is not even confirmed. admin_insights() re-checks.
+  if ((user.email ?? "").toLowerCase() !== ADMIN_EMAIL || !user.email_confirmed_at) notFound();
 
   const { data, error } = await supabase.rpc("admin_insights");
   const insights = (data ?? null) as Insights | null;

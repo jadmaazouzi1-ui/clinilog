@@ -95,7 +95,7 @@ export async function saveGapYearData(patch: Partial<Omit<GapYearData, "user_id"
     updated_at: new Date().toISOString(),
   };
   const { error } = await supabase.from("gap_year_data").upsert(merged);
-  if (error) return { error: error.message };
+  if (error) { console.error("[gapyear]", error.message); return { error: "Something went wrong saving that. Please try again." }; }
   revalidatePath("/gapyear");
   return { error: null };
 }

@@ -72,7 +72,7 @@ export default function MockInterviewView({ ready }: { ready: boolean }) {
           {questions ? "Regenerate" : "Generate questions"}
         </button>
         <span className="exp-id">
-          {remaining === null ? "3 REGENERATES PER DAY" : `${remaining} REGENERATE${remaining === 1 ? "" : "S"} LEFT TODAY`}
+          {remaining === null ? "10 PER DAY" : `${remaining} REGENERATE${remaining === 1 ? "" : "S"} LEFT TODAY`}
         </span>
       </div>
 

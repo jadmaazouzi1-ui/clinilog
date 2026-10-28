@@ -42,7 +42,7 @@ export async function createRecommendation(formData: FormData) {
 }
 
 export async function updateRecommendation(id: string, formData: FormData) {
-  const { supabase } = await requireUser();
+  const { supabase, user } = await requireUser();
   const name = sanitizeText(formData.get("recommender_name"), CAPS.personName);
   if (!name) return;
   await supabase
@@ -56,21 +56,24 @@ export async function updateRecommendation(id: string, formData: FormData) {
       notes: sanitizeOptional(formData.get("notes"), CAPS.notes),
       updated_at: new Date().toISOString(),
     })
-    .eq("id", id);
+    .eq("id", id)
+    .eq("user_id", user.id);
   revalidatePath("/recommendations");
 }
 
 export async function setRecommendationStatus(id: string, status: string) {
-  const { supabase } = await requireUser();
+  const { supabase, user } = await requireUser();
   await supabase
     .from("recommendations")
     .update({ status: parseEnum(status, STATUSES, "Requested"), updated_at: new Date().toISOString() })
-    .eq("id", id);
+    .eq("id", id)
+    .eq("user_id", user.id);
   revalidatePath("/recommendations");
 }
 
 export async function deleteRecommendation(id: string) {
-  const { supabase } = await requireUser();
-  await supabase.from("recommendations").delete().eq("id", id);
+  const { supabase, user } = await requireUser();
+  await supabase.from("recommendations").delete().eq("id", id)
+    .eq("user_id", user.id);
   revalidatePath("/recommendations");
 }

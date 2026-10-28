@@ -40,40 +40,23 @@ export async function ensureReferralCode(userId: string): Promise<string | null>
 }
 
 /**
- * Redeem a referral cookie once the referred user actually exists.
+ * Redeem a referral cookie once the referred user has a session.
  *
- * Deliberately run after sign-in rather than at sign-up: with email
- * confirmation the new account is not authenticated at submit time, so there
- * is no session under which the row could be inserted. The unique constraint
- * on referred_user_id makes a repeat call a no-op.
+ * All the rules live in the claim_referral() database function rather than
+ * here, because the referrals table used to accept direct inserts: any
+ * signed-in account, however old, could credit any referrer by writing the
+ * row itself with the public anon key. The function only credits an account
+ * that is newly created, has a confirmed email, has never been credited
+ * before, and is not the referrer.
  */
 export async function claimPendingReferral(userId: string): Promise<void> {
   const jar = await cookies();
   const code = jar.get(REFERRAL_COOKIE)?.value;
-  if (!code) return;
+  if (!code || !userId) return;
 
   const supabase = await createClient();
-
-  const { data: existing } = await supabase
-    .from("referrals")
-    .select("id")
-    .eq("referred_user_id", userId)
-    .maybeSingle();
-  if (existing) return;
-
-  const { data: referrer } = await supabase
-    .from("profiles")
-    .select("id")
-    .eq("referral_code", code.toUpperCase())
-    .maybeSingle();
-
-  // Self-referral is meaningless and would inflate a user's own count.
-  if (!referrer || referrer.id === userId) return;
-
-  await supabase.from("referrals").insert({
-    referrer_id: referrer.id,
-    referred_user_id: userId,
-  });
+  const { error } = await supabase.rpc("claim_referral", { p_code: code.toUpperCase().slice(0, 12) });
+  if (error) console.error("[referral] claim failed:", error.message);
 }
 
 export async function referralCount(userId: string): Promise<number> {

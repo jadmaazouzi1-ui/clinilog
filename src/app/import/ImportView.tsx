@@ -179,6 +179,12 @@ export default function ImportView() {
 
   function handleFile(file: File) {
     setResult(null);
+    // 500 rows of capped fields fit well under 1 MB; anything bigger is not a
+    // log export and would only stall the tab while parsing.
+    if (file.size > 1024 * 1024) {
+      setResult({ kind: "error", msg: "That file is over 1 MB. Split it into smaller files and import each." });
+      return;
+    }
     setFileName(file.name);
     const reader = new FileReader();
     reader.onload = () => {

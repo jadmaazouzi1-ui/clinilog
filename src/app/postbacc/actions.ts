@@ -74,7 +74,7 @@ export async function addCourse(form: FormData) {
     grade,
     is_bcpm,
   });
-  if (error) return { error: error.message };
+  if (error) { console.error("[postbacc]", error.message); return { error: "Something went wrong saving that. Please try again." }; }
   revalidatePath("/postbacc");
   return { error: null };
 }
@@ -84,7 +84,7 @@ export async function deleteCourse(id: string) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { error: "Unauthorized" };
   const { error } = await supabase.from("postbacc_courses").delete().eq("id", id).eq("user_id", user.id);
-  if (error) return { error: error.message };
+  if (error) { console.error("[postbacc]", error.message); return { error: "Something went wrong saving that. Please try again." }; }
   revalidatePath("/postbacc");
   return { error: null };
 }
@@ -104,7 +104,7 @@ export async function saveProfile(patch: Partial<Omit<PostbaccProfile, "user_id"
     updated_at: new Date().toISOString(),
   };
   const { error } = await supabase.from("postbacc_profile").upsert(merged);
-  if (error) return { error: error.message };
+  if (error) { console.error("[postbacc]", error.message); return { error: "Something went wrong saving that. Please try again." }; }
   revalidatePath("/postbacc");
   return { error: null };
 }

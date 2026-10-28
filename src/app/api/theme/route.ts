@@ -1,8 +1,11 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { forbiddenOrigin, isSameOrigin } from "@/lib/http";
 
 /** Persist the viewer's theme preference so it follows them across devices. */
 export async function POST(request: Request) {
+  if (!isSameOrigin(request)) return forbiddenOrigin();
+
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   // Signed-out visitors keep the preference in localStorage only.

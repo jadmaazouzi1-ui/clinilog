@@ -146,6 +146,8 @@ export default function AboutPage() {
           </p>
           <div className="flex items-center gap-5">
             <Link href="/about" className="text-xs" style={{ color: "var(--text-secondary)" }}>About</Link>
+            <Link href="/privacy" className="text-xs" style={{ color: "var(--text-secondary)" }}>Privacy</Link>
+            <Link href="/terms" className="text-xs" style={{ color: "var(--text-secondary)" }}>Terms</Link>
             <Link href="/auth/login" className="text-xs" style={{ color: "var(--text-secondary)" }}>Sign in</Link>
             <Link href="/auth/signup" className="text-xs font-semibold" style={{ color: "var(--accent)" }}>Get started</Link>
           </div>

@@ -5,6 +5,7 @@ import { upsertProfile } from "./actions";
 import AppShell from "@/components/AppShell";
 import { VitalFlat, VitalOk } from "@/components/MedicalIcons";
 import ReferralPanel from "./ReferralPanel";
+import AccountData from "./AccountData";
 import WalletCard from "@/components/WalletCard";
 import { ensureReferralCode, referralCount } from "@/lib/referral";
 import { Experience } from "@/lib/types";
@@ -365,6 +366,10 @@ export default async function ProfilePage({
             experiences={experiences}
             archetype={profile?.archetype_id ?? null}
           />
+        </div>
+        {/* Export and deletion */}
+        <div className="glass-card tick-corners" style={{ padding: "var(--sp-3)", marginTop: "var(--sp-3)" }}>
+          <AccountData />
         </div>
       </main>
     </AppShell>
