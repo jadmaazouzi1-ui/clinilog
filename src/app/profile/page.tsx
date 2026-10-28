@@ -11,6 +11,11 @@ import WalletCard from "@/components/WalletCard";
 import { ensureReferralCode, referralCount } from "@/lib/referral";
 import { Experience } from "@/lib/types";
 
+export const metadata = {
+  title: "Profile | ClinicLog MD",
+  description: "Your profile, graduation year, referral link, wallet card and data export.",
+};
+
 export default async function ProfilePage({
   searchParams,
 }: {
@@ -63,7 +68,7 @@ export default async function ProfilePage({
               d="M10 19l-7-7m0 0l7-7m-7 7h18"
             />
           </svg>
-          Back to Dashboard
+          Back to Overview
         </Link>
 
         {saved === "1" && (

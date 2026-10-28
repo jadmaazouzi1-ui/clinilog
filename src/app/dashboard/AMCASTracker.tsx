@@ -28,8 +28,11 @@ export default function AMCASTracker({ experiences }: { experiences: Experience[
     <div className="glass-card tick-corners" style={{ padding: "var(--sp-2)" }}>
       <p className="dept-header flex items-center gap-2">
         <IconStethoscope size={13} />
-        AMCAS Hours Tracker
+        AMCAS hours tracker
         <TabIndex n={2} />
+      </p>
+      <p className="text-xs" style={{ color: "var(--text-tertiary)", marginTop: 4 }}>
+        Targets are common benchmarks many applicants use, not requirements set by any school.
       </p>
 
       <div style={{ display: "grid", gap: "var(--sp-2)", marginTop: "var(--sp-2)" }}>

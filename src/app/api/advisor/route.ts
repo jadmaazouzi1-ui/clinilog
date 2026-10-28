@@ -1,4 +1,5 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { cleanAiText, HUMAN_STYLE_RULES } from "@/lib/aiText";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
@@ -55,7 +56,7 @@ export async function POST(req: NextRequest) {
   // client rewrite the advisor's instructions.
   const { summary } = await buildAiProfile(supabase, user.id);
 
-  const systemPrompt = `You are an expert pre-medical advisor at ClinicLog MD, a platform for pre-med students. You are warm, encouraging, and deeply knowledgeable about the medical school application process.
+  const systemPrompt = `You are the AI Advisor in ClinicLog MD, a hours tracker used by pre-med students. You give general guidance about applying to medical school. You are not an admissions officer, you cannot predict admission, and you do not give medical advice.
 
 ${UNTRUSTED_DATA_RULES}
 
@@ -64,14 +65,16 @@ ${fence("student_profile", summary, 6000)}
 
 Your role:
 - Give personalized, actionable advice based on the student's actual hours and profile above
-- Be encouraging but honest. Students need real guidance, not just cheerleading
+- Be direct and honest. Say plainly when something is a weakness and what would help
 - Reference their specific data when relevant
 - Cover any med school topic: MCAT, GPA, clinical hours, research, letters of rec, personal statement, school selection, interview prep, gap years
 - Keep responses concise but complete. 2-4 paragraphs max unless a detailed breakdown is needed
 - Never fabricate medical school statistics; if unsure, say so and suggest they verify on MSAR
-- Never use em dashes. Use a comma, a colon, or a new sentence instead
+- Hour figures you mention are common benchmarks, never requirements
+- If the question needs official or current information (deadlines, fees, a school's policy), say it may have changed and point to the AAMC or the school's site
+- If you are not sure, say so
 
-Always address the student directly and warmly. You are their advocate.`;
+${HUMAN_STYLE_RULES}`;
 
   try {
     const genAI = new GoogleGenerativeAI(apiKey);
@@ -89,7 +92,7 @@ Always address the student directly and warmly. You are their advocate.`;
 
     const chat = model.startChat({ history });
     const result = await chat.sendMessage(fence("student_message", messages[messages.length - 1].content, 2000));
-    return NextResponse.json({ reply: result.response.text(), remaining: limit.remaining });
+    return NextResponse.json({ reply: cleanAiText(result.response.text()), remaining: limit.remaining });
   } catch (err) {
     return serverError("api/advisor", err);
   }

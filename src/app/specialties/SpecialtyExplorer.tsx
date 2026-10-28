@@ -15,7 +15,7 @@ function patientColor(level: PatientContact): string {
 }
 
 function formatSalary(min: number, max: number): string {
-  return `$${(min / 1000).toFixed(0)}k – $${(max / 1000).toFixed(0)}k`;
+  return `$${(min / 1000).toFixed(0)}k-$${(max / 1000).toFixed(0)}k`;
 }
 
 function RatingDots({ value, color, label }: { value: Rating; color: string; label: string }) {
@@ -102,8 +102,8 @@ export default function SpecialtyExplorer() {
           <FilterSelect label="Salary" value={salary} onChange={(v) => setSalary(v as SalaryFilter)} options={[
             { value: "", label: "Any" },
             { value: "u300", label: "Under $300k" },
-            { value: "300_500", label: "$300k – $500k" },
-            { value: "500_700", label: "$500k – $700k" },
+            { value: "300_500", label: "$300k-$500k" },
+            { value: "500_700", label: "$500k-$700k" },
             { value: "700plus", label: "$700k+" },
           ]} />
           <FilterSelect label="Residency" value={residency} onChange={(v) => setResidency(v as ResidencyFilter)} options={[

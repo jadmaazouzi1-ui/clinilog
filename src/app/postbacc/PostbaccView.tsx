@@ -272,7 +272,7 @@ function GpaCard({ label, sub, value, goal, onGoalChange }: {
         <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--text-secondary)" }}>{label}</p>
         {value !== null && (
           <span className="text-[10px] font-bold uppercase tracking-wide" style={{ color: metGoal ? "var(--text-primary)" : "var(--text-secondary)" }}>
-            {metGoal ? "Goal Met ✓" : `${pct.toFixed(0)}% to goal`}
+            {metGoal ? "Goal met" : `${pct.toFixed(0)}% to goal`}
           </span>
         )}
       </div>

@@ -3,6 +3,11 @@ import { createClient } from "@/lib/supabase/server";
 import AppShell from "@/components/AppShell";
 import ImportView from "./ImportView";
 
+export const metadata = {
+  title: "Import CSV | ClinicLog MD",
+  description: "Import experiences from a spreadsheet, with a preview before anything is saved.",
+};
+
 export default async function ImportPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();

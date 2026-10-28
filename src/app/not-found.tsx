@@ -49,7 +49,7 @@ export default function NotFound() {
               className="teal-glow inline-flex items-center text-sm"
               style={{ padding: "10px var(--sp-3)", textDecoration: "none" }}
             >
-              Back to dashboard
+              Back to Overview
             </Link>
             <Link
               href="/"

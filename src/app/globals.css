@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ──────────────────────────────────────────────────────────────────────────
-   CLINICAL CHART — sage/green palette rendered as a medical document.
+   CLINICAL CHART: sage/green palette rendered as a medical document.
    Flat surfaces, hairline rules, one small radius, perforated dividers,
    red prescription-pad margin rule, registration tick marks.
    ────────────────────────────────────────────────────────────────────────── */
@@ -159,7 +159,7 @@ h1, h2, h3 {
 }
 
 /* ══════════════════════════════════════════════════════════════════════
-   CARDS — flat chart panels. Hairline border, no shadow, no lift.
+   CARDS: flat chart panels. Hairline border, no shadow, no lift.
    Hover reveals a thin red margin rule on the leading edge instead of
    the generic shadow-and-scale pattern.
    ══════════════════════════════════════════════════════════════════════ */
@@ -178,7 +178,7 @@ h1, h2, h3 {
 }
 
 /* ══════════════════════════════════════════════════════════════════════
-   RED MARGIN RULE — 2px vertical line 40px from the left edge, as on a
+   RED MARGIN RULE: 2px vertical line 40px from the left edge, as on a
    prescription pad. Applied to content-heavy pages.
    ══════════════════════════════════════════════════════════════════════ */
 /* Pages using this must NOT set padding-left inline: an inline shorthand
@@ -206,7 +206,7 @@ h1, h2, h3 {
 }
 
 /* ══════════════════════════════════════════════════════════════════════
-   REGISTRATION TICK MARKS — thin L-shaped corner marks, as on medical
+   REGISTRATION TICK MARKS: thin L-shaped corner marks, as on medical
    forms. Eight background layers (h + v per corner) on one pseudo-element.
    ══════════════════════════════════════════════════════════════════════ */
 .tick-corners { position: relative; }
@@ -240,7 +240,7 @@ h1, h2, h3 {
 .tick-corners-light { --tick-color: rgba(255,255,255,0.32); }
 
 /* ══════════════════════════════════════════════════════════════════════
-   PERFORATED TEAR LINE — dashed rule, as on a detachable form.
+   PERFORATED TEAR LINE: dashed rule, as on a detachable form.
    ══════════════════════════════════════════════════════════════════════ */
 .tear-line {
   border: 0;
@@ -251,7 +251,7 @@ h1, h2, h3 {
 .tear-line-tight { margin: var(--sp-2) 0; }
 
 /* ══════════════════════════════════════════════════════════════════════
-   BUTTONS — square-ish, flat, no glow, no translate.
+   BUTTONS: square-ish, flat, no glow, no translate.
    ══════════════════════════════════════════════════════════════════════ */
 .teal-glow,
 .btn-primary {
@@ -288,7 +288,7 @@ h1, h2, h3 {
 }
 
 /* ══════════════════════════════════════════════════════════════════════
-   INTAKE-FORM FIELDS — label above, hairline underline below, no box.
+   INTAKE-FORM FIELDS: label above, hairline underline below, no box.
    `.field-input` is the chart-style default; `.input-dark` is the boxed
    fallback kept for selects and dense grids.
    ══════════════════════════════════════════════════════════════════════ */
@@ -357,7 +357,7 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
 }
 
 /* ══════════════════════════════════════════════════════════════════════
-   READ-ONLY CHART FIELD — labelled value on a hairline, for data display
+   READ-ONLY CHART FIELD: labelled value on a hairline, for data display
    that would otherwise be a boxed card.
    ══════════════════════════════════════════════════════════════════════ */
 .data-field {
@@ -382,7 +382,7 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
 }
 
 /* ══════════════════════════════════════════════════════════════════════
-   PATIENT-ID STYLE RECORD NUMBER — "EXP-0031"
+   PATIENT-ID STYLE RECORD NUMBER: "EXP-0031"
    ══════════════════════════════════════════════════════════════════════ */
 .exp-id {
   font-family: var(--font-mono);
@@ -418,7 +418,7 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
 }
 
 /* ══════════════════════════════════════════════════════════════════════
-   SECTION HEADER — small-caps form label sitting on a perforated rule.
+   SECTION HEADER: small-caps form label sitting on a perforated rule.
    Used app-wide, so this single rule gives every section a tear line.
    ══════════════════════════════════════════════════════════════════════ */
 .dept-header {
@@ -1005,7 +1005,7 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
 .legal-prose h2 { font-size: 1.125rem; font-weight: 700; color: var(--text-primary); margin: var(--sp-4) 0 var(--sp-1); }
 .legal-prose p, .legal-prose li { font-size: 0.9375rem; line-height: 1.7; color: var(--text-secondary); }
 .legal-prose p { margin-bottom: var(--sp-2); }
-.legal-prose ul { list-style: disc; padding-left: 1.25rem; margin-bottom: var(--sp-2); }
+.legal-prose ul, ul.legal-prose { list-style: square; padding-left: 1.25rem; margin-bottom: var(--sp-2); }
 .legal-prose li { margin-bottom: 4px; }
 .legal-prose strong { color: var(--text-primary); }
 

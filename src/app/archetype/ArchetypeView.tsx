@@ -80,7 +80,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
         </div>
         <h1 className="text-xl font-bold mb-2" style={{ color: "var(--text-primary)" }}>Almost there</h1>
         <p className="text-sm mb-6 max-w-md mx-auto" style={{ color: "var(--text-secondary)" }}>
-          Your Pre-Med Archetype unlocks after you&apos;ve logged <strong>3 experiences</strong>. You have {experienceCount} so far.
+          Your archetype is available after you log <strong>3 experiences</strong>. You have {experienceCount} so far.
         </p>
         <Link
           href="/dashboard/new"
@@ -202,7 +202,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
     // ClinicLog brand
     ctx.fillStyle = "var(--text-tertiary)";
     ctx.font = "bold 24px -apple-system, system-ui, sans-serif";
-    ctx.fillText("ClinicLog MD · Your Pre-Med Journey, Organized", w / 2, h - 50);
+    ctx.fillText("ClinicLog MD · cliniclogmd.com", w / 2, h - 50);
 
     // Download
     canvas.toBlob((blob) => {
@@ -218,7 +218,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
 
   return (
     <div className="space-y-6">
-      {/* Reveal hero — cinematic fade-in */}
+      {/* Reveal hero: cinematic fade-in */}
       <div
         ref={cardRef}
         data-tour="archetype-result"
@@ -293,14 +293,17 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
       </div>
 
       {/* Why this archetype */}
-      <Section title="Findings" color={color}>
+      <Section title="Based on your entries" color={color}>
         <p className="text-sm leading-relaxed" style={{ color: "var(--text-primary)" }}>
           {analysis.why_paragraph}
+        </p>
+        <p className="text-xs" style={{ color: "var(--text-tertiary)", marginTop: 8 }}>
+          AI assisted. It only sees what you logged, so it changes as you add entries.
         </p>
       </Section>
 
       {/* Strengths */}
-      <Section title="Your Strengths" color={color}>
+      <Section title="Strengths in your log" color={color}>
         <ul className="space-y-3">
           {analysis.strengths.map((s, i) => (
             <li key={i} className="flex items-start gap-3">
@@ -320,7 +323,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
 
       {/* Ideal schools */}
       <div data-tour="archetype-schools">
-      <Section title="Recommendations / Schools" color={color}>
+      <Section title="Schools to research" color={color}>
         <ul className="space-y-2">
           {archetype.idealSchools.map((s, i) => (
             <li
@@ -352,14 +355,17 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
       </div>
 
       {/* Statement angle */}
-      <Section title="Your Ideal Personal Statement Angle" color={color}>
+      <Section title="A possible statement angle" color={color}>
         <p className="text-sm leading-relaxed italic" style={{ color: "var(--text-primary)" }}>
           {analysis.statement_angle}
+        </p>
+        <p className="text-xs" style={{ color: "var(--text-tertiary)", marginTop: 8 }}>
+          AI draft to edit. Your statement should be in your voice and about what you actually did.
         </p>
       </Section>
 
       {/* Experiences to add */}
-      <Section title="Recommendations / Next Steps" color={color}>
+      <Section title="Experiences to consider" color={color}>
         <ul className="space-y-3">
           {analysis.experiences_to_add.map((s, i) => (
             <li key={i} className="flex items-start gap-3">

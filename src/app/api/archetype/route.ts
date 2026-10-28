@@ -1,4 +1,5 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { cleanAiDeep, HUMAN_STYLE_RULES } from "@/lib/aiText";
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { checkUserRateLimit } from "@/lib/rateLimit";
@@ -74,7 +75,7 @@ export async function POST(req: Request) {
 
   const archetypeList = ARCHETYPES.map((a) => `- ${a.id}: ${a.name}: ${a.description}`).join("\n");
 
-  const systemPrompt = `You are an expert pre-medical advisor analyzing a student's full clinical and academic profile to identify their dominant pre-med archetype.
+  const systemPrompt = `You are matching a pre-med student's logged experiences to the closest of 15 archetypes. An archetype is a description of a pattern in their log, not a judgment of the person.
 
 You will receive a student's profile and a list of their logged experiences. Based on the patterns, themes, hours distribution, and language they use to describe their work, assign them ONE of these 15 archetypes:
 
@@ -89,7 +90,7 @@ Return ONLY a valid JSON object (no markdown, no code blocks, no extra text) wit
   "experiences_to_add": ["<suggestion 1>", "<suggestion 2>", "<suggestion 3 (optional)>"]
 }
 
-Be warm and specific. Reference real details from their profile. Strengths should be 1 sentence each, written in second person ("You bring...").`;
+Be specific and plain, not flattering. Every claim must point to something in their log: name the entries and hours it rests on. Do not claim traits the data does not show (for example, do not call someone resilient or passionate unless their own words say so). Strengths are 1 sentence each, in second person, and each one names the entry it comes from.`;
 
   const userPrompt = `Student profile:
 Name: ${profile.full_name ?? "(not provided)"}
@@ -106,7 +107,7 @@ ${UNTRUSTED_DATA_RULES}
 
 ${fence("experiences", expList, 12000)}
 
-Style: never use em dashes in any string you return. Use a comma, a colon, or a new sentence instead.
+${HUMAN_STYLE_RULES}
 
 Now analyze and return the JSON.`;
 
@@ -124,7 +125,7 @@ Now analyze and return the JSON.`;
     const text = result.response.text();
     let parsed: ArchetypeAnalysis;
     try {
-      parsed = Analysis.parse(JSON.parse(text));
+      parsed = Analysis.parse(cleanAiDeep(JSON.parse(text)));
     } catch {
       // Neither the raw output nor the rejected id is echoed back: both are
       // model output, which is untrusted.

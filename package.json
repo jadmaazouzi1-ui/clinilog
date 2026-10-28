@@ -11,7 +11,8 @@
     "test:headed": "playwright test --headed",
     "test:report": "playwright show-report",
     "test:security": "playwright test -c playwright.security.config.ts",
-    "test:tour": "playwright test -c playwright.tour.config.ts"
+    "test:tour": "playwright test -c playwright.tour.config.ts",
+    "test:polish": "playwright test -c playwright.polish.config.ts"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

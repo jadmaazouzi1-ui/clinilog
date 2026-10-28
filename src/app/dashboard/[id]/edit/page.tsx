@@ -6,6 +6,11 @@ import { Experience } from "@/lib/types";
 import AppShell from "@/components/AppShell";
 import ReframeableTextarea from "@/components/ReframeableTextarea";
 
+export const metadata = {
+  title: "Edit experience | ClinicLog MD",
+  description: "Change the dates, hours or description of a logged experience.",
+};
+
 export default async function EditExperiencePage({
   params,
   searchParams,
@@ -39,7 +44,7 @@ export default async function EditExperiencePage({
   const exp = experience as Experience;
 
   return (
-    <AppShell userEmail={user.email ?? ""} activePath="/dashboard" breadcrumbs={[{ label: "Dashboard", href: "/dashboard" }, { label: exp.title, href: `/dashboard/${exp.id}` }, { label: "Edit" }]}>
+    <AppShell userEmail={user.email ?? ""} activePath="/dashboard" breadcrumbs={[{ label: "Overview", href: "/dashboard" }, { label: exp.title, href: `/dashboard/${exp.id}` }, { label: "Edit" }]}>
       <main className="w-full" style={{ padding: "var(--sp-3)", maxWidth: 820 }}>
         {/* Back link */}
         <Link
@@ -60,7 +65,7 @@ export default async function EditExperiencePage({
               d="M10 19l-7-7m0 0l7-7m-7 7h18"
             />
           </svg>
-          Back to Dashboard
+          Back to Overview
         </Link>
 
         <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)" }}>

@@ -4,6 +4,11 @@ import { createClient } from "@/lib/supabase/server";
 import SchoolList from "./SchoolList";
 import AppShell from "@/components/AppShell";
 
+export const metadata = {
+  title: "Schools | ClinicLog MD",
+  description: "Compare medical schools by approximate average GPA and MCAT, mission and state.",
+};
+
 export default async function SchoolsPage() {
   const supabase = await createClient();
 
@@ -36,7 +41,7 @@ export default async function SchoolsPage() {
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
-          Back to Dashboard
+          Back to Overview
         </Link>
         <SchoolList
           userEmail={user.email ?? ""}

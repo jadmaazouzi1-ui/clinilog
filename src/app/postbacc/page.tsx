@@ -4,6 +4,11 @@ import AppShell from "@/components/AppShell";
 import PostbaccView from "./PostbaccView";
 import { PostbaccCourse, PostbaccProfile } from "./actions";
 
+export const metadata = {
+  title: "Post-bacc tracker | ClinicLog MD",
+  description: "Log post-bacc courses and see your BCPM and cumulative GPA.",
+};
+
 export default async function PostbaccPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();

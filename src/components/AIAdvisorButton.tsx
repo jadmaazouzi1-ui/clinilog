@@ -96,7 +96,7 @@ export default function AIAdvisorButton() {
       if (messages.length === 0) {
         setMessages([{
           role: "assistant",
-          content: "Hi! I'm your AI pre-med advisor. I can see your ClinicLog profile and logged hours. What questions do you have about your medical school journey?",
+          content: "I'm the AI Advisor. I can see your logged hours and profile. Ask me about applying, and check anything important with your pre-health advisor, since I can be wrong.",
         }]);
       }
       setTimeout(() => inputRef.current?.focus(), 300);
@@ -176,7 +176,7 @@ export default function AIAdvisorButton() {
         className="fixed right-6 z-40 w-12 h-12 flex items-center justify-center transition-opacity hover:opacity-80 bottom-[calc(64px+env(safe-area-inset-bottom)+16px)] md:bottom-6"
         style={{
           backgroundColor: "var(--accent)",
-          borderRadius: 16,
+          borderRadius: 0,
           border: "1px solid var(--border-strong)",
         }}
       >
@@ -219,7 +219,10 @@ export default function AIAdvisorButton() {
           <div className="flex-1 min-w-0">
             <p className="text-sm" style={{ color: "var(--text-primary)", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.02em" }}>AI Pre-Med Advisor</p>
             <p className="text-xs mono" style={{ color: "var(--text-tertiary)", letterSpacing: "0.08em" }}>
-              {remaining !== null ? `${remaining} OF 20 MESSAGES LEFT TODAY` : "POWERED BY GEMINI · KNOWS YOUR PROFILE"}
+              {remaining !== null ? `${remaining} OF 20 MESSAGES LEFT TODAY` : "AI ASSISTED · SEES YOUR LOGGED TOTALS"}
+            </p>
+            <p className="text-[11px]" style={{ color: "var(--text-secondary)", marginTop: 2 }}>
+              General guidance that can be wrong. Not admissions or medical advice.
             </p>
           </div>
           <button
@@ -299,7 +302,7 @@ export default function AIAdvisorButton() {
                 backgroundColor: input.trim() && !loading ? "var(--accent)" : "var(--bg-card)",
                 color: input.trim() && !loading ? "#FFFFFF" : "var(--text-tertiary)",
                 border: "1px solid var(--border-strong)",
-                borderRadius: 16,
+                borderRadius: 0,
               }}
             >
               SEND

@@ -117,7 +117,7 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
           <Link href="/" className="flex items-center gap-2.5">
             <div
               className="flex items-center justify-center flex-shrink-0"
-              style={{ width: 30, height: 30, borderRadius: 9, background: "linear-gradient(135deg, var(--accent), var(--accent-bright))" }}
+              style={{ width: 30, height: 30, borderRadius: 0, background: "var(--accent)" }}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="2,12 7,12 8,9 10,12 12,3 13,21 14,12 16,9 18,12 22,12" />
@@ -180,7 +180,7 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
           <div className="flex items-center gap-2.5 px-3 py-1.5">
             <div
               className="flex items-center justify-center flex-shrink-0"
-              style={{ width: 28, height: 28, borderRadius: "50%", background: "var(--accent-soft)", color: "var(--accent)", fontWeight: 700, fontSize: 12 }}
+              style={{ width: 28, height: 28, borderRadius: 0, background: "var(--accent-soft)", color: "var(--accent)", fontWeight: 700, fontSize: 12 }}
             >
               {userEmail.charAt(0).toUpperCase()}
             </div>
@@ -328,7 +328,7 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
               onClick={() => setToolsOpen(false)}
               aria-label="Close menu"
               className="flex items-center justify-center"
-              style={{ width: 44, height: 44, background: "var(--bg-soft)", border: "none", borderRadius: "50%", color: "var(--text-primary)" }}
+              style={{ width: 44, height: 44, background: "var(--bg-soft)", border: "none", borderRadius: 0, color: "var(--text-primary)" }}
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                 <line x1="5" y1="5" x2="19" y2="19" />

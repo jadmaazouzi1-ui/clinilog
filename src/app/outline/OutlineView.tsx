@@ -62,6 +62,7 @@ export default function OutlineView({ ready }: { ready: boolean }) {
 
       {outline && !loading && (
         <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
+          <p className="exp-id" style={{ marginBottom: "var(--sp-2)" }}>AI DRAFT / A STARTING POINT. WRITE THE STATEMENT IN YOUR OWN WORDS, FROM YOUR OWN EXPERIENCES</p>
           <p className="dept-header flex items-center gap-2">Opening hook <TabIndex n={1} /></p>
           <p className="text-sm" style={{ color: "var(--text-primary)", lineHeight: 1.7, marginBottom: "var(--sp-3)" }}>
             {outline.hook}

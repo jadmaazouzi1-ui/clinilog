@@ -104,7 +104,7 @@ export default function ShareStoryModal() {
               name="quote"
               required
               rows={4}
-              placeholder="Share 2-3 sentences about your journey and what kept you going..."
+              placeholder="2 or 3 sentences: what you did and what you wish you had known"
               className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm resize-none"
             />
           </div>

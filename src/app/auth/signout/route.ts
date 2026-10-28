@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 
-// Hardcoded canonical domain — guarantees sign-out always lands on the
+// Hardcoded canonical domain: guarantees sign-out always lands on the
 // custom domain, never a Netlify/preview URL or localhost. Uses the
 // www subdomain directly (the apex 301s to www, so this skips a hop).
 const PRODUCTION_URL = "https://www.cliniclogmd.com";

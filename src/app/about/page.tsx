@@ -1,22 +1,23 @@
 import Link from "next/link";
 
-const VALUES = [
-  {
-    num: "01",
-    title: "Accessibility",
-    desc: "Core tools are free, always. Cost should never be the reason someone can't track their pre-med journey.",
-  },
-  {
-    num: "02",
-    title: "Clarity",
-    desc: "Your hours and experiences deserve more than a spreadsheet. ClinicLog MD turns scattered data into a clear narrative.",
-  },
-  {
-    num: "03",
-    title: "Community",
-    desc: "No student should have to navigate this alone. Real stories, shared resources, peer-tested guidance.",
-  },
+const DOES = [
+  "Logs clinical, shadowing, research and volunteer hours with dates and descriptions, and totals them by category.",
+  "Exports your entries as a PDF to copy into the AMCAS Work and Activities section.",
+  "Lists medical schools with approximate average GPA and MCAT so you can see which are close to your numbers.",
+  "Tracks applications, interviews, letter writers and fees.",
+  "Offers AI help (Advisor, Reframe, Outline, Mock Interview, Archetype). Each is labelled, and the output is a draft for you to check and rewrite.",
 ];
+
+const DOES_NOT = [
+  "It does not predict or promise admission anywhere.",
+  "It is not run, sponsored or endorsed by Wake Forest University, and it does not share your entries with the university.",
+  "It has no ads and does not sell data.",
+];
+
+export const metadata = {
+  title: "About | ClinicLog MD",
+  description: "What ClinicLog MD does, what it does not do, and who runs it.",
+};
 
 export default function AboutPage() {
   return (
@@ -41,96 +42,40 @@ export default function AboutPage() {
         </div>
       </header>
 
-      {/* Hero: left aligned, as a document opens */}
+      {/* A short, plain document */}
       <section className="px-6" style={{ paddingTop: "var(--sp-8)", paddingBottom: "var(--sp-6)" }}>
         <div className="max-w-3xl mx-auto">
-          <p className="exp-id" style={{ marginBottom: "var(--sp-2)" }}>ABOUT CLINICLOG MD</p>
-          <h1 className="text-3xl sm:text-5xl font-bold leading-tight tracking-tight" style={{ color: "var(--text-primary)" }}>
-            The pre-med journey deserves better tools.
+          <p className="exp-id" style={{ marginBottom: "var(--sp-2)" }}>ABOUT</p>
+          <h1 className="text-3xl sm:text-4xl font-bold leading-tight tracking-tight" style={{ color: "var(--text-primary)", marginBottom: "var(--sp-2)" }}>
+            About ClinicLog MD
           </h1>
-        </div>
-      </section>
-
-      <div className="max-w-3xl mx-auto w-full px-6"><hr className="tear-line" /></div>
-
-      {/* Story */}
-      <section className="px-6" style={{ paddingBottom: "var(--sp-6)" }}>
-        <div className="max-w-3xl mx-auto">
-          <p className="dept-header">Our Story</p>
           <p className="text-lg leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-            ClinicLog MD started from a simple observation: pre-med students, especially those navigating
-            without guidance, spend more time figuring out the system than actually building their experience.
-            We built the tool to change that. A place to track every hour, understand your strengths,
-            find the right schools, and build a narrative that reflects who you actually are.
+            ClinicLog MD is a free tool for pre-med students at Wake Forest. A pre-med student builds and runs it. Sign-up needs a @wfu.edu email.
           </p>
-        </div>
-      </section>
 
-      {/* Mission */}
-      <section className="px-6" style={{ paddingBottom: "var(--sp-6)" }}>
-        <div className="max-w-3xl mx-auto">
-          <p className="dept-header">Our Mission</p>
-          <div
-            className="tick-corners"
-            style={{
-              backgroundColor: "var(--bg-card)",
-              border: "1px solid var(--border-strong)",
-              borderLeft: "2px solid var(--margin-rule)",
-              borderRadius: "var(--radius)",
-              padding: "var(--sp-4) var(--sp-3)",
-            }}
-          >
-            <p className="text-xl leading-relaxed" style={{ color: "var(--text-primary)" }}>
-              Make the pre-med journey more organized, more accessible, and less intimidating,
-              for every student, regardless of background.
-            </p>
-          </div>
-        </div>
-      </section>
+          <hr className="tear-line" />
 
-      {/* Values: numbered entries, no decorative icons */}
-      <section className="px-6" style={{ paddingBottom: "var(--sp-6)" }}>
-        <div className="max-w-5xl mx-auto">
-          <p className="dept-header">What We Believe</p>
-          <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: "var(--sp-2)" }}>
-            {VALUES.map((v) => (
-              <div
-                key={v.num}
-                className="glass-card flex flex-col"
-                style={{ padding: "var(--sp-2)" }}
-              >
-                <span className="exp-id" style={{ marginBottom: "var(--sp-1)" }}>{v.num}</span>
-                <h3 className="text-lg font-semibold" style={{ color: "var(--text-primary)", marginBottom: 6 }}>{v.title}</h3>
-                <p className="text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>{v.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+          <p className="dept-header">What it does</p>
+          <ul className="legal-prose" style={{ marginBottom: "var(--sp-4)" }}>
+            {DOES.map((d) => <li key={d}>{d}</li>)}
+          </ul>
 
-      {/* Closing CTA */}
-      <section className="px-6" style={{ paddingBottom: "var(--sp-8)" }}>
-        <div
-          className="max-w-3xl mx-auto tick-corners"
-          style={{
-            backgroundColor: "var(--bg-card)",
-            border: "1px solid var(--border-strong)",
-            borderRadius: "var(--radius)",
-            padding: "var(--sp-6) var(--sp-4)",
-          }}
-        >
-          <h2 className="text-2xl sm:text-3xl font-bold" style={{ color: "var(--text-primary)", marginBottom: "var(--sp-1)" }}>
-            Ready to get organized?
-          </h2>
+          <p className="dept-header">What it does not do</p>
+          <ul className="legal-prose" style={{ marginBottom: "var(--sp-4)" }}>
+            {DOES_NOT.map((d) => <li key={d}>{d}</li>)}
+          </ul>
+
+          <p className="dept-header">Questions or problems</p>
           <p className="text-base" style={{ color: "var(--text-secondary)", marginBottom: "var(--sp-3)" }}>
-            Build your pre-med journey in one place. Free, forever.
+            Inside the app, open Help and use Report a problem. The <Link href="/privacy" style={{ color: "var(--accent)" }}>Privacy Policy</Link> explains what is stored and who processes it.
           </p>
+
           <Link
             href="/auth/signup"
-            className="teal-glow inline-flex items-center font-semibold text-base"
+            className="teal-glow inline-flex items-center font-semibold text-sm"
             style={{ padding: "12px var(--sp-3)", textDecoration: "none" }}
           >
-            Get started free
+            Create account
           </Link>
         </div>
       </section>
@@ -142,14 +87,14 @@ export default function AboutPage() {
       >
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs" style={{ color: "var(--text-tertiary)" }}>
-            &copy; {new Date().getFullYear()} ClinicLog MD. The all-in-one pre-med toolkit.
+            &copy; {new Date().getFullYear()} ClinicLog MD
           </p>
           <div className="flex items-center gap-5">
             <Link href="/about" className="text-xs" style={{ color: "var(--text-secondary)" }}>About</Link>
             <Link href="/privacy" className="text-xs" style={{ color: "var(--text-secondary)" }}>Privacy</Link>
             <Link href="/terms" className="text-xs" style={{ color: "var(--text-secondary)" }}>Terms</Link>
             <Link href="/auth/login" className="text-xs" style={{ color: "var(--text-secondary)" }}>Sign in</Link>
-            <Link href="/auth/signup" className="text-xs font-semibold" style={{ color: "var(--accent)" }}>Get started</Link>
+            <Link href="/auth/signup" className="text-xs font-semibold" style={{ color: "var(--accent)" }}>Create account</Link>
           </div>
         </div>
       </footer>

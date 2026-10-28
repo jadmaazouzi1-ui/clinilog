@@ -91,6 +91,7 @@ export default function MockInterviewView({ ready }: { ready: boolean }) {
 
       {questions && !loading && (
         <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
+          <p className="exp-id" style={{ marginBottom: "var(--sp-2)" }}>AI DRAFT / PRACTICE QUESTIONS. REAL INTERVIEWS WILL DIFFER</p>
           <Block title="Traditional" tab={1} items={questions.traditional} />
           <hr className="tear-line" />
           <Block title="MMI scenarios" tab={2} items={questions.mmi} />

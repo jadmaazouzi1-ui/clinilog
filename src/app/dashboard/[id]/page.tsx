@@ -15,6 +15,11 @@ const TYPE_LABELS: Record<ExperienceType, string> = {
   other: "Other",
 };
 
+export const metadata = {
+  title: "Experience | ClinicLog MD",
+  description: "One logged experience and its details.",
+};
+
 export default async function ExperienceDetailPage({
   params,
 }: {
@@ -57,7 +62,7 @@ export default async function ExperienceDetailPage({
     <AppShell
       userEmail={user.email ?? ""}
       activePath="/dashboard"
-      breadcrumbs={[{ label: "Dashboard", href: "/dashboard" }, { label: exp.title }]}
+      breadcrumbs={[{ label: "Overview", href: "/dashboard" }, { label: exp.title }]}
     >
       <main
         className="w-full chart-margin"
@@ -68,7 +73,7 @@ export default async function ExperienceDetailPage({
           className="inline-flex items-center gap-2 text-xs font-semibold"
           style={{ color: "var(--text-secondary)", marginBottom: "var(--sp-3)" }}
         >
-          <span aria-hidden="true">&larr;</span> Back to dashboard
+          <span aria-hidden="true">&larr;</span> Back to Overview
         </Link>
 
         <div

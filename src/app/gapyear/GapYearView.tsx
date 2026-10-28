@@ -20,7 +20,7 @@ const MILESTONES: { id: string; label: string; due: string }[] = [
   { id: "interfolio",       label: "Set up Interfolio or LOR service",    due: "3 months before applying" },
   { id: "personal_statement", label: "First draft of personal statement", due: "4 months before applying" },
   { id: "ps_revisions",     label: "Personal statement revisions",        due: "Until submission" },
-  { id: "secondaries_prep", label: "Pre-write common secondary essays",   due: "May–June, application year" },
+  { id: "secondaries_prep", label: "Pre-write common secondary essays",   due: "May to June, application year" },
   { id: "school_list",      label: "Finalize school list",                due: "Before AMCAS submission" },
   { id: "transcript_request", label: "Request official transcripts",      due: "May, application year" },
   { id: "submit_amcas",     label: "Submit AMCAS primary application",    due: "Late May / early June" },
@@ -125,7 +125,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
             >
               <option value="">Select target year…</option>
               {[2026, 2027, 2028, 2029, 2030].map((y) => (
-                <option key={y} value={y}>{y}–{y + 1} cycle</option>
+                <option key={y} value={y}>{y}-{y + 1} cycle</option>
               ))}
             </select>
           </div>

@@ -1,4 +1,4 @@
-// Pre-Med Archetype page — runs the analysis or displays stored result.
+// Pre-Med Archetype page: runs the analysis or displays stored result.
 //
 // SQL to run in Supabase before this works:
 //
@@ -12,6 +12,11 @@ import { createClient } from "@/lib/supabase/server";
 import AppShell from "@/components/AppShell";
 import ArchetypeView from "./ArchetypeView";
 import { ArchetypeAnalysis } from "@/lib/archetypes";
+
+export const metadata = {
+  title: "Archetype | ClinicLog MD",
+  description: "The pattern in your logged experiences, with schools to research. AI assisted.",
+};
 
 export default async function ArchetypePage() {
   const supabase = await createClient();

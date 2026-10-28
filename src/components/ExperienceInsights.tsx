@@ -132,8 +132,8 @@ export default function ExperienceInsights({
               Tell us where you&apos;re at
             </h2>
             <p className="text-sm leading-relaxed mb-3" style={{ color: "var(--text-secondary)" }}>
-              Add your graduation year on your profile so we can tailor insights to where
-              you are in your pre-med journey - freshmen get different advice than seniors.
+              Add your graduation year on your profile so these insights match your year.
+              A first-year and a senior need different next steps.
             </p>
             <Link
               href="/profile"
@@ -231,7 +231,7 @@ function generateTips(experiences: Experience[], stage: Stage): Tip[] {
   const totalHours = experiences.reduce((a, e) => a + e.hours, 0);
   const missingDescCount = experiences.filter((e) => !(e.description ?? "").trim()).length;
 
-  // Stage-relative expectations — what fraction of the full AMCAS target a
+  // Stage-relative expectations: what fraction of the full AMCAS target a
   // student at this stage should reasonably have hit by now.
   const expectedFraction: Record<Stage, number> = {
     freshman: 0.15, sophomore: 0.45, junior: 0.75, senior: 1.0, postgrad: 1.0,
@@ -256,15 +256,15 @@ function generateTips(experiences: Experience[], stage: Stage): Tip[] {
   if (experiences.length === 0) {
     if (stage === "freshman" || stage === "sophomore") {
       return [
-        { kind: "positive", title: "You're early - and that's a gift", body: "You have time on your side. Start with one clinical or shadowing experience this semester to build momentum.", icon: ICONS.growth },
-        { kind: "warn",     title: "Aim for 4 categories",             body: "Strong applications usually span clinical, shadowing, research, and volunteering. Begin sampling each.", icon: ICONS.spark },
-        { kind: "warn",     title: "Detail matters",                   body: "Always write 2-3 sentences per experience - it powers your AMCAS narrative and the AI Advisor.", icon: ICONS.pencil },
+        { kind: "positive", title: "You have time", body: "Start with one clinical or shadowing experience this semester. Hours that build slowly over years read better than a late rush.", icon: ICONS.growth },
+        { kind: "warn",     title: "Aim for 4 categories",             body: "Most applicants have some clinical work, shadowing, research and volunteering. Try a little of each before choosing where to go deep.", icon: ICONS.spark },
+        { kind: "warn",     title: "Detail matters",                   body: "Write 2 or 3 sentences for each entry while you remember it. AMCAS asks for a description of every activity.", icon: ICONS.pencil },
       ];
     }
     return [
-      { kind: "alert", title: "No experiences logged yet",     body: "With your application window approaching, log every clinical, shadowing, research, and volunteer hour you've already completed - even informally.", icon: ICONS.growth },
-      { kind: "alert", title: "Time is the constraint now",    body: "Identify which categories you can ramp up fastest in the next 3-6 months. Focus there.", icon: ICONS.calendar },
-      { kind: "warn",  title: "Descriptions are required",     body: "AMCAS needs a description for every activity. Use Reframe with AI to turn rough notes into polished entries fast.", icon: ICONS.pencil },
+      { kind: "alert", title: "No experiences logged yet",     body: "Your application is getting close. Log the clinical, shadowing, research and volunteer hours you have already done, including informal ones.", icon: ICONS.growth },
+      { kind: "alert", title: "Time is the constraint now",    body: "Pick the one or two categories you can add to most in the next 3 to 6 months and focus there.", icon: ICONS.calendar },
+      { kind: "warn",  title: "Descriptions are required",     body: "AMCAS asks for a description of every activity. Write rough notes first; Reframe with AI can tighten them, and you should check the result.", icon: ICONS.pencil },
     ];
   }
 
@@ -277,19 +277,19 @@ function generateTips(experiences: Experience[], stage: Stage): Tip[] {
     icon: ICONS.stethoscope,
     label: "clinical",
     zeroBodyByStage: {
-      freshman:  "No clinical hours yet - totally normal as a freshman. Try to log at least one experience (scribing, ED volunteer, CNA) this semester.",
-      sophomore: "Still no clinical hours. Sophomore year is when most successful applicants start regular shifts - scribing or volunteering at a hospital is the easiest entry.",
-      junior:    "No clinical hours logged - this is the biggest gap to close before your cycle. Schools want direct patient interaction, not just shadowing.",
-      senior:    "Critical gap: no clinical hours and applications are weeks/months away. Prioritize scribing or CNA work immediately.",
-      postgrad:  "No clinical hours logged - this is the single highest-impact thing to address before submitting (or re-applying).",
+      freshman:  "No clinical hours yet, which is common for a first-year. Scribing, ED volunteering or CNA work are common places to start.",
+      sophomore: "No clinical hours yet. Many applicants start regular shifts around sophomore year; scribing or hospital volunteering are common first roles.",
+      junior:    "No clinical hours logged. This is the biggest gap to close before you apply. Schools look for direct patient contact, not only shadowing.",
+      senior:    "No clinical hours, and applications are close. Scribing or CNA work is the fastest way to start.",
+      postgrad:  "No clinical hours logged. Adding some is the most useful thing you can do before you submit or reapply.",
     },
     onTrackTitle: "Strong clinical foundation",
     onTrackBodyByStage: {
-      freshman:  "is well ahead of schedule for a freshman - keep this steady pace and you'll be in great shape.",
+      freshman:  "is well ahead for a first-year. Keep a steady pace.",
       sophomore: "puts you on track for the midpoint goal. Keep weekly hours consistent through the year.",
-      junior:    "is on pace going into application season. Aim to push past 150 for a competitive number.",
+      junior:    "is on pace for application season. Many applicants report more than 150.",
       senior:    "meets the typical applicant benchmark. Make sure you've also got clinical reflections written for AMCAS.",
-      postgrad:  "is competitive. Lean into the depth of those experiences in your personal statement.",
+      postgrad:  "is in the range many applicants report. What you learned there is worth writing about.",
     },
   });
 
@@ -302,19 +302,19 @@ function generateTips(experiences: Experience[], stage: Stage): Tip[] {
     icon: ICONS.eye,
     label: "shadowing",
     zeroBodyByStage: {
-      freshman:  "No shadowing yet - but you have time. Reach out to one physician this year, even for a single half-day.",
-      sophomore: "No shadowing logged. Sophomore year is the sweet spot to start - most schools want at least 2 different specialties.",
-      junior:    "No shadowing hours yet - get on this now. Even 20-30 hours across two specialties will be enough by application time.",
+      freshman:  "No shadowing yet, and you have time. Ask one physician this year, even for a single half-day.",
+      sophomore: "No shadowing logged. Sophomore year is a good time to start. Seeing at least two specialties is common advice.",
+      junior:    "No shadowing hours yet. Start soon; 20 to 30 hours across two specialties is a common minimum.",
       senior:    "No shadowing logged and the cycle is here. Book at least 2 specialties this month if possible.",
-      postgrad:  "No shadowing logged - schools will notice. Consider squeezing in a few sessions during your gap year.",
+      postgrad:  "No shadowing logged. Readers may ask about it, so a few sessions during a gap year would help.",
     },
     onTrackTitle: "Shadowing on track",
     onTrackBodyByStage: {
-      freshman:  "you're well ahead - most freshmen have zero. Keep diversifying across specialties.",
+      freshman:  "puts you ahead for a first-year. Try another specialty next.",
       sophomore: "puts you on pace for the midpoint goal. Aim for 50+ across at least two specialties.",
       junior:    "looks solid going into application season. Make sure you've covered at least two distinct specialties.",
-      senior:    "hits the AMCAS sweet spot. Confirm you've logged the physician names for each entry.",
-      postgrad:  "is competitive. Keep evidence of specialty diversity in your activities section.",
+      senior:    "is in the range many applicants report. Make sure each entry names the physician and specialty.",
+      postgrad:  "is in the range many applicants report. Show the different specialties in your activities section.",
     },
   });
 
@@ -327,18 +327,18 @@ function generateTips(experiences: Experience[], stage: Stage): Tip[] {
     icon: ICONS.flask,
     label: "research",
     zeroBodyByStage: {
-      freshman:  "No research yet - that's fine for a freshman. If you're curious, find a lab now for long-term involvement.",
-      sophomore: "No research logged. If you're targeting research-heavy programs, finding a lab this year is the highest-leverage move.",
-      junior:    "No research logged. Research-heavy schools want 100+ hours plus output - start now if you can.",
-      senior:    "No research logged. Not required everywhere, but it limits your school list. Consider gap-year research if applicable.",
-      postgrad:  "Research is the easiest thing to build during a gap year. Look for paid RA positions if academic medicine appeals.",
+      freshman:  "No research yet, which is fine for a first-year. If you are curious, joining a lab early lets you stay longer.",
+      sophomore: "No research logged. If you're targeting research-heavy programs, finding a lab this year matters most.",
+      junior:    "No research logged. Research-focused schools tend to expect sustained lab time, so start now if those schools are on your list.",
+      senior:    "No research logged. Many schools do not require it, but research-focused ones expect it. A gap-year research job is an option.",
+      postgrad:  "A gap year is a good time to add research. Paid research assistant jobs are common.",
     },
-    onTrackTitle: "Research depth is real",
+    onTrackTitle: "Research on track",
     onTrackBodyByStage: {
-      freshman:  "is exceptional for a freshman. Stay with this lab - long-term involvement beats hour-counting.",
+      freshman:  "is a lot for a first-year. Staying with one lab counts for more than the hour total.",
       sophomore: "puts you ahead of schedule. Push toward a poster or abstract before junior year.",
-      junior:    "is competitive - focus the next few months on locking in a poster, abstract, or publication.",
-      senior:    "is strong. Make sure you've got a publication, poster, or named output to anchor the entry.",
+      junior:    "is solid. A poster or abstract in the next few months would give the entry something concrete.",
+      senior:    "is solid. Name any poster, abstract or paper in the entry.",
       postgrad:  "is a real asset for research-heavy schools. Keep building if you're still in the lab.",
     },
   });
@@ -352,18 +352,18 @@ function generateTips(experiences: Experience[], stage: Stage): Tip[] {
     icon: ICONS.heart,
     label: "volunteer",
     zeroBodyByStage: {
-      freshman:  "No service hours yet - pick one cause you care about and start small. Consistency over time matters more than total hours.",
-      sophomore: "No volunteering logged. Now's the time to commit to one organization for the long haul - schools love continuity.",
-      junior:    "No volunteer hours - this is one of the easier categories to fill before applying. Pick a non-clinical cause and go weekly.",
+      freshman:  "No service hours yet. Pick one cause and start small; staying with it matters more than the total.",
+      sophomore: "No volunteering logged. Committing to one organization now gives you years of continuity by the time you apply.",
+      junior:    "No volunteer hours yet. A weekly non-clinical commitment is one of the easier things to add before applying.",
       senior:    "No volunteer hours and the cycle is here. Even 40 focused hours over a few months still counts.",
-      postgrad:  "No volunteer hours logged - this is fixable in a gap year. Pick a non-clinical cause and stick with it.",
+      postgrad:  "No volunteer hours logged. A gap year is a good time to start a regular non-clinical commitment.",
     },
     onTrackTitle: "Volunteering looks healthy",
     onTrackBodyByStage: {
-      freshman:  "is ahead of schedule. Stick with the same organization - depth beats breadth.",
+      freshman:  "is ahead of schedule. Staying with the same organization shows commitment.",
       sophomore: "puts you on pace. Aim to stay with the same org for 2+ years to show commitment.",
       junior:    "is competitive. Continuity at one or two orgs reads better than scattered hours.",
-      senior:    "shows real commitment - exactly what mission-driven schools love to see.",
+      senior:    "shows long-term commitment, which service-focused schools often look for.",
       postgrad:  "shows the kind of long-term commitment that strengthens an application narrative.",
     },
   });
@@ -372,14 +372,14 @@ function generateTips(experiences: Experience[], stage: Stage): Tip[] {
   if (missingDescCount > 0) {
     const urgency = stage === "junior" || stage === "senior" || stage === "postgrad" ? "alert" : "warn";
     const stageSuffix =
-      stage === "freshman"  ? "You've got time - knock these out now so future-you isn't scrambling." :
+      stage === "freshman"  ? "Fill these in now while you remember the details." :
       stage === "sophomore" ? "Build the habit now of writing a description each time you log." :
-      stage === "junior"    ? "AMCAS opens soon - get these filled before then." :
-                              "AMCAS requires descriptions - fill these in immediately.";
+      stage === "junior"    ? "AMCAS opens soon, so fill these in before then." :
+                              "AMCAS asks for a description of every activity. Fill these in first.";
     candidates.push({
       kind: urgency,
       title: `${missingDescCount} ${missingDescCount === 1 ? "experience is" : "experiences are"} missing a description`,
-      body: `${stageSuffix} Use the Reframe with AI button to turn rough notes into polished AMCAS-ready entries.`,
+      body: `${stageSuffix} Write rough notes first; Reframe with AI can tighten them, and you should check the result.`,
       icon: ICONS.pencil,
     });
   }
@@ -389,10 +389,10 @@ function generateTips(experiences: Experience[], stage: Stage): Tip[] {
     .filter((c) => hoursByType[c] > 0).length;
   if (experiences.length >= 3 && categoriesWithHours === 4 && missingDescCount === 0) {
     const stageNote =
-      stage === "freshman"  ? "Few freshmen have this breadth - keep this pace and you'll be untouchable by junior year." :
-      stage === "sophomore" ? "Strong sophomore breadth - focus the next year on going deeper in two of these categories." :
-      stage === "junior"    ? "All four core categories covered going into application season - that's a Renaissance profile." :
-                              "All four categories represented - a well-rounded foundation for your final application narrative.";
+      stage === "freshman"  ? "That is broad for a first-year. Over the next years, go deeper in two of these." :
+      stage === "sophomore" ? "Good breadth. Over the next year, go deeper in two of these categories." :
+      stage === "junior"    ? "All four core categories are covered going into application season." :
+                              "All four categories are represented, which gives you several directions for your application.";
     candidates.push({
       kind: "positive",
       title: "Well-rounded profile",
@@ -405,8 +405,8 @@ function generateTips(experiences: Experience[], stage: Stage): Tip[] {
   if ((stage === "senior" || stage === "postgrad") && candidates.filter((t) => t.kind === "alert").length === 0) {
     candidates.push({
       kind: "warn",
-      title: "Polish, don't pile on",
-      body: "Your hours look reasonable for where you are. Focus the next few weeks on writing strong AMCAS descriptions and identifying your most-impactful stories.",
+      title: "Focus on your descriptions",
+      body: "Your hours look reasonable for where you are. Spend the next few weeks on your AMCAS descriptions and on picking the experiences that mattered most to you.",
       icon: ICONS.calendar,
     });
   }
@@ -414,8 +414,8 @@ function generateTips(experiences: Experience[], stage: Stage): Tip[] {
   if (candidates.length === 0) {
     candidates.push({
       kind: "positive",
-      title: "Looking strong",
-      body: "Your experiences are well-distributed with solid descriptions. Focus next on depth - leadership and patient-impact stories.",
+      title: "No gaps found",
+      body: "Your entries are spread across categories and have descriptions. Next, look for depth: leadership roles and longer commitments.",
       icon: ICONS.trophy,
     });
   }
@@ -469,18 +469,18 @@ function pushHoursTip(out: Tip[], cfg: HoursTipConfig) {
   if (actual < minForStage) {
     const body =
       stage === "freshman"
-        ? `You're at ${formatHours(actual)} hours - a great start for a freshman. Keep building steady weekly exposure.`
+        ? `You're at ${formatHours(actual)} hours, a fine start for a first-year. A few hours most weeks adds up.`
         : stage === "sophomore"
         ? `You're at ${formatHours(actual)} hours. Push toward ${formatHours(minForStage)} this year to stay on midpoint pace toward the ${fullTarget}-hour target.`
         : stage === "junior"
-        ? `You're at ${formatHours(actual)} hours - application cycle is around the corner. Aim to hit ${fullTarget}+ in the next few months.`
-        : `You're at ${formatHours(actual)} hours. Applications are imminent - prioritize logging more ${cfg.label} hours immediately.`;
+        ? `You're at ${formatHours(actual)} hours and applications are close. The common benchmark is ${fullTarget}.`
+        : `You're at ${formatHours(actual)} hours and applications are near. More ${cfg.label} hours would help most.`;
 
     const kind: Tip["kind"] = stage === "freshman" ? "positive" : stage === "sophomore" ? "warn" : "alert";
     const title =
-      stage === "freshman"  ? `${cfg.label[0].toUpperCase()}${cfg.label.slice(1)} - ahead of schedule`
+      stage === "freshman"  ? `${cfg.label[0].toUpperCase()}${cfg.label.slice(1)}: a good start`
       : stage === "sophomore" ? `Build ${cfg.label} toward midpoint`
-      : stage === "junior"    ? `${cfg.label[0].toUpperCase()}${cfg.label.slice(1)} below target - close the gap`
+      : stage === "junior"    ? `${cfg.label[0].toUpperCase()}${cfg.label.slice(1)} below the benchmark`
       :                         `${cfg.label[0].toUpperCase()}${cfg.label.slice(1)} hours below target`;
     out.push({ kind, title, body, icon });
     return;
@@ -490,12 +490,12 @@ function pushHoursTip(out: Tip[], cfg: HoursTipConfig) {
   if (actual < fullTarget) {
     const body =
       stage === "freshman"
-        ? `${formatHours(actual)} hours is excellent for a freshman - you're ahead of the typical pace.`
+        ? `${formatHours(actual)} hours is ahead of the usual pace for a first-year.`
         : stage === "sophomore"
-        ? `${formatHours(actual)} hours - on track for the ${fullTarget}-hour target by senior year.`
+        ? `${formatHours(actual)} hours puts you on track for the ${fullTarget}-hour benchmark by senior year.`
         : stage === "junior"
-        ? `${formatHours(actual)} hours - keep pushing to hit ${fullTarget}+ before applications.`
-        : `${formatHours(actual)} hours - close to the ${fullTarget} target. Pad it slightly before submitting if you can.`;
+        ? `${formatHours(actual)} hours so far. The common benchmark is ${fullTarget} by the time you apply.`
+        : `${formatHours(actual)} hours, close to the ${fullTarget}-hour benchmark. Log any recent hours you have not entered yet.`;
     out.push({
       kind: stage === "freshman" || stage === "sophomore" ? "positive" : "warn",
       title: stage === "freshman" || stage === "sophomore" ? `${cfg.label[0].toUpperCase()}${cfg.label.slice(1)} on pace` : `${cfg.label[0].toUpperCase()}${cfg.label.slice(1)} - almost there`,

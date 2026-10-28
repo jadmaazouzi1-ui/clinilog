@@ -36,6 +36,11 @@ function formatDeadline(dateStr: string | null) {
   return `${months[parseInt(month, 10) - 1]} ${parseInt(day, 10)}, ${year}`;
 }
 
+export const metadata = {
+  title: "Fee tracker | ClinicLog MD",
+  description: "Add up primary, secondary and other application fees.",
+};
+
 export default async function FeeTrackerPage() {
   const supabase = await createClient();
 
@@ -85,7 +90,7 @@ export default async function FeeTrackerPage() {
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
-          Back to Dashboard
+          Back to Overview
         </Link>
 
         {/* Page heading */}

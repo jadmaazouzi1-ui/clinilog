@@ -16,7 +16,7 @@ import {
 } from "@/lib/branch";
 
 /* ──────────────────────────────────────────────────────────────────────────
-   YOUR PATH — an organic branch drawn from the user's logged categories.
+   YOUR PATH: an organic branch drawn from the user's logged categories.
 
    Every limb is a tapered ribbon (a filled outline around a cubic bezier
    centreline), not a stroked line, because an SVG stroke cannot change width

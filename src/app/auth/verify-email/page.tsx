@@ -1,5 +1,10 @@
 import Link from "next/link";
 
+export const metadata = {
+  title: "Confirm your email | ClinicLog MD",
+  description: "Check your inbox for the confirmation link.",
+};
+
 export default function VerifyEmailPage() {
   return (
     <div className="min-h-screen flex items-center justify-center px-4" style={{ backgroundColor: "var(--bg-page)" }}>

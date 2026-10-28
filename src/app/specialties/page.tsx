@@ -3,6 +3,11 @@ import { createClient } from "@/lib/supabase/server";
 import AppShell from "@/components/AppShell";
 import SpecialtyExplorer from "./SpecialtyExplorer";
 
+export const metadata = {
+  title: "Specialties | ClinicLog MD",
+  description: "Compare medical specialties by training length, typical pay and lifestyle.",
+};
+
 export default async function SpecialtiesPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();

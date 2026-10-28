@@ -3,6 +3,19 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { saveOnboardingExperience, markOnboardingComplete } from "./onboarding-actions";
+import { SCHOOLS } from "@/lib/schools";
+import { ARCHETYPES } from "@/lib/archetypes";
+
+// Preview rows come from the real school data so they always match Schools.
+const SAMPLE_SCHOOLS = [
+  "Wake Forest University School of Medicine",
+  "UNC School of Medicine",
+  "East Carolina Brody School of Medicine",
+]
+  .map((name) => SCHOOLS.find((s) => s.name === name))
+  .filter((s): s is (typeof SCHOOLS)[number] => !!s)
+  .map((s) => [s.name, s.avgGpa?.toFixed(2) ?? "Not reported", s.avgMcat ? String(s.avgMcat) : "Not reported"]);
+const SAMPLE_ARCHETYPE = ARCHETYPES[0];
 
 const TOTAL_STEPS = 6;
 
@@ -12,14 +25,13 @@ export default function OnboardingModal() {
   const [step, setStep] = useState(1);
   const [done, setDone] = useState(false);
 
-  // Step 6 fields — the user's first real experience entry.
-  const [expTitle, setExpTitle] = useState("Hospital Shadowing");
-  const [expOrg, setExpOrg] = useState("Local Hospital");
+  // Step 6 fields: the user's first real entry. Empty on purpose, with
+  // examples as placeholders, so nothing is saved that the student did not type.
+  const [expTitle, setExpTitle] = useState("");
+  const [expOrg, setExpOrg] = useState("");
   const [expType, setExpType] = useState("shadowing");
-  const [expHours, setExpHours] = useState("8");
-  const [expDesc, setExpDesc] = useState(
-    "Shadowed physicians across multiple departments, observing patient consultations and procedures."
-  );
+  const [expHours, setExpHours] = useState("");
+  const [expDesc, setExpDesc] = useState("");
 
   if (done) return null;
 
@@ -140,7 +152,7 @@ export default function OnboardingModal() {
               Welcome to ClinicLog MD
             </h2>
             <p style={{ fontSize: 15, lineHeight: 1.6, color: "var(--text-secondary)", marginBottom: 32 }}>
-              A single free record for every clinical hour, every school comparison, and every step of your medical school application.
+              One place to log clinical hours, compare schools against your numbers, and keep track of your application. It is free.
             </p>
           </div>
         )}
@@ -148,15 +160,15 @@ export default function OnboardingModal() {
         {/* ── Step 2: Hours Tracker ── */}
         {step === 2 && (
           <div>
-            <p style={labelStyle}>Feature 1 of 4</p>
+            <p style={labelStyle}>Sample preview</p>
             <h2 style={{ fontSize: 22, fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "var(--text-primary)", marginBottom: 16 }}>
-              Hours Tracker
+              Log hours as you go
             </h2>
             <div style={previewBox}>
               <div style={{ display: "grid", gap: 10 }}>
                 {[
-                  ["Title", "Hospital Shadowing"],
-                  ["Organization", "City General Hospital"],
+                  ["Title", "Emergency department scribe"],
+                  ["Organization", "Sample hospital"],
                   ["Category", "Clinical Work"],
                   ["Hours", "12.5"],
                 ].map(([k, v]) => (
@@ -168,7 +180,7 @@ export default function OnboardingModal() {
               </div>
             </div>
             <p style={{ fontSize: 14, lineHeight: 1.6, color: "var(--text-secondary)", marginBottom: 8 }}>
-              Log every clinical hour as you go - dates, hours, descriptions, and category. This becomes your application foundation.
+              Each entry has dates, hours, a category and a description. When AMCAS opens, these are what you copy into the Work and Activities section.
             </p>
           </div>
         )}
@@ -176,9 +188,9 @@ export default function OnboardingModal() {
         {/* ── Step 3: School Explorer ── */}
         {step === 3 && (
           <div>
-            <p style={labelStyle}>Feature 2 of 4</p>
+            <p style={labelStyle}>Sample preview</p>
             <h2 style={{ fontSize: 22, fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "var(--text-primary)", marginBottom: 16 }}>
-              School Explorer
+              Compare schools
             </h2>
             <div style={previewBox}>
               <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
@@ -190,11 +202,7 @@ export default function OnboardingModal() {
                   </tr>
                 </thead>
                 <tbody>
-                  {[
-                    ["UCLA David Geffen SOM", "3.72", "515"],
-                    ["Morehouse School of Medicine", "3.55", "504"],
-                    ["Johns Hopkins SOM", "3.91", "521"],
-                  ].map((row) => (
+                  {SAMPLE_SCHOOLS.map((row) => (
                     <tr key={row[0]}>
                       {row.map((cell, i) => (
                         <td key={i} style={{ padding: "6px 0", borderBottom: "1px solid var(--border-strong)" }}>{cell}</td>
@@ -205,7 +213,7 @@ export default function OnboardingModal() {
               </table>
             </div>
             <p style={{ fontSize: 14, lineHeight: 1.6, color: "var(--text-secondary)", marginBottom: 8 }}>
-              Filter 149 medical schools by GPA, MCAT, mission focus, and state preference to find programs that match your profile.
+              Filter {SCHOOLS.length} medical schools by GPA, MCAT, mission and state. Averages are approximate, so confirm them on each school&apos;s site.
             </p>
           </div>
         )}
@@ -213,17 +221,17 @@ export default function OnboardingModal() {
         {/* ── Step 4: Your Archetype ── */}
         {step === 4 && (
           <div>
-            <p style={labelStyle}>Feature 3 of 4</p>
+            <p style={labelStyle}>Sample preview</p>
             <h2 style={{ fontSize: 22, fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "var(--text-primary)", marginBottom: 16 }}>
-              Your Archetype
+              See your pattern
             </h2>
             <div style={{ ...previewBox, textAlign: "center" }}>
               <p style={{ fontSize: 10, letterSpacing: "0.12em", color: "var(--text-secondary)", marginBottom: 8 }}>01 / 15</p>
-              <p style={{ fontSize: 18, fontWeight: 900, textTransform: "uppercase", marginBottom: 6 }}>The Community Healer</p>
-              <p style={{ fontSize: 13, fontStyle: "italic", color: "var(--text-secondary)" }}>Medicine as service. Service as identity.</p>
+              <p style={{ fontSize: 18, fontWeight: 900, textTransform: "uppercase", marginBottom: 6 }}>{SAMPLE_ARCHETYPE.name}</p>
+              <p style={{ fontSize: 13, fontStyle: "italic", color: "var(--text-secondary)" }}>{SAMPLE_ARCHETYPE.tagline}</p>
             </div>
             <p style={{ fontSize: 14, lineHeight: 1.6, color: "var(--text-secondary)", marginBottom: 8 }}>
-              After logging 3 or more experiences, ClinicLog MD analyzes your profile and assigns you one of 15 pre-med archetypes with personalized school matches.
+              Once you log 3 experiences, AI reads your entries and names the pattern they show, one of 15, with schools that fit it. Treat it as a starting point, not a verdict.
             </p>
           </div>
         )}
@@ -231,9 +239,9 @@ export default function OnboardingModal() {
         {/* ── Step 5: AI Tools ── */}
         {step === 5 && (
           <div>
-            <p style={labelStyle}>Feature 4 of 4</p>
+            <p style={labelStyle}>Sample preview</p>
             <h2 style={{ fontSize: 22, fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "var(--text-primary)", marginBottom: 16 }}>
-              AI Tools
+              Ask the AI Advisor
             </h2>
             <div style={previewBox}>
               <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 8 }}>
@@ -243,12 +251,12 @@ export default function OnboardingModal() {
               </div>
               <div style={{ display: "flex", justifyContent: "flex-start" }}>
                 <span style={{ background: "var(--bg-card)", border: "1px solid var(--border-strong)", padding: "6px 10px", fontSize: 12, maxWidth: "75%" }}>
-                  120 hours is a solid clinical base - let&apos;s look at your research and volunteering next.
+                  120 clinical hours is within the range many applicants report. Your research and volunteering totals are worth a look next.
                 </span>
               </div>
             </div>
             <p style={{ fontSize: 14, lineHeight: 1.6, color: "var(--text-secondary)", marginBottom: 8 }}>
-              Your AI Pre-Med Advisor knows your hours and profile. Ask it anything about med school, applications, or your journey.
+              The AI Advisor can see your logged totals and answers questions about applying. It can be wrong, so check anything important with your advisor.
             </p>
           </div>
         )}
@@ -257,19 +265,19 @@ export default function OnboardingModal() {
         {step === 6 && (
           <div>
             <h2 style={{ fontSize: 22, fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "var(--text-primary)", marginBottom: 8 }}>
-              Your First Entry
+              Your first entry
             </h2>
             <p style={{ fontSize: 14, color: "var(--text-secondary)", marginBottom: 20 }}>
-              Let&apos;s log your first experience to get started.
+              Add one experience you have already done. You can edit it later, or skip this step.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               <div>
                 <label style={labelStyle}>Title</label>
-                <input {...inputProps} type="text" value={expTitle} onChange={(e) => setExpTitle(e.target.value)} />
+                <input {...inputProps} type="text" value={expTitle} onChange={(e) => setExpTitle(e.target.value)} placeholder="e.g. Emergency department scribe" />
               </div>
               <div>
                 <label style={labelStyle}>Organization</label>
-                <input {...inputProps} type="text" value={expOrg} onChange={(e) => setExpOrg(e.target.value)} />
+                <input {...inputProps} type="text" value={expOrg} onChange={(e) => setExpOrg(e.target.value)} placeholder="e.g. Atrium Health Wake Forest Baptist" />
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
@@ -284,7 +292,7 @@ export default function OnboardingModal() {
                 </div>
                 <div>
                   <label style={labelStyle}>Hours</label>
-                  <input {...inputProps} type="number" min={0.1} max={1000} step="any" value={expHours} onChange={(e) => setExpHours(e.target.value)} />
+                  <input {...inputProps} type="number" min={0.1} max={1000} step="any" value={expHours} onChange={(e) => setExpHours(e.target.value)} placeholder="e.g. 40" />
                 </div>
               </div>
               <div>
@@ -293,6 +301,7 @@ export default function OnboardingModal() {
                   className="input-dark px-3.5 py-2.5 rounded-xl text-sm w-full"
                   rows={3}
                   value={expDesc}
+                  placeholder="What you did, in a sentence or two"
                   onChange={(e) => setExpDesc(e.target.value)}
                   style={{ resize: "vertical" }}
                 />

@@ -82,7 +82,7 @@ export const TOUR_MODULES: TourModule[] = [
     title: "Archetype",
     group: "Basics",
     steps: [
-      { page: "/archetype", target: "archetype-locked", title: "Unlocks at three", body: "Your archetype unlocks once you have logged 3 experiences. Until then this page shows how many you have." },
+      { page: "/archetype", target: "archetype-locked", title: "Opens at three", body: "Your archetype is available once you have logged 3 experiences. Until then this page shows how many you have." },
       { page: "/archetype", target: "archetype-result", title: "How it is made", body: "AI reads your entries and picks the profile that fits them best. It reflects only what you have logged, so it changes as you add more." },
       { page: "/archetype", target: "archetype-regenerate", title: "Regenerate", body: "Run it again after logging new hours, up to 3 times a day." },
       { page: "/archetype", target: "archetype-schools", title: "Matched schools", body: "Schools the AI suggests for your profile. Use them as a starting point for research, not a prediction of admission." },
@@ -184,7 +184,7 @@ export const HELP_ANSWERS: HelpAnswer[] = [
   { q: "Which category should I choose?", a: "Pick the closest of Clinical Work, Shadowing, Research or Volunteering. Use Other only when none of them fit." },
   { q: "How do I change or delete an entry?", a: "Use Edit or Delete on the entry in Recent Experiences. Totals update right away." },
   { q: "How do I import a spreadsheet?", a: "Go to Import CSV, download the template, fill it in and upload it. You can review every row before anything is saved." },
-  { q: "When does my archetype unlock?", a: "After you log 3 experiences. You can regenerate it up to 3 times a day." },
+  { q: "When can I see my archetype?", a: "After you log 3 experiences. You can regenerate it up to 3 times a day." },
   { q: "Are the AMCAS hour benchmarks requirements?", a: "No. They are common benchmarks many applicants use, not rules set by schools." },
   { q: "How accurate is the school data?", a: "It is a guide and can be out of date. Always confirm on each school's own website." },
   { q: "How do I export my entries?", a: "Export All on Overview makes a PDF. Profile has a full data export as a file." },

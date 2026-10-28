@@ -43,6 +43,11 @@ function greeting(): string {
   return "Good evening";
 }
 
+export const metadata = {
+  title: "Overview | ClinicLog MD",
+  description: "Your logged hours, entries and progress toward common AMCAS benchmarks.",
+};
+
 export default async function DashboardPage({
   searchParams,
 }: {
@@ -140,7 +145,7 @@ export default async function DashboardPage({
               {greeting()}{firstName ? `, ${firstName}` : ""}.
             </h1>
             <p className="text-xs" style={{ color: "var(--text-secondary)", marginTop: 2 }}>
-              Here&apos;s an overview of your clinical journey so far.
+              Your hours, entries and progress toward common benchmarks.
             </p>
           </div>
 
@@ -229,7 +234,7 @@ export default async function DashboardPage({
           </Link>
         )}
 
-        {/* Experience Insights — personalized tips */}
+        {/* Experience Insights: personalized tips */}
         <div data-tour="insights">
           <ExperienceInsights
             experiences={experienceList}

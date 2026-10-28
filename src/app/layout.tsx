@@ -14,9 +14,11 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.cliniclogmd.com"),
   title: "ClinicLog MD",
-  description:
-    "Track your clinical hours, explore 150+ medical schools, and build your path to medicine in one free tool.",
+  description: "Log clinical hours for AMCAS and compare medical schools with your numbers. Free for Wake Forest pre-med students.",
+  openGraph: { siteName: "ClinicLog MD", type: "website" },
+  twitter: { card: "summary_large_image" },
 };
 
 // Next.js 16 emits <meta name="viewport" content="..."> from this export.

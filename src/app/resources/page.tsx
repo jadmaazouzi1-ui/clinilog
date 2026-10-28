@@ -18,13 +18,13 @@ const CATEGORIES = [
     resources: [
       {
         title: "AAMC Aspiring Docs",
-        description: "The official AAMC starting point - explains what medical school is, application timelines, and how to prepare.",
+        description: "The official AAMC starting point: explains what medical school is, application timelines, and how to prepare.",
         url: "https://students-residents.aamc.org/applying-medical-school",
       },
       {
-        title: "AACOMAS Choose DO Explorer",
-        description: "Compare every osteopathic medical school side-by-side - the DO equivalent of MSAR and completely free.",
-        url: "https://choosedo.org/explore-schools/",
+        title: "Choose DO Explorer (AACOM)",
+        description: "Filter osteopathic medical schools by location, tuition and deadlines. Free, and the closest DO equivalent of MSAR.",
+        url: "https://www.aacom.org/become-a-doctor",
       },
       {
         title: "AAMC Application Roadmap",
@@ -57,7 +57,7 @@ const CATEGORIES = [
       },
       {
         title: "MileDown Anki Deck",
-        description: "Community-curated Anki deck - the go-to free flashcard resource for MCAT content review.",
+        description: "Community-curated Anki deck: the go-to free flashcard resource for MCAT content review.",
         url: "https://reddit.com/r/Mcat/wiki/decks",
       },
       {
@@ -91,7 +91,7 @@ const CATEGORIES = [
       },
       {
         title: "AAMC FAP Essentials 2026",
-        description: "The official 2026 guide explaining eligibility, benefits, and how to apply for AAMC fee assistance - required reading.",
+        description: "The official 2026 guide explaining eligibility, benefits, and how to apply for AAMC fee assistance: required reading.",
         url: "https://students-residents.aamc.org/fee-assistance-program/publication/2026-fee-assistance-program-essentials",
       },
       {
@@ -120,7 +120,7 @@ const CATEGORIES = [
       },
       {
         title: "SNMA HPREP",
-        description: "Health Professions Recruitment & Exposure Program - exposes high school and college students from underrepresented backgrounds to health careers.",
+        description: "Health Professions Recruitment & Exposure Program: exposes high school and college students from underrepresented backgrounds to health careers.",
         url: "https://snma.org/page/HPREP",
       },
       {
@@ -130,7 +130,7 @@ const CATEGORIES = [
       },
       {
         title: "National Health Service Corps",
-        description: "Full scholarships for medical school in exchange for service in underserved communities - a debt-free pathway into primary care.",
+        description: "Full scholarships for medical school in exchange for service in underserved communities: a debt-free pathway into primary care.",
         url: "https://nhsc.hrsa.gov/scholarships",
       },
     ],
@@ -183,7 +183,7 @@ const CATEGORIES = [
       },
       {
         title: "SDN Pre-Med Forum",
-        description: "Student Doctor Network's pre-med discussion board - the largest community for application questions and advice.",
+        description: "Student Doctor Network's pre-med discussion board: the largest community for application questions and advice.",
         url: "https://forums.studentdoctor.net/forums/pre-medical-md.10/",
       },
       {
@@ -207,22 +207,27 @@ const CATEGORIES = [
     resources: [
       {
         title: "LibreTexts",
-        description: "Free open-access textbooks across Biology, Chemistry, Physics, Biochem, and Psych - every pre-med prerequisite covered.",
+        description: "Free open-access textbooks across Biology, Chemistry, Physics, Biochem, and Psych: every pre-med prerequisite covered.",
         url: "https://libretexts.org",
       },
       {
         title: "OpenStax",
-        description: "Peer-reviewed, free textbooks for Bio, Chem, Physics, Anatomy & Physiology - backed by Rice University.",
+        description: "Peer-reviewed, free textbooks for Bio, Chem, Physics, Anatomy & Physiology: backed by Rice University.",
         url: "https://openstax.org",
       },
       {
         title: "Amboss",
-        description: "Comprehensive medical reference with a free student tier - excellent for MCAT high-yield review and clinical context.",
+        description: "Comprehensive medical reference with a free student tier: excellent for MCAT high-yield review and clinical context.",
         url: "https://www.amboss.com/us/students",
       },
     ],
   },
 ];
+
+export const metadata = {
+  title: "Resources | ClinicLog MD",
+  description: "Free MCAT prep, fee assistance, scholarships and pipeline programs for pre-meds.",
+};
 
 export default async function ResourcesPage() {
   const supabase = await createClient();
@@ -248,14 +253,14 @@ export default async function ResourcesPage() {
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
-          Back to Dashboard
+          Back to Overview
         </Link>
 
         {/* Page heading */}
         <div className="mb-10">
           <h1 className="text-2xl font-bold mb-2" style={{ color: "var(--text-primary)" }}>Resource Library</h1>
           <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
-            Free tools, programs, and guides for every pre-med journey
+            Free MCAT prep, fee assistance, scholarships and pipeline programs. Links last checked October 28, 2026.
           </p>
         </div>
 

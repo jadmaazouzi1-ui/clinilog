@@ -22,7 +22,7 @@ export default function SignupsChart({ data }: { data: { day: string; signups: n
           <YAxis allowDecimals={false} tick={{ fontSize: 10, fontFamily: "var(--font-mono)", fill: "var(--text-tertiary)" }} tickLine={false} axisLine={false} />
           <Tooltip
             contentStyle={{
-              borderRadius: 3,
+              borderRadius: 0,
               border: "1px solid var(--border-strong)",
               fontSize: 12,
               fontFamily: "var(--font-mono)",

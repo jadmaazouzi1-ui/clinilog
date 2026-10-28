@@ -108,7 +108,7 @@ interface ParsedRow {
 function rowsFromCsv(matrix: string[][]): ParsedRow[] {
   if (matrix.length === 0) return [];
 
-  // Find header row — first row containing "Experience Name" or skip first row
+  // Find header row: first row containing "Experience Name" or skip first row
   const headerIdx = 0;
   const headers = matrix[headerIdx].map((h) => h.trim().toLowerCase());
 

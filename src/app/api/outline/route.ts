@@ -1,4 +1,5 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { cleanAiDeep, HUMAN_STYLE_RULES } from "@/lib/aiText";
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { checkUserRateLimit } from "@/lib/rateLimit";
@@ -38,7 +39,7 @@ export async function POST(req: Request) {
     );
   }
 
-  const prompt = `You are an experienced medical school admissions advisor helping a student outline their AMCAS personal statement.
+  const prompt = `You are helping a pre-med student outline their AMCAS personal statement. The outline is a starting point the student will rewrite in their own voice.
 
 Use ONLY the student's real logged data below. Never invent an experience, an organisation, or an hour count. If the data is thin in a place, say so plainly in the outline rather than padding it.
 
@@ -60,7 +61,9 @@ Rules:
 - Provide 2 or 3 themes, no more
 - Every theme must cite a real logged experience by name
 - Write in second person, addressed to the student
-- Never use em dashes. Use a comma, a colon, or a new sentence instead
+- Do not script lines for them, and never suggest openers like "Since I was young" or "I am passionate about"
+
+${HUMAN_STYLE_RULES}
 
 Now produce the outline.`;
 
@@ -70,7 +73,7 @@ Now produce the outline.`;
     const result = await model.generateContent(prompt);
     let text = result.response.text().trim();
     text = text.replace(/^```(?:json)?\s*/i, "").replace(/```$/, "").trim();
-    const outline = JSON.parse(text);
+    const outline = cleanAiDeep(JSON.parse(text));
     return NextResponse.json({ outline });
   } catch (err) {
     return serverError("api/outline", err);

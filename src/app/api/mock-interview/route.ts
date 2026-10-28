@@ -1,4 +1,5 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { cleanAiDeep, HUMAN_STYLE_RULES } from "@/lib/aiText";
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { checkUserRateLimit } from "@/lib/rateLimit";
@@ -49,7 +50,8 @@ Rules:
 - Exactly 5 traditional questions and exactly 5 MMI scenarios
 - At least 3 traditional questions must name a specific logged experience
 - Include at least one traditional question that probes a visible weakness or gap in their record, asked fairly
-- Never use em dashes. Use a comma, a colon, or a new sentence instead
+
+${HUMAN_STYLE_RULES}
 
 Now produce the questions.`;
 
@@ -59,7 +61,7 @@ Now produce the questions.`;
     const result = await model.generateContent(prompt);
     let text = result.response.text().trim();
     text = text.replace(/^```(?:json)?\s*/i, "").replace(/```$/, "").trim();
-    const questions = JSON.parse(text);
+    const questions = cleanAiDeep(JSON.parse(text));
     return NextResponse.json({ questions, remaining: limit.remaining });
   } catch (err) {
     return serverError("api/mock-interview", err);

@@ -155,7 +155,7 @@ export default function SchoolList({
         <p className="text-xs" style={{ color: "var(--text-tertiary)" }}>Highlights schools within ±0.3 GPA and ±5 MCAT points of your stats.</p>
         <div className="mt-4 pt-4" style={{ borderTop: "1px solid var(--border-strong)" }} data-tour="schools-home-state">
           <label htmlFor="home-state" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text-primary)" }}>
-            My Home State <span className="font-normal" style={{ color: "var(--text-tertiary)" }}>(optional - highlights in-state schools for you)</span>
+            My Home State <span className="font-normal" style={{ color: "var(--text-tertiary)" }}>(optional, highlights in-state schools for you)</span>
           </label>
           <select
             id="home-state"
@@ -285,7 +285,7 @@ export default function SchoolList({
                       className="inline-flex items-center px-2 py-0.5 rounded-sm text-xs font-semibold whitespace-nowrap"
                       style={{ background: "var(--bg-soft)", color: "var(--text-primary)", border: "1px solid var(--border-strong)" }}
                     >
-                      In-State for You ✓
+                      In-state for you
                     </span>
                   )}
                   {match && !isInStateForUser && (

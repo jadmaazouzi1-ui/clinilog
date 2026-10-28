@@ -46,7 +46,7 @@ function Preview({ dark }: { dark?: boolean }) {
         gap: 8,
         padding: "8px 12px",
         border: `1px solid ${dark ? "#2D6A4F" : "#16241D"}`,
-        borderRadius: 3,
+        borderRadius: 0,
         background: dark ? "#0B3D2E" : "#FFFFFF",
         color: dark ? "#EAF3ED" : "#16241D",
         textDecoration: "none",

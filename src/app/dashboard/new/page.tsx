@@ -15,6 +15,11 @@ const TYPES = [
   ["other", "Other"],
 ];
 
+export const metadata = {
+  title: "Log new hours | ClinicLog MD",
+  description: "Add an experience with dates, hours, a category and a description.",
+};
+
 export default async function NewExperiencePage() {
   const supabase = await createClient();
 
@@ -37,7 +42,7 @@ export default async function NewExperiencePage() {
     <AppShell
       userEmail={user.email ?? ""}
       activePath="/dashboard"
-      breadcrumbs={[{ label: "Dashboard", href: "/dashboard" }, { label: "Log Experience" }]}
+      breadcrumbs={[{ label: "Overview", href: "/dashboard" }, { label: "Log new hours" }]}
     >
       <main className="w-full" style={{ padding: "var(--sp-3)", maxWidth: 820 }}>
         <Link
@@ -45,7 +50,7 @@ export default async function NewExperiencePage() {
           className="inline-flex items-center gap-2 text-xs font-semibold"
           style={{ color: "var(--text-secondary)", marginBottom: "var(--sp-3)" }}
         >
-          <span aria-hidden="true">&larr;</span> Back to dashboard
+          <span aria-hidden="true">&larr;</span> Back to Overview
         </Link>
 
         {/* Form head: title left, record number right, as on a chart sheet */}

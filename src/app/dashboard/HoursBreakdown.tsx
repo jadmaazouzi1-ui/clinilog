@@ -82,7 +82,7 @@ export default function HoursBreakdown({
                   return [`${n % 1 === 0 ? n : n.toFixed(1)} hrs`, ""];
                 }}
                 contentStyle={{
-                  borderRadius: 3,
+                  borderRadius: 0,
                   border: "1px solid var(--border-strong)",
                   fontSize: "12px",
                   fontFamily: "var(--font-mono)",
