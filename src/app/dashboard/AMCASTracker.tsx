@@ -1,12 +1,13 @@
 import { Experience, ExperienceType } from "@/lib/types";
 import { formatMedicalHours } from "@/lib/formatMedical";
 import { IconStethoscope, Oscilloscope, TabIndex } from "@/components/MedicalIcons";
+import { BENCHMARKS } from "@/lib/benchmarks";
 
 const TARGETS: { type: ExperienceType; label: string; min: number }[] = [
-  { type: "clinical_work", label: "Clinical Work", min: 100 },
-  { type: "shadowing",     label: "Shadowing",     min: 40  },
-  { type: "research",      label: "Research",       min: 20  },
-  { type: "volunteer",     label: "Volunteering",   min: 40  },
+  { type: "clinical_work", label: "Clinical Work", min: BENCHMARKS.clinical_work },
+  { type: "shadowing",     label: "Shadowing",     min: BENCHMARKS.shadowing },
+  { type: "research",      label: "Research",       min: BENCHMARKS.research },
+  { type: "volunteer",     label: "Volunteering",   min: BENCHMARKS.volunteer },
 ];
 
 const COLORS: Record<ExperienceType, string> = {

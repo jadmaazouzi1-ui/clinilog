@@ -4,6 +4,7 @@ import { formatMedicalDate } from "@/lib/formatMedical";
 import { daysUntil, defaultAmcasTarget } from "@/lib/appTypes";
 import { daysSinceLastEntry, historyMonths, onThisDay, priorMonthSummary, weekStreak } from "@/lib/signals";
 import RecapCard from "./RecapCard";
+import GapBanner from "./checks/GapBanner";
 
 /**
  * The quiet dashboard signals: AMCAS countdown, logging streak, a dormancy
@@ -14,10 +15,19 @@ export default function DashboardSignals({
   experiences,
   amcasTarget,
   archetype = null,
+  gapThreshold = 14,
+  bannerHidden = false,
+  offerReminders = false,
 }: {
   experiences: Experience[];
   amcasTarget: string | null;
   archetype?: string | null;
+  /** The user's reminder gap setting; 14 days if they have none. */
+  gapThreshold?: number;
+  /** Dismissed in the last 7 days. */
+  bannerHidden?: boolean;
+  /** Never answered the reminder offer. */
+  offerReminders?: boolean;
 }) {
   const target = amcasTarget || defaultAmcasTarget();
   const days = daysUntil(target);
@@ -25,7 +35,7 @@ export default function DashboardSignals({
   const dormant = daysSinceLastEntry(experiences);
   const anniversary = historyMonths(experiences) >= 6 ? onThisDay(experiences) : null;
 
-  const showDormant = dormant !== null && dormant >= 10;
+  const showDormant = dormant !== null && dormant >= gapThreshold && !bannerHidden;
 
   // Offered only when the month just gone actually had activity, so it never
   // produces a card reading zero.
@@ -72,32 +82,8 @@ export default function DashboardSignals({
         )}
       </div>
 
-      {/* Dormancy nudge: in-app only, never an email */}
-      {showDormant && (
-        <div
-          className="flex items-center justify-between gap-3 flex-wrap"
-          style={{
-            padding: "10px var(--sp-2)",
-            border: "1px solid var(--border-strong)",
-            borderLeft: "2px solid var(--warning)",
-            borderRadius: "var(--radius)",
-            background: "var(--bg-card)",
-            marginBottom: "var(--sp-2)",
-          }}
-        >
-          <p className="text-sm" style={{ color: "var(--text-primary)" }}>
-            <span className="exp-id" style={{ marginRight: 8 }}>{dormant}D SINCE LAST ENTRY</span>
-            Hours are easiest to log while you still remember the details.
-          </p>
-          <Link
-            href="/dashboard/new"
-            className="btn-ghost text-xs font-semibold"
-            style={{ padding: "6px var(--sp-2)", textDecoration: "none" }}
-          >
-            Log recent hours
-          </Link>
-        </div>
-      )}
+      {/* Gap banner: in-app for everyone; email only for those who opt in */}
+      {showDormant && <GapBanner days={dormant!} offerReminders={offerReminders} />}
 
       {/* Monthly recap */}
       {recap.entries > 0 && (

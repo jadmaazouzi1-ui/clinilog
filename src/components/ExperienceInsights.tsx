@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Experience, ExperienceType, formatHours } from "@/lib/types";
+import { BENCHMARKS } from "@/lib/benchmarks";
 
 type Stage = "freshman" | "sophomore" | "junior" | "senior" | "postgrad";
 
@@ -8,7 +9,16 @@ interface Tip {
   title: string;
   body: string;
   icon: React.ReactNode;
+  /** Same topic ids as lib/checks, so the Application check can claim one. */
+  topic?: string;
 }
+
+const HOURS_TOPIC: Record<"clinical" | "shadowing" | "research" | "volunteer", string> = {
+  clinical: "hours:clinical_work",
+  shadowing: "hours:shadowing",
+  research: "hours:research",
+  volunteer: "hours:volunteer",
+};
 
 const ICONS = {
   flask: (
@@ -72,11 +82,12 @@ const ICONS = {
 };
 
 // AMCAS-style recommendations (full target, used as "100%" benchmark)
+// Same numbers as the tracker and the application check (lib/benchmarks).
 const RECOMMENDATIONS = {
-  clinicalWork: 100,
-  shadowing: 50,
-  volunteer: 40,
-  research: 50,
+  clinicalWork: BENCHMARKS.clinical_work,
+  shadowing: BENCHMARKS.shadowing,
+  volunteer: BENCHMARKS.volunteer,
+  research: BENCHMARKS.research,
 };
 
 const STAGE_META: Record<Stage, { label: string; tone: string; color: string; bg: string }> = {
@@ -107,9 +118,12 @@ function computeStage(gradYear: number | null | undefined): Stage | null {
 export default function ExperienceInsights({
   experiences,
   gradYear,
+  hideTopics = [],
 }: {
   experiences: Experience[];
   gradYear: number | null;
+  /** Topics the Application check panel is already showing. */
+  hideTopics?: string[];
 }) {
   const stage = computeStage(gradYear);
 
@@ -151,7 +165,7 @@ export default function ExperienceInsights({
     );
   }
 
-  const tips = generateTips(experiences, stage);
+  const tips = generateTips(experiences, stage, hideTopics);
   const meta = STAGE_META[stage];
 
   return (
@@ -221,7 +235,7 @@ function paletteFor(kind: Tip["kind"]) {
 
 // ── Tip generation, stage-aware ───────────────────────────────────────────
 
-function generateTips(experiences: Experience[], stage: Stage): Tip[] {
+function generateTips(experiences: Experience[], stage: Stage, hideTopics: string[] = []): Tip[] {
   const hoursByType: Record<ExperienceType, number> = {
     clinical_work: 0, shadowing: 0, research: 0, volunteer: 0, other: 0,
   };
@@ -250,7 +264,7 @@ function generateTips(experiences: Experience[], stage: Stage): Tip[] {
   const minVolunteer = RECOMMENDATIONS.volunteer    * frac;
   const minResearch  = RECOMMENDATIONS.research     * frac;
 
-  const candidates: Tip[] = [];
+  let candidates: Tip[] = [];
 
   // ── Empty state ──────────────────────────────────────────────────────────
   if (experiences.length === 0) {
@@ -377,6 +391,7 @@ function generateTips(experiences: Experience[], stage: Stage): Tip[] {
       stage === "junior"    ? "AMCAS opens soon, so fill these in before then." :
                               "AMCAS asks for a description of every activity. Fill these in first.";
     candidates.push({
+      topic: "descriptions",
       kind: urgency,
       title: `${missingDescCount} ${missingDescCount === 1 ? "experience is" : "experiences are"} missing a description`,
       body: `${stageSuffix} Write rough notes first; Reframe with AI can tighten them, and you should check the result.`,
@@ -420,6 +435,10 @@ function generateTips(experiences: Experience[], stage: Stage): Tip[] {
     });
   }
 
+  // The Application check panel owns these topics; never say the same thing twice.
+  const hidden = new Set(hideTopics);
+  candidates = candidates.filter((t) => !t.topic || !hidden.has(t.topic));
+
   // Priority: alerts > warns > positives. Always include ≥1 positive if any.
   const alerts = candidates.filter((t) => t.kind === "alert");
   const warns = candidates.filter((t) => t.kind === "warn");
@@ -461,7 +480,7 @@ function pushHoursTip(out: Tip[], cfg: HoursTipConfig) {
       : stage === "junior"    ? `Critical gap: no ${cfg.label} hours`
       : stage === "senior"    ? `Urgent: no ${cfg.label} hours`
       : `No ${cfg.label} hours logged`;
-    out.push({ kind, title, body: zeroBodyByStage[stage], icon });
+    out.push({ kind, title, body: zeroBodyByStage[stage], icon, topic: HOURS_TOPIC[cfg.label] });
     return;
   }
 
@@ -482,7 +501,7 @@ function pushHoursTip(out: Tip[], cfg: HoursTipConfig) {
       : stage === "sophomore" ? `Build ${cfg.label} toward midpoint`
       : stage === "junior"    ? `${cfg.label[0].toUpperCase()}${cfg.label.slice(1)} below the benchmark`
       :                         `${cfg.label[0].toUpperCase()}${cfg.label.slice(1)} hours below target`;
-    out.push({ kind, title, body, icon });
+    out.push({ kind, title, body, icon, topic: HOURS_TOPIC[cfg.label] });
     return;
   }
 
@@ -497,8 +516,9 @@ function pushHoursTip(out: Tip[], cfg: HoursTipConfig) {
         ? `${formatHours(actual)} hours so far. The common benchmark is ${fullTarget} by the time you apply.`
         : `${formatHours(actual)} hours, close to the ${fullTarget}-hour benchmark. Log any recent hours you have not entered yet.`;
     out.push({
+      topic: HOURS_TOPIC[cfg.label],
       kind: stage === "freshman" || stage === "sophomore" ? "positive" : "warn",
-      title: stage === "freshman" || stage === "sophomore" ? `${cfg.label[0].toUpperCase()}${cfg.label.slice(1)} on pace` : `${cfg.label[0].toUpperCase()}${cfg.label.slice(1)} - almost there`,
+      title: stage === "freshman" || stage === "sophomore" ? `${cfg.label[0].toUpperCase()}${cfg.label.slice(1)} on pace` : `${cfg.label[0].toUpperCase()}${cfg.label.slice(1)}: almost there`,
       body,
       icon,
     });
@@ -507,6 +527,7 @@ function pushHoursTip(out: Tip[], cfg: HoursTipConfig) {
 
   // At or above full target: positive
   out.push({
+    topic: HOURS_TOPIC[cfg.label],
     kind: "positive",
     title: onTrackTitle,
     body: `${formatHours(actual)} ${cfg.label} hours ${onTrackBodyByStage[stage]}`,

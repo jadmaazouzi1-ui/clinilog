@@ -23,6 +23,10 @@ const TABLES = [
   "postbacc_profile",
   "referrals",
   "tour_progress",
+  "notification_prefs",
+  "notification_log",
+  "user_breaks",
+  "finding_dismissals",
 ] as const;
 
 export async function GET() {
@@ -42,6 +46,11 @@ export async function GET() {
     };
     for (const t of TABLES) {
       const { data, error } = await supabase.from(t).select("*");
+      // A table added by a migration that has not run yet is simply empty.
+      if (error && error.code === "PGRST205") {
+        out[t] = [];
+        continue;
+      }
       if (error) throw new Error(`${t}: ${error.message}`);
       out[t] = data ?? [];
     }

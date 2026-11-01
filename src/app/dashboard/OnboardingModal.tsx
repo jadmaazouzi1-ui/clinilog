@@ -32,6 +32,9 @@ export default function OnboardingModal() {
   const [expType, setExpType] = useState("shadowing");
   const [expHours, setExpHours] = useState("");
   const [expDesc, setExpDesc] = useState("");
+  // The one-time reminder offer. Unchecked by default; either way it is
+  // recorded as answered so it is never asked again.
+  const [remindMe, setRemindMe] = useState(false);
 
   if (done) return null;
 
@@ -42,8 +45,18 @@ export default function OnboardingModal() {
     setStep((s) => Math.max(s - 1, 1));
   }
 
+  async function answerReminderOffer() {
+    await fetch("/api/notifications", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ reminders_enabled: remindMe, answeringOffer: true }),
+    }).catch(() => {});
+  }
+
   function handleSkip() {
     startTransition(async () => {
+      // Only counts as an answer if they reached the step that asks.
+      if (step === TOTAL_STEPS) await answerReminderOffer();
       await markOnboardingComplete();
       setDone(true);
       router.refresh();
@@ -59,6 +72,7 @@ export default function OnboardingModal() {
         hours: expHours,
         description: expDesc,
       });
+      await answerReminderOffer();
       await markOnboardingComplete();
       setDone(true);
       router.refresh();
@@ -306,6 +320,10 @@ export default function OnboardingModal() {
                   style={{ resize: "vertical" }}
                 />
               </div>
+              <label style={{ display: "flex", gap: 10, alignItems: "flex-start", fontSize: 13, color: "var(--text-secondary)", cursor: "pointer" }}>
+                <input type="checkbox" checked={remindMe} onChange={(e) => setRemindMe(e.target.checked)} style={{ marginTop: 3 }} />
+                <span>Email me if I go 14 days without logging. You can change or stop this in Profile.</span>
+              </label>
             </div>
           </div>
         )}

@@ -57,6 +57,18 @@ export default function PrivacyPage() {
         summary goes only to your own account email, only while you are actively logging, and every
         message has a one-click unsubscribe link.
       </p>
+      <p>
+        Logging reminders are off unless you turn them on in Profile. If you do, you get an email after
+        the gap you choose (7, 14 or 30 days) without a new entry: at most one every 14 days, none after
+        3 in a row until you log again, and none during a break you have saved. A reminder contains your
+        last entry&apos;s title and date, your total hours and one note from the Application check. It never
+        contains your descriptions or reflections. Each one has a one-click unsubscribe link that works
+        without signing in, and we keep a record of when each reminder was sent so none is sent twice.
+      </p>
+      <p>
+        Breaks you save and checks you hide are stored with your account so the Application check and
+        reminders can respect them. No reason for a break is asked for or stored.
+      </p>
 
       <h2>Export or delete your data</h2>
       <p>

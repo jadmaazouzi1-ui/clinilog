@@ -1,31 +1,24 @@
 import "server-only";
-import { createHmac, timingSafeEqual } from "node:crypto";
 import { SITE_URL } from "./site";
+import { signUnsub, verifyUnsub, type UnsubPurpose } from "./unsubscribeToken";
 
-/**
- * Signed one-click unsubscribe links. The token is an HMAC of the user id with
- * a server secret, so a link cannot be forged for another account by guessing
- * or changing the id.
- */
+/** Signed one-click unsubscribe links. See unsubscribeToken.ts. */
 function secret(): string | null {
   return process.env.UNSUBSCRIBE_SECRET || process.env.CRON_SECRET || null;
 }
 
-export function unsubscribeToken(userId: string): string | null {
+export function unsubscribeToken(userId: string, purpose: UnsubPurpose = "digest"): string | null {
   const s = secret();
-  if (!s) return null;
-  return createHmac("sha256", s).update(`unsub:${userId}`).digest("base64url");
+  return s ? signUnsub(s, purpose, userId) : null;
 }
 
-export function verifyUnsubscribeToken(userId: string, token: string): boolean {
-  const expected = unsubscribeToken(userId);
-  if (!expected || !token) return false;
-  const a = Buffer.from(expected);
-  const b = Buffer.from(token);
-  return a.length === b.length && timingSafeEqual(a, b);
+export function verifyUnsubscribeToken(userId: string, token: string, purpose: UnsubPurpose = "digest"): boolean {
+  return verifyUnsub(secret(), purpose, userId, token);
 }
 
-export function unsubscribeUrl(userId: string): string | null {
-  const t = unsubscribeToken(userId);
-  return t ? `${SITE_URL}/api/unsubscribe?u=${encodeURIComponent(userId)}&t=${encodeURIComponent(t)}` : null;
+export function unsubscribeUrl(userId: string, purpose: UnsubPurpose = "digest"): string | null {
+  const t = unsubscribeToken(userId, purpose);
+  if (!t) return null;
+  const k = purpose === "digest" ? "" : `&k=${purpose}`;
+  return `${SITE_URL}/api/unsubscribe?u=${encodeURIComponent(userId)}&t=${encodeURIComponent(t)}${k}`;
 }

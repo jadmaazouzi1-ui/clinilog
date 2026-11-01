@@ -13,6 +13,9 @@ import ExperienceInsights from "@/components/ExperienceInsights";
 import CountUp from "@/components/CountUp";
 import DashboardSignals from "@/components/DashboardSignals";
 import TourOffer from "@/components/tour/TourOffer";
+import ApplicationCheck from "@/components/checks/ApplicationCheck";
+import { loadChecks } from "@/lib/checks/server";
+import { isDismissed } from "@/lib/checks";
 import { claimPendingReferral } from "@/lib/referral";
 import { formatMedicalDate, formatMedicalHours, buildRecordNumbers } from "@/lib/formatMedical";
 import {
@@ -79,6 +82,10 @@ export default async function DashboardPage({
     .select("onboarding_complete, archetype_id, graduation_year, amcas_target_date")
     .eq("id", user.id)
     .single();
+
+  const checks = await loadChecks(supabase, user.id, experienceList, profile ?? null);
+  const nowForChecks = new Date();
+  const panelTopics = checks.visible.map((f) => f.topic).filter((t): t is string => !!t);
 
   const showOnboarding = !profile?.onboarding_complete;
   const showArchetypeBanner = experienceList.length >= 3;
@@ -172,6 +179,9 @@ export default async function DashboardPage({
           experiences={experienceList}
           amcasTarget={profile?.amcas_target_date ?? null}
           archetype={profile?.archetype_id ?? null}
+          gapThreshold={checks.prefs?.gap_days ?? 14}
+          bannerHidden={isDismissed("banner:gap", checks.dismissals, nowForChecks)}
+          offerReminders={!checks.prefs?.reminders_enabled && !isDismissed("offer:reminders", checks.dismissals, nowForChecks)}
         />
 
         {/* Your Path: organic branch grown from the logged categories */}
@@ -239,12 +249,15 @@ export default async function DashboardPage({
           <ExperienceInsights
             experiences={experienceList}
             gradYear={profile?.graduation_year ?? null}
+            hideTopics={panelTopics}
           />
         </div>
 
         <div data-tour="amcas-tracker">
           <AMCASTracker experiences={experienceList} />
         </div>
+
+        <ApplicationCheck findings={checks.visible} />
 
         <EkgDivider rich={totalHours >= 100} />
 

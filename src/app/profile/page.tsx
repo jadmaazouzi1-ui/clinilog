@@ -7,6 +7,7 @@ import { VitalFlat, VitalOk } from "@/components/MedicalIcons";
 import ReferralPanel from "./ReferralPanel";
 import AccountData from "./AccountData";
 import HelpButton from "@/components/tour/HelpButton";
+import { ReminderSettings, BreakSettings } from "./ReminderSettings";
 import WalletCard from "@/components/WalletCard";
 import { ensureReferralCode, referralCount } from "@/lib/referral";
 import { Experience } from "@/lib/types";
@@ -38,10 +39,12 @@ export default async function ProfilePage({
     .eq("id", user.id)
     .single();
 
-  const [referral, refCount, { data: expRows }] = await Promise.all([
+  const [referral, refCount, { data: expRows }, { data: notifPrefs }, { data: breakRows }] = await Promise.all([
     ensureReferralCode(user.id),
     referralCount(user.id),
     supabase.from("experiences").select("*"),
+    supabase.from("notification_prefs").select("reminders_enabled, gap_days, pause_in_breaks").eq("user_id", user.id).maybeSingle(),
+    supabase.from("user_breaks").select("id, start_date, end_date").eq("user_id", user.id).order("start_date", { ascending: false }),
   ]);
   const experiences: Experience[] = (expRows ?? []) as Experience[];
 
@@ -351,6 +354,12 @@ export default async function ProfilePage({
               </button>
             </div>
           </form>
+        </div>
+
+        {/* Reminders and breaks */}
+        <div className="glass-card tick-corners" style={{ padding: "var(--sp-3)", marginTop: "var(--sp-3)" }} data-tour="reminders">
+          <ReminderSettings initial={notifPrefs ?? null} />
+          <BreakSettings initial={breakRows ?? []} />
         </div>
 
         {/* Referrals */}
