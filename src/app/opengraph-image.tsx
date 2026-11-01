@@ -1,27 +1,46 @@
 import { ImageResponse } from "next/og";
+import { taperedRibbon } from "@/lib/branch";
+import { LEAF_KIND, TRUNK, TRUNK_W_BASE, TRUNK_W_TIP, VB_H, VB_W, buildBranches } from "@/lib/pathTree";
+import { SAMPLE_EXPERIENCES } from "@/components/landing/SamplePath";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = "ClinicLog MD: clinical hours tracker for pre-med students";
+export const alt = "ClinicLog MD: watch your experience grow into a record. A sample Your Path tree.";
 
-// Logo and plain description. No screenshot: every number on it would be invented.
+// The dark hero with the headline and the same sample tree as the home page.
+const LEAF: Record<string, string> = {
+  clinical_work: "#FFFFFF",
+  shadowing: "#D6E8DC",
+  research: "#AECFBB",
+  volunteer: "#8FC2A5",
+  other: "#6FA98B",
+};
+const LIMB = "rgba(230,242,234,0.36)";
+
 export default function OpengraphImage() {
+  const { branches } = buildBranches(SAMPLE_EXPERIENCES);
+  const parts: string[] = [`<path d="${taperedRibbon(TRUNK, TRUNK_W_BASE, TRUNK_W_TIP, 34)}" fill="${LIMB}"/>`];
+  for (const b of branches) {
+    const hollow = LEAF_KIND[b.type] === "hollow";
+    const leaf = (d: string, t: string) =>
+      `<path d="${d}" transform="${t}" fill="${hollow ? "none" : LEAF[b.type]}" stroke="${hollow ? LEAF[b.type] : "none"}" stroke-width="1.6"/>`;
+    parts.push(`<path d="${b.d}" fill="${LIMB}"/>`);
+    for (const s of b.subs) parts.push(`<path d="${s.d}" fill="${LIMB}"/>`, leaf(s.leafD, s.leafTransform));
+    parts.push(leaf(b.leafD, b.leafTransform));
+  }
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${VB_W} ${VB_H}" width="1056" height="396">${parts.join("")}</svg>`;
+
   return new ImageResponse(
     (
-      <div style={{ width: 1200, height: 630, background: "#F3F7F4", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: 72, borderLeft: "16px solid #1F4D3A" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-          <div style={{ width: 72, height: 72, background: "#1F4D3A", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <svg width="52" height="52" viewBox="0 0 24 24">
-              <polyline points="2,12 5,12 7,7 9,17 11,10 13,14 15,12 22,12" stroke="#FFFFFF" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </div>
-          <div style={{ fontSize: 44, fontWeight: 800, color: "#0E1A15" }}>ClinicLog MD</div>
+      <div style={{ width: 1200, height: 630, background: "#14342A", display: "flex", flexDirection: "column", padding: "56px 72px 0" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", color: "#8FC2A5", fontSize: 22, letterSpacing: 3 }}>
+          <span style={{ color: "#FFFFFF", fontWeight: 800 }}>CLINICLOG MD</span>
+          <span>SAMPLE DATA / 118 HRS / 14 ENTRIES</span>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-          <div style={{ fontSize: 64, fontWeight: 800, color: "#0E1A15", lineHeight: 1.1 }}>Keep your hours ready for AMCAS.</div>
-          <div style={{ fontSize: 30, color: "#40594D" }}>Log clinical hours and compare medical schools with your numbers.</div>
+        <div style={{ color: "#FFFFFF", fontSize: 66, fontWeight: 800, lineHeight: 1.02, letterSpacing: -2, marginTop: 36, maxWidth: 900 }}>
+          Watch your experience grow into a record.
         </div>
-        <div style={{ fontSize: 22, color: "#40594D", letterSpacing: 2 }}>CLINICLOGMD.COM</div>
+        <img src={`data:image/svg+xml;utf8,${encodeURIComponent(svg)}`} width={1056} height={396} alt="" style={{ marginTop: -40 }} />
       </div>
     ),
     { ...size }

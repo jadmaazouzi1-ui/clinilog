@@ -3,9 +3,12 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import { headers } from "next/headers";
 import "./globals.css";
 
+// Not preloaded: the logged-out home page uses Archivo only, and a preload
+// here would download Inter there for nothing. Signed-in pages swap it in.
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  preload: false,
 });
 
 const jetbrainsMono = JetBrains_Mono({

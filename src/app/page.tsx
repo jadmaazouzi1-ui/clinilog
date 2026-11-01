@@ -1,289 +1,113 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { Archivo } from "next/font/google";
 import { createClient } from "@/lib/supabase/server";
-import { ARCHETYPES } from "@/lib/archetypes";
-import { SCHOOLS } from "@/lib/schools";
-import {
-  Cubic,
-  LeafKind,
-  angleAt,
-  bezPoint,
-  leafPath,
-  makeLimb,
-  r2,
-  taperedRibbon,
-} from "@/lib/branch";
+import SamplePath from "@/components/landing/SamplePath";
+import "./landing.css";
 
-const FEATURES: { title: string; body: string }[] = [
-  { title: "Hours log",         body: "Each entry has dates, hours, a category and a description. Totals by category update as you save, and Export All gives you a PDF to copy into AMCAS." },
-  { title: "School Explorer",   body: `${SCHOOLS.length} MD, DO and Caribbean programs with average GPA and MCAT. Enter your numbers to see which schools are close. Figures are approximate.` },
-  { title: "Application tools", body: "Track schools from Target to decision, interview invites, letter writers, and what you have spent on fees." },
-  { title: "Archetype (AI)",    body: "After 3 entries, AI reads them and names the pattern they show, with schools to research. It says which entries it based that on." },
-  { title: "AI Advisor",        body: "Ask questions about applying. It can see your logged totals. Answers are suggestions and can be wrong." },
-  { title: "Post-bacc tracker", body: "Log post-bacc courses and see your BCPM and cumulative GPA." },
-];
-
-
-
-const CASE_IDS = ["community_healer", "scientist", "first_gen_grinder"];
-const CASES = CASE_IDS
-  .map((id) => ARCHETYPES.find((a) => a.id === id))
-  .filter((a): a is (typeof ARCHETYPES)[number] => !!a);
-
-/* ── Static hero branch, built from the same geometry the dashboard uses ── */
-
-const HERO_BOUGH: Cubic = [
-  { x: -10, y: 182 },
-  { x: 116, y: 210 },
-  { x: 276, y: 116 },
-  { x: 452, y: 140 },
-];
-
-const HERO_FORKS: { t: number; side: number; len: number; w: number; kind: LeafKind; color: string; leaf: number }[] = [
-  { t: 0.20, side: -1, len: 92, w: 7.5, kind: "solid",   color: "var(--leaf-clinical)", leaf: 22 },
-  { t: 0.44, side:  1, len: 70, w: 5.5, kind: "hollow",  color: "var(--leaf-shadowing)", leaf: 17 },
-  { t: 0.62, side: -1, len: 80, w: 6,   kind: "diamond", color: "var(--leaf-research)", leaf: 16 },
-  { t: 0.84, side:  1, len: 54, w: 4,   kind: "round",   color: "var(--leaf-volunteer)", leaf: 13 },
-];
-
-function HeroBranch() {
-  return (
-    <svg
-      viewBox="0 0 440 300"
-      className="w-full"
-      style={{ display: "block", height: "auto" }}
-      preserveAspectRatio="xMidYMid meet"
-      aria-hidden="true"
-    >
-      <defs>
-        <pattern id="herogrid" width="36" height="36" patternUnits="userSpaceOnUse">
-          <path d="M36,0 L0,0 L0,36" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
-        </pattern>
-      </defs>
-      <rect width="440" height="300" fill="url(#herogrid)" />
-
-      <path d={taperedRibbon(HERO_BOUGH, 22, 2, 30)} fill="var(--limb)" />
-
-      {HERO_FORKS.map((f, i) => {
-        const origin = bezPoint(HERO_BOUGH, f.t);
-        const limb = makeLimb(origin, angleAt(HERO_BOUGH, f.t) + f.side * 34, f.len, f.side * 12);
-        const tip = limb[3];
-        const tipA = angleAt(limb, 1);
-        return (
-          <g key={i}>
-            <path d={taperedRibbon(limb, f.w, 1, 16)} fill="var(--limb)" />
-            <path
-              d={leafPath(f.kind, f.leaf)}
-              transform={`translate(${r2(tip.x)} ${r2(tip.y)}) rotate(${r2(tipA)})`}
-              fill={f.kind === "hollow" ? "none" : f.color}
-              stroke={f.kind === "hollow" ? f.color : "none"}
-              strokeWidth={f.kind === "hollow" ? 1.6 : 0}
-            />
-          </g>
-        );
-      })}
-    </svg>
-  );
-}
+// Archivo for every word on this page; JetBrains Mono (from the root layout)
+// for the mono labels. No other face is used here.
+const archivo = Archivo({
+  subsets: ["latin"],
+  weight: ["400", "500", "700", "800"],
+  display: "swap",
+  variable: "--font-archivo",
+});
 
 export const metadata = {
-  title: "ClinicLog MD | Clinical hours tracker for pre-meds",
-  description: "Log clinical, shadowing, research and volunteer hours for AMCAS, and compare medical schools with your GPA and MCAT. Free for Wake Forest students.",
+  title: "ClinicLog MD | Pre-med hours tracker",
+  description:
+    "Log clinical hours, shadowing, research and volunteering, compare them to common AMCAS benchmarks, and find medical schools that fit your GPA and MCAT.",
 };
+
+const ROWS: { title: string; body: string }[] = [
+  {
+    title: "Hours that stay organized",
+    body: "Log each session with dates, hours and the organization. Import a spreadsheet, export a PDF, and keep one total that matches everywhere.",
+  },
+  {
+    title: "Schools that fit your numbers",
+    body: "Enter your GPA and MCAT, pick a home state, and filter MD, DO and Caribbean programs by mission. Check each school's own site before you apply.",
+  },
+  {
+    title: "A story drawn from your record",
+    body: "AI assisted drafts for descriptions, personal statement outlines and mock interview questions. They use only what you logged, and they are yours to rewrite.",
+  },
+  {
+    title: "The rest of the cycle",
+    body: "Track secondary essays, interviews, letters, fee assistance and a gap year plan in the same account.",
+  },
+];
+
+const FOOTER_LINKS: [string, string][] = [
+  ["About", "/about"],
+  ["Privacy", "/privacy"],
+  ["Terms", "/terms"],
+  ["Changelog", "/changelog"],
+];
 
 export default async function HomePage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (user) redirect("/dashboard");
 
-  // Real platform totals. public_stats() is a security-definer RPC returning
-  // two scalars, so no row is exposed to an anonymous visitor.
-  const { data: stats } = await supabase.rpc("public_stats").single<{
-    total_hours: number;
-    total_users: number;
-  }>();
-
-  const loggedHours = Math.round(Number(stats?.total_hours ?? 0));
-  // Every figure here is counted, not claimed.
-  const STATS = [
-    { value: String(SCHOOLS.length), label: "Medical schools listed" },
-    { value: "5", label: "Hour categories" },
-    { value: String(ARCHETYPES.length), label: "Archetypes" },
-    // Shown live once there is a number worth showing.
-    ...(loggedHours >= 500 ? [{ value: loggedHours.toLocaleString("en-US"), label: "Hours logged so far" }] : []),
-  ];
-
   return (
-    <div style={{ backgroundColor: "var(--bg-page)", color: "var(--text-primary)", minHeight: "100vh" }}>
-      <style>{`
-        .nav-link { color: var(--text-secondary); text-decoration: none; font-weight: 500; }
-        .nav-link:hover { color: var(--text-primary); }
-        .mobile-menu-btn { display: none; }
-        /* The centre links need about 1024px; below that they crowd the logo. */
-        @media (max-width: 1023px) {
-          .nav-center { display: none !important; }
-        }
-        @media (max-width: 767px) {
-          .nav-auth-desktop { display: none !important; }
-          .mobile-menu-btn { display: flex !important; }
-        }
-      `}</style>
+    <div className={`lp ${archivo.variable}`}>
+      <div className="lp-dark">
+        <header className="lp-wrap lp-header">
+          <Link href="/" className="lp-wordmark">CLINICLOG MD</Link>
+          <nav className="lp-header-actions" aria-label="Account">
+            <Link href="/auth/login" className="lp-textlink">Sign in</Link>
+            <Link href="/auth/signup" className="lp-btn lp-btn-solid lp-btn-sm">Create account</Link>
+          </nav>
+        </header>
 
-      {/* Navbar */}
-      <header
-        className="sticky top-0 z-50"
-        style={{ backgroundColor: "rgba(243,247,244,0.92)", backdropFilter: "blur(8px)", borderBottom: "1px solid var(--border-strong)" }}
-      >
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5" style={{ textDecoration: "none" }}>
-            <div
-              className="flex items-center justify-center flex-shrink-0"
-              style={{ width: 30, height: 30, borderRadius: "var(--radius)", background: "var(--accent)" }}
-            >
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--on-accent)" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="2,12 7,12 8,9 10,12 12,3 13,21 14,12 16,9 18,12 22,12" />
-              </svg>
-            </div>
-            <span className="font-bold whitespace-nowrap" style={{ fontSize: "1.0625rem", color: "var(--text-primary)" }}>ClinicLog MD</span>
-          </Link>
-          <nav className="nav-center flex items-center gap-8">
-            {[["Schools", "/schools"], ["Archetype", "/archetype"], ["Resources", "/resources"], ["Stories", "/stories"], ["About", "/about"]].map(([label, href]) => (
-              <Link key={label} href={href} className="nav-link text-sm">{label}</Link>
+        <section className="lp-wrap lp-hero" aria-labelledby="lp-title">
+          <p className="lp-eyebrow mono">HOURS, SCHOOLS, STORY</p>
+          <h1 id="lp-title">Watch your experience grow into a record.</h1>
+          <p className="lp-sub">
+            Every hour you log adds a branch. See clinical work, shadowing, research and volunteering take shape,
+            and know what to add next before application season.
+          </p>
+          <div className="lp-actions">
+            <Link href="/auth/signup" className="lp-btn lp-btn-solid">Start logging hours</Link>
+            <Link href="/auth/login" className="lp-btn lp-btn-outline">Sign in</Link>
+          </div>
+
+          <SamplePath />
+        </section>
+      </div>
+
+      <main className="lp-light">
+        <section className="lp-wrap lp-section" aria-labelledby="lp-get">
+          <p className="lp-eyebrow lp-eyebrow-light mono" id="lp-get">WHAT YOU GET</p>
+          <ol className="lp-rows">
+            {ROWS.map((r, i) => (
+              <li key={r.title} className="lp-row">
+                <span className="lp-row-num mono">{String(i + 1).padStart(2, "0")}</span>
+                <h2 className="lp-row-title">{r.title}</h2>
+                <p className="lp-row-body">{r.body}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <section className="lp-close" aria-labelledby="lp-close-title">
+          <div className="lp-wrap lp-close-inner">
+            <h2 id="lp-close-title">Log your first entry in under a minute.</h2>
+            <Link href="/auth/signup" className="lp-btn lp-btn-solid">Create account</Link>
+          </div>
+        </section>
+      </main>
+
+      <footer className="lp-footer">
+        <div className="lp-wrap lp-footer-inner">
+          <p>Built by a first-generation pre-med student at Wake Forest.</p>
+          <nav aria-label="Footer">
+            {FOOTER_LINKS.map(([label, href]) => (
+              <Link key={href} href={href}>{label}</Link>
             ))}
           </nav>
-          <div className="nav-auth-desktop flex items-center gap-3">
-            <Link href="/auth/login" className="nav-link text-sm whitespace-nowrap">Sign in</Link>
-            <Link href="/auth/signup" className="teal-glow text-sm" style={{ padding: "8px 16px", textDecoration: "none" }}>Create account</Link>
-          </div>
-          <Link href="/auth/signup" className="mobile-menu-btn teal-glow text-sm" style={{ padding: "8px 16px", textDecoration: "none" }}>Create account</Link>
-        </div>
-      </header>
-
-      {/* Hero */}
-      <section className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center" style={{ paddingTop: "var(--sp-6)", paddingBottom: "var(--sp-5)" }}>
-        <div>
-          <span className="beta-pill" style={{ marginBottom: "var(--sp-2)" }}>Free for Wake Forest pre-meds</span>
-          <h1 className="font-bold" style={{ fontSize: "clamp(2.25rem, 5vw, 3.25rem)", lineHeight: 1.08, letterSpacing: "-0.02em", marginBottom: "var(--sp-2)" }}>
-            Keep your hours ready for AMCAS.
-          </h1>
-          <p className="text-base" style={{ color: "var(--text-secondary)", lineHeight: 1.65, maxWidth: 440, marginBottom: "var(--sp-4)" }}>
-            Log clinical, shadowing, research and volunteer hours as they happen, see your totals by category, and check {SCHOOLS.length} medical schools against your GPA and MCAT. Built by a pre-med student. Sign up with your @wfu.edu email.
-          </p>
-          <div className="flex items-center gap-3 flex-wrap">
-            <Link href="/auth/signup" className="teal-glow text-sm" style={{ padding: "12px var(--sp-3)", textDecoration: "none" }}>Create account</Link>
-            <Link href="/auth/login" className="btn-ghost text-sm" style={{ padding: "12px var(--sp-3)", textDecoration: "none" }}>Sign in</Link>
-          </div>
-        </div>
-
-        {/* Branch illustration: the same drawing the dashboard grows from your data */}
-        <div
-          className="tick-corners tick-corners-light relative overflow-hidden"
-          style={{
-            background: "linear-gradient(135deg, var(--bg-hero-1), var(--bg-hero-2) 58%, var(--bg-hero-3))",
-            border: "1px solid rgba(255,255,255,0.10)",
-            borderRadius: "var(--radius)",
-          }}
-        >
-          <p
-            className="absolute"
-            style={{ top: 14, left: 16, color: "rgba(255,255,255,0.85)", fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", zIndex: 1 }}
-          >
-            Your Path / Sample
-          </p>
-          <HeroBranch />
-          <p
-            className="mono absolute"
-            style={{ bottom: 14, left: 16, color: "rgba(255,255,255,0.5)", fontSize: 10, letterSpacing: "0.06em" }}
-          >
-            EACH BRANCH IS A CATEGORY. IT GROWS AS YOU LOG.
-          </p>
-        </div>
-      </section>
-
-      {/* Stats: chart readouts on hairlines, left aligned */}
-      <section className="max-w-6xl mx-auto px-6" style={{ paddingBottom: "var(--sp-5)" }}>
-        <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: "var(--sp-3)" }}>
-          {STATS.map((s) => (
-            <div key={s.label} className="data-field">
-              <span className="data-field-label">{s.label}</span>
-              <span className="mono" style={{ fontSize: "2rem", fontWeight: 600, color: "var(--accent)", lineHeight: 1.1 }}>
-                {s.value}
-              </span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <div className="max-w-6xl mx-auto px-6"><hr className="tear-line" /></div>
-
-      {/* Features: numbered entries, no decorative icons */}
-      <section className="max-w-6xl mx-auto px-6" style={{ paddingTop: "var(--sp-4)", paddingBottom: "var(--sp-5)" }}>
-        <p className="dept-header">What is in it</p>
-        <h2 className="font-bold" style={{ fontSize: "2rem", marginBottom: "var(--sp-3)" }}>The main tools</h2>
-        {/* An index, not a card grid: numbered rows on hairlines. */}
-        <dl className="grid md:grid-cols-2" style={{ columnGap: "var(--sp-4)" }}>
-          {FEATURES.map((f, i) => (
-            <div key={f.title} className="flex gap-4" style={{ padding: "var(--sp-2) 0", borderTop: "1px solid var(--border-strong)" }}>
-              <span className="exp-id" style={{ paddingTop: 3 }}>{String(i + 1).padStart(2, "0")}</span>
-              <div>
-                <dt className="font-semibold" style={{ fontSize: "1.0625rem", marginBottom: 4 }}>{f.title}</dt>
-                <dd className="text-sm" style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>{f.body}</dd>
-              </div>
-            </div>
-          ))}
-        </dl>
-      </section>
-
-      <div className="max-w-6xl mx-auto px-6"><hr className="tear-line" /></div>
-
-      {/* Archetype case studies */}
-      <section className="max-w-6xl mx-auto px-6" style={{ paddingTop: "var(--sp-4)", paddingBottom: "var(--sp-5)" }}>
-        <p className="dept-header">Archetypes</p>
-        <h2 className="font-bold" style={{ fontSize: "2rem", marginBottom: 6 }}>Three of the {ARCHETYPES.length} patterns</h2>
-        <p className="text-sm" style={{ color: "var(--text-secondary)", maxWidth: 560, marginBottom: "var(--sp-3)" }}>
-          Once you have 3 entries, AI matches your log to the closest one. These descriptions are general; yours comes with the entries it was based on.
-        </p>
-        <div className="grid md:grid-cols-3" style={{ gap: "var(--sp-2)" }}>
-          {CASES.map((c) => (
-            <div key={c.id} className="glass-card" style={{ padding: "var(--sp-2)" }}>
-              <p className="font-semibold" style={{ fontSize: "1.0625rem" }}>{c.name}</p>
-              <p className="text-sm italic" style={{ color: "var(--accent)", marginBottom: "var(--sp-1)" }}>{c.tagline}</p>
-              <p className="text-sm" style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>{c.description}</p>
-            </div>
-          ))}
-        </div>
-        <p style={{ marginTop: "var(--sp-3)" }}>
-          <Link href="/auth/signup" className="text-sm font-semibold" style={{ color: "var(--accent)" }}>Create an account to see yours &rarr;</Link>
-        </p>
-      </section>
-
-      {/* Closing note */}
-      <section className="max-w-6xl mx-auto px-6" style={{ paddingBottom: "var(--sp-6)" }}>
-        <div
-          className="tick-corners flex items-center justify-between gap-4 flex-wrap"
-          style={{ background: "var(--bg-card)", border: "1px solid var(--border-strong)", borderLeft: "2px solid var(--accent)", padding: "var(--sp-3)" }}
-        >
-          <div>
-            <h2 className="font-bold" style={{ fontSize: "1.25rem", marginBottom: 4 }}>Free, with a @wfu.edu email</h2>
-            <p className="text-sm" style={{ color: "var(--text-secondary)", maxWidth: 520 }}>
-              No payment details. Your entries are private to your account, and you can export or delete them from Profile.
-            </p>
-          </div>
-          <Link href="/auth/signup" className="teal-glow text-sm" style={{ padding: "12px var(--sp-3)", textDecoration: "none" }}>
-            Create account
-          </Link>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer style={{ borderTop: "1px solid var(--border-strong)" }}>
-        <div className="max-w-6xl mx-auto px-6 flex flex-wrap items-center justify-between gap-4" style={{ paddingTop: "var(--sp-3)", paddingBottom: "var(--sp-3)" }}>
-          <p className="text-xs" style={{ color: "var(--text-tertiary)" }}>&copy; {new Date().getFullYear()} ClinicLog MD. All rights reserved.</p>
-          <div className="flex gap-5 flex-wrap">
-            {[["Schools", "/schools"], ["Archetype", "/archetype"], ["Resources", "/resources"], ["Stories", "/stories"], ["Changelog", "/changelog"], ["Badge", "/badge"], ["About", "/about"], ["Privacy", "/privacy"], ["Terms", "/terms"]].map(([label, href]) => (
-              <Link key={label} href={href} className="nav-link text-xs">{label}</Link>
-            ))}
-          </div>
         </div>
       </footer>
     </div>
