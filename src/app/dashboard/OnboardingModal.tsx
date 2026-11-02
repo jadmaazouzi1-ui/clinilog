@@ -166,7 +166,7 @@ export default function OnboardingModal() {
               Welcome to ClinicLog MD
             </h2>
             <p style={{ fontSize: 15, lineHeight: 1.6, color: "var(--text-secondary)", marginBottom: 32 }}>
-              One place to log clinical hours, compare schools against your numbers, and keep track of your application. It is free.
+              One place to log clinical hours, compare schools against your numbers, and keep track of your application.
             </p>
           </div>
         )}

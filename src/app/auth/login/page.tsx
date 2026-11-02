@@ -226,7 +226,7 @@ export default async function LoginPage({
         <p className="text-sm mt-6" style={{ color: "var(--text-secondary)" }}>
           Don&apos;t have an account?{" "}
           <Link href="/auth/signup" className="font-medium" style={{ color: "var(--text-primary)" }}>
-            Create one free
+            Create an account
           </Link>
         </p>
       </div>

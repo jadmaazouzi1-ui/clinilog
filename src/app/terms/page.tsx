@@ -9,7 +9,7 @@ export default function TermsPage() {
 
       <h2>What ClinicLog MD is</h2>
       <p>
-        A free tool for organizing your pre-med experiences and application planning. It is not an
+        A tool for organizing your pre-med experiences and application planning. It is not an
         admissions service, and nothing on the site guarantees admission anywhere.
       </p>
       <p>
