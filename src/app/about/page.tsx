@@ -50,7 +50,7 @@ export default function AboutPage() {
             About ClinicLog MD
           </h1>
           <p className="text-lg leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-            ClinicLog MD is a free tool for pre-med students at Wake Forest. A pre-med student builds and runs it. Sign-up needs a @wfu.edu email.
+            ClinicLog MD is a tool for pre-med students at Wake Forest. A pre-med student builds and runs it. Sign-up needs a @wfu.edu email.
           </p>
 
           <hr className="tear-line" />

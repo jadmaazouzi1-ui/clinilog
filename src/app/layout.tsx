@@ -19,7 +19,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.cliniclogmd.com"),
   title: "ClinicLog MD",
-  description: "Log clinical hours for AMCAS and compare medical schools with your numbers. Free for Wake Forest pre-med students.",
+  description: "Log clinical hours for AMCAS and compare medical schools with your numbers. Built for Wake Forest pre-med students.",
   openGraph: { siteName: "ClinicLog MD", type: "website" },
   twitter: { card: "summary_large_image" },
 };

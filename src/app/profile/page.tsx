@@ -366,8 +366,7 @@ export default async function ProfilePage({
         <div className="glass-card tick-corners" style={{ padding: "var(--sp-3)", marginTop: "var(--sp-3)" }} data-tour="referral">
           <p className="dept-header">Refer a Classmate</p>
           <p className="text-sm" style={{ color: "var(--text-secondary)", marginBottom: "var(--sp-2)" }}>
-            Anyone who signs up through your link is counted here. Nothing is charged either way;
-            ClinicLog MD is free.
+            Anyone who signs up through your link is counted here.
           </p>
           <ReferralPanel code={referral} count={refCount} />
         </div>

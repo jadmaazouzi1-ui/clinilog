@@ -21,6 +21,21 @@ test("landing HTML has no cost wording, dashes or user counts", async ({ request
   expect(html).not.toMatch(/\bjoin\b[^<]{0,30}\d/i);
 });
 
+// Other pages a logged-out visitor can open. Same cost wording rule, so the
+// About, Terms and sign-in pages cannot drift back to a price claim. Only
+// the strongest terms are checked here: "free" and "pro" appear legitimately
+// in unrelated sentences on legal pages.
+for (const path of ["/about", "/terms", "/privacy", "/auth/login", "/auth/signup"]) {
+  test(`${path} makes no price claim`, async ({ request }) => {
+    const res = await request.get(path);
+    expect(res.ok()).toBeTruthy();
+    const html = await res.text();
+    const hits = ["free", "forever", "no cost", "credit card", "pricing", "premium", "subscription", "unlimited"]
+      .filter((t) => new RegExp(`\\b${t}\\b`, "i").test(html));
+    expect(hits, `price wording on ${path}: ${hits.join(", ")}`).toEqual([]);
+  });
+}
+
 test("title and description match the brief", async ({ request }) => {
   const html = await (await request.get("/")).text();
   expect(html).toContain("<title>ClinicLog MD | Pre-med hours tracker</title>");
