@@ -11,7 +11,7 @@ export default function VerifyEmailPage() {
     <div className="min-h-screen flex items-center justify-center px-4" style={{ backgroundColor: "var(--bg)" }}>
       <div className="w-full max-w-md text-center">
         {/* Logo */}
-        <div className="inline-flex items-center gap-3 mb-8">
+        <div className="flex items-center justify-center gap-3 mb-8">
           <Logo size={28} />
           <span className="text-xl" style={{ color: "var(--text)", fontWeight: 900, letterSpacing: "-0.02em" }}>ClinicLog MD</span>
         </div>
