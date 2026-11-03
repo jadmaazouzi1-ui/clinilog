@@ -1,69 +1,13 @@
 @import "tailwindcss";
+@import "../styles/theme.css";
 
 /* ──────────────────────────────────────────────────────────────────────────
-   CLINICAL CHART: sage/green palette rendered as a medical document.
-   Flat surfaces, hairline rules, one small radius, perforated dividers,
-   red prescription-pad margin rule, registration tick marks.
+   CLINICAL CHART: black and Old Gold rendered as a medical document.
+   Flat surfaces, 2px rules, square corners, perforated dividers, a gold
+   prescription-pad margin rule, registration tick marks. Every colour comes
+   from src/styles/theme.css.
    ────────────────────────────────────────────────────────────────────────── */
-/* ══════════════════════════════════════════════════════════════════════
-   BRAND SCALE
-   One green ramp drives the whole site. Components reference the semantic
-   tokens below, never these directly and never a raw hex, so a brand change
-   is a change to this block alone.
-   ══════════════════════════════════════════════════════════════════════ */
 :root {
-  --green-900: #14342A;
-  --green-700: #1F4D3A;
-  --green-500: #2F7A57;
-  --green-300: #8FC2A5;
-  --green-100: #E6F2EA;
-  --green-50:  #F5FAF7;
-  --ink:       #0E1A15;
-
-  /* Rule colour at two weights: solid for 2px emphasis borders, 15% for
-     hairline dividers. */
-  --rule:        #1F4D3A;
-  --rule-hair:   rgba(31, 77, 58, 0.15);
-
-  /* ── Semantic surface tokens ── */
-  --bg-page:       var(--green-50);
-  --bg-card:       #FFFFFF;
-  --bg-surface:    #FFFFFF;
-  --bg-soft:       var(--green-100);
-  --bg-hero-1:     var(--green-900);
-  --bg-hero-2:     #1A4234;
-  --bg-hero-3:     var(--green-700);
-
-  --accent:        var(--green-700);
-  --accent-bright: var(--green-500);
-  --accent-soft:   var(--green-100);
-  --accent-border: var(--rule-hair);
-  --on-accent:     #FFFFFF;
-  --accent-hover:  var(--green-500);
-
-  --text-primary:   var(--ink);
-  --text-secondary: #40594D;
-  --text-tertiary:  #5D7568;
-  --text-on-dark:   var(--green-100);
-  /* Secondary text on the dark panel. White at 0.5 alpha measured 3.4:1 over
-     the gradient's lightest stop, under the 4.5 needed at these sizes; this
-     holds the same hierarchy at 5.3:1. */
-  --on-dark-muted:  rgba(230, 242, 234, 0.78);
-
-  --border:        var(--rule-hair);
-  --border-strong: rgba(31, 77, 58, 0.34);
-
-  /* Error stays red: it is the one semantic colour that must not be green,
-     because a failed save reading as brand-coloured is unreadable as a
-     failure. Everything decorative that used to be red is now --green-500. */
-  --error:         #B3261E;
-  --success:       var(--green-700);
-  --warning:       var(--green-500);
-
-  /* The chart margin rule is decorative, so it follows the brand. */
-  --margin-rule:      var(--green-500);
-  --margin-rule-soft: rgba(47, 122, 87, 0.45);
-
   /* ── ONE radius, everywhere. Never mixed. ──
      Circles (avatars, donut) use border-radius:50% and are exempt. */
   --radius:      0px;
@@ -84,36 +28,12 @@
   /* Flat document: no card shadows. */
   --shadow-card:       none;
   --shadow-card-hover: none;
-  --shadow-hero:       0 1px 0 var(--rule-hair);
-
-  /* Five data series, separated by value rather than hue. Ordered darkest to
-     lightest so a legend reads as a ramp. */
-  --cat-clinical:  var(--green-900);
-  --cat-shadowing: var(--green-700);
-  --cat-research:  var(--green-500);
-  --cat-volunteer: #4E9B75;
-  --cat-other:     var(--green-300);
-
-  /* The same five, for the dark Your Path panel: inverted so the darkest
-     series becomes the lightest mark on a dark field. */
-  --leaf-clinical:  #FFFFFF;
-  --leaf-shadowing: #D6E8DC;
-  --leaf-research:  #AECFBB;
-  --leaf-volunteer: var(--green-300);
-  --leaf-other:     #6FA98B;
-
-  --limb:        rgba(230, 242, 234, 0.34);
-  --limb-active: rgba(245, 250, 247, 0.72);
+  --shadow-hero:       0 1px 0 var(--hairline);
 
   --font-sans: var(--font-inter), Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: var(--font-jetbrains-mono), "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
 }
 
-
-@theme inline {
-  --color-background: var(--bg-page);
-  --color-foreground: var(--text-primary);
-}
 
 /* Collapse Tailwind's entire radius scale onto the single 3px value, so no
    `rounded-xl` / `rounded-2xl` left anywhere in the app can reintroduce a
@@ -131,7 +51,7 @@
 }
 
 html {
-  background-color: var(--bg-page);
+  background-color: var(--bg);
   -webkit-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   text-size-adjust: 100%;
@@ -139,8 +59,8 @@ html {
 }
 
 body {
-  background-color: var(--bg-page);
-  color: var(--text-primary);
+  background-color: var(--bg);
+  color: var(--text);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -155,7 +75,7 @@ h1, h2, h3 {
 /* ── Legacy background classes ────────────────────────────────────────── */
 .dot-grid-bg,
 .graph-paper-bg {
-  background-color: var(--bg-page);
+  background-color: var(--bg);
 }
 
 /* ══════════════════════════════════════════════════════════════════════
@@ -165,16 +85,16 @@ h1, h2, h3 {
    ══════════════════════════════════════════════════════════════════════ */
 .glass-card,
 .clinical-card {
-  background: var(--bg-card);
+  background: var(--surface);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius);
-  box-shadow: inset 0 0 0 0 var(--margin-rule);
+  box-shadow: inset 0 0 0 0 var(--accent);
   transition: box-shadow 0.15s ease, border-color 0.15s ease;
 }
 .glass-card:hover,
 .clinical-card:hover {
   border-color: var(--border-strong);
-  box-shadow: inset 2px 0 0 0 var(--margin-rule);
+  box-shadow: inset 2px 0 0 0 var(--accent);
 }
 
 /* ══════════════════════════════════════════════════════════════════════
@@ -195,7 +115,7 @@ h1, h2, h3 {
   bottom: 0;
   left: 40px;
   width: 2px;
-  background: var(--margin-rule-soft);
+  background: var(--accent);
   pointer-events: none;
   display: none;
 }
@@ -237,7 +157,7 @@ h1, h2, h3 {
     calc(100% - 8px) calc(100% - 8px), calc(100% - 8px) calc(100% - 8px);
 }
 /* Ticks on the dark hero panel */
-.tick-corners-light { --tick-color: rgba(255,255,255,0.32); }
+.tick-corners-light { --tick-color: var(--band-line); }
 
 /* ══════════════════════════════════════════════════════════════════════
    PERFORATED TEAR LINE: dashed rule, as on a detachable form.
@@ -257,7 +177,8 @@ h1, h2, h3 {
 .btn-primary {
   background: var(--accent) !important;
   color: var(--on-accent) !important;
-  border: 1px solid var(--accent) !important;
+  border: 2px solid var(--accent) !important;
+  min-height: 44px;
   border-radius: var(--radius) !important;
   font-weight: 600;
   letter-spacing: 0.01em;
@@ -266,25 +187,27 @@ h1, h2, h3 {
 }
 .teal-glow:hover,
 .btn-primary:hover {
-  background: var(--accent-hover) !important;
-  border-color: var(--accent-hover) !important;
+  background: var(--btn-hover-bg) !important;
+  border-color: var(--btn-hover-bg) !important;
+  color: var(--btn-hover-text) !important;
   box-shadow: none !important;
   transform: none;
 }
 
 .btn-ghost {
-  /* Ghost: surface background, brand border and brand text. */
-  background: var(--bg-card);
-  border: 1px solid var(--accent);
-  color: var(--accent);
+  /* Secondary: transparent, 2px strong border, body text colour. */
+  background: transparent;
+  border: 2px solid var(--border-strong);
+  color: var(--text);
+  min-height: 44px;
   border-radius: var(--radius);
   font-weight: 600;
   transition: background 0.15s ease, border-color 0.15s ease;
 }
 .btn-ghost:hover {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--on-accent);
+  background: var(--accent-tint);
+  border-color: var(--border-strong);
+  color: var(--text);
 }
 
 /* ══════════════════════════════════════════════════════════════════════
@@ -299,7 +222,7 @@ h1, h2, h3 {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: var(--text-secondary);
+  color: var(--text-muted);
   margin-bottom: var(--sp-1);
 }
 
@@ -313,47 +236,52 @@ h1, h2, h3 {
   padding: 6px 2px !important;
   font-family: var(--font-sans);
   font-size: 0.9375rem;
-  color: var(--text-primary) !important;
+  color: var(--text) !important;
   transition: border-color 0.15s ease;
 }
 .field-input:focus {
   outline: none !important;
-  border-bottom-color: var(--accent) !important;
-  box-shadow: 0 1px 0 0 var(--accent) !important;
+  border-bottom-color: var(--focus-ring) !important;
+  box-shadow: 0 1px 0 0 var(--focus-ring) !important;
+}
+.field-input:focus-visible {
+  outline: 2px solid var(--focus-ring) !important;
+  outline-offset: 1px;
 }
 .field-input::placeholder {
-  color: var(--text-tertiary) !important;
+  color: var(--text-subtle) !important;
   opacity: 1;
 }
 .field-input option {
-  background: #FFFFFF;
-  color: var(--text-primary);
+  background: var(--surface);
+  color: var(--text);
 }
 /* Native date/select controls need a little breathing room from the rule */
 select.field-input,
 input[type="date"].field-input { padding-right: var(--sp-1) !important; }
 
 .input-dark {
-  background: #FFFFFF !important;
-  border: 1px solid var(--border-strong) !important;
-  color: var(--text-primary) !important;
+  background: var(--surface) !important;
+  border: 2px solid var(--border-strong) !important;
+  color: var(--text) !important;
   border-radius: var(--radius) !important;
   font-family: var(--font-sans);
 }
 .input-dark:focus {
-  outline: none !important;
-  border-color: var(--accent) !important;
-  box-shadow: 0 0 0 2px var(--accent-soft) !important;
+  outline: 2px solid var(--focus-ring) !important;
+  outline-offset: 1px;
+  border-color: var(--border-strong) !important;
+  box-shadow: none !important;
 }
 .input-dark::placeholder {
-  color: var(--text-tertiary) !important;
+  color: var(--text-subtle) !important;
   opacity: 1;
   font-family: var(--font-sans);
   font-size: 0.875rem;
 }
 .input-dark option {
-  background: #FFFFFF;
-  color: var(--text-primary);
+  background: var(--surface);
+  color: var(--text);
 }
 
 /* ══════════════════════════════════════════════════════════════════════
@@ -362,7 +290,7 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
    ══════════════════════════════════════════════════════════════════════ */
 .data-field {
   padding-bottom: 6px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--hairline);
 }
 .data-field-label {
   display: block;
@@ -370,14 +298,14 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: var(--text-tertiary);
+  color: var(--text-subtle);
   margin-bottom: 3px;
 }
 .data-field-value {
   display: block;
   font-size: 0.9375rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--text);
   font-variant-numeric: tabular-nums;
 }
 
@@ -389,7 +317,7 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.08em;
-  color: var(--text-tertiary);
+  color: var(--text-subtle);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
@@ -400,7 +328,7 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.04em;
-  color: var(--text-secondary);
+  color: var(--text-muted);
 }
 .loading-text::after {
   content: "";
@@ -427,7 +355,7 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   letter-spacing: 0.14em;
   font-size: 10px;
   font-weight: 700;
-  color: var(--text-secondary);
+  color: var(--text-muted);
   padding-bottom: var(--sp-1);
   margin-bottom: var(--sp-2);
   border-bottom: 1px dashed var(--border-strong);
@@ -444,7 +372,7 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
 
 /* ── Vitals / stat cell: flat, hairline, left-aligned ─────────────────── */
 .vital-card {
-  background: var(--bg-card);
+  background: var(--surface);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius);
   box-shadow: none;
@@ -456,14 +384,14 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   letter-spacing: 0.12em;
   font-size: 10px;
   font-weight: 700;
-  color: var(--text-tertiary);
+  color: var(--text-subtle);
   margin-bottom: var(--sp-1);
 }
 .vital-card-value {
   font-family: var(--font-mono);
   font-size: 1.75rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--text);
   font-variant-numeric: tabular-nums;
   line-height: 1.1;
   letter-spacing: -0.01em;
@@ -471,7 +399,7 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
 .vital-card-value-sub {
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  color: var(--text-tertiary);
+  color: var(--text-subtle);
   margin-left: 4px;
 }
 
@@ -486,9 +414,9 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   letter-spacing: 0.08em;
   padding: 3px var(--sp-1);
   border-radius: var(--radius);
-  background: var(--accent-soft);
-  color: var(--accent);
-  border: 1px solid var(--accent-border);
+  background: var(--accent-tint);
+  color: var(--accent-text);
+  border: 1px solid var(--accent);
 }
 
 /* ── BETA marker ──────────────────────────────────────────────────────── */
@@ -501,17 +429,17 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   padding: 2px 6px;
   border-radius: var(--radius);
   background: transparent;
-  color: var(--accent);
-  border: 1px solid var(--accent-border);
+  color: var(--accent-text);
+  border: 1px solid var(--accent);
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
 
 /* ── Progress: flat bar, square ends ─────────────────────────────────── */
 .thin-progress {
-  height: 6px;
-  background: var(--bg-soft);
-  border: 1px solid var(--border);
+  height: 8px;
+  background: var(--accent-tint);
+  border: 2px solid var(--border-strong);
   border-radius: 0;
   overflow: hidden;
 }
@@ -562,10 +490,10 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
 
 /* Active sidebar item: left rule marks position, as in a chart index */
 .chart-tab-active {
-  background: var(--accent-soft);
-  color: var(--accent);
+  background: var(--accent-tint);
+  color: var(--text);
   font-weight: 600;
-  box-shadow: inset 2px 0 0 0 var(--accent);
+  box-shadow: inset 3px 0 0 0 var(--accent);
 }
 
 /* Sidebar collapse */
@@ -601,7 +529,7 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.12em;
-  color: var(--text-tertiary);
+  color: var(--text-subtle);
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
 }
@@ -614,7 +542,7 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   font-size: 9px;
   font-weight: 600;
   letter-spacing: 0.12em;
-  color: var(--text-tertiary);
+  color: var(--text-subtle);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius);
   padding: 1px 5px;
@@ -637,7 +565,7 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   right: 0;
   height: 13px;
   background-image:
-    radial-gradient(circle at 5px 0, var(--bg-page) 0 4px, transparent 4.5px),
+    radial-gradient(circle at 5px 0, var(--bg) 0 4px, transparent 4.5px),
     repeating-linear-gradient(90deg, var(--border-strong) 0 4px, transparent 4px 9px);
   background-size: 14px 13px, 100% 1px;
   background-position: 0 0, 0 10px;
@@ -677,7 +605,7 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.08em;
-  color: var(--text-secondary);
+  color: var(--text-muted);
   text-transform: uppercase;
 }
 .sr-only-live {
@@ -697,16 +625,16 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .vital-ok-range {
   position: relative;
   display: inline-block;
   width: 42px;
   height: 3px;
-  background: var(--bg-soft);
-  border-left: 1px solid var(--accent-border);
-  border-right: 1px solid var(--accent-border);
+  background: var(--accent-tint);
+  border-left: 1px solid var(--accent);
+  border-right: 1px solid var(--accent);
 }
 .vital-ok-range > i {
   position: absolute;
@@ -728,7 +656,7 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  color: var(--margin-rule);
+  color: var(--danger);
 }
 
 /* ── Oscilloscope progress readout ─────────────────────────────────────── */
@@ -750,7 +678,7 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   top: 5px;
   bottom: 5px;
   width: 3px;
-  background: var(--text-primary);
+  background: var(--accent);
   opacity: 0;
   transition: opacity 0.15s ease;
   pointer-events: none;
@@ -764,7 +692,7 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   font-size: 26px;
   font-weight: 700;
   line-height: 1;
-  color: var(--accent);
+  color: var(--accent-text);
   letter-spacing: -0.02em;
 }
 .signature-line {
@@ -777,9 +705,20 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   font-size: 9px;
   font-weight: 600;
   letter-spacing: 0.12em;
-  color: var(--text-tertiary);
+  color: var(--text-subtle);
   text-transform: uppercase;
 }
+
+/* Keyboard focus: 2px gold ring with a 1px offset, everywhere. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 1px;
+}
+
+/* Scrollbars in WebKit; Firefox uses scrollbar-color from theme.css. */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent); border: 2px solid var(--bg); }
 
 /* ── Motion preferences ────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
@@ -875,8 +814,8 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   [role="button"] { display: none !important; }
 
   html, body {
-    background: #FFFFFF !important;
-    color: #0E1A15 !important;
+    background: var(--white) !important;
+    color: var(--black) !important;
   }
 
   main { padding: 0 !important; margin: 0 !important; max-width: none !important; }
@@ -886,7 +825,7 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   .chart-margin { padding-left: 0 !important; }
 
   .glass-card, .vital-card, .clinical-card {
-    border: 1px solid #1F4D3A !important;
+    border: 1px solid var(--black) !important;
     break-inside: avoid;
     page-break-inside: avoid;
   }
@@ -894,14 +833,14 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   .tick-corners::after { display: none !important; }
 
   .dept-header {
-    border-bottom: 1px solid #1F4D3A !important;
-    color: #1F4D3A !important;
+    border-bottom: 2px solid var(--gold-500) !important;
+    color: var(--black) !important;
   }
 
   a[href^="http"]::after {
     content: " (" attr(href) ")";
     font-size: 9pt;
-    color: #2F7A57;
+    color: var(--gray-700);
   }
 
   table, tr, td, th, li { break-inside: avoid; page-break-inside: avoid; }
@@ -910,63 +849,13 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   @page { margin: 16mm; }
 }
 
-/* ══════════════════════════════════════════════════════════════════════
-   DARK THEME
-   The same rules inverted: dark field, light ink, hairlines that read
-   against the field rather than against paper. Set on <html> as
-   data-theme="dark".
-   ══════════════════════════════════════════════════════════════════════ */
-:root[data-theme="dark"] {
-  --bg-page:       var(--green-900);
-  --bg-card:       #193D31;
-  --bg-surface:    #193D31;
-  --bg-soft:       #214A3B;
-
-  --accent:        var(--green-300);
-  --accent-bright: var(--green-100);
-  --accent-soft:   rgba(143, 194, 165, 0.14);
-  --accent-border: rgba(143, 194, 165, 0.32);
-  /* A light accent needs dark text on it. */
-  --on-accent:     var(--green-900);
-  --accent-hover:  var(--green-100);
-
-  --text-primary:   var(--green-100);
-  --text-secondary: #A9C7B7;
-  --text-tertiary:  #9DBCAA;
-
-  --border:        rgba(230, 242, 234, 0.14);
-  --border-strong: rgba(230, 242, 234, 0.26);
-  --rule-hair:     rgba(230, 242, 234, 0.14);
-
-  --margin-rule:      var(--green-300);
-  --margin-rule-soft: rgba(143, 194, 165, 0.4);
-
-  --error:   #F2B8B5;
-  --success: var(--green-300);
-  --warning: var(--green-300);
-
-  /* On a dark field the ramp inverts: lightest series first. */
-  --cat-clinical:  #FFFFFF;
-  --cat-shadowing: #D6E8DC;
-  --cat-research:  #AECFBB;
-  --cat-volunteer: var(--green-300);
-  --cat-other:     #6FA98B;
-
-  /* No hero override in dark: the root gradient starts at the page colour and
-     lightens to --green-700, which reads as elevation. Darkening it instead
-     made the panel sit below an already-dark page and lose its edge, and it
-     would also have pushed the leaf marks under the 3:1 they need. */
-}
-
-
-
 /* Surfaces that were hardcoded white in markup need to follow the theme. */
 :root[data-theme="dark"] .btn-ghost,
 :root[data-theme="dark"] .input-dark,
 :root[data-theme="dark"] .input-dark option,
 :root[data-theme="dark"] .field-input option {
-  background: var(--bg-card) !important;
-  color: var(--text-primary) !important;
+  background: var(--surface) !important;
+  color: var(--text) !important;
 }
 
 .theme-toggle {
@@ -978,7 +867,7 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--text-secondary);
+  color: var(--text-muted);
   background: transparent;
   border: 1px solid var(--border-strong);
   border-radius: var(--radius);
@@ -987,8 +876,8 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   transition: border-color 0.15s ease, color 0.15s ease;
 }
 .theme-toggle:hover {
-  border-color: var(--accent-border);
-  color: var(--text-primary);
+  border-color: var(--accent);
+  color: var(--text);
 }
 
 /* ══════════════════════════════════════════════════════════════════════
@@ -998,36 +887,35 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
    near-black ink, and that is invisible on the dark green field.
    ══════════════════════════════════════════════════════════════════════ */
 .path-panel {
-  color: var(--text-on-dark);
+  color: var(--band-text);
 }
 
 /* Readable long-form copy for the Privacy and Terms pages. */
-.legal-prose h2 { font-size: 1.125rem; font-weight: 700; color: var(--text-primary); margin: var(--sp-4) 0 var(--sp-1); }
-.legal-prose p, .legal-prose li { font-size: 0.9375rem; line-height: 1.7; color: var(--text-secondary); }
+.legal-prose h2 { font-size: 1.125rem; font-weight: 700; color: var(--text); margin: var(--sp-4) 0 var(--sp-1); }
+.legal-prose p, .legal-prose li { font-size: 0.9375rem; line-height: 1.7; color: var(--text-muted); }
 .legal-prose p { margin-bottom: var(--sp-2); }
 .legal-prose ul, ul.legal-prose { list-style: square; padding-left: 1.25rem; margin-bottom: var(--sp-2); }
 .legal-prose li { margin-bottom: 4px; }
-.legal-prose strong { color: var(--text-primary); }
+.legal-prose strong { color: var(--text); }
 
 /* ── Guided tour and Help Center ───────────────────────────────────────── */
 .tour-layer { position: fixed; inset: 0; z-index: 90; pointer-events: none; }
 .tour-layer > * { pointer-events: auto; }
-.tour-dim { background: rgba(14, 26, 21, 0.55); }
-:root[data-theme="dark"] .tour-dim { background: rgba(0, 0, 0, 0.62); }
+.tour-dim { background: var(--scrim); }
 .tour-ring {
   pointer-events: none !important;
   border: 2px solid var(--accent);
   border-radius: 0;
-  box-shadow: 0 0 0 2px var(--bg-card);
+  box-shadow: 0 0 0 2px var(--surface);
 }
 .tour-card {
   width: min(340px, calc(100vw - 32px));
-  background: var(--bg-card);
+  background: var(--surface);
   border: 2px solid var(--border-strong);
   border-left: 2px solid var(--accent);
   border-radius: 0;
   padding: var(--sp-2);
-  box-shadow: 0 8px 28px rgba(14, 26, 21, 0.22);
+  box-shadow: var(--shadow-pop);
 }
 .tour-btn,
 .tour-btn-quiet {
@@ -1039,8 +927,8 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   min-height: 32px;
 }
 .tour-btn {
-  background: var(--bg-card);
-  color: var(--text-primary);
+  background: var(--surface);
+  color: var(--text);
   border: 2px solid var(--border-strong);
 }
 .tour-btn:disabled { opacity: 0.45; cursor: default; }
@@ -1051,7 +939,7 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
 }
 .tour-btn-quiet {
   background: transparent;
-  color: var(--text-tertiary);
+  color: var(--text-subtle);
   border: 2px solid transparent;
   text-decoration: underline;
   padding-left: 4px;
@@ -1079,8 +967,8 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.12em;
-  color: var(--text-primary);
-  background: var(--bg-card);
+  color: var(--text);
+  background: var(--surface);
 }
 .help-trigger {
   display: inline-flex;
@@ -1090,8 +978,8 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   padding: 4px 10px;
   font-size: 12px;
   font-weight: 600;
-  color: var(--text-secondary);
-  background: var(--bg-card);
+  color: var(--text-muted);
+  background: var(--surface);
   border: 2px solid var(--border-strong);
   border-radius: 0;
   cursor: pointer;
@@ -1116,7 +1004,7 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   width: min(420px, 100vw);
   height: 100vh;
   max-height: 100dvh;
-  background: var(--bg-card);
+  background: var(--surface);
   border-left: 2px solid var(--border-strong);
   display: flex;
   flex-direction: column;
@@ -1124,4 +1012,4 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
 @media (max-width: 767px) {
   .help-drawer { width: 100vw; border-left: 0; }
 }
-.help-scrim { position: fixed; inset: 0; z-index: 84; background: rgba(14, 26, 21, 0.45); }
+.help-scrim { position: fixed; inset: 0; z-index: 84; background: var(--scrim); }

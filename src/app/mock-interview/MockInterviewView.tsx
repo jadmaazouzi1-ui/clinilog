@@ -15,16 +15,16 @@ function Block({ title, tab, items }: { title: string; tab: number; items: Q[] }
         {items.map((q, i) => (
           <div
             key={i}
-            style={{ padding: "10px 0 10px 10px", borderBottom: "1px solid var(--border)", boxShadow: "inset 3px 0 0 -1px var(--accent)" }}
+            style={{ padding: "10px 0 10px 10px", borderBottom: "1px solid var(--hairline)", boxShadow: "inset 3px 0 0 -1px var(--accent)" }}
           >
-            <p className="text-sm" style={{ color: "var(--text-primary)", lineHeight: 1.6 }}>
-              <span className="mono" style={{ color: "var(--text-tertiary)", marginRight: 8 }}>
+            <p className="text-sm" style={{ color: "var(--text)", lineHeight: 1.6 }}>
+              <span className="mono" style={{ color: "var(--text-subtle)", marginRight: 8 }}>
                 {String(i + 1).padStart(2, "0")}
               </span>
               {q.question}
             </p>
             {q.why && (
-              <p className="text-xs" style={{ color: "var(--text-secondary)", marginTop: 4, fontStyle: "italic" }}>
+              <p className="text-xs" style={{ color: "var(--text-muted)", marginTop: 4, fontStyle: "italic" }}>
                 {q.why}
               </p>
             )}
@@ -83,9 +83,9 @@ export default function MockInterviewView({ ready }: { ready: boolean }) {
       )}
 
       {error && (
-        <div className="glass-card" style={{ padding: "var(--sp-2)", marginBottom: "var(--sp-2)", borderLeft: "2px solid var(--margin-rule)" }}>
+        <div className="glass-card" style={{ padding: "var(--sp-2)", marginBottom: "var(--sp-2)", borderLeft: "2px solid var(--danger)" }}>
           <VitalFlat />
-          <p className="text-sm" style={{ color: "var(--text-secondary)", marginTop: 6 }}>{error}</p>
+          <p className="text-sm" style={{ color: "var(--text-muted)", marginTop: 6 }}>{error}</p>
         </div>
       )}
 

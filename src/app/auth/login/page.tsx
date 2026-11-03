@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import Logo from "@/components/brand/Logo";
 import Link from "next/link";
 import { headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
@@ -70,14 +71,15 @@ export default async function LoginPage({
   }
 
   const LogoMark = () => (
-    <div className="inline-flex items-center mb-4">
-      <span className="text-2xl" style={{ color: "var(--text-primary)", fontWeight: 900, letterSpacing: "-0.02em" }}>ClinicLog MD</span>
+    <div className="inline-flex items-center gap-3 mb-4">
+      <Logo size={32} />
+      <span className="text-2xl" style={{ color: "var(--text)", fontWeight: 900, letterSpacing: "-0.02em" }}>ClinicLog MD</span>
     </div>
   );
 
   if (view === "forgot") {
     return (
-      <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "var(--bg-page)" }}>
+      <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "var(--bg)" }}>
         <div className="w-full max-w-md">
           <div className="mb-8">
             <LogoMark />
@@ -87,28 +89,28 @@ export default async function LoginPage({
             <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
               <div
                 className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5"
-                style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border-strong)" }}
+                style={{ backgroundColor: "var(--surface)", border: "1px solid var(--border-strong)" }}
               >
-                <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="var(--text-primary)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="var(--text)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                   <polyline points="22,6 12,13 2,6" />
                 </svg>
               </div>
-              <h2 className="text-lg font-bold mb-2" style={{ color: "var(--text-primary)" }}>
+              <h2 className="text-lg font-bold mb-2" style={{ color: "var(--text)" }}>
                 Check your email
               </h2>
-              <p className="text-sm mb-6 leading-relaxed" style={{ color: "var(--text-secondary)" }}>
+              <p className="text-sm mb-6 leading-relaxed" style={{ color: "var(--text-muted)" }}>
                 We sent a password reset link to your email address. It may take a minute to arrive.
               </p>
-              <Link href="/auth/login" className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>
+              <Link href="/auth/login" className="text-sm font-medium" style={{ color: "var(--text)" }}>
                 ← Back to sign in
               </Link>
             </div>
           ) : (
             <>
               <div className="mb-8">
-                <h1 className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>Reset your password</h1>
-                <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>
+                <h1 className="text-2xl font-bold" style={{ color: "var(--text)" }}>Reset your password</h1>
+                <p className="text-sm mt-1" style={{ color: "var(--text-muted)" }}>
                   Enter your email and we&apos;ll send you a reset link
                 </p>
               </div>
@@ -117,7 +119,7 @@ export default async function LoginPage({
                 {pageError && (
                   <div
                     className="mb-5 text-sm"
-                    style={{ padding: "10px var(--sp-2)", background: "rgba(193,18,31,0.06)", border: "1px solid rgba(193,18,31,0.28)", borderLeft: "2px solid var(--margin-rule)", borderRadius: "var(--radius)", color: "var(--margin-rule)" }}
+                    style={{ padding: "10px var(--sp-2)", background: "var(--danger-tint)", border: "1px solid var(--danger)", borderLeft: "2px solid var(--danger)", borderRadius: "var(--radius)", color: "var(--danger)" }}
                   >
                     {decodeURIComponent(pageError)}
                   </div>
@@ -147,7 +149,7 @@ export default async function LoginPage({
               </div>
 
               <p className="text-sm mt-6">
-                <Link href="/auth/login" className="font-medium" style={{ color: "var(--text-primary)" }}>
+                <Link href="/auth/login" className="font-medium" style={{ color: "var(--text)" }}>
                   ← Back to sign in
                 </Link>
               </p>
@@ -159,12 +161,12 @@ export default async function LoginPage({
   }
 
   return (
-    <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "var(--bg-page)" }}>
+    <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "var(--bg)" }}>
       <div className="w-full max-w-md">
         <div className="mb-8">
           <LogoMark />
-          <h1 className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>Welcome back</h1>
-          <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>
+          <h1 className="text-2xl font-bold" style={{ color: "var(--text)" }}>Welcome back</h1>
+          <p className="text-sm mt-1" style={{ color: "var(--text-muted)" }}>
             Sign in to your account to continue
           </p>
         </div>
@@ -173,7 +175,7 @@ export default async function LoginPage({
           {pageError && (
             <div
               className="mb-5 text-sm"
-                    style={{ padding: "10px var(--sp-2)", background: "rgba(193,18,31,0.06)", border: "1px solid rgba(193,18,31,0.28)", borderLeft: "2px solid var(--margin-rule)", borderRadius: "var(--radius)", color: "var(--margin-rule)" }}
+                    style={{ padding: "10px var(--sp-2)", background: "var(--danger-tint)", border: "1px solid var(--danger)", borderLeft: "2px solid var(--danger)", borderRadius: "var(--radius)", color: "var(--danger)" }}
             >
               {decodeURIComponent(pageError)}
             </div>
@@ -199,7 +201,7 @@ export default async function LoginPage({
                 <label htmlFor="password" className="field-label">
                   Password
                 </label>
-                <Link href="/auth/login?view=forgot" className="text-xs font-medium" style={{ color: "var(--text-primary)" }}>
+                <Link href="/auth/login?view=forgot" className="text-xs font-medium" style={{ color: "var(--text)" }}>
                   Forgot password?
                 </Link>
               </div>
@@ -223,9 +225,9 @@ export default async function LoginPage({
           </form>
         </div>
 
-        <p className="text-sm mt-6" style={{ color: "var(--text-secondary)" }}>
+        <p className="text-sm mt-6" style={{ color: "var(--text-muted)" }}>
           Don&apos;t have an account?{" "}
-          <Link href="/auth/signup" className="font-medium" style={{ color: "var(--text-primary)" }}>
+          <Link href="/auth/signup" className="font-medium" style={{ color: "var(--text)" }}>
             Create an account
           </Link>
         </p>

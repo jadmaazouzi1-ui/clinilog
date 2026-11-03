@@ -20,18 +20,18 @@ const MISSION_FILTERS: { label: string; value: MissionFilter; dot: string }[] = 
 function getMissionBadgeStyle(mission: string): React.CSSProperties {
   const m = mission.toLowerCase();
   if (m.includes("caribbean"))
-    return { background: "var(--bg-card)", color: "var(--text-primary)", border: "1px solid var(--border-strong)" };
+    return { background: "var(--surface)", color: "var(--text)", border: "1px solid var(--border-strong)" };
   if (m.includes("osteopathic"))
-    return { background: "var(--bg-soft)", color: "var(--text-primary)", border: "1px solid var(--border-strong)" };
+    return { background: "var(--accent-tint)", color: "var(--text)", border: "1px solid var(--border-strong)" };
   if (m.includes("community health"))
-    return { background: "var(--bg-card)", color: "var(--text-primary)", border: "1px solid var(--border-strong)" };
+    return { background: "var(--surface)", color: "var(--text)", border: "1px solid var(--border-strong)" };
   if (m.includes("underserved") && m.includes("primary"))
-    return { background: "var(--bg-soft)", color: "var(--text-primary)", border: "1px solid var(--border-strong)" };
+    return { background: "var(--accent-tint)", color: "var(--text)", border: "1px solid var(--border-strong)" };
   if (m.includes("underserved"))
-    return { background: "var(--bg-soft)", color: "var(--text-primary)", border: "1px solid var(--border-strong)" };
+    return { background: "var(--accent-tint)", color: "var(--text)", border: "1px solid var(--border-strong)" };
   if (m.includes("primary care"))
-    return { background: "var(--bg-card)", color: "var(--text-primary)", border: "1px solid var(--border-strong)" };
-  return { background: "var(--bg-card)", color: "var(--text-primary)", border: "1px solid var(--border-strong)" };
+    return { background: "var(--surface)", color: "var(--text)", border: "1px solid var(--border-strong)" };
+  return { background: "var(--surface)", color: "var(--text)", border: "1px solid var(--border-strong)" };
 }
 
 export default function SchoolList({
@@ -112,9 +112,9 @@ export default function SchoolList({
 
   // Inactive filter button style
   const inactiveFilterStyle: React.CSSProperties = {
-    background: "var(--bg-card)",
+    background: "var(--surface)",
     border: "1px solid var(--border-strong)",
-    color: "var(--text-primary)",
+    color: "var(--text)",
   };
   // Active filter button style
   const activeFilterStyle: React.CSSProperties = {
@@ -126,8 +126,8 @@ export default function SchoolList({
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>Medical School Explorer</h1>
-        <p className="mt-1 text-sm" style={{ color: "var(--text-secondary)" }}>
+        <h1 className="text-2xl font-bold" style={{ color: "var(--text)" }}>Medical School Explorer</h1>
+        <p className="mt-1 text-sm" style={{ color: "var(--text-muted)" }}>
           See how your stats compare to average applicant profiles across {SCHOOLS.length} programs.
         </p>
       </div>
@@ -136,7 +136,7 @@ export default function SchoolList({
       <div className="glass-card rounded-2xl p-6 mb-6" data-tour="schools-stats">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-3">
           <div>
-            <label htmlFor="gpa-input" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text-primary)" }}>GPA</label>
+            <label htmlFor="gpa-input" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text)" }}>GPA</label>
             <input
               id="gpa-input" type="number" min={0} max={4.0} step={0.01} placeholder="e.g. 3.7"
               value={gpa} onChange={(e) => setGpa(e.target.value)}
@@ -144,7 +144,7 @@ export default function SchoolList({
             />
           </div>
           <div>
-            <label htmlFor="mcat-input" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text-primary)" }}>MCAT</label>
+            <label htmlFor="mcat-input" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text)" }}>MCAT</label>
             <input
               id="mcat-input" type="number" min={472} max={528} step={1} placeholder="e.g. 512"
               value={mcat} onChange={(e) => setMcat(e.target.value)}
@@ -152,10 +152,10 @@ export default function SchoolList({
             />
           </div>
         </div>
-        <p className="text-xs" style={{ color: "var(--text-tertiary)" }}>Highlights schools within ±0.3 GPA and ±5 MCAT points of your stats.</p>
+        <p className="text-xs" style={{ color: "var(--text-subtle)" }}>Highlights schools within ±0.3 GPA and ±5 MCAT points of your stats.</p>
         <div className="mt-4 pt-4" style={{ borderTop: "1px solid var(--border-strong)" }} data-tour="schools-home-state">
-          <label htmlFor="home-state" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text-primary)" }}>
-            My Home State <span className="font-normal" style={{ color: "var(--text-tertiary)" }}>(optional, highlights in-state schools for you)</span>
+          <label htmlFor="home-state" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text)" }}>
+            My Home State <span className="font-normal" style={{ color: "var(--text-subtle)" }}>(optional, highlights in-state schools for you)</span>
           </label>
           <select
             id="home-state"
@@ -182,7 +182,7 @@ export default function SchoolList({
               >
                 <span
                   className="w-2 h-2 rounded-full flex-shrink-0"
-                  style={{ backgroundColor: active ? "#FFFFFF" : "var(--text-primary)" }}
+                  style={{ backgroundColor: active ? "currentColor" : "var(--text)" }}
                 />
                 {f.label}
               </button>
@@ -190,7 +190,7 @@ export default function SchoolList({
           })}
 
           {/* Divider */}
-          <span className="w-px h-5 mx-1 self-center flex-shrink-0" style={{ background: "var(--bg-card)" }} />
+          <span className="w-px h-5 mx-1 self-center flex-shrink-0" style={{ background: "var(--surface)" }} />
 
           {/* In-state pref filter buttons */}
           {(["In-State Friendly", "Out-of-State Friendly"] as const).map((pref) => {
@@ -204,7 +204,7 @@ export default function SchoolList({
               >
                 <span
                   className="w-2 h-2 rounded-full flex-shrink-0"
-                  style={{ backgroundColor: active ? "var(--text-primary)" : pref === "In-State Friendly" ? "var(--text-primary)" : "var(--text-primary)" }}
+                  style={{ backgroundColor: active ? "var(--text)" : pref === "In-State Friendly" ? "var(--text)" : "var(--text)" }}
                 />
                 {pref}
               </button>
@@ -212,7 +212,7 @@ export default function SchoolList({
           })}
 
           {/* Divider */}
-          <span className="w-px h-5 mx-1 self-center flex-shrink-0" style={{ background: "var(--bg-card)" }} />
+          <span className="w-px h-5 mx-1 self-center flex-shrink-0" style={{ background: "var(--surface)" }} />
 
           <select
             value={stateFilter} onChange={(e) => setStateFilter(e.target.value)}
@@ -232,7 +232,7 @@ export default function SchoolList({
           >
             <span
               className="w-2 h-2 rounded-full flex-shrink-0"
-              style={{ backgroundColor: matchOnly ? "var(--text-primary)" : "var(--text-primary)" }}
+              style={{ backgroundColor: matchOnly ? "var(--text)" : "var(--text)" }}
             />
             My Stats Match
           </button>
@@ -243,7 +243,7 @@ export default function SchoolList({
             <button
               type="button" onClick={clearAll}
               className="text-xs font-medium px-2 py-1"
-              style={{ color: "var(--text-primary)" }}
+              style={{ color: "var(--text)" }}
             >
               Clear all
             </button>
@@ -252,8 +252,8 @@ export default function SchoolList({
       </div>
 
       <div className="flex items-center justify-between gap-3 flex-wrap mb-4">
-        <p className="text-sm font-medium" style={{ color: "var(--text-secondary)" }}>
-          Showing <span className="font-semibold" style={{ color: "var(--text-primary)" }}>{filtered.length}</span> of {SCHOOLS.length} schools
+        <p className="text-sm font-medium" style={{ color: "var(--text-muted)" }}>
+          Showing <span className="font-semibold" style={{ color: "var(--text)" }}>{filtered.length}</span> of {SCHOOLS.length} schools
         </p>
         <ExportTargetList
           schools={SCHOOLS.filter((sc) => statuses[sc.name] === "Applying")}
@@ -271,19 +271,19 @@ export default function SchoolList({
               className="glass-card rounded-2xl p-5 transition-all"
               style={
                 isInStateForUser
-                  ? { background: "var(--bg-soft)", borderColor: "var(--text-primary)" }
+                  ? { background: "var(--accent-tint)", borderColor: "var(--text)" }
                   : match
-                  ? { background: "var(--bg-card)", borderColor: "var(--text-primary)" }
+                  ? { background: "var(--surface)", borderColor: "var(--text)" }
                   : {}
               }
             >
               <div className="mb-3">
                 <div className="flex items-center gap-2 flex-wrap mb-1">
-                  <h3 className="text-sm font-bold leading-snug" style={{ color: "var(--text-primary)" }}>{school.name}</h3>
+                  <h3 className="text-sm font-bold leading-snug" style={{ color: "var(--text)" }}>{school.name}</h3>
                   {isInStateForUser && (
                     <span
                       className="inline-flex items-center px-2 py-0.5 rounded-sm text-xs font-semibold whitespace-nowrap"
-                      style={{ background: "var(--bg-soft)", color: "var(--text-primary)", border: "1px solid var(--border-strong)" }}
+                      style={{ background: "var(--accent-tint)", color: "var(--text)", border: "1px solid var(--border-strong)" }}
                     >
                       In-state for you
                     </span>
@@ -291,7 +291,7 @@ export default function SchoolList({
                   {match && !isInStateForUser && (
                     <span
                       className="inline-flex items-center px-2 py-0.5 rounded-sm text-xs font-semibold whitespace-nowrap"
-                      style={{ background: "var(--bg-card)", color: "var(--text-primary)", border: "1px solid var(--border-strong)" }}
+                      style={{ background: "var(--surface)", color: "var(--text)", border: "1px solid var(--border-strong)" }}
                     >
                       Good Match
                     </span>
@@ -302,7 +302,7 @@ export default function SchoolList({
               <div className="flex items-center gap-2 flex-wrap mb-3">
                 <span
                   className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-xs font-medium"
-                  style={{ background: "var(--bg-card)", color: "var(--border-strong)", border: "1px solid var(--border-strong)" }}
+                  style={{ background: "var(--surface)", color: "var(--border-strong)", border: "1px solid var(--border-strong)" }}
                 >
                   {school.state}
                 </span>
@@ -317,8 +317,8 @@ export default function SchoolList({
                     className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-xs font-medium"
                     style={
                       school.inStatePref === "In-State Friendly"
-                        ? { background: "var(--bg-soft)", color: "var(--text-primary)", border: "1px solid var(--border-strong)" }
-                        : { background: "var(--bg-card)", color: "var(--text-primary)", border: "1px solid var(--border-strong)" }
+                        ? { background: "var(--accent-tint)", color: "var(--text)", border: "1px solid var(--border-strong)" }
+                        : { background: "var(--surface)", color: "var(--text)", border: "1px solid var(--border-strong)" }
                     }
                   >
                     {school.inStatePref}
@@ -337,17 +337,17 @@ export default function SchoolList({
               <div className="flex items-center gap-3">
                 <div
                   className="flex items-center gap-1.5 rounded-lg px-3 py-1.5"
-                  style={{ background: "var(--bg-card)", border: "1px solid var(--border-strong)" }}
+                  style={{ background: "var(--surface)", border: "1px solid var(--border-strong)" }}
                 >
-                  <span className="text-xs font-medium" style={{ color: "var(--text-secondary)" }}>Avg GPA</span>
-                  <span className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>{school.avgGpa === null ? "Not reported" : school.avgGpa.toFixed(2)}</span>
+                  <span className="text-xs font-medium" style={{ color: "var(--text-muted)" }}>Avg GPA</span>
+                  <span className="text-sm font-bold" style={{ color: "var(--text)" }}>{school.avgGpa === null ? "Not reported" : school.avgGpa.toFixed(2)}</span>
                 </div>
                 <div
                   className="flex items-center gap-1.5 rounded-lg px-3 py-1.5"
-                  style={{ background: "var(--bg-card)", border: "1px solid var(--border-strong)" }}
+                  style={{ background: "var(--surface)", border: "1px solid var(--border-strong)" }}
                 >
-                  <span className="text-xs font-medium" style={{ color: "var(--text-secondary)" }}>Avg MCAT</span>
-                  <span className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>{school.avgMcat === null ? "Not reported" : school.avgMcat}</span>
+                  <span className="text-xs font-medium" style={{ color: "var(--text-muted)" }}>Avg MCAT</span>
+                  <span className="text-sm font-bold" style={{ color: "var(--text)" }}>{school.avgMcat === null ? "Not reported" : school.avgMcat}</span>
                 </div>
               </div>
             </div>

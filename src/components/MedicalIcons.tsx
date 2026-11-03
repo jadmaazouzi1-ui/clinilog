@@ -158,7 +158,7 @@ export function EkgDivider({
       <svg width="72" height="16" viewBox="0 0 72 16" fill="none" aria-hidden="true">
         <path
           d={d}
-          stroke="var(--border-strong)"
+          stroke="var(--accent)"
           strokeWidth="1.2"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -275,7 +275,7 @@ export function Oscilloscope({ pct, color = "var(--accent)" }: { pct: number; co
       aria-hidden="true"
     >
       {/* Ruled baseline */}
-      <line x1="0" y1={OSC_BASE} x2={OSC_W} y2={OSC_BASE} stroke="var(--border)" strokeWidth="1" />
+      <line x1="0" y1={OSC_BASE} x2={OSC_W} y2={OSC_BASE} stroke="var(--hairline)" strokeWidth="1" />
       {/* Interval ticks */}
       {ticks.map((x) => (
         <line

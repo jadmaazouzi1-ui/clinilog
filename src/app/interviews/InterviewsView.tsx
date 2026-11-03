@@ -20,11 +20,11 @@ import {
 } from "./actions";
 
 const STATUS_COLOR: Record<string, string> = {
-  Scheduled: "var(--text-secondary)",
-  Completed: "var(--cat-shadowing)",
-  Waitlisted: "var(--warning)",
-  Accepted: "var(--accent)",
-  Rejected: "var(--margin-rule)",
+  Scheduled: "var(--text-muted)",
+  Completed: "var(--text)",
+  Waitlisted: "var(--accent-text)",
+  Accepted: "var(--text)",
+  Rejected: "var(--text-muted)",
 };
 
 export default function InterviewsView({
@@ -137,7 +137,7 @@ export default function InterviewsView({
                     </div>
                     <h3 className="text-base font-semibold">{iv.school_name}</h3>
                     {iv.reflection && (
-                      <p className="text-sm" style={{ color: "var(--text-secondary)", marginTop: 4, whiteSpace: "pre-wrap" }}>
+                      <p className="text-sm" style={{ color: "var(--text-muted)", marginTop: 4, whiteSpace: "pre-wrap" }}>
                         {iv.reflection}
                       </p>
                     )}
@@ -165,13 +165,13 @@ export default function InterviewsView({
                     {updates.length > 0 && (
                       <div style={{ marginBottom: "var(--sp-1)" }}>
                         {updates.map((w) => (
-                          <div key={w.id} className="flex items-baseline gap-3" style={{ padding: "5px 0", borderBottom: "1px solid var(--border)" }}>
+                          <div key={w.id} className="flex items-baseline gap-3" style={{ padding: "5px 0", borderBottom: "1px solid var(--hairline)" }}>
                             <span className="exp-id" style={{ minWidth: 96 }}>{formatMedicalDate(w.update_date)}</span>
                             <span className="text-sm flex-1">{w.note}</span>
                             <button
                               onClick={() => deleteWaitlistUpdate(w.id)}
                               className="text-[10px] font-bold uppercase"
-                              style={{ color: "var(--text-tertiary)", background: "none", border: 0, cursor: "pointer" }}
+                              style={{ color: "var(--text-subtle)", background: "none", border: 0, cursor: "pointer" }}
                               aria-label="Delete update"
                             >
                               Remove
@@ -227,8 +227,8 @@ export default function InterviewsView({
                         onClick={() => deleteInterview(iv.id)}
                         className="text-xs font-semibold"
                         style={{
-                          padding: "7px var(--sp-2)", color: "var(--margin-rule)", background: "var(--bg-card)",
-                          border: "1px solid rgba(193,18,31,0.3)", borderRadius: "var(--radius)", cursor: "pointer",
+                          padding: "7px var(--sp-2)", color: "var(--danger)", background: "var(--surface)",
+                          border: "1px solid var(--danger)", borderRadius: "var(--radius)", cursor: "pointer",
                         }}
                       >
                         Delete

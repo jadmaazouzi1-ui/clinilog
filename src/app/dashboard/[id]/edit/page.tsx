@@ -50,7 +50,7 @@ export default async function EditExperiencePage({
         <Link
           href={`/dashboard/${exp.id}`}
           className="inline-flex items-center gap-1.5 text-sm font-medium mb-8"
-          style={{ color: "var(--text-primary)" }}
+          style={{ color: "var(--text)" }}
         >
           <svg
             className="w-4 h-4"
@@ -69,14 +69,14 @@ export default async function EditExperiencePage({
         </Link>
 
         <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
-          <h1 className="text-xl font-bold mb-6" style={{ color: "var(--text-primary)" }}>
+          <h1 className="text-xl font-bold mb-6" style={{ color: "var(--text)" }}>
             Edit Experience
           </h1>
 
           {pageError && (
             <div
               className="mb-6 text-sm rounded-xl px-4 py-3"
-              style={{ background: "var(--bg-soft)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }}
+              style={{ background: "var(--accent-tint)", border: "1px solid var(--border-strong)", color: "var(--text)" }}
             >
               Error: {decodeURIComponent(pageError)}
             </div>
@@ -89,7 +89,7 @@ export default async function EditExperiencePage({
                 htmlFor="title"
                 className="field-label"
               >
-                TTL <span style={{ color: "var(--margin-rule)" }}>*</span>
+                TTL <span style={{ color: "var(--accent-text)" }}>*</span>
               </label>
               <input
                 id="title"
@@ -108,7 +108,7 @@ export default async function EditExperiencePage({
                 htmlFor="organization"
                 className="field-label"
               >
-                ORG <span style={{ color: "var(--margin-rule)" }}>*</span>
+                ORG <span style={{ color: "var(--accent-text)" }}>*</span>
               </label>
               <input
                 id="organization"
@@ -127,7 +127,7 @@ export default async function EditExperiencePage({
                 htmlFor="experience_type"
                 className="field-label"
               >
-                CAT <span style={{ color: "var(--margin-rule)" }}>*</span>
+                CAT <span style={{ color: "var(--accent-text)" }}>*</span>
               </label>
               <select
                 id="experience_type"
@@ -152,7 +152,7 @@ export default async function EditExperiencePage({
                   htmlFor="start_date"
                   className="field-label"
                 >
-                  DOS START <span style={{ color: "var(--margin-rule)" }}>*</span>
+                  DOS START <span style={{ color: "var(--accent-text)" }}>*</span>
                 </label>
                 <input
                   id="start_date"
@@ -169,7 +169,7 @@ export default async function EditExperiencePage({
                   className="field-label"
                 >
                   DOS END{" "}
-                  <span className="font-normal" style={{ color: "var(--text-tertiary)" }}>(optional)</span>
+                  <span className="font-normal" style={{ color: "var(--text-subtle)" }}>(optional)</span>
                 </label>
                 <input
                   id="end_date"
@@ -187,7 +187,7 @@ export default async function EditExperiencePage({
                 htmlFor="hours"
                 className="field-label"
               >
-                HRS <span style={{ color: "var(--margin-rule)" }}>*</span>
+                HRS <span style={{ color: "var(--accent-text)" }}>*</span>
               </label>
               <input
                 id="hours"
@@ -210,7 +210,7 @@ export default async function EditExperiencePage({
                 className="field-label"
               >
                 DESC{" "}
-                <span className="font-normal" style={{ color: "var(--text-tertiary)" }}>(optional)</span>
+                <span className="font-normal" style={{ color: "var(--text-subtle)" }}>(optional)</span>
               </label>
               <ReframeableTextarea
                 defaultValue={exp.description ?? ""}
@@ -225,7 +225,7 @@ export default async function EditExperiencePage({
                 className="field-label"
               >
                 REFL{" "}
-                <span className="font-normal" style={{ color: "var(--text-tertiary)" }}>(optional)</span>
+                <span className="font-normal" style={{ color: "var(--text-subtle)" }}>(optional)</span>
               </label>
               <textarea
                 id="reflection"

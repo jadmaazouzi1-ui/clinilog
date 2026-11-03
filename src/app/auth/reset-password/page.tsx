@@ -44,12 +44,12 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "var(--bg-page)" }}>
+    <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "var(--bg)" }}>
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="mb-8">
           <div className="inline-flex items-center gap-2 mb-4">
-            <span className="text-xl" style={{ color: "var(--text-primary)", fontWeight: 900, letterSpacing: "-0.02em" }}>ClinicLog MD</span>
+            <span className="text-xl" style={{ color: "var(--text)", fontWeight: 900, letterSpacing: "-0.02em" }}>ClinicLog MD</span>
           </div>
         </div>
 
@@ -57,22 +57,22 @@ export default function ResetPasswordPage() {
           <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
             <div
               className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5"
-              style={{ backgroundColor: "var(--bg-soft)", border: "1px solid var(--border-strong)" }}
+              style={{ backgroundColor: "var(--accent-tint)", border: "1px solid var(--border-strong)" }}
             >
-              <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="var(--text-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="var(--text)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="20 6 9 17 4 12" />
               </svg>
             </div>
-            <h2 className="text-lg font-bold mb-2" style={{ color: "var(--text-primary)" }}>Password updated</h2>
-            <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
+            <h2 className="text-lg font-bold mb-2" style={{ color: "var(--text)" }}>Password updated</h2>
+            <p className="text-sm" style={{ color: "var(--text-muted)" }}>
               Redirecting you to your dashboard…
             </p>
           </div>
         ) : (
           <>
             <div className="mb-8">
-              <h1 className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>Set a new password</h1>
-              <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>
+              <h1 className="text-2xl font-bold" style={{ color: "var(--text)" }}>Set a new password</h1>
+              <p className="text-sm mt-1" style={{ color: "var(--text-muted)" }}>
                 Choose a strong password for your account
               </p>
             </div>
@@ -81,7 +81,7 @@ export default function ResetPasswordPage() {
               {error && (
                 <div
                   className="mb-5 text-sm"
-                  style={{ padding: "10px var(--sp-2)", borderRadius: "var(--radius)", background: "rgba(193,18,31,0.06)", border: "1px solid rgba(193,18,31,0.28)", borderLeft: "2px solid var(--margin-rule)", color: "var(--margin-rule)" }}
+                  style={{ padding: "10px var(--sp-2)", borderRadius: "var(--radius)", background: "var(--danger-tint)", border: "1px solid var(--danger)", borderLeft: "2px solid var(--danger)", color: "var(--danger)" }}
                 >
                   {error}
                 </div>
@@ -132,7 +132,7 @@ export default function ResetPasswordPage() {
             </div>
 
             <p className="text-sm mt-6">
-              <Link href="/auth/login" className="font-medium" style={{ color: "var(--text-primary)" }}>
+              <Link href="/auth/login" className="font-medium" style={{ color: "var(--text)" }}>
                 ← Back to sign in
               </Link>
             </p>

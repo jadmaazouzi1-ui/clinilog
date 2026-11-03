@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import { Archivo } from "next/font/google";
 import { createClient } from "@/lib/supabase/server";
 import SamplePath from "@/components/landing/SamplePath";
+import Logo from "@/components/brand/Logo";
+import { AFFILIATION_NOTE } from "@/lib/brand";
 import "./landing.css";
 
 // Archivo for every word on this page; JetBrains Mono (from the root layout)
@@ -55,7 +57,7 @@ export default async function HomePage() {
     <div className={`lp ${archivo.variable}`}>
       <div className="lp-dark">
         <header className="lp-wrap lp-header">
-          <Link href="/" className="lp-wordmark">CLINICLOG MD</Link>
+          <Link href="/" className="lp-wordmark"><Logo size={28} />CLINICLOG MD</Link>
           <nav className="lp-header-actions" aria-label="Account">
             <Link href="/auth/login" className="lp-textlink">Sign in</Link>
             <Link href="/auth/signup" className="lp-btn lp-btn-solid lp-btn-sm">Create account</Link>
@@ -102,7 +104,10 @@ export default async function HomePage() {
 
       <footer className="lp-footer">
         <div className="lp-wrap lp-footer-inner">
-          <p>Built by a first-generation pre-med student at Wake Forest.</p>
+          <div>
+            <p>Built by a first-generation pre-med student at Wake Forest.</p>
+            <p className="lp-disclaimer">{AFFILIATION_NOTE}</p>
+          </div>
           <nav aria-label="Footer">
             {FOOTER_LINKS.map(([label, href]) => (
               <Link key={href} href={href}>{label}</Link>

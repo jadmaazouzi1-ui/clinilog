@@ -14,9 +14,9 @@ import { TabIndex } from "@/components/MedicalIcons";
 import { removeSchool, setSecondaryStatus, updateApplication } from "./actions";
 
 const STATUS_COLOR: Record<string, string> = {
-  "Not Started": "var(--text-tertiary)",
-  Draft: "var(--warning)",
-  Submitted: "var(--accent)",
+  "Not Started": "var(--text-subtle)",
+  Draft: "var(--accent-text)",
+  Submitted: "var(--text)",
 };
 
 export default function ApplicationsView({ apps }: { apps: SchoolApplication[] }) {
@@ -63,7 +63,7 @@ export default function ApplicationsView({ apps }: { apps: SchoolApplication[] }
         ))}
       </div>
       {budget.waived > 0 && (
-        <p className="exp-id" style={{ marginBottom: "var(--sp-4)", color: "var(--accent)" }}>
+        <p className="exp-id" style={{ marginBottom: "var(--sp-4)", color: "var(--accent-text)" }}>
           ${budget.waived.toFixed(0)} WAIVED ACROSS APPROVED FEE WAIVERS
         </p>
       )}
@@ -109,7 +109,7 @@ export default function ApplicationsView({ apps }: { apps: SchoolApplication[] }
                   {a.secondary_prompt && (
                     <p
                       className="text-sm"
-                      style={{ color: "var(--text-secondary)", marginTop: 4, whiteSpace: "pre-wrap" }}
+                      style={{ color: "var(--text-muted)", marginTop: 4, whiteSpace: "pre-wrap" }}
                     >
                       {a.secondary_prompt}
                     </p>
@@ -128,8 +128,8 @@ export default function ApplicationsView({ apps }: { apps: SchoolApplication[] }
                         borderRadius: "var(--radius)",
                         cursor: "pointer",
                         border: `1px solid ${a.secondary_status === s ? "var(--accent)" : "var(--border-strong)"}`,
-                        background: a.secondary_status === s ? "var(--accent-soft)" : "var(--bg-card)",
-                        color: a.secondary_status === s ? "var(--accent)" : "var(--text-tertiary)",
+                        background: a.secondary_status === s ? "var(--accent-tint)" : "var(--surface)",
+                        color: a.secondary_status === s ? "var(--accent-text)" : "var(--text-subtle)",
                       }}
                     >
                       {s === "Not Started" ? "NS" : s === "Draft" ? "DR" : "SUB"}
@@ -202,9 +202,9 @@ export default function ApplicationsView({ apps }: { apps: SchoolApplication[] }
                       className="text-xs font-semibold"
                       style={{
                         padding: "7px var(--sp-2)",
-                        color: "var(--margin-rule)",
-                        background: "var(--bg-card)",
-                        border: "1px solid rgba(193,18,31,0.3)",
+                        color: "var(--danger)",
+                        background: "var(--surface)",
+                        border: "1px solid var(--danger)",
                         borderRadius: "var(--radius)",
                         cursor: "pointer",
                       }}
@@ -230,7 +230,7 @@ export default function ApplicationsView({ apps }: { apps: SchoolApplication[] }
               <div
                 key={t.id}
                 className="flex items-center justify-between gap-3"
-                style={{ padding: "6px 0", borderBottom: "1px solid var(--border)" }}
+                style={{ padding: "6px 0", borderBottom: "1px solid var(--hairline)" }}
               >
                 <span className="text-sm">{t.school_name}</span>
                 <span className="exp-id">TARGET</span>

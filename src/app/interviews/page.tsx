@@ -22,10 +22,10 @@ export default async function InterviewsPage() {
         className="w-full chart-margin"
         style={{ paddingTop: "var(--sp-3)", paddingRight: "var(--sp-3)", paddingBottom: "var(--sp-4)" }}
       >
-        <h1 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>
+        <h1 className="text-xl font-bold" style={{ color: "var(--text)" }}>
           Interview Log
         </h1>
-        <p className="text-sm" style={{ color: "var(--text-secondary)", marginBottom: "var(--sp-3)" }}>
+        <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-3)" }}>
           Every invite, its format and outcome. Waitlist movement is tracked against any interview marked Waitlisted.
         </p>
 

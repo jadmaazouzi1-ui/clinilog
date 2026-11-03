@@ -32,13 +32,13 @@ export default function GapBanner({ days, offerReminders }: { days: number; offe
       style={{
         padding: "10px var(--sp-2)",
         border: "1px solid var(--border-strong)",
-        borderLeft: "2px solid var(--warning)",
-        background: "var(--bg-card)",
+        borderLeft: "2px solid var(--accent)",
+        background: "var(--surface)",
         marginBottom: "var(--sp-2)",
       }}
     >
       <div className="flex items-center justify-between gap-3 flex-wrap">
-        <p className="text-sm" style={{ color: "var(--text-primary)" }}>
+        <p className="text-sm" style={{ color: "var(--text)" }}>
           <span className="exp-id" style={{ marginRight: 8 }}>{days}D SINCE LAST ENTRY</span>
           Hours are easiest to log while you still remember the details.
         </p>
@@ -49,7 +49,7 @@ export default function GapBanner({ days, offerReminders }: { days: number; offe
           <button
             type="button"
             className="text-xs"
-            style={{ color: "var(--text-tertiary)", textDecoration: "underline", minHeight: 32 }}
+            style={{ color: "var(--text-subtle)", textDecoration: "underline", minHeight: 32 }}
             onClick={async () => {
               setGone(true);
               await post("/api/findings/dismiss", { key: "banner:gap", mode: "7d" });
@@ -61,12 +61,12 @@ export default function GapBanner({ days, offerReminders }: { days: number; offe
       </div>
       {offer && (
         <div className="flex items-center gap-3 flex-wrap" style={{ marginTop: 8, paddingTop: 8, borderTop: "1px dashed var(--border-strong)" }}>
-          <p className="text-xs" style={{ color: "var(--text-secondary)" }}>Want an email if you go 14 days without logging? You can change or stop it any time.</p>
+          <p className="text-xs" style={{ color: "var(--text-muted)" }}>Want an email if you go 14 days without logging? You can change or stop it any time.</p>
           <button type="button" className="tour-btn tour-btn-primary" onClick={() => answer(true)}>Email me</button>
           <button type="button" className="tour-btn" onClick={() => answer(false)}>No thanks</button>
         </div>
       )}
-      {note && <p className="text-xs" role="status" style={{ color: "var(--text-secondary)", marginTop: 6 }}>{note}</p>}
+      {note && <p className="text-xs" role="status" style={{ color: "var(--text-muted)", marginTop: 6 }}>{note}</p>}
     </div>
   );
 }

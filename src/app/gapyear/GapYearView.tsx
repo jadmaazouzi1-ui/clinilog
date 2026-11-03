@@ -4,11 +4,11 @@ import { useState, useTransition, useMemo } from "react";
 import { GapGoal, GapYearData, saveGapYearData } from "./actions";
 
 const CATEGORIES: { value: GapGoal["category"]; label: string; color: string }[] = [
-  { value: "clinical",     label: "Clinical Hours",   color: "var(--text-primary)" },
-  { value: "research",     label: "Research",         color: "var(--text-primary)" },
-  { value: "volunteering", label: "Volunteering",     color: "var(--text-primary)" },
-  { value: "personal",     label: "Personal Growth",  color: "var(--text-primary)" },
-  { value: "financial",    label: "Financial",        color: "var(--text-primary)" },
+  { value: "clinical",     label: "Clinical Hours",   color: "var(--text)" },
+  { value: "research",     label: "Research",         color: "var(--text)" },
+  { value: "volunteering", label: "Volunteering",     color: "var(--text)" },
+  { value: "personal",     label: "Personal Growth",  color: "var(--text)" },
+  { value: "financial",    label: "Financial",        color: "var(--text)" },
 ];
 
 const MILESTONES: { id: string; label: string; due: string }[] = [
@@ -117,7 +117,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
       <div className="glass-card rounded-2xl p-6">
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div className="flex-1 min-w-[200px]">
-            <p className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: "var(--text-secondary)" }}>Target Application Cycle</p>
+            <p className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: "var(--text-muted)" }}>Target Application Cycle</p>
             <select
               value={data.target_cycle_year ?? ""}
               onChange={(e) => persist({ target_cycle_year: e.target.value ? parseInt(e.target.value) : null })}
@@ -132,10 +132,10 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
           {countdown && (
             <div
               className="rounded-xl px-5 py-4 text-center flex-shrink-0"
-              style={{ background: "var(--bg-card)", border: "1px solid var(--border-strong)", minWidth: 180 }}
+              style={{ background: "var(--surface)", border: "1px solid var(--border-strong)", minWidth: 180 }}
             >
-              <p className="text-3xl font-bold" style={{ color: "var(--text-primary)" }}>{countdown.days}</p>
-              <p className="text-xs mt-1" style={{ color: "var(--text-secondary)" }}>days until {countdown.label}</p>
+              <p className="text-3xl font-bold" style={{ color: "var(--text)" }}>{countdown.days}</p>
+              <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>days until {countdown.label}</p>
             </div>
           )}
         </div>
@@ -145,8 +145,8 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
       <div className="glass-card rounded-2xl p-6">
         <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
           <div>
-            <h2 className="text-base font-semibold" style={{ color: "var(--text-primary)" }}>Gap Year Goals</h2>
-            <p className="text-xs" style={{ color: "var(--text-secondary)" }}>{data.goals.length}/5 set</p>
+            <h2 className="text-base font-semibold" style={{ color: "var(--text)" }}>Gap Year Goals</h2>
+            <p className="text-xs" style={{ color: "var(--text-muted)" }}>{data.goals.length}/5 set</p>
           </div>
         </div>
 
@@ -158,22 +158,22 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
                 <li
                   key={g.id}
                   className="flex items-start gap-3 rounded-xl px-3.5 py-3"
-                  style={{ background: "var(--bg-card)", border: "1px solid var(--border-strong)" }}
+                  style={{ background: "var(--surface)", border: "1px solid var(--border-strong)" }}
                 >
                   <span
                     className="inline-flex items-center px-2 py-0.5 rounded-sm text-[10px] font-bold uppercase tracking-wide flex-shrink-0 mt-0.5"
-                    style={{ background: "var(--bg-card)", color: "var(--border-strong)", border: "1px solid var(--border-strong)" }}
+                    style={{ background: "var(--surface)", color: "var(--border-strong)", border: "1px solid var(--border-strong)" }}
                   >
                     {meta.label}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>{g.title}</p>
-                    {g.target && <p className="text-xs mt-0.5" style={{ color: "var(--text-secondary)" }}>Target: {g.target}</p>}
+                    <p className="text-sm font-medium" style={{ color: "var(--text)" }}>{g.title}</p>
+                    {g.target && <p className="text-xs mt-0.5" style={{ color: "var(--text-muted)" }}>Target: {g.target}</p>}
                   </div>
                   <button
                     onClick={() => removeGoal(g.id)}
                     className="p-1.5 rounded-lg transition-opacity hover:opacity-100 opacity-50"
-                    style={{ color: "var(--text-primary)" }}
+                    style={{ color: "var(--text)" }}
                     aria-label="Remove goal"
                   >
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -217,8 +217,8 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
 
       {/* Monthly log */}
       <div className="glass-card rounded-2xl p-6">
-        <h2 className="text-base font-semibold mb-1" style={{ color: "var(--text-primary)" }}>Monthly Activity Log</h2>
-        <p className="text-xs mb-4" style={{ color: "var(--text-secondary)" }}>What did you do this month? Track progress on your goals.</p>
+        <h2 className="text-base font-semibold mb-1" style={{ color: "var(--text)" }}>Monthly Activity Log</h2>
+        <p className="text-xs mb-4" style={{ color: "var(--text-muted)" }}>What did you do this month? Track progress on your goals.</p>
 
         <div className="grid grid-cols-[140px,1fr,auto] gap-2 mb-4">
           <input
@@ -244,20 +244,20 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
         </div>
 
         {sortedLogEntries.length === 0 ? (
-          <p className="text-xs text-center py-4" style={{ color: "var(--text-tertiary)" }}>No entries logged yet.</p>
+          <p className="text-xs text-center py-4" style={{ color: "var(--text-subtle)" }}>No entries logged yet.</p>
         ) : (
           <ul className="space-y-2">
             {sortedLogEntries.map(([month, text]) => (
               <li
                 key={month}
                 className="rounded-xl px-3.5 py-3 flex items-start gap-3"
-                style={{ background: "var(--bg-card)", border: "1px solid var(--border-strong)" }}
+                style={{ background: "var(--surface)", border: "1px solid var(--border-strong)" }}
               >
-                <span className="text-xs font-bold uppercase tracking-wide flex-shrink-0" style={{ color: "var(--text-primary)", minWidth: 76 }}>
+                <span className="text-xs font-bold uppercase tracking-wide flex-shrink-0" style={{ color: "var(--text)", minWidth: 76 }}>
                   {formatMonth(month)}
                 </span>
-                <p className="text-sm flex-1" style={{ color: "var(--text-primary)" }}>{text}</p>
-                <button onClick={() => deleteLog(month)} className="p-1 opacity-50 hover:opacity-100" style={{ color: "var(--text-primary)" }} aria-label="Delete log">
+                <p className="text-sm flex-1" style={{ color: "var(--text)" }}>{text}</p>
+                <button onClick={() => deleteLog(month)} className="p-1 opacity-50 hover:opacity-100" style={{ color: "var(--text)" }} aria-label="Delete log">
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                   </svg>
@@ -272,10 +272,10 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
       <div className="glass-card rounded-2xl p-6">
         <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
           <div>
-            <h2 className="text-base font-semibold" style={{ color: "var(--text-primary)" }}>Application Milestones</h2>
-            <p className="text-xs" style={{ color: "var(--text-secondary)" }}>{milestonesDone}/{MILESTONES.length} complete</p>
+            <h2 className="text-base font-semibold" style={{ color: "var(--text)" }}>Application Milestones</h2>
+            <p className="text-xs" style={{ color: "var(--text-muted)" }}>{milestonesDone}/{MILESTONES.length} complete</p>
           </div>
-          <div className="w-32 h-1.5 rounded-none overflow-hidden" style={{ background: "var(--bg-soft)", border: "1px solid var(--border)" }}>
+          <div className="w-32 h-1.5 rounded-none overflow-hidden" style={{ background: "var(--accent-tint)", border: "1px solid var(--hairline)" }}>
             <div
               className="h-full rounded-sm"
               style={{
@@ -298,19 +298,19 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
                   onClick={() => toggleMilestone(m.id)}
                   className="w-full text-left rounded-xl px-3.5 py-3 flex items-start gap-3 transition-colors"
                   style={{
-                    background: done ? "var(--bg-soft)" : "var(--bg-soft)",
-                    border: `1px solid ${done ? "var(--border-strong)" : "var(--border)"}`,
+                    background: done ? "var(--accent-tint)" : "var(--accent-tint)",
+                    border: `1px solid ${done ? "var(--border-strong)" : "var(--hairline)"}`,
                   }}
                 >
                   <span
                     className="w-5 h-5 rounded-md flex items-center justify-center flex-shrink-0 mt-0.5"
                     style={{
-                      background: done ? "var(--text-primary)" : "transparent",
-                      border: `1.5px solid ${done ? "var(--text-primary)" : "var(--border-strong)"}`,
+                      background: done ? "var(--accent)" : "transparent",
+                      border: `2px solid ${done ? "var(--accent)" : "var(--border-strong)"}`,
                     }}
                   >
                     {done && (
-                      <svg className="w-3 h-3" fill="none" stroke="#FFFFFF" strokeWidth="3" viewBox="0 0 24 24">
+                      <svg className="w-3 h-3" fill="none" stroke="var(--on-accent)" strokeWidth="3" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                       </svg>
                     )}
@@ -318,11 +318,11 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
                   <div className="flex-1 min-w-0">
                     <p
                       className="text-sm font-medium"
-                      style={{ color: done ? "var(--text-secondary)" : "var(--text-primary)", textDecoration: done ? "line-through" : "none" }}
+                      style={{ color: done ? "var(--text-muted)" : "var(--text)", textDecoration: done ? "line-through" : "none" }}
                     >
                       {m.label}
                     </p>
-                    <p className="text-xs mt-0.5" style={{ color: "var(--text-tertiary)" }}>{m.due}</p>
+                    <p className="text-xs mt-0.5" style={{ color: "var(--text-subtle)" }}>{m.due}</p>
                   </div>
                 </button>
               </li>
@@ -332,7 +332,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
       </div>
 
       {savedAt && (
-        <p className="text-xs text-center" style={{ color: "var(--text-tertiary)" }}>
+        <p className="text-xs text-center" style={{ color: "var(--text-subtle)" }}>
           {isPending ? "Saving…" : `Saved at ${savedAt}`}
         </p>
       )}

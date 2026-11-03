@@ -91,11 +91,11 @@ const RECOMMENDATIONS = {
 };
 
 const STAGE_META: Record<Stage, { label: string; tone: string; color: string; bg: string }> = {
-  freshman: { label: "Freshman",        tone: "Building your foundation",       color: "var(--accent)", bg: "var(--accent-soft)" },
-  sophomore: { label: "Sophomore",       tone: "Hitting midpoint goals",         color: "var(--accent)", bg: "var(--accent-soft)" },
-  junior: { label: "Junior",          tone: "Cycle is approaching",           color: "var(--accent)", bg: "var(--accent-soft)" },
-  senior: { label: "Senior",          tone: "Apply-cycle territory",          color: "var(--accent)", bg: "var(--accent-soft)" },
-  postgrad: { label: "Post-grad / Gap", tone: "Strengthen your final profile",  color: "var(--accent)", bg: "var(--accent-soft)" },
+  freshman: { label: "Freshman",        tone: "Building your foundation",       color: "var(--accent-text)", bg: "var(--accent-tint)" },
+  sophomore: { label: "Sophomore",       tone: "Hitting midpoint goals",         color: "var(--accent-text)", bg: "var(--accent-tint)" },
+  junior: { label: "Junior",          tone: "Cycle is approaching",           color: "var(--accent-text)", bg: "var(--accent-tint)" },
+  senior: { label: "Senior",          tone: "Apply-cycle territory",          color: "var(--accent-text)", bg: "var(--accent-tint)" },
+  postgrad: { label: "Post-grad / Gap", tone: "Strengthen your final profile",  color: "var(--accent-text)", bg: "var(--accent-tint)" },
 };
 
 function computeStage(gradYear: number | null | undefined): Stage | null {
@@ -133,19 +133,19 @@ export default function ExperienceInsights({
       <div className="mb-8">
         <div
           className="glass-card rounded-2xl p-6 flex items-start gap-4 flex-wrap"
-          style={{ borderColor: "var(--text-primary)" }}
+          style={{ borderColor: "var(--text)" }}
         >
           <div
             className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-            style={{ background: "var(--bg-card)", color: "var(--text-primary)", border: "1px solid var(--border-strong)" }}
+            style={{ background: "var(--surface)", color: "var(--text)", border: "1px solid var(--border-strong)" }}
           >
             {ICONS.user}
           </div>
           <div className="flex-1 min-w-0">
-            <h2 className="text-base font-semibold mb-1" style={{ color: "var(--text-primary)" }}>
+            <h2 className="text-base font-semibold mb-1" style={{ color: "var(--text)" }}>
               Tell us where you&apos;re at
             </h2>
-            <p className="text-sm leading-relaxed mb-3" style={{ color: "var(--text-secondary)" }}>
+            <p className="text-sm leading-relaxed mb-3" style={{ color: "var(--text-muted)" }}>
               Add your graduation year on your profile so these insights match your year.
               A first-year and a senior need different next steps.
             </p>
@@ -173,7 +173,7 @@ export default function ExperienceInsights({
       <div className="flex items-end justify-between mb-4 flex-wrap gap-2">
         <div>
           <p className="dept-header" style={{ marginBottom: 6 }}>Experience Insights</p>
-          <p className="text-xs" style={{ color: "var(--text-secondary)" }}>
+          <p className="text-xs" style={{ color: "var(--text-muted)" }}>
             Personalized tips based on what you&apos;ve logged so far.
           </p>
         </div>
@@ -182,7 +182,7 @@ export default function ExperienceInsights({
           style={{
             background: meta.bg,
             color: meta.color,
-            border: `1px solid ${meta.color}40`,
+            border: "1px solid var(--accent)",
           }}
         >
           <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -207,10 +207,10 @@ export default function ExperienceInsights({
               >
                 {tip.icon}
               </div>
-              <h3 className="text-sm font-semibold mb-1.5" style={{ color: "var(--text-primary)" }}>
+              <h3 className="text-sm font-semibold mb-1.5" style={{ color: "var(--text)" }}>
                 {tip.title}
               </h3>
-              <p className="text-xs leading-relaxed" style={{ color: "var(--text-secondary)" }}>
+              <p className="text-xs leading-relaxed" style={{ color: "var(--text-muted)" }}>
                 {tip.body}
               </p>
             </div>
@@ -224,13 +224,15 @@ export default function ExperienceInsights({
 function paletteFor(kind: Tip["kind"]) {
   // Separated by weight within the ramp rather than by hue, so the three
   // kinds are distinguishable without introducing a second colour.
+  // Success is neutral with a strong rule, a warning is the gold-bordered
+  // box, info stays quiet. Each also carries a text label.
   if (kind === "positive") {
-    return { color: "var(--green-700)", bg: "var(--green-100)", border: "var(--border-strong)" };
+    return { color: "var(--text)", bg: "var(--surface)", border: "var(--border-strong)" };
   }
   if (kind === "warn") {
-    return { color: "var(--green-900)", bg: "var(--bg-soft)", border: "var(--border-strong)" };
+    return { color: "var(--text)", bg: "var(--accent-tint)", border: "var(--accent)" };
   }
-  return { color: "var(--text-secondary)", bg: "var(--bg-soft)", border: "var(--border)" };
+  return { color: "var(--text-muted)", bg: "var(--surface)", border: "var(--hairline)" };
 }
 
 // ── Tip generation, stage-aware ───────────────────────────────────────────

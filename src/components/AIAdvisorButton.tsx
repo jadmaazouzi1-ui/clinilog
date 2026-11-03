@@ -175,19 +175,19 @@ export default function AIAdvisorButton() {
         aria-label="Open AI advisor"
         className="fixed right-6 z-40 w-12 h-12 flex items-center justify-center transition-opacity hover:opacity-80 bottom-[calc(64px+env(safe-area-inset-bottom)+16px)] md:bottom-6"
         style={{
-          backgroundColor: "var(--accent)",
+          backgroundColor: "var(--band)",
           borderRadius: 0,
-          border: "1px solid var(--border-strong)",
+          border: "2px solid var(--accent)",
         }}
       >
-        <span className="mono" style={{ color: "var(--on-accent)", fontSize: 12, fontWeight: 800, letterSpacing: "0.08em" }}>AI</span>
+        <span className="mono" style={{ color: "var(--band-accent)", fontSize: 12, fontWeight: 800, letterSpacing: "0.08em" }}>AI</span>
       </button>
 
       {/* Backdrop */}
       {open && (
         <div
           className="fixed inset-0 z-40"
-          style={{ backgroundColor: "rgba(14,26,21,0.45)" }}
+          style={{ backgroundColor: "var(--scrim)" }}
           onClick={() => setOpen(false)}
         />
       )}
@@ -204,7 +204,7 @@ export default function AIAdvisorButton() {
           height: "100vh",
           maxHeight: "100dvh",
           minHeight: "100dvh",
-          backgroundColor: "var(--bg-card)",
+          backgroundColor: "var(--surface)",
           borderLeft: "1px solid var(--border-strong)",
           transform: open ? "translateX(0)" : "translateX(100%)",
           transition: "transform 0.28s cubic-bezier(0.4,0,0.2,1)",
@@ -213,22 +213,22 @@ export default function AIAdvisorButton() {
         {/* Header */}
         <div
           className="flex items-center gap-3 px-5 py-4 flex-shrink-0"
-          style={{ borderBottom: "1px solid var(--border-strong)" }}
+          style={{ background: "var(--band)", borderBottom: "3px solid var(--accent)" }}
           data-tour="advisor-header"
         >
           <div className="flex-1 min-w-0">
-            <p className="text-sm" style={{ color: "var(--text-primary)", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.02em" }}>AI Pre-Med Advisor</p>
-            <p className="text-xs mono" style={{ color: "var(--text-tertiary)", letterSpacing: "0.08em" }}>
+            <p className="text-sm" style={{ color: "var(--band-text)", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.02em" }}>AI Pre-Med Advisor</p>
+            <p className="text-xs mono" style={{ color: "var(--band-accent)", letterSpacing: "0.08em" }}>
               {remaining !== null ? `${remaining} OF 20 MESSAGES LEFT TODAY` : "AI ASSISTED · SEES YOUR LOGGED TOTALS"}
             </p>
-            <p className="text-[11px]" style={{ color: "var(--text-secondary)", marginTop: 2 }}>
+            <p className="text-[11px]" style={{ color: "var(--band-muted)", marginTop: 2 }}>
               General guidance that can be wrong. Not admissions or medical advice.
             </p>
           </div>
           <button
             onClick={() => setOpen(false)}
             className="p-1.5 transition-opacity hover:opacity-60 flex-shrink-0"
-            style={{ color: "var(--text-primary)" }}
+            style={{ color: "var(--band-text)", minHeight: 44 }}
           >
             <span className="mono text-[11px] font-bold tracking-widest">CLOSE</span>
           </button>
@@ -243,7 +243,7 @@ export default function AIAdvisorButton() {
                 style={
                   msg.role === "user"
                     ? { backgroundColor: "var(--accent)", color: "var(--on-accent)", border: "1px solid var(--border-strong)", borderRadius: 0, fontWeight: 500 }
-                    : { backgroundColor: "var(--bg-card)", color: "var(--text-primary)", border: "1px solid var(--border-strong)", borderRadius: 0 }
+                    : { backgroundColor: "var(--surface)", color: "var(--text)", border: "1px solid var(--border-strong)", borderRadius: 0 }
                 }
               >
                 {msg.content.split("\n").map((line, j) => (
@@ -260,7 +260,7 @@ export default function AIAdvisorButton() {
             <div className="flex justify-start">
               <div
                 className="px-4 py-3"
-                style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border-strong)", borderRadius: 0 }}
+                style={{ backgroundColor: "var(--surface)", border: "1px solid var(--border-strong)", borderRadius: 0 }}
               >
                 <span className="loading-text">Thinking</span>
               </div>
@@ -276,7 +276,7 @@ export default function AIAdvisorButton() {
         >
           <div
             className="flex items-end gap-2 px-3 py-2"
-            style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border-strong)", borderRadius: 0 }}
+            style={{ backgroundColor: "var(--surface)", border: "1px solid var(--border-strong)", borderRadius: 0 }}
             data-tour="advisor-input"
           >
             <textarea
@@ -287,7 +287,7 @@ export default function AIAdvisorButton() {
               placeholder="Ask about MCAT, clinical hours, schools..."
               rows={1}
               className="flex-1 bg-transparent text-sm resize-none outline-none leading-relaxed"
-              style={{ color: "var(--text-primary)", maxHeight: "120px" }}
+              style={{ color: "var(--text)", maxHeight: "120px" }}
               onInput={e => {
                 const el = e.currentTarget;
                 el.style.height = "auto";
@@ -299,8 +299,8 @@ export default function AIAdvisorButton() {
               disabled={!input.trim() || loading}
               className="flex-shrink-0 px-3 py-1.5 mono text-[11px] font-bold tracking-widest"
               style={{
-                backgroundColor: input.trim() && !loading ? "var(--accent)" : "var(--bg-card)",
-                color: input.trim() && !loading ? "#FFFFFF" : "var(--text-tertiary)",
+                backgroundColor: input.trim() && !loading ? "var(--accent)" : "var(--surface)",
+                color: input.trim() && !loading ? "var(--on-accent)" : "var(--text-subtle)",
                 border: "1px solid var(--border-strong)",
                 borderRadius: 0,
               }}
@@ -308,7 +308,7 @@ export default function AIAdvisorButton() {
               SEND
             </button>
           </div>
-          <p className="text-center mt-2 text-xs mono" style={{ color: "var(--text-tertiary)", letterSpacing: "0.08em" }}>
+          <p className="text-center mt-2 text-xs mono" style={{ color: "var(--text-subtle)", letterSpacing: "0.08em" }}>
             ENTER TO SEND · SHIFT+ENTER NEW LINE
           </p>
         </div>

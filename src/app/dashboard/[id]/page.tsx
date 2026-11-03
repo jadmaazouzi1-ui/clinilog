@@ -71,7 +71,7 @@ export default async function ExperienceDetailPage({
         <Link
           href="/dashboard"
           className="inline-flex items-center gap-2 text-xs font-semibold"
-          style={{ color: "var(--text-secondary)", marginBottom: "var(--sp-3)" }}
+          style={{ color: "var(--text-muted)", marginBottom: "var(--sp-3)" }}
         >
           <span aria-hidden="true">&larr;</span> Back to Overview
         </Link>
@@ -79,7 +79,7 @@ export default async function ExperienceDetailPage({
         <div
           className="tick-corners"
           style={{
-            background: "var(--bg-card)",
+            background: "var(--surface)",
             border: "1px solid var(--border-strong)",
             borderRadius: "var(--radius)",
             padding: "var(--sp-4) var(--sp-3)",
@@ -92,8 +92,8 @@ export default async function ExperienceDetailPage({
                 <span className="exp-id">{recordNo}</span>
                 <span className="cat-tag">{TYPE_LABELS[exp.type as ExperienceType]}</span>
               </div>
-              <h1 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>{exp.title}</h1>
-              <p className="text-sm" style={{ color: "var(--text-secondary)" }}>{exp.organization}</p>
+              <h1 className="text-xl font-bold" style={{ color: "var(--text)" }}>{exp.title}</h1>
+              <p className="text-sm" style={{ color: "var(--text-muted)" }}>{exp.organization}</p>
             </div>
 
             <div className="flex items-center gap-2 flex-shrink-0">
@@ -111,9 +111,9 @@ export default async function ExperienceDetailPage({
                   className="text-xs font-semibold"
                   style={{
                     padding: "6px var(--sp-2)",
-                    color: "var(--margin-rule)",
-                    background: "var(--bg-card)",
-                    border: "1px solid rgba(193,18,31,0.3)",
+                    color: "var(--danger)",
+                    background: "var(--surface)",
+                    border: "1px solid var(--danger)",
                     borderRadius: "var(--radius)",
                     cursor: "pointer",
                   }}
@@ -157,7 +157,7 @@ export default async function ExperienceDetailPage({
           <p className="dept-header">Description</p>
           <p
             className="text-sm whitespace-pre-wrap"
-            style={{ color: "var(--text-primary)", lineHeight: 1.7, marginBottom: "var(--sp-4)" }}
+            style={{ color: "var(--text)", lineHeight: 1.7, marginBottom: "var(--sp-4)" }}
           >
             {exp.description}
           </p>
@@ -167,7 +167,7 @@ export default async function ExperienceDetailPage({
               <p className="dept-header">Reflection</p>
               <p
                 className="text-sm whitespace-pre-wrap"
-                style={{ color: "var(--text-primary)", lineHeight: 1.7, marginBottom: "var(--sp-4)" }}
+                style={{ color: "var(--text)", lineHeight: 1.7, marginBottom: "var(--sp-4)" }}
               >
                 {exp.reflection}
               </p>

@@ -26,10 +26,10 @@ export default async function OutlinePage() {
         className="w-full chart-margin"
         style={{ paddingTop: "var(--sp-3)", paddingRight: "var(--sp-3)", paddingBottom: "var(--sp-4)", maxWidth: 820 }}
       >
-        <h1 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>
+        <h1 className="text-xl font-bold" style={{ color: "var(--text)" }}>
           Personal statement outline
         </h1>
-        <p className="text-sm" style={{ color: "var(--text-secondary)", marginBottom: "var(--sp-3)" }}>
+        <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-3)" }}>
           A structure drawn from your own logged experiences: an opening, two or three themes with the
           evidence behind each, and a close. It will not invent anything you have not logged.
         </p>
@@ -37,10 +37,10 @@ export default async function OutlinePage() {
         {!ready && (
           <div
             className="glass-card"
-            style={{ padding: "var(--sp-2)", marginBottom: "var(--sp-3)", borderLeft: "2px solid var(--warning)" }}
+            style={{ padding: "var(--sp-2)", marginBottom: "var(--sp-3)", borderLeft: "2px solid var(--accent)" }}
           >
             <p className="exp-id" style={{ marginBottom: 4 }}>PREREQUISITES</p>
-            <p className="text-sm" style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>
+            <p className="text-sm" style={{ color: "var(--text-muted)", lineHeight: 1.6 }}>
               This tool opens once you have logged three experiences and generated your archetype.
               You have {entries} {entries === 1 ? "entry" : "entries"}
               {hasArchetype ? " and an archetype on file" : " and no archetype yet"}.

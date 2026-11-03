@@ -125,11 +125,11 @@ export default async function DashboardPage({
             style={{
               marginBottom: "var(--sp-3)",
               padding: "10px var(--sp-2)",
-              background: "rgba(193,18,31,0.06)",
-              border: "1px solid rgba(193,18,31,0.28)",
-              borderLeft: "2px solid var(--margin-rule)",
+              background: "var(--danger-tint)",
+              border: "1px solid var(--danger)",
+              borderLeft: "2px solid var(--danger)",
               borderRadius: "var(--radius)",
-              color: "var(--margin-rule)",
+              color: "var(--danger)",
             }}
           >
             <span className="flex items-center gap-2 flex-wrap">
@@ -148,10 +148,10 @@ export default async function DashboardPage({
             <p className="exp-id" style={{ marginBottom: 6 }}>
               {formatMedicalDate(new Date())} / {user.email}
             </p>
-            <h1 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>
+            <h1 className="text-xl font-bold" style={{ color: "var(--text)" }}>
               {greeting()}{firstName ? `, ${firstName}` : ""}.
             </h1>
-            <p className="text-xs" style={{ color: "var(--text-secondary)", marginTop: 2 }}>
+            <p className="text-xs" style={{ color: "var(--text-muted)", marginTop: 2 }}>
               Your hours, entries and progress toward common benchmarks.
             </p>
           </div>
@@ -227,10 +227,10 @@ export default async function DashboardPage({
             <div className="flex items-center gap-4 flex-wrap">
               <div className="flex-1 min-w-0">
                 <p className="exp-id" style={{ marginBottom: 4 }}>{archetypeReady ? "ASSESSMENT ON FILE" : "ASSESSMENT PENDING"}</p>
-                <p className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>
+                <p className="text-sm font-bold" style={{ color: "var(--text)" }}>
                   {archetypeReady ? "Your Pre-Med Archetype is ready" : "Your Pre-Med Archetype is ready to be revealed"}
                 </p>
-                <p className="text-xs" style={{ color: "var(--text-secondary)", marginTop: 2 }}>
+                <p className="text-xs" style={{ color: "var(--text-muted)", marginTop: 2 }}>
                   {archetypeReady ? "View your personalized profile and ideal med schools." : "See your personalized profile based on your logged experiences."}
                 </p>
               </div>
@@ -265,10 +265,10 @@ export default async function DashboardPage({
         {experienceList.length === 0 ? (
           <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
             <p className="exp-id" style={{ marginBottom: "var(--sp-1)" }}>RECORD EMPTY</p>
-            <h2 className="text-lg font-semibold" style={{ color: "var(--text-primary)", marginBottom: "var(--sp-1)" }}>
+            <h2 className="text-lg font-semibold" style={{ color: "var(--text)", marginBottom: "var(--sp-1)" }}>
               No experiences yet
             </h2>
-            <p className="text-sm" style={{ color: "var(--text-secondary)", maxWidth: 420, marginBottom: "var(--sp-3)" }}>
+            <p className="text-sm" style={{ color: "var(--text-muted)", maxWidth: 420, marginBottom: "var(--sp-3)" }}>
               Start documenting your clinical rotations, volunteer hours, and
               shadowing experiences to build your application story.
             </p>
@@ -301,29 +301,29 @@ export default async function DashboardPage({
                       </span>
                     </div>
 
-                    <h3 className="text-base font-semibold" style={{ color: "var(--text-primary)" }}>
+                    <h3 className="text-base font-semibold" style={{ color: "var(--text)" }}>
                       <Link href={`/dashboard/${experience.id}`} style={{ textDecoration: "none", color: "inherit" }}>
                         {experience.title}
                       </Link>
                     </h3>
-                    <p className="text-sm" style={{ color: "var(--text-secondary)", marginBottom: "var(--sp-1)" }}>
+                    <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-1)" }}>
                       {experience.organization}
                     </p>
 
                     <div
                       className="flex items-center gap-4 text-xs mono"
-                      style={{ color: "var(--text-tertiary)", marginBottom: "var(--sp-1)" }}
+                      style={{ color: "var(--text-subtle)", marginBottom: "var(--sp-1)" }}
                     >
                       <span>
                         {formatDate(experience.start_date)}
                         {experience.end_date ? ` to ${formatDate(experience.end_date)}` : " to PRESENT"}
                       </span>
-                      <span className="font-medium" style={{ color: "var(--text-secondary)" }}>
+                      <span className="font-medium" style={{ color: "var(--text-muted)" }}>
                         {formatMedicalHours(experience.hours)}
                       </span>
                     </div>
 
-                    <p className="text-sm line-clamp-2" style={{ color: "var(--text-secondary)" }}>
+                    <p className="text-sm line-clamp-2" style={{ color: "var(--text-muted)" }}>
                       {experience.description}
                     </p>
                   </div>
@@ -344,9 +344,9 @@ export default async function DashboardPage({
                         className="text-xs font-semibold"
                         style={{
                           padding: "6px var(--sp-1)",
-                          color: "var(--margin-rule)",
-                          background: "var(--bg-card)",
-                          border: "1px solid rgba(193,18,31,0.3)",
+                          color: "var(--danger)",
+                          background: "var(--surface)",
+                          border: "1px solid var(--danger)",
                           borderRadius: "var(--radius)",
                           cursor: "pointer",
                         }}

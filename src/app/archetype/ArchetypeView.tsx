@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import { PALETTE } from "@/lib/palette";
 import Link from "next/link";
 import { ARCHETYPES, ArchetypeAnalysis, getArchetype } from "@/lib/archetypes";
 import { formatMedicalDate } from "@/lib/formatMedical";
@@ -25,10 +26,10 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
   // confident result drawn from almost nothing.
   const confidence =
     experienceCount >= 10
-      ? { level: "HIGH", color: "var(--accent)" }
+      ? { level: "HIGH", color: "var(--accent-text)" }
       : experienceCount >= 6
-      ? { level: "MODERATE", color: "var(--warning)" }
-      : { level: "LOW", color: "var(--margin-rule)" };
+      ? { level: "MODERATE", color: "var(--accent-text)" }
+      : { level: "LOW", color: "var(--accent-text)" };
 
   async function runAnalysis() {
     setLoading(true);
@@ -72,14 +73,14 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
       <div className="glass-card rounded-2xl p-10 text-center" data-tour="archetype-locked">
         <div
           className="inline-flex items-center justify-center w-14 h-14 rounded-full mb-4"
-          style={{ background: "var(--bg-card)" }}
+          style={{ background: "var(--surface)" }}
         >
-          <svg className="w-7 h-7" fill="none" stroke="var(--text-primary)" viewBox="0 0 24 24">
+          <svg className="w-7 h-7" fill="none" stroke="var(--text)" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
           </svg>
         </div>
-        <h1 className="text-xl font-bold mb-2" style={{ color: "var(--text-primary)" }}>Almost there</h1>
-        <p className="text-sm mb-6 max-w-md mx-auto" style={{ color: "var(--text-secondary)" }}>
+        <h1 className="text-xl font-bold mb-2" style={{ color: "var(--text)" }}>Almost there</h1>
+        <p className="text-sm mb-6 max-w-md mx-auto" style={{ color: "var(--text-muted)" }}>
           Your archetype is available after you log <strong>3 experiences</strong>. You have {experienceCount} so far.
         </p>
         <Link
@@ -98,10 +99,10 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
     return (
       <div className="glass-card tick-corners" style={{ padding: "var(--sp-6) var(--sp-3)" }}>
         <EkgLoader label="Analyzing experience data" width={150} />
-        <h1 className="text-xl font-bold" style={{ color: "var(--text-primary)", marginTop: "var(--sp-2)", marginBottom: 4 }}>
+        <h1 className="text-xl font-bold" style={{ color: "var(--text)", marginTop: "var(--sp-2)", marginBottom: 4 }}>
           Analyzing your experiences
         </h1>
-        <p className="text-sm" style={{ color: "var(--text-secondary)", maxWidth: 440 }}>
+        <p className="text-sm" style={{ color: "var(--text-muted)", maxWidth: 440 }}>
           Reading every hour, every reflection, every organization. This usually takes 10 to 20 seconds.
         </p>
       </div>
@@ -111,12 +112,12 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
   // ── Error state ──────────────────────────────────────────────────────
   if (error && !analysis) {
     return (
-      <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)", borderLeft: "2px solid var(--margin-rule)" }}>
+      <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)", borderLeft: "2px solid var(--accent)" }}>
         <VitalFlat />
-        <h1 className="text-lg font-bold" style={{ color: "var(--text-primary)", marginTop: "var(--sp-1)", marginBottom: 4 }}>
+        <h1 className="text-lg font-bold" style={{ color: "var(--text)", marginTop: "var(--sp-1)", marginBottom: 4 }}>
           Couldn&apos;t generate your archetype
         </h1>
-        <p className="text-sm" style={{ color: "var(--text-secondary)", maxWidth: 440, marginBottom: "var(--sp-3)" }}>{error}</p>
+        <p className="text-sm" style={{ color: "var(--text-muted)", maxWidth: 440, marginBottom: "var(--sp-3)" }}>{error}</p>
         <button onClick={runAnalysis} className="teal-glow text-sm" style={{ padding: "10px var(--sp-3)" }}>
           Try again
         </button>
@@ -127,7 +128,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
   if (!analysis) return null;
 
   const archetype = getArchetype(analysis.archetype_id) ?? ARCHETYPES[0];
-  const color = "var(--text-primary)";
+  const color = "var(--accent)";
 
   function downloadCard() {
     const canvas = document.createElement("canvas");
@@ -136,12 +137,13 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Background
-    ctx.fillStyle = "#FFFFFF";
+    // Canvas cannot read CSS variables: colours come from the palette.
+    // Black field with gold accents, like the recap card.
+    ctx.fillStyle = PALETTE.black;
     ctx.fillRect(0, 0, w, h);
 
     // Dot grid
-    ctx.fillStyle = "var(--text-tertiary)";
+    ctx.fillStyle = PALETTE.gray700;
     for (let x = 14; x < w; x += 32) {
       for (let y = 14; y < h; y += 32) {
         ctx.beginPath();
@@ -150,21 +152,14 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
       }
     }
 
-    // Radial glow
-    const grad = ctx.createRadialGradient(w / 2, h / 2, 50, w / 2, h / 2, 500);
-    grad.addColorStop(0, "var(--text-tertiary)");
-    grad.addColorStop(1, "var(--text-tertiary)");
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, w, h);
-
     // Top label
-    ctx.fillStyle = "var(--text-primary)";
+    ctx.fillStyle = PALETTE.gold300;
     ctx.font = "bold 22px -apple-system, system-ui, sans-serif";
     ctx.textAlign = "center";
     ctx.fillText("MY PRE-MED ARCHETYPE", w / 2, 130);
 
     // Archetype color accent line
-    ctx.strokeStyle = color;
+    ctx.strokeStyle = PALETTE.gold500;
     ctx.lineWidth = 4;
     ctx.beginPath();
     ctx.moveTo(w / 2 - 60, 165);
@@ -172,17 +167,17 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
     ctx.stroke();
 
     // Archetype name
-    ctx.fillStyle = "var(--text-primary)";
+    ctx.fillStyle = PALETTE.cream;
     ctx.font = "bold 76px -apple-system, system-ui, sans-serif";
     ctx.fillText(archetype.name, w / 2, 290);
 
     // Tagline
-    ctx.fillStyle = "var(--text-secondary)";
+    ctx.fillStyle = PALETTE.creamMuted;
     ctx.font = "italic 36px -apple-system, system-ui, sans-serif";
     ctx.fillText(`"${archetype.tagline}"`, w / 2, 365);
 
     // Description (wrap)
-    ctx.fillStyle = "var(--text-primary)";
+    ctx.fillStyle = PALETTE.cream;
     ctx.font = "28px -apple-system, system-ui, sans-serif";
     const words = archetype.description.split(" ");
     let line = "";
@@ -200,7 +195,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
     if (line) ctx.fillText(line.trim(), w / 2, y);
 
     // ClinicLog brand
-    ctx.fillStyle = "var(--text-tertiary)";
+    ctx.fillStyle = PALETTE.gold300;
     ctx.font = "bold 24px -apple-system, system-ui, sans-serif";
     ctx.fillText("ClinicLog MD · cliniclogmd.com", w / 2, h - 50);
 
@@ -243,7 +238,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
               </span>
             </div>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-bold mb-2 letter-reveal" style={{ color: "var(--text-primary)" }}>
+          <h1 className="text-3xl sm:text-4xl font-bold mb-2 letter-reveal" style={{ color: "var(--text)" }}>
             {archetype.name.split("").map((ch, i) => (
               <span
                 key={i}
@@ -253,10 +248,10 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
               </span>
             ))}
           </h1>
-          <p className="text-base italic mb-4" style={{ color: "var(--text-secondary)" }}>
+          <p className="text-base italic mb-4" style={{ color: "var(--text-muted)" }}>
             &ldquo;{archetype.tagline}&rdquo;
           </p>
-          <p className="text-sm leading-relaxed" style={{ color: "var(--text-primary)", maxWidth: 620 }}>
+          <p className="text-sm leading-relaxed" style={{ color: "var(--text)", maxWidth: 620 }}>
             {archetype.description}
           </p>
 
@@ -276,7 +271,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
               onClick={runAnalysis}
               disabled={loading}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-opacity"
-              style={{ color: "var(--text-primary)", border: "1px solid var(--border-strong)", background: "transparent" }}
+              style={{ color: "var(--text)", border: "1px solid var(--border-strong)", background: "transparent" }}
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -285,7 +280,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
             </button>
           </div>
           {generatedAt && (
-            <p className="text-xs mt-3" style={{ color: "var(--text-secondary)" }}>
+            <p className="text-xs mt-3" style={{ color: "var(--text-muted)" }}>
               Generated {formatMedicalDate(generatedAt)}
             </p>
           )}
@@ -294,10 +289,10 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
 
       {/* Why this archetype */}
       <Section title="Based on your entries" color={color}>
-        <p className="text-sm leading-relaxed" style={{ color: "var(--text-primary)" }}>
+        <p className="text-sm leading-relaxed" style={{ color: "var(--text)" }}>
           {analysis.why_paragraph}
         </p>
-        <p className="text-xs" style={{ color: "var(--text-tertiary)", marginTop: 8 }}>
+        <p className="text-xs" style={{ color: "var(--text-subtle)", marginTop: 8 }}>
           AI assisted. It only sees what you logged, so it changes as you add entries.
         </p>
       </Section>
@@ -309,13 +304,13 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
             <li key={i} className="flex items-start gap-3">
               <div
                 className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
-                style={{ backgroundColor: `${color}22`, border: `1px solid ${color}` }}
+                style={{ backgroundColor: "var(--accent-tint)", border: `1px solid ${color}` }}
               >
-                <svg className="w-3 h-3" fill="none" stroke={color} strokeWidth="3" viewBox="0 0 24 24">
+                <svg className="w-3 h-3" fill="none" stroke="var(--accent-text)" strokeWidth="3" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <span className="text-sm leading-relaxed" style={{ color: "var(--text-primary)" }}>{s}</span>
+              <span className="text-sm leading-relaxed" style={{ color: "var(--text)" }}>{s}</span>
             </li>
           ))}
         </ul>
@@ -329,22 +324,22 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
             <li
               key={i}
               className="flex items-center gap-3 rounded-xl px-3.5 py-2.5"
-              style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border-strong)" }}
+              style={{ backgroundColor: "var(--surface)", border: "1px solid var(--border-strong)" }}
             >
               <span
                 className="text-xs font-bold flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center"
-                style={{ backgroundColor: `${color}22`, color }}
+                style={{ backgroundColor: "var(--accent-tint)", color: "var(--text)" }}
               >
                 {i + 1}
               </span>
-              <span className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>{s}</span>
+              <span className="text-sm font-medium" style={{ color: "var(--text)" }}>{s}</span>
             </li>
           ))}
         </ul>
         <Link
           href="/schools"
           className="inline-flex items-center gap-1.5 text-xs font-semibold mt-4"
-          style={{ color: "var(--text-primary)" }}
+          style={{ color: "var(--text)" }}
         >
           Browse all schools
           <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -356,10 +351,10 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
 
       {/* Statement angle */}
       <Section title="A possible statement angle" color={color}>
-        <p className="text-sm leading-relaxed italic" style={{ color: "var(--text-primary)" }}>
+        <p className="text-sm leading-relaxed italic" style={{ color: "var(--text)" }}>
           {analysis.statement_angle}
         </p>
-        <p className="text-xs" style={{ color: "var(--text-tertiary)", marginTop: 8 }}>
+        <p className="text-xs" style={{ color: "var(--text-subtle)", marginTop: 8 }}>
           AI draft to edit. Your statement should be in your voice and about what you actually did.
         </p>
       </Section>
@@ -371,13 +366,13 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
             <li key={i} className="flex items-start gap-3">
               <div
                 className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
-                style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border-strong)" }}
+                style={{ backgroundColor: "var(--surface)", border: "1px solid var(--border-strong)" }}
               >
-                <svg className="w-3 h-3" fill="none" stroke="var(--text-secondary)" strokeWidth="2.5" viewBox="0 0 24 24">
+                <svg className="w-3 h-3" fill="none" stroke="var(--text-muted)" strokeWidth="2.5" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
                 </svg>
               </div>
-              <span className="text-sm leading-relaxed" style={{ color: "var(--text-primary)" }}>{s}</span>
+              <span className="text-sm leading-relaxed" style={{ color: "var(--text)" }}>{s}</span>
             </li>
           ))}
         </ul>
@@ -386,7 +381,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
       {error && (
         <div
           className="text-sm rounded-xl px-4 py-3"
-          style={{ background: "var(--bg-soft)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }}
+          style={{ background: "var(--accent-tint)", border: "1px solid var(--border-strong)", color: "var(--text)" }}
         >
           {error}
         </div>
@@ -400,7 +395,7 @@ function Section({ title, color, children }: { title: string; color: string; chi
     <div className="glass-card rounded-2xl p-6">
       <p
         className="text-xs font-bold uppercase tracking-wider mb-3"
-        style={{ color: "var(--text-secondary)" }}
+        style={{ color: "var(--text-muted)" }}
       >
         {title}
       </p>

@@ -1,6 +1,8 @@
 // Gap reminder: whether to send, and what to say. Pure functions; the cron
 // route supplies the data and does the I/O.
 
+import { EMAIL_STYLE, button, emailShell, esc, para } from "../emailBrand";
+import { PALETTE } from "../palette";
 import { breakDaysBetween, formatDay, inBreak, type CheckBreak, type Finding } from "./index";
 
 export const REMINDER_KIND = "gap_reminder";
@@ -89,9 +91,6 @@ export function gapPhrase(days: number): string {
   return weeks < 9 ? `${weeks} weeks` : `${Math.round(days / 30)} months`;
 }
 
-function esc(s: string): string {
-  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-}
 function hours(n: number): string {
   const r = Math.round(n * 10) / 10;
   return Number.isInteger(r) ? String(r) : r.toFixed(1);
@@ -121,19 +120,17 @@ export function buildReminderEmail(i: ReminderEmailInput): { subject: string; te
     "ClinicLog MD, cliniclogmd.com",
   ].join("\n");
 
-  const p = (s: string, style = "") => `<p style="margin:0 0 12px;font-size:15px;line-height:1.6;color:#2E4339;${style}">${s}</p>`;
-  const html = `<!doctype html><html><body style="margin:0;background:#F5FAF7;font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#0E1A15">
-<div style="max-width:520px;margin:0 auto;padding:32px 24px">
-<div style="background:#FFFFFF;border:2px solid #1F4D3A;padding:24px">
-<p style="margin:0 0 6px;font-family:ui-monospace,Menlo,monospace;font-size:12px;letter-spacing:.1em;color:#2F7A57">REMINDER</p>
-<h1 style="margin:0 0 16px;font-size:20px;line-height:1.3">It has been ${esc(gap)} since your last entry</h1>
-${p(esc(last))}
-${p(esc(total))}
-${tip ? p(esc(tip), "border-left:2px solid #2F7A57;padding-left:12px") : ""}
-<a href="${esc(i.logUrl)}" style="display:inline-block;background:#1F4D3A;color:#FFFFFF;text-decoration:none;padding:12px 20px;font-size:15px;font-weight:600">Log hours</a>
-</div>
-<p style="margin:16px 0 0;font-size:12px;line-height:1.6;color:#4A5F55">You asked for this reminder. <a href="${esc(i.manageUrl)}" style="color:#1F4D3A">Manage reminders</a> or <a href="${esc(i.unsubscribeUrl)}" style="color:#1F4D3A">unsubscribe</a>.<br>ClinicLog MD, cliniclogmd.com</p>
-</div></body></html>`;
+  const html = emailShell({
+    eyebrow: "REMINDER",
+    title: `It has been ${gap} since your last entry`,
+    body: [
+      para(esc(last)),
+      para(esc(total)),
+      tip ? para(esc(tip), `border-left:3px solid ${PALETTE.gold500};padding-left:12px`) : "",
+      button(i.logUrl, "Log hours"),
+    ].join("\n"),
+    footer: `You asked for this reminder. <a href="${esc(i.manageUrl)}" style="${EMAIL_STYLE.link}">Manage reminders</a> or <a href="${esc(i.unsubscribeUrl)}" style="${EMAIL_STYLE.link}">unsubscribe</a>.`,
+  });
 
   return { subject, text, html };
 }

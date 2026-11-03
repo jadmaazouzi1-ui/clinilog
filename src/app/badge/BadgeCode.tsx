@@ -29,14 +29,14 @@ export default function BadgeCode({ label, code }: { label: string; code: string
         style={{
           margin: 0,
           padding: "var(--sp-2)",
-          background: "var(--bg-soft)",
+          background: "var(--accent-tint)",
           border: "1px solid var(--border-strong)",
           borderRadius: "var(--radius)",
           fontFamily: "var(--font-mono)",
           fontSize: 11,
           lineHeight: 1.6,
           overflowX: "auto",
-          color: "var(--text-primary)",
+          color: "var(--text)",
           whiteSpace: "pre",
         }}
       >

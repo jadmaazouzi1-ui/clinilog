@@ -20,7 +20,7 @@ export const ARCHETYPES: Archetype[] = [
     name: "The Community Healer",
     tagline: "Most of your hours are community service.",
     description: "Your log leans toward volunteering in community settings, often with underserved groups. Schools with a primary care or service mission tend to look for this.",
-    color: "var(--green-700)",
+    color: "var(--text)",
     iconPath: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z",
     idealSchools: [
       "University of New Mexico School of Medicine",
@@ -35,7 +35,7 @@ export const ARCHETYPES: Archetype[] = [
     name: "The Scientist",
     tagline: "Research makes up a large share of your hours.",
     description: "Your log shows sustained lab or research work, sometimes over several semesters. Research-heavy and MD-PhD programs weigh this more than most.",
-    color: "var(--green-500)",
+    color: "var(--accent-text)",
     iconPath: "M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z",
     idealSchools: [
       "Johns Hopkins School of Medicine",
@@ -50,7 +50,7 @@ export const ARCHETYPES: Archetype[] = [
     name: "The First-Gen Grinder",
     tagline: "Built while working or without a guide.",
     description: "Your entries show progress made alongside jobs, family duties or little formal advising. The AAMC lets you describe this context directly in your application.",
-    color: "var(--green-900)",
+    color: "var(--text)",
     iconPath: "M13 10V3L4 14h7v7l9-11h-7z",
     idealSchools: [
       "UCLA David Geffen School of Medicine",
@@ -65,7 +65,7 @@ export const ARCHETYPES: Archetype[] = [
     name: "The Clinical Immersive",
     tagline: "Most of your hours are direct patient contact.",
     description: "Your log is heavy on clinical work such as scribing, EMT or CNA shifts. Admissions readers look for this kind of sustained patient exposure.",
-    color: "var(--green-300)",
+    color: "var(--accent-text)",
     iconPath: "M19 14l-7 7m0 0l-7-7m7 7V3",
     idealSchools: [
       "Sidney Kimmel Medical College (Thomas Jefferson)",
@@ -80,7 +80,7 @@ export const ARCHETYPES: Archetype[] = [
     name: "The Advocate",
     tagline: "Your work touches policy and access.",
     description: "Your entries include advocacy, policy or health equity projects alongside patient-facing work. Schools with a social mission often ask about this in secondaries.",
-    color: "var(--green-500)",
+    color: "var(--accent-text)",
     iconPath: "M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9",
     idealSchools: [
       "Harvard Medical School",
@@ -95,7 +95,7 @@ export const ARCHETYPES: Archetype[] = [
     name: "The Late Bloomer",
     tagline: "A path into medicine after other work.",
     description: "Your log shows experience outside a straight line from college, such as a prior career or years away from school. Many schools state that they welcome non-traditional applicants.",
-    color: "var(--green-700)",
+    color: "var(--text)",
     iconPath: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z",
     idealSchools: [
       "Icahn School of Medicine at Mount Sinai",
@@ -110,7 +110,7 @@ export const ARCHETYPES: Archetype[] = [
     name: "The Renaissance Pre-Med",
     tagline: "Hours spread across every category.",
     description: "Your log has meaningful time in clinical work, research, volunteering and shadowing, with no single area dominating. Breadth like this gives you several directions for a personal statement.",
-    color: "var(--green-500)",
+    color: "var(--accent-text)",
     iconPath: "M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z",
     idealSchools: [
       "Perelman School of Medicine (Penn)",
@@ -125,7 +125,7 @@ export const ARCHETYPES: Archetype[] = [
     name: "The Global Health Pioneer",
     tagline: "Experience across cultures or countries.",
     description: "Your entries include international work, language skills or care for immigrant communities. Schools with global health tracks often highlight this.",
-    color: "var(--green-900)",
+    color: "var(--text)",
     iconPath: "M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
     idealSchools: [
       "Johns Hopkins School of Medicine",
@@ -140,7 +140,7 @@ export const ARCHETYPES: Archetype[] = [
     name: "The Military Medic",
     tagline: "Military or uniformed service experience.",
     description: "Your log includes ROTC, military service or military medical training. Programs like USUHS and HPSP are built for this path.",
-    color: "var(--green-300)",
+    color: "var(--accent-text)",
     iconPath: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
     idealSchools: [
       "Uniformed Services University (USUHS)",
@@ -155,7 +155,7 @@ export const ARCHETYPES: Archetype[] = [
     name: "The Rural Healer",
     tagline: "Ties to rural or small-town care.",
     description: "Your entries point to rural communities, family medicine or shortage areas. Several state schools run rural tracks that look for exactly this.",
-    color: "var(--green-500)",
+    color: "var(--accent-text)",
     iconPath: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6",
     idealSchools: [
       "University of New Mexico School of Medicine",
@@ -170,7 +170,7 @@ export const ARCHETYPES: Archetype[] = [
     name: "The Mental Health Champion",
     tagline: "A focus on behavioral health.",
     description: "Your log includes crisis lines, peer support, psychology research or behavioral health settings. This lines up with psychiatry and integrated care interests.",
-    color: "var(--green-700)",
+    color: "var(--text)",
     iconPath: "M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25zm0 2.25h.008v.008H12V10.5zm0 2.25h.008v.008H12v-.008z",
     idealSchools: [
       "Yale School of Medicine",
@@ -185,7 +185,7 @@ export const ARCHETYPES: Archetype[] = [
     name: "The Entrepreneur",
     tagline: "You start and run projects.",
     description: "Your entries include organizations, projects or programs you founded or led. Some schools have innovation or leadership tracks where this fits.",
-    color: "var(--green-500)",
+    color: "var(--accent-text)",
     iconPath: "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z",
     idealSchools: [
       "Stanford School of Medicine",
@@ -200,7 +200,7 @@ export const ARCHETYPES: Archetype[] = [
     name: "The Educator",
     tagline: "Teaching shows up throughout your log.",
     description: "Your entries include tutoring, teaching assistant roles or health education. Schools that value teaching or health literacy often notice this.",
-    color: "var(--green-900)",
+    color: "var(--text)",
     iconPath: "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253",
     idealSchools: [
       "Columbia Vagelos P&S",
@@ -215,7 +215,7 @@ export const ARCHETYPES: Archetype[] = [
     name: "The Rehabilitation Specialist",
     tagline: "Experience in recovery and function.",
     description: "Your log includes physical or occupational therapy settings, sports medicine or disability work. This connects to PM&R, orthopedics and sports medicine.",
-    color: "var(--green-300)",
+    color: "var(--accent-text)",
     iconPath: "M13 10V3L4 14h7v7l9-11h-7z",
     idealSchools: [
       "Northwestern Feinberg School of Medicine",
@@ -230,7 +230,7 @@ export const ARCHETYPES: Archetype[] = [
     name: "The Public Health Warrior",
     tagline: "Prevention and population-level work.",
     description: "Your entries include public health, epidemiology or prevention programs. Schools with dual MD-MPH options often look for this.",
-    color: "var(--green-500)",
+    color: "var(--accent-text)",
     iconPath: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z",
     idealSchools: [
       "Johns Hopkins School of Medicine",

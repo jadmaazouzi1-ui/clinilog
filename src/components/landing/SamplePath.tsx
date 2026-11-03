@@ -17,7 +17,8 @@ export const SAMPLE_EXPERIENCES: Experience[] = SAMPLE.flatMap(([type, hours]) =
 );
 export const SAMPLE_TOTAL_HOURS = SAMPLE_EXPERIENCES.reduce((s, e) => s + e.hours, 0);
 
-const LIMB = "rgba(230, 242, 234, 0.36)";
+const LIMB = "var(--path-branch)";
+const TRUNK_FILL = "var(--path-trunk)";
 
 /** The dashboard's Your Path tree, drawn from the sample above. Server-rendered, no state. */
 export default function SamplePath() {
@@ -40,7 +41,7 @@ export default function SamplePath() {
         role="img"
         aria-label={`Sample Your Path tree, not real data. Each branch is a category and grows with logged hours. ${summary}.`}
       >
-        <path d={taperedRibbon(TRUNK, TRUNK_W_BASE, TRUNK_W_TIP, 34)} fill={LIMB} />
+        <path d={taperedRibbon(TRUNK, TRUNK_W_BASE, TRUNK_W_TIP, 34)} fill={TRUNK_FILL} />
         {branches.map((b) => {
           const color = CATEGORY_COLOR[b.type];
           const hollow = LEAF_KIND[b.type] === "hollow";

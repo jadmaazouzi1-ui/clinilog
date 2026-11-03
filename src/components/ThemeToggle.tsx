@@ -24,7 +24,9 @@ export default function ThemeToggle({ initial }: { initial?: Theme }) {
     } catch {
       // Private mode or blocked storage: fall back to the server value.
     }
-    const next = stored ?? initial ?? "light";
+    // No stored choice: keep what the head script picked from the OS setting.
+    const current = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+    const next = stored ?? initial ?? current;
     setTheme(next);
     document.documentElement.setAttribute("data-theme", next);
     setMounted(true);

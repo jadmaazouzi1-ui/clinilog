@@ -69,7 +69,7 @@ test.describe("the email", () => {
   });
 
   test("text and HTML carry title, date, total and suggestion, with no guilt, exclamation marks or emoji", () => {
-    const visibleHtml = email.html.replace(/<[^>]+>/g, " ");
+    const visibleHtml = email.html.replace(/<style[\s\S]*?<\/style>/g, " ").replace(/<[^>]+>/g, " ");
     for (const body of [email.text, visibleHtml]) {
       expect(body).toContain("ED scribe");
       expect(body).toContain("Oct 11, 2026");

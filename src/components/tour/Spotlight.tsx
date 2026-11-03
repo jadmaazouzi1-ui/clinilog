@@ -210,10 +210,10 @@ export default function Spotlight() {
         <p className="exp-id" style={{ marginBottom: 6 }}>
           {mod.title.toUpperCase()} / STEP {String(index + 1).padStart(2, "0")} OF {String(total).padStart(2, "0")}
         </p>
-        <h2 id="tour-title" className="text-sm font-bold" style={{ color: "var(--text-primary)", marginBottom: 4 }}>
+        <h2 id="tour-title" className="text-sm font-bold" style={{ color: "var(--text)", marginBottom: 4 }}>
           {step.title}
         </h2>
-        <p id="tour-body" className="text-sm" style={{ color: "var(--text-secondary)", lineHeight: 1.5 }}>
+        <p id="tour-body" className="text-sm" style={{ color: "var(--text-muted)", lineHeight: 1.5 }}>
           {step.body}
         </p>
 
@@ -259,7 +259,7 @@ function Sample({ kind }: { kind: SampleKind }) {
         bars.map((b) => (
           <div key={b.label} style={{ marginTop: 6 }}>
             <span className="exp-id">{b.label}</span>
-            <div style={{ height: 6, background: "var(--bg-soft)", marginTop: 2 }}>
+            <div style={{ height: 6, background: "var(--accent-tint)", marginTop: 2 }}>
               <div style={{ width: `${b.pct}%`, height: "100%", background: "var(--accent)" }} />
             </div>
           </div>
@@ -269,7 +269,7 @@ function Sample({ kind }: { kind: SampleKind }) {
           {[["TOTAL HOURS", "124.5"], ["ENTRIES", "06"], ["ORGS", "04"], ["CATEGORIES", "3/5"]].map(([l, v]) => (
             <div key={l} style={{ border: "1px solid var(--border-strong)", padding: "4px 6px" }}>
               <span className="exp-id">{l}</span>
-              <p className="mono text-sm font-semibold" style={{ color: "var(--text-primary)" }}>{v}</p>
+              <p className="mono text-sm font-semibold" style={{ color: "var(--text)" }}>{v}</p>
             </div>
           ))}
         </div>

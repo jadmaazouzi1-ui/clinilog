@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { EMAIL, EMAIL_STYLE, button, emailShell, para } from "@/lib/emailBrand";
 import { createClient as createAdminClient } from "@supabase/supabase-js";
 import { unsubscribeUrl } from "@/lib/unsubscribe";
 
@@ -96,28 +97,16 @@ export async function GET(request: Request) {
         ? "A steady week. Consistency over months is what an admissions reader actually notices."
         : "Logged while it was fresh, which is the hard part. Keep the habit.";
 
-    const html = `<!doctype html><html><body style="margin:0;background:#F3F7F4;font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#16241D">
-  <div style="max-width:520px;margin:0 auto;padding:32px 24px">
-    <div style="background:#000;color:#fff;padding:12px 16px;font-weight:700;font-size:14px;letter-spacing:.06em">CLINICLOG MD</div>
-    <div style="background:#fff;border:1px solid rgba(16,24,20,.16);border-top:0;padding:24px 16px">
-      <p style="margin:0 0 4px;font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.12em;color:#94A39B">WEEKLY SUMMARY</p>
-      <h1 style="margin:0 0 16px;font-size:20px">Your week in hours</h1>
-      <table style="width:100%;border-collapse:collapse;margin-bottom:16px">
-        <tr>
-          <td style="padding:8px 0;border-bottom:1px solid rgba(16,24,20,.1);font-size:12px;font-weight:700;letter-spacing:.08em;color:#5B6B63">HOURS LOGGED</td>
-          <td style="padding:8px 0;border-bottom:1px solid rgba(16,24,20,.1);text-align:right;font-family:ui-monospace,Menlo,monospace;font-size:18px;font-weight:600">${hours}</td>
-        </tr>
-        <tr>
-          <td style="padding:8px 0;border-bottom:1px solid rgba(16,24,20,.1);font-size:12px;font-weight:700;letter-spacing:.08em;color:#5B6B63">ENTRIES ADDED</td>
-          <td style="padding:8px 0;border-bottom:1px solid rgba(16,24,20,.1);text-align:right;font-family:ui-monospace,Menlo,monospace;font-size:18px;font-weight:600">${String(totals.weekEntries).padStart(2, "0")}</td>
-        </tr>
-      </table>
-      <p style="margin:0 0 20px;font-size:14px;line-height:1.6;color:#5B6B63">${encouragement}</p>
-      <a href="https://www.cliniclogmd.com/dashboard" style="display:inline-block;background:#2D6A4F;color:#fff;text-decoration:none;padding:10px 18px;border-radius:3px;font-size:14px;font-weight:600">Open your dashboard</a>
-    </div>
-    <p style="margin:16px 0 0;font-size:11px;color:#6B8578">You receive this because you logged hours in the last 30 days. It stops automatically if you go quiet. <a href="${unsub}" style="color:#1F4D3A">Unsubscribe</a></p>
-  </div>
-</body></html>`;
+    const html = emailShell({
+      eyebrow: "WEEKLY SUMMARY",
+      title: "Your week in hours",
+      body: [
+        `<table role="presentation" style="width:100%;border-collapse:collapse;margin-bottom:16px"><tr><td style="padding:8px 0;border-bottom:1px solid ${EMAIL.hairline};font-size:12px;font-weight:700;letter-spacing:.08em;color:${EMAIL.muted}">HOURS LOGGED</td><td style="padding:8px 0;border-bottom:1px solid ${EMAIL.hairline};text-align:right;font-family:ui-monospace,Menlo,monospace;font-size:18px;font-weight:600;color:${EMAIL.text}">${hours}</td></tr><tr><td style="padding:8px 0;border-bottom:1px solid ${EMAIL.hairline};font-size:12px;font-weight:700;letter-spacing:.08em;color:${EMAIL.muted}">ENTRIES ADDED</td><td style="padding:8px 0;border-bottom:1px solid ${EMAIL.hairline};text-align:right;font-family:ui-monospace,Menlo,monospace;font-size:18px;font-weight:600;color:${EMAIL.text}">${String(totals.weekEntries).padStart(2, "0")}</td></tr></table>`,
+        para(encouragement, `color:${EMAIL.muted};font-size:14px`),
+        button("https://www.cliniclogmd.com/dashboard", "Open your dashboard"),
+      ].join("\n"),
+      footer: `You receive this because you logged hours in the last 30 days. It stops automatically if you go quiet. <a href="${unsub}" style="${EMAIL_STYLE.link}">Unsubscribe</a>`,
+    });
 
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",

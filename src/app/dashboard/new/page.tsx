@@ -48,7 +48,7 @@ export default async function NewExperiencePage() {
         <Link
           href="/dashboard"
           className="inline-flex items-center gap-2 text-xs font-semibold"
-          style={{ color: "var(--text-secondary)", marginBottom: "var(--sp-3)" }}
+          style={{ color: "var(--text-muted)", marginBottom: "var(--sp-3)" }}
         >
           <span aria-hidden="true">&larr;</span> Back to Overview
         </Link>
@@ -61,10 +61,10 @@ export default async function NewExperiencePage() {
           <div className="flex items-start gap-3">
             <span className="rx-mark" aria-hidden="true">&#8478;</span>
             <div>
-              <h1 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>
+              <h1 className="text-xl font-bold" style={{ color: "var(--text)" }}>
                 Experience intake
               </h1>
-              <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
+              <p className="text-sm" style={{ color: "var(--text-muted)" }}>
                 Complete every required field. Hours count toward your AMCAS totals.
               </p>
             </div>
@@ -77,7 +77,7 @@ export default async function NewExperiencePage() {
         <div
           className="tick-corners"
           style={{
-            background: "var(--bg-card)",
+            background: "var(--surface)",
             border: "1px solid var(--border-strong)",
             borderRadius: "var(--radius)",
             padding: "var(--sp-4) var(--sp-3)",
@@ -93,7 +93,7 @@ export default async function NewExperiencePage() {
             <div data-tour="f-placement">
             <div style={{ marginBottom: "var(--sp-3)" }}>
               <label htmlFor="title" className="field-label">
-                TTL <span style={{ color: "var(--margin-rule)" }}>*</span>
+                TTL <span style={{ color: "var(--accent-text)" }}>*</span>
               </label>
               <input
                 id="title"
@@ -111,7 +111,7 @@ export default async function NewExperiencePage() {
             >
               <div>
                 <label htmlFor="organization" className="field-label">
-                  ORG <span style={{ color: "var(--margin-rule)" }}>*</span>
+                  ORG <span style={{ color: "var(--accent-text)" }}>*</span>
                 </label>
                 <input
                   id="organization"
@@ -124,7 +124,7 @@ export default async function NewExperiencePage() {
               </div>
               <div>
                 <label htmlFor="experience_type" className="field-label">
-                  CAT <span style={{ color: "var(--margin-rule)" }}>*</span>
+                  CAT <span style={{ color: "var(--accent-text)" }}>*</span>
                 </label>
                 <select id="experience_type" name="experience_type" required className="field-input">
                   <option value="">Category</option>
@@ -152,19 +152,19 @@ export default async function NewExperiencePage() {
             >
               <div>
                 <label htmlFor="start_date" className="field-label">
-                  DOS START <span style={{ color: "var(--margin-rule)" }}>*</span>
+                  DOS START <span style={{ color: "var(--accent-text)" }}>*</span>
                 </label>
                 <input id="start_date" name="start_date" type="date" required className="field-input" />
               </div>
               <div>
                 <label htmlFor="end_date" className="field-label">
-                  DOS END <span style={{ color: "var(--text-tertiary)" }}>(optional)</span>
+                  DOS END <span style={{ color: "var(--text-subtle)" }}>(optional)</span>
                 </label>
                 <input id="end_date" name="end_date" type="date" className="field-input" />
               </div>
               <div>
                 <label htmlFor="hours" className="field-label">
-                  HRS <span style={{ color: "var(--margin-rule)" }}>*</span>
+                  HRS <span style={{ color: "var(--accent-text)" }}>*</span>
                 </label>
                 <input
                   id="hours"
@@ -189,14 +189,14 @@ export default async function NewExperiencePage() {
 
             <div style={{ marginBottom: "var(--sp-3)" }} data-tour="f-desc">
               <label htmlFor="description" className="field-label">
-                DESC <span style={{ color: "var(--text-tertiary)" }}>(optional)</span>
+                DESC <span style={{ color: "var(--text-subtle)" }}>(optional)</span>
               </label>
               <ReframeableTextarea placeholder="Description: what did you do?" />
             </div>
 
             <div style={{ marginBottom: "var(--sp-4)" }} data-tour="f-reflection">
               <label htmlFor="reflection" className="field-label">
-                REFL <span style={{ color: "var(--text-tertiary)" }}>(optional)</span>
+                REFL <span style={{ color: "var(--text-subtle)" }}>(optional)</span>
               </label>
               <textarea
                 id="reflection"
@@ -232,7 +232,7 @@ export default async function NewExperiencePage() {
                 Cancel
               </Link>
               <span className="exp-id" style={{ marginLeft: "auto" }}>
-                <span style={{ color: "var(--margin-rule)" }}>*</span> REQUIRED
+                <span style={{ color: "var(--accent-text)" }}>*</span> REQUIRED
               </span>
             </div>
           </form>

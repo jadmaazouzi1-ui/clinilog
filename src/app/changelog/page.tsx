@@ -12,13 +12,13 @@ export const metadata = {
 
 export default function ChangelogPage() {
   return (
-    <div style={{ backgroundColor: "var(--bg-page)", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "var(--bg)", minHeight: "100vh" }}>
       <header
         className="sticky top-0 z-50"
-        style={{ backgroundColor: "var(--bg-page)", borderBottom: "1px solid var(--border-strong)" }}
+        style={{ backgroundColor: "var(--bg)", borderBottom: "1px solid var(--border-strong)" }}
       >
         <div className="max-w-3xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="font-bold" style={{ fontSize: "1.0625rem", textDecoration: "none", color: "var(--text-primary)" }}>
+          <Link href="/" className="font-bold" style={{ fontSize: "1.0625rem", textDecoration: "none", color: "var(--text)" }}>
             ClinicLog MD
           </Link>
           <RecordNo page="/changelog" />
@@ -28,10 +28,10 @@ export default function ChangelogPage() {
       <main className="max-w-3xl mx-auto px-6" style={{ paddingTop: "var(--sp-6)", paddingBottom: "var(--sp-8)" }}>
         <ChangelogNote />
         <p className="dept-header">Changelog</p>
-        <h1 className="text-3xl font-bold" style={{ color: "var(--text-primary)", marginBottom: "var(--sp-1)" }}>
+        <h1 className="text-3xl font-bold" style={{ color: "var(--text)", marginBottom: "var(--sp-1)" }}>
           What has shipped.
         </h1>
-        <p className="text-sm" style={{ color: "var(--text-secondary)", marginBottom: "var(--sp-5)" }}>
+        <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-5)" }}>
           Newest first. Every entry is something you can use today.
         </p>
 
@@ -44,10 +44,10 @@ export default function ChangelogPage() {
                 <span key={t} className="cat-tag">{t}</span>
               ))}
             </div>
-            <h2 className="text-lg font-bold" style={{ color: "var(--text-primary)", marginBottom: 4 }}>
+            <h2 className="text-lg font-bold" style={{ color: "var(--text)", marginBottom: 4 }}>
               {entry.title}
             </h2>
-            <p className="text-sm" style={{ color: "var(--text-secondary)", lineHeight: 1.7, maxWidth: 620 }}>
+            <p className="text-sm" style={{ color: "var(--text-muted)", lineHeight: 1.7, maxWidth: 620 }}>
               {entry.body}
             </p>
             {i < CHANGELOG.length - 1 && <EkgDivider />}

@@ -20,30 +20,30 @@ export default function Navbar({ userEmail, activePath }: NavbarProps) {
   ];
 
   return (
-    <header style={{ backgroundColor: "var(--bg-card)", borderBottom: "1px solid var(--border-strong)" }} className="px-6 py-4 relative z-50">
+    <header style={{ backgroundColor: "var(--surface)", borderBottom: "1px solid var(--border-strong)" }} className="px-6 py-4 relative z-50">
       <div className="max-w-5xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-          <span className="text-xl" style={{ color: "var(--text-primary)", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.02em" }}>ClinicLog</span>
+          <span className="text-xl" style={{ color: "var(--text)", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.02em" }}>ClinicLog</span>
         </Link>
 
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-4">
-          <span className="text-sm" style={{ color: "var(--text-secondary)" }}>{userEmail}</span>
+          <span className="text-sm" style={{ color: "var(--text-muted)" }}>{userEmail}</span>
           {links.map(l => (
-            <Link key={l.href} href={l.href} className="text-sm font-medium transition-colors" style={{ color: activePath === l.href ? "var(--text-primary)" : "var(--text-secondary)" }}>
+            <Link key={l.href} href={l.href} className="text-sm font-medium transition-colors" style={{ color: activePath === l.href ? "var(--text)" : "var(--text-muted)" }}>
               {l.label}
             </Link>
           ))}
           <form action="/auth/signout" method="POST">
-            <button type="submit" className="text-sm px-3 py-1.5 rounded-lg transition-colors" style={{ color: "var(--text-primary)", border: "1px solid var(--border-strong)", background: "transparent" }}>
+            <button type="submit" className="text-sm px-3 py-1.5 rounded-lg transition-colors" style={{ color: "var(--text)", border: "1px solid var(--border-strong)", background: "transparent" }}>
               Sign Out
             </button>
           </form>
         </div>
 
         {/* Mobile hamburger */}
-        <button className="md:hidden p-2 rounded-lg" style={{ color: "var(--text-primary)", border: "1px solid var(--border-strong)" }} onClick={() => setOpen(!open)} aria-label="Toggle menu">
+        <button className="md:hidden p-2 rounded-lg" style={{ color: "var(--text)", border: "1px solid var(--border-strong)" }} onClick={() => setOpen(!open)} aria-label="Toggle menu">
           {open ? (
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
           ) : (
@@ -54,15 +54,15 @@ export default function Navbar({ userEmail, activePath }: NavbarProps) {
 
       {/* Mobile menu dropdown */}
       {open && (
-        <div className="md:hidden absolute left-0 right-0 top-full z-50 px-6 py-4 space-y-3" style={{ backgroundColor: "var(--bg-card)", borderBottom: "1px solid var(--border-strong)" }}>
-          <p className="text-xs pb-2" style={{ color: "var(--text-tertiary)", borderBottom: "1px solid var(--border-strong)" }}>{userEmail}</p>
+        <div className="md:hidden absolute left-0 right-0 top-full z-50 px-6 py-4 space-y-3" style={{ backgroundColor: "var(--surface)", borderBottom: "1px solid var(--border-strong)" }}>
+          <p className="text-xs pb-2" style={{ color: "var(--text-subtle)", borderBottom: "1px solid var(--border-strong)" }}>{userEmail}</p>
           {links.map(l => (
-            <Link key={l.href} href={l.href} onClick={() => setOpen(false)} className="block text-sm font-medium py-1.5" style={{ color: activePath === l.href ? "var(--text-primary)" : "var(--text-primary)" }}>
+            <Link key={l.href} href={l.href} onClick={() => setOpen(false)} className="block text-sm font-medium py-1.5" style={{ color: activePath === l.href ? "var(--text)" : "var(--text)" }}>
               {l.label}
             </Link>
           ))}
           <form action="/auth/signout" method="POST" className="pt-1">
-            <button type="submit" className="w-full text-sm py-2 rounded-lg font-medium" style={{ color: "var(--text-primary)", border: "1px solid var(--border-strong)", background: "transparent" }}>
+            <button type="submit" className="w-full text-sm py-2 rounded-lg font-medium" style={{ color: "var(--text)", border: "1px solid var(--border-strong)", background: "transparent" }}>
               Sign Out
             </button>
           </form>

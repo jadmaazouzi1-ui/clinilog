@@ -1,14 +1,12 @@
-/* Logged-out home page. Fixed palette from the green tokens, the same in
-   light and dark mode, square corners and 2px rules throughout. */
+/* Logged-out home page. The hero band and the sample tree are black in both
+   themes; the rows and footer follow the theme. Square corners and 2px rules
+   throughout. Every colour is a token from src/styles/theme.css. */
 
 .lp {
-  --lp-ink: var(--ink, #0E1A15);
-  --lp-panel: #0F2A21;
-  --lp-sub: #C8DFD0;
   --lp-gap: 96px;
   font-family: var(--font-archivo), system-ui, sans-serif;
-  background: var(--green-50);
-  color: var(--lp-ink);
+  background: var(--bg);
+  color: var(--text);
   min-height: 100vh;
   overflow-x: hidden;
 }
@@ -23,14 +21,13 @@
 @media (max-width: 767px) { .lp { --lp-gap: 56px; } }
 
 /* ── Dark band ── */
-.lp-dark { background: var(--green-900); color: #FFFFFF; }
-.lp-dark :focus-visible { outline: 2px solid var(--green-100); outline-offset: 3px; }
-.lp-light :focus-visible, .lp-footer :focus-visible { outline: 2px solid var(--green-700); outline-offset: 3px; }
+.lp-dark { background: var(--band); color: var(--band-text); }
+.lp :focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 1px; }
 
 .lp-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 16px; padding-bottom: 16px; }
-.lp-wordmark { font-weight: 800; font-size: 18px; letter-spacing: 0.04em; color: #FFFFFF; text-decoration: none; white-space: nowrap; }
+.lp-wordmark { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-weight: 800; font-size: 18px; letter-spacing: 0.04em; color: var(--band-text); text-decoration: none; white-space: nowrap; }
 .lp-header-actions { display: flex; align-items: center; gap: 16px; }
-.lp-textlink { color: #FFFFFF; font-weight: 500; font-size: 16px; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; white-space: nowrap; }
+.lp-textlink { color: var(--band-text); font-weight: 500; font-size: 16px; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; white-space: nowrap; }
 .lp-textlink:hover { text-decoration: underline; }
 
 .lp-btn {
@@ -41,38 +38,38 @@
   text-decoration: none; white-space: nowrap;
 }
 .lp-btn-sm { padding: 10px 18px; font-size: 15px; }
-.lp-btn-solid { background: var(--green-100); color: var(--green-900); border-color: var(--green-100); }
-.lp-btn-solid:hover { background: #FFFFFF; border-color: #FFFFFF; }
-.lp-btn-outline { background: transparent; color: #FFFFFF; border-color: var(--green-300); }
-.lp-btn-outline:hover { border-color: var(--green-100); }
+.lp-btn-solid { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.lp-btn-solid:hover { background: var(--band-accent); border-color: var(--band-accent); }
+.lp-btn-outline { background: transparent; color: var(--band-text); border-color: var(--accent); }
+.lp-btn-outline:hover { border-color: var(--band-accent); color: var(--band-accent); }
 @media (max-width: 379px) { .lp-btn-sm { padding: 10px 12px; } .lp-header-actions { gap: 10px; } }
 
 .lp-hero { padding-top: calc(var(--lp-gap) * 0.75); padding-bottom: var(--lp-gap); }
-.lp-eyebrow { font-size: 13px; letter-spacing: 0.1em; color: var(--green-300); margin-bottom: 20px; }
+.lp-eyebrow { font-size: 13px; letter-spacing: 0.1em; color: var(--band-accent); margin-bottom: 20px; }
 .lp-hero h1 {
   font-weight: 800; font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1; letter-spacing: -0.03em;
-  color: #FFFFFF; max-width: 860px; margin-bottom: 24px; text-wrap: balance;
+  color: var(--band-text); max-width: 860px; margin-bottom: 24px; text-wrap: balance;
 }
-.lp-sub { text-wrap: pretty; font-size: 19px; line-height: 1.6; max-width: 600px; color: var(--lp-sub); margin-bottom: 32px; }
+.lp-sub { text-wrap: pretty; font-size: 19px; line-height: 1.6; max-width: 600px; color: var(--band-muted); margin-bottom: 32px; }
 .lp-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 56px; }
 
 /* ── Sample path panel ── */
-.lp-path { border: 2px solid var(--green-500); background: var(--lp-panel); margin: 0; }
+.lp-path { border: 2px solid var(--accent); background: var(--band); margin: 0; }
 .lp-path-head {
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px;
-  padding: 14px 20px; border-bottom: 2px solid var(--green-500);
-  font-size: 13px; letter-spacing: 0.08em; color: var(--green-300);
+  padding: 14px 20px; border-bottom: 2px solid var(--accent);
+  font-size: 13px; letter-spacing: 0.08em; color: var(--band-accent);
 }
-.lp-path-head span:first-child { color: #FFFFFF; }
+.lp-path-head span:first-child { color: var(--band-text); }
 .lp-path-svg { display: block; width: 100%; height: auto; padding: 8px 0; }
 .lp-path-legend {
   display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px 24px;
-  padding: 20px; border-top: 2px solid rgba(143, 194, 165, 0.35); list-style: none; margin: 0;
+  padding: 20px; border-top: 2px solid var(--band-line); list-style: none; margin: 0;
 }
 .lp-path-legend li { display: flex; align-items: flex-start; gap: 10px; min-width: 0; }
 .lp-path-legend svg { flex-shrink: 0; margin-top: 6px; }
-.lp-path-label { display: block; color: #FFFFFF; font-weight: 700; font-size: 24px; line-height: 1.2; }
-.lp-path-hours { display: block; color: var(--green-300); font-size: 14px; letter-spacing: 0.06em; margin-top: 4px; }
+.lp-path-label { display: block; color: var(--band-text); font-weight: 700; font-size: 24px; line-height: 1.2; }
+.lp-path-hours { display: block; color: var(--band-accent); font-size: 14px; letter-spacing: 0.06em; margin-top: 4px; }
 @media (max-width: 1023px) { .lp-path-label { font-size: 20px; } }
 @media (max-width: 767px) {
   .lp-path-legend { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -84,30 +81,34 @@
 }
 
 /* ── What you get ── */
-.lp-light { background: var(--green-50); }
+.lp-light { background: var(--bg); }
 .lp-section { padding-top: var(--lp-gap); padding-bottom: var(--lp-gap); }
-.lp-eyebrow-light { color: var(--green-500); }
-.lp-rows { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--green-700); }
+.lp-eyebrow-light { color: var(--accent-text); }
+.lp-rows { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--border-strong); }
 .lp-row {
   display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 32px;
-  padding: 32px 0; border-bottom: 1px solid rgba(14, 26, 21, 0.18);
+  padding: 32px 0; border-bottom: 1px solid var(--hairline);
 }
-.lp-row-num { font-size: 14px; color: var(--green-500); width: 32px; flex-shrink: 0; }
-.lp-row-title { font-weight: 800; font-size: 28px; line-height: 1.15; letter-spacing: -0.01em; color: var(--lp-ink); flex: 1 1 320px; max-width: 420px; }
-.lp-row-body { text-wrap: pretty; font-size: 17px; line-height: 1.6; color: #2E4339; flex: 1 1 380px; max-width: 62ch; }
+.lp-row-num { font-size: 14px; color: var(--accent-text); width: 32px; flex-shrink: 0; }
+.lp-row-title { font-weight: 800; font-size: 28px; line-height: 1.15; letter-spacing: -0.01em; color: var(--text); flex: 1 1 320px; max-width: 420px; }
+.lp-row-body { text-wrap: pretty; font-size: 17px; line-height: 1.6; color: var(--text-muted); flex: 1 1 380px; max-width: 62ch; }
 @media (max-width: 767px) { .lp-row-title { font-size: 24px; } .lp-row { padding: 24px 0; } }
 
 /* ── Closing band ── */
-.lp-close { background: var(--green-700); }
+.lp-close { background: var(--accent); color: var(--on-accent); }
 .lp-close-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-top: 56px; padding-bottom: 56px; }
-.lp-close h2 { font-weight: 800; font-size: 40px; line-height: 1.1; letter-spacing: -0.02em; color: #FFFFFF; max-width: 620px; }
-.lp-close :focus-visible { outline: 2px solid var(--green-100); outline-offset: 3px; }
+.lp-close h2 { font-weight: 800; font-size: 40px; line-height: 1.1; letter-spacing: -0.02em; color: var(--on-accent); max-width: 620px; }
+/* On the gold band the button inverts: black fill, gold text. */
+.lp-close .lp-btn-solid { background: var(--band); color: var(--band-accent); border-color: var(--band); }
+.lp-close .lp-btn-solid:hover { background: transparent; color: var(--on-accent); border-color: var(--band); }
+.lp-close :focus-visible { outline-color: var(--band); }
 @media (min-width: 768px) { .lp-close-inner { padding-left: 48px; padding-right: 48px; } }
 @media (max-width: 767px) { .lp-close-inner { flex-direction: column; align-items: flex-start; } .lp-close h2 { font-size: 30px; } }
 
 /* ── Footer ── */
-.lp-footer { background: var(--green-50); border-top: 2px solid var(--green-700); }
+.lp-footer { background: var(--bg); border-top: 2px solid var(--border-strong); }
 .lp-footer-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding-top: 28px; padding-bottom: 28px; }
-.lp-footer p { font-size: 15px; color: #2E4339; text-wrap: balance; }
+.lp-footer p { font-size: 15px; color: var(--text-muted); text-wrap: balance; }
+.lp-footer .lp-disclaimer { font-size: 14px; color: var(--text-subtle); margin-top: 4px; }
 .lp-footer nav { display: flex; flex-wrap: wrap; gap: 4px 20px; }
-.lp-footer a { font-size: 15px; color: var(--green-700); text-decoration: underline; min-height: 44px; display: inline-flex; align-items: center; }
+.lp-footer a { font-size: 15px; color: var(--text); text-decoration: underline; min-height: 44px; display: inline-flex; align-items: center; }

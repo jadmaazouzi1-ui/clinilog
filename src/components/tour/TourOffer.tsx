@@ -29,8 +29,8 @@ export default function TourOffer({ onboardingComplete }: { onboardingComplete: 
     >
       <div className="min-w-0">
         <p className="exp-id" style={{ marginBottom: 4 }}>NEW HERE</p>
-        <p className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>Take a 2 minute tour</p>
-        <p className="text-xs" style={{ color: "var(--text-secondary)", marginTop: 2 }}>
+        <p className="text-sm font-bold" style={{ color: "var(--text)" }}>Take a 2 minute tour</p>
+        <p className="text-xs" style={{ color: "var(--text-muted)", marginTop: 2 }}>
           A short walk through this page using your real dashboard. You can replay it from Help.
         </p>
       </div>

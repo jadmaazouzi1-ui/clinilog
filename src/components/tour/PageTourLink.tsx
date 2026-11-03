@@ -14,7 +14,7 @@ export default function PageTourLink() {
       type="button"
       onClick={() => startTour(mod.id, 0)}
       className="text-xs font-semibold"
-      style={{ color: "var(--text-secondary)", textDecoration: "underline", background: "transparent", border: 0, padding: "6px 2px", cursor: "pointer" }}
+      style={{ color: "var(--text-muted)", textDecoration: "underline", background: "transparent", border: 0, padding: "6px 2px", cursor: "pointer" }}
     >
       Page tour
     </button>

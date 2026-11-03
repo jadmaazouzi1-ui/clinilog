@@ -49,8 +49,8 @@ export default function SchoolActions({
               borderRadius: "var(--radius)",
               cursor: pending ? "wait" : "pointer",
               border: `1px solid ${status === s ? "var(--accent)" : "var(--border-strong)"}`,
-              background: status === s ? "var(--accent)" : "var(--bg-card)",
-              color: status === s ? "var(--on-accent)" : "var(--text-tertiary)",
+              background: status === s ? "var(--accent)" : "var(--surface)",
+              color: status === s ? "var(--on-accent)" : "var(--text-subtle)",
             }}
           >
             {s}
@@ -68,8 +68,8 @@ export default function SchoolActions({
               letterSpacing: "0.08em",
               borderRadius: "var(--radius)",
               border: "1px solid var(--border-strong)",
-              background: "var(--bg-card)",
-              color: "var(--text-secondary)",
+              background: "var(--surface)",
+              color: "var(--text-muted)",
               cursor: "pointer",
             }}
           >
@@ -85,19 +85,19 @@ export default function SchoolActions({
               key={g.label}
               style={{
                 padding: "6px 0 6px 8px",
-                borderBottom: "1px solid var(--border)",
-                boxShadow: `inset 3px 0 0 -1px ${g.below ? "var(--warning)" : "var(--accent)"}`,
+                borderBottom: "1px solid var(--hairline)",
+                boxShadow: `inset 3px 0 0 -1px ${g.below ? "var(--accent)" : "var(--accent)"}`,
               }}
             >
               <div className="flex items-baseline justify-between gap-2">
-                <span className="text-[10px] font-bold uppercase" style={{ letterSpacing: "0.1em", color: "var(--text-secondary)" }}>
+                <span className="text-[10px] font-bold uppercase" style={{ letterSpacing: "0.1em", color: "var(--text-muted)" }}>
                   {g.label}
                 </span>
-                <span className="mono text-xs" style={{ color: "var(--text-primary)" }}>
-                  {g.yours} <span style={{ color: "var(--text-tertiary)" }}>vs {g.theirs}</span>
+                <span className="mono text-xs" style={{ color: "var(--text)" }}>
+                  {g.yours} <span style={{ color: "var(--text-subtle)" }}>vs {g.theirs}</span>
                 </span>
               </div>
-              <p className="text-xs" style={{ color: "var(--text-secondary)", marginTop: 2 }}>{g.note}</p>
+              <p className="text-xs" style={{ color: "var(--text-muted)", marginTop: 2 }}>{g.note}</p>
             </div>
           ))}
         </div>

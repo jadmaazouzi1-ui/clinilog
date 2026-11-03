@@ -13,9 +13,9 @@ import {
 } from "./actions";
 
 const STATUS_COLOR: Record<string, string> = {
-  Requested: "var(--text-tertiary)",
-  "In Progress": "var(--warning)",
-  Submitted: "var(--accent)",
+  Requested: "var(--text-subtle)",
+  "In Progress": "var(--accent-text)",
+  Submitted: "var(--text)",
 };
 
 export default function RecommendationsView({ letters }: { letters: Recommendation[] }) {
@@ -116,15 +116,15 @@ export default function RecommendationsView({ letters }: { letters: Recommendati
                   </div>
                   <h3 className="text-base font-semibold">{l.recommender_name}</h3>
                   {l.relationship && (
-                    <p className="text-sm" style={{ color: "var(--text-secondary)" }}>{l.relationship}</p>
+                    <p className="text-sm" style={{ color: "var(--text-muted)" }}>{l.relationship}</p>
                   )}
                   {l.assigned_schools?.length > 0 && (
-                    <p className="text-xs mono" style={{ color: "var(--text-tertiary)", marginTop: 4 }}>
+                    <p className="text-xs mono" style={{ color: "var(--text-subtle)", marginTop: 4 }}>
                       ASSIGNED: {l.assigned_schools.join(" / ")}
                     </p>
                   )}
                   {l.notes && (
-                    <p className="text-sm" style={{ color: "var(--text-secondary)", marginTop: 4 }}>{l.notes}</p>
+                    <p className="text-sm" style={{ color: "var(--text-muted)", marginTop: 4 }}>{l.notes}</p>
                   )}
                 </div>
                 <div className="flex items-center gap-2 flex-shrink-0">
@@ -185,8 +185,8 @@ export default function RecommendationsView({ letters }: { letters: Recommendati
                       onClick={() => deleteRecommendation(l.id)}
                       className="text-xs font-semibold"
                       style={{
-                        padding: "7px var(--sp-2)", color: "var(--margin-rule)", background: "var(--bg-card)",
-                        border: "1px solid rgba(193,18,31,0.3)", borderRadius: "var(--radius)", cursor: "pointer",
+                        padding: "7px var(--sp-2)", color: "var(--danger)", background: "var(--surface)",
+                        border: "1px solid var(--danger)", borderRadius: "var(--radius)", cursor: "pointer",
                       }}
                     >
                       Delete

@@ -24,10 +24,10 @@ export default async function ApplicationsPage() {
         className="w-full chart-margin"
         style={{ paddingTop: "var(--sp-3)", paddingRight: "var(--sp-3)", paddingBottom: "var(--sp-4)" }}
       >
-        <h1 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>
+        <h1 className="text-xl font-bold" style={{ color: "var(--text)" }}>
           My Applications
         </h1>
-        <p className="text-sm" style={{ color: "var(--text-secondary)", marginBottom: "var(--sp-3)" }}>
+        <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-3)" }}>
           Secondary essays and running cost for every school you have marked Applying.
         </p>
 

@@ -33,7 +33,7 @@ export default function AccountData() {
   return (
     <>
       <p className="dept-header">Your Data</p>
-      <p className="text-sm" style={{ color: "var(--text-secondary)", marginBottom: "var(--sp-2)" }}>
+      <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-2)" }}>
         Download everything ClinicLog MD stores about you as a JSON file: profile, experiences,
         applications, interviews, letters, trackers and referrals.
       </p>
@@ -47,8 +47,8 @@ export default function AccountData() {
 
       <hr className="tear-line" />
 
-      <p className="dept-header" style={{ color: "var(--error)" }}>Delete Account</p>
-      <p className="text-sm" style={{ color: "var(--text-secondary)", marginBottom: "var(--sp-2)" }}>
+      <p className="dept-header" style={{ color: "var(--danger)" }}>Delete Account</p>
+      <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-2)" }}>
         Permanently deletes your account and every record linked to it. This cannot be undone,
         so export your data first if you want a copy.
       </p>
@@ -69,9 +69,9 @@ export default function AccountData() {
           className="text-sm font-semibold"
           style={{
             padding: "8px var(--sp-2)",
-            color: confirm === "DELETE" ? "#FFFFFF" : "var(--text-tertiary)",
-            background: confirm === "DELETE" ? "var(--error)" : "var(--bg-card)",
-            border: "1px solid var(--error)",
+            color: confirm === "DELETE" ? "var(--surface)" : "var(--text-subtle)",
+            background: confirm === "DELETE" ? "var(--danger)" : "var(--surface)",
+            border: "1px solid var(--danger)",
             borderRadius: "var(--radius)",
             cursor: confirm === "DELETE" && !busy ? "pointer" : "not-allowed",
           }}
@@ -80,7 +80,7 @@ export default function AccountData() {
         </button>
       </div>
       {error && (
-        <p className="text-sm" style={{ color: "var(--error)", marginTop: "var(--sp-1)" }}>{error}</p>
+        <p className="text-sm" style={{ color: "var(--danger)", marginTop: "var(--sp-1)" }}>{error}</p>
       )}
     </>
   );

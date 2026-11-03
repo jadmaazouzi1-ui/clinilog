@@ -82,7 +82,7 @@ export async function proxy(request: NextRequest) {
   // remembering to add it here (the previous deny-list had already drifted:
   // six authenticated sections were missing from it).
   const path = request.nextUrl.pathname;
-  const PUBLIC_EXACT = new Set(["/", "/about", "/changelog", "/badge", "/privacy", "/terms", "/icon", "/apple-icon", "/opengraph-image", "/sitemap.xml", "/robots.txt"]);
+  const PUBLIC_EXACT = new Set(["/", "/about", "/changelog", "/badge", "/privacy", "/terms", "/manifest.webmanifest", "/opengraph-image", "/sitemap.xml", "/robots.txt"]);
   const PUBLIC_PREFIXES = ["/auth/"];
   // API routes authenticate themselves and must answer 401 JSON, not an HTML
   // redirect, so the proxy leaves them alone.

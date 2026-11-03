@@ -53,10 +53,10 @@ export default function OutlineView({ ready }: { ready: boolean }) {
       {error && (
         <div
           className="glass-card"
-          style={{ padding: "var(--sp-2)", marginBottom: "var(--sp-2)", borderLeft: "2px solid var(--margin-rule)" }}
+          style={{ padding: "var(--sp-2)", marginBottom: "var(--sp-2)", borderLeft: "2px solid var(--danger)" }}
         >
           <VitalFlat />
-          <p className="text-sm" style={{ color: "var(--text-secondary)", marginTop: 6 }}>{error}</p>
+          <p className="text-sm" style={{ color: "var(--text-muted)", marginTop: 6 }}>{error}</p>
         </div>
       )}
 
@@ -64,7 +64,7 @@ export default function OutlineView({ ready }: { ready: boolean }) {
         <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
           <p className="exp-id" style={{ marginBottom: "var(--sp-2)" }}>AI DRAFT / A STARTING POINT. WRITE THE STATEMENT IN YOUR OWN WORDS, FROM YOUR OWN EXPERIENCES</p>
           <p className="dept-header flex items-center gap-2">Opening hook <TabIndex n={1} /></p>
-          <p className="text-sm" style={{ color: "var(--text-primary)", lineHeight: 1.7, marginBottom: "var(--sp-3)" }}>
+          <p className="text-sm" style={{ color: "var(--text)", lineHeight: 1.7, marginBottom: "var(--sp-3)" }}>
             {outline.hook}
           </p>
 
@@ -73,18 +73,18 @@ export default function OutlineView({ ready }: { ready: boolean }) {
           <p className="dept-header flex items-center gap-2">Body themes <TabIndex n={2} /></p>
           {outline.themes?.map((t, i) => (
             <div key={i} style={{ marginBottom: "var(--sp-3)", paddingLeft: 10, boxShadow: "inset 3px 0 0 -1px var(--accent)" }}>
-              <p className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>
+              <p className="text-sm font-bold" style={{ color: "var(--text)" }}>
                 {String(i + 1).padStart(2, "0")}. {t.title}
               </p>
               <p className="exp-id" style={{ margin: "3px 0 5px" }}>EVIDENCE: {t.evidence}</p>
-              <p className="text-sm" style={{ color: "var(--text-secondary)", lineHeight: 1.7 }}>{t.development}</p>
+              <p className="text-sm" style={{ color: "var(--text-muted)", lineHeight: 1.7 }}>{t.development}</p>
             </div>
           ))}
 
           <hr className="tear-line" />
 
           <p className="dept-header flex items-center gap-2">Closing <TabIndex n={3} /></p>
-          <p className="text-sm" style={{ color: "var(--text-primary)", lineHeight: 1.7, marginBottom: "var(--sp-3)" }}>
+          <p className="text-sm" style={{ color: "var(--text)", lineHeight: 1.7, marginBottom: "var(--sp-3)" }}>
             {outline.closing}
           </p>
 
@@ -93,12 +93,12 @@ export default function OutlineView({ ready }: { ready: boolean }) {
               style={{
                 padding: "10px var(--sp-2)",
                 border: "1px solid var(--border-strong)",
-                borderLeft: "2px solid var(--warning)",
+                borderLeft: "2px solid var(--accent)",
                 borderRadius: "var(--radius)",
               }}
             >
               <p className="exp-id" style={{ marginBottom: 4 }}>WATCH OUT</p>
-              <p className="text-sm" style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>{outline.watch_out}</p>
+              <p className="text-sm" style={{ color: "var(--text-muted)", lineHeight: 1.6 }}>{outline.watch_out}</p>
             </div>
           )}
         </div>

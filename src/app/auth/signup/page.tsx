@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import Logo from "@/components/brand/Logo";
 import Link from "next/link";
 import { cookies, headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
@@ -95,15 +96,16 @@ export default async function SignupPage({
   }
 
   return (
-    <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "var(--bg-page)" }}>
+    <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "var(--bg)" }}>
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="mb-8">
-          <div className="inline-flex items-center mb-4">
-            <span className="text-2xl" style={{ color: "var(--text-primary)", fontWeight: 900, letterSpacing: "-0.02em" }}>ClinicLog MD</span>
+          <div className="inline-flex items-center gap-3 mb-4">
+            <Logo size={32} />
+            <span className="text-2xl" style={{ color: "var(--text)", fontWeight: 900, letterSpacing: "-0.02em" }}>ClinicLog MD</span>
           </div>
-          <h1 className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>Create your account</h1>
-          <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>
+          <h1 className="text-2xl font-bold" style={{ color: "var(--text)" }}>Create your account</h1>
+          <p className="text-sm mt-1" style={{ color: "var(--text-muted)" }}>
             Start logging your clinical experiences today
           </p>
         </div>
@@ -113,7 +115,7 @@ export default async function SignupPage({
           {pageError && (
             <div
               className="mb-5 text-sm px-4 py-3"
-              style={{ background: "var(--bg-card)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }}
+              style={{ background: "var(--surface)", border: "1px solid var(--border-strong)", color: "var(--text)" }}
             >
               {decodeURIComponent(pageError)}
             </div>
@@ -183,20 +185,20 @@ export default async function SignupPage({
             >
               Create Account
             </button>
-            <p className="text-xs text-center" style={{ color: "var(--text-tertiary)", marginTop: "var(--sp-2)" }}>
+            <p className="text-xs text-center" style={{ color: "var(--text-subtle)", marginTop: "var(--sp-2)" }}>
               By creating an account you agree to the{" "}
-              <Link href="/terms" style={{ color: "var(--text-secondary)", textDecoration: "underline" }}>Terms</Link> and{" "}
-              <Link href="/privacy" style={{ color: "var(--text-secondary)", textDecoration: "underline" }}>Privacy Policy</Link>.
+              <Link href="/terms" style={{ color: "var(--text-muted)", textDecoration: "underline" }}>Terms</Link> and{" "}
+              <Link href="/privacy" style={{ color: "var(--text-muted)", textDecoration: "underline" }}>Privacy Policy</Link>.
             </p>
           </form>
         </div>
 
-        <p className="text-sm mt-6" style={{ color: "var(--text-secondary)" }}>
+        <p className="text-sm mt-6" style={{ color: "var(--text-muted)" }}>
           Already have an account?{" "}
           <Link
             href="/auth/login"
             className="font-medium"
-            style={{ color: "var(--text-primary)" }}
+            style={{ color: "var(--text)" }}
           >
             Sign in
           </Link>

@@ -85,7 +85,7 @@ export default function ReframeableTextarea({
         {hasReframed && (
           <div
             className="absolute top-1 right-0 flex items-center gap-1 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest"
-            style={{ backgroundColor: "var(--accent-soft)", color: "var(--accent)", border: "1px solid var(--accent-border)", borderRadius: "var(--radius)" }}
+            style={{ backgroundColor: "var(--accent-tint)", color: "var(--accent-text)", border: "1px solid var(--accent)", borderRadius: "var(--radius)" }}
           >
             <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
@@ -97,7 +97,7 @@ export default function ReframeableTextarea({
 
       {/* Error */}
       {error && (
-        <p className="text-xs flex items-center gap-2 flex-wrap" style={{ color: "var(--margin-rule)" }}>
+        <p className="text-xs flex items-center gap-2 flex-wrap" style={{ color: "var(--danger)" }}>
           <VitalFlat />
           {error}
         </p>
@@ -112,8 +112,8 @@ export default function ReframeableTextarea({
           className="inline-flex items-center gap-2 text-xs font-semibold transition-colors"
           style={{
             padding: "6px var(--sp-2)",
-            backgroundColor: "var(--bg-card)",
-            color: loading ? "var(--text-tertiary)" : "var(--text-primary)",
+            backgroundColor: "var(--surface)",
+            color: loading ? "var(--text-subtle)" : "var(--text)",
             border: "1px solid var(--border-strong)",
             borderRadius: "var(--radius)",
             cursor: loading ? "not-allowed" : "pointer",
@@ -129,7 +129,7 @@ export default function ReframeableTextarea({
         </button>
 
         {hasReframed && (
-          <span className="text-[11px]" style={{ color: "var(--text-tertiary)" }}>
+          <span className="text-[11px]" style={{ color: "var(--text-subtle)" }}>
             AI draft. Check it says only what you did.
           </span>
         )}
@@ -138,7 +138,7 @@ export default function ReframeableTextarea({
             type="button"
             onClick={handleUndo}
             className="inline-flex items-center gap-1.5 text-xs font-medium transition-opacity hover:opacity-80"
-            style={{ color: "var(--text-tertiary)" }}
+            style={{ color: "var(--text-subtle)" }}
           >
             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />

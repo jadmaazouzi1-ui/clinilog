@@ -19,7 +19,7 @@ function Art({ kind }: { kind: Kind }) {
   return (
     <svg width="96" height="64" viewBox="0 0 96 64" aria-hidden="true" style={{ display: "block" }}>
       {/* Shared chart baseline */}
-      <line x1="4" y1="58" x2="92" y2="58" stroke="var(--border)" strokeWidth="1" strokeDasharray="3 4" />
+      <line x1="4" y1="58" x2="92" y2="58" stroke="var(--hairline)" strokeWidth="1" strokeDasharray="3 4" />
 
       {kind === "experiences" && (
         <>
@@ -92,10 +92,10 @@ export function EmptyState({
         <Art kind={kind} />
       </div>
       <p className="exp-id" style={{ marginBottom: 6 }}>NO RECORDS</p>
-      <h3 className="text-base font-semibold" style={{ color: "var(--text-primary)", marginBottom: 4 }}>
+      <h3 className="text-base font-semibold" style={{ color: "var(--text)", marginBottom: 4 }}>
         {title}
       </h3>
-      <p className="text-sm" style={{ color: "var(--text-secondary)", maxWidth: 440 }}>
+      <p className="text-sm" style={{ color: "var(--text-muted)", maxWidth: 440 }}>
         {body}
       </p>
       {actionHref && actionLabel && (

@@ -22,10 +22,10 @@ export default async function RecommendationsPage() {
         className="w-full chart-margin"
         style={{ paddingTop: "var(--sp-3)", paddingRight: "var(--sp-3)", paddingBottom: "var(--sp-4)" }}
       >
-        <h1 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>
+        <h1 className="text-xl font-bold" style={{ color: "var(--text)" }}>
           Letters of Recommendation
         </h1>
-        <p className="text-sm" style={{ color: "var(--text-secondary)", marginBottom: "var(--sp-3)" }}>
+        <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-3)" }}>
           Who is writing, where each letter stands, and which schools it has been assigned to.
         </p>
 

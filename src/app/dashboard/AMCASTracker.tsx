@@ -11,11 +11,11 @@ const TARGETS: { type: ExperienceType; label: string; min: number }[] = [
 ];
 
 const COLORS: Record<ExperienceType, string> = {
-  clinical_work: "var(--cat-clinical)",
-  shadowing:     "var(--cat-shadowing)",
-  research:      "var(--cat-research)",
-  volunteer:     "var(--cat-volunteer)",
-  other:         "var(--cat-other)",
+  clinical_work: "var(--chart-1)",
+  shadowing:     "var(--chart-2)",
+  research:      "var(--chart-3)",
+  volunteer:     "var(--chart-4)",
+  other:         "var(--chart-5)",
 };
 
 export default function AMCASTracker({ experiences }: { experiences: Experience[] }) {
@@ -32,7 +32,7 @@ export default function AMCASTracker({ experiences }: { experiences: Experience[
         AMCAS hours tracker
         <TabIndex n={2} />
       </p>
-      <p className="text-xs" style={{ color: "var(--text-tertiary)", marginTop: 4 }}>
+      <p className="text-xs" style={{ color: "var(--text-subtle)", marginTop: 4 }}>
         Targets are common benchmarks many applicants use, not requirements set by any school.
       </p>
 
@@ -49,15 +49,15 @@ export default function AMCASTracker({ experiences }: { experiences: Experience[
               <div className="flex items-baseline justify-between" style={{ marginBottom: 2 }}>
                 <span
                   className="text-xs font-bold uppercase"
-                  style={{ color: "var(--text-secondary)", letterSpacing: "0.08em" }}
+                  style={{ color: "var(--text-muted)", letterSpacing: "0.08em" }}
                 >
                   {label}
                 </span>
                 <span className="text-[11px] mono">
-                  <span style={{ color: "var(--text-primary)" }}>{padded}</span>
-                  <span style={{ color: "var(--text-tertiary)" }}> / {minPadded}</span>
+                  <span style={{ color: "var(--text)" }}>{padded}</span>
+                  <span style={{ color: "var(--text-subtle)" }}> / {minPadded}</span>
                   {met && (
-                    <span style={{ color: "var(--accent)", marginLeft: 6, fontWeight: 700 }}>
+                    <span style={{ color: "var(--accent-text)", marginLeft: 6, fontWeight: 700 }}>
                       MET
                     </span>
                   )}

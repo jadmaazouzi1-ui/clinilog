@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Logo from "@/components/brand/Logo";
 import AIAdvisorButton from "./AIAdvisorButton";
 import { RecordNo } from "./MedicalIcons";
 import RouteProgress, { LinkPending } from "./RouteProgress";
@@ -100,7 +101,7 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
   return (
     <div
       className="min-h-screen"
-      style={{ backgroundColor: "var(--bg-page)" }}
+      style={{ backgroundColor: "var(--bg)" }}
     >
       <RouteProgress />
       <PageView />
@@ -108,24 +109,17 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
       <aside
         className="app-sidebar hidden md:flex flex-col fixed top-0 left-0 h-full z-40 w-[220px]"
         style={{
-          backgroundColor: "var(--bg-card)",
-          borderRight: "1px solid var(--border)",
+          backgroundColor: "var(--surface)",
+          borderRight: "1px solid var(--hairline)",
         }}
       >
         {/* Wordmark */}
         <div className="px-5 py-6 flex-shrink-0">
           <Link href="/" className="flex items-center gap-2.5">
-            <div
-              className="flex items-center justify-center flex-shrink-0"
-              style={{ width: 30, height: 30, borderRadius: 0, background: "var(--accent)" }}
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="2,12 7,12 8,9 10,12 12,3 13,21 14,12 16,9 18,12 22,12" />
-              </svg>
-            </div>
+            <Logo size={30} />
             <div>
-              <p className="leading-none" style={{ color: "var(--text-primary)", fontWeight: 700, fontSize: "0.9375rem" }}>ClinicLog MD</p>
-              <p className="leading-none mt-1" style={{ color: "var(--text-tertiary)", fontSize: "0.6875rem", fontWeight: 600, letterSpacing: "0.04em", textTransform: "uppercase" }}>Application Tracker</p>
+              <p className="leading-none" style={{ color: "var(--text)", fontWeight: 700, fontSize: "0.9375rem" }}>ClinicLog MD</p>
+              <p className="leading-none mt-1" style={{ color: "var(--text-subtle)", fontSize: "0.6875rem", fontWeight: 600, letterSpacing: "0.04em", textTransform: "uppercase" }}>Application Tracker</p>
             </div>
           </Link>
         </div>
@@ -141,8 +135,8 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
                 prefetch
                 className={`binder-tab flex items-center gap-3 px-3 py-2.5${isActive ? " is-active" : ""}`}
                 style={{
-                  color: isActive ? "var(--accent)" : "var(--text-secondary)",
-                  backgroundColor: isActive ? "var(--accent-soft)" : "transparent",
+                  color: isActive ? "var(--text)" : "var(--text-muted)",
+                  backgroundColor: isActive ? "var(--accent-tint)" : "transparent",
                   fontWeight: isActive ? 600 : 500,
                   fontSize: "13.5px",
                   borderRadius: "var(--radius-sm)",
@@ -156,7 +150,7 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
                     fontSize: 10,
                     fontWeight: 600,
                     letterSpacing: "0.06em",
-                    color: isActive ? "var(--accent)" : "var(--text-tertiary)",
+                    color: isActive ? "var(--accent-text)" : "var(--text-subtle)",
                   }}
                 >
                   {item.code}
@@ -169,22 +163,22 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
         </nav>
 
         {/* Bottom controls */}
-        <div className="flex-shrink-0 p-3" style={{ borderTop: "1px solid var(--border)" }}>
+        <div className="flex-shrink-0 p-3" style={{ borderTop: "1px solid var(--hairline)" }}>
           <div
             className="px-3 py-3 mb-2"
-            style={{ background: "var(--bg-soft)", borderRadius: "var(--radius-md)" }}
+            style={{ background: "var(--accent-tint)", borderRadius: "var(--radius-md)" }}
           >
-            <p className="text-xs font-semibold" style={{ color: "var(--text-primary)" }}>Private tracker</p>
-            <p className="text-[11px] mt-0.5" style={{ color: "var(--text-tertiary)" }}>Saved to your private account</p>
+            <p className="text-xs font-semibold" style={{ color: "var(--text)" }}>Private tracker</p>
+            <p className="text-[11px] mt-0.5" style={{ color: "var(--text-subtle)" }}>Saved to your private account</p>
           </div>
           <div className="flex items-center gap-2.5 px-3 py-1.5">
             <div
               className="flex items-center justify-center flex-shrink-0"
-              style={{ width: 28, height: 28, borderRadius: 0, background: "var(--accent-soft)", color: "var(--accent)", fontWeight: 700, fontSize: 12 }}
+              style={{ width: 28, height: 28, borderRadius: 0, background: "var(--accent-tint)", color: "var(--accent-text)", fontWeight: 700, fontSize: 12 }}
             >
               {userEmail.charAt(0).toUpperCase()}
             </div>
-            <p className="text-xs truncate flex-1" style={{ color: "var(--text-secondary)" }}>{userEmail}</p>
+            <p className="text-xs truncate flex-1" style={{ color: "var(--text-muted)" }}>{userEmail}</p>
           </div>
           <div className="px-3 pt-1">
             <HelpButton tourId="help-sidebar" />
@@ -193,7 +187,7 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
             <button
               type="submit"
               className="w-full text-left px-3 py-2 mt-1"
-              style={{ color: "var(--text-secondary)", fontWeight: 500, fontSize: "13px", borderRadius: "var(--radius-sm)" }}
+              style={{ color: "var(--text-muted)", fontWeight: 500, fontSize: "13px", borderRadius: "var(--radius-sm)" }}
             >
               Sign out
             </button>
@@ -202,8 +196,8 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
       </aside>
 
       <style>{`
-        .nav-item-brutal:hover { background: var(--bg-soft) !important; }
-        aside nav a:hover { background: var(--bg-soft); }
+        .nav-item-brutal:hover { background: var(--accent-tint) !important; }
+        aside nav a:hover { background: var(--accent-tint); }
         .bottom-tab-soft { min-height: 44px; }
         .bottom-tab-soft:active { opacity: 0.7; }
         .tools-modal-item:active { opacity: 0.7; }
@@ -216,18 +210,18 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
             {crumbs.map((crumb, i) => (
               <span key={i} className="flex items-center gap-1.5">
                 {i > 0 && (
-                  <span className="text-xs" style={{ color: "var(--text-tertiary)" }}>/</span>
+                  <span className="text-xs" style={{ color: "var(--text-subtle)" }}>/</span>
                 )}
                 {crumb.href ? (
                   <Link
                     href={crumb.href}
                     className="text-xs font-semibold hover:underline"
-                    style={{ color: "var(--text-secondary)" }}
+                    style={{ color: "var(--text-muted)" }}
                   >
                     {crumb.label}
                   </Link>
                 ) : (
-                  <span className="text-xs font-semibold" style={{ color: "var(--text-tertiary)" }}>
+                  <span className="text-xs font-semibold" style={{ color: "var(--text-subtle)" }}>
                     {crumb.label}
                   </span>
                 )}
@@ -252,8 +246,8 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
         className="app-bottomnav md:hidden fixed bottom-0 left-0 right-0 z-50 flex items-stretch"
         style={{
           height: 64,
-          backgroundColor: "var(--bg-card)",
-          borderTop: "1px solid var(--border)",
+          backgroundColor: "var(--band)",
+          borderTop: "2px solid var(--accent)",
           paddingBottom: "env(safe-area-inset-bottom)",
         }}
       >
@@ -267,7 +261,8 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
               aria-current={isActive ? "page" : undefined}
               className="bottom-tab-soft flex-1 flex flex-col items-center justify-center gap-1"
               style={{
-                color: isActive ? "var(--accent)" : "var(--text-tertiary)",
+                color: isActive ? "var(--on-accent)" : "var(--band-muted)",
+                background: isActive ? "var(--accent)" : "transparent",
               }}
             >
               <span className="text-[11px] font-semibold leading-none">{item.label}</span>
@@ -291,7 +286,7 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
           type="button"
           onClick={() => setToolsOpen(true)}
           className="bottom-tab-soft flex-1 flex items-center justify-center"
-          style={{ color: "var(--text-tertiary)", background: "transparent", border: "none" }}
+          style={{ color: "var(--band-muted)", background: "transparent", border: "none" }}
           aria-haspopup="dialog"
           aria-expanded={toolsOpen}
         >
@@ -304,7 +299,8 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
             <Link
               href={PROFILE_TAB.href}
               className="bottom-tab-soft flex-1 flex items-center justify-center"
-              style={{ color: isActive ? "var(--accent)" : "var(--text-tertiary)" }}
+              aria-current={isActive ? "page" : undefined}
+              style={{ color: isActive ? "var(--on-accent)" : "var(--band-muted)", background: isActive ? "var(--accent)" : "transparent" }}
             >
               <span className="text-[11px] font-semibold leading-none">{PROFILE_TAB.label}</span>
             </Link>
@@ -316,19 +312,19 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
       {toolsOpen && (
         <div
           className="md:hidden fixed inset-0 z-[60] flex flex-col"
-          style={{ backgroundColor: "var(--bg-card)" }}
+          style={{ backgroundColor: "var(--surface)" }}
           role="dialog"
           aria-modal="true"
           aria-label="All tools"
         >
-          <div className="flex items-center justify-between px-5 flex-shrink-0" style={{ height: 64, borderBottom: "1px solid var(--border)" }}>
-            <span className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>Tools</span>
+          <div className="flex items-center justify-between px-5 flex-shrink-0" style={{ height: 64, borderBottom: "1px solid var(--hairline)" }}>
+            <span className="text-sm font-bold" style={{ color: "var(--text)" }}>Tools</span>
             <button
               type="button"
               onClick={() => setToolsOpen(false)}
               aria-label="Close menu"
               className="flex items-center justify-center"
-              style={{ width: 44, height: 44, background: "var(--bg-soft)", border: "none", borderRadius: 0, color: "var(--text-primary)" }}
+              style={{ width: 44, height: 44, background: "var(--accent-tint)", border: "none", borderRadius: 0, color: "var(--text)" }}
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                 <line x1="5" y1="5" x2="19" y2="19" />
@@ -348,8 +344,8 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
               style={{
                 fontSize: "0.9375rem",
                 fontWeight: 600,
-                color: "var(--text-primary)",
-                background: "var(--bg-soft)",
+                color: "var(--text)",
+                background: "var(--accent-tint)",
                 border: "none",
                 borderRadius: "var(--radius-md)",
               }}
@@ -365,7 +361,7 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
                 style={{
                   fontSize: "0.9375rem",
                   fontWeight: 600,
-                  color: "var(--text-primary)",
+                  color: "var(--text)",
                   textDecoration: "none",
                   borderRadius: "var(--radius-md)",
                 }}
@@ -386,7 +382,7 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
                   style={{
                     fontSize: "0.9375rem",
                     fontWeight: 600,
-                    color: "var(--margin-rule)",
+                    color: "var(--accent-text)",
                     background: "transparent",
                     border: "none",
                     borderRadius: "var(--radius)",

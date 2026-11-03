@@ -51,13 +51,13 @@ export default function DashboardSignals({
           padding: "10px var(--sp-2)",
           border: "1px solid var(--border-strong)",
           borderRadius: "var(--radius)",
-          background: "var(--bg-card)",
+          background: "var(--surface)",
           marginBottom: "var(--sp-2)",
         }}
       >
         <span className="flex items-baseline gap-2">
           <span className="exp-id">AMCAS OPENS</span>
-          <span className="mono text-sm font-semibold" style={{ color: "var(--text-primary)" }}>
+          <span className="mono text-sm font-semibold" style={{ color: "var(--text)" }}>
             {days > 0 ? `T-${days}` : days === 0 ? "TODAY" : `T+${Math.abs(days)}`}
           </span>
           <span className="exp-id">{formatMedicalDate(target)}</span>
@@ -66,7 +66,7 @@ export default function DashboardSignals({
         {streak > 0 && (
           <span className="flex items-baseline gap-2">
             <span className="exp-id">STREAK</span>
-            <span className="mono text-sm font-semibold" style={{ color: "var(--text-primary)" }}>
+            <span className="mono text-sm font-semibold" style={{ color: "var(--text)" }}>
               {streak} week{streak === 1 ? "" : "s"}
             </span>
           </span>
@@ -75,7 +75,7 @@ export default function DashboardSignals({
         {dormant !== null && !showDormant && (
           <span className="flex items-baseline gap-2">
             <span className="exp-id">LAST ENTRY</span>
-            <span className="mono text-sm" style={{ color: "var(--text-secondary)" }}>
+            <span className="mono text-sm" style={{ color: "var(--text-muted)" }}>
               {dormant === 0 ? "TODAY" : `${dormant}D AGO`}
             </span>
           </span>
@@ -94,11 +94,11 @@ export default function DashboardSignals({
             padding: "10px var(--sp-2)",
             border: "1px solid var(--border-strong)",
             borderRadius: "var(--radius)",
-            background: "var(--bg-card)",
+            background: "var(--surface)",
             marginBottom: "var(--sp-2)",
           }}
         >
-          <p className="text-sm" style={{ color: "var(--text-primary)" }}>
+          <p className="text-sm" style={{ color: "var(--text)" }}>
             <span className="exp-id" style={{ marginRight: 8 }}>{recap.monthLabel.toUpperCase()}</span>
             {formatHours(recap.hours)} hours across {recap.entries} {recap.entries === 1 ? "entry" : "entries"}.
           </p>
@@ -121,10 +121,10 @@ export default function DashboardSignals({
           <p className="exp-id" style={{ marginBottom: 4 }}>
             ON THIS DAY / {formatMedicalDate(anniversary.start_date)}
           </p>
-          <p className="text-sm" style={{ color: "var(--text-primary)" }}>
+          <p className="text-sm" style={{ color: "var(--text)" }}>
             You started <strong>{anniversary.title}</strong> at {anniversary.organization}.
             {" "}
-            <span className="mono" style={{ color: "var(--text-secondary)" }}>
+            <span className="mono" style={{ color: "var(--text-muted)" }}>
               {formatHours(anniversary.hours)} hrs
             </span>
           </p>

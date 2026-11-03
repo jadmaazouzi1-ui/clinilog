@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AFFILIATION_NOTE } from "@/lib/brand";
 
 const DOES = [
   "Logs clinical, shadowing, research and volunteer hours with dates and descriptions, and totals them by category.",
@@ -21,16 +22,16 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen flex flex-col" style={{ backgroundColor: "var(--bg-page)", color: "var(--text-primary)" }}>
+    <div className="min-h-screen flex flex-col" style={{ backgroundColor: "var(--bg)", color: "var(--text)" }}>
       {/* Navbar */}
       <header className="relative z-20 px-6 py-4" style={{ borderBottom: "1px solid var(--border-strong)" }}>
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5" style={{ textDecoration: "none" }}>
-            <span className="text-xl" style={{ color: "var(--text-primary)", fontWeight: 900, letterSpacing: "-0.02em" }}>ClinicLog MD</span>
+            <span className="text-xl" style={{ color: "var(--text)", fontWeight: 900, letterSpacing: "-0.02em" }}>ClinicLog MD</span>
             <span className="beta-pill">BETA</span>
           </Link>
           <div className="flex items-center gap-4">
-            <Link href="/about" className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>About</Link>
+            <Link href="/about" className="text-sm font-medium" style={{ color: "var(--text)" }}>About</Link>
             <Link
               href="/auth/login"
               className="btn-ghost text-sm font-semibold"
@@ -46,11 +47,14 @@ export default function AboutPage() {
       <section className="px-6" style={{ paddingTop: "var(--sp-8)", paddingBottom: "var(--sp-6)" }}>
         <div className="max-w-3xl mx-auto">
           <p className="exp-id" style={{ marginBottom: "var(--sp-2)" }}>ABOUT</p>
-          <h1 className="text-3xl sm:text-4xl font-bold leading-tight tracking-tight" style={{ color: "var(--text-primary)", marginBottom: "var(--sp-2)" }}>
+          <h1 className="text-3xl sm:text-4xl font-bold leading-tight tracking-tight" style={{ color: "var(--text)", marginBottom: "var(--sp-2)" }}>
             About ClinicLog MD
           </h1>
-          <p className="text-lg leading-relaxed" style={{ color: "var(--text-secondary)" }}>
+          <p className="text-lg leading-relaxed" style={{ color: "var(--text-muted)" }}>
             ClinicLog MD is a tool for pre-med students at Wake Forest. A pre-med student builds and runs it. Sign-up needs a @wfu.edu email.
+          </p>
+          <p className="text-sm" style={{ color: "var(--text-subtle)", marginTop: "var(--sp-1)" }}>
+            {AFFILIATION_NOTE}
           </p>
 
           <hr className="tear-line" />
@@ -66,8 +70,8 @@ export default function AboutPage() {
           </ul>
 
           <p className="dept-header">Questions or problems</p>
-          <p className="text-base" style={{ color: "var(--text-secondary)", marginBottom: "var(--sp-3)" }}>
-            Inside the app, open Help and use Report a problem. The <Link href="/privacy" style={{ color: "var(--accent)" }}>Privacy Policy</Link> explains what is stored and who processes it.
+          <p className="text-base" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-3)" }}>
+            Inside the app, open Help and use Report a problem. The <Link href="/privacy" style={{ color: "var(--accent-text)" }}>Privacy Policy</Link> explains what is stored and who processes it.
           </p>
 
           <Link
@@ -86,15 +90,15 @@ export default function AboutPage() {
         style={{ borderTop: "1px solid var(--border-strong)", paddingTop: "var(--sp-3)", paddingBottom: "var(--sp-3)" }}
       >
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs" style={{ color: "var(--text-tertiary)" }}>
+          <p className="text-xs" style={{ color: "var(--text-subtle)" }}>
             &copy; {new Date().getFullYear()} ClinicLog MD
           </p>
           <div className="flex items-center gap-5">
-            <Link href="/about" className="text-xs" style={{ color: "var(--text-secondary)" }}>About</Link>
-            <Link href="/privacy" className="text-xs" style={{ color: "var(--text-secondary)" }}>Privacy</Link>
-            <Link href="/terms" className="text-xs" style={{ color: "var(--text-secondary)" }}>Terms</Link>
-            <Link href="/auth/login" className="text-xs" style={{ color: "var(--text-secondary)" }}>Sign in</Link>
-            <Link href="/auth/signup" className="text-xs font-semibold" style={{ color: "var(--accent)" }}>Create account</Link>
+            <Link href="/about" className="text-xs" style={{ color: "var(--text-muted)" }}>About</Link>
+            <Link href="/privacy" className="text-xs" style={{ color: "var(--text-muted)" }}>Privacy</Link>
+            <Link href="/terms" className="text-xs" style={{ color: "var(--text-muted)" }}>Terms</Link>
+            <Link href="/auth/login" className="text-xs" style={{ color: "var(--text-muted)" }}>Sign in</Link>
+            <Link href="/auth/signup" className="text-xs font-semibold" style={{ color: "var(--accent-text)" }}>Create account</Link>
           </div>
         </div>
       </footer>

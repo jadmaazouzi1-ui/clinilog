@@ -31,8 +31,8 @@ export default async function PostbaccPage() {
     <AppShell userEmail={user.email ?? ""} activePath="/postbacc">
       <main className="w-full px-6 py-8">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold mb-2" style={{ color: "var(--text-primary)" }}>Post-bacc Tracker</h1>
-          <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
+          <h1 className="text-2xl font-bold mb-2" style={{ color: "var(--text)" }}>Post-bacc Tracker</h1>
+          <p className="text-sm" style={{ color: "var(--text-muted)" }}>
             Track your post-bacc coursework with live BCPM and cumulative GPA calculations.
           </p>
         </div>

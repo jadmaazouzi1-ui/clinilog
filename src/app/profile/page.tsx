@@ -56,7 +56,7 @@ export default async function ProfilePage({
         <Link
           href="/dashboard"
           className="inline-flex items-center gap-1.5 text-sm font-medium mb-8"
-          style={{ color: "var(--text-primary)" }}
+          style={{ color: "var(--text)" }}
         >
           <svg
             className="w-4 h-4"
@@ -79,11 +79,11 @@ export default async function ProfilePage({
             className="mb-6 text-sm flex items-center gap-3 flex-wrap"
             style={{
               padding: "10px var(--sp-2)",
-              background: "var(--accent-soft)",
-              border: "1px solid var(--accent-border)",
-              borderLeft: "2px solid var(--accent)",
+              background: "var(--surface)",
+              border: "1px solid var(--border-strong)",
+              borderLeft: "3px solid var(--border-strong)",
               borderRadius: "var(--radius)",
-              color: "var(--text-primary)",
+              color: "var(--text)",
             }}
           >
             <VitalOk />
@@ -96,11 +96,11 @@ export default async function ProfilePage({
             className="mb-6 text-sm flex items-center gap-3 flex-wrap"
             style={{
               padding: "10px var(--sp-2)",
-              background: "rgba(193,18,31,0.06)",
-              border: "1px solid rgba(193,18,31,0.28)",
-              borderLeft: "2px solid var(--margin-rule)",
+              background: "var(--danger-tint)",
+              border: "1px solid var(--danger)",
+              borderLeft: "2px solid var(--danger)",
               borderRadius: "var(--radius)",
-              color: "var(--margin-rule)",
+              color: "var(--danger)",
             }}
           >
             <VitalFlat />
@@ -110,7 +110,7 @@ export default async function ProfilePage({
 
         <div className="glass-card rounded-2xl p-8">
           <div className="flex items-start justify-between gap-3 mb-6">
-            <h1 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>Your Profile</h1>
+            <h1 className="text-xl font-bold" style={{ color: "var(--text)" }}>Your Profile</h1>
             <HelpButton className="md:hidden" tourId="help-profile" />
           </div>
 
@@ -120,7 +120,7 @@ export default async function ProfilePage({
               <label
                 htmlFor="full_name"
                 className="block text-sm font-medium mb-1.5"
-                style={{ color: "var(--text-primary)" }}
+                style={{ color: "var(--text)" }}
               >
                 Full Name
               </label>
@@ -139,7 +139,7 @@ export default async function ProfilePage({
               <label
                 htmlFor="undergraduate_school"
                 className="block text-sm font-medium mb-1.5"
-                style={{ color: "var(--text-primary)" }}
+                style={{ color: "var(--text)" }}
               >
                 Undergraduate School
               </label>
@@ -256,7 +256,7 @@ export default async function ProfilePage({
               <label
                 htmlFor="graduation_year"
                 className="block text-sm font-medium mb-1.5"
-                style={{ color: "var(--text-primary)" }}
+                style={{ color: "var(--text)" }}
               >
                 Graduation Year
               </label>
@@ -277,7 +277,7 @@ export default async function ProfilePage({
               <label
                 htmlFor="intended_specialty"
                 className="block text-sm font-medium mb-1.5"
-                style={{ color: "var(--text-primary)" }}
+                style={{ color: "var(--text)" }}
               >
                 Intended Specialty
               </label>
@@ -296,7 +296,7 @@ export default async function ProfilePage({
             {/* Committee letter tracker */}
             <p className="dept-header">Committee Letter</p>
             <div style={{ marginBottom: "var(--sp-2)" }}>
-              <label className="flex items-center gap-2 text-sm" style={{ color: "var(--text-primary)", cursor: "pointer" }}>
+              <label className="flex items-center gap-2 text-sm" style={{ color: "var(--text)", cursor: "pointer" }}>
                 <input
                   type="checkbox"
                   name="committee_letter_required"
@@ -365,7 +365,7 @@ export default async function ProfilePage({
         {/* Referrals */}
         <div className="glass-card tick-corners" style={{ padding: "var(--sp-3)", marginTop: "var(--sp-3)" }} data-tour="referral">
           <p className="dept-header">Refer a Classmate</p>
-          <p className="text-sm" style={{ color: "var(--text-secondary)", marginBottom: "var(--sp-2)" }}>
+          <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-2)" }}>
             Anyone who signs up through your link is counted here.
           </p>
           <ReferralPanel code={referral} count={refCount} />
@@ -374,7 +374,7 @@ export default async function ProfilePage({
         {/* Wallet card */}
         <div className="glass-card tick-corners" style={{ padding: "var(--sp-3)", marginTop: "var(--sp-3)" }} data-tour="wallet-card">
           <p className="dept-header">Wallet Card</p>
-          <p className="text-sm" style={{ color: "var(--text-secondary)", marginBottom: "var(--sp-2)" }}>
+          <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-2)" }}>
             A condensed PDF at wallet dimensions with your totals and top placements,
             handy to have on you before an interview.
           </p>

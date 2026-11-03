@@ -22,32 +22,32 @@ export default function ShareStoryModal() {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ backgroundColor: "rgba(255,255,255,0.75)" }}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ backgroundColor: "var(--scrim)" }}>
       <div
         className="w-full max-w-lg rounded-2xl p-8 relative"
-        style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border-strong)" }}
+        style={{ backgroundColor: "var(--surface)", border: "1px solid var(--border-strong)" }}
       >
         {/* Close */}
         <button
           onClick={() => setOpen(false)}
           className="absolute top-4 right-4 p-1.5 rounded-lg transition-colors"
-          style={{ color: "var(--text-secondary)" }}
+          style={{ color: "var(--text-muted)" }}
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
 
-        <h2 className="text-xl font-bold mb-1" style={{ color: "var(--text-primary)" }}>Share Your Story</h2>
-        <p className="text-sm mb-6" style={{ color: "var(--text-secondary)" }}>
+        <h2 className="text-xl font-bold mb-1" style={{ color: "var(--text)" }}>Share Your Story</h2>
+        <p className="text-sm mb-6" style={{ color: "var(--text-muted)" }}>
           Inspire the next generation of first-gen pre-med students. All submissions are reviewed before publishing.
         </p>
 
         <form action={submitStory} className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium mb-1.5" style={{ color: "var(--text-primary)" }}>
-                First Name <span style={{ color: "var(--text-primary)" }}>*</span>
+              <label className="block text-sm font-medium mb-1.5" style={{ color: "var(--text)" }}>
+                First Name <span style={{ color: "var(--text)" }}>*</span>
               </label>
               <input
                 name="name"
@@ -58,7 +58,7 @@ export default function ShareStoryModal() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1.5" style={{ color: "var(--text-primary)" }}>
+              <label className="block text-sm font-medium mb-1.5" style={{ color: "var(--text)" }}>
                 Undergrad School
               </label>
               <input
@@ -71,8 +71,8 @@ export default function ShareStoryModal() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1.5" style={{ color: "var(--text-primary)" }}>
-              Medical School Accepted To <span style={{ color: "var(--text-primary)" }}>*</span>
+            <label className="block text-sm font-medium mb-1.5" style={{ color: "var(--text)" }}>
+              Medical School Accepted To <span style={{ color: "var(--text)" }}>*</span>
             </label>
             <input
               name="medical_school"
@@ -84,8 +84,8 @@ export default function ShareStoryModal() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1.5" style={{ color: "var(--text-primary)" }}>
-              Your First-Gen Background <span style={{ color: "var(--text-primary)" }}>*</span>
+            <label className="block text-sm font-medium mb-1.5" style={{ color: "var(--text)" }}>
+              Your First-Gen Background <span style={{ color: "var(--text)" }}>*</span>
             </label>
             <input
               name="background"
@@ -97,8 +97,8 @@ export default function ShareStoryModal() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1.5" style={{ color: "var(--text-primary)" }}>
-              Your Story <span style={{ color: "var(--text-primary)" }}>*</span>
+            <label className="block text-sm font-medium mb-1.5" style={{ color: "var(--text)" }}>
+              Your Story <span style={{ color: "var(--text)" }}>*</span>
             </label>
             <textarea
               name="quote"
@@ -114,7 +114,7 @@ export default function ShareStoryModal() {
               type="button"
               onClick={() => setOpen(false)}
               className="text-sm font-medium px-4 py-2.5 rounded-xl transition-colors"
-              style={{ color: "var(--text-secondary)", border: "1px solid var(--border-strong)" }}
+              style={{ color: "var(--text-muted)", border: "1px solid var(--border-strong)" }}
             >
               Cancel
             </button>

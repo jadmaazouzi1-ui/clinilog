@@ -19,7 +19,7 @@ export default function ChangelogNote() {
       role="region"
       aria-label="What's new"
     >
-      <p className="text-sm" style={{ color: "var(--text-primary)" }}>
+      <p className="text-sm" style={{ color: "var(--text)" }}>
         <span className="exp-id" style={{ marginRight: 8 }}>NEW</span>
         Guided tour and Help Center. Open Help any time to replay a tour or ask a question.
       </p>

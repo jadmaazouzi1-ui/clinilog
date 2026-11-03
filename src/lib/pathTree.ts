@@ -31,17 +31,15 @@ export const CATEGORY_LABEL: Record<ExperienceType, string> = {
   volunteer: "Volunteering",
   other: "Other",
 };
-/* Leaf colours come from the --leaf-* ramp, which is the chart ramp shifted
-   light. The --cat-* values are tuned against the white donut card, and the
-   darker end of that ramp is close enough to this panel's own gradient that a
-   mark drawn in it would vanish. Category identity is carried by shape, so
-   these only need to separate each mark from the field. */
+/* Leaf colours for the black Your Path card: gold, cream and grey, separated
+   by lightness. Category identity is carried by leaf shape and the labels, so
+   colour never has to do it alone. */
 export const CATEGORY_COLOR: Record<ExperienceType, string> = {
-  clinical_work: "var(--leaf-clinical)",
-  shadowing: "var(--leaf-shadowing)",
-  research: "var(--leaf-research)",
-  volunteer: "var(--leaf-volunteer)",
-  other: "var(--leaf-other)",
+  clinical_work: "var(--path-1)",
+  shadowing: "var(--path-2)",
+  research: "var(--path-3)",
+  volunteer: "var(--path-4)",
+  other: "var(--path-5)",
 };
 /* Leaf silhouette per category, so a limb is identifiable by shape alone
    and not by colour only. */

@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server";
 import { createClient as createAdminClient } from "@supabase/supabase-js";
 import { verifyUnsubscribeToken } from "@/lib/unsubscribe";
+import { EMAIL_STYLE, PAGE_BUTTON, brandPage } from "@/lib/emailBrand";
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 function page(body: string, status = 200) {
   return new NextResponse(
-    `<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>Email preferences | ClinicLog MD</title></head><body style="margin:0;background:#F5FAF7;color:#0E1A15;font-family:system-ui,-apple-system,sans-serif"><div style="max-width:440px;margin:64px auto;padding:24px;background:#fff;border:1px solid rgba(31,77,58,.34)">${body}</div></body></html>`,
+    brandPage("Email preferences", body),
     { status, headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" } }
   );
 }
@@ -43,7 +44,7 @@ export async function GET(request: Request) {
   const k = purpose === "digest" ? "" : `&k=${purpose}`;
   const action = `/api/unsubscribe?u=${encodeURIComponent(id)}&t=${encodeURIComponent(token)}${k}`;
   const c = COPY[purpose];
-  return page(`<h1 style="font-size:18px;margin-top:0">${c.ask}</h1><p style="color:#40594D">${c.detail}</p><form method="post" action="${action}"><button type="submit" style="background:#1F4D3A;color:#fff;border:0;padding:10px 18px;font-weight:600;cursor:pointer">Unsubscribe</button></form>`);
+  return page(`<h1 style="font-size:18px;margin-top:0">${c.ask}</h1><p style="${EMAIL_STYLE.muted}">${c.detail}</p><form method="post" action="${action}"><button type="submit" style="${PAGE_BUTTON}">Unsubscribe</button></form>`);
 }
 
 // POST performs it, and only the one thing the token was signed for. Also
@@ -69,5 +70,5 @@ export async function POST(request: Request) {
     console.error("[unsubscribe]", error.message);
     return page(`<h1 style="font-size:18px">Something went wrong</h1><p>Please try again.</p>`, 500);
   }
-  return page(`<h1 style="font-size:18px;margin-top:0">Unsubscribed</h1><p style="color:#40594D">${COPY[purpose].done}</p><p><a href="https://www.cliniclogmd.com" style="color:#1F4D3A">Back to ClinicLog MD</a></p>`);
+  return page(`<h1 style="font-size:18px;margin-top:0">Unsubscribed</h1><p style="${EMAIL_STYLE.muted}">${COPY[purpose].done}</p><p><a href="https://www.cliniclogmd.com" style="${EMAIL_STYLE.link}">Back to ClinicLog MD</a></p>`);
 }

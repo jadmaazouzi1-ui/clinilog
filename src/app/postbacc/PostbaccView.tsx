@@ -78,8 +78,8 @@ export default function PostbaccView({
     <div className="space-y-6">
       {/* Program type selector */}
       <div className="glass-card rounded-2xl p-6">
-        <h2 className="text-base font-semibold mb-1" style={{ color: "var(--text-primary)" }}>Program Type</h2>
-        <p className="text-xs mb-4" style={{ color: "var(--text-secondary)" }}>Tell us which post-bacc path you&apos;re on.</p>
+        <h2 className="text-base font-semibold mb-1" style={{ color: "var(--text)" }}>Program Type</h2>
+        <p className="text-xs mb-4" style={{ color: "var(--text-muted)" }}>Tell us which post-bacc path you&apos;re on.</p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {PROGRAM_TYPES.map((pt) => {
             const active = profile.program_type === pt.value;
@@ -89,13 +89,13 @@ export default function PostbaccView({
                 onClick={() => persistProfile({ program_type: pt.value })}
                 className="text-left rounded-xl px-4 py-3 transition-all"
                 style={{
-                  background: active ? "var(--bg-soft)" : "var(--bg-soft)",
-                  border: `1px solid ${active ? "var(--text-primary)" : "var(--border)"}`,
+                  background: active ? "var(--accent-tint)" : "var(--accent-tint)",
+                  border: `1px solid ${active ? "var(--text)" : "var(--hairline)"}`,
                   
                 }}
               >
-                <p className="text-sm font-bold mb-0.5" style={{ color: active ? "var(--text-primary)" : "var(--text-primary)" }}>{pt.label}</p>
-                <p className="text-xs" style={{ color: "var(--text-secondary)" }}>{pt.desc}</p>
+                <p className="text-sm font-bold mb-0.5" style={{ color: active ? "var(--text)" : "var(--text)" }}>{pt.label}</p>
+                <p className="text-xs" style={{ color: "var(--text-muted)" }}>{pt.desc}</p>
               </button>
             );
           })}
@@ -122,7 +122,7 @@ export default function PostbaccView({
 
       {/* Add course form */}
       <div className="glass-card rounded-2xl p-6">
-        <h2 className="text-base font-semibold mb-4" style={{ color: "var(--text-primary)" }}>Add a Course</h2>
+        <h2 className="text-base font-semibold mb-4" style={{ color: "var(--text)" }}>Add a Course</h2>
         <form onSubmit={handleAddCourse} className="space-y-3">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <input
@@ -155,7 +155,7 @@ export default function PostbaccView({
             >
               {GRADES.map((g) => <option key={g} value={g}>{g}</option>)}
             </select>
-            <label className="inline-flex items-center gap-2 text-sm cursor-pointer" style={{ color: "var(--text-primary)" }}>
+            <label className="inline-flex items-center gap-2 text-sm cursor-pointer" style={{ color: "var(--text)" }}>
               <input
                 type="checkbox"
                 checked={cBcpm}
@@ -173,15 +173,15 @@ export default function PostbaccView({
               Add Course
             </button>
           </div>
-          {formError && <p className="text-xs" style={{ color: "var(--text-primary)" }}>{formError}</p>}
+          {formError && <p className="text-xs" style={{ color: "var(--text)" }}>{formError}</p>}
         </form>
       </div>
 
       {/* Course list */}
       <div className="glass-card rounded-2xl p-6">
-        <h2 className="text-base font-semibold mb-4" style={{ color: "var(--text-primary)" }}>Your Courses</h2>
+        <h2 className="text-base font-semibold mb-4" style={{ color: "var(--text)" }}>Your Courses</h2>
         {initialCourses.length === 0 ? (
-          <p className="text-sm text-center py-8" style={{ color: "var(--text-secondary)" }}>
+          <p className="text-sm text-center py-8" style={{ color: "var(--text-muted)" }}>
             No courses logged yet. Add your first course above.
           </p>
         ) : (
@@ -189,36 +189,36 @@ export default function PostbaccView({
             <table className="w-full text-sm" style={{ minWidth: 600 }}>
               <thead>
                 <tr style={{ borderBottom: "1px solid var(--border-strong)" }}>
-                  <th className="text-left px-2 py-2 text-xs uppercase tracking-wide" style={{ color: "var(--text-secondary)" }}>Course</th>
-                  <th className="text-left px-2 py-2 text-xs uppercase tracking-wide" style={{ color: "var(--text-secondary)" }}>Semester</th>
-                  <th className="text-right px-2 py-2 text-xs uppercase tracking-wide" style={{ color: "var(--text-secondary)" }}>Credits</th>
-                  <th className="text-center px-2 py-2 text-xs uppercase tracking-wide" style={{ color: "var(--text-secondary)" }}>Grade</th>
-                  <th className="text-center px-2 py-2 text-xs uppercase tracking-wide" style={{ color: "var(--text-secondary)" }}>BCPM</th>
+                  <th className="text-left px-2 py-2 text-xs uppercase tracking-wide" style={{ color: "var(--text-muted)" }}>Course</th>
+                  <th className="text-left px-2 py-2 text-xs uppercase tracking-wide" style={{ color: "var(--text-muted)" }}>Semester</th>
+                  <th className="text-right px-2 py-2 text-xs uppercase tracking-wide" style={{ color: "var(--text-muted)" }}>Credits</th>
+                  <th className="text-center px-2 py-2 text-xs uppercase tracking-wide" style={{ color: "var(--text-muted)" }}>Grade</th>
+                  <th className="text-center px-2 py-2 text-xs uppercase tracking-wide" style={{ color: "var(--text-muted)" }}>BCPM</th>
                   <th className="px-2 py-2"></th>
                 </tr>
               </thead>
               <tbody>
                 {initialCourses.map((c) => (
                   <tr key={c.id} style={{ borderBottom: "1px solid var(--border-strong)" }}>
-                    <td className="px-2 py-3" style={{ color: "var(--text-primary)" }}>{c.name}</td>
-                    <td className="px-2 py-3" style={{ color: "var(--text-secondary)" }}>{c.semester || "-"}</td>
-                    <td className="px-2 py-3 text-right" style={{ color: "var(--text-primary)" }}>{c.credits}</td>
+                    <td className="px-2 py-3" style={{ color: "var(--text)" }}>{c.name}</td>
+                    <td className="px-2 py-3" style={{ color: "var(--text-muted)" }}>{c.semester || "-"}</td>
+                    <td className="px-2 py-3 text-right" style={{ color: "var(--text)" }}>{c.credits}</td>
                     <td className="px-2 py-3 text-center">
-                      <span className="inline-flex items-center justify-center w-9 px-2 py-0.5 rounded-md text-xs font-bold" style={{ background: "var(--bg-card)", color: "var(--text-primary)", border: "1px solid var(--border-strong)" }}>
+                      <span className="inline-flex items-center justify-center w-9 px-2 py-0.5 rounded-md text-xs font-bold" style={{ background: "var(--surface)", color: "var(--text)", border: "1px solid var(--border-strong)" }}>
                         {c.grade}
                       </span>
                     </td>
                     <td className="px-2 py-3 text-center">
                       {c.is_bcpm ? (
-                        <svg className="w-4 h-4 mx-auto" fill="none" stroke="var(--text-primary)" strokeWidth="2.5" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4 mx-auto" fill="none" stroke="var(--text)" strokeWidth="2.5" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                         </svg>
                       ) : (
-                        <span style={{ color: "var(--text-tertiary)" }}>-</span>
+                        <span style={{ color: "var(--text-subtle)" }}>-</span>
                       )}
                     </td>
                     <td className="px-2 py-3 text-right">
-                      <button onClick={() => handleDelete(c.id)} className="px-2 py-1 mono text-[10px] font-bold tracking-widest nav-item-brutal" style={{ color: "var(--text-primary)", border: "1px solid var(--border-strong)", background: "var(--bg-card)" }} aria-label="Delete course">
+                      <button onClick={() => handleDelete(c.id)} className="px-2 py-1 mono text-[10px] font-bold tracking-widest nav-item-brutal" style={{ color: "var(--text)", border: "1px solid var(--border-strong)", background: "var(--surface)" }} aria-label="Delete course">
                         DELETE
                       </button>
                     </td>
@@ -232,8 +232,8 @@ export default function PostbaccView({
 
       {/* Notes */}
       <div className="glass-card rounded-2xl p-6">
-        <h2 className="text-base font-semibold mb-1" style={{ color: "var(--text-primary)" }}>Notes</h2>
-        <p className="text-xs mb-3" style={{ color: "var(--text-secondary)" }}>Track strategy, advisor meetings, anything else.</p>
+        <h2 className="text-base font-semibold mb-1" style={{ color: "var(--text)" }}>Notes</h2>
+        <p className="text-xs mb-3" style={{ color: "var(--text-muted)" }}>Track strategy, advisor meetings, anything else.</p>
         <textarea
           value={profile.notes ?? ""}
           onChange={(e) => setProfile({ ...profile, notes: e.target.value })}
@@ -245,7 +245,7 @@ export default function PostbaccView({
       </div>
 
       {savedAt && (
-        <p className="text-xs text-center" style={{ color: "var(--text-tertiary)" }}>
+        <p className="text-xs text-center" style={{ color: "var(--text-subtle)" }}>
           {isPending ? "Saving…" : `Saved at ${savedAt}`}
         </p>
       )}
@@ -269,35 +269,35 @@ function GpaCard({ label, sub, value, goal, onGoalChange }: {
   return (
     <div className="glass-card rounded-2xl p-5">
       <div className="flex items-center justify-between mb-1">
-        <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--text-secondary)" }}>{label}</p>
+        <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>{label}</p>
         {value !== null && (
-          <span className="text-[10px] font-bold uppercase tracking-wide" style={{ color: metGoal ? "var(--text-primary)" : "var(--text-secondary)" }}>
+          <span className="text-[10px] font-bold uppercase tracking-wide" style={{ color: metGoal ? "var(--text)" : "var(--text-muted)" }}>
             {metGoal ? "Goal met" : `${pct.toFixed(0)}% to goal`}
           </span>
         )}
       </div>
       <div className="flex items-baseline gap-2 mb-3">
-        <span className="text-4xl font-bold" style={{ color: "var(--text-primary)" }}>{formatGpa(value)}</span>
-        <span className="text-sm" style={{ color: "var(--text-secondary)" }}>/ 4.00</span>
+        <span className="text-4xl font-bold" style={{ color: "var(--text)" }}>{formatGpa(value)}</span>
+        <span className="text-sm" style={{ color: "var(--text-muted)" }}>/ 4.00</span>
       </div>
 
-      <div className="w-full h-2 rounded-none overflow-hidden mb-3" style={{ background: "var(--bg-soft)", border: "1px solid var(--border)" }}>
+      <div className="w-full h-2 rounded-none overflow-hidden mb-3" style={{ background: "var(--accent-tint)", border: "1px solid var(--hairline)" }}>
         <div
           className="h-full rounded-sm"
           style={{
             width: "100%",
             transform: `scaleX(${pct / 100})`,
             transformOrigin: "left center",
-            background: metGoal ? "var(--text-primary)" : "var(--text-primary)",
+            background: metGoal ? "var(--text)" : "var(--text)",
             transition: "transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
           }}
         />
       </div>
 
-      <p className="text-xs mb-2" style={{ color: "var(--text-secondary)" }}>{sub}</p>
+      <p className="text-xs mb-2" style={{ color: "var(--text-muted)" }}>{sub}</p>
 
       <div className="flex items-center gap-2 pt-2" style={{ borderTop: "1px solid var(--border-strong)" }}>
-        <label className="text-xs" style={{ color: "var(--text-secondary)" }}>Goal:</label>
+        <label className="text-xs" style={{ color: "var(--text-muted)" }}>Goal:</label>
         <input
           type="number" min="2.0" max="4.0" step="0.05"
           value={editingGoal}

@@ -1,15 +1,16 @@
 "use client";
 
 import { Experience, formatHours } from "@/lib/types";
+import { rgb } from "@/lib/palette";
 
-/* Brand values mirrored from the --green-* scale in globals.css. jsPDF and
-   canvas render outside the DOM, so they cannot resolve CSS variables; these
-   must be kept in step with that scale by hand. */
-const GREEN_900: [number, number, number] = [20, 52, 42];
-const GREEN_700: [number, number, number] = [31, 77, 58];
-const GREEN_500: [number, number, number] = [47, 122, 87];
-const GREEN_300: [number, number, number] = [143, 194, 165];
-const INK: [number, number, number] = [14, 26, 21];
+/* jsPDF renders outside the DOM and cannot read CSS variables, so these
+   come from the palette that mirrors src/styles/theme.css. */
+const BAND = rgb("black");
+const RULE = rgb("gold500");
+const LABEL = rgb("gold700");
+const LINE = rgb("gray300");
+const INK = rgb("black");
+const ON_BAND = rgb("cream");
 
 
 /**
@@ -38,9 +39,11 @@ export default function WalletCard({
     const top3 = [...experiences].sort((a, b) => Number(b.hours) - Number(a.hours)).slice(0, 3);
 
     // Issuer strip
-    doc.setFillColor(...GREEN_700);
+    doc.setFillColor(...BAND);
     doc.rect(0, 0, W, 22, "F");
-    doc.setTextColor(255, 255, 255);
+    doc.setFillColor(...RULE);
+    doc.rect(0, 22, W, 1.5, "F");
+    doc.setTextColor(...ON_BAND);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(9);
     doc.text("CLINICLOG MD", M, 14.5);
@@ -52,7 +55,7 @@ export default function WalletCard({
     doc.setTextColor(...INK);
     doc.setFont("courier", "normal");
     doc.setFontSize(6);
-    doc.setTextColor(...GREEN_500);
+    doc.setTextColor(...LABEL);
     doc.text("HOLDER", M, 38);
     doc.setTextColor(...INK);
     doc.setFont("helvetica", "bold");
@@ -62,12 +65,12 @@ export default function WalletCard({
     if (archetype) {
       doc.setFont("courier", "normal");
       doc.setFontSize(6.5);
-      doc.setTextColor(...GREEN_500);
+      doc.setTextColor(...LABEL);
       doc.text(archetype.toUpperCase(), M, 62);
     }
 
     // Figures row
-    doc.setDrawColor(...GREEN_300);
+    doc.setDrawColor(...LINE);
     doc.line(M, 70, W - M, 70);
 
     const cols: [string, string][] = [
@@ -79,7 +82,7 @@ export default function WalletCard({
       const x = M + i * ((W - M * 2) / 3);
       doc.setFont("courier", "normal");
       doc.setFontSize(5.5);
-      doc.setTextColor(...GREEN_500);
+      doc.setTextColor(...LABEL);
       doc.text(label, x, 80);
       doc.setFont("courier", "bold");
       doc.setFontSize(12);
@@ -87,13 +90,13 @@ export default function WalletCard({
       doc.text(value, x, 93);
     });
 
-    doc.setDrawColor(...GREEN_300);
+    doc.setDrawColor(...LINE);
     doc.line(M, 100, W - M, 100);
 
     // Top placements
     doc.setFont("courier", "normal");
     doc.setFontSize(5.5);
-    doc.setTextColor(...GREEN_500);
+    doc.setTextColor(...LABEL);
     doc.text("TOP PLACEMENTS", M, 110);
     doc.setTextColor(...INK);
 
@@ -111,7 +114,7 @@ export default function WalletCard({
     if (top3.length === 0) {
       doc.setFont("helvetica", "italic");
       doc.setFontSize(7);
-      doc.setTextColor(...GREEN_300);
+      doc.setTextColor(...LINE);
       doc.text("No experiences logged yet", M, y);
     }
 

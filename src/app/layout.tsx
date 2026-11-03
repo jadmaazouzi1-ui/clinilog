@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { headers } from "next/headers";
 import "./globals.css";
+import { PALETTE } from "@/lib/palette";
 
 // Not preloaded: the logged-out home page uses Archivo only, and a preload
 // here would download Inter there for nothing. Signed-in pages swap it in.
@@ -31,6 +32,10 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: PALETTE.paper },
+    { media: "(prefers-color-scheme: dark)", color: PALETTE.black },
+  ],
 };
 
 export default async function RootLayout({
@@ -52,18 +57,19 @@ export default async function RootLayout({
     >
       <head>
         {/* Runs before first paint: without it the light theme renders for a
-            frame before the stored preference is applied. */}
+            frame before the stored preference is applied. A stored choice
+            wins; the OS setting is only the default on a first visit. */}
         <script
           nonce={nonce}
           dangerouslySetInnerHTML={{
             __html:
-              "try{var t=localStorage.getItem('cliniclog-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t)}}catch(e){}",
+              "try{var t=localStorage.getItem('cliniclog-theme');if(t!=='dark'&&t!=='light'){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)}catch(e){}",
           }}
         />
       </head>
       <body
         className="min-h-full flex flex-col"
-        style={{ backgroundColor: "var(--bg-page)", color: "var(--text-primary)" }}
+        style={{ backgroundColor: "var(--bg)", color: "var(--text)" }}
       >
         {children}
       </body>

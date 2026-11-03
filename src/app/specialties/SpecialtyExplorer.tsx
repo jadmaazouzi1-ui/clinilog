@@ -9,9 +9,9 @@ type SalaryFilter = "" | "u300" | "300_500" | "500_700" | "700plus";
 type ResidencyFilter = "" | "3" | "4" | "5" | "6plus";
 
 function patientColor(level: PatientContact): string {
-  if (level === "High") return "var(--text-primary)";
-  if (level === "Medium") return "var(--text-primary)";
-  return "var(--text-secondary)";
+  if (level === "High") return "var(--text)";
+  if (level === "Medium") return "var(--text)";
+  return "var(--text-muted)";
 }
 
 function formatSalary(min: number, max: number): string {
@@ -21,20 +21,20 @@ function formatSalary(min: number, max: number): string {
 function RatingDots({ value, color, label }: { value: Rating; color: string; label: string }) {
   return (
     <div className="flex items-center gap-2">
-      <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: "var(--text-secondary)", minWidth: 96 }}>{label}</span>
+      <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: "var(--text-muted)", minWidth: 96 }}>{label}</span>
       <div className="flex gap-1">
         {[1, 2, 3, 4, 5].map((i) => (
           <span
             key={i}
             className="w-2.5 h-2.5 rounded-full"
             style={{
-              backgroundColor: i <= value ? color : "var(--bg-soft)",
+              backgroundColor: i <= value ? color : "var(--accent-tint)",
               
             }}
           />
         ))}
       </div>
-      <span className="text-[10px]" style={{ color: "var(--text-tertiary)" }}>{value}/5</span>
+      <span className="text-[10px]" style={{ color: "var(--text-subtle)" }}>{value}/5</span>
     </div>
   );
 }
@@ -120,15 +120,15 @@ export default function SpecialtyExplorer() {
             type="button"
             onClick={() => { setSearch(""); setComp(""); setLifestyle(""); setSalary(""); setResidency(""); }}
             className="text-xs font-medium"
-            style={{ color: "var(--text-primary)" }}
+            style={{ color: "var(--text)" }}
           >
             Clear all filters
           </button>
         )}
       </div>
 
-      <p className="text-sm mb-4 font-medium" style={{ color: "var(--text-secondary)" }}>
-        Showing <span className="font-semibold" style={{ color: "var(--text-primary)" }}>{filtered.length}</span> of {SPECIALTIES.length} specialties
+      <p className="text-sm mb-4 font-medium" style={{ color: "var(--text-muted)" }}>
+        Showing <span className="font-semibold" style={{ color: "var(--text)" }}>{filtered.length}</span> of {SPECIALTIES.length} specialties
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -136,7 +136,7 @@ export default function SpecialtyExplorer() {
           <Card key={s.id} specialty={s} expanded={openId === s.id} onToggle={() => setOpenId(openId === s.id ? null : s.id)} />
         ))}
         {filtered.length === 0 && (
-          <div className="col-span-full glass-card rounded-2xl p-8 text-center text-sm" style={{ color: "var(--text-secondary)" }}>
+          <div className="col-span-full glass-card rounded-2xl p-8 text-center text-sm" style={{ color: "var(--text-muted)" }}>
             No specialties match your filters.
           </div>
         )}
@@ -148,7 +148,7 @@ export default function SpecialtyExplorer() {
 function FilterSelect({ label, value, onChange, options }: { label: string; value: string; onChange: (v: string) => void; options: { value: string; label: string }[] }) {
   return (
     <div>
-      <label className="block text-xs font-semibold uppercase tracking-wide mb-1.5" style={{ color: "var(--text-secondary)" }}>{label}</label>
+      <label className="block text-xs font-semibold uppercase tracking-wide mb-1.5" style={{ color: "var(--text-muted)" }}>{label}</label>
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
@@ -164,15 +164,15 @@ function Card({ specialty: s, expanded, onToggle }: { specialty: Specialty; expa
   return (
     <div
       className="glass-card rounded-2xl p-5 cursor-pointer transition-all"
-      style={{ borderColor: expanded ? "var(--text-tertiary)" : undefined }}
+      style={{ borderColor: expanded ? "var(--text-subtle)" : undefined }}
       onClick={onToggle}
     >
       <div className="flex items-start gap-4">
         <div
           className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-          style={{ background: "var(--bg-card)", border: "1px solid var(--border-strong)" }}
+          style={{ background: "var(--surface)", border: "1px solid var(--border-strong)" }}
         >
-          <svg className="w-5 h-5" fill="none" stroke="var(--text-primary)" strokeWidth="1.75" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+          <svg className="w-5 h-5" fill="none" stroke="var(--text)" strokeWidth="1.75" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
             {ICON_PATHS[s.icon].split(" M").map((d, i) => (
               <path key={i} d={i === 0 ? d : `M${d}`} />
             ))}
@@ -180,20 +180,20 @@ function Card({ specialty: s, expanded, onToggle }: { specialty: Specialty; expa
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-2">
-            <h3 className="text-sm font-bold leading-tight" style={{ color: "var(--text-primary)" }}>{s.name}</h3>
+            <h3 className="text-sm font-bold leading-tight" style={{ color: "var(--text)" }}>{s.name}</h3>
             <svg
               className="w-4 h-4 flex-shrink-0 transition-transform"
-              style={{ transform: expanded ? "rotate(180deg)" : "none", color: "var(--text-tertiary)" }}
+              style={{ transform: expanded ? "rotate(180deg)" : "none", color: "var(--text-subtle)" }}
               fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"
             >
               <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
             </svg>
           </div>
-          <div className="flex items-center gap-2 flex-wrap mt-1.5 text-xs" style={{ color: "var(--text-secondary)" }}>
+          <div className="flex items-center gap-2 flex-wrap mt-1.5 text-xs" style={{ color: "var(--text-muted)" }}>
             <span>{formatSalary(s.salaryMin, s.salaryMax)}</span>
-            <span style={{ color: "var(--text-tertiary)" }}>·</span>
+            <span style={{ color: "var(--text-subtle)" }}>·</span>
             <span>{s.residencyYears}-yr residency</span>
-            <span style={{ color: "var(--text-tertiary)" }}>·</span>
+            <span style={{ color: "var(--text-subtle)" }}>·</span>
             <span style={{ color: patientColor(s.patientContact), fontWeight: 600 }}>{s.patientContact} patient contact</span>
           </div>
         </div>
@@ -202,21 +202,21 @@ function Card({ specialty: s, expanded, onToggle }: { specialty: Specialty; expa
       {expanded && (
         <div className="mt-5 pt-5 space-y-4" style={{ borderTop: "1px solid var(--border-strong)" }}>
           <div className="space-y-2">
-            <RatingDots value={s.competitiveness} color="var(--text-primary)" label="Competitive" />
-            <RatingDots value={s.lifestyle} color="var(--text-primary)" label="Lifestyle" />
+            <RatingDots value={s.competitiveness} color="var(--text)" label="Competitive" />
+            <RatingDots value={s.lifestyle} color="var(--text)" label="Lifestyle" />
           </div>
 
           <div>
-            <p className="text-[10px] font-semibold uppercase tracking-wide mb-1.5" style={{ color: "var(--text-secondary)" }}>Day in the Life</p>
-            <p className="text-xs leading-relaxed" style={{ color: "var(--text-primary)" }}>{s.summary}</p>
+            <p className="text-[10px] font-semibold uppercase tracking-wide mb-1.5" style={{ color: "var(--text-muted)" }}>Day in the Life</p>
+            <p className="text-xs leading-relaxed" style={{ color: "var(--text)" }}>{s.summary}</p>
           </div>
 
           <div>
-            <p className="text-[10px] font-semibold uppercase tracking-wide mb-1.5" style={{ color: "var(--text-secondary)" }}>Top Schools for This Path</p>
+            <p className="text-[10px] font-semibold uppercase tracking-wide mb-1.5" style={{ color: "var(--text-muted)" }}>Top Schools for This Path</p>
             <ul className="space-y-1.5">
               {s.topSchools.map((school) => (
-                <li key={school} className="text-xs flex items-start gap-2" style={{ color: "var(--text-primary)" }}>
-                  <span style={{ color: "var(--text-primary)" }}>·</span>
+                <li key={school} className="text-xs flex items-start gap-2" style={{ color: "var(--text)" }}>
+                  <span style={{ color: "var(--text)" }}>·</span>
                   {school}
                 </li>
               ))}
