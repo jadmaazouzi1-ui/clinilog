@@ -36,6 +36,9 @@ test("4. auth callback cannot be used as an open redirect", async ({ request }) 
     const loc = r.headers()["location"] ?? "";
     const base = new URL(r.url());
     expect(new URL(loc, base).host, next).toBe(base.host);
+    // Relative, so the visitor stays on the domain they used, never a
+    // hosting provider's per-deploy address.
+    expect(loc, next).toMatch(/^\/(?!\/)/);
   }
 });
 
