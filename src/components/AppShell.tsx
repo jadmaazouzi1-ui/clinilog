@@ -57,7 +57,6 @@ const TOOLS_MODAL_ITEMS: { label: string; href: string }[] = [
   { label: "Statement Outline",  href: "/outline" },
   { label: "Mock Interview",     href: "/mock-interview" },
   { label: "Narrative Builder",  href: "/archetype" },
-  { label: "Reframe Engine",     href: "/dashboard/new" },
   { label: "Specialty Explorer", href: "/specialties" },
   { label: "Resource Library",   href: "/resources" },
   { label: "Gap Year Planner",   href: "/gapyear" },

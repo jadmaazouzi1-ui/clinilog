@@ -33,7 +33,7 @@ const ROWS: { title: string; body: string }[] = [
   },
   {
     title: "A story drawn from your record",
-    body: "AI assisted drafts for descriptions, personal statement outlines and mock interview questions. They use only what you logged, and they are yours to rewrite.",
+    body: "An archetype read of your record, AI assisted personal statement outlines and mock interview questions. They use only what you logged, and they are yours to rewrite.",
   },
   {
     title: "The rest of the cycle",

@@ -4,7 +4,6 @@ import { createClient } from "@/lib/supabase/server";
 import { updateExperience } from "../../actions";
 import { Experience } from "@/lib/types";
 import AppShell from "@/components/AppShell";
-import ReframeableTextarea from "@/components/ReframeableTextarea";
 
 export const metadata = {
   title: "Edit experience | ClinicLog MD",
@@ -212,9 +211,13 @@ export default async function EditExperiencePage({
                 DESC{" "}
                 <span className="font-normal" style={{ color: "var(--text-subtle)" }}>(optional)</span>
               </label>
-              <ReframeableTextarea
+              <textarea
+                id="description"
+                name="description"
+                rows={4}
                 defaultValue={exp.description ?? ""}
                 placeholder="What did you do?"
+                className="field-input resize-none"
               />
             </div>
 

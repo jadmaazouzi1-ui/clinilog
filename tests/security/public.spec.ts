@@ -14,7 +14,7 @@ test("1. protected pages redirect anonymous visitors to login", async ({ page })
 });
 
 test("2. API routes refuse anonymous callers", async ({ request }) => {
-  const posts = ["/api/advisor", "/api/reframe", "/api/outline", "/api/mock-interview", "/api/archetype", "/api/account/delete"];
+  const posts = ["/api/advisor", "/api/outline", "/api/mock-interview", "/api/archetype", "/api/account/delete"];
   for (const p of posts) {
     const r = await request.post(p, { data: {} });
     expect([401, 400], `${p} -> ${r.status()}`).toContain(r.status());

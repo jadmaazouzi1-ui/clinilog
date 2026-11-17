@@ -52,7 +52,7 @@ export const TOUR_MODULES: TourModule[] = [
       { page: D, target: "log-new", title: "Log new hours", body: "Every experience starts here. Click Log new hours to open the form.", advanceOn: "click" },
       { page: NEW, target: "f-placement", title: "Title and organization", body: "Name the role the way you would on AMCAS, and the place you did it. Choose the closest category, and use Other only when none of the four fit." },
       { page: NEW, target: "f-dates", title: "Dates and hours", body: "Leave the end date blank if the experience is ongoing; it shows as present. Enter total hours so far, and update them as you go." },
-      { page: NEW, target: "f-desc", title: "Describe what you did", body: "AMCAS descriptions are read closely, so specific details help. Reframe with AI rewrites your draft, and Undo reframe brings your words back." },
+      { page: NEW, target: "f-desc", title: "Describe what you did", body: "AMCAS descriptions are read closely, so specific details help. Rough notes are fine for now; tighten them before you apply." },
       { page: NEW, target: "f-reflection", title: "Optional reflection", body: "Note what you learned while it is fresh. Reflections are private and help when you write essays later." },
       { page: NEW, target: "f-save", title: "Save to record", body: "Saving files the entry under the record number shown at the top. Nothing is saved until you click this." },
     ],
@@ -190,6 +190,6 @@ export const HELP_ANSWERS: HelpAnswer[] = [
   { q: "How do I export my entries?", a: "Export All on Overview makes a PDF. Profile has a full data export as a file." },
   { q: "How do I delete my account?", a: "Go to Profile, then Your data, and type DELETE to confirm. This removes all your data and cannot be undone." },
   { q: "Who can see my entries?", a: "Only you. Entries are private to your account, and ClinicLog MD does not share them with Wake Forest or anyone else." },
-  { q: "What are the AI limits?", a: "Advisor 20 messages, Reframe 10, outlines 10, mock interviews 10 and archetype 3, each per day." },
+  { q: "What are the AI limits?", a: "Advisor 20 messages, outlines 10, mock interviews 10 and archetype 3, each per day." },
   { q: "How do I turn tips off?", a: "Open Help and switch off Show tips. Tours then only run when you start them." },
 ];

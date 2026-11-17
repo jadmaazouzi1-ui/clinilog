@@ -10,7 +10,6 @@ export interface RateLimitResult {
 // reset or spoof them. Window is seconds.
 export const USER_LIMITS = {
   advisor:    { max: 20, window: 86400 },
-  reframe:    { max: 10, window: 86400 },
   archetype:  { max: 3,  window: 86400 },
   csv_import: { max: 3,  window: 86400 },
   pdf_export: { max: 10, window: 86400 },
@@ -31,7 +30,6 @@ export type UserLimitAction = keyof typeof USER_LIMITS;
 const FAIL_CLOSED: ReadonlySet<string> = new Set([
   "advisor",
   "archetype",
-  "reframe",
   "outline",
   "mock_interview",
 ]);

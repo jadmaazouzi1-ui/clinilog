@@ -29,7 +29,7 @@ export default function PrivacyPage() {
 
       <h2>AI features</h2>
       <p>
-        When you use an AI feature (Archetype, Reframe, AI Advisor, Statement Outline, Mock Interview), the
+        When you use an AI feature (Archetype, AI Advisor, Statement Outline, Mock Interview), the
         relevant text you entered, such as your experience descriptions and profile, is sent to
         Google&apos;s Gemini API to generate the result. It is sent only when you use the feature, and
         only your own data is included.

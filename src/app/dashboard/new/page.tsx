@@ -3,7 +3,6 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { createExperience } from "../actions";
 import AppShell from "@/components/AppShell";
-import ReframeableTextarea from "@/components/ReframeableTextarea";
 import { IconClipboard, TabIndex } from "@/components/MedicalIcons";
 import { formatMedicalDate } from "@/lib/formatMedical";
 
@@ -191,7 +190,13 @@ export default async function NewExperiencePage() {
               <label htmlFor="description" className="field-label">
                 DESC <span style={{ color: "var(--text-subtle)" }}>(optional)</span>
               </label>
-              <ReframeableTextarea placeholder="Description: what did you do?" />
+              <textarea
+                id="description"
+                name="description"
+                rows={4}
+                placeholder="Description: what did you do?"
+                className="field-input resize-none"
+              />
             </div>
 
             <div style={{ marginBottom: "var(--sp-4)" }} data-tour="f-reflection">

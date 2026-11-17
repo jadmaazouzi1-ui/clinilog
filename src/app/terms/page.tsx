@@ -20,7 +20,7 @@ export default function TermsPage() {
       <h2>Accuracy</h2>
       <p>
         School statistics are approximate and some are marked &ldquo;Not reported&rdquo; where a school does
-        not publish them. AI-generated text (archetypes, reframed descriptions, advice, outlines, interview
+        not publish them. AI-generated text (archetypes, advice, outlines, interview
         questions) can be wrong or incomplete. Verify anything important against official sources such as
         AAMC MSAR and the schools themselves, and make sure anything you submit in an application is true
         and in your own words.

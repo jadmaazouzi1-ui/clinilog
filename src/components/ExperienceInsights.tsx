@@ -280,7 +280,7 @@ function generateTips(experiences: Experience[], stage: Stage, hideTopics: strin
     return [
       { kind: "alert", title: "No experiences logged yet",     body: "Your application is getting close. Log the clinical, shadowing, research and volunteer hours you have already done, including informal ones.", icon: ICONS.growth },
       { kind: "alert", title: "Time is the constraint now",    body: "Pick the one or two categories you can add to most in the next 3 to 6 months and focus there.", icon: ICONS.calendar },
-      { kind: "warn",  title: "Descriptions are required",     body: "AMCAS asks for a description of every activity. Write rough notes first; Reframe with AI can tighten them, and you should check the result.", icon: ICONS.pencil },
+      { kind: "warn",  title: "Descriptions are required",     body: "AMCAS asks for a description of every activity. Write rough notes now and tighten them before you apply.", icon: ICONS.pencil },
     ];
   }
 
@@ -396,7 +396,7 @@ function generateTips(experiences: Experience[], stage: Stage, hideTopics: strin
       topic: "descriptions",
       kind: urgency,
       title: `${missingDescCount} ${missingDescCount === 1 ? "experience is" : "experiences are"} missing a description`,
-      body: `${stageSuffix} Write rough notes first; Reframe with AI can tighten them, and you should check the result.`,
+      body: `${stageSuffix} Write rough notes now and tighten them before you apply.`,
       icon: ICONS.pencil,
     });
   }

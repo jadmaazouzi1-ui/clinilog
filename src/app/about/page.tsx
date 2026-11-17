@@ -6,7 +6,7 @@ const DOES = [
   "Exports your entries as a PDF to copy into the AMCAS Work and Activities section.",
   "Lists medical schools with approximate average GPA and MCAT so you can see which are close to your numbers.",
   "Tracks applications, interviews, letter writers and fees.",
-  "Offers AI help (Advisor, Reframe, Outline, Mock Interview, Archetype). Each is labelled, and the output is a draft for you to check and rewrite.",
+  "Offers AI help (Advisor, Outline, Mock Interview, Archetype). Each is labelled, and the output is a draft for you to check and rewrite.",
 ];
 
 const DOES_NOT = [
