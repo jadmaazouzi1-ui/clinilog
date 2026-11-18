@@ -89,6 +89,8 @@ Every route under `src/app` (31 pages, 18 API routes), `src/components` (AppShel
 - Typecheck, lint (0 errors), build (with design-check) and design-check pass. Test suites: polish 53 passed, security 15 passed (4 need test accounts), checks 36 passed, tour 16 passed (5 need test accounts).
 - axe, same 30 pages, light and dark, 1440 and 390: no violations. Before: 8 critical label, 16 critical select-name, 4 serious link-in-text-block, 16 serious nested-interactive, 4 serious scrollable-region-focusable, 36 heading-order, 16 landmark-one-main, 104 region.
 - Lighthouse on a local production build: accessibility, best practices and SEO 100 on landing, About, sign in and sign up. Performance 93 to 95 locally, without Netlify's CDN; the live run after deploy is the comparable number.
+- Lighthouse on the live site after deploy (mobile): landing 97/100/100/100 (largest paint 2.5 s, the hero screenshot), About, sign in and sign up 100/100/100/100. Before: 100/100/100/100, 100/95/100/100, 99/100/100/100, 100/100/100/100.
+- Live test suites after deploy: polish 53 passed, security 15 passed.
 - Keyboard only: the first Tab is the skip link, the logger's first field is two Tabs after it, the whole form fills and submits by keyboard, and every stop on the dashboard shows the focus ring.
 - No horizontal scroll on any page at 390, 768, 1024 or 1440.
 - Screenshots: `design-audit/after/`, the same 31 pages and widths as `before/`. Signed-in pages use the same local sample data as the baseline.
