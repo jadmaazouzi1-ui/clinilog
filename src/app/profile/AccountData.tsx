@@ -32,7 +32,7 @@ export default function AccountData() {
 
   return (
     <>
-      <p className="section-title">Your Data</p>
+      <p className="section-title">Your data</p>
       <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-2)" }}>
         Download everything ClinicLog MD stores about you as a JSON file: profile, experiences,
         applications, interviews, letters, trackers and referrals.
@@ -47,12 +47,12 @@ export default function AccountData() {
 
       <hr className="rule" />
 
-      <p className="section-title" style={{ color: "var(--danger)" }}>Delete Account</p>
+      <p className="section-title" style={{ color: "var(--danger)" }}>Delete account</p>
       <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-2)" }}>
         Permanently deletes your account and every record linked to it. This cannot be undone,
         so export your data first if you want a copy.
       </p>
-      <label htmlFor="delete-confirm" className="label">TYPE DELETE TO CONFIRM</label>
+      <label htmlFor="delete-confirm" className="label">Type DELETE to confirm</label>
       <div className="flex items-end gap-2 flex-wrap">
         <input
           id="delete-confirm"

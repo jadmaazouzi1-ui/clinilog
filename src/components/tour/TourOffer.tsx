@@ -23,12 +23,12 @@ export default function TourOffer({ onboardingComplete }: { onboardingComplete: 
   return (
     <div
       className="card flex items-center justify-between gap-3 flex-wrap"
-      style={{ padding: "var(--sp-2)", marginBottom: "var(--sp-3)", borderLeft: "2px solid var(--action)" }}
+      style={{ padding: "var(--sp-2)", marginBottom: "var(--sp-3)" }}
       role="region"
       aria-label="Guided tour"
     >
       <div className="min-w-0">
-        <p className="meta" style={{ marginBottom: 4 }}>NEW HERE</p>
+        <p className="meta" style={{ marginBottom: 4 }}>New here</p>
         <p className="text-sm font-bold" style={{ color: "var(--text)" }}>Take a 2 minute tour</p>
         <p className="text-xs" style={{ color: "var(--text-muted)", marginTop: 2 }}>
           A short walk through this page using your real dashboard. You can replay it from Help.

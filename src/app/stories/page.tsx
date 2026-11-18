@@ -21,23 +21,18 @@ export default async function StoriesPage({
   return (
     <AppShell userEmail={user.email ?? ""} activePath="/stories">
 
-      <main className="w-full px-6 py-8">
+      <main className="page">
         <Link
           href="/dashboard"
-          className="inline-flex items-center gap-1.5 text-sm font-medium mb-8"
-          style={{ color: "var(--text)" }}
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-          </svg>
+          className="link text-sm inline-block" style={{ marginBottom: "var(--sp-15)" }}>
           Back to Overview
         </Link>
 
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-6 mb-10">
           <div>
-            <h1 className="text-2xl font-bold mb-2" style={{ color: "var(--text)" }}>
-              First-gen stories
+            <h1 className="text-2xl mb-2">
+              First-generation stories
             </h1>
             <p className="text-sm leading-relaxed max-w-xl" style={{ color: "var(--text-muted)" }}>
               Accounts from first-generation students who were accepted to medical school, shared with their permission. Each one is reviewed before it appears here.
@@ -53,9 +48,6 @@ export default async function StoriesPage({
             className="mb-8 text-sm rounded-xl px-4 py-3 flex items-center gap-2"
             style={{ background: "var(--surface-alt)", border: "1px solid var(--border-strong)", color: "var(--text)" }}
           >
-            <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
             Thanks for sharing. Your story will appear here after review.
           </div>
         )}
@@ -71,7 +63,7 @@ export default async function StoriesPage({
 
         {/* Only reviewed, consented submissions are ever shown. None yet. */}
         <div className="card" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
-          <p className="meta" style={{ marginBottom: "var(--sp-1)" }}>NO STORIES YET</p>
+          <p className="meta" style={{ marginBottom: "var(--sp-1)" }}>No stories yet</p>
           <h2 className="text-lg font-semibold" style={{ color: "var(--text)", marginBottom: "var(--sp-1)" }}>
             Be the first to share one
           </h2>

@@ -6,7 +6,7 @@ import { Loading } from "@/components/ui";
 interface Q { question: string; why: string }
 interface Questions { traditional: Q[]; mmi: Q[] }
 
-function Block({ title, tab, items }: { title: string; tab: number; items: Q[] }) {
+function Block({ title, items }: { title: string; tab?: number; items: Q[] }) {
   if (!items?.length) return null;
   return (
     <>
@@ -72,7 +72,7 @@ export default function MockInterviewView({ ready }: { ready: boolean }) {
           {questions ? "Regenerate" : "Generate questions"}
         </button>
         <span className="meta">
-          {remaining === null ? "10 PER DAY" : `${remaining} REGENERATE${remaining === 1 ? "" : "S"} LEFT TODAY`}
+          {remaining === null ? "10 sets a day" : `${remaining} ${remaining === 1 ? "set" : "sets"} left today`}
         </span>
       </div>
 
@@ -90,7 +90,7 @@ export default function MockInterviewView({ ready }: { ready: boolean }) {
 
       {questions && !loading && (
         <div className="card" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
-          <p className="meta" style={{ marginBottom: "var(--sp-2)" }}>AI DRAFT / PRACTICE QUESTIONS. REAL INTERVIEWS WILL DIFFER</p>
+          <p className="meta" style={{ marginBottom: "var(--sp-2)" }}>Practice questions from a language model, built from your entries. Real interviews will differ.</p>
           <Block title="Traditional" tab={1} items={questions.traditional} />
           <hr className="rule" />
           <Block title="MMI scenarios" tab={2} items={questions.mmi} />

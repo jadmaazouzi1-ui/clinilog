@@ -62,7 +62,7 @@ export default async function ExperienceDetailPage({
       activePath="/dashboard"
       breadcrumbs={[{ label: "Overview", href: "/dashboard" }, { label: exp.title }]}
     >
-      <main className="w-full" style={{ padding: "var(--sp-3) var(--sp-3) var(--sp-6)", maxWidth: 1120 }}>
+      <main className="page">
         <Link href="/dashboard" className="link text-sm">
           Back to Overview
         </Link>

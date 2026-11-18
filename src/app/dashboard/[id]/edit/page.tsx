@@ -45,7 +45,7 @@ export default async function EditExperiencePage({
 
   return (
     <AppShell userEmail={user.email ?? ""} activePath="/dashboard" breadcrumbs={[{ label: "Overview", href: "/dashboard" }, { label: exp.title, href: `/dashboard/${exp.id}` }, { label: "Edit" }]}>
-      <main className="w-full" style={{ padding: "var(--sp-3) var(--sp-3) var(--sp-6)", maxWidth: 1120 }}>
+      <main className="page">
         <Link href={`/dashboard/${exp.id}`} className="link text-sm">
           Back to entry
         </Link>

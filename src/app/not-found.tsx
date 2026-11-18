@@ -1,63 +1,30 @@
 import Link from "next/link";
-
+import Logo from "@/components/brand/Logo";
 
 export default function NotFound() {
   return (
-    <div
-      className="min-h-screen flex items-start justify-center"
-      style={{ backgroundColor: "var(--background)", padding: "var(--sp-8) var(--sp-3)" }}
-    >
-      <div style={{ width: "100%", maxWidth: 560 }}>
-        <div className="flex items-baseline justify-between gap-3" style={{ marginBottom: "var(--sp-2)" }}>
-          <span className="meta">CHART LOOKUP</span>
-        </div>
-
-        <div
-          className=""
-          style={{
-            background: "var(--surface)",
-            border: "1px solid var(--border-strong)",
-            borderLeft: "2px solid var(--action)",
-            borderRadius: "var(--radius)",
-            padding: "var(--sp-4) var(--sp-3)",
-          }}
-        >
-          {/* Flatline: no record on file */}
-          <svg width="100%" height="34" viewBox="0 0 320 34" fill="none" aria-hidden="true" style={{ marginBottom: "var(--sp-2)" }}>
-            <line x1="0" y1="17" x2="320" y2="17" stroke="var(--action)" strokeWidth="1.4" strokeLinecap="round" />
-          </svg>
-
-          <p className="meta" style={{ marginBottom: 6, color: "var(--action-text)" }}>
-            ERR 404 / NO RECORD ON FILE
+    <main className="min-h-screen" style={{ background: "var(--background)", padding: "var(--sp-6) var(--sp-3)" }}>
+      <div style={{ maxWidth: 1120, marginInline: "auto" }}>
+        <Link href="/" className="inline-flex items-center gap-3 font-semibold" style={{ color: "var(--text)", textDecoration: "none", minHeight: 44 }}>
+          <Logo size={28} />
+          ClinicLog MD
+        </Link>
+        <div className="grid lg:grid-cols-12" style={{ gap: "var(--sp-4)", marginTop: "var(--sp-12)" }}>
+          <p className="lg:col-span-4 display text-5xl" aria-hidden="true" style={{ color: "var(--border-strong)", fontWeight: 500, lineHeight: 1 }}>
+            404
           </p>
-          <h1 className="text-2xl font-bold" style={{ color: "var(--text)", marginBottom: "var(--sp-1)" }}>
-            That page isn&apos;t in the chart.
-          </h1>
-          <p className="text-sm" style={{ color: "var(--text-muted)", lineHeight: 1.6 }}>
-            The address you followed doesn&apos;t match any record. It may have been moved,
-            or the link may have been mistyped.
-          </p>
-
-          <hr className="rule" />
-
-          <div className="flex items-center gap-2 flex-wrap">
-            <Link
-              href="/dashboard"
-              className="btn btn-primary inline-flex items-center text-sm"
-              style={{ padding: "10px var(--sp-3)", textDecoration: "none" }}
-            >
-              Back to Overview
-            </Link>
-            <Link
-              href="/"
-              className="btn btn-secondary inline-flex items-center text-sm"
-              style={{ padding: "10px var(--sp-3)", textDecoration: "none" }}
-            >
-              Home
-            </Link>
+          <div className="lg:col-span-7">
+            <h1 className="text-3xl">We could not find that page.</h1>
+            <p className="measure" style={{ color: "var(--text-muted)", marginTop: "var(--sp-2)" }}>
+              The link may be old, or a letter may have slipped. Your entries are where you left them.
+            </p>
+            <div className="flex flex-wrap gap-2" style={{ marginTop: "var(--sp-4)" }}>
+              <Link href="/dashboard" className="btn btn-primary">Go to your Overview</Link>
+              <Link href="/" className="btn btn-ghost">Home page</Link>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

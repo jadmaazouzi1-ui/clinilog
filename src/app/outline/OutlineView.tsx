@@ -41,7 +41,7 @@ export default function OutlineView({ ready }: { ready: boolean }) {
         >
           {outline ? "Regenerate outline" : "Generate outline"}
         </button>
-        <span className="meta">10 PER DAY</span>
+        <span className="meta">10 outlines a day</span>
       </div>
 
       {loading && (
@@ -61,7 +61,7 @@ export default function OutlineView({ ready }: { ready: boolean }) {
 
       {outline && !loading && (
         <div className="card" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
-          <p className="meta" style={{ marginBottom: "var(--sp-2)" }}>AI DRAFT / A STARTING POINT. WRITE THE STATEMENT IN YOUR OWN WORDS, FROM YOUR OWN EXPERIENCES</p>
+          <p className="meta" style={{ marginBottom: "var(--sp-2)" }}>A draft from a language model, built from your entries. It can be wrong. Use it to plan, then write the statement yourself.</p>
           <p className="section-title flex items-center gap-2">Opening hook</p>
           <p className="text-sm" style={{ color: "var(--text)", lineHeight: 1.7, marginBottom: "var(--sp-3)" }}>
             {outline.hook}
@@ -92,11 +92,10 @@ export default function OutlineView({ ready }: { ready: boolean }) {
               style={{
                 padding: "10px var(--sp-2)",
                 border: "1px solid var(--border-strong)",
-                borderLeft: "2px solid var(--action)",
                 borderRadius: "var(--radius)",
               }}
             >
-              <p className="meta" style={{ marginBottom: 4 }}>WATCH OUT</p>
+              <p className="meta" style={{ marginBottom: 4 }}>Watch for</p>
               <p className="text-sm" style={{ color: "var(--text-muted)", lineHeight: 1.6 }}>{outline.watch_out}</p>
             </div>
           )}

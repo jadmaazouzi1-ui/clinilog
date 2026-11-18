@@ -254,19 +254,19 @@ function Sample({ kind }: { kind: SampleKind }) {
   ];
   return (
     <div className="tour-sample" aria-label="Sample preview, not your data">
-      <span className="tour-sample-tag">SAMPLE</span>
+      <span className="tour-sample-tag">Sample</span>
       {kind === "tracker" &&
         bars.map((b) => (
           <div key={b.label} style={{ marginTop: 6 }}>
             <span className="meta">{b.label}</span>
             <div style={{ height: 6, background: "var(--surface-alt)", marginTop: 2 }}>
-              <div style={{ width: `${b.pct}%`, height: "100%", background: "var(--action)" }} />
+              <div style={{ width: `${b.pct}%`, height: "100%", background: "var(--data-1)" }} />
             </div>
           </div>
         ))}
       {kind === "stats" && (
         <div className="grid grid-cols-2" style={{ gap: 6, marginTop: 6 }}>
-          {[["TOTAL HOURS", "124.5"], ["ENTRIES", "06"], ["ORGS", "04"], ["CATEGORIES", "3/5"]].map(([l, v]) => (
+          {[["Total hours", "124.5"], ["Entries", "6"], ["Organizations", "4"], ["Categories", "3 of 5"]].map(([l, v]) => (
             <div key={l} style={{ border: "1px solid var(--border-strong)", padding: "4px 6px" }}>
               <span className="meta">{l}</span>
               <p className="tnum text-sm font-semibold" style={{ color: "var(--text)" }}>{v}</p>
@@ -276,11 +276,11 @@ function Sample({ kind }: { kind: SampleKind }) {
       )}
       {kind === "path" && (
         <svg viewBox="0 0 200 70" width="100%" height="70" aria-hidden="true" style={{ marginTop: 6 }}>
-          <path d="M10 62 C60 58 90 40 120 34 C150 28 170 18 190 10" stroke="var(--action)" strokeWidth="4" fill="none" />
-          <path d="M80 46 C90 30 100 24 112 16" stroke="var(--action)" strokeWidth="2.5" fill="none" />
-          <circle cx="190" cy="10" r="6" fill="var(--action)" />
-          <circle cx="112" cy="16" r="5" fill="none" stroke="var(--action)" strokeWidth="2" />
-          <rect x="140" y="20" width="8" height="8" transform="rotate(45 144 24)" fill="var(--action)" />
+          <path d="M10 62 C60 58 90 40 120 34 C150 28 170 18 190 10" stroke="var(--data-2)" strokeWidth="4" fill="none" />
+          <path d="M80 46 C90 30 100 24 112 16" stroke="var(--data-2)" strokeWidth="2.5" fill="none" />
+          <circle cx="190" cy="10" r="6" fill="var(--data-1)" />
+          <circle cx="112" cy="16" r="5" fill="none" stroke="var(--data-2)" strokeWidth="2" />
+          <rect x="140" y="20" width="8" height="8" transform="rotate(45 144 24)" fill="var(--data-1)" />
         </svg>
       )}
     </div>

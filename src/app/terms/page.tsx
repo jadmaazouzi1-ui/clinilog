@@ -3,7 +3,7 @@ import LegalPage from "@/components/LegalPage";
 
 export default function TermsPage() {
   return (
-    <LegalPage page="/terms" title="Terms of Use" updated="27 OCT 2026">
+    <LegalPage page="/terms" title="Terms of Use" updated="Oct 27, 2026">
       <p>By creating an account or using ClinicLog MD, you agree to these terms.</p>
 
       <h2>What ClinicLog MD is</h2>

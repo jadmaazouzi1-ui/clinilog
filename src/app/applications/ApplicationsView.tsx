@@ -9,12 +9,12 @@ import {
   SchoolApplication,
 } from "@/lib/appTypes";
 import { formatDate } from "@/lib/format";
-import { EmptyState } from "@/components/EmptyStates";
+import { EmptyState } from "@/components/ui";
 import { removeSchool, setSecondaryStatus, updateApplication } from "./actions";
 
 const STATUS_COLOR: Record<string, string> = {
   "Not Started": "var(--text-muted)",
-  Draft: "var(--action-text)",
+  Draft: "var(--warning)",
   Submitted: "var(--text)",
 };
 
@@ -50,10 +50,10 @@ export default function ApplicationsView({ apps }: { apps: SchoolApplication[] }
         style={{ gap: "var(--sp-2)", marginBottom: "var(--sp-4)" }}
       >
         {[
-          ["AMCAS PRIMARY", `$${budget.primary}`],
-          [`DESIGNATIONS (${Math.max(0, applying.length - 1)})`, `$${budget.designationTotal}`],
-          ["SECONDARIES", `$${budget.secondaries.toFixed(0)}`],
-          ["RUNNING TOTAL", `$${budget.total.toFixed(0)}`],
+          ["AMCAS primary", `$${budget.primary}`],
+          [`School designations (${Math.max(0, applying.length - 1)})`, `$${budget.designationTotal}`],
+          ["Secondaries", `$${budget.secondaries.toFixed(0)}`],
+          ["Running total", `$${budget.total.toFixed(0)}`],
         ].map(([label, value]) => (
           <div key={label} className="card">
             <p className="stat-label">{label}</p>
@@ -62,7 +62,7 @@ export default function ApplicationsView({ apps }: { apps: SchoolApplication[] }
         ))}
       </div>
       {budget.waived > 0 && (
-        <p className="meta" style={{ marginBottom: "var(--sp-4)", color: "var(--action-text)" }}>
+        <p className="meta" style={{ marginBottom: "var(--sp-4)" }}>
           ${budget.waived.toFixed(0)} WAIVED ACROSS APPROVED FEE WAIVERS
         </p>
       )}
@@ -75,13 +75,9 @@ export default function ApplicationsView({ apps }: { apps: SchoolApplication[] }
       </p>
 
       {applying.length === 0 ? (
-        <EmptyState
-          kind="applications"
-          title="No schools marked Applying"
-          body="Open the Schools page and mark a school as Applying. It appears here with a secondary tracker."
-          actionHref="/schools"
-          actionLabel="Browse schools"
-        />
+        <EmptyState title="No schools marked Applying" action={{ href: "/schools", label: "Browse schools" }}>
+          {"Open the Schools page and mark a school as Applying. It appears here with a secondary tracker."}
+          </EmptyState>
       ) : (
         <div style={{ display: "grid", gap: "var(--sp-2)", marginBottom: "var(--sp-4)" }}>
           {applying.map((a) => (
@@ -100,7 +96,7 @@ export default function ApplicationsView({ apps }: { apps: SchoolApplication[] }
                       {a.secondary_status}
                     </span>
                     {a.deadline && (
-                      <span className="meta">DUE {formatDate(a.deadline)}</span>
+                      <span className="meta">Due {formatDate(a.deadline)}</span>
                     )}
                     {a.word_limit ? <span className="meta">{a.word_limit} WORDS</span> : null}
                   </div>
@@ -120,18 +116,17 @@ export default function ApplicationsView({ apps }: { apps: SchoolApplication[] }
                     <button
                       key={s}
                       onClick={() => setSecondaryStatus(a.id, s)}
-                      className="text-xs font-bold uppercase"
+                      className="text-xs font-bold"
                       style={{
                         padding: "4px 7px",
-                        letterSpacing: "0.08em",
                         borderRadius: "var(--radius)",
                         cursor: "pointer",
-                        border: `1px solid ${a.secondary_status === s ? "var(--action)" : "var(--border-strong)"}`,
+                        border: `1px solid ${a.secondary_status === s ? "var(--text)" : "var(--border)"}`,
                         background: a.secondary_status === s ? "var(--surface-alt)" : "var(--surface)",
-                        color: a.secondary_status === s ? "var(--action-text)" : "var(--text-muted)",
+                        color: a.secondary_status === s ? "var(--text)" : "var(--text-muted)",
                       }}
                     >
-                      {s === "Not Started" ? "NS" : s === "Draft" ? "DR" : "SUB"}
+                      {s === "Not Started" ? "Not started" : s === "Draft" ? "Draft" : "Submitted"}
                     </button>
                   ))}
                   <button
@@ -150,7 +145,7 @@ export default function ApplicationsView({ apps }: { apps: SchoolApplication[] }
                   style={{ marginTop: "var(--sp-2)", paddingTop: "var(--sp-2)", borderTop: "1px dashed var(--border-strong)" }}
                 >
                   <div style={{ marginBottom: "var(--sp-2)" }}>
-                    <label className="label">PROMPT</label>
+                    <label className="label">Prompt</label>
                     <textarea
                       name="secondary_prompt"
                       rows={3}
@@ -161,15 +156,15 @@ export default function ApplicationsView({ apps }: { apps: SchoolApplication[] }
                   </div>
                   <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: "var(--sp-2)", marginBottom: "var(--sp-2)" }}>
                     <div>
-                      <label className="label">WORD LIMIT</label>
+                      <label className="label">Word limit</label>
                       <input name="word_limit" type="number" min="0" defaultValue={a.word_limit ?? ""} placeholder="500" className="field tnum" />
                     </div>
                     <div>
-                      <label className="label">DEADLINE</label>
+                      <label className="label">Deadline</label>
                       <input name="deadline" type="date" defaultValue={a.deadline ?? ""} className="field" />
                     </div>
                     <div>
-                      <label className="label">STATUS</label>
+                      <label className="label">Status</label>
                       <select name="secondary_status" defaultValue={a.secondary_status} className="field">
                         {SECONDARY_STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
                       </select>
@@ -181,13 +176,13 @@ export default function ApplicationsView({ apps }: { apps: SchoolApplication[] }
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "var(--sp-2)", marginBottom: "var(--sp-2)" }}>
                     <div>
-                      <label className="label">FEE WAIVER</label>
+                      <label className="label">Fee waiver</label>
                       <select name="fee_waiver_status" defaultValue={a.fee_waiver_status} className="field">
                         {FEE_WAIVER_STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
                       </select>
                     </div>
                     <div>
-                      <label className="label">NOTES</label>
+                      <label className="label">Notes</label>
                       <input name="notes" type="text" defaultValue={a.notes ?? ""} placeholder="Anything to remember" className="field" />
                     </div>
                   </div>
@@ -232,7 +227,7 @@ export default function ApplicationsView({ apps }: { apps: SchoolApplication[] }
                 style={{ padding: "6px 0", borderBottom: "1px solid var(--border)" }}
               >
                 <span className="text-sm">{t.school_name}</span>
-                <span className="meta">TARGET</span>
+                <span className="meta">Target</span>
               </div>
             ))}
           </div>

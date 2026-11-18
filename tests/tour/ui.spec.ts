@@ -45,9 +45,9 @@ test("Help never overlaps the AI Advisor or the tab bar, at 390px and desktop", 
     const scrollW = await page.evaluate(() => document.documentElement.scrollWidth);
     expect(scrollW).toBeLessThanOrEqual(size.width);
   }
-  // Mobile: Help sits at the top of Tools and in Profile.
+  // Mobile: Help sits in the header, at the top of More, and in Profile.
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.getByRole("button", { name: "Tools" }).click();
+  await page.getByRole("button", { name: "More" }).click();
   await expect(page.locator("[data-tour='help-tools']")).toBeVisible();
   await page.goto("/profile");
   await expect(page.locator("[data-tour='help-profile']")).toBeVisible();

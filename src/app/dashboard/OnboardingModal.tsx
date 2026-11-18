@@ -81,47 +81,15 @@ export default function OnboardingModal() {
   }
 
   // ── Shared styles ──────────────────────────────────────────────────────
-  const inputProps = { className: "field px-3.5 py-2.5 rounded-xl text-sm w-full" };
-
-  const primaryBtn: React.CSSProperties = {
-    backgroundColor: "var(--action)", color: "var(--on-action)",
-    padding: "0.75rem 1.5rem",
-    fontWeight: 800,
-    fontSize: 13,
-    textTransform: "uppercase",
-    letterSpacing: "0.04em",
-    border: "1px solid var(--border-strong)",
-    cursor: isPending ? "not-allowed" : "pointer",
-    opacity: isPending ? 0.6 : 1,
-  };
-  const ghostBtn: React.CSSProperties = {
-    background: "var(--surface)",
-    color: "var(--text)",
-    padding: "0.75rem 1.5rem",
-    fontWeight: 800,
-    fontSize: 13,
-    textTransform: "uppercase",
-    letterSpacing: "0.04em",
-    border: "1px solid var(--border-strong)",
-    cursor: isPending ? "not-allowed" : "pointer",
-    opacity: isPending ? 0.6 : 1,
-  };
-  const labelStyle: React.CSSProperties = {
-    display: "block",
-    fontFamily: "var(--font-jetbrains-mono, monospace)",
-    fontSize: "var(--text-xs)",
-    fontWeight: 800,
-    textTransform: "uppercase",
-    letterSpacing: "0.08em",
-    color: "var(--text-muted)",
-    marginBottom: 6,
-  };
+  const inputProps = { className: "field" };
+  const labelStyle: React.CSSProperties = { display: "block", fontSize: "var(--text-xs)", fontWeight: 600, color: "var(--text-muted)", marginBottom: 6 };
   // A bordered, non-interactive mockup used to preview a page/feature
   // inside onboarding without mounting the real (data-fetching) component.
   const previewBox: React.CSSProperties = {
-    border: "1px solid var(--border-strong)",
-    padding: "1.25rem",
-    marginBottom: "1.5rem",
+    border: "1px dashed var(--border-strong)",
+    borderRadius: "var(--radius-card)",
+    padding: "var(--sp-3)",
+    marginBottom: "var(--sp-3)",
     background: "var(--surface)",
   };
 
@@ -138,23 +106,21 @@ export default function OnboardingModal() {
         overflowY: "auto",
       }}
     >
-      <div style={{ maxWidth: 560, width: "100%", padding: "0 1.25rem 3rem" }}>
+      <div role="dialog" aria-modal="true" aria-labelledby="onboarding-title" style={{ maxWidth: 560, width: "100%", padding: "0 var(--sp-3) var(--sp-6)" }}>
         {/* Progress bar */}
         <div style={{ position: "sticky", top: 0, background: "var(--surface)", paddingTop: "1.5rem", paddingBottom: "1rem", zIndex: 1 }}>
           <div className="flex items-center justify-between mb-2">
-            <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "var(--text-xs)", fontWeight: 800, letterSpacing: "0.1em" }}>
-              SETUP
-            </span>
-            <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "var(--text-xs)", fontWeight: 800, letterSpacing: "0.1em" }}>
-              {step} OF {TOTAL_STEPS}
+            <span className="text-xs font-semibold">Getting set up</span>
+            <span className="text-xs tnum" style={{ color: "var(--text-muted)" }}>
+              Step {step} of {TOTAL_STEPS}
             </span>
           </div>
-          <div style={{ height: 6, background: "var(--surface)", border: "1px solid var(--border-strong)" }}>
+          <div className="meter">
             <div
               style={{
                 height: "100%",
                 width: `${(step / TOTAL_STEPS) * 100}%`,
-                background: "var(--action)",
+                background: "var(--data-1)",
               }}
             />
           </div>
@@ -164,10 +130,10 @@ export default function OnboardingModal() {
         {step === 1 && (
           <div>
             <div style={{ marginBottom: 16 }}><Logo size={36} /></div>
-            <h2 style={{ fontSize: "var(--text-2xl)", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "var(--text)", marginBottom: 12 }}>
+            <h2 id="onboarding-title" className="text-2xl" style={{ marginBottom: 12 }}>
               Welcome to ClinicLog MD
             </h2>
-            <p style={{ fontSize: 15, lineHeight: 1.6, color: "var(--text-muted)", marginBottom: 32 }}>
+            <p className="text-base" style={{ color: "var(--text-muted)", marginBottom: 32 }}>
               One place to log clinical hours, compare schools against your numbers, and keep track of your application.
             </p>
           </div>
@@ -177,7 +143,7 @@ export default function OnboardingModal() {
         {step === 2 && (
           <div>
             <p style={labelStyle}>Sample preview</p>
-            <h2 style={{ fontSize: "var(--text-xl)", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "var(--text)", marginBottom: 16 }}>
+            <h2 className="text-xl" style={{ marginBottom: 16 }}>
               Log hours as you go
             </h2>
             <div style={previewBox}>
@@ -188,9 +154,9 @@ export default function OnboardingModal() {
                   ["Category", "Clinical Work"],
                   ["Hours", "12.5"],
                 ].map(([k, v]) => (
-                  <div key={k} style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid var(--border-strong)", paddingBottom: 6 }}>
-                    <span style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.04em" }}>{k}</span>
-                    <span style={{ fontSize: 13, fontWeight: 700 }}>{v}</span>
+                  <div key={k} style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid var(--border)", paddingBottom: 6 }}>
+                    <span style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>{k}</span>
+                    <span className="text-xs font-semibold">{v}</span>
                   </div>
                 ))}
               </div>
@@ -205,15 +171,15 @@ export default function OnboardingModal() {
         {step === 3 && (
           <div>
             <p style={labelStyle}>Sample preview</p>
-            <h2 style={{ fontSize: "var(--text-xl)", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "var(--text)", marginBottom: 16 }}>
+            <h2 className="text-xl" style={{ marginBottom: 16 }}>
               Compare schools
             </h2>
             <div style={previewBox}>
               <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "var(--text-xs)" }}>
                 <thead>
                   <tr>
-                    {["SCHOOL", "AVG GPA", "AVG MCAT"].map((h) => (
-                      <th key={h} style={{ textAlign: "left", padding: "4px 0", borderBottom: "1px solid var(--border-strong)", fontSize: "var(--text-xs)", letterSpacing: "0.06em" }}>{h}</th>
+                    {["School", "Average GPA", "Average MCAT"].map((h) => (
+                      <th key={h} style={{ textAlign: "left", padding: "4px 0", borderBottom: "1px solid var(--border-strong)", fontSize: "var(--text-xs)" }}>{h}</th>
                     ))}
                   </tr>
                 </thead>
@@ -238,13 +204,13 @@ export default function OnboardingModal() {
         {step === 4 && (
           <div>
             <p style={labelStyle}>Sample preview</p>
-            <h2 style={{ fontSize: "var(--text-xl)", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "var(--text)", marginBottom: 16 }}>
+            <h2 className="text-xl" style={{ marginBottom: 16 }}>
               See your pattern
             </h2>
             <div style={{ ...previewBox, textAlign: "center" }}>
-              <p style={{ fontSize: "var(--text-xs)", letterSpacing: "0.12em", color: "var(--text-muted)", marginBottom: 8 }}>01 / 15</p>
-              <p style={{ fontSize: "var(--text-lg)", fontWeight: 900, textTransform: "uppercase", marginBottom: 6 }}>{SAMPLE_ARCHETYPE.name}</p>
-              <p style={{ fontSize: 13, fontStyle: "italic", color: "var(--text-muted)" }}>{SAMPLE_ARCHETYPE.tagline}</p>
+              <p className="meta" style={{ marginBottom: 8 }}>1 of 15</p>
+              <p className="display text-xl" style={{ marginBottom: 6 }}>{SAMPLE_ARCHETYPE.name}</p>
+              <p className="text-xs" style={{ fontStyle: "italic", color: "var(--text-muted)" }}>{SAMPLE_ARCHETYPE.tagline}</p>
             </div>
             <p style={{ fontSize: "var(--text-sm)", lineHeight: 1.6, color: "var(--text-muted)", marginBottom: 8 }}>
               Once you log 3 experiences, AI reads your entries and names the pattern they show, one of 15, with schools that fit it. Treat it as a starting point, not a verdict.
@@ -256,17 +222,17 @@ export default function OnboardingModal() {
         {step === 5 && (
           <div>
             <p style={labelStyle}>Sample preview</p>
-            <h2 style={{ fontSize: "var(--text-xl)", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "var(--text)", marginBottom: 16 }}>
+            <h2 className="text-xl" style={{ marginBottom: 16 }}>
               Ask the AI Advisor
             </h2>
             <div style={previewBox}>
               <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 8 }}>
-                <span style={{ background: "var(--action)", color: "var(--on-action)", padding: "6px 10px", fontSize: "var(--text-xs)", maxWidth: "75%" }}>
+                <span style={{ background: "var(--surface-alt)", color: "var(--text)", padding: "6px 10px", fontSize: "var(--text-xs)", maxWidth: "75%", borderRadius: "var(--radius-card)" }}>
                   Am I ready to apply with 120 clinical hours?
                 </span>
               </div>
               <div style={{ display: "flex", justifyContent: "flex-start" }}>
-                <span style={{ background: "var(--surface)", border: "1px solid var(--border-strong)", padding: "6px 10px", fontSize: "var(--text-xs)", maxWidth: "75%" }}>
+                <span style={{ background: "var(--surface)", border: "1px solid var(--border)", padding: "6px 10px", fontSize: "var(--text-xs)", maxWidth: "75%", borderRadius: "var(--radius-card)" }}>
                   120 clinical hours is within the range many applicants report. Your research and volunteering totals are worth a look next.
                 </span>
               </div>
@@ -280,7 +246,7 @@ export default function OnboardingModal() {
         {/* ── Step 6: Your First Entry ── */}
         {step === 6 && (
           <div>
-            <h2 style={{ fontSize: "var(--text-xl)", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "var(--text)", marginBottom: 8 }}>
+            <h2 className="text-xl" style={{ marginBottom: 8 }}>
               Your first entry
             </h2>
             <p style={{ fontSize: "var(--text-sm)", color: "var(--text-muted)", marginBottom: 20 }}>
@@ -288,33 +254,34 @@ export default function OnboardingModal() {
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               <div>
-                <label style={labelStyle}>Title</label>
-                <input {...inputProps} type="text" value={expTitle} onChange={(e) => setExpTitle(e.target.value)} placeholder="e.g. Emergency department scribe" />
+                <label htmlFor="ob-title" style={labelStyle}>Title</label>
+                <input {...inputProps} id="ob-title" type="text" value={expTitle} onChange={(e) => setExpTitle(e.target.value)} placeholder="Emergency department scribe" />
               </div>
               <div>
-                <label style={labelStyle}>Organization</label>
-                <input {...inputProps} type="text" value={expOrg} onChange={(e) => setExpOrg(e.target.value)} placeholder="e.g. Atrium Health Wake Forest Baptist" />
+                <label htmlFor="ob-org" style={labelStyle}>Organization</label>
+                <input {...inputProps} id="ob-org" type="text" value={expOrg} onChange={(e) => setExpOrg(e.target.value)} placeholder="Hospital, clinic, lab or group" />
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label style={labelStyle}>Category</label>
-                  <select className="field px-3.5 py-2.5 rounded-xl text-sm w-full" value={expType} onChange={(e) => setExpType(e.target.value)}>
+                  <label htmlFor="ob-type" style={labelStyle}>Category</label>
+                  <select id="ob-type" className="field" value={expType} onChange={(e) => setExpType(e.target.value)}>
                     <option value="shadowing">Shadowing</option>
-                    <option value="volunteer">Volunteer</option>
+                    <option value="volunteer">Volunteering</option>
                     <option value="clinical_work">Clinical Work</option>
                     <option value="research">Research</option>
                     <option value="other">Other</option>
                   </select>
                 </div>
                 <div>
-                  <label style={labelStyle}>Hours</label>
-                  <input {...inputProps} type="number" min={0.1} max={1000} step="any" value={expHours} onChange={(e) => setExpHours(e.target.value)} placeholder="e.g. 40" />
+                  <label htmlFor="ob-hours" style={labelStyle}>Hours</label>
+                  <input {...inputProps} id="ob-hours" type="number" min={0.1} max={1000} step="any" value={expHours} onChange={(e) => setExpHours(e.target.value)} placeholder="40" />
                 </div>
               </div>
               <div>
-                <label style={labelStyle}>Description</label>
+                <label htmlFor="ob-desc" style={labelStyle}>Description</label>
                 <textarea
-                  className="field px-3.5 py-2.5 rounded-xl text-sm w-full"
+                  id="ob-desc"
+                  className="field"
                   rows={3}
                   value={expDesc}
                   placeholder="What you did, in a sentence or two"
@@ -322,7 +289,7 @@ export default function OnboardingModal() {
                   style={{ resize: "vertical" }}
                 />
               </div>
-              <label style={{ display: "flex", gap: 10, alignItems: "flex-start", fontSize: 13, color: "var(--text-muted)", cursor: "pointer" }}>
+              <label className="text-xs" style={{ display: "flex", gap: 10, alignItems: "flex-start", color: "var(--text-muted)", cursor: "pointer" }}>
                 <input type="checkbox" checked={remindMe} onChange={(e) => setRemindMe(e.target.checked)} style={{ marginTop: 3 }} />
                 <span>Email me if I go 14 days without logging. You can change or stop this in Profile.</span>
               </label>
@@ -332,16 +299,16 @@ export default function OnboardingModal() {
 
         {/* ── Nav row ── */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 32, gap: 12 }}>
-          <button style={ghostBtn} disabled={isPending || step === 1} onClick={goBack} aria-disabled={step === 1}>
+          <button className="btn btn-ghost" disabled={isPending || step === 1} onClick={goBack}>
             Back
           </button>
           {step < TOTAL_STEPS ? (
-            <button style={primaryBtn} disabled={isPending} onClick={goNext}>
+            <button className="btn btn-primary" disabled={isPending} onClick={goNext}>
               Next
             </button>
           ) : (
-            <button style={primaryBtn} disabled={isPending} onClick={handleFirstEntrySubmit}>
-              {isPending ? "Saving..." : "Finish"}
+            <button className="btn btn-primary" disabled={isPending} aria-busy={isPending} onClick={handleFirstEntrySubmit}>
+              {isPending ? "Saving…" : "Finish"}
             </button>
           )}
         </div>
@@ -350,14 +317,8 @@ export default function OnboardingModal() {
           <button
             onClick={handleSkip}
             disabled={isPending}
-            style={{
-              background: "none",
-              border: "none",
-              fontSize: "var(--text-xs)",
-              color: "var(--text-muted)",
-              textDecoration: "underline",
-              cursor: isPending ? "not-allowed" : "pointer",
-            }}
+            className="btn btn-sm btn-ghost"
+            style={{ color: "var(--text-muted)" }}
           >
             Skip setup
           </button>

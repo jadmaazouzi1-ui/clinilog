@@ -1,5 +1,5 @@
-import Link from "next/link";
 import BadgeCode from "./BadgeCode";
+import PublicPage from "@/components/PublicPage";
 import Logo from "@/components/brand/Logo";
 import { markSvg } from "@/lib/logo";
 import { PALETTE as P } from "@/lib/palette";
@@ -60,19 +60,10 @@ function Preview({ dark }: { dark?: boolean }) {
 
 export default function BadgePage() {
   return (
-    <div style={{ backgroundColor: "var(--background)", minHeight: "100vh" }}>
-      <header style={{ borderBottom: "1px solid var(--border-strong)" }}>
-        <div className="max-w-3xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="font-bold" style={{ fontSize: "1.0625rem", textDecoration: "none", color: "var(--text)" }}>
-            ClinicLog MD
-          </Link>
-        </div>
-      </header>
-
-      <main className="max-w-3xl mx-auto px-6" style={{ paddingTop: "var(--sp-6)", paddingBottom: "var(--sp-8)" }}>
-        <p className="section-title">Embeddable badge</p>
-        <h1 className="text-3xl font-bold" style={{ color: "var(--text)", marginBottom: "var(--sp-1)" }}>
-          Put a badge on your site.
+    <PublicPage>
+      <div style={{ maxWidth: 720 }}>
+        <h1 className="text-3xl" style={{ marginBottom: "var(--sp-1)" }}>
+          A badge for your site
         </h1>
         <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-4)", maxWidth: 560 }}>
           For pre-med clubs, advising pages and personal sites. The markup is self-contained,
@@ -81,17 +72,17 @@ export default function BadgePage() {
 
         <hr className="rule" />
 
-        <p className="section-title">Light</p>
+        <h2 className="section-title">Light</h2>
         <div style={{ marginBottom: "var(--sp-2)" }}><Preview /></div>
         <BadgeCode label="HTML" code={HTML_BADGE} />
 
-        <p className="section-title">Dark</p>
+        <h2 className="section-title">Dark</h2>
         <div style={{ marginBottom: "var(--sp-2)" }}><Preview dark /></div>
         <BadgeCode label="HTML" code={DARK_BADGE} />
 
         <p className="section-title">Markdown</p>
         <BadgeCode label="Markdown, for READMEs" code={MARKDOWN_BADGE} />
-      </main>
-    </div>
+      </div>
+    </PublicPage>
   );
 }

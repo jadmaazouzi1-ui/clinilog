@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import AppShell from "@/components/AppShell";
 import SpecialtyExplorer from "./SpecialtyExplorer";
+import { SPECIALTIES } from "@/lib/specialties";
 
 export const metadata = {
   description: "Compare medical specialties by training length, typical pay and lifestyle.",
@@ -14,11 +15,11 @@ export default async function SpecialtiesPage() {
 
   return (
     <AppShell userEmail={user.email ?? ""} activePath="/specialties">
-      <main className="w-full px-6 py-8">
+      <main className="page">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold mb-2" style={{ color: "var(--text)" }}>Specialty Explorer</h1>
+          <h1 className="text-2xl mb-2">Specialties</h1>
           <p className="text-sm" style={{ color: "var(--text-muted)" }}>
-            Compare 30 medical specialties across competitiveness, lifestyle, salary, and patient contact.
+            {SPECIALTIES.length} specialties with training length, typical pay, patient contact and a short summary of the work. Figures are broad ranges, not offers.
           </p>
         </div>
         <SpecialtyExplorer />

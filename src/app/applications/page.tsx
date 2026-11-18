@@ -19,12 +19,9 @@ export default async function ApplicationsPage() {
 
   return (
     <AppShell userEmail={user.email ?? ""} activePath="/applications">
-      <main
-        className="w-full"
-        style={{ paddingTop: "var(--sp-3)", paddingRight: "var(--sp-3)", paddingBottom: "var(--sp-4)" }}
-      >
-        <h1 className="text-xl font-bold" style={{ color: "var(--text)" }}>
-          My Applications
+      <main className="page">
+        <h1 className="text-2xl">
+          Applications
         </h1>
         <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-3)" }}>
           Secondary essays and running cost for every school you have marked Applying.

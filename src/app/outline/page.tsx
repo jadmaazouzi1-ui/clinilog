@@ -21,11 +21,8 @@ export default async function OutlinePage() {
 
   return (
     <AppShell userEmail={user.email ?? ""} activePath="/outline">
-      <main
-        className="w-full"
-        style={{ paddingTop: "var(--sp-3)", paddingRight: "var(--sp-3)", paddingBottom: "var(--sp-4)", maxWidth: 820 }}
-      >
-        <h1 className="text-xl font-bold" style={{ color: "var(--text)" }}>
+      <main className="page">
+        <h1 className="text-2xl">
           Personal statement outline
         </h1>
         <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-3)" }}>
@@ -36,9 +33,9 @@ export default async function OutlinePage() {
         {!ready && (
           <div
             className="card"
-            style={{ padding: "var(--sp-2)", marginBottom: "var(--sp-3)", borderLeft: "2px solid var(--action)" }}
+            style={{ padding: "var(--sp-2)", marginBottom: "var(--sp-3)" }}
           >
-            <p className="meta" style={{ marginBottom: 4 }}>PREREQUISITES</p>
+            <p className="meta" style={{ marginBottom: 4 }}>Before you start</p>
             <p className="text-sm" style={{ color: "var(--text-muted)", lineHeight: 1.6 }}>
               This tool opens once you have logged three experiences and generated your archetype.
               You have {entries} {entries === 1 ? "entry" : "entries"}

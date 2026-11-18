@@ -28,9 +28,9 @@ export default async function PostbaccPage() {
 
   return (
     <AppShell userEmail={user.email ?? ""} activePath="/postbacc">
-      <main className="w-full px-6 py-8">
+      <main className="page">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold mb-2" style={{ color: "var(--text)" }}>Post-bacc Tracker</h1>
+          <h1 className="text-2xl mb-2">Post-bacc coursework</h1>
           <p className="text-sm" style={{ color: "var(--text-muted)" }}>
             Track your post-bacc coursework with live BCPM and cumulative GPA calculations.
           </p>

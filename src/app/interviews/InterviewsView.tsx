@@ -8,7 +8,7 @@ import {
   WaitlistUpdate,
 } from "@/lib/appTypes";
 import { formatDate } from "@/lib/format";
-import { EmptyState } from "@/components/EmptyStates";
+import { EmptyState } from "@/components/ui";
 import {
   addWaitlistUpdate,
   createInterview,
@@ -21,7 +21,7 @@ import {
 const STATUS_COLOR: Record<string, string> = {
   Scheduled: "var(--text-muted)",
   Completed: "var(--text)",
-  Waitlisted: "var(--action-text)",
+  Waitlisted: "var(--warning)",
   Accepted: "var(--text)",
   Rejected: "var(--text-muted)",
 };
@@ -67,7 +67,7 @@ export default function InterviewsView({
 
       <div className="flex items-center justify-between gap-3 flex-wrap" style={{ marginBottom: "var(--sp-2)" }}>
         <p className="section-title flex items-center gap-2" style={{ margin: 0, border: 0, padding: 0 }}>
-          Interview Log
+          Invites and outcomes
         </p>
         <button onClick={() => setAdding(!adding)} className="btn btn-primary text-sm" style={{ padding: "8px var(--sp-2)" }}>
           {adding ? "Cancel" : "Log an invite"}
@@ -82,28 +82,28 @@ export default function InterviewsView({
         >
           <div className="grid grid-cols-1 md:grid-cols-4" style={{ gap: "var(--sp-2)", marginBottom: "var(--sp-2)" }}>
             <div className="md:col-span-2">
-              <label className="label">SCHOOL</label>
+              <label className="label">School</label>
               <input name="school_name" required placeholder="School name" className="field" />
             </div>
             <div>
-              <label className="label">FORMAT</label>
+              <label className="label">Format</label>
               <select name="format" className="field">
                 {INTERVIEW_FORMATS.map((f) => <option key={f} value={f}>{f}</option>)}
               </select>
             </div>
             <div>
-              <label className="label">DATE</label>
+              <label className="label">Date</label>
               <input name="interview_date" type="date" className="field" />
             </div>
           </div>
           <div style={{ marginBottom: "var(--sp-2)" }}>
-            <label className="label">STATUS</label>
+            <label className="label">Status</label>
             <select name="status" className="field">
               {INTERVIEW_STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
             </select>
           </div>
           <div style={{ marginBottom: "var(--sp-2)" }}>
-            <label className="label">REFLECTION</label>
+            <label className="label">Reflection</label>
             <textarea name="reflection" rows={3} placeholder="Post-interview notes: what was asked, how it went" className="field resize-none" />
           </div>
           <button type="submit" className="btn btn-primary text-sm" style={{ padding: "8px var(--sp-3)" }}>Save</button>
@@ -111,11 +111,9 @@ export default function InterviewsView({
       )}
 
       {interviews.length === 0 && !adding ? (
-        <EmptyState
-          kind="interviews"
-          title="No interviews logged"
-          body="When an invite arrives, log the school, format and date here. Waitlist movement can be tracked against any interview marked Waitlisted."
-        />
+        <EmptyState title="No interviews logged">
+          {"When an invite arrives, log the school, format and date here. Waitlist movement can be tracked against any interview marked Waitlisted."}
+          </EmptyState>
       ) : (
         <div style={{ display: "grid", gap: "var(--sp-2)" }}>
           {interviews.map((iv) => {
@@ -160,7 +158,7 @@ export default function InterviewsView({
                 {/* ── Waitlist movement ───────────────────────────────── */}
                 {iv.status === "Waitlisted" && (
                   <div style={{ marginTop: "var(--sp-2)", paddingTop: "var(--sp-2)", borderTop: "1px dashed var(--border-strong)" }}>
-                    <p className="meta" style={{ marginBottom: 6 }}>WAITLIST MOVEMENT</p>
+                    <p className="meta" style={{ marginBottom: 6 }}>Waitlist updates</p>
                     {updates.length > 0 && (
                       <div style={{ marginBottom: "var(--sp-1)" }}>
                         {updates.map((w) => (
@@ -169,7 +167,7 @@ export default function InterviewsView({
                             <span className="text-sm flex-1">{w.note}</span>
                             <button
                               onClick={() => deleteWaitlistUpdate(w.id)}
-                              className="text-xs font-bold uppercase"
+                              className="text-xs font-bold"
                               style={{ color: "var(--text-muted)", background: "none", border: 0, cursor: "pointer" }}
                               aria-label="Delete update"
                             >
@@ -181,11 +179,11 @@ export default function InterviewsView({
                     )}
                     <form action={addWaitlistUpdate.bind(null, iv.id)} className="flex items-end gap-2 flex-wrap">
                       <div style={{ width: 150 }}>
-                        <label className="label">DATE</label>
+                        <label className="label">Date</label>
                         <input name="update_date" type="date" className="field" />
                       </div>
                       <div className="flex-1" style={{ minWidth: 200 }}>
-                        <label className="label">UPDATE</label>
+                        <label className="label">Update</label>
                         <input name="note" required placeholder="Moved to active waitlist, letter of intent sent" className="field" />
                       </div>
                       <button type="submit" className="btn btn-secondary text-xs font-semibold" style={{ padding: "7px var(--sp-2)" }}>Add</button>
@@ -200,23 +198,23 @@ export default function InterviewsView({
                   >
                     <div className="grid grid-cols-1 md:grid-cols-4" style={{ gap: "var(--sp-2)", marginBottom: "var(--sp-2)" }}>
                       <div className="md:col-span-2">
-                        <label className="label">SCHOOL</label>
+                        <label className="label">School</label>
                         <input name="school_name" defaultValue={iv.school_name} required className="field" />
                       </div>
                       <div>
-                        <label className="label">FORMAT</label>
+                        <label className="label">Format</label>
                         <select name="format" defaultValue={iv.format} className="field">
                           {INTERVIEW_FORMATS.map((f) => <option key={f} value={f}>{f}</option>)}
                         </select>
                       </div>
                       <div>
-                        <label className="label">DATE</label>
+                        <label className="label">Date</label>
                         <input name="interview_date" type="date" defaultValue={iv.interview_date ?? ""} className="field" />
                       </div>
                     </div>
                     <input type="hidden" name="status" value={iv.status} />
                     <div style={{ marginBottom: "var(--sp-2)" }}>
-                      <label className="label">REFLECTION</label>
+                      <label className="label">Reflection</label>
                       <textarea name="reflection" rows={4} defaultValue={iv.reflection ?? ""} className="field resize-none" />
                     </div>
                     <div className="flex items-center gap-2">

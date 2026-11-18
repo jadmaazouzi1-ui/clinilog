@@ -65,19 +65,19 @@ const PROFILE_TAB = { href: "/profile", label: "Profile" };
 
 const AUTO_BREADCRUMBS: Record<string, BreadcrumbItem[]> = {
   "/dashboard": [{ label: "Overview" }],
-  "/archetype": [{ label: "Overview", href: "/dashboard" }, { label: "My Archetype" }],
+  "/archetype": [{ label: "Overview", href: "/dashboard" }, { label: "Archetype" }],
   "/schools":   [{ label: "Schools" }],
-  "/applications": [{ label: "Overview", href: "/dashboard" }, { label: "My Applications" }],
-  "/interviews": [{ label: "Overview", href: "/dashboard" }, { label: "Interview Log" }],
+  "/applications": [{ label: "Overview", href: "/dashboard" }, { label: "Applications" }],
+  "/interviews": [{ label: "Overview", href: "/dashboard" }, { label: "Interviews" }],
   "/recommendations": [{ label: "Overview", href: "/dashboard" }, { label: "Letters" }],
-  "/outline": [{ label: "Overview", href: "/dashboard" }, { label: "Statement Outline" }],
-  "/mock-interview": [{ label: "Overview", href: "/dashboard" }, { label: "Mock Interview" }],
+  "/outline": [{ label: "Overview", href: "/dashboard" }, { label: "Statement outline" }],
+  "/mock-interview": [{ label: "Overview", href: "/dashboard" }, { label: "Mock interview" }],
   "/admin/insights": [{ label: "Overview", href: "/dashboard" }, { label: "Insights" }],
   "/specialties": [{ label: "Specialties" }],
-  "/gapyear":   [{ label: "Gap Year Planner" }],
-  "/postbacc":  [{ label: "Post-bacc Tracker" }],
+  "/gapyear":   [{ label: "Gap year" }],
+  "/postbacc":  [{ label: "Post-bacc" }],
   "/resources": [{ label: "Resources" }],
-  "/fee-tracker": [{ label: "Fee Tracker" }],
+  "/fee-tracker": [{ label: "Fees" }],
   "/stories":   [{ label: "Stories" }],
   "/import":    [{ label: "Overview", href: "/dashboard" }, { label: "Import CSV" }],
   "/profile":   [{ label: "Profile" }],
@@ -141,14 +141,14 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
           <Link href="/profile" className="nav-item" aria-current={activePath.startsWith("/profile") ? "page" : undefined}>
             Profile and settings
           </Link>
-          <p className="meta truncate" style={{ padding: "var(--sp-h) var(--sp-15)" }} title={userEmail}>
-            {userEmail}
-          </p>
-          <form action="/auth/signout" method="POST">
-            <button type="submit" className="nav-item w-full text-left" style={{ background: "transparent", border: 0, cursor: "pointer" }}>
-              Sign out
-            </button>
-          </form>
+          <div className="flex items-center justify-between gap-2" style={{ padding: "0 0 0 var(--sp-15)" }}>
+            <p className="meta truncate" title={userEmail}>{userEmail}</p>
+            <form action="/auth/signout" method="POST">
+              <button type="submit" className="btn btn-sm btn-ghost" style={{ color: "var(--text-muted)" }}>
+                Sign out
+              </button>
+            </form>
+          </div>
         </div>
       </aside>
 
@@ -180,6 +180,9 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
           </nav>
           <div className="flex items-center gap-2 flex-shrink-0">
             <PageTourLink />
+            <button type="button" onClick={openAdvisor} className="btn btn-sm btn-secondary hidden md:inline-flex">
+              Ask the advisor
+            </button>
             <HelpButton tourId="help-button" />
             <span data-tour="theme-toggle" className="inline-flex">
               <ThemeToggle />

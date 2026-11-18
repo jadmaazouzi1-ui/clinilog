@@ -107,8 +107,7 @@ export default function AIAdvisorButton() {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // Opened from the mobile Tools modal, which has no route to link to for
-  // "AI Advisor" since it's this floating widget rather than a page.
+  // The drawer has no route of its own: every trigger dispatches this event.
   useEffect(() => {
     function handleExternalOpen() {
       setOpen(true);
@@ -165,18 +164,8 @@ export default function AIAdvisorButton() {
 
   return (
     <>
-      {/* Floating button. On mobile it sits above the 64px bottom tab bar
-          (plus the iPhone safe-area inset) so it never overlaps or blocks
-          taps on the tabs underneath it - that overlap was the root cause
-          of the bottom nav being untappable. Desktop keeps its original
-          bottom-6 position since there's no bottom nav there. */}
-      <button
-        onClick={() => setOpen(true)}
-        className="btn btn-secondary no-print fixed right-4 md:right-6 z-40 bottom-[calc(64px+env(safe-area-inset-bottom)+16px)] md:bottom-6"
-        style={{ boxShadow: "var(--shadow-overlay)" }}
-      >
-        Ask the advisor
-      </button>
+      {/* Opened from the header button in AppShell, or from Help and the
+          mobile More sheet, through the cliniclog:open-advisor event. */}
 
       {/* Backdrop */}
       {open && (

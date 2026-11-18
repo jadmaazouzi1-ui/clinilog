@@ -79,7 +79,7 @@ export default function HelpCenter() {
           className="flex items-center justify-between gap-3 px-5 flex-shrink-0"
           style={{ height: 64, borderBottom: "2px solid var(--border-strong)" }}
         >
-          <h2 id="help-title" className="text-sm font-bold" style={{ color: "var(--text)", textTransform: "uppercase", letterSpacing: "0.04em" }}>
+          <h2 id="help-title" className="text-sm font-bold" style={{ color: "var(--text)" }}>
             Help Center
           </h2>
           <button ref={closeRef} type="button" className="btn btn-sm btn-secondary" onClick={closeHelp}>
@@ -142,7 +142,7 @@ export default function HelpCenter() {
                         }}
                       >
                         <span>{m.title}</span>
-                        <span className="tnum text-xs" style={{ color: done ? "var(--action-text)" : "var(--text-muted)" }}>
+                        <span className="tnum text-xs" style={{ color: done ? "var(--success)" : "var(--text-muted)" }}>
                           {done ? (
                             <>
                               <span aria-hidden="true">&#10003;</span> DONE

@@ -3,7 +3,7 @@ import LegalPage from "@/components/LegalPage";
 
 export default function PrivacyPage() {
   return (
-    <LegalPage page="/privacy" title="Privacy Policy" updated="27 OCT 2026">
+    <LegalPage page="/privacy" title="Privacy Policy" updated="Nov 18, 2026">
       <p>
         ClinicLog MD helps pre-med students track their experiences and plan applications. This page
         explains, in plain terms, what we store, who can see it, and how to take it with you or delete it.
@@ -37,7 +37,7 @@ export default function PrivacyPage() {
       <h2>Who processes your data</h2>
       <ul>
         <li><strong>Supabase</strong> stores the database and handles sign-in.</li>
-        <li><strong>Vercel</strong> hosts the website.</li>
+        <li><strong>Netlify</strong> hosts the website.</li>
         <li><strong>Google (Gemini API)</strong> processes text you send to the AI features.</li>
         <li><strong>Resend</strong> delivers the optional weekly summary email, if it is enabled.</li>
       </ul>

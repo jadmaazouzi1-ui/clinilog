@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
-import Logo from "@/components/brand/Logo";
+import AuthFrame from "@/components/AuthFrame";
+import { Notice } from "@/components/ui";
 import Link from "next/link";
 import { headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
@@ -69,168 +70,64 @@ export default async function LoginPage({
     redirect("/auth/login?view=forgot&sent=1");
   }
 
-  const LogoMark = () => (
-    <div className="inline-flex items-center gap-3 mb-4">
-      <Logo size={32} />
-      <span className="text-2xl" style={{ color: "var(--text)", fontWeight: 900, letterSpacing: "-0.02em" }}>ClinicLog MD</span>
+  const errorNotice = pageError ? (
+    <div style={{ marginBottom: "var(--sp-3)" }}>
+      <Notice tone="danger">{decodeURIComponent(pageError)}</Notice>
     </div>
-  );
+  ) : null;
 
   if (view === "forgot") {
+    if (sent === "1") {
+      return (
+        <AuthFrame
+          title="Check your email"
+          intro="If an account uses that address, a reset link is on its way. It can take a minute or two to arrive."
+          footer={<Link href="/auth/login" className="link">Back to sign in</Link>}
+        >
+          <p className="text-sm" style={{ color: "var(--text-muted)" }}>
+            Nothing after five minutes? Check your spam folder, then try again from the sign-in page.
+          </p>
+        </AuthFrame>
+      );
+    }
     return (
-      <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "var(--background)" }}>
-        <div className="w-full max-w-md">
-          <div className="mb-8">
-            <LogoMark />
+      <AuthFrame
+        title="Reset your password"
+        intro="Enter the email you signed up with and we will send a link to choose a new password."
+        footer={<Link href="/auth/login" className="link">Back to sign in</Link>}
+      >
+        {errorNotice}
+        <form action={forgotPassword} style={{ display: "grid", gap: "var(--sp-3)" }}>
+          <div>
+            <label htmlFor="email" className="label">Email</label>
+            <input id="email" name="email" type="email" required autoComplete="email" className="field" placeholder="you@wfu.edu" />
           </div>
-
-          {sent === "1" ? (
-            <div className="card" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
-              <div
-                className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5"
-                style={{ backgroundColor: "var(--surface)", border: "1px solid var(--border-strong)" }}
-              >
-                <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="var(--text)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                  <polyline points="22,6 12,13 2,6" />
-                </svg>
-              </div>
-              <h2 className="text-lg font-bold mb-2" style={{ color: "var(--text)" }}>
-                Check your email
-              </h2>
-              <p className="text-sm mb-6 leading-relaxed" style={{ color: "var(--text-muted)" }}>
-                We sent a password reset link to your email address. It may take a minute to arrive.
-              </p>
-              <Link href="/auth/login" className="text-sm font-medium" style={{ color: "var(--text)" }}>
-                ← Back to sign in
-              </Link>
-            </div>
-          ) : (
-            <>
-              <div className="mb-8">
-                <h1 className="text-2xl font-bold" style={{ color: "var(--text)" }}>Reset your password</h1>
-                <p className="text-sm mt-1" style={{ color: "var(--text-muted)" }}>
-                  Enter your email and we&apos;ll send you a reset link
-                </p>
-              </div>
-
-              <div className="card" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
-                {pageError && (
-                  <div
-                    className="mb-5 text-sm"
-                    style={{ padding: "10px var(--sp-2)", background: "var(--danger-tint)", border: "1px solid var(--danger)", borderLeft: "2px solid var(--danger)", borderRadius: "var(--radius)", color: "var(--danger)" }}
-                  >
-                    {decodeURIComponent(pageError)}
-                  </div>
-                )}
-                <form action={forgotPassword} className="space-y-5">
-                  <div>
-                    <label htmlFor="email" className="label">
-                      Email address
-                    </label>
-                    <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      required
-                      autoComplete="email"
-                      className="field"
-                      placeholder="you@wfu.edu"
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    className="w-full btn btn-primary font-semibold text-sm focus:outline-none" style={{ padding: "11px 0" }}
-                  >
-                    Send Reset Email
-                  </button>
-                </form>
-              </div>
-
-              <p className="text-sm mt-6">
-                <Link href="/auth/login" className="font-medium" style={{ color: "var(--text)" }}>
-                  ← Back to sign in
-                </Link>
-              </p>
-            </>
-          )}
-        </div>
-      </div>
+          <button type="submit" className="btn btn-primary btn-block">Email me a reset link</button>
+        </form>
+      </AuthFrame>
     );
   }
 
   return (
-    <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "var(--background)" }}>
-      <div className="w-full max-w-md">
-        <div className="mb-8">
-          <LogoMark />
-          <h1 className="text-2xl font-bold" style={{ color: "var(--text)" }}>Welcome back</h1>
-          <p className="text-sm mt-1" style={{ color: "var(--text-muted)" }}>
-            Sign in to your account to continue
-          </p>
+    <AuthFrame
+      title="Sign in"
+      footer={<>New to ClinicLog MD? <Link href="/auth/signup" className="link">Create an account</Link></>}
+    >
+      {errorNotice}
+      <form action={login} style={{ display: "grid", gap: "var(--sp-3)" }}>
+        <div>
+          <label htmlFor="email" className="label">Email</label>
+          <input id="email" name="email" type="email" required autoComplete="email" className="field" placeholder="you@wfu.edu" />
         </div>
-
-        <div className="card" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
-          {pageError && (
-            <div
-              className="mb-5 text-sm"
-                    style={{ padding: "10px var(--sp-2)", background: "var(--danger-tint)", border: "1px solid var(--danger)", borderLeft: "2px solid var(--danger)", borderRadius: "var(--radius)", color: "var(--danger)" }}
-            >
-              {decodeURIComponent(pageError)}
-            </div>
-          )}
-          <form action={login} className="space-y-5">
-            <div>
-              <label htmlFor="email" className="label">
-                Email address
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                required
-                autoComplete="email"
-                className="field"
-                placeholder="you@wfu.edu"
-              />
-            </div>
-
-            <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <label htmlFor="password" className="label">
-                  Password
-                </label>
-                <Link href="/auth/login?view=forgot" className="text-xs font-medium" style={{ color: "var(--text)" }}>
-                  Forgot password?
-                </Link>
-              </div>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                required
-                autoComplete="current-password"
-                className="field"
-                placeholder="••••••••"
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="w-full btn btn-primary font-semibold text-sm focus:outline-none" style={{ padding: "11px 0" }}
-            >
-              Sign In
-            </button>
-          </form>
+        <div>
+          <div className="flex items-baseline justify-between gap-3">
+            <label htmlFor="password" className="label">Password</label>
+            <Link href="/auth/login?view=forgot" className="link text-xs">Forgot your password?</Link>
+          </div>
+          <input id="password" name="password" type="password" required autoComplete="current-password" className="field" />
         </div>
-
-        <p className="text-sm mt-6" style={{ color: "var(--text-muted)" }}>
-          Don&apos;t have an account?{" "}
-          <Link href="/auth/signup" className="font-medium" style={{ color: "var(--text)" }}>
-            Create an account
-          </Link>
-        </p>
-      </div>
-    </div>
+        <button type="submit" className="btn btn-primary btn-block">Sign in</button>
+      </form>
+    </AuthFrame>
   );
 }

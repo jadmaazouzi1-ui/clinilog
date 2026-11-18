@@ -1,5 +1,5 @@
-/* Public changelog. Newest first. Dates are ISO and rendered in the
-   medical timestamp style at display time. */
+/* Public changelog. Newest first. Dates are ISO and rendered with
+   formatDate from src/lib/format.ts. */
 
 export interface ChangelogEntry {
   date: string;
@@ -9,6 +9,12 @@ export interface ChangelogEntry {
 }
 
 export const CHANGELOG: ChangelogEntry[] = [
+  {
+    date: "2026-11-18",
+    title: "A plainer design",
+    body: "The medical chart styling is gone. Headings use one serif and everything else one sans, form labels are written out in full, and gold now marks only things you can click. Dates read Nov 12, 2026 and hours read 212 hrs on every page. The home page shows the real app, with sample data, and every browser tab now reads ClinicLog MD.",
+    tags: ["Design"],
+  },
   {
     date: "2026-10-28",
     title: "Guided tour and Help Center",

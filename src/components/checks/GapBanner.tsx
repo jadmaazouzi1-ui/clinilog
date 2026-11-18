@@ -32,19 +32,18 @@ export default function GapBanner({ days, offerReminders }: { days: number; offe
       style={{
         padding: "10px var(--sp-2)",
         border: "1px solid var(--border-strong)",
-        borderLeft: "2px solid var(--action)",
         background: "var(--surface)",
         marginBottom: "var(--sp-2)",
       }}
     >
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <p className="text-sm" style={{ color: "var(--text)" }}>
-          <span className="meta" style={{ marginRight: 8 }}>{days}D SINCE LAST ENTRY</span>
+          <strong>{days} days since your last entry.</strong>{" "}
           Hours are easiest to log while you still remember the details.
         </p>
         <div className="flex items-center gap-3">
-          <Link href="/dashboard/new" className="btn btn-secondary text-xs font-semibold" style={{ padding: "6px var(--sp-2)", textDecoration: "none" }}>
-            Log new hours
+          <Link href="/dashboard/new" className="btn btn-sm btn-secondary">
+            Log hours
           </Link>
           <button
             type="button"

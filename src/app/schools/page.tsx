@@ -31,15 +31,10 @@ export default async function SchoolsPage() {
 
   return (
     <AppShell userEmail={user.email ?? ""} activePath="/schools">
-      <main className="w-full px-6 py-8">
+      <main className="page">
         <Link
           href="/dashboard"
-          className="inline-flex items-center gap-1.5 text-sm font-medium mb-8"
-          style={{ color: "var(--text)" }}
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-          </svg>
+          className="link text-sm inline-block" style={{ marginBottom: "var(--sp-15)" }}>
           Back to Overview
         </Link>
         <SchoolList

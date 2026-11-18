@@ -35,12 +35,9 @@ export default async function AdminInsightsPage() {
 
   return (
     <AppShell userEmail={user.email ?? ""} activePath="/admin/insights">
-      <main
-        className="w-full"
-        style={{ paddingTop: "var(--sp-3)", paddingRight: "var(--sp-3)", paddingBottom: "var(--sp-4)" }}
-      >
+      <main className="page">
         <div className="flex items-baseline justify-between gap-3 flex-wrap">
-          <h1 className="text-xl font-bold" style={{ color: "var(--text)" }}>
+          <h1 className="text-2xl">
             Platform insights
           </h1>
         </div>
@@ -53,7 +50,7 @@ export default async function AdminInsightsPage() {
             className="card"
             style={{ padding: "var(--sp-3)", borderLeft: "2px solid var(--danger)" }}
           >
-            <p className="meta" style={{ color: "var(--danger)", marginBottom: 4 }}>QUERY FAILED</p>
+            <p className="meta" style={{ color: "var(--danger)", marginBottom: 4 }}>The query failed</p>
             <p className="text-sm" style={{ color: "var(--text-muted)" }}>
               {error?.message ?? "No data returned."}
             </p>
@@ -65,10 +62,10 @@ export default async function AdminInsightsPage() {
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: "var(--sp-2)", marginBottom: "var(--sp-4)" }}>
               {[
-                ["TOTAL USERS", String(insights.total_users)],
-                ["WEEKLY ACTIVE", String(insights.weekly_active)],
-                ["HOURS LOGGED", String(Math.round(Number(insights.total_hours)))],
-                ["ENTRIES", String(insights.total_entries)],
+                ["Accounts", String(insights.total_users)],
+                ["Active this week", String(insights.weekly_active)],
+                ["Hours logged", String(Math.round(Number(insights.total_hours)))],
+                ["Entries", String(insights.total_entries)],
               ].map(([label, value]) => (
                 <div key={label} className="card">
                   <p className="stat-label">{label}</p>
@@ -111,7 +108,7 @@ export default async function AdminInsightsPage() {
                         aria-hidden="true"
                         style={{ display: "block", width: 120, height: 5, background: "var(--surface-alt)" }}
                       >
-                        <span style={{ display: "block", height: "100%", width: `${pct}%`, background: "var(--action)" }} />
+                        <span style={{ display: "block", height: "100%", width: `${pct}%`, background: "var(--data-1)" }} />
                       </span>
                       <span className="tnum text-xs" style={{ color: "var(--text-muted)", minWidth: 36, textAlign: "right" }}>
                         {p.visits}
@@ -123,7 +120,7 @@ export default async function AdminInsightsPage() {
             )}
 
             <p className="meta" style={{ marginTop: "var(--sp-3)" }}>
-              GENERATED {formatDate(new Date())}
+              Generated {formatDate(new Date())}
             </p>
           </>
         )}

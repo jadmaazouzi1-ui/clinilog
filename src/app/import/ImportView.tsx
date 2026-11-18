@@ -277,12 +277,7 @@ export default function ImportView() {
           </div>
           <button
             onClick={downloadTemplate}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold flex-shrink-0 transition-opacity hover:opacity-90"
-            style={{ background: "var(--surface)", color: "var(--text)", border: "1px solid var(--border-strong)" }}
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-            </svg>
+            className="btn btn-secondary flex-shrink-0">
             Download Template
           </button>
         </div>
@@ -320,14 +315,6 @@ export default function ImportView() {
               }}
               className="hidden"
             />
-            <div
-              className="w-12 h-12 rounded-xl flex items-center justify-center mb-3"
-              style={{ background: "var(--surface)", border: "1px solid var(--border-strong)" }}
-            >
-              <svg className="w-6 h-6" fill="none" stroke="var(--text)" strokeWidth="1.75" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-              </svg>
-            </div>
             <p className="text-sm font-semibold mb-1" style={{ color: "var(--text)" }}>
               {dragOver ? "Drop your file here" : "Drag and drop your CSV here"}
             </p>
@@ -399,14 +386,14 @@ export default function ImportView() {
                       type="checkbox"
                       checked={allChecked}
                       onChange={(e) => toggleAll(e.target.checked)}
-                      style={{ accentColor: "var(--action)" }}
+                      style={{ accentColor: "var(--text)" }}
                     />
                   </th>
-                  <th className="text-left px-2 py-2 text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--text-muted)" }}>Title</th>
-                  <th className="text-left px-2 py-2 text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--text-muted)" }}>Organization</th>
-                  <th className="text-left px-2 py-2 text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--text-muted)" }}>Category</th>
-                  <th className="text-left px-2 py-2 text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--text-muted)" }}>Dates</th>
-                  <th className="text-right px-2 py-2 text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--text-muted)" }}>Hours</th>
+                  <th className="text-left px-2 py-2 text-xs font-semibold" style={{ color: "var(--text-muted)" }}>Title</th>
+                  <th className="text-left px-2 py-2 text-xs font-semibold" style={{ color: "var(--text-muted)" }}>Organization</th>
+                  <th className="text-left px-2 py-2 text-xs font-semibold" style={{ color: "var(--text-muted)" }}>Category</th>
+                  <th className="text-left px-2 py-2 text-xs font-semibold" style={{ color: "var(--text-muted)" }}>Dates</th>
+                  <th className="text-right px-2 py-2 text-xs font-semibold" style={{ color: "var(--text-muted)" }}>Hours</th>
                 </tr>
               </thead>
               <tbody>
@@ -426,7 +413,7 @@ export default function ImportView() {
                           disabled={hasError}
                           checked={r.selected && !hasError}
                           onChange={() => toggleRow(i)}
-                          style={{ accentColor: "var(--action)", opacity: hasError ? 0.3 : 1 }}
+                          style={{ accentColor: "var(--text)", opacity: hasError ? 0.3 : 1 }}
                         />
                       </td>
                       <td className="px-2 py-3 align-top">
@@ -485,20 +472,14 @@ export default function ImportView() {
             <button
               onClick={doImport}
               disabled={validCount === 0 || isPending}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all disabled:opacity-40 disabled:cursor-not-allowed"
-              style={{ backgroundColor: "var(--action)", color: "var(--on-action)", boxShadow: "none" }}
+              className="btn btn-primary"
             >
               {isPending ? (
-                <span className="tnum text-xs font-semibold uppercase tracking-[0.18em]">
+                <span className="tnum text-xs font-semibold">
                   Importing…
                 </span>
               ) : (
-                <>
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  Import {validCount} experience{validCount === 1 ? "" : "s"}
-                </>
+                <>Import {validCount} experience{validCount === 1 ? "" : "s"}</>
               )}
             </button>
           </div>

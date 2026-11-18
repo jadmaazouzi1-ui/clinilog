@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
-import Logo from "@/components/brand/Logo";
+import AuthFrame from "@/components/AuthFrame";
+import { Notice } from "@/components/ui";
 import Link from "next/link";
 import { cookies, headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
@@ -95,114 +96,56 @@ export default async function SignupPage({
   }
 
   return (
-    <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "var(--background)" }}>
-      <div className="w-full max-w-md">
-        {/* Logo */}
-        <div className="mb-8">
-          <div className="inline-flex items-center gap-3 mb-4">
-            <Logo size={32} />
-            <span className="text-2xl" style={{ color: "var(--text)", fontWeight: 900, letterSpacing: "-0.02em" }}>ClinicLog MD</span>
-          </div>
-          <h1 className="text-2xl font-bold" style={{ color: "var(--text)" }}>Create your account</h1>
-          <p className="text-sm mt-1" style={{ color: "var(--text-muted)" }}>
-            Start logging your clinical experiences today
-          </p>
+    <AuthFrame
+      title="Create an account"
+      intro="Use your @wfu.edu email. We will send a link to confirm it before you can sign in."
+      footer={<>Already have an account? <Link href="/auth/login" className="link">Sign in</Link></>}
+    >
+      {pageError && (
+        <div style={{ marginBottom: "var(--sp-3)" }}>
+          <Notice tone="danger">{decodeURIComponent(pageError)}</Notice>
         </div>
-
-        {/* Card */}
-        <div className="card" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
-          {pageError && (
-            <div
-              className="mb-5 text-sm px-4 py-3"
-              style={{ background: "var(--surface)", border: "1px solid var(--border-strong)", color: "var(--text)" }}
-            >
-              {decodeURIComponent(pageError)}
-            </div>
-          )}
-          <form action={signup} className="space-y-5">
-            <input type="hidden" name="referral_code" value={refCode} />
-            <div>
-              <label
-                htmlFor="name"
-                className="label"
-              >
-                Full name
-              </label>
-              <input
-                id="name"
-                name="name"
-                type="text"
-                required
-                autoComplete="name"
-                className="field"
-                placeholder="Jane Smith"
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="email"
-                className="label"
-              >
-                Email address
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                required
-                autoComplete="email"
-                className="field"
-                placeholder="you@wfu.edu"
-                pattern=".+@[Ww][Ff][Uu]\.[Ee][Dd][Uu]"
-                title="Use your @wfu.edu email address"
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="password"
-                className="label"
-              >
-                Password
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                required
-                minLength={10}
-                autoComplete="new-password"
-                className="field"
-                placeholder="At least 10 characters"
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="w-full btn btn-primary font-semibold text-sm focus:outline-none" style={{ padding: "11px 0" }}
-            >
-              Create Account
-            </button>
-            <p className="text-xs text-center" style={{ color: "var(--text-muted)", marginTop: "var(--sp-2)" }}>
-              By creating an account you agree to the{" "}
-              <Link href="/terms" style={{ color: "var(--text-muted)", textDecoration: "underline" }}>Terms</Link> and{" "}
-              <Link href="/privacy" style={{ color: "var(--text-muted)", textDecoration: "underline" }}>Privacy Policy</Link>.
-            </p>
-          </form>
+      )}
+      <form action={signup} style={{ display: "grid", gap: "var(--sp-3)" }}>
+        <input type="hidden" name="referral_code" value={refCode} />
+        <div>
+          <label htmlFor="name" className="label">Full name</label>
+          <input id="name" name="name" type="text" required autoComplete="name" className="field" />
         </div>
-
-        <p className="text-sm mt-6" style={{ color: "var(--text-muted)" }}>
-          Already have an account?{" "}
-          <Link
-            href="/auth/login"
-            className="font-medium"
-            style={{ color: "var(--text)" }}
-          >
-            Sign in
-          </Link>
+        <div>
+          <label htmlFor="email" className="label">Wake Forest email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            autoComplete="email"
+            className="field"
+            placeholder="you@wfu.edu"
+            pattern=".+@[Ww][Ff][Uu]\.[Ee][Dd][Uu]"
+            title="Use your @wfu.edu email address"
+          />
+        </div>
+        <div>
+          <label htmlFor="password" className="label">Password</label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            required
+            minLength={10}
+            autoComplete="new-password"
+            className="field"
+            aria-describedby="password-hint"
+          />
+          <p className="hint" id="password-hint">At least 10 characters.</p>
+        </div>
+        <button type="submit" className="btn btn-primary btn-block">Create account</button>
+        <p className="text-xs" style={{ color: "var(--text-muted)" }}>
+          Creating an account means you agree to the <Link href="/terms" className="link">Terms</Link> and the{" "}
+          <Link href="/privacy" className="link">Privacy Policy</Link>.
         </p>
-      </div>
-    </div>
+      </form>
+    </AuthFrame>
   );
 }

@@ -33,7 +33,7 @@ export default function ReferralPanel({ code, count }: { code: string | null; co
 
       <div className="flex items-end gap-2 flex-wrap" style={{ marginBottom: "var(--sp-2)" }}>
         <div className="flex-1" style={{ minWidth: 220 }}>
-          <label htmlFor="referral-link" className="label">SHARE LINK</label>
+          <label htmlFor="referral-link" className="label">Your invite link</label>
           <input id="referral-link" readOnly value={link} className="field tnum" style={{ fontSize: "var(--text-xs)" }} />
         </div>
         <button type="button" onClick={copy} className="btn btn-secondary text-xs font-semibold" style={{ padding: "7px var(--sp-2)" }}>

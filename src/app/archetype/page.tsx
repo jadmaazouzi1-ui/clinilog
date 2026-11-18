@@ -32,10 +32,7 @@ export default async function ArchetypePage() {
 
   return (
     <AppShell userEmail={user.email ?? ""} activePath="/archetype">
-      <main
-        className="w-full"
-        style={{ paddingTop: "var(--sp-3)", paddingRight: "var(--sp-3)", paddingBottom: "var(--sp-4)" }}
-      >
+      <main className="page">
         <ArchetypeView
           initialAnalysis={storedAnalysis}
           experienceCount={count}

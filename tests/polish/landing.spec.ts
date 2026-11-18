@@ -48,23 +48,35 @@ test.describe("Landing page", () => {
     await page.goto("/");
   });
 
-  test("headline, actions and sample label", async ({ page }) => {
-    await expect(page.getByRole("heading", { level: 1, name: "Watch your experience grow into a record." })).toBeVisible();
-    await expect(page.getByRole("link", { name: "Start logging hours" })).toHaveAttribute("href", "/auth/signup");
-    for (const link of await page.getByRole("link", { name: "Create account" }).all()) {
-      await expect(link).toHaveAttribute("href", "/auth/signup");
+  test("one promise, one action, real screenshots labelled as sample", async ({ page }) => {
+    await expect(page.getByRole("heading", { level: 1, name: "Keep every hour ready for AMCAS." })).toBeVisible();
+    // The only button-style action is Create an account; Sign in is a text link.
+    const ctas = page.locator(".lp .btn");
+    expect(await ctas.count()).toBeGreaterThan(0);
+    for (const el of await ctas.all()) {
+      await expect(el).toHaveText("Create an account");
+      await expect(el).toHaveAttribute("href", "/auth/signup");
     }
     for (const link of await page.getByRole("link", { name: "Sign in" }).all()) {
       await expect(link).toHaveAttribute("href", "/auth/login");
     }
-    await expect(page.getByText("SAMPLE DATA / 118 HRS / 14 ENTRIES")).toBeVisible();
-    await expect(page.getByRole("img", { name: /^Sample Your Path tree, not real data/ })).toBeVisible();
+    await expect(page.getByRole("img", { name: /^The ClinicLog MD Overview page/ })).toBeVisible();
+    await expect(page.getByText("The Overview page, filled with sample data.")).toBeVisible();
+    await expect(page.getByText("The Log hours form, with a sample entry.")).toBeVisible();
   });
 
-  test("four numbered rows and the closing band", async ({ page }) => {
-    for (const name of ["Hours that stay organized", "Schools that fit your numbers", "A story drawn from your record", "The rest of the cycle", "Log your first entry in under a minute."]) {
-      await expect(page.getByRole("heading", { name })).toBeVisible();
-    }
+  test("figures match the app's own data", async ({ page }) => {
+    const { SCHOOLS, MD_SCHOOLS, DO_SCHOOLS, CARIBBEAN_SCHOOLS } = await import("../../src/lib/schools");
+    const { SPECIALTIES } = await import("../../src/lib/specialties");
+    const text = await page.locator(".lp-facts").innerText();
+    expect(text).toContain(`${SCHOOLS.length}\nmedical schools`);
+    expect(text).toContain(`${MD_SCHOOLS.length} MD, ${DO_SCHOOLS.length} DO and ${CARIBBEAN_SCHOOLS.length} Caribbean`);
+    expect(text).toContain(`${SPECIALTIES.length}\nspecialties`);
+  });
+
+  test("sections do not repeat a layout back to back", async ({ page }) => {
+    const classes = await page.locator(".lp > main > section").evaluateAll((els) => els.map((e) => e.className));
+    for (let i = 1; i < classes.length; i++) expect(classes[i], `section ${i}`).not.toBe(classes[i - 1]);
   });
 
   test("footer links only to pages that exist", async ({ page, request }) => {
@@ -80,31 +92,26 @@ test.describe("Landing page", () => {
     await expect(page.getByText(/^beta$/i)).toHaveCount(0);
   });
 
-  test("buttons are at least 44px tall", async ({ page }) => {
-    for (const name of ["Start logging hours", "Create account", "Sign in"]) {
-      for (const el of await page.getByRole("link", { name }).all()) {
-        const box = await el.boundingBox();
-        expect(box!.height, name).toBeGreaterThanOrEqual(44);
-      }
+  test("links and buttons are at least 44px tall", async ({ page }) => {
+    for (const el of await page.locator(".lp a").all()) {
+      const box = await el.boundingBox();
+      if (box) expect(box.height, await el.innerText()).toBeGreaterThanOrEqual(44);
     }
   });
 
   for (const width of [390, 768, 1024, 1440, 1920]) {
-    test(`no horizontal scroll and readable labels at ${width}px`, async ({ page }) => {
+    test(`no horizontal scroll and no text under 13px at ${width}px`, async ({ page }) => {
       await page.setViewportSize({ width, height: 900 });
       await page.goto("/");
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
       expect(overflow).toBeLessThanOrEqual(0);
-      const sizes = await page.locator(".lp-path-label").evaluateAll((els) => els.map((e) => parseFloat(getComputedStyle(e).fontSize)));
-      for (const s of sizes) expect(s).toBeGreaterThanOrEqual(14);
-      // Legend items never overlap each other.
-      const boxes = await page.locator(".lp-path-legend li").evaluateAll((els) => els.map((e) => e.getBoundingClientRect().toJSON()));
-      for (let i = 0; i < boxes.length; i++)
-        for (let j = i + 1; j < boxes.length; j++) {
-          const a = boxes[i], b = boxes[j];
-          const hit = a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom;
-          expect(hit, `legend ${i} overlaps ${j}`).toBe(false);
-        }
+      const small = await page.evaluate(() =>
+        [...document.querySelectorAll(".lp *")]
+          .filter((e) => e.childNodes.length && [...e.childNodes].some((n) => n.nodeType === 3 && n.textContent!.trim()))
+          .map((e) => parseFloat(getComputedStyle(e).fontSize))
+          .filter((s) => s < 13),
+      );
+      expect(small).toEqual([]);
     });
   }
 });

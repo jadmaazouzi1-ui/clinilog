@@ -32,7 +32,7 @@ export default function BadgeCode({ label, code }: { label: string; code: string
           background: "var(--surface-alt)",
           border: "1px solid var(--border-strong)",
           borderRadius: "var(--radius)",
-          fontFamily: "var(--tnum)",
+          fontFamily: "var(--font-sans)",
           fontSize: "var(--text-xs)",
           lineHeight: 1.6,
           overflowX: "auto",

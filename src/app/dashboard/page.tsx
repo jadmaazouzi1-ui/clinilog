@@ -94,7 +94,7 @@ export default async function DashboardPage({
     <AppShell userEmail={user.email ?? ""} activePath="/dashboard">
       {showOnboarding && <OnboardingModal />}
 
-      <main className="w-full" style={{ padding: "var(--sp-3) var(--sp-3) var(--sp-6)", maxWidth: 1120 }}>
+      <main className="page">
         {pageError && (
           <div style={{ marginBottom: "var(--sp-3)" }}>
             <Notice tone="danger">{decodeURIComponent(pageError)}</Notice>

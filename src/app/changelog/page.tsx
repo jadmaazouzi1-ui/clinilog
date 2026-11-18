@@ -1,4 +1,4 @@
-import Link from "next/link";
+import PublicPage from "@/components/PublicPage";
 import { CHANGELOG } from "@/lib/changelog";
 import { formatDate } from "@/lib/format";
 import ChangelogNote from "@/components/tour/ChangelogNote";
@@ -10,48 +10,31 @@ export const metadata = {
 
 export default function ChangelogPage() {
   return (
-    <div style={{ backgroundColor: "var(--background)", minHeight: "100vh" }}>
-      <header
-        className="sticky top-0 z-50"
-        style={{ backgroundColor: "var(--background)", borderBottom: "1px solid var(--border-strong)" }}
-      >
-        <div className="max-w-3xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="font-bold" style={{ fontSize: "1.0625rem", textDecoration: "none", color: "var(--text)" }}>
-            ClinicLog MD
-          </Link>
-        </div>
-      </header>
-
-      <main className="max-w-3xl mx-auto px-6" style={{ paddingTop: "var(--sp-6)", paddingBottom: "var(--sp-8)" }}>
-        <ChangelogNote />
-        <p className="section-title">Changelog</p>
-        <h1 className="text-3xl font-bold" style={{ color: "var(--text)", marginBottom: "var(--sp-1)" }}>
-          What has shipped.
-        </h1>
-        <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-5)" }}>
-          Newest first. Every entry is something you can use today.
+    <PublicPage>
+      <ChangelogNote />
+      <div className="grid lg:grid-cols-12" style={{ gap: "var(--sp-4)", marginBottom: "var(--sp-5)" }}>
+        <h1 className="text-3xl lg:col-span-4">Changelog</h1>
+        <p className="lg:col-span-8 measure" style={{ color: "var(--text-muted)" }}>
+          What has changed, newest first. Every entry describes something in the app today.
         </p>
-
-        {CHANGELOG.map((entry, i) => (
-          <article key={`${entry.date}-${entry.title}`}>
-            {/* Journal-style masthead: stamp on the left, title beneath */}
-            <div className="flex items-baseline gap-3 flex-wrap" style={{ marginBottom: 6 }}>
-              <span className="meta">{formatDate(entry.date)}</span>
-              {entry.tags.map((t) => (
-                <span key={t} className="badge">{t}</span>
-              ))}
+      </div>
+      <ol style={{ borderTop: "1px solid var(--border-strong)" }}>
+        {CHANGELOG.map((entry) => (
+          <li key={`${entry.date}-${entry.title}`} className="grid lg:grid-cols-12" style={{ gap: "var(--sp-1) var(--sp-4)", padding: "var(--sp-3) 0", borderBottom: "1px solid var(--border)" }}>
+            <div className="lg:col-span-4">
+              <time dateTime={entry.date} className="text-sm tnum" style={{ color: "var(--text-muted)" }}>{formatDate(entry.date)}</time>
+              <p className="flex flex-wrap gap-1" style={{ marginTop: "var(--sp-h)" }}>
+                {entry.tags.map((t) => <span key={t} className="badge">{t}</span>)}
+              </p>
             </div>
-            <h2 className="text-lg font-bold" style={{ color: "var(--text)", marginBottom: 4 }}>
-              {entry.title}
-            </h2>
-            <p className="text-sm" style={{ color: "var(--text-muted)", lineHeight: 1.7, maxWidth: 620 }}>
-              {entry.body}
-            </p>
-            {i < CHANGELOG.length - 1 && <hr className="rule" />}
-          </article>
+            <article className="lg:col-span-8">
+              <h2 className="text-xl">{entry.title}</h2>
+              <p className="measure" style={{ color: "var(--text-muted)", marginTop: "var(--sp-h)" }}>{entry.body}</p>
+            </article>
+          </li>
         ))}
-      </main>
+      </ol>
       <TourRoot />
-    </div>
+    </PublicPage>
   );
 }

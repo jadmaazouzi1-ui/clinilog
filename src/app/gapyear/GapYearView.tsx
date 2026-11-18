@@ -117,7 +117,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
       <div className="card rounded-2xl p-6">
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div className="flex-1 min-w-[200px]">
-            <p className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: "var(--text-muted)" }}>Target Application Cycle</p>
+            <p className="text-xs font-semibold mb-2" style={{ color: "var(--text-muted)" }}>Target application cycle</p>
             <select
               value={data.target_cycle_year ?? ""}
               onChange={(e) => persist({ target_cycle_year: e.target.value ? parseInt(e.target.value) : null })}
@@ -145,7 +145,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
       <div className="card rounded-2xl p-6">
         <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
           <div>
-            <h2 className="text-base font-semibold" style={{ color: "var(--text)" }}>Gap Year Goals</h2>
+            <h2 className="text-base font-semibold" style={{ color: "var(--text)" }}>Goals</h2>
             <p className="text-xs" style={{ color: "var(--text-muted)" }}>{data.goals.length}/5 set</p>
           </div>
         </div>
@@ -161,7 +161,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
                   style={{ background: "var(--surface)", border: "1px solid var(--border-strong)" }}
                 >
                   <span
-                    className="inline-flex items-center px-2 py-0.5 rounded-sm text-xs font-bold uppercase tracking-wide flex-shrink-0 mt-0.5"
+                    className="inline-flex items-center px-2 py-0.5 rounded-sm text-xs font-bold flex-shrink-0 mt-0.5"
                     style={{ background: "var(--surface)", color: "var(--border-strong)", border: "1px solid var(--border-strong)" }}
                   >
                     {meta.label}
@@ -206,8 +206,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
             <button
               onClick={addGoal}
               disabled={!newTitle.trim()}
-              className="px-4 py-2.5 rounded-xl font-semibold text-sm disabled:opacity-40 disabled:cursor-not-allowed"
-              style={{ background: "var(--action)", color: "var(--on-action)" }}
+              className="btn btn-primary"
             >
               Add
             </button>
@@ -217,7 +216,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
 
       {/* Monthly log */}
       <div className="card rounded-2xl p-6">
-        <h2 className="text-base font-semibold mb-1" style={{ color: "var(--text)" }}>Monthly Activity Log</h2>
+        <h2 className="text-base font-semibold mb-1" style={{ color: "var(--text)" }}>Monthly log</h2>
         <p className="text-xs mb-4" style={{ color: "var(--text-muted)" }}>What did you do this month? Track progress on your goals.</p>
 
         <div className="grid grid-cols-[140px,1fr,auto] gap-2 mb-4">
@@ -236,8 +235,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
           <button
             onClick={saveLog}
             disabled={!logText.trim()}
-            className="px-4 py-2.5 rounded-xl font-semibold text-sm disabled:opacity-40 disabled:cursor-not-allowed"
-            style={{ background: "var(--action)", color: "var(--on-action)" }}
+            className="btn btn-primary"
           >
             Save
           </button>
@@ -253,7 +251,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
                 className="rounded-xl px-3.5 py-3 flex items-start gap-3"
                 style={{ background: "var(--surface)", border: "1px solid var(--border-strong)" }}
               >
-                <span className="text-xs font-bold uppercase tracking-wide flex-shrink-0" style={{ color: "var(--text)", minWidth: 76 }}>
+                <span className="text-xs font-bold flex-shrink-0" style={{ color: "var(--text)", minWidth: 76 }}>
                   {formatMonth(month)}
                 </span>
                 <p className="text-sm flex-1" style={{ color: "var(--text)" }}>{text}</p>
@@ -272,7 +270,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
       <div className="card rounded-2xl p-6">
         <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
           <div>
-            <h2 className="text-base font-semibold" style={{ color: "var(--text)" }}>Application Milestones</h2>
+            <h2 className="text-base font-semibold" style={{ color: "var(--text)" }}>Milestones</h2>
             <p className="text-xs" style={{ color: "var(--text-muted)" }}>{milestonesDone}/{MILESTONES.length} complete</p>
           </div>
           <div className="w-32 h-1.5 rounded-none overflow-hidden" style={{ background: "var(--surface-alt)", border: "1px solid var(--border)" }}>
@@ -282,8 +280,8 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
                 width: "100%",
                 transform: `scaleX(${milestonesDone / MILESTONES.length})`,
                 transformOrigin: "left center",
-                background: "var(--action)",
-                transition: "transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
+                background: "var(--data-1)",
+                transition: "transform var(--dur-slow) var(--ease-out)",
               }}
             />
           </div>
@@ -305,8 +303,8 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
                   <span
                     className="w-5 h-5 rounded-md flex items-center justify-center flex-shrink-0 mt-0.5"
                     style={{
-                      background: done ? "var(--action)" : "transparent",
-                      border: `2px solid ${done ? "var(--action)" : "var(--border-strong)"}`,
+                      background: done ? "var(--text)" : "transparent",
+                      border: `2px solid ${done ? "var(--text)" : "var(--border-strong)"}`,
                     }}
                   >
                     {done && (

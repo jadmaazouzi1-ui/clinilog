@@ -16,11 +16,8 @@ export default async function MockInterviewPage() {
 
   return (
     <AppShell userEmail={user.email ?? ""} activePath="/mock-interview">
-      <main
-        className="w-full"
-        style={{ paddingTop: "var(--sp-3)", paddingRight: "var(--sp-3)", paddingBottom: "var(--sp-4)", maxWidth: 820 }}
-      >
-        <h1 className="text-xl font-bold" style={{ color: "var(--text)" }}>
+      <main className="page">
+        <h1 className="text-2xl">
           Mock interview questions
         </h1>
         <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-3)" }}>
@@ -29,8 +26,8 @@ export default async function MockInterviewPage() {
         </p>
 
         {!ready && (
-          <div className="card" style={{ padding: "var(--sp-2)", marginBottom: "var(--sp-3)", borderLeft: "2px solid var(--action)" }}>
-            <p className="meta" style={{ marginBottom: 4 }}>PREREQUISITES</p>
+          <div className="card" style={{ padding: "var(--sp-2)", marginBottom: "var(--sp-3)" }}>
+            <p className="meta" style={{ marginBottom: 4 }}>Before you start</p>
             <p className="text-sm" style={{ color: "var(--text-muted)" }}>
               Log at least one experience so the questions can be about your own record.
             </p>

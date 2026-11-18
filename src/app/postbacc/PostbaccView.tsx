@@ -78,7 +78,7 @@ export default function PostbaccView({
     <div className="space-y-6">
       {/* Program type selector */}
       <div className="card rounded-2xl p-6">
-        <h2 className="text-base font-semibold mb-1" style={{ color: "var(--text)" }}>Program Type</h2>
+        <h2 className="text-base font-semibold mb-1" style={{ color: "var(--text)" }}>Program type</h2>
         <p className="text-xs mb-4" style={{ color: "var(--text-muted)" }}>Tell us which post-bacc path you&apos;re on.</p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {PROGRAM_TYPES.map((pt) => {
@@ -160,15 +160,14 @@ export default function PostbaccView({
                 type="checkbox"
                 checked={cBcpm}
                 onChange={(e) => setCBcpm(e.target.checked)}
-                className="w-4 h-4" style={{ accentColor: "var(--action)" }}
+                className="w-4 h-4" style={{ accentColor: "var(--text)" }}
               />
               BCPM course (Bio, Chem, Physics, Math)
             </label>
             <button
               type="submit"
               disabled={isPending}
-              className="px-4 py-2.5 rounded-xl font-semibold text-sm disabled:opacity-40"
-              style={{ background: "var(--action)", color: "var(--on-action)" }}
+              className="btn btn-primary"
             >
               Add Course
             </button>
@@ -179,7 +178,7 @@ export default function PostbaccView({
 
       {/* Course list */}
       <div className="card rounded-2xl p-6">
-        <h2 className="text-base font-semibold mb-4" style={{ color: "var(--text)" }}>Your Courses</h2>
+        <h2 className="text-base font-semibold mb-4" style={{ color: "var(--text)" }}>Your courses</h2>
         {initialCourses.length === 0 ? (
           <p className="text-sm text-center py-8" style={{ color: "var(--text-muted)" }}>
             No courses logged yet. Add your first course above.
@@ -189,11 +188,11 @@ export default function PostbaccView({
             <table className="w-full text-sm" style={{ minWidth: 600 }}>
               <thead>
                 <tr style={{ borderBottom: "1px solid var(--border-strong)" }}>
-                  <th className="text-left px-2 py-2 text-xs uppercase tracking-wide" style={{ color: "var(--text-muted)" }}>Course</th>
-                  <th className="text-left px-2 py-2 text-xs uppercase tracking-wide" style={{ color: "var(--text-muted)" }}>Semester</th>
-                  <th className="text-right px-2 py-2 text-xs uppercase tracking-wide" style={{ color: "var(--text-muted)" }}>Credits</th>
-                  <th className="text-center px-2 py-2 text-xs uppercase tracking-wide" style={{ color: "var(--text-muted)" }}>Grade</th>
-                  <th className="text-center px-2 py-2 text-xs uppercase tracking-wide" style={{ color: "var(--text-muted)" }}>BCPM</th>
+                  <th className="text-left px-2 py-2 text-xs" style={{ color: "var(--text-muted)" }}>Course</th>
+                  <th className="text-left px-2 py-2 text-xs" style={{ color: "var(--text-muted)" }}>Semester</th>
+                  <th className="text-right px-2 py-2 text-xs" style={{ color: "var(--text-muted)" }}>Credits</th>
+                  <th className="text-center px-2 py-2 text-xs" style={{ color: "var(--text-muted)" }}>Grade</th>
+                  <th className="text-center px-2 py-2 text-xs" style={{ color: "var(--text-muted)" }}>BCPM</th>
                   <th className="px-2 py-2"></th>
                 </tr>
               </thead>
@@ -218,7 +217,7 @@ export default function PostbaccView({
                       )}
                     </td>
                     <td className="px-2 py-3 text-right">
-                      <button onClick={() => handleDelete(c.id)} className="px-2 py-1 tnum text-xs font-bold tracking-widest nav-item-brutal" style={{ color: "var(--text)", border: "1px solid var(--border-strong)", background: "var(--surface)" }} aria-label="Delete course">
+                      <button onClick={() => handleDelete(c.id)} className="px-2 py-1 tnum text-xs font-bold nav-item-brutal" style={{ color: "var(--text)", border: "1px solid var(--border-strong)", background: "var(--surface)" }} aria-label="Delete course">
                         DELETE
                       </button>
                     </td>
@@ -269,9 +268,9 @@ function GpaCard({ label, sub, value, goal, onGoalChange }: {
   return (
     <div className="card rounded-2xl p-5">
       <div className="flex items-center justify-between mb-1">
-        <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>{label}</p>
+        <p className="text-xs font-semibold" style={{ color: "var(--text-muted)" }}>{label}</p>
         {value !== null && (
-          <span className="text-xs font-bold uppercase tracking-wide" style={{ color: metGoal ? "var(--text)" : "var(--text-muted)" }}>
+          <span className="text-xs font-bold" style={{ color: metGoal ? "var(--text)" : "var(--text-muted)" }}>
             {metGoal ? "Goal met" : `${pct.toFixed(0)}% to goal`}
           </span>
         )}

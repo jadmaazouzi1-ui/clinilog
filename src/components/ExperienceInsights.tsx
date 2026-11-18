@@ -8,7 +8,6 @@ interface Tip {
   kind: "positive" | "warn" | "alert";
   title: string;
   body: string;
-  icon: React.ReactNode;
   /** Same topic ids as lib/checks, so the Application check can claim one. */
   topic?: string;
 }
@@ -20,66 +19,6 @@ const HOURS_TOPIC: Record<"clinical" | "shadowing" | "research" | "volunteer", s
   volunteer: "hours:volunteer",
 };
 
-const ICONS = {
-  flask: (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M9 3v6.586l-5.707 5.707A1 1 0 004 17h16a1 1 0 00.707-1.707L15 9.586V3M9 3h6" />
-    </svg>
-  ),
-  stethoscope: (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6 6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4" />
-      <circle cx="20" cy="10" r="2" />
-    </svg>
-  ),
-  heart: (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-    </svg>
-  ),
-  eye: (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-    </svg>
-  ),
-  pencil: (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-    </svg>
-  ),
-  check: (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-    </svg>
-  ),
-  trophy: (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M5 4h14l-1 7a6 6 0 01-12 0L5 4zm0 0v0a3 3 0 00-3 3v0a3 3 0 003 3m14-6v0a3 3 0 013 3v0a3 3 0 01-3 3M12 17v3m-4 0h8" />
-    </svg>
-  ),
-  growth: (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-    </svg>
-  ),
-  spark: (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-    </svg>
-  ),
-  calendar: (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-    </svg>
-  ),
-  user: (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-    </svg>
-  ),
-};
 
 // AMCAS-style recommendations (full target, used as "100%" benchmark)
 // Same numbers as the tracker and the application check (lib/benchmarks).
@@ -214,15 +153,15 @@ function generateTips(experiences: Experience[], stage: Stage, hideTopics: strin
   if (experiences.length === 0) {
     if (stage === "freshman" || stage === "sophomore") {
       return [
-        { kind: "positive", title: "You have time", body: "Start with one clinical or shadowing experience this semester. Hours that build slowly over years read better than a late rush.", icon: ICONS.growth },
-        { kind: "warn",     title: "Aim for 4 categories",             body: "Most applicants have some clinical work, shadowing, research and volunteering. Try a little of each before choosing where to go deep.", icon: ICONS.spark },
-        { kind: "warn",     title: "Detail matters",                   body: "Write 2 or 3 sentences for each entry while you remember it. AMCAS asks for a description of every activity.", icon: ICONS.pencil },
+        { kind: "positive", title: "You have time", body: "Start with one clinical or shadowing experience this semester. Hours that build slowly over years read better than a late rush." },
+        { kind: "warn",     title: "Aim for 4 categories",             body: "Most applicants have some clinical work, shadowing, research and volunteering. Try a little of each before choosing where to go deep." },
+        { kind: "warn",     title: "Detail matters",                   body: "Write 2 or 3 sentences for each entry while you remember it. AMCAS asks for a description of every activity." },
       ];
     }
     return [
-      { kind: "alert", title: "No experiences logged yet",     body: "Your application is getting close. Log the clinical, shadowing, research and volunteer hours you have already done, including informal ones.", icon: ICONS.growth },
-      { kind: "alert", title: "Time is the constraint now",    body: "Pick the one or two categories you can add to most in the next 3 to 6 months and focus there.", icon: ICONS.calendar },
-      { kind: "warn",  title: "Descriptions are required",     body: "AMCAS asks for a description of every activity. Write rough notes now and tighten them before you apply.", icon: ICONS.pencil },
+      { kind: "alert", title: "No experiences logged yet",     body: "Your application is getting close. Log the clinical, shadowing, research and volunteer hours you have already done, including informal ones." },
+      { kind: "alert", title: "Time is the constraint now",    body: "Pick the one or two categories you can add to most in the next 3 to 6 months and focus there." },
+      { kind: "warn",  title: "Descriptions are required",     body: "AMCAS asks for a description of every activity. Write rough notes now and tighten them before you apply." },
     ];
   }
 
@@ -232,7 +171,6 @@ function generateTips(experiences: Experience[], stage: Stage, hideTopics: strin
     minForStage: minClinical,
     fullTarget: RECOMMENDATIONS.clinicalWork,
     stage,
-    icon: ICONS.stethoscope,
     label: "clinical",
     zeroBodyByStage: {
       freshman:  "No clinical hours yet, which is common for a first-year. Scribing, ED volunteering or CNA work are common places to start.",
@@ -257,7 +195,6 @@ function generateTips(experiences: Experience[], stage: Stage, hideTopics: strin
     minForStage: minShadowing,
     fullTarget: RECOMMENDATIONS.shadowing,
     stage,
-    icon: ICONS.eye,
     label: "shadowing",
     zeroBodyByStage: {
       freshman:  "No shadowing yet, and you have time. Ask one physician this year, even for a single half-day.",
@@ -282,7 +219,6 @@ function generateTips(experiences: Experience[], stage: Stage, hideTopics: strin
     minForStage: minResearch,
     fullTarget: RECOMMENDATIONS.research,
     stage,
-    icon: ICONS.flask,
     label: "research",
     zeroBodyByStage: {
       freshman:  "No research yet, which is fine for a first-year. If you are curious, joining a lab early lets you stay longer.",
@@ -307,7 +243,6 @@ function generateTips(experiences: Experience[], stage: Stage, hideTopics: strin
     minForStage: minVolunteer,
     fullTarget: RECOMMENDATIONS.volunteer,
     stage,
-    icon: ICONS.heart,
     label: "volunteer",
     zeroBodyByStage: {
       freshman:  "No service hours yet. Pick one cause and start small; staying with it matters more than the total.",
@@ -339,7 +274,6 @@ function generateTips(experiences: Experience[], stage: Stage, hideTopics: strin
       kind: urgency,
       title: `${missingDescCount} ${missingDescCount === 1 ? "experience is" : "experiences are"} missing a description`,
       body: `${stageSuffix} Write rough notes now and tighten them before you apply.`,
-      icon: ICONS.pencil,
     });
   }
 
@@ -356,7 +290,6 @@ function generateTips(experiences: Experience[], stage: Stage, hideTopics: strin
       kind: "positive",
       title: "Well-rounded profile",
       body: `${formatHours(totalHours)} total hours across all four core categories. ${stageNote}`,
-      icon: ICONS.trophy,
     });
   }
 
@@ -366,7 +299,6 @@ function generateTips(experiences: Experience[], stage: Stage, hideTopics: strin
       kind: "warn",
       title: "Focus on your descriptions",
       body: "Your hours look reasonable for where you are. Spend the next few weeks on your AMCAS descriptions and on picking the experiences that mattered most to you.",
-      icon: ICONS.calendar,
     });
   }
 
@@ -375,7 +307,6 @@ function generateTips(experiences: Experience[], stage: Stage, hideTopics: strin
       kind: "positive",
       title: "No gaps found",
       body: "Your entries are spread across categories and have descriptions. Next, look for depth: leadership roles and longer commitments.",
-      icon: ICONS.trophy,
     });
   }
 
@@ -405,7 +336,6 @@ interface HoursTipConfig {
   minForStage: number;
   fullTarget: number;
   stage: Stage;
-  icon: React.ReactNode;
   label: "clinical" | "shadowing" | "research" | "volunteer";
   zeroBodyByStage: Record<Stage, string>;
   onTrackTitle: string;
@@ -413,7 +343,7 @@ interface HoursTipConfig {
 }
 
 function pushHoursTip(out: Tip[], cfg: HoursTipConfig) {
-  const { actual, minForStage, fullTarget, stage, icon, zeroBodyByStage, onTrackTitle, onTrackBodyByStage } = cfg;
+  const { actual, minForStage, fullTarget, stage, zeroBodyByStage, onTrackTitle, onTrackBodyByStage } = cfg;
 
   // No hours: urgency depends on stage
   if (actual === 0) {
@@ -424,7 +354,7 @@ function pushHoursTip(out: Tip[], cfg: HoursTipConfig) {
       : stage === "junior"    ? `No ${cfg.label} hours yet`
       : stage === "senior"    ? `No ${cfg.label} hours, and the cycle is close`
       : `No ${cfg.label} hours logged`;
-    out.push({ kind, title, body: zeroBodyByStage[stage], icon, topic: HOURS_TOPIC[cfg.label] });
+    out.push({ kind, title, body: zeroBodyByStage[stage], topic: HOURS_TOPIC[cfg.label] });
     return;
   }
 
@@ -445,7 +375,7 @@ function pushHoursTip(out: Tip[], cfg: HoursTipConfig) {
       : stage === "sophomore" ? `Build ${cfg.label} toward midpoint`
       : stage === "junior"    ? `${cfg.label[0].toUpperCase()}${cfg.label.slice(1)} below the benchmark`
       :                         `${cfg.label[0].toUpperCase()}${cfg.label.slice(1)} hours below target`;
-    out.push({ kind, title, body, icon, topic: HOURS_TOPIC[cfg.label] });
+    out.push({ kind, title, body, topic: HOURS_TOPIC[cfg.label] });
     return;
   }
 
@@ -464,7 +394,6 @@ function pushHoursTip(out: Tip[], cfg: HoursTipConfig) {
       kind: stage === "freshman" || stage === "sophomore" ? "positive" : "warn",
       title: stage === "freshman" || stage === "sophomore" ? `${cfg.label[0].toUpperCase()}${cfg.label.slice(1)} on pace` : `${cfg.label[0].toUpperCase()}${cfg.label.slice(1)}: almost there`,
       body,
-      icon,
     });
     return;
   }
@@ -475,6 +404,5 @@ function pushHoursTip(out: Tip[], cfg: HoursTipConfig) {
     kind: "positive",
     title: onTrackTitle,
     body: `${formatHours(actual)} ${cfg.label} hours ${onTrackBodyByStage[stage]}`,
-    icon,
   });
 }

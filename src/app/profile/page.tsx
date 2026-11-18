@@ -49,26 +49,11 @@ export default async function ProfilePage({
   return (
     <AppShell userEmail={user.email ?? ""} activePath="/profile">
 
-      <main className="w-full px-6 py-8">
+      <main className="page">
         {/* Back link */}
         <Link
           href="/dashboard"
-          className="inline-flex items-center gap-1.5 text-sm font-medium mb-8"
-          style={{ color: "var(--text)" }}
-        >
-          <svg
-            className="w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M10 19l-7-7m0 0l7-7m-7 7h18"
-            />
-          </svg>
+          className="link text-sm inline-block" style={{ marginBottom: "var(--sp-15)" }}>
           Back to Overview
         </Link>
 
@@ -106,7 +91,7 @@ export default async function ProfilePage({
 
         <div className="card rounded-2xl p-8">
           <div className="flex items-start justify-between gap-3 mb-6">
-            <h1 className="text-xl font-bold" style={{ color: "var(--text)" }}>Your Profile</h1>
+            <h1 className="text-2xl">Profile</h1>
             <HelpButton className="md:hidden" tourId="help-profile" />
           </div>
 
@@ -290,21 +275,21 @@ export default async function ProfilePage({
             <hr className="rule" />
 
             {/* Committee letter tracker */}
-            <p className="section-title">Committee Letter</p>
+            <p className="section-title">Committee letter</p>
             <div style={{ marginBottom: "var(--sp-2)" }}>
               <label className="flex items-center gap-2 text-sm" style={{ color: "var(--text)", cursor: "pointer" }}>
                 <input
                   type="checkbox"
                   name="committee_letter_required"
                   defaultChecked={profile?.committee_letter_required ?? false}
-                  style={{ accentColor: "var(--action)", width: 15, height: 15 }}
+                  style={{ accentColor: "var(--text)", width: 15, height: 15 }}
                 />
                 My schools require a committee letter
               </label>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2" style={{ gap: "var(--sp-2)", marginBottom: "var(--sp-2)" }}>
               <div>
-                <label htmlFor="committee_letter_status" className="label">STATUS</label>
+                <label htmlFor="committee_letter_status" className="label">Status</label>
                 <select
                   id="committee_letter_status"
                   name="committee_letter_status"
@@ -317,7 +302,7 @@ export default async function ProfilePage({
                 </select>
               </div>
               <div>
-                <label htmlFor="amcas_target_date" className="label">AMCAS OPENS (COUNTDOWN TARGET)</label>
+                <label htmlFor="amcas_target_date" className="label">AMCAS opening date <span className="optional">(for the countdown)</span></label>
                 <input
                   id="amcas_target_date"
                   name="amcas_target_date"
@@ -328,7 +313,7 @@ export default async function ProfilePage({
               </div>
             </div>
             <div style={{ marginBottom: "var(--sp-2)" }}>
-              <label htmlFor="committee_letter_notes" className="label">NOTES</label>
+              <label htmlFor="committee_letter_notes" className="label">Notes</label>
               <textarea
                 id="committee_letter_notes"
                 name="committee_letter_notes"
@@ -343,8 +328,7 @@ export default async function ProfilePage({
             <div className="pt-2">
               <button
                 type="submit"
-                className="w-full inline-flex items-center justify-center gap-2 btn btn-primary px-6 py-3 rounded-xl font-semibold text-sm transition-colors focus:outline-none"
-                style={{ backgroundColor: "var(--action)", color: "var(--on-action)" }}
+                className="btn btn-primary w-full"
               >
                 Save Profile
               </button>
@@ -369,7 +353,7 @@ export default async function ProfilePage({
 
         {/* Wallet card */}
         <div className="card" style={{ padding: "var(--sp-3)", marginTop: "var(--sp-3)" }} data-tour="wallet-card">
-          <p className="section-title">Wallet Card</p>
+          <p className="section-title">Wallet card</p>
           <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-2)" }}>
             A condensed PDF at wallet dimensions with your totals and top placements,
             handy to have on you before an interview.

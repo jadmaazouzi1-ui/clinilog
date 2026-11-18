@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Experience, formatHours } from "@/lib/types";
 import { formatDate } from "@/lib/format";
 import { daysUntil, defaultAmcasTarget } from "@/lib/appTypes";
@@ -52,7 +51,7 @@ export default function DashboardSignals({
         className="text-sm"
         style={{ color: "var(--text-muted)", marginBottom: "var(--sp-2)" }}
       >
-        AMCAS {days >= 0 ? "opens" : "opened"} <time className="tnum" dateTime={target} style={{ color: "var(--text)" }}>{formatDate(target)}</time>, {countdown}.
+        AMCAS {days >= 0 ? "opens" : "opened"} <time dateTime={target} style={{ color: "var(--text)" }}>{formatDate(target)}</time>, {countdown}.
         {streak > 1 && <> New entries {streak} weeks running.</>}
         {dormant !== null && !showDormant && (
           <> Last entry {dormant === 0 ? "today" : dormant === 1 ? "yesterday" : `${dormant} days ago`}.</>

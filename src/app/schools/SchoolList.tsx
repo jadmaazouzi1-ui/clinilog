@@ -4,35 +4,18 @@ import { useState } from "react";
 import { School, SCHOOLS, ALL_STATES, hasPublishedStats } from "@/lib/schools";
 import SchoolActions from "./SchoolActions";
 import ExportTargetList from "./ExportTargetList";
-import { EmptyState } from "@/components/EmptyStates";
+import { EmptyState } from "@/components/ui";
 
 
 type MissionFilter = "Primary Care & Underserved" | "Research" | "Osteopathic" | "Community Health" | "Caribbean";
 
 const MISSION_FILTERS: { label: string; value: MissionFilter; dot: string }[] = [
-  { label: "Primary Care & Underserved", value: "Primary Care & Underserved", dot: "var(--action)" },
-  { label: "Research",                   value: "Research",                   dot: "var(--action)" },
-  { label: "Osteopathic (DO)",           value: "Osteopathic",                dot: "var(--action)" },
-  { label: "Community Health",           value: "Community Health",           dot: "var(--action)" },
-  { label: "Caribbean",                  value: "Caribbean",                  dot: "var(--action)" },
+  { label: "Primary Care & Underserved", value: "Primary Care & Underserved", dot: "var(--data-2)" },
+  { label: "Research",                   value: "Research",                   dot: "var(--data-2)" },
+  { label: "Osteopathic (DO)",           value: "Osteopathic",                dot: "var(--data-2)" },
+  { label: "Community Health",           value: "Community Health",           dot: "var(--data-2)" },
+  { label: "Caribbean",                  value: "Caribbean",                  dot: "var(--data-2)" },
 ];
-
-function getMissionBadgeStyle(mission: string): React.CSSProperties {
-  const m = mission.toLowerCase();
-  if (m.includes("caribbean"))
-    return { background: "var(--surface)", color: "var(--text)", border: "1px solid var(--border-strong)" };
-  if (m.includes("osteopathic"))
-    return { background: "var(--surface-alt)", color: "var(--text)", border: "1px solid var(--border-strong)" };
-  if (m.includes("community health"))
-    return { background: "var(--surface)", color: "var(--text)", border: "1px solid var(--border-strong)" };
-  if (m.includes("underserved") && m.includes("primary"))
-    return { background: "var(--surface-alt)", color: "var(--text)", border: "1px solid var(--border-strong)" };
-  if (m.includes("underserved"))
-    return { background: "var(--surface-alt)", color: "var(--text)", border: "1px solid var(--border-strong)" };
-  if (m.includes("primary care"))
-    return { background: "var(--surface)", color: "var(--text)", border: "1px solid var(--border-strong)" };
-  return { background: "var(--surface)", color: "var(--text)", border: "1px solid var(--border-strong)" };
-}
 
 export default function SchoolList({
   userEmail: _userEmail,
@@ -110,263 +93,144 @@ export default function SchoolList({
     return true;
   });
 
-  // Inactive filter button style
-  const inactiveFilterStyle: React.CSSProperties = {
-    background: "var(--surface)",
-    border: "1px solid var(--border-strong)",
-    color: "var(--text)",
-  };
-  // Active filter button style
-  const activeFilterStyle: React.CSSProperties = {
-    background: "var(--action)",
-    border: "1px solid var(--border-strong)",
-    color: "var(--on-action)",
-  };
+  const toggle = (active: boolean) => `btn btn-sm ${active ? "btn-primary" : "btn-secondary"}`;
 
   return (
     <div>
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold" style={{ color: "var(--text)" }}>Medical School Explorer</h1>
-        <p className="mt-1 text-sm" style={{ color: "var(--text-muted)" }}>
-          See how your stats compare to average applicant profiles across {SCHOOLS.length} programs.
+      <header style={{ marginBottom: "var(--sp-4)" }}>
+        <h1 className="text-2xl">Schools</h1>
+        <p className="text-sm measure" style={{ color: "var(--text-muted)", marginTop: "var(--sp-h)" }}>
+          {SCHOOLS.length} programs with their published applicant averages. Enter your numbers to see where you sit,
+          and check each school&apos;s own site before you apply: averages move every cycle.
         </p>
-      </div>
+      </header>
 
-      {/* Stats inputs */}
-      <div className="card rounded-2xl p-6 mb-6" data-tour="schools-stats">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-3">
-          <div>
-            <label htmlFor="gpa-input" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text)" }}>GPA</label>
-            <input
-              id="gpa-input" type="number" min={0} max={4.0} step={0.01} placeholder="e.g. 3.7"
-              value={gpa} onChange={(e) => setGpa(e.target.value)}
-              className="field w-full px-3.5 py-2.5 rounded-xl text-sm"
-            />
-          </div>
-          <div>
-            <label htmlFor="mcat-input" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text)" }}>MCAT</label>
-            <input
-              id="mcat-input" type="number" min={472} max={528} step={1} placeholder="e.g. 512"
-              value={mcat} onChange={(e) => setMcat(e.target.value)}
-              className="field w-full px-3.5 py-2.5 rounded-xl text-sm"
-            />
-          </div>
+      <section className="grid grid-cols-1 sm:grid-cols-3" style={{ gap: "var(--sp-2)", marginBottom: "var(--sp-2)" }} data-tour="schools-stats">
+        <div>
+          <label htmlFor="gpa-input" className="label">Your GPA</label>
+          <input id="gpa-input" type="number" inputMode="decimal" min={0} max={4.0} step={0.01} placeholder="3.70"
+            value={gpa} onChange={(e) => setGpa(e.target.value)} className="field tnum" />
         </div>
-        <p className="text-xs" style={{ color: "var(--text-muted)" }}>Highlights schools within ±0.3 GPA and ±5 MCAT points of your stats.</p>
-        <div className="mt-4 pt-4" style={{ borderTop: "1px solid var(--border-strong)" }} data-tour="schools-home-state">
-          <label htmlFor="home-state" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text)" }}>
-            My Home State <span className="font-normal" style={{ color: "var(--text-muted)" }}>(optional, highlights in-state schools for you)</span>
-          </label>
-          <select
-            id="home-state"
-            value={homeState}
-            onChange={(e) => setHomeState(e.target.value)}
-            className="field w-full sm:w-64 px-3.5 py-2.5 rounded-xl text-sm"
-          >
-            <option value="">Select your state...</option>
+        <div>
+          <label htmlFor="mcat-input" className="label">Your MCAT</label>
+          <input id="mcat-input" type="number" inputMode="numeric" min={472} max={528} step={1} placeholder="512"
+            value={mcat} onChange={(e) => setMcat(e.target.value)} className="field tnum" />
+        </div>
+        <div data-tour="schools-home-state">
+          <label htmlFor="home-state" className="label">Home state <span className="optional">(optional)</span></label>
+          <select id="home-state" value={homeState} onChange={(e) => setHomeState(e.target.value)} className="field">
+            <option value="">Not set</option>
             {ALL_STATES.filter((s) => s !== "Intl").map((s) => <option key={s} value={s}>{s}</option>)}
           </select>
         </div>
-      </div>
+      </section>
+      <p className="hint" style={{ marginBottom: "var(--sp-3)" }}>
+        A match means within 0.3 of the GPA average and 5 points of the MCAT average. Home state shows only that
+        state&apos;s schools that favour residents.
+      </p>
 
-      {/* Filter bar */}
-      <div className="card rounded-2xl p-4 mb-5" data-tour="schools-filters">
-        <div className="flex gap-2 overflow-x-auto pb-2" style={{ scrollbarWidth: "none" }}>
-          {MISSION_FILTERS.map((f) => {
-            const active = missionFilters.has(f.value);
-            return (
-              <button
-                key={f.value} type="button" onClick={() => toggleMission(f.value)}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium transition-colors flex-shrink-0"
-                style={active ? activeFilterStyle : inactiveFilterStyle}
-              >
-                <span
-                  className="w-2 h-2 rounded-full flex-shrink-0"
-                  style={{ backgroundColor: active ? "currentColor" : "var(--text)" }}
-                />
-                {f.label}
-              </button>
-            );
-          })}
-
-          {/* Divider */}
-          <span className="w-px h-5 mx-1 self-center flex-shrink-0" style={{ background: "var(--surface)" }} />
-
-          {/* In-state pref filter buttons */}
-          {(["In-State Friendly", "Out-of-State Friendly"] as const).map((pref) => {
-            const active = inStatePrefFilter === pref;
-            return (
-              <button
-                key={pref} type="button"
-                onClick={() => setInStatePrefFilter(active ? "" : pref)}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium transition-colors flex-shrink-0"
-                style={active ? activeFilterStyle : inactiveFilterStyle}
-              >
-                <span
-                  className="w-2 h-2 rounded-full flex-shrink-0"
-                  style={{ backgroundColor: active ? "var(--text)" : pref === "In-State Friendly" ? "var(--text)" : "var(--text)" }}
-                />
-                {pref}
-              </button>
-            );
-          })}
-
-          {/* Divider */}
-          <span className="w-px h-5 mx-1 self-center flex-shrink-0" style={{ background: "var(--surface)" }} />
-
-          <select
-            value={stateFilter} onChange={(e) => setStateFilter(e.target.value)}
-            className="px-3 py-1.5 rounded-xl text-sm font-medium transition-colors focus:outline-none flex-shrink-0"
-            style={stateFilter ? activeFilterStyle : inactiveFilterStyle}
-          >
-            <option value="">School State</option>
-            {ALL_STATES.map((s) => <option key={s} value={s}>{s}</option>)}
-          </select>
-
-          <button
-            type="button" onClick={() => setMatchOnly((v) => !v)}
-            disabled={!bothEntered}
-            title={!bothEntered ? "Enter GPA and MCAT above first" : undefined}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium transition-colors disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0"
-            style={matchOnly ? activeFilterStyle : inactiveFilterStyle}
-          >
-            <span
-              className="w-2 h-2 rounded-full flex-shrink-0"
-              style={{ backgroundColor: matchOnly ? "var(--text)" : "var(--text)" }}
-            />
-            My Stats Match
-          </button>
-        </div>
-
-        {hasActiveFilters && (
-          <div className="pt-2">
-            <button
-              type="button" onClick={clearAll}
-              className="text-xs font-medium px-2 py-1"
-              style={{ color: "var(--text)" }}
-            >
-              Clear all
-            </button>
-          </div>
-        )}
-      </div>
-
-      <div className="flex items-center justify-between gap-3 flex-wrap mb-4">
-        <p className="text-sm font-medium" style={{ color: "var(--text-muted)" }}>
-          Showing <span className="font-semibold" style={{ color: "var(--text)" }}>{filtered.length}</span> of {SCHOOLS.length} schools
-        </p>
-        <ExportTargetList
-          schools={SCHOOLS.filter((sc) => statuses[sc.name] === "Applying")}
-          userName={userName}
-        />
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {filtered.map((school) => {
-          const match = isGoodMatch(school);
-          const isInStateForUser = homeState !== "" && school.state === homeState && school.inStatePref === "In-State Friendly";
+      <div className="flex flex-wrap items-center gap-2" style={{ paddingBottom: "var(--sp-2)", borderBottom: "1px solid var(--border)", marginBottom: "var(--sp-2)" }} data-tour="schools-filters" role="group" aria-label="Filters">
+        {MISSION_FILTERS.map((f) => {
+          const active = missionFilters.has(f.value);
           return (
-            <div
-              key={school.name}
-              className="card rounded-2xl p-5 transition-all"
-              style={
-                isInStateForUser
-                  ? { background: "var(--surface-alt)", borderColor: "var(--text)" }
-                  : match
-                  ? { background: "var(--surface)", borderColor: "var(--text)" }
-                  : {}
-              }
-            >
-              <div className="mb-3">
-                <div className="flex items-center gap-2 flex-wrap mb-1">
-                  <h3 className="text-sm font-bold leading-snug" style={{ color: "var(--text)" }}>{school.name}</h3>
-                  {isInStateForUser && (
-                    <span
-                      className="inline-flex items-center px-2 py-0.5 rounded-sm text-xs font-semibold whitespace-nowrap"
-                      style={{ background: "var(--surface-alt)", color: "var(--text)", border: "1px solid var(--border-strong)" }}
-                    >
-                      In-state for you
-                    </span>
-                  )}
-                  {match && !isInStateForUser && (
-                    <span
-                      className="inline-flex items-center px-2 py-0.5 rounded-sm text-xs font-semibold whitespace-nowrap"
-                      style={{ background: "var(--surface)", color: "var(--text)", border: "1px solid var(--border-strong)" }}
-                    >
-                      Good Match
-                    </span>
-                  )}
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2 flex-wrap mb-3">
-                <span
-                  className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-xs font-medium"
-                  style={{ background: "var(--surface)", color: "var(--border-strong)", border: "1px solid var(--border-strong)" }}
-                >
-                  {school.state}
-                </span>
-                <span
-                  className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-xs font-medium"
-                  style={getMissionBadgeStyle(school.mission)}
-                >
-                  {school.mission}
-                </span>
-                {school.inStatePref !== "Neutral" && (
-                  <span
-                    className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-xs font-medium"
-                    style={
-                      school.inStatePref === "In-State Friendly"
-                        ? { background: "var(--surface-alt)", color: "var(--text)", border: "1px solid var(--border-strong)" }
-                        : { background: "var(--surface)", color: "var(--text)", border: "1px solid var(--border-strong)" }
-                    }
-                  >
-                    {school.inStatePref}
-                  </span>
-                )}
-              </div>
-
-              <SchoolActions
-                school={school}
-                status={statuses[school.name] ?? null}
-                gpa={gpa !== "" && !isNaN(gpaNum) ? gpaNum : null}
-                mcat={mcat !== "" && !isNaN(mcatNum) ? mcatNum : null}
-                clinicalHours={clinicalHours}
-              />
-
-              <div className="flex items-center gap-3">
-                <div
-                  className="flex items-center gap-1.5 rounded-lg px-3 py-1.5"
-                  style={{ background: "var(--surface)", border: "1px solid var(--border-strong)" }}
-                >
-                  <span className="text-xs font-medium" style={{ color: "var(--text-muted)" }}>Avg GPA</span>
-                  <span className="text-sm font-bold" style={{ color: "var(--text)" }}>{school.avgGpa === null ? "Not reported" : school.avgGpa.toFixed(2)}</span>
-                </div>
-                <div
-                  className="flex items-center gap-1.5 rounded-lg px-3 py-1.5"
-                  style={{ background: "var(--surface)", border: "1px solid var(--border-strong)" }}
-                >
-                  <span className="text-xs font-medium" style={{ color: "var(--text-muted)" }}>Avg MCAT</span>
-                  <span className="text-sm font-bold" style={{ color: "var(--text)" }}>{school.avgMcat === null ? "Not reported" : school.avgMcat}</span>
-                </div>
-              </div>
-            </div>
+            <button key={f.value} type="button" onClick={() => toggleMission(f.value)} aria-pressed={active} className={toggle(active)}>
+              {f.label}
+            </button>
           );
         })}
-
-        {filtered.length === 0 && (
-          <div className="col-span-1 sm:col-span-2">
-            <EmptyState
-              kind="schools"
-              title="No schools match these filters"
-              body="Nothing in the list of 149 programs fits every filter at once. Widening the state or mission filter usually brings results back."
-            />
-            <button type="button" onClick={clearAll} className="btn btn-secondary text-sm font-semibold" style={{ padding: "8px var(--sp-2)" }}>
-              Clear all filters
+        {(["In-State Friendly", "Out-of-State Friendly"] as const).map((pref) => {
+          const active = inStatePrefFilter === pref;
+          return (
+            <button key={pref} type="button" onClick={() => setInStatePrefFilter(active ? "" : pref)} aria-pressed={active} className={toggle(active)}>
+              {pref}
             </button>
-          </div>
+          );
+        })}
+        <label htmlFor="state-filter" className="sr-only">School state</label>
+        <select id="state-filter" value={stateFilter} onChange={(e) => setStateFilter(e.target.value)} className="field" style={{ width: "auto", minHeight: 36, padding: "4px 8px", fontSize: "var(--text-sm)" }}>
+          <option value="">Any state</option>
+          {ALL_STATES.map((s) => <option key={s} value={s}>{s}</option>)}
+        </select>
+        <button
+          type="button" onClick={() => setMatchOnly((v) => !v)} disabled={!bothEntered} aria-pressed={matchOnly}
+          title={!bothEntered ? "Enter GPA and MCAT above first" : undefined}
+          className={toggle(matchOnly)}
+        >
+          Matches my numbers
+        </button>
+        {hasActiveFilters && (
+          <button type="button" onClick={clearAll} className="btn btn-sm btn-ghost">Clear filters</button>
         )}
       </div>
+
+      <div className="flex items-center justify-between gap-3 flex-wrap" style={{ marginBottom: "var(--sp-15)" }}>
+        <p className="text-sm" style={{ color: "var(--text-muted)" }} aria-live="polite">
+          Showing <span className="font-semibold tnum" style={{ color: "var(--text)" }}>{filtered.length}</span> of {SCHOOLS.length}
+        </p>
+        <ExportTargetList schools={SCHOOLS.filter((sc) => statuses[sc.name] === "Applying")} userName={userName} />
+      </div>
+
+      {filtered.length === 0 ? (
+        <div>
+          <EmptyState title="No schools match every filter">
+            {`None of the ${SCHOOLS.length} programs fits all of these at once. Removing the state or a mission filter usually brings results back.`}
+          </EmptyState>
+          <button type="button" onClick={clearAll} className="btn btn-secondary" style={{ marginTop: "var(--sp-2)" }}>
+            Clear filters
+          </button>
+        </div>
+      ) : (
+        <ul style={{ borderTop: "1px solid var(--border-strong)" }}>
+          <li className="hidden md:grid grid-cols-[minmax(0,1fr)_5rem_5rem_minmax(0,18rem)] gap-x-6 text-xs font-semibold" style={{ color: "var(--text-muted)", padding: "var(--sp-1) 0", borderBottom: "1px solid var(--border)" }} aria-hidden="true">
+            <span>School</span>
+            <span className="text-right">Avg GPA</span>
+            <span className="text-right">Avg MCAT</span>
+            <span>Your list</span>
+          </li>
+          {filtered.map((school) => {
+            const match = isGoodMatch(school);
+            const isInStateForUser = homeState !== "" && school.state === homeState && school.inStatePref === "In-State Friendly";
+            return (
+              <li
+                key={school.name}
+                className="grid grid-cols-2 md:grid-cols-[minmax(0,1fr)_5rem_5rem_minmax(0,18rem)] gap-x-6 gap-y-2"
+                style={{ padding: "var(--sp-2) 0", borderBottom: "1px solid var(--border)" }}
+              >
+                <div className="col-span-2 md:col-span-1 min-w-0">
+                  <h3 className="text-base">{school.name}</h3>
+                  <p className="text-xs" style={{ color: "var(--text-muted)", marginTop: 2 }}>
+                    {school.degree === "Caribbean" ? "Caribbean program" : `${school.degree} program`} · {school.state} · {school.mission}
+                    {school.inStatePref !== "Neutral" ? ` · ${school.inStatePref}` : ""}
+                  </p>
+                  {(isInStateForUser || match) && (
+                    <p style={{ marginTop: "var(--sp-1)" }} className="flex gap-1 flex-wrap">
+                      {isInStateForUser && <span className="badge badge-info">In-state for you</span>}
+                      {match && <span className="badge badge-success">Matches your numbers</span>}
+                    </p>
+                  )}
+                </div>
+                <p className="tnum md:text-right text-sm">
+                  <span className="md:hidden text-xs" style={{ color: "var(--text-muted)" }}>Avg GPA </span>
+                  {school.avgGpa === null ? <span style={{ color: "var(--text-muted)" }}>Not reported</span> : school.avgGpa.toFixed(2)}
+                </p>
+                <p className="tnum md:text-right text-sm">
+                  <span className="md:hidden text-xs" style={{ color: "var(--text-muted)" }}>Avg MCAT </span>
+                  {school.avgMcat === null ? <span style={{ color: "var(--text-muted)" }}>Not reported</span> : school.avgMcat}
+                </p>
+                <div className="col-span-2 md:col-span-1">
+                  <SchoolActions
+                    school={school}
+                    status={statuses[school.name] ?? null}
+                    gpa={gpa !== "" && !isNaN(gpaNum) ? gpaNum : null}
+                    mcat={mcat !== "" && !isNaN(mcatNum) ? mcatNum : null}
+                    clinicalHours={clinicalHours}
+                  />
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      )}
     </div>
   );
 }

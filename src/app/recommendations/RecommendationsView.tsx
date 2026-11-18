@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { RECOMMENDATION_STATUSES, Recommendation } from "@/lib/appTypes";
 import { formatDate } from "@/lib/format";
-import { EmptyState } from "@/components/EmptyStates";
+import { EmptyState } from "@/components/ui";
 import {
   createRecommendation,
   deleteRecommendation,
@@ -13,7 +13,7 @@ import {
 
 const STATUS_COLOR: Record<string, string> = {
   Requested: "var(--text-muted)",
-  "In Progress": "var(--action-text)",
+  "In Progress": "var(--warning)",
   Submitted: "var(--text)",
 };
 
@@ -29,9 +29,9 @@ export default function RecommendationsView({ letters }: { letters: Recommendati
         <>
           <div className="grid grid-cols-3" style={{ gap: "var(--sp-2)", marginBottom: "var(--sp-4)" }}>
             {[
-              ["LETTERS REQUESTED", String(letters.length).padStart(2, "0")],
-              ["SUBMITTED", String(submitted).padStart(2, "0")],
-              ["OUTSTANDING", String(letters.length - submitted).padStart(2, "0")],
+              ["Letters requested", String(letters.length)],
+              ["Submitted", String(submitted).padStart(2, "0")],
+              ["Outstanding", String(letters.length - submitted).padStart(2, "0")],
             ].map(([label, value]) => (
               <div key={label} className="card">
                 <p className="stat-label">{label}</p>
@@ -60,19 +60,19 @@ export default function RecommendationsView({ letters }: { letters: Recommendati
         >
           <div className="grid grid-cols-1 md:grid-cols-4" style={{ gap: "var(--sp-2)", marginBottom: "var(--sp-2)" }}>
             <div>
-              <label className="label">RECOMMENDER</label>
+              <label className="label">Who is writing it</label>
               <input name="recommender_name" required placeholder="Dr. Patel" className="field" />
             </div>
             <div>
-              <label className="label">RELATIONSHIP</label>
+              <label className="label">Relationship</label>
               <input name="relationship" placeholder="Research PI" className="field" />
             </div>
             <div>
-              <label className="label">REQUESTED</label>
+              <label className="label">Requested</label>
               <input name="date_requested" type="date" className="field" />
             </div>
             <div>
-              <label className="label">STATUS</label>
+              <label className="label">Status</label>
               <select name="status" className="field">
                 {RECOMMENDATION_STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
               </select>
@@ -80,11 +80,11 @@ export default function RecommendationsView({ letters }: { letters: Recommendati
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "var(--sp-2)", marginBottom: "var(--sp-2)" }}>
             <div>
-              <label className="label">ASSIGNED SCHOOLS</label>
+              <label className="label">Schools it goes to</label>
               <input name="assigned_schools" placeholder="Comma separated, e.g. Yale, Duke" className="field" />
             </div>
             <div>
-              <label className="label">NOTES</label>
+              <label className="label">Notes</label>
               <input name="notes" placeholder="Sent packet on 12 MAY" className="field" />
             </div>
           </div>
@@ -93,11 +93,9 @@ export default function RecommendationsView({ letters }: { letters: Recommendati
       )}
 
       {letters.length === 0 && !adding ? (
-        <EmptyState
-          kind="recommendations"
-          title="No letters logged"
-          body="Track each letter you have requested, who is writing it, and which schools it has been assigned to."
-        />
+        <EmptyState title="No letters logged">
+          {"Track each letter you have requested, who is writing it, and which schools it has been assigned to."}
+          </EmptyState>
       ) : (
         <div style={{ display: "grid", gap: "var(--sp-2)" }}>
           {letters.map((l) => (
@@ -111,7 +109,7 @@ export default function RecommendationsView({ letters }: { letters: Recommendati
                     >
                       {l.status}
                     </span>
-                    {l.date_requested && <span className="meta">REQ {formatDate(l.date_requested)}</span>}
+                    {l.date_requested && <span className="meta">Requested {formatDate(l.date_requested)}</span>}
                   </div>
                   <h3 className="text-base font-semibold">{l.recommender_name}</h3>
                   {l.relationship && (
@@ -149,19 +147,19 @@ export default function RecommendationsView({ letters }: { letters: Recommendati
                 >
                   <div className="grid grid-cols-1 md:grid-cols-4" style={{ gap: "var(--sp-2)", marginBottom: "var(--sp-2)" }}>
                     <div>
-                      <label className="label">RECOMMENDER</label>
+                      <label className="label">Who is writing it</label>
                       <input name="recommender_name" defaultValue={l.recommender_name} required className="field" />
                     </div>
                     <div>
-                      <label className="label">RELATIONSHIP</label>
+                      <label className="label">Relationship</label>
                       <input name="relationship" defaultValue={l.relationship ?? ""} className="field" />
                     </div>
                     <div>
-                      <label className="label">REQUESTED</label>
+                      <label className="label">Requested</label>
                       <input name="date_requested" type="date" defaultValue={l.date_requested ?? ""} className="field" />
                     </div>
                     <div>
-                      <label className="label">STATUS</label>
+                      <label className="label">Status</label>
                       <select name="status" defaultValue={l.status} className="field">
                         {RECOMMENDATION_STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
                       </select>
@@ -169,11 +167,11 @@ export default function RecommendationsView({ letters }: { letters: Recommendati
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "var(--sp-2)", marginBottom: "var(--sp-2)" }}>
                     <div>
-                      <label className="label">ASSIGNED SCHOOLS</label>
+                      <label className="label">Schools it goes to</label>
                       <input name="assigned_schools" defaultValue={(l.assigned_schools ?? []).join(", ")} className="field" />
                     </div>
                     <div>
-                      <label className="label">NOTES</label>
+                      <label className="label">Notes</label>
                       <input name="notes" defaultValue={l.notes ?? ""} className="field" />
                     </div>
                   </div>

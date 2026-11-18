@@ -34,7 +34,7 @@ export default function SchoolActions({
   const gaps = buildGaps(school, gpa, mcat, clinicalHours);
 
   return (
-    <div style={{ marginTop: "var(--sp-1)", paddingTop: "var(--sp-1)", borderTop: "1px dashed var(--border-strong)" }}>
+    <div>
       <div className="flex items-center gap-2 flex-wrap">
         <span className="inline-flex items-center gap-2" data-tour="school-add">
         {(["Target", "Applying"] as const).map((s) => (
@@ -42,16 +42,9 @@ export default function SchoolActions({
             key={s}
             onClick={() => mark(s)}
             disabled={pending}
-            className="text-xs font-bold uppercase"
-            style={{
-              padding: "4px 8px",
-              letterSpacing: "0.08em",
-              borderRadius: "var(--radius)",
-              cursor: pending ? "wait" : "pointer",
-              border: `1px solid ${status === s ? "var(--action)" : "var(--border-strong)"}`,
-              background: status === s ? "var(--action)" : "var(--surface)",
-              color: status === s ? "var(--on-action)" : "var(--text-muted)",
-            }}
+            aria-pressed={status === s}
+            aria-label={`Mark ${school.name} as ${s}`}
+            className={`btn btn-sm ${status === s ? "btn-primary" : "btn-secondary"}`}
           >
             {s}
           </button>
@@ -62,16 +55,8 @@ export default function SchoolActions({
           <button
             data-tour="school-gap"
             onClick={() => setOpen(!open)}
-            className="text-xs font-bold uppercase"
-            style={{
-              padding: "4px 8px",
-              letterSpacing: "0.08em",
-              borderRadius: "var(--radius)",
-              border: "1px solid var(--border-strong)",
-              background: "var(--surface)",
-              color: "var(--text-muted)",
-              cursor: "pointer",
-            }}
+            aria-expanded={open}
+            className="btn btn-sm btn-ghost"
           >
             {open ? "Hide gap check" : `Gap check (${gaps.filter((g) => g.below).length})`}
           </button>
@@ -86,11 +71,11 @@ export default function SchoolActions({
               style={{
                 padding: "6px 0 6px 8px",
                 borderBottom: "1px solid var(--border)",
-                boxShadow: `inset 3px 0 0 -1px ${g.below ? "var(--action)" : "var(--action)"}`,
+                borderLeft: `2px solid ${g.below ? "var(--warning)" : "var(--border-strong)"}`,
               }}
             >
               <div className="flex items-baseline justify-between gap-2">
-                <span className="text-xs font-bold uppercase" style={{ letterSpacing: "0.1em", color: "var(--text-muted)" }}>
+                <span className="text-xs font-semibold" style={{ color: "var(--text-muted)" }}>
                   {g.label}
                 </span>
                 <span className="tnum text-xs" style={{ color: "var(--text)" }}>

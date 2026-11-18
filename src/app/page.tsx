@@ -1,42 +1,40 @@
 import Link from "next/link";
+import Image from "next/image";
 import { redirect } from "next/navigation";
-import { Archivo } from "next/font/google";
 import { createClient } from "@/lib/supabase/server";
-import SamplePath from "@/components/landing/SamplePath";
 import Logo from "@/components/brand/Logo";
 import { AFFILIATION_NOTE } from "@/lib/brand";
+import overview from "../../public/landing-overview.webp";
+import logger from "../../public/landing-logger.webp";
 import "./landing.css";
-
-// Archivo for every word on this page; JetBrains Mono (from the root layout)
-// for the tnum labels. No other face is used here.
-const archivo = Archivo({
-  subsets: ["latin"],
-  weight: ["400", "500", "700", "800"],
-  display: "swap",
-  variable: "--font-archivo",
-});
 
 export const metadata = {
   description:
     "Log clinical hours, shadowing, research and volunteering, compare them to common AMCAS benchmarks, and find medical schools that fit your GPA and MCAT.",
 };
 
-const ROWS: { title: string; body: string }[] = [
+// Every figure here is counted from the app itself (src/lib/schools.ts,
+// src/lib/specialties.ts, src/lib/rateLimit.ts). Change them together.
+const FACTS: { figure: string; label: string; body: string }[] = [
   {
-    title: "Hours that stay organized",
-    body: "Log each session with dates, hours and the organization. Import a spreadsheet, export a PDF, and keep one total that matches everywhere.",
+    figure: "5",
+    label: "AMCAS categories",
+    body: "Clinical work, shadowing, research, volunteering and other, each with its own total and a common benchmark beside it.",
   },
   {
-    title: "Schools that fit your numbers",
-    body: "Enter your GPA and MCAT, pick a home state, and filter MD, DO and Caribbean programs by mission. Check each school's own site before you apply.",
+    figure: "248",
+    label: "medical schools",
+    body: "169 MD, 59 DO and 20 Caribbean programs, filtered by your GPA, MCAT, home state and mission.",
   },
   {
-    title: "A story drawn from your record",
-    body: "An archetype read of your record, AI assisted personal statement outlines and mock interview questions. They use only what you logged, and they are yours to rewrite.",
+    figure: "1",
+    label: "PDF of every entry",
+    body: "Dates, hours, descriptions and reflections in one file, laid out for copying into the application.",
   },
   {
-    title: "The rest of the cycle",
-    body: "Track secondary essays, interviews, letters, fee assistance and a gap year plan in the same account.",
+    figure: "31",
+    label: "specialties",
+    body: "Residency length, patient contact and a short summary of each, for deciding who to shadow next.",
   },
 ];
 
@@ -53,51 +51,95 @@ export default async function HomePage() {
   if (user) redirect("/dashboard");
 
   return (
-    <div className={`lp ${archivo.variable}`}>
-      <div className="lp-dark">
+    <div className="lp">
+      <div className="lp-band">
         <header className="lp-wrap lp-header">
-          <Link href="/" className="lp-wordmark"><Logo size={28} />CLINICLOG MD</Link>
-          <nav className="lp-header-actions" aria-label="Account">
-            <Link href="/auth/login" className="lp-textlink">Sign in</Link>
-            <Link href="/auth/signup" className="lp-btn lp-btn-solid lp-btn-sm">Create account</Link>
+          <Link href="/" className="lp-wordmark">
+            <Logo size={28} />
+            ClinicLog MD
+          </Link>
+          <nav className="lp-header-links" aria-label="Site">
+            <Link href="/about">About</Link>
+            <Link href="/auth/login">Sign in</Link>
           </nav>
         </header>
 
         <section className="lp-wrap lp-hero" aria-labelledby="lp-title">
-          <p className="lp-eyebrow tnum">HOURS, SCHOOLS, STORY</p>
-          <h1 id="lp-title">Watch your experience grow into a record.</h1>
+          <p className="lp-kicker">For pre-med students at Wake Forest</p>
+          <h1 id="lp-title">Keep every hour ready for AMCAS.</h1>
           <p className="lp-sub">
-            Every hour you log adds a branch. See clinical work, shadowing, research and volunteering take shape,
-            and know what to add next before application season.
+            Log clinical work, shadowing, research and volunteering as it happens. When the application opens in
+            May, your dates, totals and descriptions are already in one place.
           </p>
-          <div className="lp-actions">
-            <Link href="/auth/signup" className="lp-btn lp-btn-solid">Start logging hours</Link>
-            <Link href="/auth/login" className="lp-btn lp-btn-outline">Sign in</Link>
+          <div className="lp-cta">
+            <Link href="/auth/signup" className="btn btn-primary lp-btn-lg">Create an account</Link>
+            <p className="lp-cta-note">Sign up with your @wfu.edu email.</p>
           </div>
-
-          <SamplePath />
         </section>
+
+        <figure className="lp-shot lp-shot-hero">
+          <Image
+            src={overview}
+            alt="The ClinicLog MD Overview page: 746 hours across 7 entries, a row of totals, and the Your path panel with one branch per category."
+            sizes="(min-width: 1200px) 1100px, 92vw"
+            priority
+          />
+          <figcaption>The Overview page, filled with sample data.</figcaption>
+        </figure>
       </div>
 
-      <main className="lp-light">
-        <section className="lp-wrap lp-section" aria-labelledby="lp-get">
-          <p className="lp-eyebrow lp-eyebrow-light tnum" id="lp-get">WHAT YOU GET</p>
-          <ol className="lp-rows">
-            {ROWS.map((r, i) => (
-              <li key={r.title} className="lp-row">
-                <span className="lp-row-num tnum">{String(i + 1).padStart(2, "0")}</span>
-                <h2 className="lp-row-title">{r.title}</h2>
-                <p className="lp-row-body">{r.body}</p>
-              </li>
+      <main>
+        <section className="lp-wrap lp-facts" aria-labelledby="lp-facts-title">
+          <h2 id="lp-facts-title">What is in it</h2>
+          <dl>
+            {FACTS.map((f) => (
+              <div key={f.label} className="lp-fact">
+                <dt>
+                  <span className="lp-figure">{f.figure}</span> {f.label}
+                </dt>
+                <dd>{f.body}</dd>
+              </div>
             ))}
-          </ol>
+          </dl>
         </section>
 
-        <section className="lp-close" aria-labelledby="lp-close-title">
-          <div className="lp-wrap lp-close-inner">
-            <h2 id="lp-close-title">Log your first entry in under a minute.</h2>
-            <Link href="/auth/signup" className="lp-btn lp-btn-solid">Create account</Link>
+        <section className="lp-wrap lp-split" aria-labelledby="lp-log-title">
+          <div className="lp-split-text">
+            <h2 id="lp-log-title">One entry is five fields.</h2>
+            <p>
+              What you did, where, which AMCAS category, when it started and how many hours. The description and the
+              reflection can wait until you have time to write them properly.
+            </p>
+            <p>
+              If you already keep hours in a spreadsheet, import it as a CSV and fix anything the import could not read.
+            </p>
           </div>
+          <figure className="lp-shot">
+            <Image
+              src={logger}
+              alt="The Log hours form with fields for what you did, where, AMCAS category, start and end dates and total hours, and three short tips beside it."
+              sizes="(min-width: 1024px) 640px, 92vw"
+            />
+            <figcaption>The Log hours form, with a sample entry.</figcaption>
+          </figure>
+        </section>
+
+        <section className="lp-wrap lp-prose" aria-labelledby="lp-data-title">
+          <h2 id="lp-data-title">Your record stays yours</h2>
+          <p>
+            Entries are visible only to your account. The database checks that on every request, so another student
+            cannot read them even by guessing a link.
+          </p>
+          <p>
+            You can download everything you have entered as a single file at any time, and deleting your account deletes
+            the entries with it. The AI tools see your logged entries when you ask them something, they have daily
+            limits, and they can be wrong, so check what they say before you use it.
+          </p>
+        </section>
+
+        <section className="lp-wrap lp-close" aria-labelledby="lp-close-title">
+          <h2 id="lp-close-title">Start with the hours you already have.</h2>
+          <Link href="/auth/signup" className="btn btn-primary lp-btn-lg">Create an account</Link>
         </section>
       </main>
 

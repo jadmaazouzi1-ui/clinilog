@@ -38,10 +38,10 @@ export const TOUR_MODULES: TourModule[] = [
     steps: [
       { page: D, target: "signals", title: "Countdown and streak", body: "The countdown shows the days until AMCAS opens. The streak counts the weeks in a row you have logged hours." },
       { page: D, target: "key-stats", title: "Your key numbers", body: "Total hours, entries, organizations and how many of the five categories you have covered. They update every time you save or edit an entry.", sample: "stats" },
-      { page: D, target: "path", title: "Your Path tree", body: "Each branch is a category, and it grows as you log hours there. Leaf shapes tell the categories apart: solid for clinical, hollow for shadowing, diamond for research, round for volunteering, narrow for other.", sample: "path" },
-      { page: D, target: "hours-breakdown", title: "Hours breakdown", body: "The ring splits your total hours by category. Use it to spot a category that is falling behind." },
-      { page: D, target: "amcas-tracker", title: "AMCAS Hours Tracker", body: "Each bar compares your hours with a commonly cited benchmark. These are guides that many applicants use, not requirements set by any school.", sample: "tracker" },
-      { page: D, target: "insights", title: "Experience Insights", body: "Short suggestions based on your entries and graduation year. Treat them as prompts to think about, not rules." },
+      { page: D, target: "path", title: "Your path", body: "Each branch is a category, and it grows as you log hours there. Leaf shapes tell the categories apart: solid for clinical, hollow for shadowing, diamond for research, round for volunteering, narrow for other.", sample: "path" },
+      { page: D, target: "hours-breakdown", title: "Hours by category", body: "The ring splits your total hours by category. Use it to spot a category that is falling behind." },
+      { page: D, target: "amcas-tracker", title: "Against common benchmarks", body: "Each bar compares your hours with a commonly cited benchmark. These are guides that many applicants use, not requirements set by any school.", sample: "tracker" },
+      { page: D, target: "insights", title: "What to work on next", body: "Short suggestions based on your entries and graduation year. Treat them as prompts to think about, not rules." },
     ],
   },
   {
@@ -49,12 +49,12 @@ export const TOUR_MODULES: TourModule[] = [
     title: "Logging hours",
     group: "Basics",
     steps: [
-      { page: D, target: "log-new", title: "Log new hours", body: "Every experience starts here. Click Log new hours to open the form.", advanceOn: "click" },
+      { page: D, target: "log-new", title: "Log hours", body: "Every experience starts here. Click Log hours to open the form.", advanceOn: "click" },
       { page: NEW, target: "f-placement", title: "Title and organization", body: "Name the role the way you would on AMCAS, and the place you did it. Choose the closest category, and use Other only when none of the four fit." },
-      { page: NEW, target: "f-dates", title: "Dates and hours", body: "Leave the end date blank if the experience is ongoing; it shows as present. Enter total hours so far, and update them as you go." },
+      { page: NEW, target: "f-dates", title: "Dates and hours", body: "Leave the end date blank if the experience is ongoing; it shows as \"to now\". Enter total hours so far, and update them as you go." },
       { page: NEW, target: "f-desc", title: "Describe what you did", body: "AMCAS descriptions are read closely, so specific details help. Rough notes are fine for now; tighten them before you apply." },
-      { page: NEW, target: "f-reflection", title: "Optional reflection", body: "Note what you learned while it is fresh. Reflections are private and help when you write essays later." },
-      { page: NEW, target: "f-save", title: "Save to record", body: "Saving files the entry under the record number shown at the top. Nothing is saved until you click this." },
+      { page: NEW, target: "f-reflection", title: "Optional reflection", body: "Note what you learned while it is fresh. Only you see it, it is included in your PDF export, and it helps when you write essays later." },
+      { page: NEW, target: "f-save", title: "Save entry", body: "Nothing is saved until you click Save entry. Your totals update as soon as you do." },
     ],
   },
   {
@@ -62,9 +62,9 @@ export const TOUR_MODULES: TourModule[] = [
     title: "Managing entries",
     group: "Basics",
     steps: [
-      { page: D, target: "recent", title: "Recent Experiences", body: "All your entries, newest first. Click a title to open the full record." },
+      { page: D, target: "recent", title: "Entries", body: "All your entries, newest first. Click a title to open the full entry." },
       { page: D, target: "entry-actions", title: "Edit or delete", body: "Edit changes an entry, and Delete removes it for good. Your totals, tree and tracker update right away." },
-      { page: D, target: "see-all", title: "See everything", body: "See all jumps to the full list from the top of the page." },
+      { page: D, target: "see-all", title: "See everything", body: "See entries jumps to the full list from the top of the page." },
     ],
   },
   {
@@ -179,7 +179,7 @@ export interface HelpAnswer {
 }
 
 export const HELP_ANSWERS: HelpAnswer[] = [
-  { q: "How do I log hours?", a: "Click Log new hours on Overview, fill in the form and click Save to record." },
+  { q: "How do I log hours?", a: "Click Log hours on Overview, fill in the form and click Save entry." },
   { q: "How do I log an ongoing experience?", a: "Leave the end date blank. It shows as present, and you can update the hours any time with Edit." },
   { q: "Which category should I choose?", a: "Pick the closest of Clinical Work, Shadowing, Research or Volunteering. Use Other only when none of them fit." },
   { q: "How do I change or delete an entry?", a: "Use Edit or Delete on the entry in Recent Experiences. Totals update right away." },

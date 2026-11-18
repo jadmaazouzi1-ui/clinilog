@@ -15,7 +15,7 @@ export default function ChangelogNote() {
   return (
     <div
       className="card flex items-center justify-between gap-3 flex-wrap"
-      style={{ padding: "var(--sp-2)", marginBottom: "var(--sp-3)", borderLeft: "2px solid var(--action)" }}
+      style={{ padding: "var(--sp-2)", marginBottom: "var(--sp-3)" }}
       role="region"
       aria-label="What's new"
     >

@@ -80,8 +80,7 @@ p { text-wrap: pretty; }
 .measure { max-width: var(--measure); }
 
 .tnum,
-table,
-time { font-variant-numeric: tabular-nums lining-nums; }
+table { font-variant-numeric: tabular-nums lining-nums; }
 
 /* Text links. Gold, underlined, so colour is never the only signal. */
 .link,
@@ -465,9 +464,17 @@ a.card:hover { border-color: var(--border-strong); }
 .filmstrip { scrollbar-width: none; }
 .filmstrip::-webkit-scrollbar { display: none; }
 
+/* The content column on every signed-in page. */
+.page {
+  width: 100%;
+  max-width: 1120px;
+  padding: var(--sp-3) var(--sp-3) var(--sp-8);
+}
+@media (min-width: 768px) { .page { padding-left: var(--sp-4); padding-right: var(--sp-4); } }
+
 /* ── App navigation ───────────────────────────────────────────────────── */
 .nav-group {
-  padding: var(--sp-2) var(--sp-15) var(--sp-h);
+  padding: var(--sp-15) var(--sp-15) var(--sp-h);
   font-size: var(--text-xs);
   font-weight: 600;
   color: var(--text-muted);
@@ -475,7 +482,7 @@ a.card:hover { border-color: var(--border-strong); }
 .nav-item {
   display: flex;
   align-items: center;
-  min-height: 36px;
+  min-height: 34px;
   padding: 0 var(--sp-15);
   border-radius: var(--radius-control);
   color: var(--text-muted);

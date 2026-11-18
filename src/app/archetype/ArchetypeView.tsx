@@ -26,10 +26,10 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
   // confident result drawn from almost nothing.
   const confidence =
     experienceCount >= 10
-      ? { level: "HIGH", color: "var(--action-text)" }
+      ? { level: "HIGH", color: "var(--text-muted)" }
       : experienceCount >= 6
-      ? { level: "MODERATE", color: "var(--action-text)" }
-      : { level: "LOW", color: "var(--action-text)" };
+      ? { level: "MODERATE", color: "var(--text-muted)" }
+      : { level: "LOW", color: "var(--text-muted)" };
 
   async function runAnalysis() {
     setLoading(true);
@@ -71,22 +71,13 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
   if (experienceCount < 3) {
     return (
       <div className="card rounded-2xl p-10 text-center" data-tour="archetype-locked">
-        <div
-          className="inline-flex items-center justify-center w-14 h-14 rounded-full mb-4"
-          style={{ background: "var(--surface)" }}
-        >
-          <svg className="w-7 h-7" fill="none" stroke="var(--text)" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-          </svg>
-        </div>
-        <h1 className="text-xl font-bold mb-2" style={{ color: "var(--text)" }}>Almost there</h1>
+        <h1 className="text-2xl mb-2">Almost there</h1>
         <p className="text-sm mb-6 max-w-md mx-auto" style={{ color: "var(--text-muted)" }}>
           Your archetype is available after you log <strong>3 experiences</strong>. You have {experienceCount} so far.
         </p>
         <Link
           href="/dashboard/new"
-          className="inline-flex items-center gap-2 btn btn-primary px-5 py-2.5 rounded-xl font-semibold text-sm"
-          style={{ backgroundColor: "var(--action)", color: "var(--on-action)" }}
+          className="btn btn-primary"
         >
           Log an experience
         </Link>
@@ -99,7 +90,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
     return (
       <div className="card" style={{ padding: "var(--sp-6) var(--sp-3)" }}>
         <Loading label="Analyzing experience data" />
-        <h1 className="text-xl font-bold" style={{ color: "var(--text)", marginTop: "var(--sp-2)", marginBottom: 4 }}>
+        <h1 className="text-2xl font-bold" style={{ color: "var(--text)", marginTop: "var(--sp-2)", marginBottom: 4 }}>
           Analyzing your experiences
         </h1>
         <p className="text-sm" style={{ color: "var(--text-muted)", maxWidth: 440 }}>
@@ -112,7 +103,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
   // ── Error state ──────────────────────────────────────────────────────
   if (error && !analysis) {
     return (
-      <div className="card" style={{ padding: "var(--sp-4) var(--sp-3)", borderLeft: "2px solid var(--action)" }}>
+      <div className="card" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
         <h1 className="text-lg font-bold" style={{ color: "var(--text)", marginTop: "var(--sp-1)", marginBottom: 4 }}>
           Couldn&apos;t generate your archetype
         </h1>
@@ -232,11 +223,11 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
             </p>
             <div className="flex items-center gap-3">
               <span className="meta" style={{ color: confidence.color }}>
-                CONFIDENCE: {confidence.level}
+                Confidence: {confidence.level.toLowerCase()}
               </span>
             </div>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-bold mb-2" style={{ color: "var(--text)" }}>
+          <h1 className="text-3xl sm:text-4xl mb-2">
             {archetype.name.split("").map((ch, i) => (
               <span
                 key={i}
@@ -256,24 +247,15 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
           <div className="flex items-center gap-3 mt-6 flex-wrap">
             <button
               onClick={downloadCard}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-opacity hover:opacity-90"
-              style={{ backgroundColor: "var(--action)", color: "var(--on-action)" }}
+              className="btn btn-primary"
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-              </svg>
-              Download Card
+                Download Card
             </button>
             <button
               data-tour="archetype-regenerate"
               onClick={runAnalysis}
               disabled={loading}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-opacity"
-              style={{ color: "var(--text)", border: "1px solid var(--border-strong)", background: "transparent" }}
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-              </svg>
+              className="btn btn-secondary">
               Regenerate
             </button>
           </div>
@@ -304,7 +286,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
                 className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
                 style={{ backgroundColor: "var(--surface-alt)", border: `1px solid ${color}` }}
               >
-                <svg className="w-3 h-3" fill="none" stroke="var(--action-text)" strokeWidth="3" viewBox="0 0 24 24">
+                <svg className="w-3 h-3" fill="none" stroke="var(--success)" strokeWidth="3" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
               </div>
@@ -340,9 +322,6 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
           style={{ color: "var(--text)" }}
         >
           Browse all schools
-          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
         </Link>
       </Section>
       </div>
@@ -388,11 +367,11 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
   );
 }
 
-function Section({ title, color, children }: { title: string; color: string; children: React.ReactNode }) {
+function Section({ title, children }: { title: string; color?: string; children: React.ReactNode }) {
   return (
     <div className="card rounded-2xl p-6">
       <p
-        className="text-xs font-bold uppercase tracking-wider mb-3"
+        className="text-xs font-bold mb-3"
         style={{ color: "var(--text-muted)" }}
       >
         {title}

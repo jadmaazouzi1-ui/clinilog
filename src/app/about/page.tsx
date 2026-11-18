@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { AFFILIATION_NOTE } from "@/lib/brand";
+import PublicPage from "@/components/PublicPage";
 
 const DOES = [
   "Logs clinical, shadowing, research and volunteer hours with dates and descriptions, and totals them by category.",
@@ -21,86 +22,36 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen flex flex-col" style={{ backgroundColor: "var(--background)", color: "var(--text)" }}>
-      {/* Navbar */}
-      <header className="relative z-20 px-6 py-4" style={{ borderBottom: "1px solid var(--border-strong)" }}>
-        <div className="max-w-5xl mx-auto flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5" style={{ textDecoration: "none" }}>
-            <span className="text-xl" style={{ color: "var(--text)", fontWeight: 900, letterSpacing: "-0.02em" }}>ClinicLog MD</span>
-            <span className="badge">BETA</span>
-          </Link>
-          <div className="flex items-center gap-4">
-            <Link href="/about" className="text-sm font-medium" style={{ color: "var(--text)" }}>About</Link>
-            <Link
-              href="/auth/login"
-              className="btn btn-secondary text-sm font-semibold"
-              style={{ padding: "8px var(--sp-2)", textDecoration: "none" }}
-            >
-              Sign in
-            </Link>
-          </div>
+    <PublicPage>
+      <div className="grid lg:grid-cols-12" style={{ gap: "var(--sp-4)" }}>
+        <div className="lg:col-span-4">
+          <h1 className="text-3xl">About ClinicLog MD</h1>
         </div>
-      </header>
-
-      {/* A short, plain document */}
-      <section className="px-6" style={{ paddingTop: "var(--sp-8)", paddingBottom: "var(--sp-6)" }}>
-        <div className="max-w-3xl mx-auto">
-          <p className="meta" style={{ marginBottom: "var(--sp-2)" }}>ABOUT</p>
-          <h1 className="text-3xl sm:text-4xl font-bold leading-tight tracking-tight" style={{ color: "var(--text)", marginBottom: "var(--sp-2)" }}>
-            About ClinicLog MD
-          </h1>
-          <p className="text-lg leading-relaxed" style={{ color: "var(--text-muted)" }}>
+        <div className="lg:col-span-8 legal-prose">
+          <p className="text-lg" style={{ color: "var(--text)" }}>
             ClinicLog MD is a tool for pre-med students at Wake Forest. A pre-med student builds and runs it. Sign-up needs a @wfu.edu email.
           </p>
-          <p className="text-sm" style={{ color: "var(--text-muted)", marginTop: "var(--sp-1)" }}>
-            {AFFILIATION_NOTE}
-          </p>
+          <p>{AFFILIATION_NOTE}</p>
 
-          <hr className="rule" />
-
-          <p className="section-title">What it does</p>
-          <ul className="legal-prose" style={{ marginBottom: "var(--sp-4)" }}>
+          <h2>What it does</h2>
+          <ul>
             {DOES.map((d) => <li key={d}>{d}</li>)}
           </ul>
 
-          <p className="section-title">What it does not do</p>
-          <ul className="legal-prose" style={{ marginBottom: "var(--sp-4)" }}>
+          <h2>What it does not do</h2>
+          <ul>
             {DOES_NOT.map((d) => <li key={d}>{d}</li>)}
           </ul>
 
-          <p className="section-title">Questions or problems</p>
-          <p className="text-base" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-3)" }}>
-            Inside the app, open Help and use Report a problem. The <Link href="/privacy" style={{ color: "var(--action-text)" }}>Privacy Policy</Link> explains what is stored and who processes it.
+          <h2>Questions or problems</h2>
+          <p>
+            Inside the app, open Help and use Report a problem. The <Link href="/privacy">Privacy Policy</Link> explains what is stored and who processes it.
           </p>
-
-          <Link
-            href="/auth/signup"
-            className="btn btn-primary inline-flex items-center font-semibold text-sm"
-            style={{ padding: "12px var(--sp-3)", textDecoration: "none" }}
-          >
-            Create account
-          </Link>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer
-        className="px-6 mt-auto"
-        style={{ borderTop: "1px solid var(--border-strong)", paddingTop: "var(--sp-3)", paddingBottom: "var(--sp-3)" }}
-      >
-        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs" style={{ color: "var(--text-muted)" }}>
-            &copy; {new Date().getFullYear()} ClinicLog MD
+          <p style={{ marginTop: "var(--sp-3)" }}>
+            <Link href="/auth/signup" className="btn btn-primary" style={{ color: "var(--on-action)", textDecoration: "none" }}>Create an account</Link>
           </p>
-          <div className="flex items-center gap-5">
-            <Link href="/about" className="text-xs" style={{ color: "var(--text-muted)" }}>About</Link>
-            <Link href="/privacy" className="text-xs" style={{ color: "var(--text-muted)" }}>Privacy</Link>
-            <Link href="/terms" className="text-xs" style={{ color: "var(--text-muted)" }}>Terms</Link>
-            <Link href="/auth/login" className="text-xs" style={{ color: "var(--text-muted)" }}>Sign in</Link>
-            <Link href="/auth/signup" className="text-xs font-semibold" style={{ color: "var(--action-text)" }}>Create account</Link>
-          </div>
         </div>
-      </footer>
-    </div>
+      </div>
+    </PublicPage>
   );
 }

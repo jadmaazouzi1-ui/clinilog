@@ -17,12 +17,9 @@ export default async function RecommendationsPage() {
 
   return (
     <AppShell userEmail={user.email ?? ""} activePath="/recommendations">
-      <main
-        className="w-full"
-        style={{ paddingTop: "var(--sp-3)", paddingRight: "var(--sp-3)", paddingBottom: "var(--sp-4)" }}
-      >
-        <h1 className="text-xl font-bold" style={{ color: "var(--text)" }}>
-          Letters of Recommendation
+      <main className="page">
+        <h1 className="text-2xl">
+          Letters of recommendation
         </h1>
         <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-3)" }}>
           Who is writing, where each letter stands, and which schools it has been assigned to.
