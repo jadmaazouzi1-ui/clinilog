@@ -4,6 +4,10 @@ import AppShell from "@/components/AppShell";
 import ApplicationsView from "./ApplicationsView";
 import { SchoolApplication } from "@/lib/appTypes";
 
+export const metadata = {
+  description: "Secondary essays, deadlines and the running cost of every school you are applying to.",
+};
+
 
 export default async function ApplicationsPage() {
   const supabase = await createClient();

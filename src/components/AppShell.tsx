@@ -97,6 +97,7 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
       className="min-h-screen"
       style={{ backgroundColor: "var(--background)" }}
     >
+      <a href="#content" className="skip-link">Skip to content</a>
       <RouteProgress />
       <PageView />
       {/* Sidebar - desktop */}
@@ -190,7 +191,7 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
           </div>
         </div>
 
-        <div className="app-content">{children}</div>
+        <div id="content" tabIndex={-1} className="app-content" style={{ outline: "none" }}>{children}</div>
       </div>
 
       {/* Mobile bottom nav */}

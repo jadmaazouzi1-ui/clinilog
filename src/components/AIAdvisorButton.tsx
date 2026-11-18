@@ -89,19 +89,21 @@ export default function AIAdvisorButton() {
     setCtxLoaded(true);
   }, [ctxLoaded, supabase]);
 
-  useEffect(() => {
-    if (open) {
-      window.dispatchEvent(new CustomEvent("cliniclog:advisor-opened"));
-      loadContext();
-      if (messages.length === 0) {
-        setMessages([{
-          role: "assistant",
-          content: "I'm the AI Advisor. I can see your logged hours and profile. Ask me about applying, and check anything important with your pre-health advisor, since I can be wrong.",
-        }]);
-      }
-      setTimeout(() => inputRef.current?.focus(), 300);
-    }
-  }, [open, loadContext, messages.length]);
+  // Everything that happens on open runs in the handler, not in an effect.
+  const openDrawer = useCallback(() => {
+    setOpen(true);
+    window.dispatchEvent(new CustomEvent("cliniclog:advisor-opened"));
+    loadContext();
+    setMessages((m) =>
+      m.length
+        ? m
+        : [{
+            role: "assistant",
+            content: "I can see your logged hours and profile, not your descriptions. Ask me about applying, and check anything important with your pre-health advisor, since I can be wrong.",
+          }],
+    );
+    setTimeout(() => inputRef.current?.focus(), 300);
+  }, [loadContext]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -109,12 +111,9 @@ export default function AIAdvisorButton() {
 
   // The drawer has no route of its own: every trigger dispatches this event.
   useEffect(() => {
-    function handleExternalOpen() {
-      setOpen(true);
-    }
-    window.addEventListener("cliniclog:open-advisor", handleExternalOpen);
-    return () => window.removeEventListener("cliniclog:open-advisor", handleExternalOpen);
-  }, []);
+    window.addEventListener("cliniclog:open-advisor", openDrawer);
+    return () => window.removeEventListener("cliniclog:open-advisor", openDrawer);
+  }, [openDrawer]);
 
   async function sendMessage() {
     const text = input.trim();
@@ -176,8 +175,13 @@ export default function AIAdvisorButton() {
         />
       )}
 
-      {/* Drawer */}
+      {/* Drawer. Inert while closed: it only slides off screen, so without
+          this its fields stay in the tab order. */}
       <div
+        inert={!open}
+        role="dialog"
+        aria-modal="true"
+        aria-label="AI advisor"
         className="fixed top-0 right-0 z-50 flex flex-col"
         style={{
           width: "min(420px, 100vw)",

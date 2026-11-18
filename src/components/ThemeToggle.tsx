@@ -27,6 +27,9 @@ export default function ThemeToggle({ initial }: { initial?: Theme }) {
     // No stored choice: keep what the head script picked from the OS setting.
     const current = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
     const next = stored ?? initial ?? current;
+    // Reading localStorage has to wait for the client, so this sync runs in an
+    // effect on mount; the server renders the toggle without a theme.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setTheme(next);
     document.documentElement.setAttribute("data-theme", next);
     setMounted(true);

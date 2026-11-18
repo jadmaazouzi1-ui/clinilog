@@ -62,3 +62,28 @@ Every route under `src/app` (31 pages, 18 API routes), `src/components` (AppShel
 | 22 | 3 | Forms | Placeholder text doubles as the label example on every field ("Title, e.g. ..."); underline-only inputs have weak affordance. |
 | 23 | 3 | a11y | Unlabelled selects on specialties, schools and post-bacc; unlabelled month input on gap year; a nested interactive SVG on the Your Path panel; a link on About told apart only by colour; a scroll region on the badge page that keyboard users cannot reach; heading levels skip on landing cards; several pages have no `main` landmark. |
 | 24 | 4 | Tooling | Colour check exists (`scripts/check-colors.mjs`). Nothing checks gradients, shadows, type scale, emoji, dashes or banned phrases. eslint scans generated folders (`.netlify`, `tmp`, an old `.next` copy), so `npm run lint` reports 43,000 problems. |
+
+## Phases 1 and 2: remove the tells, set one system (18 Nov 2026)
+
+- Removed: EKG dividers and loader, corner tick marks, perforated rules, "RECORD NO." and "TAB 01" markers, EXP numbers, the oscilloscope tracker, Rx and signature marks, coded labels (TTL, ORG, CAT, HRS), zero-padded counts, count-up numbers, three icon-topped insight cards, the archetype teaser, two-letter nav codes, uppercase tracked micro labels, decorative icons in buttons, back links and empty states.
+- Gold now marks only primary buttons, links, focus and the logo mark. Badges, charts, rules, meters and nav are neutral.
+- Tokens rebuilt as roles in `src/styles/theme.css`; fonts Newsreader and Public Sans; type scale 13 to 84; one overlay shadow; radii 4, 6 and 8; motion 120 to 200ms with no loops.
+- One shared button, field, card, badge, table, tabs, modal, toast, tooltip, notice, empty state, skeleton and meter in `globals.css` and `src/components/ui.tsx`, placed in `@layer components` so utilities still apply.
+- `DESIGN.md` written, with the voice guide.
+
+## Phase 3: page by page
+
+- Landing: one promise, one action ("Create an account"), two real screenshots of the app with sample data, figures counted from the app's own data, five sections with five different structures.
+- Auth pages share one frame; 404, route error and global error pages rewritten.
+- Dashboard: a ruled line of numbers, the Your path panel, a 7/5 pair, a prioritized list, a check card, the entry list. Logger and edit share one form with plain labels and a guidance column.
+- Schools is a ruled table with right-aligned averages. Specialties became an accessible disclosure list; Resources grouped ruled lists.
+- Profile became a settings page. Help Center and tour copy cleaned. Emails, Supabase templates, PDFs, the recap image and the archetype image use the same faces and hairlines.
+- Fixes found on the way: a skip link; the closed advisor drawer was focusable; specialty cards were not keyboard reachable; unlabelled selects and fields; labels not tied to inputs; the empty schools message said 149 programs; the Privacy Policy named Vercel as host (now Netlify); a "fordham University" typo.
+
+## Phase 4: guardrails
+
+`npm run design-check` (`scripts/design-check.mjs`) fails on colour literals, gradients, shadows outside the token, off-scale font sizes, emoji, em dashes, banned phrases, exclamation marks and the retired costume classes. It runs in `npm run lint`, before every build (`prebuild`, so Netlify stops on a violation), and in a GitHub workflow on every push and pull request.
+
+## Phase 5: verification
+
+See the commit that adds `design-audit/after/` for screenshots, and the report for the axe and Lighthouse numbers.

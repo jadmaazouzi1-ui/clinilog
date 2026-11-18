@@ -44,16 +44,15 @@ test("the weekly email template is clean", () => {
   expect(BANNED.test(src)).toBe(false);
 });
 
-test("every page has a title and description under the length limits", () => {
+test("every page has a description under the length limit and no title of its own", () => {
   const pages = walk("src/app").filter((p) => p.endsWith("page.tsx"));
   for (const p of pages) {
     const own = readFileSync(p, "utf8");
     const layout = join(p, "..", "layout.tsx");
     const src = /export const metadata|generateMetadata/.test(own) ? own : existsSync(layout) ? readFileSync(layout, "utf8") : "";
     expect(/export const metadata|generateMetadata/.test(src), `${p} has no metadata`).toBe(true);
-    const title = src.match(/title:\s*"([^"]+)"/)?.[1];
-    expect(title, `${p} title`).toBeTruthy();
-    expect(title!.length, `${p} title length`).toBeLessThan(60);
+    // Every tab reads "ClinicLog MD" from the root layout (tests/polish/titles.spec.ts).
+    expect(/^\s*title:/m.test(src.slice(src.indexOf("export const metadata"))), `${p} sets its own title`).toBe(false);
     const desc = src.match(/description:\s*"([^"]+)"/)?.[1];
     if (desc) expect(desc.length, `${p} description length`).toBeLessThan(155);
   }

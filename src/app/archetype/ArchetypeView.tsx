@@ -62,6 +62,9 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
   // Auto-run when no stored analysis yet
   useEffect(() => {
     if (!initialAnalysis && experienceCount >= 3) {
+      // A request on first view, the documented case for an effect. The
+      // loading flag it sets is what the user should see straight away.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       runAnalysis();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

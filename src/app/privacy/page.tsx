@@ -1,5 +1,9 @@
 import LegalPage from "@/components/LegalPage";
 
+export const metadata = {
+  description: "What ClinicLog MD stores, who processes it, and how to export or delete it.",
+};
+
 
 export default function PrivacyPage() {
   return (

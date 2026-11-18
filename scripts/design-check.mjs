@@ -137,7 +137,7 @@ for (const abs of code) {
     if (!isCss && !VOICE_EXEMPT.has(file)) {
       const lower = line.toLowerCase();
       for (const w of BANNED) if (lower.includes(w)) flag(file, n, `banned phrase "${w}"`, line);
-      const bang = line.match(/[A-Za-z)][!](?=["'`<]|\s+[A-Z"'`<])/);
+      const bang = line.match(/[A-Za-z)][!](?=["'`<]|\s+[^\s=&|?:)\].,;}\-+*/])/);
       if (bang && !/!==?|\/\/.*!/.test(line.slice(Math.max(0, bang.index - 1), bang.index + 4))) flag(file, n, "exclamation mark", line);
     }
 

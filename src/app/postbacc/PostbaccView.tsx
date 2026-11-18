@@ -260,7 +260,13 @@ function GpaCard({ label, sub, value, goal, onGoalChange }: {
   onGoalChange: (g: number) => void;
 }) {
   const [editingGoal, setEditingGoal] = useState(goal.toString());
-  useEffect(() => setEditingGoal(goal.toString()), [goal]);
+  // Follow a goal changed elsewhere, adjusted during render instead of in an
+  // effect so the field never shows the stale value for a frame.
+  const [lastGoal, setLastGoal] = useState(goal);
+  if (goal !== lastGoal) {
+    setLastGoal(goal);
+    setEditingGoal(goal.toString());
+  }
 
   const pct = value === null ? 0 : Math.min(100, (value / goal) * 100);
   const metGoal = value !== null && value >= goal;

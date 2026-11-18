@@ -6,6 +6,8 @@ import Logo from "@/components/brand/Logo";
 import { AFFILIATION_NOTE } from "@/lib/brand";
 import overview from "../../public/landing-overview.webp";
 import logger from "../../public/landing-logger.webp";
+import { SCHOOLS, MD_SCHOOLS, DO_SCHOOLS, CARIBBEAN_SCHOOLS } from "@/lib/schools";
+import { SPECIALTIES } from "@/lib/specialties";
 import "./landing.css";
 
 export const metadata = {
@@ -13,8 +15,7 @@ export const metadata = {
     "Log clinical hours, shadowing, research and volunteering, compare them to common AMCAS benchmarks, and find medical schools that fit your GPA and MCAT.",
 };
 
-// Every figure here is counted from the app itself (src/lib/schools.ts,
-// src/lib/specialties.ts, src/lib/rateLimit.ts). Change them together.
+// Every figure is counted from the app's own data, so it cannot drift.
 const FACTS: { figure: string; label: string; body: string }[] = [
   {
     figure: "5",
@@ -22,9 +23,9 @@ const FACTS: { figure: string; label: string; body: string }[] = [
     body: "Clinical work, shadowing, research, volunteering and other, each with its own total and a common benchmark beside it.",
   },
   {
-    figure: "248",
+    figure: String(SCHOOLS.length),
     label: "medical schools",
-    body: "169 MD, 59 DO and 20 Caribbean programs, filtered by your GPA, MCAT, home state and mission.",
+    body: `${MD_SCHOOLS.length} MD, ${DO_SCHOOLS.length} DO and ${CARIBBEAN_SCHOOLS.length} Caribbean programs, filtered by your GPA, MCAT, home state and mission.`,
   },
   {
     figure: "1",
@@ -32,7 +33,7 @@ const FACTS: { figure: string; label: string; body: string }[] = [
     body: "Dates, hours, descriptions and reflections in one file, laid out for copying into the application.",
   },
   {
-    figure: "31",
+    figure: String(SPECIALTIES.length),
     label: "specialties",
     body: "Residency length, patient contact and a short summary of each, for deciding who to shadow next.",
   },

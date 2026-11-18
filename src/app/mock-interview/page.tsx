@@ -4,6 +4,10 @@ import { createClient } from "@/lib/supabase/server";
 import AppShell from "@/components/AppShell";
 import MockInterviewView from "./MockInterviewView";
 
+export const metadata = {
+  description: "Practice interview questions drawn from your own logged experiences.",
+};
+
 
 export default async function MockInterviewPage() {
   const supabase = await createClient();

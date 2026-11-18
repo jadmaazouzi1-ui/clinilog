@@ -1,5 +1,9 @@
 import LegalPage from "@/components/LegalPage";
 
+export const metadata = {
+  description: "The terms for using ClinicLog MD.",
+};
+
 
 export default function TermsPage() {
   return (

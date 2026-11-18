@@ -58,12 +58,12 @@ export default function RouteProgress() {
     };
   }, []);
 
+  // Show as soon as a navigation starts (adjusted during render, as React
+  // recommends for state derived from other state), and hide 220ms after it
+  // ends.
+  if (active && !visible) setVisible(true);
   useEffect(() => {
-    if (active) {
-      setVisible(true);
-      return;
-    }
-    if (!visible) return;
+    if (active || !visible) return;
     const t = setTimeout(() => setVisible(false), 220);
     return () => clearTimeout(t);
   }, [active, visible]);

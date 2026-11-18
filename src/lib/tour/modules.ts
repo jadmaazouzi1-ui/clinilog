@@ -41,7 +41,7 @@ export const TOUR_MODULES: TourModule[] = [
       { page: D, target: "path", title: "Your path", body: "Each branch is a category, and it grows as you log hours there. Leaf shapes tell the categories apart: solid for clinical, hollow for shadowing, diamond for research, round for volunteering, narrow for other.", sample: "path" },
       { page: D, target: "hours-breakdown", title: "Hours by category", body: "The ring splits your total hours by category. Use it to spot a category that is falling behind." },
       { page: D, target: "amcas-tracker", title: "Against common benchmarks", body: "Each bar compares your hours with a commonly cited benchmark. These are guides that many applicants use, not requirements set by any school.", sample: "tracker" },
-      { page: D, target: "insights", title: "What to work on next", body: "Short suggestions based on your entries and graduation year. Treat them as prompts to think about, not rules." },
+      { page: D, target: "insights", title: "Next steps", body: "Short suggestions based on your entries and graduation year. Treat them as prompts to think about, not rules." },
     ],
   },
   {

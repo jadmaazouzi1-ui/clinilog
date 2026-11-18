@@ -4,6 +4,10 @@ import AppShell from "@/components/AppShell";
 import { formatDate } from "@/lib/format";
 import SignupsChart from "./SignupsChart";
 
+export const metadata = {
+  description: "Anonymous usage totals for the site owner.",
+};
+
 
 /** The single account permitted to view platform analytics. */
 const ADMIN_EMAIL = "jadmaazouzi1@gmail.com";

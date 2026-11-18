@@ -4,6 +4,10 @@ import { createClient } from "@/lib/supabase/server";
 import AppShell from "@/components/AppShell";
 import OutlineView from "./OutlineView";
 
+export const metadata = {
+  description: "A personal statement outline drawn from your logged experiences.",
+};
+
 
 export default async function OutlinePage() {
   const supabase = await createClient();

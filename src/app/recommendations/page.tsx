@@ -4,6 +4,10 @@ import AppShell from "@/components/AppShell";
 import RecommendationsView from "./RecommendationsView";
 import { Recommendation } from "@/lib/appTypes";
 
+export const metadata = {
+  description: "Who is writing each letter, where it stands, and which schools it goes to.",
+};
+
 
 export default async function RecommendationsPage() {
   const supabase = await createClient();

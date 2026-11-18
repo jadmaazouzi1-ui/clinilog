@@ -468,6 +468,22 @@ a.card:hover { border-color: var(--border-strong); }
 .filmstrip { scrollbar-width: none; }
 .filmstrip::-webkit-scrollbar { display: none; }
 
+/* Hidden until a keyboard user tabs to it, then pinned top left. */
+.skip-link {
+  position: absolute;
+  left: var(--sp-2);
+  top: -100px;
+  z-index: 300;
+  padding: var(--sp-1) var(--sp-2);
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-control);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+.skip-link:focus { top: var(--sp-2); }
+
 /* The content column on every signed-in page. */
 .page {
   width: 100%;
