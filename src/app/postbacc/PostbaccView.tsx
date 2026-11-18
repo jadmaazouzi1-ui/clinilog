@@ -149,6 +149,7 @@ export default function PostbaccView({
               required
             />
             <select
+              aria-label="Grade"
               value={cGrade}
               onChange={(e) => setCGrade(e.target.value)}
               className="field"

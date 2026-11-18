@@ -102,6 +102,7 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
       <PageView />
       {/* Sidebar - desktop */}
       <aside
+        aria-label="Sidebar"
         className="app-sidebar hidden md:flex flex-col fixed top-0 left-0 h-full z-40 w-[220px]"
         style={{
           backgroundColor: "var(--surface)",
@@ -196,6 +197,7 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
 
       {/* Mobile bottom nav */}
       <nav
+        aria-label="Tabs"
         className="app-bottomnav md:hidden fixed bottom-0 left-0 right-0 z-50 flex items-stretch"
         style={{
           height: 64,

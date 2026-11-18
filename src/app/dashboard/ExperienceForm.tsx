@@ -144,7 +144,7 @@ export default function ExperienceForm({
         </div>
       </div>
 
-      <aside className="lg:col-span-4 text-sm" style={{ color: "var(--text-muted)" }}>
+      <aside aria-label="Tips" className="lg:col-span-4 text-sm" style={{ color: "var(--text-muted)" }}>
         <div style={{ borderTop: "1px solid var(--border-strong)", paddingTop: "var(--sp-15)", display: "grid", gap: "var(--sp-15)" }}>
           <p>
             <strong style={{ color: "var(--text)" }}>One entry per role.</strong> If you scribed at the same hospital

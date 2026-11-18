@@ -26,6 +26,8 @@ export default function BadgeCode({ label, code }: { label: string; code: string
         </button>
       </div>
       <pre
+        tabIndex={0}
+        aria-label="Badge HTML"
         style={{
           margin: 0,
           padding: "var(--sp-2)",

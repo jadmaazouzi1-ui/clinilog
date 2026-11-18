@@ -197,7 +197,7 @@ export default function SchoolList({
                 style={{ padding: "var(--sp-2) 0", borderBottom: "1px solid var(--border)" }}
               >
                 <div className="col-span-2 md:col-span-1 min-w-0">
-                  <h3 className="text-base">{school.name}</h3>
+                  <h2 className="text-base" style={{ fontFamily: "var(--font-sans)" }}>{school.name}</h2>
                   <p className="text-xs" style={{ color: "var(--text-muted)", marginTop: 2 }}>
                     {school.degree === "Caribbean" ? "Caribbean program" : `${school.degree} program`} · {school.state} · {school.mission}
                     {school.inStatePref !== "Neutral" ? ` · ${school.inStatePref}` : ""}

@@ -117,8 +117,9 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
       <div className="card rounded-2xl p-6">
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div className="flex-1 min-w-[200px]">
-            <p className="text-xs font-semibold mb-2" style={{ color: "var(--text-muted)" }}>Target application cycle</p>
+            <label htmlFor="target-cycle" className="label">Target application cycle</label>
             <select
+              id="target-cycle"
               value={data.target_cycle_year ?? ""}
               onChange={(e) => persist({ target_cycle_year: e.target.value ? parseInt(e.target.value) : null })}
               className="field max-w-xs"
@@ -188,7 +189,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
 
         {data.goals.length < 5 && (
           <div className="grid grid-cols-1 sm:grid-cols-[140px,1fr,140px,auto] gap-2">
-            <select value={newCategory} onChange={(e) => setNewCategory(e.target.value as GapGoal["category"])} className="field">
+            <select aria-label="Goal category" value={newCategory} onChange={(e) => setNewCategory(e.target.value as GapGoal["category"])} className="field">
               {CATEGORIES.map((c) => <option key={c.value} value={c.value}>{c.label}</option>)}
             </select>
             <input
@@ -222,6 +223,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
         <div className="grid grid-cols-[140px,1fr,auto] gap-2 mb-4">
           <input
             type="month"
+            aria-label="Month"
             value={logMonth}
             onChange={(e) => setLogMonth(e.target.value)}
             className="field"

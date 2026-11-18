@@ -90,7 +90,7 @@ export default async function ExperienceDetailPage({
             )}
           </article>
 
-          <aside className="lg:col-span-4">
+          <aside aria-label="Entry details" className="lg:col-span-4">
             <dl style={{ borderTop: "1px solid var(--border-strong)" }}>
               {facts.map(([label, value]) => (
                 <div key={label} className="flex justify-between gap-4" style={{ padding: "var(--sp-15) 0", borderBottom: "1px solid var(--border)" }}>
