@@ -3,7 +3,6 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { upsertProfile } from "./actions";
 import AppShell from "@/components/AppShell";
-import { VitalFlat, VitalOk } from "@/components/MedicalIcons";
 import ReferralPanel from "./ReferralPanel";
 import AccountData from "./AccountData";
 import HelpButton from "@/components/tour/HelpButton";
@@ -85,7 +84,6 @@ export default async function ProfilePage({
               color: "var(--text)",
             }}
           >
-            <VitalOk />
             Profile saved successfully.
           </div>
         )}
@@ -102,12 +100,11 @@ export default async function ProfilePage({
               color: "var(--danger)",
             }}
           >
-            <VitalFlat />
             {decodeURIComponent(pageError)}
           </div>
         )}
 
-        <div className="glass-card rounded-2xl p-8">
+        <div className="card rounded-2xl p-8">
           <div className="flex items-start justify-between gap-3 mb-6">
             <h1 className="text-xl font-bold" style={{ color: "var(--text)" }}>Your Profile</h1>
             <HelpButton className="md:hidden" tourId="help-profile" />
@@ -129,7 +126,7 @@ export default async function ProfilePage({
                 type="text"
                 defaultValue={profile?.full_name ?? ""}
                 placeholder="e.g. Jane Smith"
-                className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm"
+                className="field w-full px-3.5 py-2.5 rounded-xl text-sm"
               />
             </div>
 
@@ -149,7 +146,7 @@ export default async function ProfilePage({
                 list="university-list"
                 defaultValue={profile?.undergraduate_school ?? ""}
                 placeholder="Start typing your school..."
-                className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm"
+                className="field w-full px-3.5 py-2.5 rounded-xl text-sm"
               />
               <datalist id="university-list">
                 <option value="Arizona State University" />
@@ -267,7 +264,7 @@ export default async function ProfilePage({
                 max={2040}
                 defaultValue={profile?.graduation_year ?? ""}
                 placeholder="e.g. 2026"
-                className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm"
+                className="field w-full px-3.5 py-2.5 rounded-xl text-sm"
               />
             </div>
 
@@ -286,33 +283,33 @@ export default async function ProfilePage({
                 type="text"
                 defaultValue={profile?.intended_specialty ?? ""}
                 placeholder="e.g. Internal Medicine"
-                className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm"
+                className="field w-full px-3.5 py-2.5 rounded-xl text-sm"
               />
             </div>
 
-            <hr className="tear-line" />
+            <hr className="rule" />
 
             {/* Committee letter tracker */}
-            <p className="dept-header">Committee Letter</p>
+            <p className="section-title">Committee Letter</p>
             <div style={{ marginBottom: "var(--sp-2)" }}>
               <label className="flex items-center gap-2 text-sm" style={{ color: "var(--text)", cursor: "pointer" }}>
                 <input
                   type="checkbox"
                   name="committee_letter_required"
                   defaultChecked={profile?.committee_letter_required ?? false}
-                  style={{ accentColor: "var(--accent)", width: 15, height: 15 }}
+                  style={{ accentColor: "var(--action)", width: 15, height: 15 }}
                 />
                 My schools require a committee letter
               </label>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2" style={{ gap: "var(--sp-2)", marginBottom: "var(--sp-2)" }}>
               <div>
-                <label htmlFor="committee_letter_status" className="field-label">STATUS</label>
+                <label htmlFor="committee_letter_status" className="label">STATUS</label>
                 <select
                   id="committee_letter_status"
                   name="committee_letter_status"
                   defaultValue={profile?.committee_letter_status ?? "Not Started"}
-                  className="field-input"
+                  className="field"
                 >
                   {["Not Started", "Requested", "In Progress", "Submitted", "Not Required"].map((s) => (
                     <option key={s} value={s}>{s}</option>
@@ -320,25 +317,25 @@ export default async function ProfilePage({
                 </select>
               </div>
               <div>
-                <label htmlFor="amcas_target_date" className="field-label">AMCAS OPENS (COUNTDOWN TARGET)</label>
+                <label htmlFor="amcas_target_date" className="label">AMCAS OPENS (COUNTDOWN TARGET)</label>
                 <input
                   id="amcas_target_date"
                   name="amcas_target_date"
                   type="date"
                   defaultValue={profile?.amcas_target_date ?? ""}
-                  className="field-input"
+                  className="field"
                 />
               </div>
             </div>
             <div style={{ marginBottom: "var(--sp-2)" }}>
-              <label htmlFor="committee_letter_notes" className="field-label">NOTES</label>
+              <label htmlFor="committee_letter_notes" className="label">NOTES</label>
               <textarea
                 id="committee_letter_notes"
                 name="committee_letter_notes"
                 rows={3}
                 defaultValue={profile?.committee_letter_notes ?? ""}
                 placeholder="Deadline for the committee packet, who to contact"
-                className="field-input resize-none"
+                className="field resize-none"
               />
             </div>
 
@@ -346,8 +343,8 @@ export default async function ProfilePage({
             <div className="pt-2">
               <button
                 type="submit"
-                className="w-full inline-flex items-center justify-center gap-2 teal-glow px-6 py-3 rounded-xl font-semibold text-sm transition-colors focus:outline-none"
-                style={{ backgroundColor: "var(--accent)", color: "var(--on-accent)" }}
+                className="w-full inline-flex items-center justify-center gap-2 btn btn-primary px-6 py-3 rounded-xl font-semibold text-sm transition-colors focus:outline-none"
+                style={{ backgroundColor: "var(--action)", color: "var(--on-action)" }}
               >
                 Save Profile
               </button>
@@ -356,14 +353,14 @@ export default async function ProfilePage({
         </div>
 
         {/* Reminders and breaks */}
-        <div className="glass-card tick-corners" style={{ padding: "var(--sp-3)", marginTop: "var(--sp-3)" }} data-tour="reminders">
+        <div className="card" style={{ padding: "var(--sp-3)", marginTop: "var(--sp-3)" }} data-tour="reminders">
           <ReminderSettings initial={notifPrefs ?? null} />
           <BreakSettings initial={breakRows ?? []} />
         </div>
 
         {/* Referrals */}
-        <div className="glass-card tick-corners" style={{ padding: "var(--sp-3)", marginTop: "var(--sp-3)" }} data-tour="referral">
-          <p className="dept-header">Refer a Classmate</p>
+        <div className="card" style={{ padding: "var(--sp-3)", marginTop: "var(--sp-3)" }} data-tour="referral">
+          <p className="section-title">Refer a Classmate</p>
           <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-2)" }}>
             Anyone who signs up through your link is counted here.
           </p>
@@ -371,8 +368,8 @@ export default async function ProfilePage({
         </div>
 
         {/* Wallet card */}
-        <div className="glass-card tick-corners" style={{ padding: "var(--sp-3)", marginTop: "var(--sp-3)" }} data-tour="wallet-card">
-          <p className="dept-header">Wallet Card</p>
+        <div className="card" style={{ padding: "var(--sp-3)", marginTop: "var(--sp-3)" }} data-tour="wallet-card">
+          <p className="section-title">Wallet Card</p>
           <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-2)" }}>
             A condensed PDF at wallet dimensions with your totals and top placements,
             handy to have on you before an interview.
@@ -384,7 +381,7 @@ export default async function ProfilePage({
           />
         </div>
         {/* Export and deletion */}
-        <div className="glass-card tick-corners" style={{ padding: "var(--sp-3)", marginTop: "var(--sp-3)" }} data-tour="account-data">
+        <div className="card" style={{ padding: "var(--sp-3)", marginTop: "var(--sp-3)" }} data-tour="account-data">
           <AccountData />
         </div>
       </main>

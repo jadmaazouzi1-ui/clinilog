@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Experience, formatHours } from "@/lib/types";
-import { formatMedicalDate } from "@/lib/formatMedical";
+import { formatDate } from "@/lib/format";
 import { daysUntil, defaultAmcasTarget } from "@/lib/appTypes";
 import { daysSinceLastEntry, historyMonths, onThisDay, priorMonthSummary, weekStreak } from "@/lib/signals";
 import RecapCard from "./RecapCard";
@@ -41,66 +41,36 @@ export default function DashboardSignals({
   // produces a card reading zero.
   const recap = priorMonthSummary(experiences);
 
+  const countdown =
+    days > 1 ? `in ${days} days` : days === 1 ? "tomorrow" : days === 0 ? "today" : `${Math.abs(days)} days ago`;
+
   return (
     <>
-      {/* Readout strip */}
-      <div
+      {/* A few plain facts in one line, not a dashboard of widgets. */}
+      <p
         data-tour="signals"
-        className="flex items-center gap-x-6 gap-y-2 flex-wrap"
-        style={{
-          padding: "10px var(--sp-2)",
-          border: "1px solid var(--border-strong)",
-          borderRadius: "var(--radius)",
-          background: "var(--surface)",
-          marginBottom: "var(--sp-2)",
-        }}
+        className="text-sm"
+        style={{ color: "var(--text-muted)", marginBottom: "var(--sp-2)" }}
       >
-        <span className="flex items-baseline gap-2">
-          <span className="exp-id">AMCAS OPENS</span>
-          <span className="mono text-sm font-semibold" style={{ color: "var(--text)" }}>
-            {days > 0 ? `T-${days}` : days === 0 ? "TODAY" : `T+${Math.abs(days)}`}
-          </span>
-          <span className="exp-id">{formatMedicalDate(target)}</span>
-        </span>
-
-        {streak > 0 && (
-          <span className="flex items-baseline gap-2">
-            <span className="exp-id">STREAK</span>
-            <span className="mono text-sm font-semibold" style={{ color: "var(--text)" }}>
-              {streak} week{streak === 1 ? "" : "s"}
-            </span>
-          </span>
-        )}
-
+        AMCAS {days >= 0 ? "opens" : "opened"} <time className="tnum" dateTime={target} style={{ color: "var(--text)" }}>{formatDate(target)}</time>, {countdown}.
+        {streak > 1 && <> New entries {streak} weeks running.</>}
         {dormant !== null && !showDormant && (
-          <span className="flex items-baseline gap-2">
-            <span className="exp-id">LAST ENTRY</span>
-            <span className="mono text-sm" style={{ color: "var(--text-muted)" }}>
-              {dormant === 0 ? "TODAY" : `${dormant}D AGO`}
-            </span>
-          </span>
+          <> Last entry {dormant === 0 ? "today" : dormant === 1 ? "yesterday" : `${dormant} days ago`}.</>
         )}
-      </div>
+      </p>
 
       {/* Gap banner: in-app for everyone; email only for those who opt in */}
       {showDormant && <GapBanner days={dormant!} offerReminders={offerReminders} />}
 
-      {/* Monthly recap */}
       {recap.entries > 0 && (
         <div
           data-tour="recap"
           className="flex items-center justify-between gap-3 flex-wrap"
-          style={{
-            padding: "10px var(--sp-2)",
-            border: "1px solid var(--border-strong)",
-            borderRadius: "var(--radius)",
-            background: "var(--surface)",
-            marginBottom: "var(--sp-2)",
-          }}
+          style={{ padding: "var(--sp-15) 0", borderTop: "1px solid var(--border)", marginBottom: "var(--sp-2)" }}
         >
-          <p className="text-sm" style={{ color: "var(--text)" }}>
-            <span className="exp-id" style={{ marginRight: 8 }}>{recap.monthLabel.toUpperCase()}</span>
-            {formatHours(recap.hours)} hours across {recap.entries} {recap.entries === 1 ? "entry" : "entries"}.
+          <p className="text-sm">
+            <strong>{recap.monthLabel}:</strong> {formatHours(recap.hours)} hours across {recap.entries}{" "}
+            {recap.entries === 1 ? "entry" : "entries"}.
           </p>
           <RecapCard
             monthLabel={recap.monthLabel}
@@ -112,23 +82,11 @@ export default function DashboardSignals({
         </div>
       )}
 
-      {/* On this day */}
       {anniversary && (
-        <div
-          className="glass-card"
-          style={{ padding: "var(--sp-2)", marginBottom: "var(--sp-2)" }}
-        >
-          <p className="exp-id" style={{ marginBottom: 4 }}>
-            ON THIS DAY / {formatMedicalDate(anniversary.start_date)}
-          </p>
-          <p className="text-sm" style={{ color: "var(--text)" }}>
-            You started <strong>{anniversary.title}</strong> at {anniversary.organization}.
-            {" "}
-            <span className="mono" style={{ color: "var(--text-muted)" }}>
-              {formatHours(anniversary.hours)} hrs
-            </span>
-          </p>
-        </div>
+        <p className="text-sm" style={{ padding: "var(--sp-15) 0", borderTop: "1px solid var(--border)", marginBottom: "var(--sp-2)" }}>
+          Around this time in {new Date(anniversary.start_date).getFullYear()}, on {formatDate(anniversary.start_date)}, you started <strong>{anniversary.title}</strong> at{" "}
+          {anniversary.organization}. It has {formatHours(anniversary.hours)} hours so far.
+        </p>
       )}
     </>
   );

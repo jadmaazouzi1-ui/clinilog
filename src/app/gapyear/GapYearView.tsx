@@ -114,14 +114,14 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
   return (
     <div className="space-y-6">
       {/* Countdown + target year */}
-      <div className="glass-card rounded-2xl p-6">
+      <div className="card rounded-2xl p-6">
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div className="flex-1 min-w-[200px]">
             <p className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: "var(--text-muted)" }}>Target Application Cycle</p>
             <select
               value={data.target_cycle_year ?? ""}
               onChange={(e) => persist({ target_cycle_year: e.target.value ? parseInt(e.target.value) : null })}
-              className="input-dark px-3 py-2 rounded-xl text-sm w-full max-w-xs"
+              className="field px-3 py-2 rounded-xl text-sm w-full max-w-xs"
             >
               <option value="">Select target year…</option>
               {[2026, 2027, 2028, 2029, 2030].map((y) => (
@@ -142,7 +142,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
       </div>
 
       {/* Goals */}
-      <div className="glass-card rounded-2xl p-6">
+      <div className="card rounded-2xl p-6">
         <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
           <div>
             <h2 className="text-base font-semibold" style={{ color: "var(--text)" }}>Gap Year Goals</h2>
@@ -161,7 +161,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
                   style={{ background: "var(--surface)", border: "1px solid var(--border-strong)" }}
                 >
                   <span
-                    className="inline-flex items-center px-2 py-0.5 rounded-sm text-[10px] font-bold uppercase tracking-wide flex-shrink-0 mt-0.5"
+                    className="inline-flex items-center px-2 py-0.5 rounded-sm text-xs font-bold uppercase tracking-wide flex-shrink-0 mt-0.5"
                     style={{ background: "var(--surface)", color: "var(--border-strong)", border: "1px solid var(--border-strong)" }}
                   >
                     {meta.label}
@@ -188,26 +188,26 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
 
         {data.goals.length < 5 && (
           <div className="grid grid-cols-1 sm:grid-cols-[140px,1fr,140px,auto] gap-2">
-            <select value={newCategory} onChange={(e) => setNewCategory(e.target.value as GapGoal["category"])} className="input-dark px-3 py-2.5 rounded-xl text-sm">
+            <select value={newCategory} onChange={(e) => setNewCategory(e.target.value as GapGoal["category"])} className="field px-3 py-2.5 rounded-xl text-sm">
               {CATEGORIES.map((c) => <option key={c.value} value={c.value}>{c.label}</option>)}
             </select>
             <input
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
               placeholder="Goal title (e.g. Log 500 clinical hours)"
-              className="input-dark px-3 py-2.5 rounded-xl text-sm"
+              className="field px-3 py-2.5 rounded-xl text-sm"
             />
             <input
               value={newTarget}
               onChange={(e) => setNewTarget(e.target.value)}
               placeholder="Target (optional)"
-              className="input-dark px-3 py-2.5 rounded-xl text-sm"
+              className="field px-3 py-2.5 rounded-xl text-sm"
             />
             <button
               onClick={addGoal}
               disabled={!newTitle.trim()}
               className="px-4 py-2.5 rounded-xl font-semibold text-sm disabled:opacity-40 disabled:cursor-not-allowed"
-              style={{ background: "var(--accent)", color: "var(--on-accent)" }}
+              style={{ background: "var(--action)", color: "var(--on-action)" }}
             >
               Add
             </button>
@@ -216,7 +216,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
       </div>
 
       {/* Monthly log */}
-      <div className="glass-card rounded-2xl p-6">
+      <div className="card rounded-2xl p-6">
         <h2 className="text-base font-semibold mb-1" style={{ color: "var(--text)" }}>Monthly Activity Log</h2>
         <p className="text-xs mb-4" style={{ color: "var(--text-muted)" }}>What did you do this month? Track progress on your goals.</p>
 
@@ -225,26 +225,26 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
             type="month"
             value={logMonth}
             onChange={(e) => setLogMonth(e.target.value)}
-            className="input-dark px-3 py-2.5 rounded-xl text-sm"
+            className="field px-3 py-2.5 rounded-xl text-sm"
           />
           <input
             value={logText}
             onChange={(e) => setLogText(e.target.value)}
             placeholder="What did you accomplish this month?"
-            className="input-dark px-3 py-2.5 rounded-xl text-sm"
+            className="field px-3 py-2.5 rounded-xl text-sm"
           />
           <button
             onClick={saveLog}
             disabled={!logText.trim()}
             className="px-4 py-2.5 rounded-xl font-semibold text-sm disabled:opacity-40 disabled:cursor-not-allowed"
-            style={{ background: "var(--accent)", color: "var(--on-accent)" }}
+            style={{ background: "var(--action)", color: "var(--on-action)" }}
           >
             Save
           </button>
         </div>
 
         {sortedLogEntries.length === 0 ? (
-          <p className="text-xs text-center py-4" style={{ color: "var(--text-subtle)" }}>No entries logged yet.</p>
+          <p className="text-xs text-center py-4" style={{ color: "var(--text-muted)" }}>No entries logged yet.</p>
         ) : (
           <ul className="space-y-2">
             {sortedLogEntries.map(([month, text]) => (
@@ -269,20 +269,20 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
       </div>
 
       {/* Milestones */}
-      <div className="glass-card rounded-2xl p-6">
+      <div className="card rounded-2xl p-6">
         <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
           <div>
             <h2 className="text-base font-semibold" style={{ color: "var(--text)" }}>Application Milestones</h2>
             <p className="text-xs" style={{ color: "var(--text-muted)" }}>{milestonesDone}/{MILESTONES.length} complete</p>
           </div>
-          <div className="w-32 h-1.5 rounded-none overflow-hidden" style={{ background: "var(--accent-tint)", border: "1px solid var(--hairline)" }}>
+          <div className="w-32 h-1.5 rounded-none overflow-hidden" style={{ background: "var(--surface-alt)", border: "1px solid var(--border)" }}>
             <div
               className="h-full rounded-sm"
               style={{
                 width: "100%",
                 transform: `scaleX(${milestonesDone / MILESTONES.length})`,
                 transformOrigin: "left center",
-                background: "var(--accent)",
+                background: "var(--action)",
                 transition: "transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
               }}
             />
@@ -298,19 +298,19 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
                   onClick={() => toggleMilestone(m.id)}
                   className="w-full text-left rounded-xl px-3.5 py-3 flex items-start gap-3 transition-colors"
                   style={{
-                    background: done ? "var(--accent-tint)" : "var(--accent-tint)",
-                    border: `1px solid ${done ? "var(--border-strong)" : "var(--hairline)"}`,
+                    background: done ? "var(--surface-alt)" : "var(--surface-alt)",
+                    border: `1px solid ${done ? "var(--border-strong)" : "var(--border)"}`,
                   }}
                 >
                   <span
                     className="w-5 h-5 rounded-md flex items-center justify-center flex-shrink-0 mt-0.5"
                     style={{
-                      background: done ? "var(--accent)" : "transparent",
-                      border: `2px solid ${done ? "var(--accent)" : "var(--border-strong)"}`,
+                      background: done ? "var(--action)" : "transparent",
+                      border: `2px solid ${done ? "var(--action)" : "var(--border-strong)"}`,
                     }}
                   >
                     {done && (
-                      <svg className="w-3 h-3" fill="none" stroke="var(--on-accent)" strokeWidth="3" viewBox="0 0 24 24">
+                      <svg className="w-3 h-3" fill="none" stroke="var(--on-action)" strokeWidth="3" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                       </svg>
                     )}
@@ -322,7 +322,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
                     >
                       {m.label}
                     </p>
-                    <p className="text-xs mt-0.5" style={{ color: "var(--text-subtle)" }}>{m.due}</p>
+                    <p className="text-xs mt-0.5" style={{ color: "var(--text-muted)" }}>{m.due}</p>
                   </div>
                 </button>
               </li>
@@ -332,7 +332,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
       </div>
 
       {savedAt && (
-        <p className="text-xs text-center" style={{ color: "var(--text-subtle)" }}>
+        <p className="text-xs text-center" style={{ color: "var(--text-muted)" }}>
           {isPending ? "Saving…" : `Saved at ${savedAt}`}
         </p>
       )}

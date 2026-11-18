@@ -14,18 +14,18 @@ export default function ChangelogNote() {
 
   return (
     <div
-      className="glass-card flex items-center justify-between gap-3 flex-wrap"
-      style={{ padding: "var(--sp-2)", marginBottom: "var(--sp-3)", borderLeft: "2px solid var(--accent)" }}
+      className="card flex items-center justify-between gap-3 flex-wrap"
+      style={{ padding: "var(--sp-2)", marginBottom: "var(--sp-3)", borderLeft: "2px solid var(--action)" }}
       role="region"
       aria-label="What's new"
     >
       <p className="text-sm" style={{ color: "var(--text)" }}>
-        <span className="exp-id" style={{ marginRight: 8 }}>NEW</span>
+        <span className="meta" style={{ marginRight: 8 }}>NEW</span>
         Guided tour and Help Center. Open Help any time to replay a tour or ask a question.
       </p>
       <div className="flex items-center gap-2">
-        <button type="button" className="tour-btn" onClick={openHelp}>Open Help</button>
-        <button type="button" className="tour-btn" onClick={() => saveRow(META.changelogNote, "dismissed")} aria-label="Dismiss this note">
+        <button type="button" className="btn btn-sm btn-secondary" onClick={openHelp}>Open Help</button>
+        <button type="button" className="btn btn-sm btn-secondary" onClick={() => saveRow(META.changelogNote, "dismissed")} aria-label="Dismiss this note">
           Dismiss
         </button>
       </div>

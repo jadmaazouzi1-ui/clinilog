@@ -8,7 +8,7 @@ import { drawHeaderBand } from "@/lib/pdfBrand";
    come from the palette that mirrors src/styles/theme.css. */
 const RULE = rgb("gold500");
 const LABEL = rgb("gold700");
-const LINE = rgb("gray300");
+const LINE = rgb("stone200");
 const INK = rgb("black");
 
 
@@ -99,7 +99,7 @@ export default function ExportTargetList({
   return (
     <button
       onClick={exportPdf}
-      className="btn-ghost text-xs font-semibold"
+      className="btn btn-secondary text-xs font-semibold"
       style={{ padding: "8px var(--sp-2)" }}
     >
       Export target list ({schools.length})

@@ -24,17 +24,16 @@ export default function PathVisualization({ experiences }: { experiences: Experi
   const { branches, totalHours } = useMemo(() => buildBranches(experiences), [experiences]);
   const active = branches.find((b) => b.type === selected) ?? null;
 
-  const LIMB = "var(--path-branch)";
-  const LIMB_ON = "var(--path-branch-active)";
+  const LIMB = "var(--data-inverse-4)";
+  const LIMB_ON = "var(--data-inverse-1)";
 
   return (
     <section
-      className="path-panel tick-corners tick-corners-light relative overflow-hidden"
+      className="path-panel relative overflow-hidden"
       style={{
-        background: "var(--band)",
-        border: "2px solid var(--accent)",
-        borderRadius: "var(--radius)",
-        marginBottom: "var(--sp-4)",
+        background: "var(--surface-inverse)",
+        border: "1px solid var(--border-inverse)",
+        borderRadius: "var(--radius-card)",
       }}
     >
       <style>{`
@@ -45,34 +44,16 @@ export default function PathVisualization({ experiences }: { experiences: Experi
         }
       `}</style>
 
-      {/* Chart-paper grid, in place of a decorative starfield */}
-      <svg className="absolute inset-0 w-full h-full" aria-hidden="true">
-        <defs>
-          <pattern id="chartgrid" width="40" height="40" patternUnits="userSpaceOnUse">
-            <path d="M40,0 L0,0 L0,40" fill="none" stroke="var(--band-grid)" strokeWidth="1" />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#chartgrid)" />
-      </svg>
-
       {/* Panel header: left-aligned label, readout on the right */}
       <header
         className="relative flex flex-wrap items-baseline justify-between gap-2"
         style={{ padding: "var(--sp-2) var(--sp-3) 0" }}
       >
-        <p
-          style={{
-            color: "var(--band-text)",
-            fontSize: 10,
-            fontWeight: 700,
-            textTransform: "uppercase",
-            letterSpacing: "0.14em",
-          }}
-        >
-          Your Path
-        </p>
-        <p className="mono" style={{ color: "var(--band-muted)", fontSize: 10, letterSpacing: "0.06em" }}>
-          {formatHours(totalHours)} HRS / {experiences.length} {experiences.length === 1 ? "ENTRY" : "ENTRIES"}
+        <h2 className="section-title" style={{ color: "var(--text-inverse)", margin: 0 }}>
+          Your path
+        </h2>
+        <p className="text-xs tnum" style={{ color: "var(--text-inverse-muted)" }}>
+          {formatHours(totalHours)} hrs across {experiences.length} {experiences.length === 1 ? "entry" : "entries"}
         </p>
       </header>
 
@@ -81,16 +62,16 @@ export default function PathVisualization({ experiences }: { experiences: Experi
           className="relative"
           style={{ padding: "var(--sp-6) var(--sp-3)", minHeight: 200 }}
         >
-          <p style={{ color: "var(--band-text)", fontSize: 15, fontWeight: 600, marginBottom: 6 }}>
+          <p className="text-sm font-semibold" style={{ color: "var(--text-inverse)", marginBottom: 6 }}>
             Nothing has grown here yet.
           </p>
-          <p style={{ color: "var(--band-muted)", fontSize: 13, maxWidth: 340, lineHeight: 1.6 }}>
+          <p className="text-xs" style={{ color: "var(--text-inverse-muted)", maxWidth: 340, lineHeight: 1.6 }}>
             Log your first experience and a limb appears for its category. Each limb thickens and puts
             out new forks as you add hours to it.
           </p>
           <svg viewBox="0 0 200 90" className="mt-4" style={{ width: 200, height: 90, opacity: 0.32 }} aria-hidden="true">
             <path d={taperedRibbon([{ x: 14, y: 84 }, { x: 40, y: 60 }, { x: 96, y: 54 }, { x: 150, y: 20 }], 9, 2, 20)} fill={LIMB} />
-            <line x1="6" y1="86" x2="194" y2="86" stroke="var(--band-line)" strokeWidth="1" strokeDasharray="4 4" />
+            <line x1="6" y1="86" x2="194" y2="86" stroke="var(--border-inverse)" strokeWidth="1" strokeDasharray="4 4" />
           </svg>
         </div>
       ) : (
@@ -99,12 +80,11 @@ export default function PathVisualization({ experiences }: { experiences: Experi
           className="relative w-full"
           style={{ display: "block", height: "auto" }}
           preserveAspectRatio="xMidYMid meet"
-          role="img"
-          aria-label={`Your path: ${branches.map((b) => `${CATEGORY_LABEL[b.type]} ${formatHours(b.hours)} hours`).join(", ")}`}
+          aria-hidden="true"
         >
 
           {/* Trunk */}
-          <path d={taperedRibbon(TRUNK, TRUNK_W_BASE, TRUNK_W_TIP, 34)} fill="var(--path-trunk)" />
+          <path d={taperedRibbon(TRUNK, TRUNK_W_BASE, TRUNK_W_TIP, 34)} fill="var(--data-inverse-3)" />
 
           {branches.map((b) => {
             const on = selected === b.type;
@@ -114,17 +94,7 @@ export default function PathVisualization({ experiences }: { experiences: Experi
               <g
                 key={b.type}
                 onClick={() => setSelected(on ? null : b.type)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    setSelected(on ? null : b.type);
-                  }
-                }}
-                tabIndex={0}
-                role="button"
-                aria-pressed={on}
-                aria-label={`${CATEGORY_LABEL[b.type]}: ${formatHours(b.hours)} hours across ${b.count} entries`}
-                style={{ cursor: "pointer", outline: "none" }}
+                style={{ cursor: "pointer" }}
               >
                 {/* Limb + forks */}
                 <path d={b.d} fill={on ? LIMB_ON : LIMB} />
@@ -180,8 +150,8 @@ export default function PathVisualization({ experiences }: { experiences: Experi
                 x={b.label.x}
                 y={b.label.y}
                 textAnchor={b.label.anchor}
-                fill="var(--band-text)"
-                stroke="var(--band)"
+                fill="var(--text-inverse)"
+                stroke="var(--surface-inverse)"
                 strokeWidth={3}
                 paintOrder="stroke"
                 strokeLinejoin="round"
@@ -194,14 +164,14 @@ export default function PathVisualization({ experiences }: { experiences: Experi
                 x={b.label.x}
                 y={b.label.subY}
                 textAnchor={b.label.anchor}
-                fill="var(--band-muted)"
-                stroke="var(--band)"
+                fill="var(--text-inverse-muted)"
+                stroke="var(--surface-inverse)"
                 strokeWidth={2.5}
                 paintOrder="stroke"
                 strokeLinejoin="round"
-                style={{ fontSize: 10, fontFamily: "var(--font-mono)", letterSpacing: "0.04em" }}
+                style={{ fontSize: b.label.fontSize * 0.72, fontVariantNumeric: "tabular-nums" }}
               >
-                {formatHours(b.hours)} HRS / {b.count}
+                {formatHours(b.hours)} hrs
               </text>
             </g>
           ))}
@@ -216,7 +186,7 @@ export default function PathVisualization({ experiences }: { experiences: Experi
           style={{
             gridTemplateColumns: "repeat(auto-fit, minmax(128px, 1fr))",
             padding: "0 var(--sp-3) var(--sp-3)",
-            borderTop: "1px dashed var(--band-line)",
+            borderTop: "1px solid var(--border-inverse)",
             marginTop: "var(--sp-1)",
             paddingTop: "var(--sp-2)",
           }}
@@ -228,25 +198,18 @@ export default function PathVisualization({ experiences }: { experiences: Experi
                 key={b.type}
                 onClick={() => setSelected(on ? null : b.type)}
                 className="text-left"
+                aria-pressed={on}
+                aria-label={`${CATEGORY_LABEL[b.type]}: ${formatHours(b.hours)} hours across ${b.count} ${b.count === 1 ? "entry" : "entries"}`}
                 style={{
+                  minHeight: 44,
                   background: "transparent",
                   border: 0,
-                  borderBottom: `1px solid ${on ? CATEGORY_COLOR[b.type] : "var(--band-line)"}`,
+                  borderBottom: `1px solid ${on ? CATEGORY_COLOR[b.type] : "var(--border-inverse)"}`,
                   padding: "0 0 5px",
                   cursor: "pointer",
                 }}
               >
-                <span
-                  className="flex items-center gap-1.5"
-                  style={{
-                    color: "var(--band-muted)",
-                    fontSize: 9,
-                    fontWeight: 700,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.12em",
-                    marginBottom: 3,
-                  }}
-                >
+                <span className="flex items-center gap-1.5 text-xs" style={{ color: "var(--text-inverse-muted)", marginBottom: 2 }}>
                   <svg width="9" height="9" viewBox="-1 -5 12 10" aria-hidden="true" style={{ flexShrink: 0 }}>
                     <path
                       d={leafPath(LEAF_KIND[b.type], 9)}
@@ -258,12 +221,12 @@ export default function PathVisualization({ experiences }: { experiences: Experi
                   {CATEGORY_LABEL[b.type]}
                 </span>
                 <span
-                  className="mono"
-                  style={{ color: "var(--band-text)", fontSize: 14, fontWeight: 600, display: "block" }}
+                  className="tnum"
+                  style={{ color: "var(--text-inverse)", fontSize: "var(--text-sm)", fontWeight: 600, display: "block" }}
                 >
                   {formatHours(b.hours)}
-                  <span style={{ fontSize: 9, color: "var(--band-muted)", marginLeft: 4 }}>
-                    HRS / {b.count}
+                  <span className="text-xs" style={{ color: "var(--text-inverse-muted)", fontWeight: 400, marginLeft: 4 }}>
+                    hrs
                   </span>
                 </span>
               </button>
@@ -278,14 +241,12 @@ export default function PathVisualization({ experiences }: { experiences: Experi
           style={{
             margin: "0 var(--sp-3) var(--sp-3)",
             padding: "var(--sp-2)",
-            background: "var(--band-raise)",
-            border: "1px solid var(--band-line)",
-            borderLeft: `2px solid ${CATEGORY_COLOR[active.type]}`,
-            borderRadius: "var(--radius)",
+            border: "1px solid var(--border-inverse)",
+            borderRadius: "var(--radius-card)",
           }}
         >
-          <p style={{ color: "var(--band-text)", fontSize: 13, fontWeight: 600 }}>{CATEGORY_LABEL[active.type]}</p>
-          <p style={{ color: "var(--band-muted)", fontSize: 12, marginTop: 2 }}>
+          <p className="text-sm font-semibold" style={{ color: "var(--text-inverse)" }}>{CATEGORY_LABEL[active.type]}</p>
+          <p className="text-xs" style={{ color: "var(--text-inverse-muted)", marginTop: 2 }}>
             {formatHours(active.hours)} hours across {active.count}{" "}
             {active.count === 1 ? "entry" : "entries"}. This limb thickens and forks again as you log more.
           </p>

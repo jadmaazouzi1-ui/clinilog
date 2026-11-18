@@ -75,7 +75,7 @@ test.describe("the email", () => {
       expect(body).toContain("Oct 11, 2026");
       expect(body).toContain("125 hours");
       expect(body).toContain("no shadowing hours");
-      expect(body).not.toMatch(/[!–—]|streak|behind|don't forget|miss/i);
+      expect(body).not.toMatch(/[!\u2013\u2014]|streak|behind|don't forget|miss/i);
       expect(body).not.toMatch(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/u);
     }
     expect(email.text).toContain("Unsubscribe from reminders: https://www.cliniclogmd.com/api/unsubscribe?u=x&t=y&k=reminders");

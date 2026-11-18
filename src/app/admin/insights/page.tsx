@@ -1,8 +1,7 @@
 import { notFound, redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import AppShell from "@/components/AppShell";
-import { formatMedicalDate } from "@/lib/formatMedical";
-import { EkgDivider, RecordNo, TabIndex } from "@/components/MedicalIcons";
+import { formatDate } from "@/lib/format";
 import SignupsChart from "./SignupsChart";
 
 
@@ -37,14 +36,13 @@ export default async function AdminInsightsPage() {
   return (
     <AppShell userEmail={user.email ?? ""} activePath="/admin/insights">
       <main
-        className="w-full chart-margin"
+        className="w-full"
         style={{ paddingTop: "var(--sp-3)", paddingRight: "var(--sp-3)", paddingBottom: "var(--sp-4)" }}
       >
         <div className="flex items-baseline justify-between gap-3 flex-wrap">
           <h1 className="text-xl font-bold" style={{ color: "var(--text)" }}>
             Platform insights
           </h1>
-          <RecordNo page="/admin/insights" />
         </div>
         <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-3)" }}>
           Owner only. Aggregates across all accounts; no individual record is shown.
@@ -52,18 +50,18 @@ export default async function AdminInsightsPage() {
 
         {error || !insights ? (
           <div
-            className="glass-card"
+            className="card"
             style={{ padding: "var(--sp-3)", borderLeft: "2px solid var(--danger)" }}
           >
-            <p className="exp-id" style={{ color: "var(--danger)", marginBottom: 4 }}>QUERY FAILED</p>
+            <p className="meta" style={{ color: "var(--danger)", marginBottom: 4 }}>QUERY FAILED</p>
             <p className="text-sm" style={{ color: "var(--text-muted)" }}>
               {error?.message ?? "No data returned."}
             </p>
           </div>
         ) : (
           <>
-            <p className="dept-header flex items-center gap-2">
-              Totals <TabIndex n={1} />
+            <p className="section-title flex items-center gap-2">
+              Totals
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: "var(--sp-2)", marginBottom: "var(--sp-4)" }}>
               {[
@@ -72,31 +70,31 @@ export default async function AdminInsightsPage() {
                 ["HOURS LOGGED", String(Math.round(Number(insights.total_hours)))],
                 ["ENTRIES", String(insights.total_entries)],
               ].map(([label, value]) => (
-                <div key={label} className="vital-card tick-corners">
-                  <p className="vital-card-label">{label}</p>
-                  <span className="vital-card-value">{value}</span>
+                <div key={label} className="card">
+                  <p className="stat-label">{label}</p>
+                  <span className="stat-value">{value}</span>
                 </div>
               ))}
             </div>
 
-            <EkgDivider />
+            <hr className="rule" />
 
-            <p className="dept-header flex items-center gap-2">
-              Signups, last 90 days <TabIndex n={2} />
+            <p className="section-title flex items-center gap-2">
+              Signups, last 90 days
             </p>
-            <div className="glass-card" style={{ padding: "var(--sp-2)", marginBottom: "var(--sp-4)" }}>
+            <div className="card" style={{ padding: "var(--sp-2)", marginBottom: "var(--sp-4)" }}>
               <SignupsChart data={insights.signups_over_time ?? []} />
             </div>
 
-            <p className="dept-header flex items-center gap-2">
-              Most-visited pages, last 30 days <TabIndex n={3} />
+            <p className="section-title flex items-center gap-2">
+              Most-visited pages, last 30 days
             </p>
             {(insights.top_pages ?? []).length === 0 ? (
               <p className="text-sm" style={{ color: "var(--text-muted)" }}>
                 No page views recorded yet.
               </p>
             ) : (
-              <div className="glass-card" style={{ padding: "var(--sp-2)" }}>
+              <div className="card" style={{ padding: "var(--sp-2)" }}>
                 {insights.top_pages.map((p) => {
                   const max = Math.max(...insights.top_pages.map((x) => Number(x.visits)));
                   const pct = max > 0 ? (Number(p.visits) / max) * 100 : 0;
@@ -104,18 +102,18 @@ export default async function AdminInsightsPage() {
                     <div
                       key={p.path}
                       className="flex items-baseline gap-3"
-                      style={{ padding: "6px 0", borderBottom: "1px solid var(--hairline)" }}
+                      style={{ padding: "6px 0", borderBottom: "1px solid var(--border)" }}
                     >
-                      <span className="mono text-xs flex-1 truncate" style={{ color: "var(--text)" }}>
+                      <span className="tnum text-xs flex-1 truncate" style={{ color: "var(--text)" }}>
                         {p.path}
                       </span>
                       <span
                         aria-hidden="true"
-                        style={{ display: "block", width: 120, height: 5, background: "var(--accent-tint)" }}
+                        style={{ display: "block", width: 120, height: 5, background: "var(--surface-alt)" }}
                       >
-                        <span style={{ display: "block", height: "100%", width: `${pct}%`, background: "var(--accent)" }} />
+                        <span style={{ display: "block", height: "100%", width: `${pct}%`, background: "var(--action)" }} />
                       </span>
-                      <span className="mono text-xs" style={{ color: "var(--text-muted)", minWidth: 36, textAlign: "right" }}>
+                      <span className="tnum text-xs" style={{ color: "var(--text-muted)", minWidth: 36, textAlign: "right" }}>
                         {p.visits}
                       </span>
                     </div>
@@ -124,8 +122,8 @@ export default async function AdminInsightsPage() {
               </div>
             )}
 
-            <p className="exp-id" style={{ marginTop: "var(--sp-3)" }}>
-              GENERATED {formatMedicalDate(new Date())}
+            <p className="meta" style={{ marginTop: "var(--sp-3)" }}>
+              GENERATED {formatDate(new Date())}
             </p>
           </>
         )}

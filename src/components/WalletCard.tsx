@@ -8,7 +8,7 @@ import { rgb } from "@/lib/palette";
 const BAND = rgb("black");
 const RULE = rgb("gold500");
 const LABEL = rgb("gold700");
-const LINE = rgb("gray300");
+const LINE = rgb("stone200");
 const INK = rgb("black");
 const ON_BAND = rgb("cream");
 
@@ -125,7 +125,7 @@ export default function WalletCard({
     <button
       type="button"
       onClick={exportCard}
-      className="btn-ghost text-xs font-semibold"
+      className="btn btn-secondary text-xs font-semibold"
       style={{ padding: "8px var(--sp-2)" }}
     >
       Download wallet card (PDF)

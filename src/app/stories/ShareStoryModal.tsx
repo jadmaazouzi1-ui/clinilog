@@ -10,8 +10,8 @@ export default function ShareStoryModal() {
     return (
       <button
         onClick={() => setOpen(true)}
-        className="teal-glow inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm"
-        style={{ backgroundColor: "var(--accent)", color: "var(--on-accent)" }}
+        className="btn btn-primary inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm"
+        style={{ backgroundColor: "var(--action)", color: "var(--on-action)" }}
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -54,7 +54,7 @@ export default function ShareStoryModal() {
                 type="text"
                 required
                 placeholder="Jane"
-                className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm"
+                className="field w-full px-3.5 py-2.5 rounded-xl text-sm"
               />
             </div>
             <div>
@@ -65,7 +65,7 @@ export default function ShareStoryModal() {
                 name="undergrad_school"
                 type="text"
                 placeholder="UC Riverside"
-                className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm"
+                className="field w-full px-3.5 py-2.5 rounded-xl text-sm"
               />
             </div>
           </div>
@@ -79,7 +79,7 @@ export default function ShareStoryModal() {
               type="text"
               required
               placeholder="UCLA David Geffen School of Medicine"
-              className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm"
+              className="field w-full px-3.5 py-2.5 rounded-xl text-sm"
             />
           </div>
 
@@ -92,7 +92,7 @@ export default function ShareStoryModal() {
               type="text"
               required
               placeholder="e.g. Parents immigrated from Mexico, first in family to attend college"
-              className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm"
+              className="field w-full px-3.5 py-2.5 rounded-xl text-sm"
             />
           </div>
 
@@ -105,7 +105,7 @@ export default function ShareStoryModal() {
               required
               rows={4}
               placeholder="2 or 3 sentences: what you did and what you wish you had known"
-              className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm resize-none"
+              className="field w-full px-3.5 py-2.5 rounded-xl text-sm resize-none"
             />
           </div>
 
@@ -120,8 +120,8 @@ export default function ShareStoryModal() {
             </button>
             <button
               type="submit"
-              className="teal-glow flex-1 py-2.5 rounded-xl font-semibold text-sm"
-              style={{ backgroundColor: "var(--accent)", color: "var(--on-accent)" }}
+              className="btn btn-primary flex-1 py-2.5 rounded-xl font-semibold text-sm"
+              style={{ backgroundColor: "var(--action)", color: "var(--on-action)" }}
             >
               Submit Story
             </button>

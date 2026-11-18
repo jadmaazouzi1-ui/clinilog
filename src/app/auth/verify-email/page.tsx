@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function VerifyEmailPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center px-4" style={{ backgroundColor: "var(--bg)" }}>
+    <div className="min-h-screen flex items-center justify-center px-4" style={{ backgroundColor: "var(--background)" }}>
       <div className="w-full max-w-md text-center">
         {/* Logo */}
         <div className="flex items-center justify-center gap-3 mb-8">
@@ -44,7 +44,7 @@ export default function VerifyEmailPage() {
           experiences.
         </p>
 
-        <div className="glass-card tick-corners" style={{ padding: "var(--sp-3)", textAlign: "left", marginBottom: "var(--sp-3)" }}>
+        <div className="card" style={{ padding: "var(--sp-3)", textAlign: "left", marginBottom: "var(--sp-3)" }}>
           <h2 className="text-sm font-semibold mb-3" style={{ color: "var(--text)" }}>
             Next steps
           </h2>
@@ -63,7 +63,7 @@ export default function VerifyEmailPage() {
           </ol>
         </div>
 
-        <p className="text-sm" style={{ color: "var(--text-subtle)" }}>
+        <p className="text-sm" style={{ color: "var(--text-muted)" }}>
           Already confirmed?{" "}
           <Link
             href="/auth/login"

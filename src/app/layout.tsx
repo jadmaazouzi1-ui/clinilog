@@ -1,20 +1,24 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Newsreader, Public_Sans } from "next/font/google";
 import { headers } from "next/headers";
 import "./globals.css";
 import { PALETTE } from "@/lib/palette";
 
-// Not preloaded: the logged-out home page uses Archivo only, and a preload
-// here would download Inter there for nothing. Signed-in pages swap it in.
-const inter = Inter({
-  variable: "--font-inter",
+// Two faces, chosen in DESIGN.md. Newsreader sets headings: a text serif
+// with optical sizes, so it stays crisp at 28px and holds together at 84px.
+// Public Sans sets everything else: plain, sturdy, with tabular figures for
+// hours and dates. Both are self-hosted by next/font.
+const display = Newsreader({
+  variable: "--font-newsreader",
   subsets: ["latin"],
-  preload: false,
+  axes: ["opsz"],
+  display: "swap",
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
+const text = Public_Sans({
+  variable: "--font-public-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -52,7 +56,7 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${display.variable} ${text.variable} h-full antialiased`}
       // The theme script writes data-theme before React hydrates, so the
       // server and client markup differ on <html> by design.
       suppressHydrationWarning
@@ -71,7 +75,7 @@ export default async function RootLayout({
       </head>
       <body
         className="min-h-full flex flex-col"
-        style={{ backgroundColor: "var(--bg)", color: "var(--text)" }}
+        style={{ backgroundColor: "var(--background)", color: "var(--text)" }}
       >
         {children}
       </body>

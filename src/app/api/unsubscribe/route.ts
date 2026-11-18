@@ -39,12 +39,12 @@ function params(url: string) {
 export async function GET(request: Request) {
   const { id, token, purpose } = params(request.url);
   if (!UUID.test(id) || !verifyUnsubscribeToken(id, token, purpose)) {
-    return page(`<h1 style="font-size:18px">Link not valid</h1><p>This unsubscribe link is invalid or incomplete.</p>`, 400);
+    return page(`<h1 style="font-size:21px">Link not valid</h1><p>This unsubscribe link is invalid or incomplete.</p>`, 400);
   }
   const k = purpose === "digest" ? "" : `&k=${purpose}`;
   const action = `/api/unsubscribe?u=${encodeURIComponent(id)}&t=${encodeURIComponent(token)}${k}`;
   const c = COPY[purpose];
-  return page(`<h1 style="font-size:18px;margin-top:0">${c.ask}</h1><p style="${EMAIL_STYLE.muted}">${c.detail}</p><form method="post" action="${action}"><button type="submit" style="${PAGE_BUTTON}">Unsubscribe</button></form>`);
+  return page(`<h1 style="font-size:21px;margin-top:0">${c.ask}</h1><p style="${EMAIL_STYLE.muted}">${c.detail}</p><form method="post" action="${action}"><button type="submit" style="${PAGE_BUTTON}">Unsubscribe</button></form>`);
 }
 
 // POST performs it, and only the one thing the token was signed for. Also
@@ -52,11 +52,11 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   const { id, token, purpose } = params(request.url);
   if (!UUID.test(id) || !verifyUnsubscribeToken(id, token, purpose)) {
-    return page(`<h1 style="font-size:18px">Link not valid</h1>`, 400);
+    return page(`<h1 style="font-size:21px">Link not valid</h1>`, 400);
   }
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) return page(`<h1 style="font-size:18px">Temporarily unavailable</h1><p>Please try again later.</p>`, 503);
+  if (!url || !key) return page(`<h1 style="font-size:21px">Temporarily unavailable</h1><p>Please try again later.</p>`, 503);
 
   const admin = createAdminClient(url, key, { auth: { persistSession: false } });
   const { error } =
@@ -68,7 +68,7 @@ export async function POST(request: Request) {
       : await admin.from("profiles").update({ digest_opt_out: true }).eq("id", id);
   if (error) {
     console.error("[unsubscribe]", error.message);
-    return page(`<h1 style="font-size:18px">Something went wrong</h1><p>Please try again.</p>`, 500);
+    return page(`<h1 style="font-size:21px">Something went wrong</h1><p>Please try again.</p>`, 500);
   }
-  return page(`<h1 style="font-size:18px;margin-top:0">Unsubscribed</h1><p style="${EMAIL_STYLE.muted}">${COPY[purpose].done}</p><p><a href="https://www.cliniclogmd.com" style="${EMAIL_STYLE.link}">Back to ClinicLog MD</a></p>`);
+  return page(`<h1 style="font-size:21px;margin-top:0">Unsubscribed</h1><p style="${EMAIL_STYLE.muted}">${COPY[purpose].done}</p><p><a href="https://www.cliniclogmd.com" style="${EMAIL_STYLE.link}">Back to ClinicLog MD</a></p>`);
 }

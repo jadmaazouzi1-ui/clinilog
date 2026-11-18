@@ -4,6 +4,8 @@ import { createClient } from "@/lib/supabase/server";
 import { updateExperience } from "../../actions";
 import { Experience } from "@/lib/types";
 import AppShell from "@/components/AppShell";
+import ExperienceForm from "../../ExperienceForm";
+import { Notice } from "@/components/ui";
 
 export const metadata = {
   description: "Change the dates, hours or description of a logged experience.",
@@ -43,221 +45,24 @@ export default async function EditExperiencePage({
 
   return (
     <AppShell userEmail={user.email ?? ""} activePath="/dashboard" breadcrumbs={[{ label: "Overview", href: "/dashboard" }, { label: exp.title, href: `/dashboard/${exp.id}` }, { label: "Edit" }]}>
-      <main className="w-full" style={{ padding: "var(--sp-3)", maxWidth: 820 }}>
-        {/* Back link */}
-        <Link
-          href={`/dashboard/${exp.id}`}
-          className="inline-flex items-center gap-1.5 text-sm font-medium mb-8"
-          style={{ color: "var(--text)" }}
-        >
-          <svg
-            className="w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M10 19l-7-7m0 0l7-7m-7 7h18"
-            />
-          </svg>
-          Back to Overview
+      <main className="w-full" style={{ padding: "var(--sp-3) var(--sp-3) var(--sp-6)", maxWidth: 1120 }}>
+        <Link href={`/dashboard/${exp.id}`} className="link text-sm">
+          Back to entry
         </Link>
-
-        <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
-          <h1 className="text-xl font-bold mb-6" style={{ color: "var(--text)" }}>
-            Edit Experience
-          </h1>
-
-          {pageError && (
-            <div
-              className="mb-6 text-sm rounded-xl px-4 py-3"
-              style={{ background: "var(--accent-tint)", border: "1px solid var(--border-strong)", color: "var(--text)" }}
-            >
-              Error: {decodeURIComponent(pageError)}
-            </div>
-          )}
-
-          <form action={updateExperience.bind(null, exp.id)} className="space-y-6">
-            {/* Title */}
-            <div>
-              <label
-                htmlFor="title"
-                className="field-label"
-              >
-                TTL <span style={{ color: "var(--accent-text)" }}>*</span>
-              </label>
-              <input
-                id="title"
-                name="title"
-                type="text"
-                required
-                defaultValue={exp.title}
-                placeholder="e.g. Cardiology Shadowing at UCSF"
-                className="field-input"
-              />
-            </div>
-
-            {/* Organization */}
-            <div>
-              <label
-                htmlFor="organization"
-                className="field-label"
-              >
-                ORG <span style={{ color: "var(--accent-text)" }}>*</span>
-              </label>
-              <input
-                id="organization"
-                name="organization"
-                type="text"
-                required
-                defaultValue={exp.organization}
-                placeholder="e.g. UCSF Medical Center"
-                className="field-input"
-              />
-            </div>
-
-            {/* Type */}
-            <div>
-              <label
-                htmlFor="experience_type"
-                className="field-label"
-              >
-                CAT <span style={{ color: "var(--accent-text)" }}>*</span>
-              </label>
-              <select
-                id="experience_type"
-                name="experience_type"
-                required
-                defaultValue={exp.type}
-                className="field-input"
-              >
-                <option value="">Select a type...</option>
-                <option value="shadowing">Shadowing</option>
-                <option value="volunteer">Volunteer</option>
-                <option value="clinical_work">Clinical Work</option>
-                <option value="research">Research</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-
-            {/* Date range */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label
-                  htmlFor="start_date"
-                  className="field-label"
-                >
-                  DOS START <span style={{ color: "var(--accent-text)" }}>*</span>
-                </label>
-                <input
-                  id="start_date"
-                  name="start_date"
-                  type="date"
-                  required
-                  defaultValue={exp.start_date}
-                  className="field-input"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="end_date"
-                  className="field-label"
-                >
-                  DOS END{" "}
-                  <span className="font-normal" style={{ color: "var(--text-subtle)" }}>(optional)</span>
-                </label>
-                <input
-                  id="end_date"
-                  name="end_date"
-                  type="date"
-                  defaultValue={exp.end_date ?? ""}
-                  className="field-input"
-                />
-              </div>
-            </div>
-
-            {/* Hours */}
-            <div>
-              <label
-                htmlFor="hours"
-                className="field-label"
-              >
-                HRS <span style={{ color: "var(--accent-text)" }}>*</span>
-              </label>
-              <input
-                id="hours"
-                name="hours"
-                type="number"
-                required
-                min="0.1"
-                max="1000"
-                step="any"
-                defaultValue={exp.hours}
-                placeholder="e.g. 40"
-                className="field-input"
-              />
-            </div>
-
-            {/* Description */}
-            <div>
-              <label
-                htmlFor="description"
-                className="field-label"
-              >
-                DESC{" "}
-                <span className="font-normal" style={{ color: "var(--text-subtle)" }}>(optional)</span>
-              </label>
-              <textarea
-                id="description"
-                name="description"
-                rows={4}
-                defaultValue={exp.description ?? ""}
-                placeholder="What did you do?"
-                className="field-input resize-none"
-              />
-            </div>
-
-            {/* Reflection */}
-            <div>
-              <label
-                htmlFor="reflection"
-                className="field-label"
-              >
-                REFL{" "}
-                <span className="font-normal" style={{ color: "var(--text-subtle)" }}>(optional)</span>
-              </label>
-              <textarea
-                id="reflection"
-                name="reflection"
-                rows={4}
-                defaultValue={exp.reflection ?? ""}
-                placeholder="What did you learn? How did this shape your interest in medicine?"
-                className="field-input"
-              />
-            </div>
-
-            {/* Actions */}
-            <div className="flex items-center gap-3 pt-2">
-              <button
-                type="submit"
-                className="flex-1 inline-flex items-center justify-center gap-2 teal-glow px-6 py-3 rounded-xl font-semibold text-sm transition-colors focus:outline-none"
-                style={{ backgroundColor: "var(--accent)", color: "var(--on-accent)" }}
-              >
-                Save Changes
-              </button>
-              <Link
-                href={`/dashboard/${exp.id}`}
-                className="inline-flex items-center justify-center px-6 py-3 rounded-xl font-semibold text-sm transition-colors"
-                style={{ color: "var(--border-strong)", border: "1px solid var(--border-strong)", background: "transparent" }}
-              >
-                Cancel
-              </Link>
-            </div>
-          </form>
-        </div>
+        <h1 className="text-2xl" style={{ margin: "var(--sp-15) 0 var(--sp-4)" }}>
+          Edit entry
+        </h1>
+        {pageError && (
+          <div style={{ marginBottom: "var(--sp-3)" }}>
+            <Notice tone="danger">{decodeURIComponent(pageError)}</Notice>
+          </div>
+        )}
+        <ExperienceForm
+          action={updateExperience.bind(null, exp.id)}
+          values={exp}
+          submitLabel="Save changes"
+          cancelHref={`/dashboard/${exp.id}`}
+        />
       </main>
     </AppShell>
   );

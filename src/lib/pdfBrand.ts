@@ -5,10 +5,10 @@ import { markRects } from "./logo";
 import { rgb } from "./palette";
 
 export const PDF_TEXT = rgb("black");
-export const PDF_MUTED = rgb("gray700");
+export const PDF_MUTED = rgb("stone700");
 export const PDF_LABEL = rgb("gold700");
 export const PDF_RULE = rgb("gold500");
-export const PDF_HAIRLINE = rgb("gray300");
+export const PDF_HAIRLINE = rgb("stone200");
 
 /** Draws the band across the top of the page and returns the y below it. */
 export function drawHeaderBand(doc: jsPDF, title: string, opts: { height?: number; sub?: string } = {}): number {

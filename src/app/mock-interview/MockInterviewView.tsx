@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { EkgLoader, TabIndex, VitalFlat } from "@/components/MedicalIcons";
+import { Loading } from "@/components/ui";
 
 interface Q { question: string; why: string }
 interface Questions { traditional: Q[]; mmi: Q[] }
@@ -10,15 +10,15 @@ function Block({ title, tab, items }: { title: string; tab: number; items: Q[] }
   if (!items?.length) return null;
   return (
     <>
-      <p className="dept-header flex items-center gap-2">{title} <TabIndex n={tab} /></p>
+      <p className="section-title flex items-center gap-2">{title}</p>
       <div style={{ marginBottom: "var(--sp-3)" }}>
         {items.map((q, i) => (
           <div
             key={i}
-            style={{ padding: "10px 0 10px 10px", borderBottom: "1px solid var(--hairline)", boxShadow: "inset 3px 0 0 -1px var(--accent)" }}
+            style={{ padding: "10px 0 10px 10px", borderBottom: "1px solid var(--border)", borderLeft: "2px solid var(--border-strong)" }}
           >
             <p className="text-sm" style={{ color: "var(--text)", lineHeight: 1.6 }}>
-              <span className="mono" style={{ color: "var(--text-subtle)", marginRight: 8 }}>
+              <span className="tnum" style={{ color: "var(--text-muted)", marginRight: 8 }}>
                 {String(i + 1).padStart(2, "0")}
               </span>
               {q.question}
@@ -66,34 +66,33 @@ export default function MockInterviewView({ ready }: { ready: boolean }) {
         <button
           onClick={generate}
           disabled={loading || !ready}
-          className="teal-glow text-sm"
+          className="btn btn-primary text-sm"
           style={{ padding: "10px var(--sp-3)", opacity: loading || !ready ? 0.6 : 1, cursor: ready ? "pointer" : "not-allowed" }}
         >
           {questions ? "Regenerate" : "Generate questions"}
         </button>
-        <span className="exp-id">
+        <span className="meta">
           {remaining === null ? "10 PER DAY" : `${remaining} REGENERATE${remaining === 1 ? "" : "S"} LEFT TODAY`}
         </span>
       </div>
 
       {loading && (
-        <div className="glass-card" style={{ padding: "var(--sp-3)", marginBottom: "var(--sp-2)" }}>
-          <EkgLoader label="Reading your record" width={150} />
+        <div className="card" style={{ padding: "var(--sp-3)", marginBottom: "var(--sp-2)" }}>
+          <Loading label="Reading your record" />
         </div>
       )}
 
       {error && (
-        <div className="glass-card" style={{ padding: "var(--sp-2)", marginBottom: "var(--sp-2)", borderLeft: "2px solid var(--danger)" }}>
-          <VitalFlat />
+        <div className="card" style={{ padding: "var(--sp-2)", marginBottom: "var(--sp-2)", borderLeft: "2px solid var(--danger)" }}>
           <p className="text-sm" style={{ color: "var(--text-muted)", marginTop: 6 }}>{error}</p>
         </div>
       )}
 
       {questions && !loading && (
-        <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
-          <p className="exp-id" style={{ marginBottom: "var(--sp-2)" }}>AI DRAFT / PRACTICE QUESTIONS. REAL INTERVIEWS WILL DIFFER</p>
+        <div className="card" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
+          <p className="meta" style={{ marginBottom: "var(--sp-2)" }}>AI DRAFT / PRACTICE QUESTIONS. REAL INTERVIEWS WILL DIFFER</p>
           <Block title="Traditional" tab={1} items={questions.traditional} />
-          <hr className="tear-line" />
+          <hr className="rule" />
           <Block title="MMI scenarios" tab={2} items={questions.mmi} />
         </div>
       )}

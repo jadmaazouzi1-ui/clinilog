@@ -17,8 +17,8 @@ export const SAMPLE_EXPERIENCES: Experience[] = SAMPLE.flatMap(([type, hours]) =
 );
 export const SAMPLE_TOTAL_HOURS = SAMPLE_EXPERIENCES.reduce((s, e) => s + e.hours, 0);
 
-const LIMB = "var(--path-branch)";
-const TRUNK_FILL = "var(--path-trunk)";
+const LIMB = "var(--data-inverse-4)";
+const TRUNK_FILL = "var(--data-inverse-3)";
 
 /** The dashboard's Your Path tree, drawn from the sample above. Server-rendered, no state. */
 export default function SamplePath() {
@@ -27,7 +27,7 @@ export default function SamplePath() {
 
   return (
     <figure className="lp-path" aria-labelledby="lp-path-caption">
-      <div className="lp-path-head mono">
+      <div className="lp-path-head tnum">
         <span>YOUR PATH</span>
         <span>
           SAMPLE DATA / {formatHours(SAMPLE_TOTAL_HOURS)} HRS / {SAMPLE_EXPERIENCES.length} ENTRIES
@@ -74,7 +74,7 @@ export default function SamplePath() {
                 </svg>
                 <span>
                   <span className="lp-path-label">{CATEGORY_LABEL[b.type]}</span>
-                  <span className="lp-path-hours mono">
+                  <span className="lp-path-hours tnum">
                     <span>{formatHours(b.hours)} HRS</span>
                     <span className="lp-path-sep"> / </span>
                     <span>{b.count} {b.count === 1 ? "ENTRY" : "ENTRIES"}</span>

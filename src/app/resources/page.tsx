@@ -8,7 +8,7 @@ const CATEGORIES = [
     id: "essentials",
     label: "Pre-Med Essentials",
     color: "var(--text)",
-    bgColor: "var(--accent-tint)",
+    bgColor: "var(--surface-alt)",
     borderColor: "var(--border-strong)",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -37,7 +37,7 @@ const CATEGORIES = [
     id: "mcat",
     label: "MCAT Prep (Free)",
     color: "var(--text)",
-    bgColor: "var(--accent-tint)",
+    bgColor: "var(--surface-alt)",
     borderColor: "var(--border-strong)",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -76,7 +76,7 @@ const CATEGORIES = [
     id: "fee",
     label: "Fee Assistance",
     color: "var(--text)",
-    bgColor: "var(--accent-tint)",
+    bgColor: "var(--surface-alt)",
     borderColor: "var(--border-strong)",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -105,7 +105,7 @@ const CATEGORIES = [
     id: "pipeline",
     label: "Pipeline Programs",
     color: "var(--text)",
-    bgColor: "var(--accent-tint)",
+    bgColor: "var(--surface-alt)",
     borderColor: "var(--border-strong)",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -139,7 +139,7 @@ const CATEGORIES = [
     id: "financial",
     label: "Financial Aid",
     color: "var(--text)",
-    bgColor: "var(--accent-tint)",
+    bgColor: "var(--surface-alt)",
     borderColor: "var(--border-strong)",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -168,7 +168,7 @@ const CATEGORIES = [
     id: "firstgen",
     label: "First-Gen Specific",
     color: "var(--text)",
-    bgColor: "var(--accent-tint)",
+    bgColor: "var(--surface-alt)",
     borderColor: "var(--border-strong)",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -197,7 +197,7 @@ const CATEGORIES = [
     id: "study",
     label: "Free Study Materials",
     color: "var(--text)",
-    bgColor: "var(--accent-tint)",
+    bgColor: "var(--surface-alt)",
     borderColor: "var(--border-strong)",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -284,7 +284,7 @@ export default async function ResourcesPage() {
                 {category.resources.map((resource) => (
                   <div
                     key={resource.title}
-                    className="glass-card rounded-2xl p-5 flex flex-col gap-3"
+                    className="card rounded-2xl p-5 flex flex-col gap-3"
                   >
                     <div className="flex-1">
                       <h3 className="text-sm font-semibold mb-1.5" style={{ color: "var(--text)" }}>

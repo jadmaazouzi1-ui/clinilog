@@ -131,7 +131,7 @@ test.describe("copy and keys", () => {
     for (const u of [AVA, BEN, CARA]) {
       for (const f of run(u)) {
         expect(f.message.split(/(?<=[.?])\s+(?=[A-Z"])/).length, f.message).toBe(1);
-        expect(f.message).not.toMatch(/[–—!]/);
+        expect(f.message).not.toMatch(/[\u2013\u2014!]/);
         expect(f.message).not.toMatch(/\b(behind|failing|bad|must|should have|guarantee|admit|accept)\b/i);
         expect(FINDING_KEY.test(f.key), f.key).toBe(true);
       }

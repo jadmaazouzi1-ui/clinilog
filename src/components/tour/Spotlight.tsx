@@ -207,7 +207,7 @@ export default function Spotlight() {
         className="tour-card fixed"
         style={{ top: cardTop, left: cardLeft }}
       >
-        <p className="exp-id" style={{ marginBottom: 6 }}>
+        <p className="meta" style={{ marginBottom: 6 }}>
           {mod.title.toUpperCase()} / STEP {String(index + 1).padStart(2, "0")} OF {String(total).padStart(2, "0")}
         </p>
         <h2 id="tour-title" className="text-sm font-bold" style={{ color: "var(--text)", marginBottom: 4 }}>
@@ -221,20 +221,20 @@ export default function Spotlight() {
 
         <div className="flex items-center justify-between gap-2 flex-wrap" style={{ marginTop: "var(--sp-2)" }}>
           <div className="flex items-center gap-1">
-            <button type="button" className="tour-btn-quiet" onClick={() => endTour("dismissed")}>
+            <button type="button" className="btn btn-sm btn-ghost" onClick={() => endTour("dismissed")}>
               Skip tour
             </button>
             {!isLast && (
-              <button type="button" className="tour-btn-quiet" onClick={next}>
+              <button type="button" className="btn btn-sm btn-ghost" onClick={next}>
                 Skip step
               </button>
             )}
           </div>
           <div className="flex items-center gap-2">
-            <button type="button" className="tour-btn" onClick={back} disabled={index === 0}>
+            <button type="button" className="btn btn-sm btn-secondary" onClick={back} disabled={index === 0}>
               Back
             </button>
-            <button ref={primaryRef} type="button" className="tour-btn tour-btn-primary" onClick={next}>
+            <button ref={primaryRef} type="button" className="btn btn-sm btn-primary" onClick={next}>
               {isLast ? "Done" : "Next"}
             </button>
           </div>
@@ -258,9 +258,9 @@ function Sample({ kind }: { kind: SampleKind }) {
       {kind === "tracker" &&
         bars.map((b) => (
           <div key={b.label} style={{ marginTop: 6 }}>
-            <span className="exp-id">{b.label}</span>
-            <div style={{ height: 6, background: "var(--accent-tint)", marginTop: 2 }}>
-              <div style={{ width: `${b.pct}%`, height: "100%", background: "var(--accent)" }} />
+            <span className="meta">{b.label}</span>
+            <div style={{ height: 6, background: "var(--surface-alt)", marginTop: 2 }}>
+              <div style={{ width: `${b.pct}%`, height: "100%", background: "var(--action)" }} />
             </div>
           </div>
         ))}
@@ -268,19 +268,19 @@ function Sample({ kind }: { kind: SampleKind }) {
         <div className="grid grid-cols-2" style={{ gap: 6, marginTop: 6 }}>
           {[["TOTAL HOURS", "124.5"], ["ENTRIES", "06"], ["ORGS", "04"], ["CATEGORIES", "3/5"]].map(([l, v]) => (
             <div key={l} style={{ border: "1px solid var(--border-strong)", padding: "4px 6px" }}>
-              <span className="exp-id">{l}</span>
-              <p className="mono text-sm font-semibold" style={{ color: "var(--text)" }}>{v}</p>
+              <span className="meta">{l}</span>
+              <p className="tnum text-sm font-semibold" style={{ color: "var(--text)" }}>{v}</p>
             </div>
           ))}
         </div>
       )}
       {kind === "path" && (
         <svg viewBox="0 0 200 70" width="100%" height="70" aria-hidden="true" style={{ marginTop: 6 }}>
-          <path d="M10 62 C60 58 90 40 120 34 C150 28 170 18 190 10" stroke="var(--accent)" strokeWidth="4" fill="none" />
-          <path d="M80 46 C90 30 100 24 112 16" stroke="var(--accent)" strokeWidth="2.5" fill="none" />
-          <circle cx="190" cy="10" r="6" fill="var(--accent)" />
-          <circle cx="112" cy="16" r="5" fill="none" stroke="var(--accent)" strokeWidth="2" />
-          <rect x="140" y="20" width="8" height="8" transform="rotate(45 144 24)" fill="var(--accent)" />
+          <path d="M10 62 C60 58 90 40 120 34 C150 28 170 18 190 10" stroke="var(--action)" strokeWidth="4" fill="none" />
+          <path d="M80 46 C90 30 100 24 112 16" stroke="var(--action)" strokeWidth="2.5" fill="none" />
+          <circle cx="190" cy="10" r="6" fill="var(--action)" />
+          <circle cx="112" cy="16" r="5" fill="none" stroke="var(--action)" strokeWidth="2" />
+          <rect x="140" y="20" width="8" height="8" transform="rotate(45 144 24)" fill="var(--action)" />
         </svg>
       )}
     </div>

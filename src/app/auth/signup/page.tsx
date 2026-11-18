@@ -95,7 +95,7 @@ export default async function SignupPage({
   }
 
   return (
-    <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "var(--bg)" }}>
+    <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "var(--background)" }}>
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="mb-8">
@@ -110,7 +110,7 @@ export default async function SignupPage({
         </div>
 
         {/* Card */}
-        <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
+        <div className="card" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
           {pageError && (
             <div
               className="mb-5 text-sm px-4 py-3"
@@ -124,7 +124,7 @@ export default async function SignupPage({
             <div>
               <label
                 htmlFor="name"
-                className="field-label"
+                className="label"
               >
                 Full name
               </label>
@@ -134,7 +134,7 @@ export default async function SignupPage({
                 type="text"
                 required
                 autoComplete="name"
-                className="field-input"
+                className="field"
                 placeholder="Jane Smith"
               />
             </div>
@@ -142,7 +142,7 @@ export default async function SignupPage({
             <div>
               <label
                 htmlFor="email"
-                className="field-label"
+                className="label"
               >
                 Email address
               </label>
@@ -152,7 +152,7 @@ export default async function SignupPage({
                 type="email"
                 required
                 autoComplete="email"
-                className="field-input"
+                className="field"
                 placeholder="you@wfu.edu"
                 pattern=".+@[Ww][Ff][Uu]\.[Ee][Dd][Uu]"
                 title="Use your @wfu.edu email address"
@@ -162,7 +162,7 @@ export default async function SignupPage({
             <div>
               <label
                 htmlFor="password"
-                className="field-label"
+                className="label"
               >
                 Password
               </label>
@@ -173,18 +173,18 @@ export default async function SignupPage({
                 required
                 minLength={10}
                 autoComplete="new-password"
-                className="field-input"
+                className="field"
                 placeholder="At least 10 characters"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full teal-glow font-semibold text-sm focus:outline-none" style={{ padding: "11px 0" }}
+              className="w-full btn btn-primary font-semibold text-sm focus:outline-none" style={{ padding: "11px 0" }}
             >
               Create Account
             </button>
-            <p className="text-xs text-center" style={{ color: "var(--text-subtle)", marginTop: "var(--sp-2)" }}>
+            <p className="text-xs text-center" style={{ color: "var(--text-muted)", marginTop: "var(--sp-2)" }}>
               By creating an account you agree to the{" "}
               <Link href="/terms" style={{ color: "var(--text-muted)", textDecoration: "underline" }}>Terms</Link> and{" "}
               <Link href="/privacy" style={{ color: "var(--text-muted)", textDecoration: "underline" }}>Privacy Policy</Link>.

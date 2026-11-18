@@ -22,7 +22,7 @@ export default function PrivacyPage() {
       <h2>Your data is private to you</h2>
       <p>
         Every record you create is visible only to your account. The database enforces this on every
-        request, not just the app. We do not publish your entries, and other students cannot see them.
+        request, in addition to the checks in the app. We do not publish your entries, and other students cannot see them.
         The site shows only anonymous totals, such as total hours logged across all users.
       </p>
 

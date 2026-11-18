@@ -10,21 +10,15 @@ import PathVisualization from "./PathVisualization";
 import AppShell from "@/components/AppShell";
 import OnboardingModal from "./OnboardingModal";
 import ExperienceInsights from "@/components/ExperienceInsights";
-import CountUp from "@/components/CountUp";
 import DashboardSignals from "@/components/DashboardSignals";
 import TourOffer from "@/components/tour/TourOffer";
 import ApplicationCheck from "@/components/checks/ApplicationCheck";
 import { loadChecks } from "@/lib/checks/server";
 import { isDismissed } from "@/lib/checks";
 import { claimPendingReferral } from "@/lib/referral";
-import { formatMedicalDate, formatMedicalHours, buildRecordNumbers } from "@/lib/formatMedical";
-import {
-  EkgDivider,
-  IconClipboard,
-  IconPulse,
-  TabIndex,
-  VitalFlat,
-} from "@/components/MedicalIcons";
+import { formatDate, formatDateRange, formatHoursLabel } from "@/lib/format";
+import { formatHours } from "@/lib/types";
+import { Notice } from "@/components/ui";
 
 const TYPE_LABELS: Record<ExperienceType, string> = {
   shadowing: "Shadowing",
@@ -35,16 +29,6 @@ const TYPE_LABELS: Record<ExperienceType, string> = {
 };
 
 const CATEGORY_COUNT = 5;
-
-// Medical-record style dates throughout the dashboard
-const formatDate = formatMedicalDate;
-
-function greeting(): string {
-  const hour = new Date().getHours();
-  if (hour < 12) return "Good morning";
-  if (hour < 18) return "Good afternoon";
-  return "Good evening";
-}
 
 export const metadata = {
   description: "Your logged hours, entries and progress toward common AMCAS benchmarks.",
@@ -94,83 +78,53 @@ export default async function DashboardPage({
   const totalOrgs = new Set(experienceList.map((e) => e.organization)).size;
   const categoriesCovered = new Set(experienceList.map((e) => e.type)).size;
 
-  const firstName = user.user_metadata?.full_name
-    ? String(user.user_metadata.full_name).split(" ")[0]
-    : null;
+  const lastEntry = experienceList.reduce<string | null>(
+    (latest, e) => (!latest || e.created_at > latest ? e.created_at : latest),
+    null,
+  );
 
-  // Stable EXP-0001 style record numbers, oldest entry first.
-  const recordNumbers = buildRecordNumbers(experienceList);
-
-  const keyNumbers: { label: string; value: number; decimals: number; padWidth?: number; suffix?: string }[] = [
-    { label: "TOTAL HOURS",   value: totalHours,             decimals: 1, padWidth: 3 },
-    { label: "ENTRIES LOGGED", value: experienceList.length, decimals: 0, padWidth: 2 },
-    { label: "ORGANIZATIONS", value: totalOrgs,              decimals: 0, padWidth: 2 },
-    { label: "CATEGORIES COVERED", value: categoriesCovered, decimals: 0, suffix: `/${CATEGORY_COUNT}` },
+  const keyNumbers: { label: string; value: string; unit?: string }[] = [
+    { label: "Total hours", value: formatHours(totalHours) },
+    { label: "Entries", value: String(experienceList.length) },
+    { label: "Organizations", value: String(totalOrgs) },
+    { label: "Categories", value: String(categoriesCovered), unit: `of ${CATEGORY_COUNT}` },
   ];
 
   return (
     <AppShell userEmail={user.email ?? ""} activePath="/dashboard">
       {showOnboarding && <OnboardingModal />}
 
-      {/* chart-margin draws the 2px red prescription-pad rule 40px in, and
-          indents the content clear of it at md and up. */}
-      <main
-        className="w-full chart-margin"
-        style={{ paddingTop: "var(--sp-3)", paddingRight: "var(--sp-3)", paddingBottom: "var(--sp-3)" }}
-      >
+      <main className="w-full" style={{ padding: "var(--sp-3) var(--sp-3) var(--sp-6)", maxWidth: 1120 }}>
         {pageError && (
-          <div
-            className="text-sm"
-            style={{
-              marginBottom: "var(--sp-3)",
-              padding: "10px var(--sp-2)",
-              background: "var(--danger-tint)",
-              border: "1px solid var(--danger)",
-              borderLeft: "2px solid var(--danger)",
-              borderRadius: "var(--radius)",
-              color: "var(--danger)",
-            }}
-          >
-            <span className="flex items-center gap-2 flex-wrap">
-              <VitalFlat />
-              {decodeURIComponent(pageError)}
-            </span>
+          <div style={{ marginBottom: "var(--sp-3)" }}>
+            <Notice tone="danger">{decodeURIComponent(pageError)}</Notice>
           </div>
         )}
 
-        {/* Chart header: patient-style identity block on the left */}
-        <div
-          className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4"
-          style={{ marginBottom: "var(--sp-3)" }}
+        <header
+          className="flex flex-col md:flex-row md:items-end md:justify-between gap-4"
+          style={{ marginBottom: "var(--sp-4)" }}
         >
           <div>
-            <p className="exp-id" style={{ marginBottom: 6 }}>
-              {formatMedicalDate(new Date())} / {user.email}
-            </p>
-            <h1 className="text-xl font-bold" style={{ color: "var(--text)" }}>
-              {greeting()}{firstName ? `, ${firstName}` : ""}.
-            </h1>
-            <p className="text-xs" style={{ color: "var(--text-muted)", marginTop: 2 }}>
-              Your hours, entries and progress toward common benchmarks.
+            <h1 className="text-2xl">Overview</h1>
+            <p className="text-sm" style={{ color: "var(--text-muted)", marginTop: "var(--sp-h)" }}>
+              {experienceList.length === 0
+                ? "Nothing logged yet. Your first entry starts the totals below."
+                : `${formatHoursLabel(totalHours)} across ${experienceList.length} ${experienceList.length === 1 ? "entry" : "entries"}.${lastEntry ? ` Last added ${formatDate(lastEntry)}.` : ""}`}
             </p>
           </div>
 
           {experienceList.length > 0 && (
-            <div className="flex items-center gap-3 sm:flex-shrink-0">
+            <div className="flex items-center gap-2 flex-wrap">
               <span data-tour="export-all" className="inline-flex">
                 <ExportAllButton experiences={experienceList} />
               </span>
-              <Link
-                href="/dashboard/new"
-                className="teal-glow inline-flex items-center justify-center text-sm whitespace-nowrap"
-                style={{ padding: "10px var(--sp-2)", textDecoration: "none" }}
-                data-tour="log-new"
-              >
-                Log new hours
+              <Link href="/dashboard/new" className="btn btn-primary" data-tour="log-new">
+                Log hours
               </Link>
             </div>
           )}
-        </div>
+        </header>
 
         {!showOnboarding && <TourOffer onboardingComplete={!!profile?.onboarding_complete} />}
 
@@ -183,67 +137,38 @@ export default async function DashboardPage({
           offerReminders={!checks.prefs?.reminders_enabled && !isDismissed("offer:reminders", checks.dismissals, nowForChecks)}
         />
 
-        {/* Your Path: organic branch grown from the logged categories */}
-        <div data-tour="path">
+        {/* The four numbers people check first, as one ruled line rather
+            than four boxes. */}
+        <dl
+          className="grid grid-cols-2 md:grid-cols-4"
+          style={{ borderTop: "1px solid var(--border-strong)", borderBottom: "1px solid var(--border)", marginBottom: "var(--sp-4)" }}
+          data-tour="key-stats"
+        >
+          {keyNumbers.map((stat) => (
+            <div key={stat.label} style={{ padding: "var(--sp-2) var(--sp-2) var(--sp-2) 0" }}>
+              <dt className="stat-label">{stat.label}</dt>
+              <dd className="stat-value">
+                {stat.value}
+                {stat.unit && <span className="stat-unit">{stat.unit}</span>}
+              </dd>
+            </div>
+          ))}
+        </dl>
+
+        <div data-tour="path" style={{ marginBottom: "var(--sp-4)" }}>
           <PathVisualization experiences={experienceList} />
         </div>
 
-        {/* Your progress: donut + key numbers */}
-        <p className="dept-header flex items-center gap-2">
-          <IconPulse size={13} />
-          Your Progress
-          <TabIndex n={1} />
-        </p>
-        <div
-          className="grid grid-cols-1 lg:grid-cols-2"
-          style={{ gap: "var(--sp-2)", marginBottom: "var(--sp-4)" }}
-        >
-          <div data-tour="hours-breakdown">
-            <HoursBreakdown experiences={experienceList} />
+        {/* Benchmarks on the wide side, the category split beside them. */}
+        <div className="grid grid-cols-1 lg:grid-cols-12" style={{ gap: "var(--sp-3)", marginBottom: "var(--sp-4)" }}>
+          <div className="lg:col-span-7" data-tour="amcas-tracker">
+            <AMCASTracker experiences={experienceList} />
           </div>
-          <div className="grid grid-cols-2 content-start" style={{ gap: "var(--sp-2)" }} data-tour="key-stats">
-            {keyNumbers.map((stat) => (
-              <div key={stat.label} className="vital-card tick-corners">
-                <p className="vital-card-label">{stat.label}</p>
-                <span className="vital-card-value">
-                  <CountUp to={stat.value} decimals={stat.decimals} padWidth={stat.padWidth} />
-                  {stat.suffix && <span className="vital-card-value-sub">{stat.suffix}</span>}
-                </span>
-              </div>
-            ))}
+          <div className="lg:col-span-5" data-tour="hours-breakdown">
+            <HoursBreakdown experiences={experienceList} />
           </div>
         </div>
 
-        <EkgDivider rich={totalHours >= 100} />
-
-        {/* Archetype banner: shown once user has 3+ experiences */}
-        {showArchetypeBanner && (
-          <Link
-            href="/archetype"
-            className="glass-card block"
-            style={{ padding: "var(--sp-2)", marginBottom: "var(--sp-4)", textDecoration: "none" }}
-          >
-            <div className="flex items-center gap-4 flex-wrap">
-              <div className="flex-1 min-w-0">
-                <p className="exp-id" style={{ marginBottom: 4 }}>{archetypeReady ? "ASSESSMENT ON FILE" : "ASSESSMENT PENDING"}</p>
-                <p className="text-sm font-bold" style={{ color: "var(--text)" }}>
-                  {archetypeReady ? "Your Pre-Med Archetype is ready" : "Your Pre-Med Archetype is ready to be revealed"}
-                </p>
-                <p className="text-xs" style={{ color: "var(--text-muted)", marginTop: 2 }}>
-                  {archetypeReady ? "View your personalized profile and ideal med schools." : "See your personalized profile based on your logged experiences."}
-                </p>
-              </div>
-              <span
-                className="btn-ghost inline-flex items-center text-sm flex-shrink-0"
-                style={{ padding: "8px var(--sp-2)" }}
-              >
-                {archetypeReady ? "View" : "Reveal"}
-              </span>
-            </div>
-          </Link>
-        )}
-
-        {/* Experience Insights: personalized tips */}
         <div data-tour="insights">
           <ExperienceInsights
             experiences={experienceList}
@@ -252,114 +177,84 @@ export default async function DashboardPage({
           />
         </div>
 
-        <div data-tour="amcas-tracker">
-          <AMCASTracker experiences={experienceList} />
-        </div>
-
         <ApplicationCheck findings={checks.visible} />
 
-        <EkgDivider rich={totalHours >= 100} />
+        {showArchetypeBanner && (
+          <p className="text-sm" style={{ margin: "var(--sp-3) 0 0", color: "var(--text-muted)" }}>
+            {archetypeReady ? "Your archetype read is saved. " : "You have enough entries for an archetype read. "}
+            <Link href="/archetype" className="link">
+              {archetypeReady ? "Open your archetype" : "Read your archetype"}
+            </Link>
+          </p>
+        )}
 
-        {/* Content area */}
+        <hr className="rule" />
+
         {experienceList.length === 0 ? (
-          <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
-            <p className="exp-id" style={{ marginBottom: "var(--sp-1)" }}>RECORD EMPTY</p>
-            <h2 className="text-lg font-semibold" style={{ color: "var(--text)", marginBottom: "var(--sp-1)" }}>
-              No experiences yet
-            </h2>
-            <p className="text-sm" style={{ color: "var(--text-muted)", maxWidth: 420, marginBottom: "var(--sp-3)" }}>
-              Start documenting your clinical rotations, volunteer hours, and
-              shadowing experiences to build your application story.
+          <div className="empty">
+            <p className="empty-title">No entries yet</p>
+            <p className="empty-body">
+              Add one experience you already have hours for: a shift, a shadowing day, a lab
+              semester. Dates, hours and the organization are enough to start. You can write the
+              description later.
             </p>
-            <Link
-              href="/dashboard/new"
-              className="teal-glow inline-flex items-center text-sm"
-              style={{ padding: "10px var(--sp-3)", textDecoration: "none" }}
-              data-tour="log-new"
-            >
-              Log new hours
+            <Link href="/dashboard/new" className="btn btn-primary" data-tour="log-new">
+              Log hours
             </Link>
           </div>
         ) : (
-          <>
-          <p className="dept-header flex items-center gap-2" id="recent-experiences">
-            <IconClipboard size={13} />
-            Recent Experiences
-            <TabIndex n={3} />
-          </p>
-          <div style={{ display: "grid", gap: "var(--sp-2)" }} data-tour="recent">
-            {experienceList.map((experience, index) => (
-              <div key={experience.id} className="glass-card tear-tab" style={{ padding: "var(--sp-2)" }}>
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1 min-w-0">
-                    {/* Record number sits above the title, as a chart header */}
-                    <div className="flex items-center gap-2 flex-wrap" style={{ marginBottom: 4 }}>
-                      <span className="exp-id">{recordNumbers.get(experience.id)}</span>
-                      <span className="cat-tag">
-                        {TYPE_LABELS[experience.type as ExperienceType]}
-                      </span>
-                    </div>
-
-                    <h3 className="text-base font-semibold" style={{ color: "var(--text)" }}>
-                      <Link href={`/dashboard/${experience.id}`} style={{ textDecoration: "none", color: "inherit" }}>
+          <section aria-labelledby="recent-experiences">
+            <div className="flex items-baseline justify-between gap-3" style={{ marginBottom: "var(--sp-15)" }}>
+              <h2 className="section-title" id="recent-experiences" style={{ margin: 0 }}>
+                Entries
+              </h2>
+              <p className="meta">Newest first</p>
+            </div>
+            <ul data-tour="recent" style={{ borderTop: "1px solid var(--border-strong)" }}>
+              {experienceList.map((experience, index) => (
+                <li
+                  key={experience.id}
+                  className="grid gap-x-6 gap-y-1 md:grid-cols-[minmax(0,1fr)_auto_auto]"
+                  style={{ padding: "var(--sp-2) 0", borderBottom: "1px solid var(--border)" }}
+                >
+                  <div className="min-w-0">
+                    <h3 className="text-base">
+                      <Link href={`/dashboard/${experience.id}`} className="hover:underline" style={{ color: "var(--text)" }}>
                         {experience.title}
                       </Link>
                     </h3>
-                    <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-1)" }}>
+                    <p className="text-sm" style={{ color: "var(--text-muted)" }}>
                       {experience.organization}
+                      <span aria-hidden="true"> · </span>
+                      {TYPE_LABELS[experience.type as ExperienceType]}
                     </p>
-
-                    <div
-                      className="flex items-center gap-4 text-xs mono"
-                      style={{ color: "var(--text-subtle)", marginBottom: "var(--sp-1)" }}
-                    >
-                      <span>
-                        {formatDate(experience.start_date)}
-                        {experience.end_date ? ` to ${formatDate(experience.end_date)}` : " to PRESENT"}
-                      </span>
-                      <span className="font-medium" style={{ color: "var(--text-muted)" }}>
-                        {formatMedicalHours(experience.hours)}
-                      </span>
-                    </div>
-
-                    <p className="text-sm line-clamp-2" style={{ color: "var(--text-muted)" }}>
-                      {experience.description}
+                    <p className="meta" style={{ marginTop: 2 }}>
+                      {formatDateRange(experience.start_date, experience.end_date)}
                     </p>
                   </div>
 
-                  {/* Edit + Delete */}
-                  <div className="flex items-center gap-2 flex-shrink-0" data-tour={index === 0 ? "entry-actions" : undefined}>
+                  <p className="text-base font-semibold tnum md:text-right" style={{ minWidth: "6ch" }}>
+                    {formatHoursLabel(experience.hours)}
+                  </p>
+
+                  <div className="flex items-start gap-1" data-tour={index === 0 ? "entry-actions" : undefined}>
                     <Link
                       href={`/dashboard/${experience.id}/edit`}
-                      className="btn-ghost text-xs font-semibold"
-                      style={{ padding: "6px var(--sp-1)", textDecoration: "none" }}
-                      aria-label="Edit experience"
+                      className="btn btn-sm btn-secondary"
+                      aria-label={`Edit ${experience.title}`}
                     >
                       Edit
                     </Link>
                     <form action={deleteExperience.bind(null, experience.id)}>
-                      <button
-                        type="submit"
-                        className="text-xs font-semibold"
-                        style={{
-                          padding: "6px var(--sp-1)",
-                          color: "var(--danger)",
-                          background: "var(--surface)",
-                          border: "1px solid var(--danger)",
-                          borderRadius: "var(--radius)",
-                          cursor: "pointer",
-                        }}
-                        aria-label="Delete experience"
-                      >
+                      <button type="submit" className="btn btn-sm btn-danger" aria-label={`Delete ${experience.title}`}>
                         Delete
                       </button>
                     </form>
                   </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          </>
+                </li>
+              ))}
+            </ul>
+          </section>
         )}
       </main>
     </AppShell>

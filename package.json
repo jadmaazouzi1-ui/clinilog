@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "node scripts/check-colors.mjs && eslint",
+    "lint": "node scripts/design-check.mjs && eslint",
     "icons": "node scripts/generate-icons.mjs",
     "test": "playwright test",
     "test:headed": "playwright test --headed",
@@ -14,7 +14,8 @@
     "test:security": "playwright test -c playwright.security.config.ts",
     "test:tour": "playwright test -c playwright.tour.config.ts",
     "test:polish": "playwright test -c playwright.polish.config.ts",
-    "test:checks": "playwright test -c playwright.checks.config.ts"
+    "test:checks": "playwright test -c playwright.checks.config.ts",
+    "design-check": "node scripts/design-check.mjs"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

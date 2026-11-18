@@ -18,12 +18,12 @@ const STATUS_STYLES: Record<WaiverStatus, { background: string; color: string; b
     border: "1px solid var(--border-strong)",
   },
   Approved: {
-    background: "var(--accent-tint)",
+    background: "var(--surface-alt)",
     color: "var(--text)",
     border: "1px solid var(--border-strong)",
   },
   Denied: {
-    background: "var(--accent-tint)",
+    background: "var(--surface-alt)",
     color: "var(--text)",
     border: "1px solid var(--border-strong)",
   },
@@ -120,7 +120,7 @@ export default async function FeeTrackerPage() {
         </div>
 
         {/* Add waiver form */}
-        <div className="glass-card rounded-2xl p-6 mb-8">
+        <div className="card rounded-2xl p-6 mb-8">
           <h2 className="text-base font-semibold mb-5" style={{ color: "var(--text)" }}>Add Waiver</h2>
           <form action={addWaiver} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -135,7 +135,7 @@ export default async function FeeTrackerPage() {
                   type="text"
                   required
                   placeholder="e.g. AAMC Fee Assistance"
-                  className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm"
+                  className="field w-full px-3.5 py-2.5 rounded-xl text-sm"
                 />
               </div>
 
@@ -143,7 +143,7 @@ export default async function FeeTrackerPage() {
               <div>
                 <label htmlFor="amount_saved" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text)" }}>
                   Amount Saved ($){" "}
-                  <span className="font-normal" style={{ color: "var(--text-subtle)" }}>(optional)</span>
+                  <span className="font-normal" style={{ color: "var(--text-muted)" }}>(optional)</span>
                 </label>
                 <input
                   id="amount_saved"
@@ -152,7 +152,7 @@ export default async function FeeTrackerPage() {
                   step="0.01"
                   min="0"
                   placeholder="e.g. 2000.00"
-                  className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm"
+                  className="field w-full px-3.5 py-2.5 rounded-xl text-sm"
                 />
               </div>
 
@@ -164,7 +164,7 @@ export default async function FeeTrackerPage() {
                 <select
                   id="status"
                   name="status"
-                  className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm"
+                  className="field w-full px-3.5 py-2.5 rounded-xl text-sm"
                   defaultValue="Not Applied"
                 >
                   <option value="Not Applied">Not Applied</option>
@@ -178,13 +178,13 @@ export default async function FeeTrackerPage() {
               <div>
                 <label htmlFor="deadline" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text)" }}>
                   Deadline{" "}
-                  <span className="font-normal" style={{ color: "var(--text-subtle)" }}>(optional)</span>
+                  <span className="font-normal" style={{ color: "var(--text-muted)" }}>(optional)</span>
                 </label>
                 <input
                   id="deadline"
                   name="deadline"
                   type="date"
-                  className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm"
+                  className="field w-full px-3.5 py-2.5 rounded-xl text-sm"
                 />
               </div>
             </div>
@@ -193,22 +193,22 @@ export default async function FeeTrackerPage() {
             <div>
               <label htmlFor="notes" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text)" }}>
                 Notes{" "}
-                <span className="font-normal" style={{ color: "var(--text-subtle)" }}>(optional)</span>
+                <span className="font-normal" style={{ color: "var(--text-muted)" }}>(optional)</span>
               </label>
               <textarea
                 id="notes"
                 name="notes"
                 rows={3}
                 placeholder="Any notes about this waiver..."
-                className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm resize-none"
+                className="field w-full px-3.5 py-2.5 rounded-xl text-sm resize-none"
               />
             </div>
 
             <div className="pt-1">
               <button
                 type="submit"
-                className="inline-flex items-center gap-2 teal-glow px-5 py-2.5 rounded-xl font-semibold text-sm transition-colors focus:outline-none"
-                style={{ backgroundColor: "var(--accent)", color: "var(--on-accent)" }}
+                className="inline-flex items-center gap-2 btn btn-primary px-5 py-2.5 rounded-xl font-semibold text-sm transition-colors focus:outline-none"
+                style={{ backgroundColor: "var(--action)", color: "var(--on-action)" }}
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -221,7 +221,7 @@ export default async function FeeTrackerPage() {
 
         {/* Waiver list */}
         {waiverList.length === 0 ? (
-          <div className="glass-card rounded-2xl p-8 text-center">
+          <div className="card rounded-2xl p-8 text-center">
             <div
               className="inline-flex items-center justify-center w-14 h-14 rounded-full mb-4"
               style={{ background: "var(--surface)" }}
@@ -246,7 +246,7 @@ export default async function FeeTrackerPage() {
               const deadlineFormatted = formatDeadline(waiver.deadline);
 
               return (
-                <div key={waiver.id} className="glass-card rounded-2xl p-5">
+                <div key={waiver.id} className="card rounded-2xl p-5">
                   <div className="flex items-start justify-between gap-4 flex-wrap">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-3 flex-wrap mb-1">
@@ -293,7 +293,7 @@ export default async function FeeTrackerPage() {
                         <select
                           name="status"
                           defaultValue={waiver.status}
-                          className="input-dark text-xs px-2.5 py-1.5 rounded-lg"
+                          className="field text-xs px-2.5 py-1.5 rounded-lg"
                           style={{ minWidth: "110px" }}
                         >
                           <option value="Not Applied">Not Applied</option>
@@ -314,7 +314,7 @@ export default async function FeeTrackerPage() {
                       <form action={deleteWaiver.bind(null, waiver.id)}>
                         <button
                           type="submit"
-                          className="px-2.5 py-1.5 mono text-[10px] font-bold tracking-widest nav-item-brutal"
+                          className="px-2.5 py-1.5 tnum text-xs font-bold tracking-widest nav-item-brutal"
                           style={{ color: "var(--text)", border: "1px solid var(--border-strong)", background: "var(--surface)" }}
                           aria-label="Delete waiver"
                         >

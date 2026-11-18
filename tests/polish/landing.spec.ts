@@ -15,7 +15,7 @@ test("landing HTML has no cost wording, dashes or user counts", async ({ request
   const hits = COST_TERMS.filter((t) => new RegExp(`\\b${t}\\b`, "i").test(html));
   if (html.includes("$0")) hits.push("$0");
   expect(hits, `cost wording found: ${hits.join(", ")}`).toEqual([]);
-  expect(/[–—]|&mdash;|&ndash;/.test(html), "dash found").toBe(false);
+  expect(/[\u2013\u2014]|&mdash;|&ndash;/.test(html), "dash found").toBe(false);
   // "Join 1,000+ students" style counts, or any number of users/students/members.
   expect(html).not.toMatch(/\b\d[\d,.]*\+?\s*(students|users|members|pre-?meds|people)\b/i);
   expect(html).not.toMatch(/\bjoin\b[^<]{0,30}\d/i);

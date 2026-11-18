@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("Auth pages — unauthenticated", () => {
+test.describe("Auth pages: unauthenticated", () => {
   test("login page renders email, password fields and Sign In button", async ({ page }) => {
     await page.goto("/auth/login");
     await expect(page.locator("input[type='email'], input[name='email']").first()).toBeVisible();

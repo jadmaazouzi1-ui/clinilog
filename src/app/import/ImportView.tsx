@@ -4,7 +4,6 @@ import { useState, useRef, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { bulkImportExperiences, ImportRow } from "./actions";
 import { formatHours } from "@/lib/types";
-import { VitalFlat, VitalOk } from "@/components/MedicalIcons";
 
 type CategoryDisplay = "Clinical Work" | "Shadowing" | "Research" | "Volunteering" | "Other";
 
@@ -265,7 +264,7 @@ export default function ImportView() {
   return (
     <div className="space-y-6">
       {/* Template download card */}
-      <div className="glass-card rounded-2xl p-6" data-tour="import-template">
+      <div className="card rounded-2xl p-6" data-tour="import-template">
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div className="flex-1 min-w-0">
             <h2 className="text-sm font-semibold mb-1" style={{ color: "var(--text)" }}>
@@ -291,7 +290,7 @@ export default function ImportView() {
 
       {/* Upload area */}
       {!rows && (
-        <div className="glass-card rounded-2xl p-6" data-tour="import-upload">
+        <div className="card rounded-2xl p-6" data-tour="import-upload">
           <h2 className="text-sm font-semibold mb-3" style={{ color: "var(--text)" }}>
             Step 2 - Upload your CSV
           </h2>
@@ -307,8 +306,8 @@ export default function ImportView() {
             onClick={() => inputRef.current?.click()}
             className="rounded-xl px-6 py-12 flex flex-col items-center justify-center cursor-pointer transition-all"
             style={{
-              background: dragOver ? "var(--accent-tint)" : "var(--accent-tint)",
-              border: `2px dashed ${dragOver ? "var(--text)" : "var(--hairline)"}`,
+              background: dragOver ? "var(--surface-alt)" : "var(--surface-alt)",
+              border: `2px dashed ${dragOver ? "var(--text)" : "var(--border)"}`,
             }}
           >
             <input
@@ -363,14 +362,13 @@ export default function ImportView() {
                 }
           }
         >
-          {result.kind === "success" ? <VitalOk /> : <VitalFlat />}
           <p className="text-sm font-medium flex-1">{result.msg}</p>
         </div>
       )}
 
       {/* Preview table */}
       {rows && rows.length > 0 && (
-        <div className="glass-card rounded-2xl p-6">
+        <div className="card rounded-2xl p-6">
           <div className="flex items-center justify-between gap-3 flex-wrap mb-4">
             <div>
               <h2 className="text-sm font-semibold mb-1" style={{ color: "var(--text)" }}>
@@ -401,7 +399,7 @@ export default function ImportView() {
                       type="checkbox"
                       checked={allChecked}
                       onChange={(e) => toggleAll(e.target.checked)}
-                      style={{ accentColor: "var(--accent)" }}
+                      style={{ accentColor: "var(--action)" }}
                     />
                   </th>
                   <th className="text-left px-2 py-2 text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--text-muted)" }}>Title</th>
@@ -419,7 +417,7 @@ export default function ImportView() {
                       key={i}
                       style={{
                         borderBottom: "1px solid var(--border-strong)",
-                        backgroundColor: hasError ? "var(--accent-tint)" : (r.selected ? "var(--accent-tint)" : "transparent"),
+                        backgroundColor: hasError ? "var(--surface-alt)" : (r.selected ? "var(--surface-alt)" : "transparent"),
                       }}
                     >
                       <td className="px-2 py-3 align-top">
@@ -428,11 +426,11 @@ export default function ImportView() {
                           disabled={hasError}
                           checked={r.selected && !hasError}
                           onChange={() => toggleRow(i)}
-                          style={{ accentColor: "var(--accent)", opacity: hasError ? 0.3 : 1 }}
+                          style={{ accentColor: "var(--action)", opacity: hasError ? 0.3 : 1 }}
                         />
                       </td>
                       <td className="px-2 py-3 align-top">
-                        <p className="font-medium" style={{ color: hasError ? "var(--text-subtle)" : "var(--text)" }}>
+                        <p className="font-medium" style={{ color: hasError ? "var(--text-muted)" : "var(--text)" }}>
                           {r.row?.title || r.raw[0] || "-"}
                         </p>
                         {hasError && (
@@ -451,7 +449,7 @@ export default function ImportView() {
                           <span
                             className="inline-flex items-center px-2 py-0.5 rounded-sm text-xs font-medium"
                             style={{
-                              background: "var(--accent-tint)",
+                              background: "var(--surface-alt)",
                               color: "var(--text)",
                               border: `1px solid ${CATEGORY_COLOR[r.row.type]}`,
                             }}
@@ -488,10 +486,10 @@ export default function ImportView() {
               onClick={doImport}
               disabled={validCount === 0 || isPending}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all disabled:opacity-40 disabled:cursor-not-allowed"
-              style={{ backgroundColor: "var(--accent)", color: "var(--on-accent)", boxShadow: "none" }}
+              style={{ backgroundColor: "var(--action)", color: "var(--on-action)", boxShadow: "none" }}
             >
               {isPending ? (
-                <span className="mono text-[10px] font-semibold uppercase tracking-[0.18em]">
+                <span className="tnum text-xs font-semibold uppercase tracking-[0.18em]">
                   Importing…
                 </span>
               ) : (

@@ -8,7 +8,7 @@ import { AFFILIATION_NOTE } from "@/lib/brand";
 import "./landing.css";
 
 // Archivo for every word on this page; JetBrains Mono (from the root layout)
-// for the mono labels. No other face is used here.
+// for the tnum labels. No other face is used here.
 const archivo = Archivo({
   subsets: ["latin"],
   weight: ["400", "500", "700", "800"],
@@ -64,7 +64,7 @@ export default async function HomePage() {
         </header>
 
         <section className="lp-wrap lp-hero" aria-labelledby="lp-title">
-          <p className="lp-eyebrow mono">HOURS, SCHOOLS, STORY</p>
+          <p className="lp-eyebrow tnum">HOURS, SCHOOLS, STORY</p>
           <h1 id="lp-title">Watch your experience grow into a record.</h1>
           <p className="lp-sub">
             Every hour you log adds a branch. See clinical work, shadowing, research and volunteering take shape,
@@ -81,11 +81,11 @@ export default async function HomePage() {
 
       <main className="lp-light">
         <section className="lp-wrap lp-section" aria-labelledby="lp-get">
-          <p className="lp-eyebrow lp-eyebrow-light mono" id="lp-get">WHAT YOU GET</p>
+          <p className="lp-eyebrow lp-eyebrow-light tnum" id="lp-get">WHAT YOU GET</p>
           <ol className="lp-rows">
             {ROWS.map((r, i) => (
               <li key={r.title} className="lp-row">
-                <span className="lp-row-num mono">{String(i + 1).padStart(2, "0")}</span>
+                <span className="lp-row-num tnum">{String(i + 1).padStart(2, "0")}</span>
                 <h2 className="lp-row-title">{r.title}</h2>
                 <p className="lp-row-body">{r.body}</p>
               </li>

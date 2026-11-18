@@ -55,7 +55,7 @@ export default function Navbar({ userEmail, activePath }: NavbarProps) {
       {/* Mobile menu dropdown */}
       {open && (
         <div className="md:hidden absolute left-0 right-0 top-full z-50 px-6 py-4 space-y-3" style={{ backgroundColor: "var(--surface)", borderBottom: "1px solid var(--border-strong)" }}>
-          <p className="text-xs pb-2" style={{ color: "var(--text-subtle)", borderBottom: "1px solid var(--border-strong)" }}>{userEmail}</p>
+          <p className="text-xs pb-2" style={{ color: "var(--text-muted)", borderBottom: "1px solid var(--border-strong)" }}>{userEmail}</p>
           {links.map(l => (
             <Link key={l.href} href={l.href} onClick={() => setOpen(false)} className="block text-sm font-medium py-1.5" style={{ color: activePath === l.href ? "var(--text)" : "var(--text)" }}>
               {l.label}

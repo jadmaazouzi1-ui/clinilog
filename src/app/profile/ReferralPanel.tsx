@@ -21,22 +21,22 @@ export default function ReferralPanel({ code, count }: { code: string | null; co
   return (
     <>
       <div className="grid grid-cols-2" style={{ gap: "var(--sp-2)", marginBottom: "var(--sp-2)" }}>
-        <div className="data-field">
-          <span className="data-field-label">Your code</span>
-          <span className="data-field-value mono">{code}</span>
+        <div className="datum">
+          <span className="data-label">Your code</span>
+          <span className="datum-value tnum">{code}</span>
         </div>
-        <div className="data-field">
-          <span className="data-field-label">Signups referred</span>
-          <span className="data-field-value mono">{String(count).padStart(2, "0")}</span>
+        <div className="datum">
+          <span className="data-label">Signups referred</span>
+          <span className="datum-value tnum">{String(count).padStart(2, "0")}</span>
         </div>
       </div>
 
       <div className="flex items-end gap-2 flex-wrap" style={{ marginBottom: "var(--sp-2)" }}>
         <div className="flex-1" style={{ minWidth: 220 }}>
-          <label htmlFor="referral-link" className="field-label">SHARE LINK</label>
-          <input id="referral-link" readOnly value={link} className="field-input mono" style={{ fontSize: 12 }} />
+          <label htmlFor="referral-link" className="label">SHARE LINK</label>
+          <input id="referral-link" readOnly value={link} className="field tnum" style={{ fontSize: "var(--text-xs)" }} />
         </div>
-        <button type="button" onClick={copy} className="btn-ghost text-xs font-semibold" style={{ padding: "7px var(--sp-2)" }}>
+        <button type="button" onClick={copy} className="btn btn-secondary text-xs font-semibold" style={{ padding: "7px var(--sp-2)" }}>
           {copied ? "Copied" : "Copy"}
         </button>
       </div>

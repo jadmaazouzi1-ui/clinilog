@@ -42,15 +42,15 @@ export default function SchoolActions({
             key={s}
             onClick={() => mark(s)}
             disabled={pending}
-            className="text-[10px] font-bold uppercase"
+            className="text-xs font-bold uppercase"
             style={{
               padding: "4px 8px",
               letterSpacing: "0.08em",
               borderRadius: "var(--radius)",
               cursor: pending ? "wait" : "pointer",
-              border: `1px solid ${status === s ? "var(--accent)" : "var(--border-strong)"}`,
-              background: status === s ? "var(--accent)" : "var(--surface)",
-              color: status === s ? "var(--on-accent)" : "var(--text-subtle)",
+              border: `1px solid ${status === s ? "var(--action)" : "var(--border-strong)"}`,
+              background: status === s ? "var(--action)" : "var(--surface)",
+              color: status === s ? "var(--on-action)" : "var(--text-muted)",
             }}
           >
             {s}
@@ -62,7 +62,7 @@ export default function SchoolActions({
           <button
             data-tour="school-gap"
             onClick={() => setOpen(!open)}
-            className="text-[10px] font-bold uppercase"
+            className="text-xs font-bold uppercase"
             style={{
               padding: "4px 8px",
               letterSpacing: "0.08em",
@@ -85,16 +85,16 @@ export default function SchoolActions({
               key={g.label}
               style={{
                 padding: "6px 0 6px 8px",
-                borderBottom: "1px solid var(--hairline)",
-                boxShadow: `inset 3px 0 0 -1px ${g.below ? "var(--accent)" : "var(--accent)"}`,
+                borderBottom: "1px solid var(--border)",
+                boxShadow: `inset 3px 0 0 -1px ${g.below ? "var(--action)" : "var(--action)"}`,
               }}
             >
               <div className="flex items-baseline justify-between gap-2">
-                <span className="text-[10px] font-bold uppercase" style={{ letterSpacing: "0.1em", color: "var(--text-muted)" }}>
+                <span className="text-xs font-bold uppercase" style={{ letterSpacing: "0.1em", color: "var(--text-muted)" }}>
                   {g.label}
                 </span>
-                <span className="mono text-xs" style={{ color: "var(--text)" }}>
-                  {g.yours} <span style={{ color: "var(--text-subtle)" }}>vs {g.theirs}</span>
+                <span className="tnum text-xs" style={{ color: "var(--text)" }}>
+                  {g.yours} <span style={{ color: "var(--text-muted)" }}>vs {g.theirs}</span>
                 </span>
               </div>
               <p className="text-xs" style={{ color: "var(--text-muted)", marginTop: 2 }}>{g.note}</p>

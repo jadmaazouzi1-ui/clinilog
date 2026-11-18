@@ -51,7 +51,7 @@ export default async function StoriesPage({
         {submitted === "1" && (
           <div
             className="mb-8 text-sm rounded-xl px-4 py-3 flex items-center gap-2"
-            style={{ background: "var(--accent-tint)", border: "1px solid var(--border-strong)", color: "var(--text)" }}
+            style={{ background: "var(--surface-alt)", border: "1px solid var(--border-strong)", color: "var(--text)" }}
           >
             <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -63,15 +63,15 @@ export default async function StoriesPage({
         {pageError && (
           <div
             className="mb-8 text-sm rounded-xl px-4 py-3"
-            style={{ background: "var(--accent-tint)", border: "1px solid var(--border-strong)", color: "var(--text)" }}
+            style={{ background: "var(--surface-alt)", border: "1px solid var(--border-strong)", color: "var(--text)" }}
           >
             {decodeURIComponent(pageError)}
           </div>
         )}
 
         {/* Only reviewed, consented submissions are ever shown. None yet. */}
-        <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
-          <p className="exp-id" style={{ marginBottom: "var(--sp-1)" }}>NO STORIES YET</p>
+        <div className="card" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
+          <p className="meta" style={{ marginBottom: "var(--sp-1)" }}>NO STORIES YET</p>
           <h2 className="text-lg font-semibold" style={{ color: "var(--text)", marginBottom: "var(--sp-1)" }}>
             Be the first to share one
           </h2>

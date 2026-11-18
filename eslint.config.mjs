@@ -12,6 +12,15 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Build output and scratch folders that are gitignored but can sit in a
+    // working copy: linting them reported tens of thousands of problems.
+    ".netlify/**",
+    ".next-rootowned*/**",
+    "tmp/**",
+    "test-results/**",
+    "playwright-report/**",
+    ".agents/**",
+    ".claude/**",
   ]),
 ]);
 

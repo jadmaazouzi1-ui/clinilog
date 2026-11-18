@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { EkgLoader, TabIndex, VitalFlat } from "@/components/MedicalIcons";
+import { Loading } from "@/components/ui";
 
 interface Outline {
   hook: string;
@@ -36,54 +36,53 @@ export default function OutlineView({ ready }: { ready: boolean }) {
         <button
           onClick={generate}
           disabled={loading || !ready}
-          className="teal-glow text-sm"
+          className="btn btn-primary text-sm"
           style={{ padding: "10px var(--sp-3)", opacity: loading || !ready ? 0.6 : 1, cursor: ready ? "pointer" : "not-allowed" }}
         >
           {outline ? "Regenerate outline" : "Generate outline"}
         </button>
-        <span className="exp-id">10 PER DAY</span>
+        <span className="meta">10 PER DAY</span>
       </div>
 
       {loading && (
-        <div className="glass-card" style={{ padding: "var(--sp-3)", marginBottom: "var(--sp-2)" }}>
-          <EkgLoader label="Reading your record" width={150} />
+        <div className="card" style={{ padding: "var(--sp-3)", marginBottom: "var(--sp-2)" }}>
+          <Loading label="Reading your record" />
         </div>
       )}
 
       {error && (
         <div
-          className="glass-card"
+          className="card"
           style={{ padding: "var(--sp-2)", marginBottom: "var(--sp-2)", borderLeft: "2px solid var(--danger)" }}
         >
-          <VitalFlat />
           <p className="text-sm" style={{ color: "var(--text-muted)", marginTop: 6 }}>{error}</p>
         </div>
       )}
 
       {outline && !loading && (
-        <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
-          <p className="exp-id" style={{ marginBottom: "var(--sp-2)" }}>AI DRAFT / A STARTING POINT. WRITE THE STATEMENT IN YOUR OWN WORDS, FROM YOUR OWN EXPERIENCES</p>
-          <p className="dept-header flex items-center gap-2">Opening hook <TabIndex n={1} /></p>
+        <div className="card" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
+          <p className="meta" style={{ marginBottom: "var(--sp-2)" }}>AI DRAFT / A STARTING POINT. WRITE THE STATEMENT IN YOUR OWN WORDS, FROM YOUR OWN EXPERIENCES</p>
+          <p className="section-title flex items-center gap-2">Opening hook</p>
           <p className="text-sm" style={{ color: "var(--text)", lineHeight: 1.7, marginBottom: "var(--sp-3)" }}>
             {outline.hook}
           </p>
 
-          <hr className="tear-line" />
+          <hr className="rule" />
 
-          <p className="dept-header flex items-center gap-2">Body themes <TabIndex n={2} /></p>
+          <p className="section-title flex items-center gap-2">Body themes</p>
           {outline.themes?.map((t, i) => (
-            <div key={i} style={{ marginBottom: "var(--sp-3)", paddingLeft: 10, boxShadow: "inset 3px 0 0 -1px var(--accent)" }}>
+            <div key={i} style={{ marginBottom: "var(--sp-3)", paddingLeft: 10, borderLeft: "2px solid var(--border-strong)" }}>
               <p className="text-sm font-bold" style={{ color: "var(--text)" }}>
                 {String(i + 1).padStart(2, "0")}. {t.title}
               </p>
-              <p className="exp-id" style={{ margin: "3px 0 5px" }}>EVIDENCE: {t.evidence}</p>
+              <p className="meta" style={{ margin: "3px 0 5px" }}>EVIDENCE: {t.evidence}</p>
               <p className="text-sm" style={{ color: "var(--text-muted)", lineHeight: 1.7 }}>{t.development}</p>
             </div>
           ))}
 
-          <hr className="tear-line" />
+          <hr className="rule" />
 
-          <p className="dept-header flex items-center gap-2">Closing <TabIndex n={3} /></p>
+          <p className="section-title flex items-center gap-2">Closing</p>
           <p className="text-sm" style={{ color: "var(--text)", lineHeight: 1.7, marginBottom: "var(--sp-3)" }}>
             {outline.closing}
           </p>
@@ -93,11 +92,11 @@ export default function OutlineView({ ready }: { ready: boolean }) {
               style={{
                 padding: "10px var(--sp-2)",
                 border: "1px solid var(--border-strong)",
-                borderLeft: "2px solid var(--accent)",
+                borderLeft: "2px solid var(--action)",
                 borderRadius: "var(--radius)",
               }}
             >
-              <p className="exp-id" style={{ marginBottom: 4 }}>WATCH OUT</p>
+              <p className="meta" style={{ marginBottom: 4 }}>WATCH OUT</p>
               <p className="text-sm" style={{ color: "var(--text-muted)", lineHeight: 1.6 }}>{outline.watch_out}</p>
             </div>
           )}

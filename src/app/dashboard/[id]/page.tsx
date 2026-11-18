@@ -2,8 +2,8 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { deleteExperience } from "../actions";
-import { Experience, ExperienceType, formatHours } from "@/lib/types";
-import { formatMedicalDate, formatMedicalTimestamp, formatExperienceId } from "@/lib/formatMedical";
+import { Experience, ExperienceType } from "@/lib/types";
+import { formatDateRange, formatHoursLabel, formatTimestamp } from "@/lib/format";
 import ExportButton from "./ExportButton";
 import AppShell from "@/components/AppShell";
 
@@ -48,14 +48,13 @@ export default async function ExperienceDetailPage({
 
   const exp = experience as Experience;
 
-  // Record number: how many of this user's entries were created no later than
-  // this one. RLS scopes the count to their own rows, so the number matches
-  // the dashboard's EXP-nnnn for the same entry.
-  const { count } = await supabase
-    .from("experiences")
-    .select("id", { count: "exact", head: true })
-    .lte("created_at", exp.created_at);
-  const recordNo = formatExperienceId(count ?? 1);
+  const facts: [string, string][] = [
+    ["Category", TYPE_LABELS[exp.type as ExperienceType]],
+    ["Dates", formatDateRange(exp.start_date, exp.end_date)],
+    ["Hours", formatHoursLabel(exp.hours)],
+    ["Added", formatTimestamp(exp.created_at)],
+  ];
+  if (exp.updated_at && exp.updated_at !== exp.created_at) facts.push(["Last edited", formatTimestamp(exp.updated_at)]);
 
   return (
     <AppShell
@@ -63,124 +62,55 @@ export default async function ExperienceDetailPage({
       activePath="/dashboard"
       breadcrumbs={[{ label: "Overview", href: "/dashboard" }, { label: exp.title }]}
     >
-      <main
-        className="w-full chart-margin"
-        style={{ paddingTop: "var(--sp-3)", paddingRight: "var(--sp-3)", paddingBottom: "var(--sp-3)", maxWidth: 900 }}
-      >
-        <Link
-          href="/dashboard"
-          className="inline-flex items-center gap-2 text-xs font-semibold"
-          style={{ color: "var(--text-muted)", marginBottom: "var(--sp-3)" }}
-        >
-          <span aria-hidden="true">&larr;</span> Back to Overview
+      <main className="w-full" style={{ padding: "var(--sp-3) var(--sp-3) var(--sp-6)", maxWidth: 1120 }}>
+        <Link href="/dashboard" className="link text-sm">
+          Back to Overview
         </Link>
 
-        <div
-          className="tick-corners"
-          style={{
-            background: "var(--surface)",
-            border: "1px solid var(--border-strong)",
-            borderRadius: "var(--radius)",
-            padding: "var(--sp-4) var(--sp-3)",
-          }}
-        >
-          {/* Chart header */}
-          <div className="flex items-start justify-between gap-4 flex-wrap" style={{ marginBottom: "var(--sp-2)" }}>
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 flex-wrap" style={{ marginBottom: 6 }}>
-                <span className="exp-id">{recordNo}</span>
-                <span className="cat-tag">{TYPE_LABELS[exp.type as ExperienceType]}</span>
-              </div>
-              <h1 className="text-xl font-bold" style={{ color: "var(--text)" }}>{exp.title}</h1>
-              <p className="text-sm" style={{ color: "var(--text-muted)" }}>{exp.organization}</p>
-            </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12" style={{ gap: "var(--sp-4) var(--sp-6)", marginTop: "var(--sp-15)" }}>
+          <article className="lg:col-span-8">
+            <h1 className="text-3xl">{exp.title}</h1>
+            <p className="text-lg" style={{ color: "var(--text-muted)", marginTop: "var(--sp-h)" }}>{exp.organization}</p>
 
-            <div className="flex items-center gap-2 flex-shrink-0">
-              <ExportButton experience={exp} />
-              <Link
-                href={`/dashboard/${exp.id}/edit`}
-                className="btn-ghost text-xs font-semibold"
-                style={{ padding: "6px var(--sp-2)", textDecoration: "none" }}
-              >
+            <h2 className="section-title" style={{ marginTop: "var(--sp-5)" }}>Description</h2>
+            {exp.description ? (
+              <p className="whitespace-pre-wrap measure" style={{ lineHeight: 1.65 }}>{exp.description}</p>
+            ) : (
+              <p className="text-sm" style={{ color: "var(--text-muted)" }}>
+                No description yet.{" "}
+                <Link href={`/dashboard/${exp.id}/edit`} className="link">Add one</Link> while the details are fresh.
+              </p>
+            )}
+
+            {exp.reflection && (
+              <>
+                <h2 className="section-title" style={{ marginTop: "var(--sp-4)" }}>Reflection</h2>
+                <p className="whitespace-pre-wrap measure" style={{ lineHeight: 1.65 }}>{exp.reflection}</p>
+              </>
+            )}
+          </article>
+
+          <aside className="lg:col-span-4">
+            <dl style={{ borderTop: "1px solid var(--border-strong)" }}>
+              {facts.map(([label, value]) => (
+                <div key={label} className="flex justify-between gap-4" style={{ padding: "var(--sp-15) 0", borderBottom: "1px solid var(--border)" }}>
+                  <dt className="text-sm" style={{ color: "var(--text-muted)" }}>{label}</dt>
+                  <dd className="text-sm font-semibold tnum text-right">{value}</dd>
+                </div>
+              ))}
+            </dl>
+            <div className="flex flex-wrap items-center gap-2" style={{ marginTop: "var(--sp-3)" }}>
+              <Link href={`/dashboard/${exp.id}/edit`} className="btn btn-secondary">
                 Edit
               </Link>
-              <form action={deleteExperience.bind(null, exp.id)}>
-                <button
-                  type="submit"
-                  className="text-xs font-semibold"
-                  style={{
-                    padding: "6px var(--sp-2)",
-                    color: "var(--danger)",
-                    background: "var(--surface)",
-                    border: "1px solid var(--danger)",
-                    borderRadius: "var(--radius)",
-                    cursor: "pointer",
-                  }}
-                  aria-label="Delete experience"
-                >
+              <ExportButton experience={exp} />
+              <form action={deleteExperience.bind(null, exp.id)} style={{ marginLeft: "auto" }}>
+                <button type="submit" className="btn btn-danger" aria-label={`Delete ${exp.title}`}>
                   Delete
                 </button>
               </form>
             </div>
-          </div>
-
-          <hr className="tear-line" />
-
-          {/* Chart fields: labelled values on hairlines, not boxed cards */}
-          <div
-            className="grid grid-cols-2 md:grid-cols-4"
-            style={{ gap: "var(--sp-2)", marginBottom: "var(--sp-3)" }}
-          >
-            <div className="data-field">
-              <span className="data-field-label">Start date</span>
-              <span className="data-field-value mono">{formatMedicalDate(exp.start_date)}</span>
-            </div>
-            <div className="data-field">
-              <span className="data-field-label">End date</span>
-              <span className="data-field-value mono">
-                {exp.end_date ? formatMedicalDate(exp.end_date) : "PRESENT"}
-              </span>
-            </div>
-            <div className="data-field">
-              <span className="data-field-label">Total hours</span>
-              <span className="data-field-value mono">{formatHours(exp.hours)}</span>
-            </div>
-            <div className="data-field">
-              <span className="data-field-label">Category</span>
-              <span className="data-field-value">{TYPE_LABELS[exp.type as ExperienceType]}</span>
-            </div>
-          </div>
-
-          <hr className="tear-line" />
-
-          <p className="dept-header">Description</p>
-          <p
-            className="text-sm whitespace-pre-wrap"
-            style={{ color: "var(--text)", lineHeight: 1.7, marginBottom: "var(--sp-4)" }}
-          >
-            {exp.description}
-          </p>
-
-          {exp.reflection && (
-            <>
-              <p className="dept-header">Reflection</p>
-              <p
-                className="text-sm whitespace-pre-wrap"
-                style={{ color: "var(--text)", lineHeight: 1.7, marginBottom: "var(--sp-4)" }}
-              >
-                {exp.reflection}
-              </p>
-            </>
-          )}
-
-          <hr className="tear-line" />
-
-          <p className="exp-id">
-            ENTERED {formatMedicalTimestamp(exp.created_at)}
-            {exp.updated_at && exp.updated_at !== exp.created_at
-              ? ` / AMENDED ${formatMedicalTimestamp(exp.updated_at)}`
-              : ""}
-          </p>
+          </aside>
         </div>
       </main>
     </AppShell>

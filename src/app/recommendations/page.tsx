@@ -18,7 +18,7 @@ export default async function RecommendationsPage() {
   return (
     <AppShell userEmail={user.email ?? ""} activePath="/recommendations">
       <main
-        className="w-full chart-margin"
+        className="w-full"
         style={{ paddingTop: "var(--sp-3)", paddingRight: "var(--sp-3)", paddingBottom: "var(--sp-4)" }}
       >
         <h1 className="text-xl font-bold" style={{ color: "var(--text)" }}>

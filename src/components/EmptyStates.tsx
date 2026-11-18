@@ -19,7 +19,7 @@ function Art({ kind }: { kind: Kind }) {
   return (
     <svg width="96" height="64" viewBox="0 0 96 64" aria-hidden="true" style={{ display: "block" }}>
       {/* Shared chart baseline */}
-      <line x1="4" y1="58" x2="92" y2="58" stroke="var(--hairline)" strokeWidth="1" strokeDasharray="3 4" />
+      <line x1="4" y1="58" x2="92" y2="58" stroke="var(--border)" strokeWidth="1" strokeDasharray="3 4" />
 
       {kind === "experiences" && (
         <>
@@ -85,13 +85,13 @@ export function EmptyState({
 }) {
   return (
     <div
-      className="glass-card tick-corners"
+      className="card"
       style={{ padding: "var(--sp-4) var(--sp-3)", marginBottom: "var(--sp-2)" }}
     >
       <div style={{ marginBottom: "var(--sp-2)" }}>
         <Art kind={kind} />
       </div>
-      <p className="exp-id" style={{ marginBottom: 6 }}>NO RECORDS</p>
+      <p className="meta" style={{ marginBottom: 6 }}>NO RECORDS</p>
       <h3 className="text-base font-semibold" style={{ color: "var(--text)", marginBottom: 4 }}>
         {title}
       </h3>
@@ -101,7 +101,7 @@ export function EmptyState({
       {actionHref && actionLabel && (
         <Link
           href={actionHref}
-          className="teal-glow inline-flex items-center text-sm"
+          className="btn btn-primary inline-flex items-center text-sm"
           style={{ padding: "9px var(--sp-2)", marginTop: "var(--sp-3)", textDecoration: "none" }}
         >
           {actionLabel}

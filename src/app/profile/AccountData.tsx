@@ -32,34 +32,34 @@ export default function AccountData() {
 
   return (
     <>
-      <p className="dept-header">Your Data</p>
+      <p className="section-title">Your Data</p>
       <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-2)" }}>
         Download everything ClinicLog MD stores about you as a JSON file: profile, experiences,
         applications, interviews, letters, trackers and referrals.
       </p>
       <a
         href="/api/account/export"
-        className="btn-ghost inline-flex text-sm font-semibold"
+        className="btn btn-secondary inline-flex text-sm font-semibold"
         style={{ padding: "8px var(--sp-2)", textDecoration: "none" }}
       >
         Export my data
       </a>
 
-      <hr className="tear-line" />
+      <hr className="rule" />
 
-      <p className="dept-header" style={{ color: "var(--danger)" }}>Delete Account</p>
+      <p className="section-title" style={{ color: "var(--danger)" }}>Delete Account</p>
       <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-2)" }}>
         Permanently deletes your account and every record linked to it. This cannot be undone,
         so export your data first if you want a copy.
       </p>
-      <label htmlFor="delete-confirm" className="field-label">TYPE DELETE TO CONFIRM</label>
+      <label htmlFor="delete-confirm" className="label">TYPE DELETE TO CONFIRM</label>
       <div className="flex items-end gap-2 flex-wrap">
         <input
           id="delete-confirm"
           value={confirm}
           onChange={(e) => setConfirm(e.target.value)}
           autoComplete="off"
-          className="field-input"
+          className="field"
           style={{ maxWidth: 220 }}
         />
         <button
@@ -69,7 +69,7 @@ export default function AccountData() {
           className="text-sm font-semibold"
           style={{
             padding: "8px var(--sp-2)",
-            color: confirm === "DELETE" ? "var(--surface)" : "var(--text-subtle)",
+            color: confirm === "DELETE" ? "var(--surface)" : "var(--text-muted)",
             background: confirm === "DELETE" ? "var(--danger)" : "var(--surface)",
             border: "1px solid var(--danger)",
             borderRadius: "var(--radius)",

@@ -5,12 +5,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { Finding, Severity } from "@/lib/checks";
 
-const LABEL: Record<Severity, string> = { important: "IMPORTANT", heads_up: "HEADS UP", note: "NOTE" };
-const RULE: Record<Severity, string> = {
-  important: "var(--border-strong)",
-  heads_up: "var(--accent)",
-  note: "var(--hairline)",
-};
+const LABEL: Record<Severity, string> = { important: "Important", heads_up: "Heads up", note: "Note" };
+const BADGE: Record<Severity, string> = { important: "badge badge-danger", heads_up: "badge badge-warning", note: "badge" };
 
 /** At most 3 findings, already filtered and ordered on the server. */
 export default function ApplicationCheck({ findings }: { findings: Finding[] }) {
@@ -40,41 +36,47 @@ export default function ApplicationCheck({ findings }: { findings: Finding[] }) 
   }
 
   return (
-    <section className="glass-card tick-corners" style={{ padding: "var(--sp-2)", marginTop: "var(--sp-2)" }} aria-labelledby="app-check-title" data-tour="app-check">
-      <p className="dept-header" id="app-check-title" style={{ marginBottom: 4 }}>Application check</p>
-      <p className="text-xs" style={{ color: "var(--text-subtle)", marginBottom: "var(--sp-2)" }}>
-        Plain checks on your own entries. Benchmarks are common ones, not requirements.
-      </p>
+    <section className="card" style={{ padding: "var(--sp-3)" }} aria-labelledby="app-check-title" data-tour="app-check">
+      <div className="flex items-baseline justify-between gap-3 flex-wrap" style={{ marginBottom: "var(--sp-15)" }}>
+        <h2 className="section-title" id="app-check-title" style={{ margin: 0 }}>Application check</h2>
+        <p className="meta">Checks on your own entries. Benchmarks are common ones, not requirements.</p>
+      </div>
 
       {shown.length === 0 ? (
-        <p className="text-sm" style={{ color: "var(--text-muted)" }}>Nothing needs attention right now.</p>
+        <p className="text-sm" style={{ color: "var(--text-muted)" }}>
+          Nothing needs attention right now.
+        </p>
       ) : (
-        <ul style={{ display: "grid", gap: "var(--sp-1)" }}>
-          {shown.map((f) => (
+        <ul>
+          {shown.map((f, i) => (
             <li
               key={f.key}
-              style={{ borderLeft: `3px solid ${RULE[f.severity]}`, padding: "8px 0 8px 12px", borderBottom: "1px solid var(--hairline)" }}
+              style={{ padding: "var(--sp-15) 0", borderTop: i ? "1px solid var(--border)" : undefined }}
             >
-              <p className="exp-id" style={{ marginBottom: 4 }}>{LABEL[f.severity]}</p>
-              <p className="text-sm" style={{ color: "var(--text)", lineHeight: 1.55 }}>{f.message}</p>
-              <div className="flex items-center gap-x-4 gap-y-1 flex-wrap" style={{ marginTop: 6 }}>
-                {f.href && (
-                  <Link href={f.href} className="text-xs font-semibold" style={{ color: "var(--accent-text)" }}>
-                    {f.href.startsWith("/dashboard/new") ? "Log new hours" : f.href.includes("/edit") ? "Edit entry" : "See entries"}
-                  </Link>
-                )}
-                <button type="button" className="text-xs" style={{ color: "var(--text-subtle)", textDecoration: "underline", minHeight: 32 }} onClick={() => dismiss(f.key, "30d")}>
-                  Hide for 30 days
-                </button>
-                <button type="button" className="text-xs" style={{ color: "var(--text-subtle)", textDecoration: "underline", minHeight: 32 }} onClick={() => dismiss(f.key, "permanent")}>
-                  Not relevant to me
-                </button>
+              <div>
+                <p className="text-sm measure" style={{ color: "var(--text)" }}>
+                  <span className={BADGE[f.severity]} style={{ marginRight: "var(--sp-1)" }}>{LABEL[f.severity]}</span>
+                  {f.message}
+                </p>
+                <div className="flex items-center gap-x-4 gap-y-1 flex-wrap" style={{ marginTop: "var(--sp-1)" }}>
+                  {f.href && (
+                    <Link href={f.href} className="link text-sm">
+                      {f.href.startsWith("/dashboard/new") ? "Log hours" : f.href.includes("/edit") ? "Edit entry" : "See entries"}
+                    </Link>
+                  )}
+                  <button type="button" className="btn btn-sm btn-ghost" style={{ color: "var(--text-muted)" }} onClick={() => dismiss(f.key, "30d")}>
+                    Hide for 30 days
+                  </button>
+                  <button type="button" className="btn btn-sm btn-ghost" style={{ color: "var(--text-muted)" }} onClick={() => dismiss(f.key, "permanent")}>
+                    Not relevant to me
+                  </button>
+                </div>
               </div>
             </li>
           ))}
         </ul>
       )}
-      {error && <p className="text-xs" role="status" style={{ color: "var(--danger)", marginTop: 8 }}>{error}</p>}
+      {error && <p className="field-error" role="status">{error}</p>}
     </section>
   );
 }

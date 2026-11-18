@@ -20,8 +20,8 @@ export default function BadgeCode({ label, code }: { label: string; code: string
   return (
     <div style={{ marginBottom: "var(--sp-4)" }}>
       <div className="flex items-center justify-between gap-3" style={{ marginBottom: 6 }}>
-        <span className="exp-id">{label}</span>
-        <button onClick={copy} className="btn-ghost text-xs font-semibold" style={{ padding: "8px var(--sp-2)", minHeight: 34 }}>
+        <span className="meta">{label}</span>
+        <button onClick={copy} className="btn btn-secondary text-xs font-semibold" style={{ padding: "8px var(--sp-2)", minHeight: 34 }}>
           {copied ? "Copied" : "Copy"}
         </button>
       </div>
@@ -29,11 +29,11 @@ export default function BadgeCode({ label, code }: { label: string; code: string
         style={{
           margin: 0,
           padding: "var(--sp-2)",
-          background: "var(--accent-tint)",
+          background: "var(--surface-alt)",
           border: "1px solid var(--border-strong)",
           borderRadius: "var(--radius)",
-          fontFamily: "var(--font-mono)",
-          fontSize: 11,
+          fontFamily: "var(--tnum)",
+          fontSize: "var(--text-xs)",
           lineHeight: 1.6,
           overflowX: "auto",
           color: "var(--text)",

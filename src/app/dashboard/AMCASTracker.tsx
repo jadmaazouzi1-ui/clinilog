@@ -1,6 +1,5 @@
-import { Experience, ExperienceType } from "@/lib/types";
-import { formatMedicalHours } from "@/lib/formatMedical";
-import { IconStethoscope, Oscilloscope, TabIndex } from "@/components/MedicalIcons";
+import { Experience, ExperienceType, formatHours } from "@/lib/types";
+import { Meter } from "@/components/ui";
 import { BENCHMARKS } from "@/lib/benchmarks";
 
 const TARGETS: { type: ExperienceType; label: string; min: number }[] = [
@@ -10,14 +9,6 @@ const TARGETS: { type: ExperienceType; label: string; min: number }[] = [
   { type: "volunteer",     label: "Volunteering",   min: BENCHMARKS.volunteer },
 ];
 
-const COLORS: Record<ExperienceType, string> = {
-  clinical_work: "var(--chart-1)",
-  shadowing:     "var(--chart-2)",
-  research:      "var(--chart-3)",
-  volunteer:     "var(--chart-4)",
-  other:         "var(--chart-5)",
-};
-
 export default function AMCASTracker({ experiences }: { experiences: Experience[] }) {
   const hoursByType: Partial<Record<ExperienceType, number>> = {};
   for (const e of experiences) {
@@ -26,50 +17,33 @@ export default function AMCASTracker({ experiences }: { experiences: Experience[
   }
 
   return (
-    <div className="glass-card tick-corners" style={{ padding: "var(--sp-2)" }}>
-      <p className="dept-header flex items-center gap-2">
-        <IconStethoscope size={13} />
-        AMCAS hours tracker
-        <TabIndex n={2} />
-      </p>
-      <p className="text-xs" style={{ color: "var(--text-subtle)", marginTop: 4 }}>
-        Targets are common benchmarks many applicants use, not requirements set by any school.
+    <section className="card" style={{ padding: "var(--sp-3)" }} aria-labelledby="amcas-tracker-title">
+      <h2 className="section-title" id="amcas-tracker-title" style={{ marginBottom: "var(--sp-h)" }}>
+        Against common benchmarks
+      </h2>
+      <p className="text-xs" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-3)" }}>
+        Figures many applicants aim for. No school requires them.
       </p>
 
-      <div style={{ display: "grid", gap: "var(--sp-2)", marginTop: "var(--sp-2)" }}>
+      <ul style={{ display: "grid", gap: "var(--sp-2)" }}>
         {TARGETS.map(({ type, label, min }) => {
           const hours = hoursByType[type] ?? 0;
           const pct = Math.min((hours / min) * 100, 100);
           const met = hours >= min;
-          const padded = formatMedicalHours(hours);
-          const minPadded = `${String(min).padStart(3, "0")} HRS`;
-
           return (
-            <div key={type}>
-              <div className="flex items-baseline justify-between" style={{ marginBottom: 2 }}>
-                <span
-                  className="text-xs font-bold uppercase"
-                  style={{ color: "var(--text-muted)", letterSpacing: "0.08em" }}
-                >
-                  {label}
-                </span>
-                <span className="text-[11px] mono">
-                  <span style={{ color: "var(--text)" }}>{padded}</span>
-                  <span style={{ color: "var(--text-subtle)" }}> / {minPadded}</span>
-                  {met && (
-                    <span style={{ color: "var(--accent-text)", marginLeft: 6, fontWeight: 700 }}>
-                      MET
-                    </span>
-                  )}
+            <li key={type}>
+              <div className="flex items-baseline justify-between gap-3" style={{ marginBottom: 6 }}>
+                <span className="text-sm font-semibold">{label}</span>
+                <span className="text-sm tnum" style={{ color: "var(--text-muted)" }}>
+                  <span style={{ color: "var(--text)", fontWeight: 600 }}>{formatHours(hours)}</span> of {min}
+                  {met && <span className="badge badge-success" style={{ marginLeft: "var(--sp-1)" }}>Reached</span>}
                 </span>
               </div>
-              {/* Progress as an oscilloscope trace: amplitude rises with
-                  completion, and the remainder reads as a flat no-signal line. */}
-              <Oscilloscope pct={pct} color={COLORS[type]} />
-            </div>
+              <Meter value={pct} label={`${label}: ${formatHours(hours)} of ${min} hours`} />
+            </li>
           );
         })}
-      </div>
-    </div>
+      </ul>
+    </section>
   );
 }

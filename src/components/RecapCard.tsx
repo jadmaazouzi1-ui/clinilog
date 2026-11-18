@@ -12,7 +12,7 @@ const FIELD = PALETTE.black;
 const TEXT = PALETTE.cream;
 const LABEL = PALETTE.gold300;
 const RULE = PALETTE.gold500;
-const HAIR = PALETTE.gray700;
+const HAIR = PALETTE.stone700;
 
 const TYPE_LABELS: Record<string, string> = {
   shadowing: "Shadowing",
@@ -175,7 +175,7 @@ export default function RecapCard({
   return (
     <>
       <canvas ref={canvasRef} style={{ display: "none" }} aria-hidden="true" />
-      <button onClick={download} className="btn-ghost text-xs font-semibold" style={{ padding: "7px var(--sp-2)" }}>
+      <button onClick={download} className="btn btn-secondary text-xs font-semibold" style={{ padding: "7px var(--sp-2)" }}>
         {done ? "Downloaded" : "Download recap (PNG)"}
       </button>
     </>

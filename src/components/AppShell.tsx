@@ -4,7 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 import Logo from "@/components/brand/Logo";
 import AIAdvisorButton from "./AIAdvisorButton";
-import { RecordNo } from "./MedicalIcons";
 import RouteProgress, { LinkPending } from "./RouteProgress";
 import ThemeToggle from "./ThemeToggle";
 import PageView from "./PageView";
@@ -24,49 +23,45 @@ interface AppShellProps {
   children: React.ReactNode;
 }
 
-const NAV_ITEMS = [
-  { href: "/dashboard",   label: "Overview",    code: "OV" },
-  { href: "/archetype",   label: "My Archetype", code: "AR" },
-  { href: "/schools",     label: "Schools",      code: "SC" },
-  { href: "/applications", label: "Applications", code: "AP" },
-  { href: "/interviews",  label: "Interviews",   code: "IV" },
-  { href: "/recommendations", label: "Letters",  code: "LR" },
-  { href: "/outline",     label: "Statement",    code: "PS" },
-  { href: "/mock-interview", label: "Mock Interview", code: "MI" },
-  { href: "/specialties", label: "Specialties",  code: "SP" },
-  { href: "/gapyear",     label: "Gap Year",     code: "GY" },
-  { href: "/postbacc",    label: "Post-bacc",    code: "PB" },
-  { href: "/resources",   label: "Resources",    code: "RS" },
-  { href: "/fee-tracker", label: "Fee Tracker",  code: "FT" },
-  { href: "/stories",     label: "Stories",      code: "ST" },
-  { href: "/import",      label: "Import CSV",   code: "IM" },
-  { href: "/profile",     label: "Profile",      code: "PR" },
+// Grouped by when in the cycle you reach for them, not alphabetically.
+const NAV_GROUPS: { label: string | null; items: { href: string; label: string }[] }[] = [
+  { label: null, items: [{ href: "/dashboard", label: "Overview" }, { href: "/import", label: "Import CSV" }] },
+  {
+    label: "Applying",
+    items: [
+      { href: "/schools", label: "Schools" },
+      { href: "/applications", label: "Applications" },
+      { href: "/interviews", label: "Interviews" },
+      { href: "/recommendations", label: "Letters" },
+      { href: "/fee-tracker", label: "Fees" },
+    ],
+  },
+  {
+    label: "Writing",
+    items: [
+      { href: "/archetype", label: "Archetype" },
+      { href: "/outline", label: "Statement outline" },
+      { href: "/mock-interview", label: "Mock interview" },
+    ],
+  },
+  {
+    label: "Planning",
+    items: [
+      { href: "/specialties", label: "Specialties" },
+      { href: "/gapyear", label: "Gap year" },
+      { href: "/postbacc", label: "Post-bacc" },
+      { href: "/resources", label: "Resources" },
+      { href: "/stories", label: "Stories" },
+    ],
+  },
 ];
 
 const BOTTOM_TABS = [
   { href: "/dashboard", label: "Overview" },
   { href: "/schools",   label: "Schools" },
-  { href: "/archetype", label: "Archetype" },
+  { href: "/dashboard/new", label: "Log hours" },
 ];
 const PROFILE_TAB = { href: "/profile", label: "Profile" };
-
-const TOOLS_MODAL_ITEMS: { label: string; href: string }[] = [
-  { label: "My Applications",    href: "/applications" },
-  { label: "Interview Log",      href: "/interviews" },
-  { label: "Letters",            href: "/recommendations" },
-  { label: "Statement Outline",  href: "/outline" },
-  { label: "Mock Interview",     href: "/mock-interview" },
-  { label: "Narrative Builder",  href: "/archetype" },
-  { label: "Specialty Explorer", href: "/specialties" },
-  { label: "Resource Library",   href: "/resources" },
-  { label: "Gap Year Planner",   href: "/gapyear" },
-  { label: "Post-bacc Tracker",  href: "/postbacc" },
-  { label: "Fee Tracker",        href: "/fee-tracker" },
-  { label: "Import CSV",         href: "/import" },
-  { label: "Stories",            href: "/stories" },
-  { label: "Changelog",          href: "/changelog" },
-  { label: "About",              href: "/about" },
-];
 
 const AUTO_BREADCRUMBS: Record<string, BreadcrumbItem[]> = {
   "/dashboard": [{ label: "Overview" }],
@@ -100,7 +95,7 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
   return (
     <div
       className="min-h-screen"
-      style={{ backgroundColor: "var(--bg)" }}
+      style={{ backgroundColor: "var(--background)" }}
     >
       <RouteProgress />
       <PageView />
@@ -109,135 +104,90 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
         className="app-sidebar hidden md:flex flex-col fixed top-0 left-0 h-full z-40 w-[220px]"
         style={{
           backgroundColor: "var(--surface)",
-          borderRight: "1px solid var(--hairline)",
+          borderRight: "1px solid var(--border)",
         }}
       >
-        {/* Wordmark */}
-        <div className="px-5 py-6 flex-shrink-0">
-          <Link href="/" className="flex items-center gap-2.5">
-            <Logo size={30} />
-            <div>
-              <p className="leading-none" style={{ color: "var(--text)", fontWeight: 700, fontSize: "0.9375rem" }}>ClinicLog MD</p>
-              <p className="leading-none mt-1" style={{ color: "var(--text-subtle)", fontSize: "0.6875rem", fontWeight: 600, letterSpacing: "0.04em", textTransform: "uppercase" }}>Application Tracker</p>
-            </div>
+        <div className="px-5 pt-6 pb-4 flex-shrink-0">
+          <Link href="/dashboard" className="flex items-center gap-2.5" style={{ color: "var(--text)", textDecoration: "none" }}>
+            <Logo size={28} />
+            <span className="font-semibold" style={{ fontSize: "var(--text-sm)" }}>ClinicLog MD</span>
           </Link>
         </div>
 
-        {/* Nav items */}
-        <nav className="flex-1 overflow-y-auto px-3 space-y-0.5">
-          {NAV_ITEMS.map((item) => {
-            const isActive = activePath.startsWith(item.href);
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                prefetch
-                className={`binder-tab flex items-center gap-3 px-3 py-2.5${isActive ? " is-active" : ""}`}
-                style={{
-                  color: isActive ? "var(--text)" : "var(--text-muted)",
-                  backgroundColor: isActive ? "var(--accent-tint)" : "transparent",
-                  fontWeight: isActive ? 600 : 500,
-                  fontSize: "13.5px",
-                  borderRadius: "var(--radius-sm)",
-                }}
-              >
-                <span
-                  className="mono"
-                  style={{
-                    flexShrink: 0,
-                    width: 22,
-                    fontSize: 10,
-                    fontWeight: 600,
-                    letterSpacing: "0.06em",
-                    color: isActive ? "var(--accent-text)" : "var(--text-subtle)",
-                  }}
-                >
-                  {item.code}
-                </span>
-                {item.label}
-                <LinkPending />
-              </Link>
-            );
-          })}
+        <nav className="flex-1 overflow-y-auto px-2 pb-3" aria-label="Main">
+          {NAV_GROUPS.map((group, gi) => (
+            <div key={gi}>
+              {group.label && <p className="nav-group">{group.label}</p>}
+              {group.items.map((item) => {
+                const isActive = activePath.startsWith(item.href);
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    prefetch
+                    className="nav-item"
+                    aria-current={isActive ? "page" : undefined}
+                  >
+                    {item.label}
+                    <LinkPending />
+                  </Link>
+                );
+              })}
+            </div>
+          ))}
         </nav>
 
-        {/* Bottom controls */}
-        <div className="flex-shrink-0 p-3" style={{ borderTop: "1px solid var(--hairline)" }}>
-          <div
-            className="px-3 py-3 mb-2"
-            style={{ background: "var(--accent-tint)", borderRadius: "var(--radius-md)" }}
-          >
-            <p className="text-xs font-semibold" style={{ color: "var(--text)" }}>Private tracker</p>
-            <p className="text-[11px] mt-0.5" style={{ color: "var(--text-subtle)" }}>Saved to your private account</p>
-          </div>
-          <div className="flex items-center gap-2.5 px-3 py-1.5">
-            <div
-              className="flex items-center justify-center flex-shrink-0"
-              style={{ width: 28, height: 28, borderRadius: 0, background: "var(--accent-tint)", color: "var(--accent-text)", fontWeight: 700, fontSize: 12 }}
-            >
-              {userEmail.charAt(0).toUpperCase()}
-            </div>
-            <p className="text-xs truncate flex-1" style={{ color: "var(--text-muted)" }}>{userEmail}</p>
-          </div>
-          <div className="px-3 pt-1">
-            <HelpButton tourId="help-sidebar" />
-          </div>
+        <div className="flex-shrink-0 px-2 py-3" style={{ borderTop: "1px solid var(--border)" }}>
+          <Link href="/profile" className="nav-item" aria-current={activePath.startsWith("/profile") ? "page" : undefined}>
+            Profile and settings
+          </Link>
+          <p className="meta truncate" style={{ padding: "var(--sp-h) var(--sp-15)" }} title={userEmail}>
+            {userEmail}
+          </p>
           <form action="/auth/signout" method="POST">
-            <button
-              type="submit"
-              className="w-full text-left px-3 py-2 mt-1"
-              style={{ color: "var(--text-muted)", fontWeight: 500, fontSize: "13px", borderRadius: "var(--radius-sm)" }}
-            >
+            <button type="submit" className="nav-item w-full text-left" style={{ background: "transparent", border: 0, cursor: "pointer" }}>
               Sign out
             </button>
           </form>
         </div>
       </aside>
 
-      <style>{`
-        .nav-item-brutal:hover { background: var(--accent-tint) !important; }
-        aside nav a:hover { background: var(--accent-tint); }
-        .bottom-tab-soft { min-height: 44px; }
-        .bottom-tab-soft:active { opacity: 0.7; }
-        .tools-modal-item:active { opacity: 0.7; }
-      `}</style>
 
       {/* Main content */}
       <div className="md:ml-[220px] pb-[80px] md:pb-0">
         <div className="flex items-center justify-between gap-3 px-6 md:px-8 pt-6 pb-1">
-          <div className="flex items-center gap-1.5 flex-wrap min-w-0">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 flex-wrap min-w-0">
             {crumbs.map((crumb, i) => (
               <span key={i} className="flex items-center gap-1.5">
                 {i > 0 && (
-                  <span className="text-xs" style={{ color: "var(--text-subtle)" }}>/</span>
+                  <span className="text-xs" aria-hidden="true" style={{ color: "var(--text-muted)" }}>/</span>
                 )}
                 {crumb.href ? (
                   <Link
                     href={crumb.href}
-                    className="text-xs font-semibold hover:underline"
+                    className="text-xs hover:underline"
                     style={{ color: "var(--text-muted)" }}
                   >
                     {crumb.label}
                   </Link>
                 ) : (
-                  <span className="text-xs font-semibold" style={{ color: "var(--text-subtle)" }}>
+                  <span className="text-xs" aria-current="page" style={{ color: "var(--text)" }}>
                     {crumb.label}
                   </span>
                 )}
               </span>
             ))}
-          </div>
+          </nav>
           <div className="flex items-center gap-2 flex-shrink-0">
             <PageTourLink />
-            <HelpButton className="hidden md:inline-flex" tourId="help-button" />
+            <HelpButton tourId="help-button" />
             <span data-tour="theme-toggle" className="inline-flex">
               <ThemeToggle />
             </span>
-            <RecordNo page={activePath} />
           </div>
         </div>
 
-        <div className="app-content page-fade-in">{children}</div>
+        <div className="app-content">{children}</div>
       </div>
 
       {/* Mobile bottom nav */}
@@ -245,8 +195,8 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
         className="app-bottomnav md:hidden fixed bottom-0 left-0 right-0 z-50 flex items-stretch"
         style={{
           height: 64,
-          backgroundColor: "var(--band)",
-          borderTop: "2px solid var(--accent)",
+          backgroundColor: "var(--surface)",
+          borderTop: "1px solid var(--border)",
           paddingBottom: "env(safe-area-inset-bottom)",
         }}
       >
@@ -258,13 +208,10 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
               href={item.href}
               prefetch
               aria-current={isActive ? "page" : undefined}
-              className="bottom-tab-soft flex-1 flex flex-col items-center justify-center gap-1"
-              style={{
-                color: isActive ? "var(--on-accent)" : "var(--band-muted)",
-                background: isActive ? "var(--accent)" : "transparent",
-              }}
+              className="flex-1 flex flex-col items-center justify-center gap-1"
+              style={{ color: isActive ? "var(--text)" : "var(--text-muted)" }}
             >
-              <span className="text-[11px] font-semibold leading-none">{item.label}</span>
+              <span className="text-xs font-semibold leading-none">{item.label}</span>
               {/* Fixed-height rule in both states: the active marker must not
                   change the tab's box, or the bar shifts on every navigation. */}
               <span
@@ -284,12 +231,12 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
         <button
           type="button"
           onClick={() => setToolsOpen(true)}
-          className="bottom-tab-soft flex-1 flex items-center justify-center"
-          style={{ color: "var(--band-muted)", background: "transparent", border: "none" }}
+          className="flex-1 flex items-center justify-center"
+          style={{ color: "var(--text-muted)", background: "transparent", border: "none" }}
           aria-haspopup="dialog"
           aria-expanded={toolsOpen}
         >
-          <span className="text-[11px] font-semibold leading-none">Tools</span>
+          <span className="text-xs font-semibold leading-none">More</span>
         </button>
 
         {(() => {
@@ -297,11 +244,11 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
           return (
             <Link
               href={PROFILE_TAB.href}
-              className="bottom-tab-soft flex-1 flex items-center justify-center"
+              className="flex-1 flex items-center justify-center"
               aria-current={isActive ? "page" : undefined}
-              style={{ color: isActive ? "var(--on-accent)" : "var(--band-muted)", background: isActive ? "var(--accent)" : "transparent" }}
+              style={{ color: isActive ? "var(--text)" : "var(--text-muted)" }}
             >
-              <span className="text-[11px] font-semibold leading-none">{PROFILE_TAB.label}</span>
+              <span className="text-xs font-semibold leading-none">{PROFILE_TAB.label}</span>
             </Link>
           );
         })()}
@@ -314,16 +261,16 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
           style={{ backgroundColor: "var(--surface)" }}
           role="dialog"
           aria-modal="true"
-          aria-label="All tools"
+          aria-label="Everything else"
         >
-          <div className="flex items-center justify-between px-5 flex-shrink-0" style={{ height: 64, borderBottom: "1px solid var(--hairline)" }}>
-            <span className="text-sm font-bold" style={{ color: "var(--text)" }}>Tools</span>
+          <div className="flex items-center justify-between px-5 flex-shrink-0" style={{ height: 64, borderBottom: "1px solid var(--border)" }}>
+            <span className="text-sm font-semibold" style={{ color: "var(--text)" }}>Everything else</span>
             <button
               type="button"
               onClick={() => setToolsOpen(false)}
               aria-label="Close menu"
               className="flex items-center justify-center"
-              style={{ width: 44, height: 44, background: "var(--accent-tint)", border: "none", borderRadius: 0, color: "var(--text)" }}
+              style={{ width: 44, height: 44, background: "transparent", border: "none", borderRadius: "var(--radius-control)", color: "var(--text)" }}
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                 <line x1="5" y1="5" x2="19" y2="19" />
@@ -332,62 +279,47 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
             </button>
           </div>
 
-          <div className="flex-1 overflow-y-auto p-3 space-y-1">
-            <div onClick={() => setToolsOpen(false)}>
-              <HelpButton block tourId="help-tools" />
+          <div className="flex-1 overflow-y-auto px-3 pb-6">
+            <div className="flex flex-wrap gap-2" style={{ padding: "var(--sp-15) var(--sp-h)" }} onClick={() => setToolsOpen(false)}>
+              <HelpButton tourId="help-tools" />
+              <button type="button" onClick={openAdvisor} className="btn btn-sm btn-secondary">
+                Ask the AI Advisor
+              </button>
             </div>
-            <button
-              type="button"
-              onClick={openAdvisor}
-              className="tools-modal-item w-full text-left px-4 py-3.5"
-              style={{
-                fontSize: "0.9375rem",
-                fontWeight: 600,
-                color: "var(--text)",
-                background: "var(--accent-tint)",
-                border: "none",
-                borderRadius: "var(--radius-md)",
-              }}
-            >
-              AI Advisor
-            </button>
-            {TOOLS_MODAL_ITEMS.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setToolsOpen(false)}
-                className="tools-modal-item block px-4 py-3.5"
-                style={{
-                  fontSize: "0.9375rem",
-                  fontWeight: 600,
-                  color: "var(--text)",
-                  textDecoration: "none",
-                  borderRadius: "var(--radius-md)",
-                }}
-              >
+            {NAV_GROUPS.map((group, gi) => (
+              <div key={gi}>
+                {group.label && <p className="nav-group">{group.label}</p>}
+                {group.items.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setToolsOpen(false)}
+                    className="nav-item"
+                    style={{ minHeight: 44 }}
+                    aria-current={activePath.startsWith(item.href) ? "page" : undefined}
+                  >
+                    {item.label}
+                    <LinkPending />
+                  </Link>
+                ))}
+              </div>
+            ))}
+            <p className="nav-group">About</p>
+            {[
+              { href: "/changelog", label: "Changelog" },
+              { href: "/about", label: "About ClinicLog MD" },
+            ].map((item) => (
+              <Link key={item.href} href={item.href} onClick={() => setToolsOpen(false)} className="nav-item" style={{ minHeight: 44 }}>
                 {item.label}
-                <LinkPending />
               </Link>
             ))}
 
             {/* Sign out lives in the desktop sidebar, which is hidden below
                 768px. Without this there is no way to sign out on a phone. */}
-            <div style={{ paddingTop: "var(--sp-2)", marginTop: "var(--sp-2)", borderTop: "1px dashed var(--border-strong)" }}>
-              <p className="exp-id" style={{ padding: "0 16px 6px" }}>{userEmail}</p>
+            <div style={{ paddingTop: "var(--sp-15)", marginTop: "var(--sp-2)", borderTop: "1px solid var(--border)" }}>
+              <p className="meta truncate" style={{ padding: "0 var(--sp-15) var(--sp-1)" }}>{userEmail}</p>
               <form action="/auth/signout" method="POST">
-                <button
-                  type="submit"
-                  className="tools-modal-item w-full text-left px-4 py-3.5"
-                  style={{
-                    fontSize: "0.9375rem",
-                    fontWeight: 600,
-                    color: "var(--accent-text)",
-                    background: "transparent",
-                    border: "none",
-                    borderRadius: "var(--radius)",
-                    cursor: "pointer",
-                  }}
-                >
+                <button type="submit" className="nav-item w-full text-left" style={{ minHeight: 44, background: "transparent", border: 0, cursor: "pointer" }}>
                   Sign out
                 </button>
               </form>

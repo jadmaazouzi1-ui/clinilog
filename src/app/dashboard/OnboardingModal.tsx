@@ -81,10 +81,10 @@ export default function OnboardingModal() {
   }
 
   // ── Shared styles ──────────────────────────────────────────────────────
-  const inputProps = { className: "input-dark px-3.5 py-2.5 rounded-xl text-sm w-full" };
+  const inputProps = { className: "field px-3.5 py-2.5 rounded-xl text-sm w-full" };
 
   const primaryBtn: React.CSSProperties = {
-    backgroundColor: "var(--accent)", color: "var(--on-accent)",
+    backgroundColor: "var(--action)", color: "var(--on-action)",
     padding: "0.75rem 1.5rem",
     fontWeight: 800,
     fontSize: 13,
@@ -109,7 +109,7 @@ export default function OnboardingModal() {
   const labelStyle: React.CSSProperties = {
     display: "block",
     fontFamily: "var(--font-jetbrains-mono, monospace)",
-    fontSize: 10,
+    fontSize: "var(--text-xs)",
     fontWeight: 800,
     textTransform: "uppercase",
     letterSpacing: "0.08em",
@@ -142,10 +142,10 @@ export default function OnboardingModal() {
         {/* Progress bar */}
         <div style={{ position: "sticky", top: 0, background: "var(--surface)", paddingTop: "1.5rem", paddingBottom: "1rem", zIndex: 1 }}>
           <div className="flex items-center justify-between mb-2">
-            <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: 11, fontWeight: 800, letterSpacing: "0.1em" }}>
+            <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "var(--text-xs)", fontWeight: 800, letterSpacing: "0.1em" }}>
               SETUP
             </span>
-            <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: 11, fontWeight: 800, letterSpacing: "0.1em" }}>
+            <span style={{ fontFamily: "var(--font-jetbrains-mono, monospace)", fontSize: "var(--text-xs)", fontWeight: 800, letterSpacing: "0.1em" }}>
               {step} OF {TOTAL_STEPS}
             </span>
           </div>
@@ -154,7 +154,7 @@ export default function OnboardingModal() {
               style={{
                 height: "100%",
                 width: `${(step / TOTAL_STEPS) * 100}%`,
-                background: "var(--accent)",
+                background: "var(--action)",
               }}
             />
           </div>
@@ -164,7 +164,7 @@ export default function OnboardingModal() {
         {step === 1 && (
           <div>
             <div style={{ marginBottom: 16 }}><Logo size={36} /></div>
-            <h2 style={{ fontSize: 26, fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "var(--text)", marginBottom: 12 }}>
+            <h2 style={{ fontSize: "var(--text-2xl)", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "var(--text)", marginBottom: 12 }}>
               Welcome to ClinicLog MD
             </h2>
             <p style={{ fontSize: 15, lineHeight: 1.6, color: "var(--text-muted)", marginBottom: 32 }}>
@@ -177,7 +177,7 @@ export default function OnboardingModal() {
         {step === 2 && (
           <div>
             <p style={labelStyle}>Sample preview</p>
-            <h2 style={{ fontSize: 22, fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "var(--text)", marginBottom: 16 }}>
+            <h2 style={{ fontSize: "var(--text-xl)", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "var(--text)", marginBottom: 16 }}>
               Log hours as you go
             </h2>
             <div style={previewBox}>
@@ -189,13 +189,13 @@ export default function OnboardingModal() {
                   ["Hours", "12.5"],
                 ].map(([k, v]) => (
                   <div key={k} style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid var(--border-strong)", paddingBottom: 6 }}>
-                    <span style={{ fontSize: 12, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.04em" }}>{k}</span>
+                    <span style={{ fontSize: "var(--text-xs)", color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.04em" }}>{k}</span>
                     <span style={{ fontSize: 13, fontWeight: 700 }}>{v}</span>
                   </div>
                 ))}
               </div>
             </div>
-            <p style={{ fontSize: 14, lineHeight: 1.6, color: "var(--text-muted)", marginBottom: 8 }}>
+            <p style={{ fontSize: "var(--text-sm)", lineHeight: 1.6, color: "var(--text-muted)", marginBottom: 8 }}>
               Each entry has dates, hours, a category and a description. When AMCAS opens, these are what you copy into the Work and Activities section.
             </p>
           </div>
@@ -205,15 +205,15 @@ export default function OnboardingModal() {
         {step === 3 && (
           <div>
             <p style={labelStyle}>Sample preview</p>
-            <h2 style={{ fontSize: 22, fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "var(--text)", marginBottom: 16 }}>
+            <h2 style={{ fontSize: "var(--text-xl)", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "var(--text)", marginBottom: 16 }}>
               Compare schools
             </h2>
             <div style={previewBox}>
-              <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
+              <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "var(--text-xs)" }}>
                 <thead>
                   <tr>
                     {["SCHOOL", "AVG GPA", "AVG MCAT"].map((h) => (
-                      <th key={h} style={{ textAlign: "left", padding: "4px 0", borderBottom: "1px solid var(--border-strong)", fontSize: 10, letterSpacing: "0.06em" }}>{h}</th>
+                      <th key={h} style={{ textAlign: "left", padding: "4px 0", borderBottom: "1px solid var(--border-strong)", fontSize: "var(--text-xs)", letterSpacing: "0.06em" }}>{h}</th>
                     ))}
                   </tr>
                 </thead>
@@ -228,7 +228,7 @@ export default function OnboardingModal() {
                 </tbody>
               </table>
             </div>
-            <p style={{ fontSize: 14, lineHeight: 1.6, color: "var(--text-muted)", marginBottom: 8 }}>
+            <p style={{ fontSize: "var(--text-sm)", lineHeight: 1.6, color: "var(--text-muted)", marginBottom: 8 }}>
               Filter {SCHOOLS.length} medical schools by GPA, MCAT, mission and state. Averages are approximate, so confirm them on each school&apos;s site.
             </p>
           </div>
@@ -238,15 +238,15 @@ export default function OnboardingModal() {
         {step === 4 && (
           <div>
             <p style={labelStyle}>Sample preview</p>
-            <h2 style={{ fontSize: 22, fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "var(--text)", marginBottom: 16 }}>
+            <h2 style={{ fontSize: "var(--text-xl)", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "var(--text)", marginBottom: 16 }}>
               See your pattern
             </h2>
             <div style={{ ...previewBox, textAlign: "center" }}>
-              <p style={{ fontSize: 10, letterSpacing: "0.12em", color: "var(--text-muted)", marginBottom: 8 }}>01 / 15</p>
-              <p style={{ fontSize: 18, fontWeight: 900, textTransform: "uppercase", marginBottom: 6 }}>{SAMPLE_ARCHETYPE.name}</p>
+              <p style={{ fontSize: "var(--text-xs)", letterSpacing: "0.12em", color: "var(--text-muted)", marginBottom: 8 }}>01 / 15</p>
+              <p style={{ fontSize: "var(--text-lg)", fontWeight: 900, textTransform: "uppercase", marginBottom: 6 }}>{SAMPLE_ARCHETYPE.name}</p>
               <p style={{ fontSize: 13, fontStyle: "italic", color: "var(--text-muted)" }}>{SAMPLE_ARCHETYPE.tagline}</p>
             </div>
-            <p style={{ fontSize: 14, lineHeight: 1.6, color: "var(--text-muted)", marginBottom: 8 }}>
+            <p style={{ fontSize: "var(--text-sm)", lineHeight: 1.6, color: "var(--text-muted)", marginBottom: 8 }}>
               Once you log 3 experiences, AI reads your entries and names the pattern they show, one of 15, with schools that fit it. Treat it as a starting point, not a verdict.
             </p>
           </div>
@@ -256,22 +256,22 @@ export default function OnboardingModal() {
         {step === 5 && (
           <div>
             <p style={labelStyle}>Sample preview</p>
-            <h2 style={{ fontSize: 22, fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "var(--text)", marginBottom: 16 }}>
+            <h2 style={{ fontSize: "var(--text-xl)", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "var(--text)", marginBottom: 16 }}>
               Ask the AI Advisor
             </h2>
             <div style={previewBox}>
               <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 8 }}>
-                <span style={{ background: "var(--accent)", color: "var(--on-accent)", padding: "6px 10px", fontSize: 12, maxWidth: "75%" }}>
+                <span style={{ background: "var(--action)", color: "var(--on-action)", padding: "6px 10px", fontSize: "var(--text-xs)", maxWidth: "75%" }}>
                   Am I ready to apply with 120 clinical hours?
                 </span>
               </div>
               <div style={{ display: "flex", justifyContent: "flex-start" }}>
-                <span style={{ background: "var(--surface)", border: "1px solid var(--border-strong)", padding: "6px 10px", fontSize: 12, maxWidth: "75%" }}>
+                <span style={{ background: "var(--surface)", border: "1px solid var(--border-strong)", padding: "6px 10px", fontSize: "var(--text-xs)", maxWidth: "75%" }}>
                   120 clinical hours is within the range many applicants report. Your research and volunteering totals are worth a look next.
                 </span>
               </div>
             </div>
-            <p style={{ fontSize: 14, lineHeight: 1.6, color: "var(--text-muted)", marginBottom: 8 }}>
+            <p style={{ fontSize: "var(--text-sm)", lineHeight: 1.6, color: "var(--text-muted)", marginBottom: 8 }}>
               The AI Advisor can see your logged totals and answers questions about applying. It can be wrong, so check anything important with your advisor.
             </p>
           </div>
@@ -280,10 +280,10 @@ export default function OnboardingModal() {
         {/* ── Step 6: Your First Entry ── */}
         {step === 6 && (
           <div>
-            <h2 style={{ fontSize: 22, fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "var(--text)", marginBottom: 8 }}>
+            <h2 style={{ fontSize: "var(--text-xl)", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.01em", color: "var(--text)", marginBottom: 8 }}>
               Your first entry
             </h2>
-            <p style={{ fontSize: 14, color: "var(--text-muted)", marginBottom: 20 }}>
+            <p style={{ fontSize: "var(--text-sm)", color: "var(--text-muted)", marginBottom: 20 }}>
               Add one experience you have already done. You can edit it later, or skip this step.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
@@ -298,7 +298,7 @@ export default function OnboardingModal() {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label style={labelStyle}>Category</label>
-                  <select className="input-dark px-3.5 py-2.5 rounded-xl text-sm w-full" value={expType} onChange={(e) => setExpType(e.target.value)}>
+                  <select className="field px-3.5 py-2.5 rounded-xl text-sm w-full" value={expType} onChange={(e) => setExpType(e.target.value)}>
                     <option value="shadowing">Shadowing</option>
                     <option value="volunteer">Volunteer</option>
                     <option value="clinical_work">Clinical Work</option>
@@ -314,7 +314,7 @@ export default function OnboardingModal() {
               <div>
                 <label style={labelStyle}>Description</label>
                 <textarea
-                  className="input-dark px-3.5 py-2.5 rounded-xl text-sm w-full"
+                  className="field px-3.5 py-2.5 rounded-xl text-sm w-full"
                   rows={3}
                   value={expDesc}
                   placeholder="What you did, in a sentence or two"
@@ -353,8 +353,8 @@ export default function OnboardingModal() {
             style={{
               background: "none",
               border: "none",
-              fontSize: 12,
-              color: "var(--text-subtle)",
+              fontSize: "var(--text-xs)",
+              color: "var(--text-muted)",
               textDecoration: "underline",
               cursor: isPending ? "not-allowed" : "pointer",
             }}

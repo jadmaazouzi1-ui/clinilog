@@ -21,11 +21,11 @@ const TYPE_LABELS: Record<ExperienceType, string> = {
 /* Separated by lightness, by the leaf shape beside each label and by the
    label itself, never by hue. */
 const COLORS: Record<ExperienceType, string> = {
-  clinical_work: "var(--chart-1)",
-  shadowing:     "var(--chart-2)",
-  research:      "var(--chart-3)",
-  volunteer:     "var(--chart-4)",
-  other:         "var(--chart-5)",
+  clinical_work: "var(--data-1)",
+  shadowing:     "var(--data-2)",
+  research:      "var(--data-3)",
+  volunteer:     "var(--data-4)",
+  other:         "var(--data-5)",
 };
 
 export default function HoursBreakdown({
@@ -49,13 +49,13 @@ export default function HoursBreakdown({
   if (data.length === 0) return null;
 
   return (
-    <div className="glass-card tick-corners" style={{ padding: "var(--sp-2)" }}>
-      <div className="flex items-baseline justify-between" style={{ marginBottom: "var(--sp-2)" }}>
-        <p className="dept-header" style={{ marginBottom: 0, border: 0, paddingBottom: 0 }}>
-          Experience Hours
-        </p>
-        <a href="#recent-experiences" className="exp-id" style={{ color: "var(--accent-text)" }} data-tour="see-all">
-          SEE ALL
+    <section className="card" style={{ padding: "var(--sp-3)" }} aria-labelledby="hours-split-title">
+      <div className="flex items-baseline justify-between gap-3" style={{ marginBottom: "var(--sp-2)" }}>
+        <h2 className="section-title" id="hours-split-title" style={{ margin: 0 }}>
+          Hours by category
+        </h2>
+        <a href="#recent-experiences" className="link text-xs" data-tour="see-all">
+          See entries
         </a>
       </div>
 
@@ -73,7 +73,7 @@ export default function HoursBreakdown({
                 outerRadius={67}
                 paddingAngle={0}
                 dataKey="hours"
-                stroke="var(--chart-gap)"
+                stroke="var(--data-gap)"
                 strokeWidth={data.length > 1 ? 2 : 0}
                 isAnimationActive={false}
               >
@@ -87,22 +87,21 @@ export default function HoursBreakdown({
                   return [`${n % 1 === 0 ? n : n.toFixed(1)} hrs`, ""];
                 }}
                 contentStyle={{
-                  borderRadius: 0,
-                  border: "1px solid var(--border-strong)",
-                  fontSize: "12px",
-                  fontFamily: "var(--font-mono)",
+                  borderRadius: "var(--radius-control)",
+                  border: "1px solid var(--border)",
+                  fontSize: "var(--text-xs)",
                   backgroundColor: "var(--surface)",
                   color: "var(--text)",
-                  boxShadow: "none",
+                  boxShadow: "var(--shadow-overlay)",
                 }}
               />
             </PieChart>
           <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-            <span className="mono font-semibold" style={{ color: "var(--text)", fontSize: "1.5rem", lineHeight: 1 }}>
+            <span className="tnum font-semibold text-xl" style={{ color: "var(--text)", lineHeight: 1 }}>
               {formatHours(totalHours)}
             </span>
-            <span style={{ color: "var(--text-subtle)", fontSize: "0.625rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", marginTop: 2 }}>
-              total hrs
+            <span className="text-xs" style={{ color: "var(--text-muted)", marginTop: 2 }}>
+              hours
             </span>
           </div>
         </div>
@@ -115,6 +114,7 @@ export default function HoursBreakdown({
             return (
               <div
                 key={entry.type}
+                className="tnum"
                 style={{
                   // Fixed 3-column grid: label takes the slack, and the two
                   // numerics sit in their own narrow columns so the percentage
@@ -124,31 +124,28 @@ export default function HoursBreakdown({
                   gridTemplateColumns: "auto minmax(0, 1fr) auto auto",
                   columnGap: 10,
                   alignItems: "baseline",
-                  padding: "6px 0",
-                  borderBottom: "1px solid var(--hairline)",
+                  padding: "var(--sp-1) 0",
+                  borderBottom: "1px solid var(--border)",
                 }}
               >
                 <svg width="12" height="12" viewBox="-1 -7 14 14" aria-hidden="true" style={{ alignSelf: "center" }}>
                   <path
                     d={leafPath(LEAF_KIND[entry.type], 12)}
                     fill={LEAF_KIND[entry.type] === "hollow" ? "none" : COLORS[entry.type]}
-                    stroke={LEAF_KIND[entry.type] === "hollow" ? COLORS[entry.type] : "var(--text-subtle)"}
+                    stroke={LEAF_KIND[entry.type] === "hollow" ? COLORS[entry.type] : "var(--text-muted)"}
                     strokeWidth={LEAF_KIND[entry.type] === "hollow" ? 1.4 : 0.6}
                   />
                 </svg>
-                <span
-                  className="text-[11px] font-bold uppercase"
-                  style={{ color: "var(--text-muted)", letterSpacing: "0.08em" }}
-                >
+                <span className="text-sm" style={{ color: "var(--text)" }}>
                   {entry.label}
                 </span>
                 <span
-                  className="mono text-sm font-semibold text-right"
+                  className="tnum text-sm font-semibold text-right"
                   style={{ color: "var(--text)" }}
                 >
                   {hrs}
                 </span>
-                <span className="mono text-xs text-right" style={{ color: "var(--text-subtle)", minWidth: 30 }}>
+                <span className="tnum text-xs text-right" style={{ color: "var(--text-muted)", minWidth: 30 }}>
                   {pct}%
                 </span>
               </div>
@@ -156,6 +153,6 @@ export default function HoursBreakdown({
           })}
         </div>
       </div>
-    </div>
+    </section>
   );
 }

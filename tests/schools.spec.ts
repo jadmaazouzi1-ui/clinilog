@@ -6,7 +6,7 @@ const TEST_EMAIL = process.env.TEST_USER_EMAIL;
 const TEST_PASSWORD = process.env.TEST_USER_PASSWORD;
 const hasCreds = !!(TEST_EMAIL && TEST_PASSWORD);
 
-test.describe(hasCreds ? "Schools page (authenticated)" : "Schools page (skipped — no test creds)", () => {
+test.describe(hasCreds ? "Schools page (authenticated)" : "Schools page (skipped, no test creds)", () => {
   test.skip(!hasCreds, "Set TEST_USER_EMAIL and TEST_USER_PASSWORD to run schools tests.");
 
   test.beforeEach(async ({ page }) => {
@@ -48,7 +48,7 @@ test.describe(hasCreds ? "Schools page (authenticated)" : "Schools page (skipped
   });
 });
 
-test.describe("Schools page — unauthenticated", () => {
+test.describe("Schools page: unauthenticated", () => {
   test("redirects to /auth/login", async ({ page }) => {
     await page.goto("/schools");
     await expect(page).toHaveURL(/\/auth\/login/, { timeout: 10_000 });

@@ -35,11 +35,11 @@ export const CATEGORY_LABEL: Record<ExperienceType, string> = {
    by lightness. Category identity is carried by leaf shape and the labels, so
    colour never has to do it alone. */
 export const CATEGORY_COLOR: Record<ExperienceType, string> = {
-  clinical_work: "var(--path-1)",
-  shadowing: "var(--path-2)",
-  research: "var(--path-3)",
-  volunteer: "var(--path-4)",
-  other: "var(--path-5)",
+  clinical_work: "var(--data-inverse-1)",
+  shadowing: "var(--data-inverse-2)",
+  research: "var(--data-inverse-3)",
+  volunteer: "var(--data-inverse-4)",
+  other: "var(--data-inverse-5)",
 };
 /* Leaf silhouette per category, so a limb is identifiable by shape alone
    and not by colour only. */

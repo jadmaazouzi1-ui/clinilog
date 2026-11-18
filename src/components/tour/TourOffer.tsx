@@ -22,25 +22,25 @@ export default function TourOffer({ onboardingComplete }: { onboardingComplete: 
 
   return (
     <div
-      className="glass-card tick-corners flex items-center justify-between gap-3 flex-wrap"
-      style={{ padding: "var(--sp-2)", marginBottom: "var(--sp-3)", borderLeft: "2px solid var(--accent)" }}
+      className="card flex items-center justify-between gap-3 flex-wrap"
+      style={{ padding: "var(--sp-2)", marginBottom: "var(--sp-3)", borderLeft: "2px solid var(--action)" }}
       role="region"
       aria-label="Guided tour"
     >
       <div className="min-w-0">
-        <p className="exp-id" style={{ marginBottom: 4 }}>NEW HERE</p>
+        <p className="meta" style={{ marginBottom: 4 }}>NEW HERE</p>
         <p className="text-sm font-bold" style={{ color: "var(--text)" }}>Take a 2 minute tour</p>
         <p className="text-xs" style={{ color: "var(--text-muted)", marginTop: 2 }}>
           A short walk through this page using your real dashboard. You can replay it from Help.
         </p>
       </div>
       <div className="flex items-center gap-2">
-        <button type="button" className="tour-btn" onClick={() => saveRow(META.offer, "dismissed")}>
+        <button type="button" className="btn btn-sm btn-secondary" onClick={() => saveRow(META.offer, "dismissed")}>
           Not now
         </button>
         <button
           type="button"
-          className="tour-btn tour-btn-primary"
+          className="btn btn-sm btn-primary"
           onClick={() => {
             saveRow(META.offer, "completed");
             startTour("overview", 0);

@@ -1,35 +1,33 @@
 import Link from "next/link";
-import { RecordNo } from "@/components/MedicalIcons";
 
 
 export default function NotFound() {
   return (
     <div
       className="min-h-screen flex items-start justify-center"
-      style={{ backgroundColor: "var(--bg)", padding: "var(--sp-8) var(--sp-3)" }}
+      style={{ backgroundColor: "var(--background)", padding: "var(--sp-8) var(--sp-3)" }}
     >
       <div style={{ width: "100%", maxWidth: 560 }}>
         <div className="flex items-baseline justify-between gap-3" style={{ marginBottom: "var(--sp-2)" }}>
-          <span className="exp-id">CHART LOOKUP</span>
-          <RecordNo page="/404" />
+          <span className="meta">CHART LOOKUP</span>
         </div>
 
         <div
-          className="tick-corners"
+          className=""
           style={{
             background: "var(--surface)",
             border: "1px solid var(--border-strong)",
-            borderLeft: "2px solid var(--accent)",
+            borderLeft: "2px solid var(--action)",
             borderRadius: "var(--radius)",
             padding: "var(--sp-4) var(--sp-3)",
           }}
         >
           {/* Flatline: no record on file */}
           <svg width="100%" height="34" viewBox="0 0 320 34" fill="none" aria-hidden="true" style={{ marginBottom: "var(--sp-2)" }}>
-            <line x1="0" y1="17" x2="320" y2="17" stroke="var(--accent)" strokeWidth="1.4" strokeLinecap="round" />
+            <line x1="0" y1="17" x2="320" y2="17" stroke="var(--action)" strokeWidth="1.4" strokeLinecap="round" />
           </svg>
 
-          <p className="exp-id" style={{ marginBottom: 6, color: "var(--accent-text)" }}>
+          <p className="meta" style={{ marginBottom: 6, color: "var(--action-text)" }}>
             ERR 404 / NO RECORD ON FILE
           </p>
           <h1 className="text-2xl font-bold" style={{ color: "var(--text)", marginBottom: "var(--sp-1)" }}>
@@ -40,19 +38,19 @@ export default function NotFound() {
             or the link may have been mistyped.
           </p>
 
-          <hr className="tear-line" />
+          <hr className="rule" />
 
           <div className="flex items-center gap-2 flex-wrap">
             <Link
               href="/dashboard"
-              className="teal-glow inline-flex items-center text-sm"
+              className="btn btn-primary inline-flex items-center text-sm"
               style={{ padding: "10px var(--sp-3)", textDecoration: "none" }}
             >
               Back to Overview
             </Link>
             <Link
               href="/"
-              className="btn-ghost inline-flex items-center text-sm"
+              className="btn btn-secondary inline-flex items-center text-sm"
               style={{ padding: "10px var(--sp-3)", textDecoration: "none" }}
             >
               Home

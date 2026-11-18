@@ -77,7 +77,7 @@ export default function PostbaccView({
   return (
     <div className="space-y-6">
       {/* Program type selector */}
-      <div className="glass-card rounded-2xl p-6">
+      <div className="card rounded-2xl p-6">
         <h2 className="text-base font-semibold mb-1" style={{ color: "var(--text)" }}>Program Type</h2>
         <p className="text-xs mb-4" style={{ color: "var(--text-muted)" }}>Tell us which post-bacc path you&apos;re on.</p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -89,8 +89,8 @@ export default function PostbaccView({
                 onClick={() => persistProfile({ program_type: pt.value })}
                 className="text-left rounded-xl px-4 py-3 transition-all"
                 style={{
-                  background: active ? "var(--accent-tint)" : "var(--accent-tint)",
-                  border: `1px solid ${active ? "var(--text)" : "var(--hairline)"}`,
+                  background: active ? "var(--surface-alt)" : "var(--surface-alt)",
+                  border: `1px solid ${active ? "var(--text)" : "var(--border)"}`,
                   
                 }}
               >
@@ -121,7 +121,7 @@ export default function PostbaccView({
       </div>
 
       {/* Add course form */}
-      <div className="glass-card rounded-2xl p-6">
+      <div className="card rounded-2xl p-6">
         <h2 className="text-base font-semibold mb-4" style={{ color: "var(--text)" }}>Add a Course</h2>
         <form onSubmit={handleAddCourse} className="space-y-3">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -129,14 +129,14 @@ export default function PostbaccView({
               value={cName}
               onChange={(e) => setCName(e.target.value)}
               placeholder="Course name (e.g. Organic Chemistry I)"
-              className="input-dark px-3 py-2.5 rounded-xl text-sm"
+              className="field px-3 py-2.5 rounded-xl text-sm"
               required
             />
             <input
               value={cSemester}
               onChange={(e) => setCSemester(e.target.value)}
               placeholder="Semester (e.g. Fall 2026)"
-              className="input-dark px-3 py-2.5 rounded-xl text-sm"
+              className="field px-3 py-2.5 rounded-xl text-sm"
             />
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-[120px,140px,1fr,auto] gap-3 items-center">
@@ -145,13 +145,13 @@ export default function PostbaccView({
               onChange={(e) => setCCredits(e.target.value)}
               type="number" min="0.5" max="20" step="0.5"
               placeholder="Credits"
-              className="input-dark px-3 py-2.5 rounded-xl text-sm"
+              className="field px-3 py-2.5 rounded-xl text-sm"
               required
             />
             <select
               value={cGrade}
               onChange={(e) => setCGrade(e.target.value)}
-              className="input-dark px-3 py-2.5 rounded-xl text-sm"
+              className="field px-3 py-2.5 rounded-xl text-sm"
             >
               {GRADES.map((g) => <option key={g} value={g}>{g}</option>)}
             </select>
@@ -160,7 +160,7 @@ export default function PostbaccView({
                 type="checkbox"
                 checked={cBcpm}
                 onChange={(e) => setCBcpm(e.target.checked)}
-                className="w-4 h-4" style={{ accentColor: "var(--accent)" }}
+                className="w-4 h-4" style={{ accentColor: "var(--action)" }}
               />
               BCPM course (Bio, Chem, Physics, Math)
             </label>
@@ -168,7 +168,7 @@ export default function PostbaccView({
               type="submit"
               disabled={isPending}
               className="px-4 py-2.5 rounded-xl font-semibold text-sm disabled:opacity-40"
-              style={{ background: "var(--accent)", color: "var(--on-accent)" }}
+              style={{ background: "var(--action)", color: "var(--on-action)" }}
             >
               Add Course
             </button>
@@ -178,7 +178,7 @@ export default function PostbaccView({
       </div>
 
       {/* Course list */}
-      <div className="glass-card rounded-2xl p-6">
+      <div className="card rounded-2xl p-6">
         <h2 className="text-base font-semibold mb-4" style={{ color: "var(--text)" }}>Your Courses</h2>
         {initialCourses.length === 0 ? (
           <p className="text-sm text-center py-8" style={{ color: "var(--text-muted)" }}>
@@ -214,11 +214,11 @@ export default function PostbaccView({
                           <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                         </svg>
                       ) : (
-                        <span style={{ color: "var(--text-subtle)" }}>-</span>
+                        <span style={{ color: "var(--text-muted)" }}>-</span>
                       )}
                     </td>
                     <td className="px-2 py-3 text-right">
-                      <button onClick={() => handleDelete(c.id)} className="px-2 py-1 mono text-[10px] font-bold tracking-widest nav-item-brutal" style={{ color: "var(--text)", border: "1px solid var(--border-strong)", background: "var(--surface)" }} aria-label="Delete course">
+                      <button onClick={() => handleDelete(c.id)} className="px-2 py-1 tnum text-xs font-bold tracking-widest nav-item-brutal" style={{ color: "var(--text)", border: "1px solid var(--border-strong)", background: "var(--surface)" }} aria-label="Delete course">
                         DELETE
                       </button>
                     </td>
@@ -231,7 +231,7 @@ export default function PostbaccView({
       </div>
 
       {/* Notes */}
-      <div className="glass-card rounded-2xl p-6">
+      <div className="card rounded-2xl p-6">
         <h2 className="text-base font-semibold mb-1" style={{ color: "var(--text)" }}>Notes</h2>
         <p className="text-xs mb-3" style={{ color: "var(--text-muted)" }}>Track strategy, advisor meetings, anything else.</p>
         <textarea
@@ -240,12 +240,12 @@ export default function PostbaccView({
           onBlur={() => persistProfile({ notes: profile.notes })}
           rows={4}
           placeholder="Write notes here. Auto-saves when you click away."
-          className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm resize-none"
+          className="field w-full px-3.5 py-2.5 rounded-xl text-sm resize-none"
         />
       </div>
 
       {savedAt && (
-        <p className="text-xs text-center" style={{ color: "var(--text-subtle)" }}>
+        <p className="text-xs text-center" style={{ color: "var(--text-muted)" }}>
           {isPending ? "Saving…" : `Saved at ${savedAt}`}
         </p>
       )}
@@ -267,11 +267,11 @@ function GpaCard({ label, sub, value, goal, onGoalChange }: {
   const metGoal = value !== null && value >= goal;
 
   return (
-    <div className="glass-card rounded-2xl p-5">
+    <div className="card rounded-2xl p-5">
       <div className="flex items-center justify-between mb-1">
         <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>{label}</p>
         {value !== null && (
-          <span className="text-[10px] font-bold uppercase tracking-wide" style={{ color: metGoal ? "var(--text)" : "var(--text-muted)" }}>
+          <span className="text-xs font-bold uppercase tracking-wide" style={{ color: metGoal ? "var(--text)" : "var(--text-muted)" }}>
             {metGoal ? "Goal met" : `${pct.toFixed(0)}% to goal`}
           </span>
         )}
@@ -281,7 +281,7 @@ function GpaCard({ label, sub, value, goal, onGoalChange }: {
         <span className="text-sm" style={{ color: "var(--text-muted)" }}>/ 4.00</span>
       </div>
 
-      <div className="w-full h-2 rounded-none overflow-hidden mb-3" style={{ background: "var(--accent-tint)", border: "1px solid var(--hairline)" }}>
+      <div className="w-full h-2 rounded-none overflow-hidden mb-3" style={{ background: "var(--surface-alt)", border: "1px solid var(--border)" }}>
         <div
           className="h-full rounded-sm"
           style={{
@@ -307,7 +307,7 @@ function GpaCard({ label, sub, value, goal, onGoalChange }: {
             if (Number.isFinite(n) && n >= 2 && n <= 4) onGoalChange(n);
             else setEditingGoal(goal.toString());
           }}
-          className="input-dark px-2 py-1 rounded-md text-xs w-16"
+          className="field px-2 py-1 rounded-md text-xs w-16"
         />
       </div>
     </div>

@@ -5,9 +5,9 @@ import { AFFILIATION_NOTE } from "../../src/lib/brand";
 // Black and Old Gold theme: one theme file, the mark everywhere, the icons
 // and manifest, and the light/dark default rules.
 
-test("no colour literal outside src/styles/theme.css", () => {
+test("design-check passes: tokens, type scale, voice", () => {
   // Throws (and fails the test) if the script exits non-zero.
-  const out = execFileSync("node", ["scripts/check-colors.mjs"], { encoding: "utf8" });
+  const out = execFileSync("node", ["scripts/design-check.mjs"], { encoding: "utf8" });
   expect(out).toContain("no colour literals");
 });
 
@@ -71,7 +71,7 @@ test("selection, focus ring and primary button use the gold tokens", async ({ pa
   await page.goto("/about");
   const s = await page.evaluate(() => {
     const root = getComputedStyle(document.documentElement);
-    const btn = document.querySelector(".teal-glow") as HTMLElement;
+    const btn = document.querySelector(".btn-primary") as HTMLElement;
     const b = getComputedStyle(btn);
     return {
       accent: root.getPropertyValue("--accent").trim(),

@@ -10,11 +10,11 @@ import { EmptyState } from "@/components/EmptyStates";
 type MissionFilter = "Primary Care & Underserved" | "Research" | "Osteopathic" | "Community Health" | "Caribbean";
 
 const MISSION_FILTERS: { label: string; value: MissionFilter; dot: string }[] = [
-  { label: "Primary Care & Underserved", value: "Primary Care & Underserved", dot: "var(--accent)" },
-  { label: "Research",                   value: "Research",                   dot: "var(--accent)" },
-  { label: "Osteopathic (DO)",           value: "Osteopathic",                dot: "var(--accent)" },
-  { label: "Community Health",           value: "Community Health",           dot: "var(--accent)" },
-  { label: "Caribbean",                  value: "Caribbean",                  dot: "var(--accent)" },
+  { label: "Primary Care & Underserved", value: "Primary Care & Underserved", dot: "var(--action)" },
+  { label: "Research",                   value: "Research",                   dot: "var(--action)" },
+  { label: "Osteopathic (DO)",           value: "Osteopathic",                dot: "var(--action)" },
+  { label: "Community Health",           value: "Community Health",           dot: "var(--action)" },
+  { label: "Caribbean",                  value: "Caribbean",                  dot: "var(--action)" },
 ];
 
 function getMissionBadgeStyle(mission: string): React.CSSProperties {
@@ -22,13 +22,13 @@ function getMissionBadgeStyle(mission: string): React.CSSProperties {
   if (m.includes("caribbean"))
     return { background: "var(--surface)", color: "var(--text)", border: "1px solid var(--border-strong)" };
   if (m.includes("osteopathic"))
-    return { background: "var(--accent-tint)", color: "var(--text)", border: "1px solid var(--border-strong)" };
+    return { background: "var(--surface-alt)", color: "var(--text)", border: "1px solid var(--border-strong)" };
   if (m.includes("community health"))
     return { background: "var(--surface)", color: "var(--text)", border: "1px solid var(--border-strong)" };
   if (m.includes("underserved") && m.includes("primary"))
-    return { background: "var(--accent-tint)", color: "var(--text)", border: "1px solid var(--border-strong)" };
+    return { background: "var(--surface-alt)", color: "var(--text)", border: "1px solid var(--border-strong)" };
   if (m.includes("underserved"))
-    return { background: "var(--accent-tint)", color: "var(--text)", border: "1px solid var(--border-strong)" };
+    return { background: "var(--surface-alt)", color: "var(--text)", border: "1px solid var(--border-strong)" };
   if (m.includes("primary care"))
     return { background: "var(--surface)", color: "var(--text)", border: "1px solid var(--border-strong)" };
   return { background: "var(--surface)", color: "var(--text)", border: "1px solid var(--border-strong)" };
@@ -118,9 +118,9 @@ export default function SchoolList({
   };
   // Active filter button style
   const activeFilterStyle: React.CSSProperties = {
-    background: "var(--accent)",
+    background: "var(--action)",
     border: "1px solid var(--border-strong)",
-    color: "var(--on-accent)",
+    color: "var(--on-action)",
   };
 
   return (
@@ -133,14 +133,14 @@ export default function SchoolList({
       </div>
 
       {/* Stats inputs */}
-      <div className="glass-card rounded-2xl p-6 mb-6" data-tour="schools-stats">
+      <div className="card rounded-2xl p-6 mb-6" data-tour="schools-stats">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-3">
           <div>
             <label htmlFor="gpa-input" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text)" }}>GPA</label>
             <input
               id="gpa-input" type="number" min={0} max={4.0} step={0.01} placeholder="e.g. 3.7"
               value={gpa} onChange={(e) => setGpa(e.target.value)}
-              className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm"
+              className="field w-full px-3.5 py-2.5 rounded-xl text-sm"
             />
           </div>
           <div>
@@ -148,20 +148,20 @@ export default function SchoolList({
             <input
               id="mcat-input" type="number" min={472} max={528} step={1} placeholder="e.g. 512"
               value={mcat} onChange={(e) => setMcat(e.target.value)}
-              className="input-dark w-full px-3.5 py-2.5 rounded-xl text-sm"
+              className="field w-full px-3.5 py-2.5 rounded-xl text-sm"
             />
           </div>
         </div>
-        <p className="text-xs" style={{ color: "var(--text-subtle)" }}>Highlights schools within ±0.3 GPA and ±5 MCAT points of your stats.</p>
+        <p className="text-xs" style={{ color: "var(--text-muted)" }}>Highlights schools within ±0.3 GPA and ±5 MCAT points of your stats.</p>
         <div className="mt-4 pt-4" style={{ borderTop: "1px solid var(--border-strong)" }} data-tour="schools-home-state">
           <label htmlFor="home-state" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text)" }}>
-            My Home State <span className="font-normal" style={{ color: "var(--text-subtle)" }}>(optional, highlights in-state schools for you)</span>
+            My Home State <span className="font-normal" style={{ color: "var(--text-muted)" }}>(optional, highlights in-state schools for you)</span>
           </label>
           <select
             id="home-state"
             value={homeState}
             onChange={(e) => setHomeState(e.target.value)}
-            className="input-dark w-full sm:w-64 px-3.5 py-2.5 rounded-xl text-sm"
+            className="field w-full sm:w-64 px-3.5 py-2.5 rounded-xl text-sm"
           >
             <option value="">Select your state...</option>
             {ALL_STATES.filter((s) => s !== "Intl").map((s) => <option key={s} value={s}>{s}</option>)}
@@ -170,7 +170,7 @@ export default function SchoolList({
       </div>
 
       {/* Filter bar */}
-      <div className="glass-card rounded-2xl p-4 mb-5" data-tour="schools-filters">
+      <div className="card rounded-2xl p-4 mb-5" data-tour="schools-filters">
         <div className="flex gap-2 overflow-x-auto pb-2" style={{ scrollbarWidth: "none" }}>
           {MISSION_FILTERS.map((f) => {
             const active = missionFilters.has(f.value);
@@ -268,10 +268,10 @@ export default function SchoolList({
           return (
             <div
               key={school.name}
-              className="glass-card rounded-2xl p-5 transition-all"
+              className="card rounded-2xl p-5 transition-all"
               style={
                 isInStateForUser
-                  ? { background: "var(--accent-tint)", borderColor: "var(--text)" }
+                  ? { background: "var(--surface-alt)", borderColor: "var(--text)" }
                   : match
                   ? { background: "var(--surface)", borderColor: "var(--text)" }
                   : {}
@@ -283,7 +283,7 @@ export default function SchoolList({
                   {isInStateForUser && (
                     <span
                       className="inline-flex items-center px-2 py-0.5 rounded-sm text-xs font-semibold whitespace-nowrap"
-                      style={{ background: "var(--accent-tint)", color: "var(--text)", border: "1px solid var(--border-strong)" }}
+                      style={{ background: "var(--surface-alt)", color: "var(--text)", border: "1px solid var(--border-strong)" }}
                     >
                       In-state for you
                     </span>
@@ -317,7 +317,7 @@ export default function SchoolList({
                     className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-xs font-medium"
                     style={
                       school.inStatePref === "In-State Friendly"
-                        ? { background: "var(--accent-tint)", color: "var(--text)", border: "1px solid var(--border-strong)" }
+                        ? { background: "var(--surface-alt)", color: "var(--text)", border: "1px solid var(--border-strong)" }
                         : { background: "var(--surface)", color: "var(--text)", border: "1px solid var(--border-strong)" }
                     }
                   >
@@ -361,7 +361,7 @@ export default function SchoolList({
               title="No schools match these filters"
               body="Nothing in the list of 149 programs fits every filter at once. Widening the state or mission filter usually brings results back."
             />
-            <button type="button" onClick={clearAll} className="btn-ghost text-sm font-semibold" style={{ padding: "8px var(--sp-2)" }}>
+            <button type="button" onClick={clearAll} className="btn btn-secondary text-sm font-semibold" style={{ padding: "8px var(--sp-2)" }}>
               Clear all filters
             </button>
           </div>

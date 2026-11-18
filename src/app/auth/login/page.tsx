@@ -78,14 +78,14 @@ export default async function LoginPage({
 
   if (view === "forgot") {
     return (
-      <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "var(--bg)" }}>
+      <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "var(--background)" }}>
         <div className="w-full max-w-md">
           <div className="mb-8">
             <LogoMark />
           </div>
 
           {sent === "1" ? (
-            <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
+            <div className="card" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
               <div
                 className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5"
                 style={{ backgroundColor: "var(--surface)", border: "1px solid var(--border-strong)" }}
@@ -114,7 +114,7 @@ export default async function LoginPage({
                 </p>
               </div>
 
-              <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
+              <div className="card" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
                 {pageError && (
                   <div
                     className="mb-5 text-sm"
@@ -125,7 +125,7 @@ export default async function LoginPage({
                 )}
                 <form action={forgotPassword} className="space-y-5">
                   <div>
-                    <label htmlFor="email" className="field-label">
+                    <label htmlFor="email" className="label">
                       Email address
                     </label>
                     <input
@@ -134,13 +134,13 @@ export default async function LoginPage({
                       type="email"
                       required
                       autoComplete="email"
-                      className="field-input"
+                      className="field"
                       placeholder="you@wfu.edu"
                     />
                   </div>
                   <button
                     type="submit"
-                    className="w-full teal-glow font-semibold text-sm focus:outline-none" style={{ padding: "11px 0" }}
+                    className="w-full btn btn-primary font-semibold text-sm focus:outline-none" style={{ padding: "11px 0" }}
                   >
                     Send Reset Email
                   </button>
@@ -160,7 +160,7 @@ export default async function LoginPage({
   }
 
   return (
-    <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "var(--bg)" }}>
+    <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "var(--background)" }}>
       <div className="w-full max-w-md">
         <div className="mb-8">
           <LogoMark />
@@ -170,7 +170,7 @@ export default async function LoginPage({
           </p>
         </div>
 
-        <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
+        <div className="card" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
           {pageError && (
             <div
               className="mb-5 text-sm"
@@ -181,7 +181,7 @@ export default async function LoginPage({
           )}
           <form action={login} className="space-y-5">
             <div>
-              <label htmlFor="email" className="field-label">
+              <label htmlFor="email" className="label">
                 Email address
               </label>
               <input
@@ -190,14 +190,14 @@ export default async function LoginPage({
                 type="email"
                 required
                 autoComplete="email"
-                className="field-input"
+                className="field"
                 placeholder="you@wfu.edu"
               />
             </div>
 
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <label htmlFor="password" className="field-label">
+                <label htmlFor="password" className="label">
                   Password
                 </label>
                 <Link href="/auth/login?view=forgot" className="text-xs font-medium" style={{ color: "var(--text)" }}>
@@ -210,14 +210,14 @@ export default async function LoginPage({
                 type="password"
                 required
                 autoComplete="current-password"
-                className="field-input"
+                className="field"
                 placeholder="••••••••"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full teal-glow font-semibold text-sm focus:outline-none" style={{ padding: "11px 0" }}
+              className="w-full btn btn-primary font-semibold text-sm focus:outline-none" style={{ padding: "11px 0" }}
             >
               Sign In
             </button>

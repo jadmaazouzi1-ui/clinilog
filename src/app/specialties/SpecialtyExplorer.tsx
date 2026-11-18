@@ -21,20 +21,20 @@ function formatSalary(min: number, max: number): string {
 function RatingDots({ value, color, label }: { value: Rating; color: string; label: string }) {
   return (
     <div className="flex items-center gap-2">
-      <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: "var(--text-muted)", minWidth: 96 }}>{label}</span>
+      <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--text-muted)", minWidth: 96 }}>{label}</span>
       <div className="flex gap-1">
         {[1, 2, 3, 4, 5].map((i) => (
           <span
             key={i}
             className="w-2.5 h-2.5 rounded-full"
             style={{
-              backgroundColor: i <= value ? color : "var(--accent-tint)",
+              backgroundColor: i <= value ? color : "var(--surface-alt)",
               
             }}
           />
         ))}
       </div>
-      <span className="text-[10px]" style={{ color: "var(--text-subtle)" }}>{value}/5</span>
+      <span className="text-xs" style={{ color: "var(--text-muted)" }}>{value}/5</span>
     </div>
   );
 }
@@ -77,13 +77,13 @@ export default function SpecialtyExplorer() {
   return (
     <div>
       {/* Search + filter bar */}
-      <div className="glass-card rounded-2xl p-5 mb-6 space-y-4">
+      <div className="card rounded-2xl p-5 mb-6 space-y-4">
         <input
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search specialties…"
-          className="input-dark w-full px-4 py-2.5 rounded-xl text-sm"
+          className="field w-full px-4 py-2.5 rounded-xl text-sm"
         />
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -136,7 +136,7 @@ export default function SpecialtyExplorer() {
           <Card key={s.id} specialty={s} expanded={openId === s.id} onToggle={() => setOpenId(openId === s.id ? null : s.id)} />
         ))}
         {filtered.length === 0 && (
-          <div className="col-span-full glass-card rounded-2xl p-8 text-center text-sm" style={{ color: "var(--text-muted)" }}>
+          <div className="col-span-full card rounded-2xl p-8 text-center text-sm" style={{ color: "var(--text-muted)" }}>
             No specialties match your filters.
           </div>
         )}
@@ -152,7 +152,7 @@ function FilterSelect({ label, value, onChange, options }: { label: string; valu
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="input-dark w-full px-3 py-2 rounded-lg text-sm"
+        className="field w-full px-3 py-2 rounded-lg text-sm"
       >
         {options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
       </select>
@@ -163,8 +163,8 @@ function FilterSelect({ label, value, onChange, options }: { label: string; valu
 function Card({ specialty: s, expanded, onToggle }: { specialty: Specialty; expanded: boolean; onToggle: () => void }) {
   return (
     <div
-      className="glass-card rounded-2xl p-5 cursor-pointer transition-all"
-      style={{ borderColor: expanded ? "var(--text-subtle)" : undefined }}
+      className="card rounded-2xl p-5 cursor-pointer transition-all"
+      style={{ borderColor: expanded ? "var(--text-muted)" : undefined }}
       onClick={onToggle}
     >
       <div className="flex items-start gap-4">
@@ -183,7 +183,7 @@ function Card({ specialty: s, expanded, onToggle }: { specialty: Specialty; expa
             <h3 className="text-sm font-bold leading-tight" style={{ color: "var(--text)" }}>{s.name}</h3>
             <svg
               className="w-4 h-4 flex-shrink-0 transition-transform"
-              style={{ transform: expanded ? "rotate(180deg)" : "none", color: "var(--text-subtle)" }}
+              style={{ transform: expanded ? "rotate(180deg)" : "none", color: "var(--text-muted)" }}
               fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"
             >
               <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
@@ -191,9 +191,9 @@ function Card({ specialty: s, expanded, onToggle }: { specialty: Specialty; expa
           </div>
           <div className="flex items-center gap-2 flex-wrap mt-1.5 text-xs" style={{ color: "var(--text-muted)" }}>
             <span>{formatSalary(s.salaryMin, s.salaryMax)}</span>
-            <span style={{ color: "var(--text-subtle)" }}>·</span>
+            <span style={{ color: "var(--text-muted)" }}>·</span>
             <span>{s.residencyYears}-yr residency</span>
-            <span style={{ color: "var(--text-subtle)" }}>·</span>
+            <span style={{ color: "var(--text-muted)" }}>·</span>
             <span style={{ color: patientColor(s.patientContact), fontWeight: 600 }}>{s.patientContact} patient contact</span>
           </div>
         </div>
@@ -207,12 +207,12 @@ function Card({ specialty: s, expanded, onToggle }: { specialty: Specialty; expa
           </div>
 
           <div>
-            <p className="text-[10px] font-semibold uppercase tracking-wide mb-1.5" style={{ color: "var(--text-muted)" }}>Day in the Life</p>
+            <p className="text-xs font-semibold uppercase tracking-wide mb-1.5" style={{ color: "var(--text-muted)" }}>Day in the Life</p>
             <p className="text-xs leading-relaxed" style={{ color: "var(--text)" }}>{s.summary}</p>
           </div>
 
           <div>
-            <p className="text-[10px] font-semibold uppercase tracking-wide mb-1.5" style={{ color: "var(--text-muted)" }}>Top Schools for This Path</p>
+            <p className="text-xs font-semibold uppercase tracking-wide mb-1.5" style={{ color: "var(--text-muted)" }}>Top Schools for This Path</p>
             <ul className="space-y-1.5">
               {s.topSchools.map((school) => (
                 <li key={school} className="text-xs flex items-start gap-2" style={{ color: "var(--text)" }}>

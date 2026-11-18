@@ -1,613 +1,455 @@
 @import "tailwindcss";
 @import "../styles/theme.css";
 
-/* ──────────────────────────────────────────────────────────────────────────
-   CLINICAL CHART: black and Old Gold rendered as a medical document.
-   Flat surfaces, 2px rules, square corners, perforated dividers, a gold
-   prescription-pad margin rule, registration tick marks. Every colour comes
-   from src/styles/theme.css.
-   ────────────────────────────────────────────────────────────────────────── */
-:root {
-  /* ── ONE radius, everywhere. Never mixed. ──
-     Circles (avatars, donut) use border-radius:50% and are exempt. */
-  --radius:      0px;
-  --radius-sm:   0px;
-  --radius-md:   0px;
-  --radius-lg:   0px;
-  --radius-pill: 0px;
+/* ══════════════════════════════════════════════════════════════════════
+   COMPONENTS
+   The one shared version of every control, card and message. DESIGN.md
+   describes each and its states. Values come from src/styles/theme.css;
+   this file adds no colour, shadow or type size of its own.
 
-  /* ── Strict 8px section rhythm ── */
+   Surface language: flat, 1px hairline borders, small radii. Nothing in
+   the page casts a shadow; only overlays do (--shadow-overlay).
+   ══════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Spacing: a 4px base. Inline styles and components use these steps
+     only: 4, 8, 12, 16, 24, 32, 40, 48, 64, 96. */
+  --sp-h:  4px;
   --sp-1:  8px;
+  --sp-15: 12px;
   --sp-2: 16px;
   --sp-3: 24px;
   --sp-4: 32px;
   --sp-5: 40px;
   --sp-6: 48px;
   --sp-8: 64px;
+  --sp-12: 96px;
 
-  /* Flat document: no card shadows. */
-  --shadow-card:       none;
-  --shadow-card-hover: none;
-  --shadow-hero:       0 1px 0 var(--hairline);
+  /* Old single-radius name, still read by inline styles: a control. */
+  --radius: var(--radius-control);
 
-  --font-sans: var(--font-inter), Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: var(--font-jetbrains-mono), "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --font-display: var(--font-newsreader), "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-public-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Readable line length for running text. */
+  --measure: 68ch;
 }
 
-
-/* Collapse Tailwind's entire radius scale onto the single 3px value, so no
-   `rounded-xl` / `rounded-2xl` left anywhere in the app can reintroduce a
-   soft-SaaS corner. `rounded-full` is deliberately untouched: it is only
-   used for genuine circles (avatars, status dots). */
-@theme {
-  --radius-xs:  0px;
-  --radius-sm:  0px;
-  --radius-md:  0px;
-  --radius-lg:  0px;
-  --radius-xl:  0px;
-  --radius-2xl: 0px;
-  --radius-3xl: 0px;
-  --radius-4xl: 0px;
+@theme inline {
+  --font-sans: var(--font-public-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: var(--font-newsreader), Georgia, serif;
+  --font-mono: var(--font-public-sans), system-ui, sans-serif;
 }
 
+/* ── Base ─────────────────────────────────────────────────────────────── */
 html {
-  background-color: var(--bg);
+  background-color: var(--background);
   -webkit-text-size-adjust: 100%;
-  -moz-text-size-adjust: 100%;
   text-size-adjust: 100%;
   width: 100%;
 }
 
 body {
-  background-color: var(--bg);
+  background-color: var(--background);
   color: var(--text);
   font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   width: 100%;
 }
 
-h1, h2, h3 {
-  font-weight: 700;
-  letter-spacing: -0.02em;
+/* Headings: Newsreader for the two levels that name a page or a section,
+   Public Sans for everything under them. Two display weights only: 500
+   for large sizes, 600 for the rest. */
+h1, h2, .display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  font-optical-sizing: auto;
+}
+:is(h1, h2, .display):is(.font-bold, .font-extrabold, .font-black, .font-semibold) { font-weight: 600; }
+:is(h1, h2, .display):is(.text-3xl, .text-4xl, .text-5xl) { font-weight: 500; letter-spacing: -0.02em; }
+h3, h4 { font-weight: 600; letter-spacing: 0; }
+
+p { text-wrap: pretty; }
+
+.prose,
+.measure { max-width: var(--measure); }
+
+.tnum,
+table,
+time { font-variant-numeric: tabular-nums lining-nums; }
+
+/* Text links. Gold, underlined, so colour is never the only signal. */
+.link,
+.prose a,
+.legal-prose a {
+  color: var(--action-text);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.link:hover,
+.prose a:hover,
+.legal-prose a:hover { color: var(--text); }
+
+/* Keyboard focus: one ring, everywhere. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
 }
 
-/* ── Legacy background classes ────────────────────────────────────────── */
-.dot-grid-bg,
-.graph-paper-bg {
-  background-color: var(--bg);
+/* ── Buttons ──────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-1);
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-control);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
+}
+.btn-sm {
+  min-height: 36px;
+  padding: 0 12px;
+  font-size: var(--text-xs);
+}
+@media (pointer: coarse) {
+  .btn-sm { min-height: 44px; }
+}
+.btn-block { width: 100%; }
+
+.btn-primary { background: var(--action); color: var(--on-action); }
+.btn-primary:hover { background: var(--action-hover); }
+.btn-primary:active { background: var(--action-pressed); }
+
+.btn-secondary { background: var(--surface); color: var(--text); border-color: var(--border-strong); }
+.btn-secondary:hover { background: var(--surface-alt); }
+.btn-secondary:active { background: var(--border); }
+
+.btn-ghost { background: transparent; color: var(--text); }
+.btn-ghost:hover { background: var(--surface-alt); }
+.btn-ghost:active { background: var(--border); }
+
+.btn-danger { background: var(--surface); color: var(--danger); border-color: var(--danger); }
+.btn-danger:hover { background: var(--danger-tint); }
+.btn-danger:active { background: var(--danger-tint); border-width: 2px; }
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.btn[aria-busy="true"],
+.btn[data-loading="true"] {
+  cursor: progress;
+  opacity: 0.8;
 }
 
-/* ══════════════════════════════════════════════════════════════════════
-   CARDS: flat chart panels. Hairline border, no shadow, no lift.
-   Hover reveals a thin red margin rule on the leading edge instead of
-   the generic shadow-and-scale pattern.
-   ══════════════════════════════════════════════════════════════════════ */
-.glass-card,
-.clinical-card {
+/* ── Form fields ──────────────────────────────────────────────────────── */
+.label {
+  display: block;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.label .optional,
+.label-hint {
+  font-weight: 400;
+  color: var(--text-muted);
+}
+.hint {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+.field-error {
+  font-size: var(--text-xs);
+  color: var(--danger);
+  margin-top: 6px;
+}
+
+.field {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
   background: var(--surface);
   border: 1px solid var(--border-strong);
-  border-radius: var(--radius);
-  box-shadow: inset 0 0 0 0 var(--accent);
-  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+  border-radius: var(--radius-control);
+  font-family: var(--font-sans);
+  /* 16px keeps iOS from zooming into the field on focus. */
+  font-size: var(--text-base);
+  line-height: 1.4;
+  color: var(--text);
+  transition: border-color var(--dur-fast) var(--ease-out);
 }
-.glass-card:hover,
-.clinical-card:hover {
-  border-color: var(--border-strong);
-  box-shadow: inset 2px 0 0 0 var(--accent);
+.field:hover { border-color: var(--text-muted); }
+.field:focus { outline: 2px solid var(--focus-ring); outline-offset: 1px; border-color: var(--text); }
+.field::placeholder { color: var(--text-muted); opacity: 0.85; }
+.field:disabled,
+.field[readonly] { background: var(--surface-alt); color: var(--text-muted); cursor: not-allowed; }
+.field[aria-invalid="true"] { border-color: var(--danger); }
+.field[aria-invalid="true"]:focus { outline-color: var(--danger); }
+textarea.field { min-height: 112px; resize: vertical; line-height: 1.55; }
+select.field { padding-right: 8px; }
+.field option { background: var(--surface); color: var(--text); }
+
+input[type="checkbox"],
+input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--text);
+  cursor: pointer;
+}
+input[type="checkbox"]:disabled,
+input[type="radio"]:disabled { cursor: not-allowed; opacity: 0.5; }
+
+/* ── Cards and sections ───────────────────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+}
+a.card { color: inherit; text-decoration: none; transition: border-color var(--dur) var(--ease-out); }
+a.card:hover { border-color: var(--border-strong); }
+
+/* A section heading inside a page. Sentence case, set in the display face. */
+.section-title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin: 0 0 var(--sp-15);
 }
 
-/* ══════════════════════════════════════════════════════════════════════
-   RED MARGIN RULE: 2px vertical line 40px from the left edge, as on a
-   prescription pad. Applied to content-heavy pages.
-   ══════════════════════════════════════════════════════════════════════ */
-/* Pages using this must NOT set padding-left inline: an inline shorthand
-   (`padding: X`) beats any stylesheet rule and would drop the content back
-   on top of the rule. Set top/right/bottom inline and leave left to this. */
-.chart-margin {
-  position: relative;
-  padding-left: var(--sp-3);
-}
-.chart-margin::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 40px;
-  width: 2px;
-  background: var(--accent);
-  pointer-events: none;
-  display: none;
-}
-@media (min-width: 768px) {
-  .chart-margin::before { display: block; }
-  /* Clear the rule: content starts to the right of it. */
-  .chart-margin { padding-left: var(--sp-8); }
-}
-
-/* ══════════════════════════════════════════════════════════════════════
-   REGISTRATION TICK MARKS: thin L-shaped corner marks, as on medical
-   forms. Eight background layers (h + v per corner) on one pseudo-element.
-   ══════════════════════════════════════════════════════════════════════ */
-.tick-corners { position: relative; }
-.tick-corners::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-repeat: no-repeat;
-  background-image:
-    linear-gradient(var(--tick-color, var(--border-strong)), var(--tick-color, var(--border-strong))),
-    linear-gradient(var(--tick-color, var(--border-strong)), var(--tick-color, var(--border-strong))),
-    linear-gradient(var(--tick-color, var(--border-strong)), var(--tick-color, var(--border-strong))),
-    linear-gradient(var(--tick-color, var(--border-strong)), var(--tick-color, var(--border-strong))),
-    linear-gradient(var(--tick-color, var(--border-strong)), var(--tick-color, var(--border-strong))),
-    linear-gradient(var(--tick-color, var(--border-strong)), var(--tick-color, var(--border-strong))),
-    linear-gradient(var(--tick-color, var(--border-strong)), var(--tick-color, var(--border-strong))),
-    linear-gradient(var(--tick-color, var(--border-strong)), var(--tick-color, var(--border-strong)));
-  background-size:
-    9px 1px, 1px 9px,
-    9px 1px, 1px 9px,
-    9px 1px, 1px 9px,
-    9px 1px, 1px 9px;
-  background-position:
-    8px 8px, 8px 8px,
-    calc(100% - 8px) 8px, calc(100% - 8px) 8px,
-    8px calc(100% - 8px), 8px calc(100% - 8px),
-    calc(100% - 8px) calc(100% - 8px), calc(100% - 8px) calc(100% - 8px);
-}
-/* Ticks on the dark hero panel */
-.tick-corners-light { --tick-color: var(--band-line); }
-
-/* ══════════════════════════════════════════════════════════════════════
-   PERFORATED TEAR LINE: dashed rule, as on a detachable form.
-   ══════════════════════════════════════════════════════════════════════ */
-.tear-line {
+.rule {
   border: 0;
-  border-top: 1px dashed var(--border-strong);
+  border-top: 1px solid var(--border);
   margin: var(--sp-4) 0;
   height: 0;
 }
-.tear-line-tight { margin: var(--sp-2) 0; }
+.rule-tight { border: 0; border-top: 1px solid var(--border); margin: var(--sp-2) 0; height: 0; }
 
-/* ══════════════════════════════════════════════════════════════════════
-   BUTTONS: square-ish, flat, no glow, no translate.
-   ══════════════════════════════════════════════════════════════════════ */
-.teal-glow,
-.btn-primary {
-  background: var(--accent) !important;
-  color: var(--on-accent) !important;
-  border: 2px solid var(--accent) !important;
-  min-height: 44px;
-  border-radius: var(--radius) !important;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  box-shadow: none !important;
-  transition: background 0.15s ease, border-color 0.15s ease;
-}
-.teal-glow:hover,
-.btn-primary:hover {
-  background: var(--btn-hover-bg) !important;
-  border-color: var(--btn-hover-bg) !important;
-  color: var(--btn-hover-text) !important;
-  box-shadow: none !important;
-  transform: none;
-}
-
-.btn-ghost {
-  /* Secondary: transparent, 2px strong border, body text colour. */
-  background: transparent;
-  border: 2px solid var(--border-strong);
-  color: var(--text);
-  min-height: 44px;
-  border-radius: var(--radius);
-  font-weight: 600;
-  transition: background 0.15s ease, border-color 0.15s ease;
-}
-.btn-ghost:hover {
-  background: var(--accent-tint);
-  border-color: var(--border-strong);
-  color: var(--text);
-}
-
-/* ══════════════════════════════════════════════════════════════════════
-   INTAKE-FORM FIELDS: label above, hairline underline below, no box.
-   `.field-input` is the chart-style default; `.input-dark` is the boxed
-   fallback kept for selects and dense grids.
-   ══════════════════════════════════════════════════════════════════════ */
-.field-label {
-  display: block;
-  font-family: var(--font-sans);
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
+/* Small supporting line: dates, counts, sources. */
+.meta {
+  font-size: var(--text-xs);
   color: var(--text-muted);
-  margin-bottom: var(--sp-1);
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
-.field-input {
-  display: block;
-  width: 100%;
-  background: transparent !important;
-  border: 0 !important;
-  border-bottom: 1px solid var(--border-strong) !important;
-  border-radius: 0 !important;
-  padding: 6px 2px !important;
-  font-family: var(--font-sans);
-  font-size: 0.9375rem;
-  color: var(--text) !important;
-  transition: border-color 0.15s ease;
-}
-.field-input:focus {
-  outline: none !important;
-  border-bottom-color: var(--focus-ring) !important;
-  box-shadow: 0 1px 0 0 var(--focus-ring) !important;
-}
-.field-input:focus-visible {
-  outline: 2px solid var(--focus-ring) !important;
-  outline-offset: 1px;
-}
-.field-input::placeholder {
-  color: var(--text-subtle) !important;
-  opacity: 1;
-}
-.field-input option {
-  background: var(--surface);
-  color: var(--text);
-}
-/* Native date/select controls need a little breathing room from the rule */
-select.field-input,
-input[type="date"].field-input { padding-right: var(--sp-1) !important; }
-
-.input-dark {
-  background: var(--surface) !important;
-  border: 2px solid var(--border-strong) !important;
-  color: var(--text) !important;
-  border-radius: var(--radius) !important;
-  font-family: var(--font-sans);
-}
-.input-dark:focus {
-  outline: 2px solid var(--focus-ring) !important;
-  outline-offset: 1px;
-  border-color: var(--border-strong) !important;
-  box-shadow: none !important;
-}
-.input-dark::placeholder {
-  color: var(--text-subtle) !important;
-  opacity: 1;
-  font-family: var(--font-sans);
-  font-size: 0.875rem;
-}
-.input-dark option {
-  background: var(--surface);
-  color: var(--text);
-}
-
-/* ══════════════════════════════════════════════════════════════════════
-   READ-ONLY CHART FIELD: labelled value on a hairline, for data display
-   that would otherwise be a boxed card.
-   ══════════════════════════════════════════════════════════════════════ */
-.data-field {
-  padding-bottom: 6px;
-  border-bottom: 1px solid var(--hairline);
-}
-.data-field-label {
-  display: block;
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--text-subtle);
-  margin-bottom: 3px;
-}
-.data-field-value {
-  display: block;
-  font-size: 0.9375rem;
+/* ── Badges: passive labels. Never gold. ──────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-h);
+  min-height: 24px;
+  padding: 1px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  background: var(--surface-alt);
+  color: var(--text-muted);
+  font-size: var(--text-xs);
   font-weight: 600;
-  color: var(--text);
-  font-variant-numeric: tabular-nums;
-}
-
-/* ══════════════════════════════════════════════════════════════════════
-   PATIENT-ID STYLE RECORD NUMBER: "EXP-0031"
-   ══════════════════════════════════════════════════════════════════════ */
-.exp-id {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  color: var(--text-subtle);
-  font-variant-numeric: tabular-nums;
+  line-height: 1.3;
   white-space: nowrap;
 }
+.badge-success { background: var(--success-tint); color: var(--success); border-color: transparent; }
+.badge-warning { background: var(--warning-tint); color: var(--warning); border-color: transparent; }
+.badge-danger  { background: var(--danger-tint);  color: var(--danger);  border-color: transparent; }
+.badge-info    { background: var(--info-tint);    color: var(--info);    border-color: transparent; }
 
-/* Minimal loading indicator */
-.loading-text {
-  font-family: var(--font-mono);
-  font-size: 12px;
+/* ── Numbers ──────────────────────────────────────────────────────────── */
+.stat-label {
+  font-size: var(--text-xs);
   font-weight: 600;
-  letter-spacing: 0.04em;
   color: var(--text-muted);
+  margin-bottom: var(--sp-h);
 }
-.loading-text::after {
-  content: "";
-  display: inline-block;
-  width: 5px;
-  height: 5px;
-  margin-left: 6px;
-  background: var(--accent);
-  vertical-align: 1px;
-  animation: cursor-blink 1s steps(2, start) infinite;
-}
-@keyframes cursor-blink {
-  0%, 100% { opacity: 0.25; }
-  50%      { opacity: 1; }
-}
-
-/* ══════════════════════════════════════════════════════════════════════
-   SECTION HEADER: small-caps form label sitting on a perforated rule.
-   Used app-wide, so this single rule gives every section a tear line.
-   ══════════════════════════════════════════════════════════════════════ */
-.dept-header {
-  font-family: var(--font-sans);
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--text-muted);
-  padding-bottom: var(--sp-1);
-  margin-bottom: var(--sp-2);
-  border-bottom: 1px dashed var(--border-strong);
-  line-height: 1;
-}
-
-/* ── Monospace data ───────────────────────────────────────────────────── */
-.mono-stat,
-.mono {
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0;
-}
-
-/* ── Vitals / stat cell: flat, hairline, left-aligned ─────────────────── */
-.vital-card {
-  background: var(--surface);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius);
-  box-shadow: none;
-  padding: var(--sp-2);
-}
-.vital-card-label {
-  font-family: var(--font-sans);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--text-subtle);
-  margin-bottom: var(--sp-1);
-}
-.vital-card-value {
-  font-family: var(--font-mono);
-  font-size: 1.75rem;
+.stat-value {
+  font-size: var(--text-2xl);
   font-weight: 600;
-  color: var(--text);
-  font-variant-numeric: tabular-nums;
   line-height: 1.1;
+  color: var(--text);
+  font-variant-numeric: tabular-nums lining-nums;
   letter-spacing: -0.01em;
 }
-.vital-card-value-sub {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--text-subtle);
-  margin-left: 4px;
+.stat-unit {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-left: var(--sp-h);
 }
 
-/* ── Category tag: squared chip with a hairline ───────────────────────── */
-.cat-tag {
-  display: inline-flex;
-  align-items: center;
-  font-family: var(--font-sans);
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding: 3px var(--sp-1);
-  border-radius: var(--radius);
-  background: var(--accent-tint);
-  color: var(--accent-text);
-  border: 1px solid var(--accent);
+/* A labelled value, for read-only detail views. */
+.datum { padding-bottom: var(--sp-1); border-bottom: 1px solid var(--border); }
+.datum-label {
+  display: block;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+.datum-value {
+  display: block;
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--text);
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
-/* ── BETA marker ──────────────────────────────────────────────────────── */
-.beta-pill {
-  display: inline-flex;
-  align-items: center;
-  font-family: var(--font-mono);
-  font-size: 9px;
-  font-weight: 700;
-  padding: 2px 6px;
-  border-radius: var(--radius);
-  background: transparent;
-  color: var(--accent-text);
-  border: 1px solid var(--accent);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-/* ── Progress: flat bar, square ends ─────────────────────────────────── */
-.thin-progress {
-  height: 8px;
-  background: var(--accent-tint);
-  border: 2px solid var(--border-strong);
-  border-radius: 0;
+/* Progress toward a target. */
+.meter {
+  height: 6px;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
   overflow: hidden;
 }
-.thin-progress > .fill {
+.meter-fill {
+  display: block;
   height: 100%;
-  width: 100%;
-  background: var(--accent);
-  transform-origin: left center;
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  background: var(--data-1);
+  transition: width var(--dur-slow) var(--ease-out);
 }
 
-/* ── Animations ───────────────────────────────────────────────────────── */
-@keyframes pageFadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-.page-fade-in {
-  animation: pageFadeIn 0.2s ease-out both;
-}
-
-@keyframes liquidPour {
-  0%   { transform: scaleX(0); }
-  100% { transform: scaleX(1); }
-}
-.liquid-fill {
-  background: var(--accent);
-  height: 100%;
-  width: var(--fill, 100%);
-  transform-origin: left center;
-  animation: liquidPour 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-.archetype-reveal {
-  animation: pageFadeIn 0.3s ease-out both;
-}
-
-.letter-reveal > span {
-  display: inline-block;
-}
-
-.filmstrip {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-.filmstrip::-webkit-scrollbar {
-  display: none;
-}
-
-/* Active sidebar item: left rule marks position, as in a chart index */
-.chart-tab-active {
-  background: var(--accent-tint);
-  color: var(--text);
+/* ── Tables ───────────────────────────────────────────────────────────── */
+.table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+.table th {
+  text-align: left;
+  font-size: var(--text-xs);
   font-weight: 600;
-  box-shadow: inset 3px 0 0 0 var(--accent);
-}
-
-/* Sidebar collapse */
-.sidebar-collapse {
-  width: 232px;
-  transition-duration: 200ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-.sidebar-collapse.is-collapsed {
-  width: 64px;
-}
-
-/* ── Ticker (kept for any page still using it) ───────────────────────── */
-@keyframes ticker-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-.ticker-track {
-  display: flex;
-  width: max-content;
-  animation: ticker-scroll 28s linear infinite;
-}
-
-/* ══════════════════════════════════════════════════════════════════════
-   MEDICAL CHART ELEMENTS
-   Identifiers, tear-off perforations, vitals indicators, binder tabs,
-   EKG dividers and loaders. Paired with src/components/MedicalIcons.tsx.
-   ══════════════════════════════════════════════════════════════════════ */
-
-/* Chart number, top-right of a page */
-.record-no {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  color: var(--text-subtle);
-  white-space: nowrap;
-  font-variant-numeric: tabular-nums;
-}
-
-/* Binder index marker beside a section title */
-.tab-index {
-  display: inline-flex;
-  align-items: center;
-  font-family: var(--font-mono);
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  color: var(--text-subtle);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius);
-  padding: 1px 5px;
-  white-space: nowrap;
-}
-
-/* ── Tear-off perforation along a card's top edge ──────────────────────
-   One pseudo-element carries both layers so it never collides with
-   .tick-corners, which owns ::after. Notches are punched in the page
-   colour, so this belongs on cards sitting directly on the page. */
-.tear-tab {
-  position: relative;
-  padding-top: 22px !important;
-}
-.tear-tab::before {
-  content: "";
-  position: absolute;
-  top: -1px;
-  left: 0;
-  right: 0;
-  height: 13px;
-  background-image:
-    radial-gradient(circle at 5px 0, var(--bg) 0 4px, transparent 4.5px),
-    repeating-linear-gradient(90deg, var(--border-strong) 0 4px, transparent 4px 9px);
-  background-size: 14px 13px, 100% 1px;
-  background-position: 0 0, 0 10px;
-  background-repeat: repeat-x, no-repeat;
-  pointer-events: none;
-}
-
-/* ── EKG section divider ───────────────────────────────────────────────── */
-.ekg-divider {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-1);
-  margin: var(--sp-4) 0;
-}
-.ekg-divider > span {
-  flex: 1;
-  height: 1px;
-  background: var(--border-strong);
-}
-
-/* ── EKG loader, in place of a spinner ─────────────────────────────────── */
-.ekg-loader {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--sp-1);
-}
-.ekg-loader-trace {
-  stroke-dasharray: 34 300;
-  animation: ekgSweep 1.5s linear infinite;
-}
-@keyframes ekgSweep {
-  from { stroke-dashoffset: 40; }
-  to   { stroke-dashoffset: -294; }
-}
-.ekg-loader-label {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
   color: var(--text-muted);
-  text-transform: uppercase;
+  padding: var(--sp-1) var(--sp-15);
+  border-bottom: 1px solid var(--border-strong);
+  white-space: nowrap;
 }
+.table td { padding: 10px var(--sp-15); border-bottom: 1px solid var(--border); vertical-align: top; }
+.table .num { text-align: right; font-variant-numeric: tabular-nums lining-nums; }
+.table tbody tr:hover { background: var(--surface-alt); }
+
+/* ── Tabs ─────────────────────────────────────────────────────────────── */
+.tabs { display: flex; gap: var(--sp-h); border-bottom: 1px solid var(--border); overflow-x: auto; }
+.tab {
+  min-height: 44px;
+  padding: 0 var(--sp-15);
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+.tab:hover { color: var(--text); }
+.tab[aria-selected="true"],
+.tab.is-active { color: var(--text); border-bottom-color: var(--text); }
+.tab:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── Overlays: the only things with a shadow ──────────────────────────── */
+.overlay { position: fixed; inset: 0; background: var(--scrim); z-index: 70; }
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-modal);
+  box-shadow: var(--shadow-overlay);
+  width: min(520px, calc(100vw - 32px));
+  max-height: calc(100dvh - 64px);
+  overflow-y: auto;
+  padding: var(--sp-3);
+}
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: var(--sp-3);
+  transform: translateX(-50%);
+  z-index: 95;
+  max-width: min(440px, calc(100vw - 32px));
+  padding: var(--sp-15) var(--sp-2);
+  background: var(--text);
+  color: var(--background);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-overlay);
+  font-size: var(--text-sm);
+}
+.tooltip {
+  position: absolute;
+  z-index: 96;
+  max-width: 260px;
+  padding: 6px var(--sp-1);
+  background: var(--text);
+  color: var(--background);
+  border-radius: var(--radius-control);
+  box-shadow: var(--shadow-overlay);
+  font-size: var(--text-xs);
+  line-height: 1.45;
+}
+
+/* ── Messages in the page ─────────────────────────────────────────────── */
+.notice {
+  padding: var(--sp-15) var(--sp-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  color: var(--text);
+  font-size: var(--text-sm);
+}
+.notice-title { font-weight: 600; margin-bottom: 2px; }
+.notice-info    { background: var(--info-tint);    border-color: transparent; }
+.notice-success { background: var(--success-tint); border-color: transparent; }
+.notice-warning { background: var(--warning-tint); border-color: transparent; }
+.notice-danger  { background: var(--danger-tint);  border-color: transparent; }
+.notice-info .notice-title    { color: var(--info); }
+.notice-success .notice-title { color: var(--success); }
+.notice-warning .notice-title { color: var(--warning); }
+.notice-danger .notice-title,
+.notice-danger                { color: var(--danger); }
+
+.empty {
+  padding: var(--sp-4) var(--sp-3);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+}
+.empty-title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text);
+}
+.empty-body {
+  margin: var(--sp-1) 0 var(--sp-2);
+  max-width: 52ch;
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}
+
+/* Loading: words plus grey blocks. Nothing loops. */
+.loading { font-size: var(--text-sm); color: var(--text-muted); }
+.skeleton { display: grid; gap: var(--sp-1); }
+.skeleton > span { display: block; height: 12px; background: var(--surface-alt); border-radius: var(--radius-control); }
+
 .sr-only-live {
   position: absolute;
   width: 1px;
@@ -620,117 +462,53 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   border: 0;
 }
 
-/* ── Vital-sign status marks ───────────────────────────────────────────── */
-.vital-ok {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  color: var(--accent-text);
-}
-.vital-ok-range {
-  position: relative;
-  display: inline-block;
-  width: 42px;
-  height: 3px;
-  background: var(--accent-tint);
-  border-left: 1px solid var(--accent);
-  border-right: 1px solid var(--accent);
-}
-.vital-ok-range > i {
-  position: absolute;
-  left: 50%;
-  top: -2px;
-  transform: translateX(-50%);
-  width: 3px;
-  height: 7px;
-  background: var(--accent);
-}
-.vital-ok-label,
-.vital-flat-label {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-}
-.vital-flat {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  color: var(--danger);
-}
+.filmstrip { scrollbar-width: none; }
+.filmstrip::-webkit-scrollbar { display: none; }
 
-/* ── Oscilloscope progress readout ─────────────────────────────────────── */
-.oscilloscope {
-  display: block;
-  width: 100%;
-  height: 30px;
-  overflow: visible;
-}
-
-/* ── Sidebar chart-binder tabs ─────────────────────────────────────────── */
-.binder-tab {
-  position: relative;
-}
-.binder-tab::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 5px;
-  bottom: 5px;
-  width: 3px;
-  background: var(--accent);
-  opacity: 0;
-  transition: opacity 0.15s ease;
-  pointer-events: none;
-}
-.binder-tab:hover::before { opacity: 0.4; }
-.binder-tab.is-active::before { opacity: 1; }
-
-/* ── Prescription-pad form ─────────────────────────────────────────────── */
-.rx-mark {
-  font-family: var(--font-mono);
-  font-size: 26px;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--accent-text);
-  letter-spacing: -0.02em;
-}
-.signature-line {
-  border-top: 1px solid var(--accent);
-  padding-top: 5px;
-  margin-top: var(--sp-4);
-}
-.signature-caption {
-  font-family: var(--font-mono);
-  font-size: 9px;
+/* ── App navigation ───────────────────────────────────────────────────── */
+.nav-group {
+  padding: var(--sp-2) var(--sp-15) var(--sp-h);
+  font-size: var(--text-xs);
   font-weight: 600;
-  letter-spacing: 0.12em;
-  color: var(--text-subtle);
-  text-transform: uppercase;
+  color: var(--text-muted);
 }
-
-/* Keyboard focus: 2px gold ring with a 1px offset, everywhere. */
-:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
-  outline: 2px solid var(--focus-ring);
-  outline-offset: 1px;
+.nav-item {
+  display: flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 var(--sp-15);
+  border-radius: var(--radius-control);
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
 }
+.nav-item:hover { background: var(--surface-alt); color: var(--text); }
+.nav-item[aria-current="page"] { background: var(--surface-alt); color: var(--text); font-weight: 600; }
 
-/* Scrollbars in WebKit; Firefox uses scrollbar-color from theme.css. */
-::-webkit-scrollbar { width: 10px; height: 10px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--accent); border: 2px solid var(--bg); }
-
-/* ── Motion preferences ────────────────────────────────────────────────── */
-@media (prefers-reduced-motion: reduce) {
-  .ekg-loader-trace { animation: none; stroke-dasharray: none; }
-  .loading-text::after { animation: none; opacity: 0.8; }
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 0 10px;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
 }
+.theme-toggle:hover { border-color: var(--border-strong); color: var(--text); }
+@media (pointer: coarse) { .theme-toggle { min-height: 44px; } }
 
-/* ══════════════════════════════════════════════════════════════════════
-   ROUTE TRANSITIONS
-   ══════════════════════════════════════════════════════════════════════ */
+/* The black band keeps its own light text. */
+.path-panel { color: var(--text-inverse); }
 
-/* Slim progress bar pinned to the top of the viewport during navigation. */
+/* ── Route transitions ────────────────────────────────────────────────── */
 .route-progress {
   position: fixed;
   top: 0;
@@ -739,24 +517,19 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   height: 2px;
   z-index: 200;
   pointer-events: none;
-  background: transparent;
 }
 .route-progress > span {
   display: block;
   height: 100%;
   width: 100%;
-  background: var(--accent);
+  background: var(--text);
   transform-origin: left center;
-  animation: routeCrawl 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: routeCrawl 900ms var(--ease-out) forwards;
 }
-/* On completion the bar runs out to full width quickly, then fades. */
-.route-progress.is-done > span {
-  animation: routeFinish 200ms ease-out forwards;
-}
+.route-progress.is-done > span { animation: routeFinish var(--dur-slow) var(--ease-out) forwards; }
 @keyframes routeCrawl {
-  0%   { transform: scaleX(0); opacity: 1; }
-  60%  { transform: scaleX(0.72); }
-  100% { transform: scaleX(0.9); opacity: 1; }
+  0%   { transform: scaleX(0); }
+  100% { transform: scaleX(0.9); }
 }
 @keyframes routeFinish {
   0%   { transform: scaleX(0.9); opacity: 1; }
@@ -764,238 +537,92 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   100% { transform: scaleX(1); opacity: 0; }
 }
 
-/* ── View transitions ──────────────────────────────────────────────────
-   Only the page content animates. The sidebar and the mobile tab bar are
-   given stable transition names, so the browser treats each as the same
-   element on both sides of the navigation and holds it still instead of
-   cross-fading it. Without this they visibly flicker, because AppShell is
-   rendered inside each page rather than in a layout and therefore remounts
-   on every route change. */
+/* Only the page content cross-fades between routes; the sidebar and the
+   mobile tab bar hold still. AppShell renders inside each page, so without
+   stable names they would remount and flicker on every navigation. */
 .app-sidebar   { view-transition-name: app-sidebar; }
 .app-bottomnav { view-transition-name: app-bottomnav; }
 .app-content   { view-transition-name: app-content; }
-
 ::view-transition-group(app-sidebar),
-::view-transition-group(app-bottomnav) {
-  animation: none;
-}
-::view-transition-old(app-content) {
-  animation: 140ms cubic-bezier(0.4, 0, 1, 1) both routeFadeOut;
-}
-::view-transition-new(app-content) {
-  animation: 180ms cubic-bezier(0, 0, 0.2, 1) both routeFadeIn;
-}
-@keyframes routeFadeOut {
-  from { opacity: 1; transform: translateY(0); }
-  to   { opacity: 0; transform: translateY(-4px); }
-}
-@keyframes routeFadeIn {
-  from { opacity: 0; transform: translateY(5px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
+::view-transition-group(app-bottomnav) { animation: none; }
+::view-transition-old(app-content) { animation: var(--dur-fast) var(--ease-out) both routeFadeOut; }
+::view-transition-new(app-content) { animation: var(--dur-slow) var(--ease-out) both routeFadeIn; }
+@keyframes routeFadeOut { from { opacity: 1; } to { opacity: 0; } }
+@keyframes routeFadeIn  { from { opacity: 0; } to { opacity: 1; } }
 
 @media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0ms !important;
+    animation-duration: 0ms !important;
+  }
   ::view-transition-old(app-content),
   ::view-transition-new(app-content) { animation: none; }
   .route-progress > span { animation: none; transform: scaleX(1); }
 }
 
-/* ══════════════════════════════════════════════════════════════════════
-   PRINT
-   Pages should print as clean documents: no chrome, no dark panels, no
-   interactive affordances, and links that reveal their destination.
-   ══════════════════════════════════════════════════════════════════════ */
-@media print {
-  .app-sidebar,
-  .app-bottomnav,
-  .route-progress,
-  .no-print,
-  button,
-  [role="button"] { display: none !important; }
-
-  html, body {
-    background: var(--white) !important;
-    color: var(--black) !important;
-  }
-
-  main { padding: 0 !important; margin: 0 !important; max-width: none !important; }
-
-  /* The red chart rule is a screen device; on paper it wastes toner. */
-  .chart-margin::before { display: none !important; }
-  .chart-margin { padding-left: 0 !important; }
-
-  .glass-card, .vital-card, .clinical-card {
-    border: 1px solid var(--black) !important;
-    break-inside: avoid;
-    page-break-inside: avoid;
-  }
-
-  .tick-corners::after { display: none !important; }
-
-  .dept-header {
-    border-bottom: 2px solid var(--gold-500) !important;
-    color: var(--black) !important;
-  }
-
-  a[href^="http"]::after {
-    content: " (" attr(href) ")";
-    font-size: 9pt;
-    color: var(--gray-700);
-  }
-
-  table, tr, td, th, li { break-inside: avoid; page-break-inside: avoid; }
-  h1, h2, h3, .dept-header { break-after: avoid; page-break-after: avoid; }
-
-  @page { margin: 16mm; }
-}
-
-/* Surfaces that were hardcoded white in markup need to follow the theme. */
-:root[data-theme="dark"] .btn-ghost,
-:root[data-theme="dark"] .input-dark,
-:root[data-theme="dark"] .input-dark option,
-:root[data-theme="dark"] .field-input option {
-  background: var(--surface) !important;
-  color: var(--text) !important;
-}
-
-.theme-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  background: transparent;
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius);
-  padding: 5px 8px;
-  cursor: pointer;
-  transition: border-color 0.15s ease, color 0.15s ease;
-}
-.theme-toggle:hover {
-  border-color: var(--accent);
-  color: var(--text);
-}
-
-/* ══════════════════════════════════════════════════════════════════════
-   PATH PANEL
-   The hero tokens now come from the root scale, so this only has to give the
-   subtree a light colour to inherit: <body> sets --text-primary, which is
-   near-black ink, and that is invisible on the dark green field.
-   ══════════════════════════════════════════════════════════════════════ */
-.path-panel {
-  color: var(--band-text);
-}
-
-/* Readable long-form copy for the Privacy and Terms pages. */
-.legal-prose h2 { font-size: 1.125rem; font-weight: 700; color: var(--text); margin: var(--sp-4) 0 var(--sp-1); }
-.legal-prose p, .legal-prose li { font-size: 0.9375rem; line-height: 1.7; color: var(--text-muted); }
+/* ── Long-form copy: Privacy, Terms, About ────────────────────────────── */
+.legal-prose { max-width: var(--measure); }
+.legal-prose h2 { font-size: var(--text-xl); color: var(--text); margin: var(--sp-4) 0 var(--sp-1); }
+.legal-prose p,
+.legal-prose li { font-size: var(--text-base); line-height: 1.65; color: var(--text-muted); }
 .legal-prose p { margin-bottom: var(--sp-2); }
-.legal-prose ul, ul.legal-prose { list-style: square; padding-left: 1.25rem; margin-bottom: var(--sp-2); }
-.legal-prose li { margin-bottom: 4px; }
+.legal-prose ul,
+ul.legal-prose { list-style: disc; padding-left: 1.25rem; margin-bottom: var(--sp-2); }
+.legal-prose li { margin-bottom: var(--sp-h); }
 .legal-prose strong { color: var(--text); }
 
-/* ── Guided tour and Help Center ───────────────────────────────────────── */
+/* ── Guided tour and Help Center ──────────────────────────────────────── */
 .tour-layer { position: fixed; inset: 0; z-index: 90; pointer-events: none; }
 .tour-layer > * { pointer-events: auto; }
 .tour-dim { background: var(--scrim); }
 .tour-ring {
   pointer-events: none !important;
-  border: 2px solid var(--accent);
-  border-radius: 0;
-  box-shadow: 0 0 0 2px var(--surface);
+  border: 2px solid var(--focus-ring);
+  border-radius: var(--radius-card);
 }
 .tour-card {
   width: min(340px, calc(100vw - 32px));
   background: var(--surface);
-  border: 2px solid var(--border-strong);
-  border-left: 2px solid var(--accent);
-  border-radius: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-modal);
   padding: var(--sp-2);
-  box-shadow: var(--shadow-pop);
-}
-.tour-btn,
-.tour-btn-quiet {
-  font-size: 12px;
-  font-weight: 600;
-  padding: 6px 10px;
-  border-radius: 0;
-  cursor: pointer;
-  min-height: 32px;
-}
-.tour-btn {
-  background: var(--surface);
-  color: var(--text);
-  border: 2px solid var(--border-strong);
-}
-.tour-btn:disabled { opacity: 0.45; cursor: default; }
-.tour-btn-primary {
-  background: var(--accent);
-  color: var(--on-accent);
-  border-color: var(--accent);
-}
-.tour-btn-quiet {
-  background: transparent;
-  color: var(--text-subtle);
-  border: 2px solid transparent;
-  text-decoration: underline;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-.tour-btn:focus-visible,
-.tour-btn-quiet:focus-visible,
-.help-drawer :focus-visible,
-.help-trigger:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
+  box-shadow: var(--shadow-overlay);
 }
 .tour-sample {
   position: relative;
   margin-top: var(--sp-1);
-  padding: 8px;
-  border: 2px dashed var(--border-strong);
+  padding: var(--sp-1);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-control);
 }
 .tour-sample-tag {
   position: absolute;
-  top: -9px;
-  right: 8px;
+  top: -10px;
+  right: var(--sp-1);
   padding: 0 6px;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: var(--text);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text-muted);
   background: var(--surface);
 }
 .help-trigger {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  min-height: 32px;
-  padding: 4px 10px;
-  font-size: 12px;
+  min-height: 36px;
+  padding: 0 10px;
+  font-size: var(--text-xs);
   font-weight: 600;
   color: var(--text-muted);
-  background: var(--surface);
-  border: 2px solid var(--border-strong);
-  border-radius: 0;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
   cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
 }
-.help-trigger-mark {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 16px;
-  height: 16px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 800;
-  border: 2px solid currentColor;
-  border-radius: 0;
-}
+.help-trigger:hover { border-color: var(--border-strong); color: var(--text); }
+@media (pointer: coarse) { .help-trigger { min-height: 44px; } }
+.help-trigger-mark { font-weight: 700; }
 .help-drawer {
   position: fixed;
   top: 0;
@@ -1005,7 +632,8 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   height: 100vh;
   max-height: 100dvh;
   background: var(--surface);
-  border-left: 2px solid var(--border-strong);
+  border-left: 1px solid var(--border);
+  box-shadow: var(--shadow-overlay);
   display: flex;
   flex-direction: column;
 }
@@ -1013,3 +641,22 @@ input[type="date"].field-input { padding-right: var(--sp-1) !important; }
   .help-drawer { width: 100vw; border-left: 0; }
 }
 .help-scrim { position: fixed; inset: 0; z-index: 84; background: var(--scrim); }
+
+/* ── Print: a clean document, no chrome ───────────────────────────────── */
+@media print {
+  .app-sidebar,
+  .app-bottomnav,
+  .route-progress,
+  .no-print,
+  button,
+  [role="button"] { display: none !important; }
+
+  html, body { background: var(--white) !important; color: var(--black) !important; font-size: 11pt; }
+  main { padding: 0 !important; margin: 0 !important; max-width: none !important; }
+  h1, h2, .section-title { font-family: var(--font-display); color: var(--black) !important; }
+  .card { border: 1px solid var(--stone-300) !important; break-inside: avoid; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 9pt; color: var(--stone-700); }
+  table, tr, td, th, li { break-inside: avoid; }
+  h1, h2, h3, .section-title { break-after: avoid; }
+  @page { margin: 18mm 16mm; }
+}

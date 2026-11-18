@@ -13,12 +13,12 @@ export default function GlobalError({ reset }: { error: Error & { digest?: strin
         <title>ClinicLog MD</title>
       </head>
       <body style={{ margin: 0, background: P.paper, color: P.ink, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-        <div style={{ maxWidth: 440, margin: "64px auto 0", background: P.black, borderBottom: `3px solid ${P.gold500}`, padding: "14px 16px", color: P.cream, fontWeight: 700, fontSize: 14, letterSpacing: ".06em" }}>
+        <div style={{ maxWidth: 440, margin: "64px auto 0", background: P.black, borderBottom: `3px solid ${P.gold500}`, padding: "14px 16px", color: P.cream, fontWeight: 700, fontSize: "var(--text-sm)", letterSpacing: ".06em" }}>
           CLINICLOG MD
         </div>
         <div style={{ maxWidth: 440, margin: "0 auto", padding: 24, background: P.white, border: `2px solid ${P.black}`, borderTop: 0 }}>
-          <h1 style={{ fontSize: 18, marginTop: 0 }}>Something went wrong</h1>
-          <p style={{ color: P.gray700 }}>Please try again. If it keeps happening, reload the page.</p>
+          <h1 style={{ fontSize: "var(--text-lg)", marginTop: 0 }}>Something went wrong</h1>
+          <p style={{ color: P.stone700 }}>Please try again. If it keeps happening, reload the page.</p>
           <button onClick={() => reset()} style={{ background: P.gold500, color: P.black, border: `2px solid ${P.gold500}`, padding: "10px 18px", minHeight: 44, fontWeight: 700, cursor: "pointer" }}>
             Try again
           </button>

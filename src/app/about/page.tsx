@@ -21,19 +21,19 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen flex flex-col" style={{ backgroundColor: "var(--bg)", color: "var(--text)" }}>
+    <div className="min-h-screen flex flex-col" style={{ backgroundColor: "var(--background)", color: "var(--text)" }}>
       {/* Navbar */}
       <header className="relative z-20 px-6 py-4" style={{ borderBottom: "1px solid var(--border-strong)" }}>
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5" style={{ textDecoration: "none" }}>
             <span className="text-xl" style={{ color: "var(--text)", fontWeight: 900, letterSpacing: "-0.02em" }}>ClinicLog MD</span>
-            <span className="beta-pill">BETA</span>
+            <span className="badge">BETA</span>
           </Link>
           <div className="flex items-center gap-4">
             <Link href="/about" className="text-sm font-medium" style={{ color: "var(--text)" }}>About</Link>
             <Link
               href="/auth/login"
-              className="btn-ghost text-sm font-semibold"
+              className="btn btn-secondary text-sm font-semibold"
               style={{ padding: "8px var(--sp-2)", textDecoration: "none" }}
             >
               Sign in
@@ -45,37 +45,37 @@ export default function AboutPage() {
       {/* A short, plain document */}
       <section className="px-6" style={{ paddingTop: "var(--sp-8)", paddingBottom: "var(--sp-6)" }}>
         <div className="max-w-3xl mx-auto">
-          <p className="exp-id" style={{ marginBottom: "var(--sp-2)" }}>ABOUT</p>
+          <p className="meta" style={{ marginBottom: "var(--sp-2)" }}>ABOUT</p>
           <h1 className="text-3xl sm:text-4xl font-bold leading-tight tracking-tight" style={{ color: "var(--text)", marginBottom: "var(--sp-2)" }}>
             About ClinicLog MD
           </h1>
           <p className="text-lg leading-relaxed" style={{ color: "var(--text-muted)" }}>
             ClinicLog MD is a tool for pre-med students at Wake Forest. A pre-med student builds and runs it. Sign-up needs a @wfu.edu email.
           </p>
-          <p className="text-sm" style={{ color: "var(--text-subtle)", marginTop: "var(--sp-1)" }}>
+          <p className="text-sm" style={{ color: "var(--text-muted)", marginTop: "var(--sp-1)" }}>
             {AFFILIATION_NOTE}
           </p>
 
-          <hr className="tear-line" />
+          <hr className="rule" />
 
-          <p className="dept-header">What it does</p>
+          <p className="section-title">What it does</p>
           <ul className="legal-prose" style={{ marginBottom: "var(--sp-4)" }}>
             {DOES.map((d) => <li key={d}>{d}</li>)}
           </ul>
 
-          <p className="dept-header">What it does not do</p>
+          <p className="section-title">What it does not do</p>
           <ul className="legal-prose" style={{ marginBottom: "var(--sp-4)" }}>
             {DOES_NOT.map((d) => <li key={d}>{d}</li>)}
           </ul>
 
-          <p className="dept-header">Questions or problems</p>
+          <p className="section-title">Questions or problems</p>
           <p className="text-base" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-3)" }}>
-            Inside the app, open Help and use Report a problem. The <Link href="/privacy" style={{ color: "var(--accent-text)" }}>Privacy Policy</Link> explains what is stored and who processes it.
+            Inside the app, open Help and use Report a problem. The <Link href="/privacy" style={{ color: "var(--action-text)" }}>Privacy Policy</Link> explains what is stored and who processes it.
           </p>
 
           <Link
             href="/auth/signup"
-            className="teal-glow inline-flex items-center font-semibold text-sm"
+            className="btn btn-primary inline-flex items-center font-semibold text-sm"
             style={{ padding: "12px var(--sp-3)", textDecoration: "none" }}
           >
             Create account
@@ -89,7 +89,7 @@ export default function AboutPage() {
         style={{ borderTop: "1px solid var(--border-strong)", paddingTop: "var(--sp-3)", paddingBottom: "var(--sp-3)" }}
       >
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs" style={{ color: "var(--text-subtle)" }}>
+          <p className="text-xs" style={{ color: "var(--text-muted)" }}>
             &copy; {new Date().getFullYear()} ClinicLog MD
           </p>
           <div className="flex items-center gap-5">
@@ -97,7 +97,7 @@ export default function AboutPage() {
             <Link href="/privacy" className="text-xs" style={{ color: "var(--text-muted)" }}>Privacy</Link>
             <Link href="/terms" className="text-xs" style={{ color: "var(--text-muted)" }}>Terms</Link>
             <Link href="/auth/login" className="text-xs" style={{ color: "var(--text-muted)" }}>Sign in</Link>
-            <Link href="/auth/signup" className="text-xs font-semibold" style={{ color: "var(--accent-text)" }}>Create account</Link>
+            <Link href="/auth/signup" className="text-xs font-semibold" style={{ color: "var(--action-text)" }}>Create account</Link>
           </div>
         </div>
       </footer>

@@ -32,24 +32,24 @@ export default function GapBanner({ days, offerReminders }: { days: number; offe
       style={{
         padding: "10px var(--sp-2)",
         border: "1px solid var(--border-strong)",
-        borderLeft: "2px solid var(--accent)",
+        borderLeft: "2px solid var(--action)",
         background: "var(--surface)",
         marginBottom: "var(--sp-2)",
       }}
     >
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <p className="text-sm" style={{ color: "var(--text)" }}>
-          <span className="exp-id" style={{ marginRight: 8 }}>{days}D SINCE LAST ENTRY</span>
+          <span className="meta" style={{ marginRight: 8 }}>{days}D SINCE LAST ENTRY</span>
           Hours are easiest to log while you still remember the details.
         </p>
         <div className="flex items-center gap-3">
-          <Link href="/dashboard/new" className="btn-ghost text-xs font-semibold" style={{ padding: "6px var(--sp-2)", textDecoration: "none" }}>
+          <Link href="/dashboard/new" className="btn btn-secondary text-xs font-semibold" style={{ padding: "6px var(--sp-2)", textDecoration: "none" }}>
             Log new hours
           </Link>
           <button
             type="button"
             className="text-xs"
-            style={{ color: "var(--text-subtle)", textDecoration: "underline", minHeight: 32 }}
+            style={{ color: "var(--text-muted)", textDecoration: "underline", minHeight: 32 }}
             onClick={async () => {
               setGone(true);
               await post("/api/findings/dismiss", { key: "banner:gap", mode: "7d" });
@@ -62,8 +62,8 @@ export default function GapBanner({ days, offerReminders }: { days: number; offe
       {offer && (
         <div className="flex items-center gap-3 flex-wrap" style={{ marginTop: 8, paddingTop: 8, borderTop: "1px dashed var(--border-strong)" }}>
           <p className="text-xs" style={{ color: "var(--text-muted)" }}>Want an email if you go 14 days without logging? You can change or stop it any time.</p>
-          <button type="button" className="tour-btn tour-btn-primary" onClick={() => answer(true)}>Email me</button>
-          <button type="button" className="tour-btn" onClick={() => answer(false)}>No thanks</button>
+          <button type="button" className="btn btn-sm btn-primary" onClick={() => answer(true)}>Email me</button>
+          <button type="button" className="btn btn-sm btn-secondary" onClick={() => answer(false)}>No thanks</button>
         </div>
       )}
       {note && <p className="text-xs" role="status" style={{ color: "var(--text-muted)", marginTop: 6 }}>{note}</p>}

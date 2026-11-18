@@ -90,12 +90,12 @@ const RECOMMENDATIONS = {
   research: BENCHMARKS.research,
 };
 
-const STAGE_META: Record<Stage, { label: string; tone: string; color: string; bg: string }> = {
-  freshman: { label: "Freshman",        tone: "Building your foundation",       color: "var(--accent-text)", bg: "var(--accent-tint)" },
-  sophomore: { label: "Sophomore",       tone: "Hitting midpoint goals",         color: "var(--accent-text)", bg: "var(--accent-tint)" },
-  junior: { label: "Junior",          tone: "Cycle is approaching",           color: "var(--accent-text)", bg: "var(--accent-tint)" },
-  senior: { label: "Senior",          tone: "Apply-cycle territory",          color: "var(--accent-text)", bg: "var(--accent-tint)" },
-  postgrad: { label: "Post-grad / Gap", tone: "Strengthen your final profile",  color: "var(--accent-text)", bg: "var(--accent-tint)" },
+const STAGE_META: Record<Stage, { label: string }> = {
+  freshman: { label: "first year" },
+  sophomore: { label: "second year" },
+  junior: { label: "third year" },
+  senior: { label: "senior year" },
+  postgrad: { label: "after graduation" },
 };
 
 function computeStage(gradYear: number | null | undefined): Stage | null {
@@ -130,38 +130,14 @@ export default function ExperienceInsights({
   // ── No grad year → prompt to complete profile ───────────────────────────
   if (stage === null) {
     return (
-      <div className="mb-8">
-        <div
-          className="glass-card rounded-2xl p-6 flex items-start gap-4 flex-wrap"
-          style={{ borderColor: "var(--text)" }}
-        >
-          <div
-            className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-            style={{ background: "var(--surface)", color: "var(--text)", border: "1px solid var(--border-strong)" }}
-          >
-            {ICONS.user}
-          </div>
-          <div className="flex-1 min-w-0">
-            <h2 className="text-base font-semibold mb-1" style={{ color: "var(--text)" }}>
-              Tell us where you&apos;re at
-            </h2>
-            <p className="text-sm leading-relaxed mb-3" style={{ color: "var(--text-muted)" }}>
-              Add your graduation year on your profile so these insights match your year.
-              A first-year and a senior need different next steps.
-            </p>
-            <Link
-              href="/profile"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-2 rounded-xl transition-opacity hover:opacity-90"
-              style={{ background: "var(--accent)", color: "var(--on-accent)" }}
-            >
-              Complete your profile
-              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-          </div>
-        </div>
-      </div>
+      <section style={{ marginBottom: "var(--sp-4)" }} aria-labelledby="insights-title">
+        <h2 className="section-title" id="insights-title">What to work on next</h2>
+        <p className="text-sm measure" style={{ color: "var(--text-muted)" }}>
+          A first-year and a senior need different next steps. Add your graduation year and
+          these notes will match where you are.{" "}
+          <Link href="/profile" className="link">Add it on your profile</Link>
+        </p>
+      </section>
     );
   }
 
@@ -169,71 +145,37 @@ export default function ExperienceInsights({
   const meta = STAGE_META[stage];
 
   return (
-    <div className="mb-8">
-      <div className="flex items-end justify-between mb-4 flex-wrap gap-2">
-        <div>
-          <p className="dept-header" style={{ marginBottom: 6 }}>Experience Insights</p>
-          <p className="text-xs" style={{ color: "var(--text-muted)" }}>
-            Personalized tips based on what you&apos;ve logged so far.
-          </p>
-        </div>
-        <span
-          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-sm text-xs font-semibold"
-          style={{
-            background: meta.bg,
-            color: meta.color,
-            border: "1px solid var(--accent)",
-          }}
-        >
-          <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-          </svg>
-          {meta.label} · {meta.tone}
-        </span>
+    <section style={{ marginBottom: "var(--sp-4)" }} aria-labelledby="insights-title">
+      <div className="flex items-baseline justify-between gap-3 flex-wrap" style={{ marginBottom: "var(--sp-15)" }}>
+        <h2 className="section-title" id="insights-title" style={{ margin: 0 }}>What to work on next</h2>
+        <p className="meta">Matched to your {meta.label === "after graduation" ? "time after graduation" : meta.label}</p>
       </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {tips.map((tip, i) => {
-          const palette = paletteFor(tip.kind);
-          return (
-            <div
-              key={i}
-              className="glass-card rounded-2xl p-5 flex flex-col"
-              style={{ borderColor: palette.border }}
-            >
-              <div
-                className="w-9 h-9 rounded-xl flex items-center justify-center mb-3 flex-shrink-0"
-                style={{ backgroundColor: palette.bg, color: palette.color, border: `1px solid ${palette.border}` }}
-              >
-                {tip.icon}
-              </div>
-              <h3 className="text-sm font-semibold mb-1.5" style={{ color: "var(--text)" }}>
-                {tip.title}
-              </h3>
-              <p className="text-xs leading-relaxed" style={{ color: "var(--text-muted)" }}>
-                {tip.body}
-              </p>
+      <ol style={{ borderTop: "1px solid var(--border-strong)" }}>
+        {tips.map((tip, i) => (
+          <li
+            key={i}
+            className="grid gap-x-6 gap-y-1 md:grid-cols-[9rem_minmax(0,1fr)]"
+            style={{ padding: "var(--sp-2) 0", borderBottom: "1px solid var(--border)" }}
+          >
+            <p className="text-xs font-semibold" style={{ color: tip.kind === "alert" ? "var(--danger)" : "var(--text-muted)", paddingTop: 2 }}>
+              {KIND_LABEL[tip.kind]}
+            </p>
+            <div>
+              <h3 className="text-base">{tip.title}</h3>
+              <p className="text-sm measure" style={{ color: "var(--text-muted)", marginTop: 2 }}>{tip.body}</p>
             </div>
-          );
-        })}
-      </div>
-    </div>
+          </li>
+        ))}
+      </ol>
+    </section>
   );
 }
 
-function paletteFor(kind: Tip["kind"]) {
-  // Separated by weight within the ramp rather than by hue, so the three
-  // kinds are distinguishable without introducing a second colour.
-  // Success is neutral with a strong rule, a warning is the gold-bordered
-  // box, info stays quiet. Each also carries a text label.
-  if (kind === "positive") {
-    return { color: "var(--text)", bg: "var(--surface)", border: "var(--border-strong)" };
-  }
-  if (kind === "warn") {
-    return { color: "var(--text)", bg: "var(--accent-tint)", border: "var(--accent)" };
-  }
-  return { color: "var(--text-muted)", bg: "var(--surface)", border: "var(--hairline)" };
-}
+const KIND_LABEL: Record<Tip["kind"], string> = {
+  alert: "Do this soon",
+  warn: "Worth doing",
+  positive: "Going well",
+};
 
 // ── Tip generation, stage-aware ───────────────────────────────────────────
 
@@ -479,8 +421,8 @@ function pushHoursTip(out: Tip[], cfg: HoursTipConfig) {
     const title =
       stage === "freshman"  ? "Plenty of time to start"
       : stage === "sophomore" ? `No ${cfg.label} hours yet`
-      : stage === "junior"    ? `Critical gap: no ${cfg.label} hours`
-      : stage === "senior"    ? `Urgent: no ${cfg.label} hours`
+      : stage === "junior"    ? `No ${cfg.label} hours yet`
+      : stage === "senior"    ? `No ${cfg.label} hours, and the cycle is close`
       : `No ${cfg.label} hours logged`;
     out.push({ kind, title, body: zeroBodyByStage[stage], icon, topic: HOURS_TOPIC[cfg.label] });
     return;

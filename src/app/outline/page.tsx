@@ -22,7 +22,7 @@ export default async function OutlinePage() {
   return (
     <AppShell userEmail={user.email ?? ""} activePath="/outline">
       <main
-        className="w-full chart-margin"
+        className="w-full"
         style={{ paddingTop: "var(--sp-3)", paddingRight: "var(--sp-3)", paddingBottom: "var(--sp-4)", maxWidth: 820 }}
       >
         <h1 className="text-xl font-bold" style={{ color: "var(--text)" }}>
@@ -35,10 +35,10 @@ export default async function OutlinePage() {
 
         {!ready && (
           <div
-            className="glass-card"
-            style={{ padding: "var(--sp-2)", marginBottom: "var(--sp-3)", borderLeft: "2px solid var(--accent)" }}
+            className="card"
+            style={{ padding: "var(--sp-2)", marginBottom: "var(--sp-3)", borderLeft: "2px solid var(--action)" }}
           >
-            <p className="exp-id" style={{ marginBottom: 4 }}>PREREQUISITES</p>
+            <p className="meta" style={{ marginBottom: 4 }}>PREREQUISITES</p>
             <p className="text-sm" style={{ color: "var(--text-muted)", lineHeight: 1.6 }}>
               This tool opens once you have logged three experiences and generated your archetype.
               You have {entries} {entries === 1 ? "entry" : "entries"}
@@ -46,12 +46,12 @@ export default async function OutlinePage() {
             </p>
             <div className="flex items-center gap-2 flex-wrap" style={{ marginTop: "var(--sp-2)" }}>
               {entries < 3 && (
-                <Link href="/dashboard/new" className="btn-ghost text-xs font-semibold" style={{ padding: "6px var(--sp-2)", textDecoration: "none" }}>
+                <Link href="/dashboard/new" className="btn btn-secondary text-xs font-semibold" style={{ padding: "6px var(--sp-2)", textDecoration: "none" }}>
                   Log an experience
                 </Link>
               )}
               {!hasArchetype && (
-                <Link href="/archetype" className="btn-ghost text-xs font-semibold" style={{ padding: "6px var(--sp-2)", textDecoration: "none" }}>
+                <Link href="/archetype" className="btn btn-secondary text-xs font-semibold" style={{ padding: "6px var(--sp-2)", textDecoration: "none" }}>
                   Generate archetype
                 </Link>
               )}

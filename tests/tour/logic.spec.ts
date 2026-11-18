@@ -105,7 +105,7 @@ test.describe("tour content", () => {
     const all = [...TOUR_MODULES.flatMap((m) => m.steps.flatMap((s) => [s.title, s.body])), ...HELP_ANSWERS.flatMap((h) => [h.q, h.a])];
     for (const t of all) {
       expect(t, t).not.toMatch(/guarantee|get you in|will get in|ensure admission/i);
-      expect(t, t).not.toContain("—");
+      expect(t, t).not.toContain("\u2014");
     }
   });
 });

@@ -5,7 +5,7 @@ import { cleanAiText, cleanAiDeep } from "../../src/lib/aiText";
 
 // Fails if machine-sounding copy creeps back in.
 
-const DASH = /[–—]/;
+const DASH = /[\u2013\u2014]/;
 const BANNED = /\b(unlock\w*|elevate[sd]?|empower\w*|seamless\w*|streamlin\w+|supercharg\w+|leverag\w+|robust|cutting-edge|revolutioni\w+|game-changer|journey|delve\w*|tapestry|all-in-one|lorem ipsum|your text here)\b/i;
 
 function walk(dir: string): string[] {
@@ -83,9 +83,9 @@ test("sitemap and robots exclude signed-in routes and /admin", async ({ request 
 });
 
 test("AI responses are cleaned before they reach the user", () => {
-  expect(cleanAiText("Certainly! Great question. You have 40 hours—a solid base.")).toBe("You have 40 hours, a solid base.");
+  expect(cleanAiText("Certainly! Great question. You have 40 hours\u2014a solid base.")).toBe("You have 40 hours, a solid base.");
   expect(cleanAiText("Aim for 100–150 hours.")).toBe("Aim for 100-150 hours.");
   expect(cleanAiText("Log research next.\n\nIn summary, research matters.")).toBe("Log research next.");
   expect(cleanAiText("Only one paragraph. Overall fine.")).toBe("Only one paragraph. Overall fine.");
-  expect(cleanAiDeep({ archetype_id: "scientist", why: ["Sure! It fits — clearly."] })).toEqual({ archetype_id: "scientist", why: ["It fits, clearly."] });
+  expect(cleanAiDeep({ archetype_id: "scientist", why: ["Sure! It fits \u2014 clearly."] })).toEqual({ archetype_id: "scientist", why: ["It fits, clearly."] });
 });

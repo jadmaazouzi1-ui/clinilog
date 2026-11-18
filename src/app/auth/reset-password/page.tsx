@@ -44,7 +44,7 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "var(--bg)" }}>
+    <div className="min-h-screen dot-grid-bg flex items-center justify-center px-4" style={{ backgroundColor: "var(--background)" }}>
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="mb-8">
@@ -54,10 +54,10 @@ export default function ResetPasswordPage() {
         </div>
 
         {done ? (
-          <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
+          <div className="card" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
             <div
               className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5"
-              style={{ backgroundColor: "var(--accent-tint)", border: "1px solid var(--border-strong)" }}
+              style={{ backgroundColor: "var(--surface-alt)", border: "1px solid var(--border-strong)" }}
             >
               <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="var(--text)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="20 6 9 17 4 12" />
@@ -77,7 +77,7 @@ export default function ResetPasswordPage() {
               </p>
             </div>
 
-            <div className="glass-card tick-corners" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
+            <div className="card" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
               {error && (
                 <div
                   className="mb-5 text-sm"
@@ -89,7 +89,7 @@ export default function ResetPasswordPage() {
 
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                  <label htmlFor="password" className="field-label">
+                  <label htmlFor="password" className="label">
                     New password
                   </label>
                   <input
@@ -100,13 +100,13 @@ export default function ResetPasswordPage() {
                     autoComplete="new-password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="field-input"
+                    className="field"
                     placeholder="At least 8 characters"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="confirm" className="field-label">
+                  <label htmlFor="confirm" className="label">
                     Confirm new password
                   </label>
                   <input
@@ -116,7 +116,7 @@ export default function ResetPasswordPage() {
                     autoComplete="new-password"
                     value={confirm}
                     onChange={(e) => setConfirm(e.target.value)}
-                    className="field-input"
+                    className="field"
                     placeholder="••••••••"
                   />
                 </div>
@@ -124,7 +124,7 @@ export default function ResetPasswordPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full teal-glow font-semibold text-sm focus:outline-none disabled:opacity-60 disabled:cursor-not-allowed" style={{ padding: "11px 0" }}
+                  className="w-full btn btn-primary font-semibold text-sm focus:outline-none disabled:opacity-60 disabled:cursor-not-allowed" style={{ padding: "11px 0" }}
                 >
                   {loading ? "Updating…" : "Update Password"}
                 </button>

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import BadgeCode from "./BadgeCode";
-import { RecordNo } from "@/components/MedicalIcons";
 import Logo from "@/components/brand/Logo";
 import { markSvg } from "@/lib/logo";
 import { PALETTE as P } from "@/lib/palette";
@@ -61,18 +60,17 @@ function Preview({ dark }: { dark?: boolean }) {
 
 export default function BadgePage() {
   return (
-    <div style={{ backgroundColor: "var(--bg)", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "var(--background)", minHeight: "100vh" }}>
       <header style={{ borderBottom: "1px solid var(--border-strong)" }}>
         <div className="max-w-3xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="font-bold" style={{ fontSize: "1.0625rem", textDecoration: "none", color: "var(--text)" }}>
             ClinicLog MD
           </Link>
-          <RecordNo page="/badge" />
         </div>
       </header>
 
       <main className="max-w-3xl mx-auto px-6" style={{ paddingTop: "var(--sp-6)", paddingBottom: "var(--sp-8)" }}>
-        <p className="dept-header">Embeddable badge</p>
+        <p className="section-title">Embeddable badge</p>
         <h1 className="text-3xl font-bold" style={{ color: "var(--text)", marginBottom: "var(--sp-1)" }}>
           Put a badge on your site.
         </h1>
@@ -81,17 +79,17 @@ export default function BadgePage() {
           with no external stylesheet or script, so it renders the same wherever you paste it.
         </p>
 
-        <hr className="tear-line" />
+        <hr className="rule" />
 
-        <p className="dept-header">Light</p>
+        <p className="section-title">Light</p>
         <div style={{ marginBottom: "var(--sp-2)" }}><Preview /></div>
         <BadgeCode label="HTML" code={HTML_BADGE} />
 
-        <p className="dept-header">Dark</p>
+        <p className="section-title">Dark</p>
         <div style={{ marginBottom: "var(--sp-2)" }}><Preview dark /></div>
         <BadgeCode label="HTML" code={DARK_BADGE} />
 
-        <p className="dept-header">Markdown</p>
+        <p className="section-title">Markdown</p>
         <BadgeCode label="Markdown, for READMEs" code={MARKDOWN_BADGE} />
       </main>
     </div>

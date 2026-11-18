@@ -82,20 +82,20 @@ export default function HelpCenter() {
           <h2 id="help-title" className="text-sm font-bold" style={{ color: "var(--text)", textTransform: "uppercase", letterSpacing: "0.04em" }}>
             Help Center
           </h2>
-          <button ref={closeRef} type="button" className="tour-btn" onClick={closeHelp}>
+          <button ref={closeRef} type="button" className="btn btn-sm btn-secondary" onClick={closeHelp}>
             Close
           </button>
         </div>
 
         <div className="flex-1 overflow-y-auto px-5" style={{ paddingTop: "var(--sp-2)", paddingBottom: "var(--sp-4)" }}>
           {/* Search */}
-          <label htmlFor="help-search" className="dept-header" style={{ display: "block" }}>
+          <label htmlFor="help-search" className="section-title" style={{ display: "block" }}>
             Search how-to answers
           </label>
           <input
             id="help-search"
             type="search"
-            className="field-input"
+            className="field"
             placeholder="e.g. ongoing, import, delete"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -103,12 +103,12 @@ export default function HelpCenter() {
           />
           <div style={{ marginTop: "var(--sp-1)", marginBottom: "var(--sp-3)" }}>
             {answers.length === 0 && (
-              <p className="text-xs" style={{ color: "var(--text-subtle)", padding: "8px 0" }}>
+              <p className="text-xs" style={{ color: "var(--text-muted)", padding: "8px 0" }}>
                 No answers match. Try another word, or send us a question below.
               </p>
             )}
             {answers.map((h) => (
-              <details key={h.q} style={{ borderBottom: "1px solid var(--hairline)", padding: "8px 0" }}>
+              <details key={h.q} style={{ borderBottom: "1px solid var(--border)", padding: "8px 0" }}>
                 <summary className="text-sm font-semibold" style={{ color: "var(--text)", cursor: "pointer" }}>
                   {h.q}
                 </summary>
@@ -118,10 +118,10 @@ export default function HelpCenter() {
           </div>
 
           {/* Replay */}
-          <p className="dept-header">Replay a tour</p>
+          <p className="section-title">Replay a tour</p>
           {GROUPS.map((g) => (
             <div key={g} style={{ marginBottom: "var(--sp-2)" }}>
-              <p className="exp-id" style={{ marginBottom: 4 }}>{g.toUpperCase()}</p>
+              <p className="meta" style={{ marginBottom: 4 }}>{g.toUpperCase()}</p>
               <ul>
                 {TOUR_MODULES.filter((m) => m.group === g).map((m) => {
                   const done = rowFor(rows, m.id)?.status === "completed";
@@ -133,16 +133,16 @@ export default function HelpCenter() {
                         className="w-full flex items-center justify-between gap-3 text-left"
                         style={{
                           padding: "9px 0",
-                          borderBottom: "1px solid var(--hairline)",
+                          borderBottom: "1px solid var(--border)",
                           background: "transparent",
                           color: "var(--text)",
-                          fontSize: 14,
+                          fontSize: "var(--text-sm)",
                           fontWeight: 500,
                           cursor: "pointer",
                         }}
                       >
                         <span>{m.title}</span>
-                        <span className="mono text-xs" style={{ color: done ? "var(--accent-text)" : "var(--text-subtle)" }}>
+                        <span className="tnum text-xs" style={{ color: done ? "var(--action-text)" : "var(--text-muted)" }}>
                           {done ? (
                             <>
                               <span aria-hidden="true">&#10003;</span> DONE
@@ -167,7 +167,7 @@ export default function HelpCenter() {
             </label>
             <button
               type="button"
-              className="tour-btn"
+              className="btn btn-sm btn-secondary"
               onClick={async () => {
                 await restartAllTours();
                 setRestarted(true);
@@ -184,7 +184,7 @@ export default function HelpCenter() {
 
           <FeedbackForm />
 
-          <p className="dept-header" style={{ marginTop: "var(--sp-3)" }}>More</p>
+          <p className="section-title" style={{ marginTop: "var(--sp-3)" }}>More</p>
           <div className="flex gap-5 flex-wrap text-sm">
             <Link href="/privacy" onClick={closeHelp} style={{ color: "var(--text-muted)", textDecoration: "underline" }}>Privacy</Link>
             <Link href="/terms" onClick={closeHelp} style={{ color: "var(--text-muted)", textDecoration: "underline" }}>Terms</Link>
@@ -223,7 +223,7 @@ function FeedbackForm() {
 
   return (
     <form onSubmit={submit}>
-      <p className="dept-header">Report a problem or suggest a feature</p>
+      <p className="section-title">Report a problem or suggest a feature</p>
       <div className="flex gap-4 flex-wrap text-sm" style={{ marginBottom: 8, color: "var(--text)" }}>
         <label className="flex items-center gap-2" style={{ cursor: "pointer" }}>
           <input type="radio" name="fb-kind" checked={kind === "problem"} onChange={() => setKind("problem")} />
@@ -237,7 +237,7 @@ function FeedbackForm() {
       <label htmlFor="fb-message" className="sr-only-live">Message</label>
       <textarea
         id="fb-message"
-        className="field-input resize-none"
+        className="field resize-none"
         rows={4}
         maxLength={1000}
         value={message}
@@ -245,8 +245,8 @@ function FeedbackForm() {
         placeholder={kind === "problem" ? "What happened, and on which page?" : "What would help you?"}
       />
       <div className="flex items-center justify-between gap-3" style={{ marginTop: 6 }}>
-        <span className="mono text-xs" style={{ color: "var(--text-subtle)" }}>{message.length}/1000</span>
-        <button type="submit" className="tour-btn tour-btn-primary" disabled={state.kind === "sending" || !message.trim()}>
+        <span className="tnum text-xs" style={{ color: "var(--text-muted)" }}>{message.length}/1000</span>
+        <button type="submit" className="btn btn-sm btn-primary" disabled={state.kind === "sending" || !message.trim()}>
           {state.kind === "sending" ? "Sending" : "Send"}
         </button>
       </div>

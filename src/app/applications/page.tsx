@@ -20,7 +20,7 @@ export default async function ApplicationsPage() {
   return (
     <AppShell userEmail={user.email ?? ""} activePath="/applications">
       <main
-        className="w-full chart-margin"
+        className="w-full"
         style={{ paddingTop: "var(--sp-3)", paddingRight: "var(--sp-3)", paddingBottom: "var(--sp-4)" }}
       >
         <h1 className="text-xl font-bold" style={{ color: "var(--text)" }}>

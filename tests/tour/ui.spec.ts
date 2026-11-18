@@ -32,7 +32,7 @@ test("Help never overlaps the AI Advisor or the tab bar, at 390px and desktop", 
   for (const size of [{ width: 390, height: 844 }, { width: 1280, height: 800 }]) {
     await page.setViewportSize(size);
     await page.goto("/dashboard");
-    const advisor = await page.getByRole("button", { name: "Open AI advisor" }).boundingBox();
+    const advisor = await page.getByRole("button", { name: "Ask the advisor" }).boundingBox();
     const tabbar = await page.locator(".app-bottomnav").boundingBox().catch(() => null);
     for (const sel of ["[data-tour='help-button']", "[data-tour='help-sidebar']"]) {
       const el = page.locator(sel);
