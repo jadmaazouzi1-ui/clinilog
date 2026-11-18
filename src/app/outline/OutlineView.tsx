@@ -36,7 +36,7 @@ export default function OutlineView({ ready }: { ready: boolean }) {
         <button
           onClick={generate}
           disabled={loading || !ready}
-          className="btn btn-primary text-sm"
+          className="btn btn-primary"
           style={{ padding: "10px var(--sp-3)", opacity: loading || !ready ? 0.6 : 1, cursor: ready ? "pointer" : "not-allowed" }}
         >
           {outline ? "Regenerate outline" : "Generate outline"}
@@ -73,7 +73,7 @@ export default function OutlineView({ ready }: { ready: boolean }) {
           {outline.themes?.map((t, i) => (
             <div key={i} style={{ marginBottom: "var(--sp-3)", paddingLeft: 10, borderLeft: "2px solid var(--border-strong)" }}>
               <p className="text-sm font-bold" style={{ color: "var(--text)" }}>
-                {String(i + 1).padStart(2, "0")}. {t.title}
+                {String(i + 1)}. {t.title}
               </p>
               <p className="meta" style={{ margin: "3px 0 5px" }}>EVIDENCE: {t.evidence}</p>
               <p className="text-sm" style={{ color: "var(--text-muted)", lineHeight: 1.7 }}>{t.development}</p>

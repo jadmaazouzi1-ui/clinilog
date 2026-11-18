@@ -121,7 +121,7 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
             <select
               value={data.target_cycle_year ?? ""}
               onChange={(e) => persist({ target_cycle_year: e.target.value ? parseInt(e.target.value) : null })}
-              className="field px-3 py-2 rounded-xl text-sm w-full max-w-xs"
+              className="field max-w-xs"
             >
               <option value="">Select target year…</option>
               {[2026, 2027, 2028, 2029, 2030].map((y) => (
@@ -188,20 +188,20 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
 
         {data.goals.length < 5 && (
           <div className="grid grid-cols-1 sm:grid-cols-[140px,1fr,140px,auto] gap-2">
-            <select value={newCategory} onChange={(e) => setNewCategory(e.target.value as GapGoal["category"])} className="field px-3 py-2.5 rounded-xl text-sm">
+            <select value={newCategory} onChange={(e) => setNewCategory(e.target.value as GapGoal["category"])} className="field">
               {CATEGORIES.map((c) => <option key={c.value} value={c.value}>{c.label}</option>)}
             </select>
             <input
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
               placeholder="Goal title (e.g. Log 500 clinical hours)"
-              className="field px-3 py-2.5 rounded-xl text-sm"
+              className="field"
             />
             <input
               value={newTarget}
               onChange={(e) => setNewTarget(e.target.value)}
               placeholder="Target (optional)"
-              className="field px-3 py-2.5 rounded-xl text-sm"
+              className="field"
             />
             <button
               onClick={addGoal}
@@ -224,13 +224,13 @@ export default function GapYearView({ initial }: { initial: GapYearData }) {
             type="month"
             value={logMonth}
             onChange={(e) => setLogMonth(e.target.value)}
-            className="field px-3 py-2.5 rounded-xl text-sm"
+            className="field"
           />
           <input
             value={logText}
             onChange={(e) => setLogText(e.target.value)}
             placeholder="What did you accomplish this month?"
-            className="field px-3 py-2.5 rounded-xl text-sm"
+            className="field"
           />
           <button
             onClick={saveLog}

@@ -129,14 +129,14 @@ export default function PostbaccView({
               value={cName}
               onChange={(e) => setCName(e.target.value)}
               placeholder="Course name (e.g. Organic Chemistry I)"
-              className="field px-3 py-2.5 rounded-xl text-sm"
+              className="field"
               required
             />
             <input
               value={cSemester}
               onChange={(e) => setCSemester(e.target.value)}
               placeholder="Semester (e.g. Fall 2026)"
-              className="field px-3 py-2.5 rounded-xl text-sm"
+              className="field"
             />
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-[120px,140px,1fr,auto] gap-3 items-center">
@@ -145,17 +145,17 @@ export default function PostbaccView({
               onChange={(e) => setCCredits(e.target.value)}
               type="number" min="0.5" max="20" step="0.5"
               placeholder="Credits"
-              className="field px-3 py-2.5 rounded-xl text-sm"
+              className="field"
               required
             />
             <select
               value={cGrade}
               onChange={(e) => setCGrade(e.target.value)}
-              className="field px-3 py-2.5 rounded-xl text-sm"
+              className="field"
             >
               {GRADES.map((g) => <option key={g} value={g}>{g}</option>)}
             </select>
-            <label className="inline-flex items-center gap-2 text-sm cursor-pointer" style={{ color: "var(--text)" }}>
+            <label htmlFor="field-1-input" className="inline-flex items-center gap-2 text-sm cursor-pointer" style={{ color: "var(--text)" }}>
               <input
                 type="checkbox"
                 checked={cBcpm}
@@ -239,7 +239,7 @@ export default function PostbaccView({
           onBlur={() => persistProfile({ notes: profile.notes })}
           rows={4}
           placeholder="Write notes here. Auto-saves when you click away."
-          className="field w-full px-3.5 py-2.5 rounded-xl text-sm resize-none"
+          className="field"
         />
       </div>
 
@@ -297,7 +297,7 @@ function GpaCard({ label, sub, value, goal, onGoalChange }: {
 
       <div className="flex items-center gap-2 pt-2" style={{ borderTop: "1px solid var(--border-strong)" }}>
         <label className="text-xs" style={{ color: "var(--text-muted)" }}>Goal:</label>
-        <input
+        <input id="field-1-input"
           type="number" min="2.0" max="4.0" step="0.05"
           value={editingGoal}
           onChange={(e) => setEditingGoal(e.target.value)}
@@ -306,7 +306,7 @@ function GpaCard({ label, sub, value, goal, onGoalChange }: {
             if (Number.isFinite(n) && n >= 2 && n <= 4) onGoalChange(n);
             else setEditingGoal(goal.toString());
           }}
-          className="field px-2 py-1 rounded-md text-xs w-16"
+          className="field w-16"
         />
       </div>
     </div>

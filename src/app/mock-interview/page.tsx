@@ -31,7 +31,7 @@ export default async function MockInterviewPage() {
             <p className="text-sm" style={{ color: "var(--text-muted)" }}>
               Log at least one experience so the questions can be about your own record.
             </p>
-            <Link href="/dashboard/new" className="btn btn-secondary text-xs font-semibold" style={{ padding: "6px var(--sp-2)", textDecoration: "none", display: "inline-block", marginTop: "var(--sp-2)" }}>
+            <Link href="/dashboard/new" className="btn btn-secondary" style={{ padding: "6px var(--sp-2)", textDecoration: "none", display: "inline-block", marginTop: "var(--sp-2)" }}>
               Log an experience
             </Link>
           </div>

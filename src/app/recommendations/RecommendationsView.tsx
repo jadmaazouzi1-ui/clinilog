@@ -30,8 +30,8 @@ export default function RecommendationsView({ letters }: { letters: Recommendati
           <div className="grid grid-cols-3" style={{ gap: "var(--sp-2)", marginBottom: "var(--sp-4)" }}>
             {[
               ["Letters requested", String(letters.length)],
-              ["Submitted", String(submitted).padStart(2, "0")],
-              ["Outstanding", String(letters.length - submitted).padStart(2, "0")],
+              ["Submitted", String(submitted)],
+              ["Outstanding", String(letters.length - submitted)],
             ].map(([label, value]) => (
               <div key={label} className="card">
                 <p className="stat-label">{label}</p>
@@ -47,7 +47,7 @@ export default function RecommendationsView({ letters }: { letters: Recommendati
         <p className="section-title flex items-center gap-2" style={{ margin: 0, border: 0, padding: 0 }}>
           Letters
         </p>
-        <button onClick={() => setAdding(!adding)} className="btn btn-primary text-sm" style={{ padding: "8px var(--sp-2)" }}>
+        <button onClick={() => setAdding(!adding)} className="btn btn-primary">
           {adding ? "Cancel" : "Add a letter"}
         </button>
       </div>
@@ -60,35 +60,35 @@ export default function RecommendationsView({ letters }: { letters: Recommendati
         >
           <div className="grid grid-cols-1 md:grid-cols-4" style={{ gap: "var(--sp-2)", marginBottom: "var(--sp-2)" }}>
             <div>
-              <label className="label">Who is writing it</label>
-              <input name="recommender_name" required placeholder="Dr. Patel" className="field" />
+              <label htmlFor="recommender-name-input" className="label">Who is writing it</label>
+              <input id="recommender-name-input" name="recommender_name" required placeholder="Dr. Patel" className="field" />
             </div>
             <div>
-              <label className="label">Relationship</label>
-              <input name="relationship" placeholder="Research PI" className="field" />
+              <label htmlFor="relationship-input" className="label">Relationship</label>
+              <input id="relationship-input" name="relationship" placeholder="Research PI" className="field" />
             </div>
             <div>
-              <label className="label">Requested</label>
-              <input name="date_requested" type="date" className="field" />
+              <label htmlFor="date-requested-input" className="label">Requested</label>
+              <input id="date-requested-input" name="date_requested" type="date" className="field" />
             </div>
             <div>
-              <label className="label">Status</label>
-              <select name="status" className="field">
+              <label htmlFor="status-input" className="label">Status</label>
+              <select id="status-input" name="status" className="field">
                 {RECOMMENDATION_STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
               </select>
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "var(--sp-2)", marginBottom: "var(--sp-2)" }}>
             <div>
-              <label className="label">Schools it goes to</label>
-              <input name="assigned_schools" placeholder="Comma separated, e.g. Yale, Duke" className="field" />
+              <label htmlFor="assigned-schools-input" className="label">Schools it goes to</label>
+              <input id="assigned-schools-input" name="assigned_schools" placeholder="Comma separated, e.g. Yale, Duke" className="field" />
             </div>
             <div>
-              <label className="label">Notes</label>
-              <input name="notes" placeholder="Sent packet on 12 MAY" className="field" />
+              <label htmlFor="notes-input" className="label">Notes</label>
+              <input id="notes-input" name="notes" placeholder="Sent packet on 12 MAY" className="field" />
             </div>
           </div>
-          <button type="submit" className="btn btn-primary text-sm" style={{ padding: "8px var(--sp-3)" }}>Save</button>
+          <button type="submit" className="btn btn-primary">Save</button>
         </form>
       )}
 
@@ -134,7 +134,7 @@ export default function RecommendationsView({ letters }: { letters: Recommendati
                   >
                     {RECOMMENDATION_STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
                   </select>
-                  <button onClick={() => setEditing(editing === l.id ? null : l.id)} className="btn btn-secondary text-xs font-semibold" style={{ padding: "5px var(--sp-1)" }}>
+                  <button onClick={() => setEditing(editing === l.id ? null : l.id)} className="btn btn-secondary">
                     {editing === l.id ? "Close" : "Edit"}
                   </button>
                 </div>
@@ -147,36 +147,36 @@ export default function RecommendationsView({ letters }: { letters: Recommendati
                 >
                   <div className="grid grid-cols-1 md:grid-cols-4" style={{ gap: "var(--sp-2)", marginBottom: "var(--sp-2)" }}>
                     <div>
-                      <label className="label">Who is writing it</label>
-                      <input name="recommender_name" defaultValue={l.recommender_name} required className="field" />
+                      <label htmlFor={`recommender-name-input-${l.id}`} className="label">Who is writing it</label>
+                      <input id={`recommender-name-input-${l.id}`} name="recommender_name" defaultValue={l.recommender_name} required className="field" />
                     </div>
                     <div>
-                      <label className="label">Relationship</label>
-                      <input name="relationship" defaultValue={l.relationship ?? ""} className="field" />
+                      <label htmlFor={`relationship-input-${l.id}`} className="label">Relationship</label>
+                      <input id={`relationship-input-${l.id}`} name="relationship" defaultValue={l.relationship ?? ""} className="field" />
                     </div>
                     <div>
-                      <label className="label">Requested</label>
-                      <input name="date_requested" type="date" defaultValue={l.date_requested ?? ""} className="field" />
+                      <label htmlFor={`date-requested-input-${l.id}`} className="label">Requested</label>
+                      <input id={`date-requested-input-${l.id}`} name="date_requested" type="date" defaultValue={l.date_requested ?? ""} className="field" />
                     </div>
                     <div>
-                      <label className="label">Status</label>
-                      <select name="status" defaultValue={l.status} className="field">
+                      <label htmlFor={`status-input-${l.id}`} className="label">Status</label>
+                      <select id={`status-input-${l.id}`} name="status" defaultValue={l.status} className="field">
                         {RECOMMENDATION_STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
                       </select>
                     </div>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "var(--sp-2)", marginBottom: "var(--sp-2)" }}>
                     <div>
-                      <label className="label">Schools it goes to</label>
-                      <input name="assigned_schools" defaultValue={(l.assigned_schools ?? []).join(", ")} className="field" />
+                      <label htmlFor={`assigned-schools-input-${l.id}`} className="label">Schools it goes to</label>
+                      <input id={`assigned-schools-input-${l.id}`} name="assigned_schools" defaultValue={(l.assigned_schools ?? []).join(", ")} className="field" />
                     </div>
                     <div>
-                      <label className="label">Notes</label>
-                      <input name="notes" defaultValue={l.notes ?? ""} className="field" />
+                      <label htmlFor={`notes-input-${l.id}`} className="label">Notes</label>
+                      <input id={`notes-input-${l.id}`} name="notes" defaultValue={l.notes ?? ""} className="field" />
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <button type="submit" className="btn btn-primary text-xs" style={{ padding: "7px var(--sp-2)" }}>Save</button>
+                    <button type="submit" className="btn btn-primary">Save</button>
                     <button
                       type="button"
                       onClick={() => deleteRecommendation(l.id)}

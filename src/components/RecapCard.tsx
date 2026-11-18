@@ -7,12 +7,12 @@ import { PALETTE } from "@/lib/palette";
 
 /* A canvas renders outside the DOM and cannot read CSS variables, so the
    colours come from the palette that mirrors src/styles/theme.css. Black
-   field with gold accents, the same as the Your Path card. */
+   field, the same as the Your path panel. Gold is only the mark. */
 const FIELD = PALETTE.black;
 const TEXT = PALETTE.cream;
-const LABEL = PALETTE.gold300;
-const RULE = PALETTE.gold500;
-const HAIR = PALETTE.stone700;
+const LABEL = PALETTE.creamMuted;
+const MARK = PALETTE.gold500;
+const HAIR = PALETTE.night400;
 
 const TYPE_LABELS: Record<string, string> = {
   shadowing: "Shadowing",
@@ -56,102 +56,61 @@ export default function RecapCard({
     if (!ctx) return null;
     ctx.scale(S, S);
 
-    // Field
+    // The page's own faces, so the image matches the app.
+    const root = getComputedStyle(document.documentElement);
+    const SERIF = `${root.getPropertyValue("--font-newsreader").trim() || "Georgia"}, Georgia, serif`;
+    const SANS = `${root.getPropertyValue("--font-public-sans").trim() || "system-ui"}, system-ui, sans-serif`;
+
     ctx.fillStyle = FIELD;
     ctx.fillRect(0, 0, W, H);
 
-    // Issuer strip: the mark, the name and a gold rule
-    const mark = markRects(32, 15, 24);
-    ctx.fillStyle = RULE;
+    // The mark and the name
+    const mark = markRects(32, 30, 22);
+    ctx.fillStyle = MARK;
     for (const [x, y, w, h] of mark.arms) ctx.fillRect(x, y, w, h);
-    ctx.strokeStyle = RULE;
-    ctx.lineWidth = 1;
-    ctx.strokeRect(...mark.tile);
     ctx.fillStyle = TEXT;
-    ctx.font = "700 15px ui-sans-serif, system-ui, sans-serif";
-    ctx.fillText("CLINICLOG MD", 66, 33);
+    ctx.font = `600 15px ${SANS}`;
+    ctx.fillText("ClinicLog MD", 64, 46);
     ctx.fillStyle = LABEL;
-    ctx.font = "500 11px ui-monospace, Menlo, monospace";
     ctx.textAlign = "right";
-    ctx.fillText("MONTHLY RECAP", W - 32, 33);
+    ctx.fillText("Monthly recap", W - 32, 46);
     ctx.textAlign = "left";
-    ctx.fillStyle = RULE;
-    ctx.fillRect(0, 54, W, 2);
-
-    // Registration ticks
-    ctx.strokeStyle = RULE;
-    ctx.lineWidth = 1;
-    const tick = (x: number, y: number, dx: number, dy: number) => {
-      ctx.beginPath();
-      ctx.moveTo(x, y); ctx.lineTo(x + dx, y);
-      ctx.moveTo(x, y); ctx.lineTo(x, y + dy);
-      ctx.stroke();
-    };
-    tick(20, 74, 14, 14);
-    tick(W - 20, 74, -14, 14);
-    tick(20, H - 20, 14, -14);
-    tick(W - 20, H - 20, -14, -14);
+    ctx.fillStyle = HAIR;
+    ctx.fillRect(32, 72, W - 64, 1);
 
     // Period
-    ctx.fillStyle = LABEL;
-    ctx.font = "600 11px ui-monospace, Menlo, monospace";
-    ctx.fillText("PERIOD", 32, 108);
     ctx.fillStyle = TEXT;
-    ctx.font = "700 30px ui-sans-serif, system-ui, sans-serif";
-    ctx.fillText(monthLabel, 32, 142);
-
-    // Perforated rule
-    ctx.strokeStyle = RULE;
-    ctx.setLineDash([5, 5]);
-    ctx.beginPath(); ctx.moveTo(32, 168); ctx.lineTo(W - 32, 168); ctx.stroke();
-    ctx.setLineDash([]);
+    ctx.font = `500 40px ${SERIF}`;
+    ctx.fillText(monthLabel, 32, 132);
 
     // Headline figure
     ctx.fillStyle = LABEL;
-    ctx.font = "600 11px ui-monospace, Menlo, monospace";
-    ctx.fillText("HOURS LOGGED", 32, 206);
+    ctx.font = `400 15px ${SANS}`;
+    ctx.fillText("Hours logged", 32, 196);
     ctx.fillStyle = TEXT;
-    ctx.font = "700 92px ui-monospace, Menlo, monospace";
-    ctx.fillText(formatHours(hours), 32, 290);
+    ctx.font = `500 96px ${SERIF}`;
+    ctx.fillText(formatHours(hours), 28, 290);
 
     // Secondary figures
     const row = (label: string, value: string, y: number) => {
       ctx.fillStyle = LABEL;
-      ctx.font = "600 11px ui-monospace, Menlo, monospace";
+      ctx.font = `400 15px ${SANS}`;
       ctx.fillText(label, 32, y);
       ctx.fillStyle = TEXT;
-      ctx.font = "700 26px ui-monospace, Menlo, monospace";
+      ctx.font = `600 21px ${SANS}`;
       ctx.textAlign = "right";
-      ctx.fillText(value, W - 32, y + 4);
+      ctx.fillText(value, W - 32, y + 2);
       ctx.textAlign = "left";
-      ctx.strokeStyle = HAIR;
-      ctx.beginPath(); ctx.moveTo(32, y + 22); ctx.lineTo(W - 32, y + 22); ctx.stroke();
+      ctx.fillStyle = HAIR;
+      ctx.fillRect(32, y + 20, W - 64, 1);
     };
-    row("ENTRIES ADDED", String(entries).padStart(2, "0"), 350);
-    row("TOP CATEGORY", topCategory ? (TYPE_LABELS[topCategory] ?? topCategory) : "None", 402);
-    if (archetype) row("ARCHETYPE", archetype.replace(/_/g, " ").toUpperCase(), 454);
-
-    // EKG footer
-    ctx.strokeStyle = LABEL;
-    ctx.lineWidth = 1.6;
-    ctx.beginPath();
-    let x = 32;
-    const baseY = 560;
-    ctx.moveTo(x, baseY);
-    while (x < W - 32) {
-      ctx.lineTo(x + 26, baseY);
-      ctx.lineTo(x + 30, baseY - 6);
-      ctx.lineTo(x + 34, baseY + 16);
-      ctx.lineTo(x + 39, baseY - 22);
-      ctx.lineTo(x + 43, baseY + 6);
-      ctx.lineTo(x + 47, baseY);
-      x += 60;
-    }
-    ctx.stroke();
+    row("Entries added", String(entries), 350);
+    row("Most hours in", topCategory ? (TYPE_LABELS[topCategory] ?? topCategory) : "None", 402);
+    if (archetype) row("Archetype", archetype.replace(/_/g, " ").replace(/^./, (c) => c.toUpperCase()), 454);
 
     ctx.fillStyle = LABEL;
-    ctx.font = "500 11px ui-monospace, Menlo, monospace";
-    ctx.fillText("cliniclogmd.com", 32, H - 44);
+    ctx.font = `400 13px ${SANS}`;
+    ctx.fillText("cliniclogmd.com", 32, H - 40);
 
     return canvas;
   }
@@ -175,7 +134,7 @@ export default function RecapCard({
   return (
     <>
       <canvas ref={canvasRef} style={{ display: "none" }} aria-hidden="true" />
-      <button onClick={download} className="btn btn-secondary text-xs font-semibold" style={{ padding: "7px var(--sp-2)" }}>
+      <button onClick={download} className="btn btn-secondary">
         {done ? "Downloaded" : "Download recap (PNG)"}
       </button>
     </>

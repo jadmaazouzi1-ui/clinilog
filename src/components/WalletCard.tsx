@@ -5,12 +5,9 @@ import { rgb } from "@/lib/palette";
 
 /* jsPDF renders outside the DOM and cannot read CSS variables, so these
    come from the palette that mirrors src/styles/theme.css. */
-const BAND = rgb("black");
-const RULE = rgb("gold500");
-const LABEL = rgb("gold700");
+const LABEL = rgb("stone700");
 const LINE = rgb("stone200");
 const INK = rgb("black");
-const ON_BAND = rgb("cream");
 
 
 /**
@@ -38,35 +35,30 @@ export default function WalletCard({
     const orgs = new Set(experiences.map((e) => e.organization)).size;
     const top3 = [...experiences].sort((a, b) => Number(b.hours) - Number(a.hours)).slice(0, 3);
 
-    // Issuer strip
-    doc.setFillColor(...BAND);
-    doc.rect(0, 0, W, 22, "F");
-    doc.setFillColor(...RULE);
-    doc.rect(0, 22, W, 1.5, "F");
-    doc.setTextColor(...ON_BAND);
+    // Name and document
+    doc.setTextColor(...INK);
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(9);
-    doc.text("CLINICLOG MD", M, 14.5);
-    doc.setFont("courier", "normal");
+    doc.setFontSize(8);
+    doc.text("ClinicLog MD", M, 15);
+    doc.setFont("helvetica", "normal");
     doc.setFontSize(7);
-    doc.text("EXPERIENCE RECORD", W - M, 14.5, { align: "right" });
+    doc.setTextColor(...LABEL);
+    doc.text("Experience summary", W - M, 15, { align: "right" });
+    doc.setDrawColor(...LINE);
+    doc.line(M, 21, W - M, 21);
 
     // Holder
     doc.setTextColor(...INK);
-    doc.setFont("courier", "normal");
-    doc.setFontSize(6);
-    doc.setTextColor(...LABEL);
-    doc.text("HOLDER", M, 38);
     doc.setTextColor(...INK);
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(11);
+    doc.setFont("times", "bold");
+    doc.setFontSize(13);
     doc.text(name.length > 30 ? `${name.slice(0, 29)}…` : name, M, 51);
 
     if (archetype) {
-      doc.setFont("courier", "normal");
-      doc.setFontSize(6.5);
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(7);
       doc.setTextColor(...LABEL);
-      doc.text(archetype.toUpperCase(), M, 62);
+      doc.text(archetype.replace(/_/g, " ").replace(/^./, (c) => c.toUpperCase()), M, 62);
     }
 
     // Figures row
@@ -74,17 +66,17 @@ export default function WalletCard({
     doc.line(M, 70, W - M, 70);
 
     const cols: [string, string][] = [
-      ["TOTAL HRS", formatHours(totalHours)],
-      ["ENTRIES", String(experiences.length).padStart(2, "0")],
-      ["ORGS", String(orgs).padStart(2, "0")],
+      ["Hours", formatHours(totalHours)],
+      ["Entries", String(experiences.length)],
+      ["Organizations", String(orgs)],
     ];
     cols.forEach(([label, value], i) => {
       const x = M + i * ((W - M * 2) / 3);
-      doc.setFont("courier", "normal");
-      doc.setFontSize(5.5);
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(6.5);
       doc.setTextColor(...LABEL);
       doc.text(label, x, 80);
-      doc.setFont("courier", "bold");
+      doc.setFont("helvetica", "bold");
       doc.setFontSize(12);
       doc.setTextColor(...INK);
       doc.text(value, x, 93);
@@ -94,10 +86,10 @@ export default function WalletCard({
     doc.line(M, 100, W - M, 100);
 
     // Top placements
-    doc.setFont("courier", "normal");
-    doc.setFontSize(5.5);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(6.5);
     doc.setTextColor(...LABEL);
-    doc.text("TOP PLACEMENTS", M, 110);
+    doc.text("Most hours", M, 110);
     doc.setTextColor(...INK);
 
     let y = 120;
@@ -106,9 +98,7 @@ export default function WalletCard({
       doc.setFontSize(7);
       const title = e.title.length > 34 ? `${e.title.slice(0, 33)}…` : e.title;
       doc.text(title, M, y);
-      doc.setFont("courier", "normal");
-      doc.setFontSize(7);
-      doc.text(`${formatHours(e.hours)}h`, W - M, y, { align: "right" });
+      doc.text(`${formatHours(e.hours)} hrs`, W - M, y, { align: "right" });
       y += 10;
     }
     if (top3.length === 0) {
@@ -125,8 +115,7 @@ export default function WalletCard({
     <button
       type="button"
       onClick={exportCard}
-      className="btn btn-secondary text-xs font-semibold"
-      style={{ padding: "8px var(--sp-2)" }}
+      className="btn btn-secondary"
     >
       Download wallet card (PDF)
     </button>

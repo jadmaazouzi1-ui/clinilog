@@ -131,8 +131,7 @@ export default function ApplicationsView({ apps }: { apps: SchoolApplication[] }
                   ))}
                   <button
                     onClick={() => setEditing(editing === a.id ? null : a.id)}
-                    className="btn btn-secondary text-xs font-semibold"
-                    style={{ padding: "5px var(--sp-1)" }}
+                    className="btn btn-secondary"
                   >
                     {editing === a.id ? "Close" : "Edit"}
                   </button>
@@ -145,49 +144,49 @@ export default function ApplicationsView({ apps }: { apps: SchoolApplication[] }
                   style={{ marginTop: "var(--sp-2)", paddingTop: "var(--sp-2)", borderTop: "1px dashed var(--border-strong)" }}
                 >
                   <div style={{ marginBottom: "var(--sp-2)" }}>
-                    <label className="label">Prompt</label>
-                    <textarea
+                    <label htmlFor="secondary-prompt-input" className="label">Prompt</label>
+                    <textarea id="secondary-prompt-input"
                       name="secondary_prompt"
                       rows={3}
                       defaultValue={a.secondary_prompt ?? ""}
                       placeholder="Paste the secondary prompt"
-                      className="field resize-none"
+                      className="field"
                     />
                   </div>
                   <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: "var(--sp-2)", marginBottom: "var(--sp-2)" }}>
                     <div>
-                      <label className="label">Word limit</label>
-                      <input name="word_limit" type="number" min="0" defaultValue={a.word_limit ?? ""} placeholder="500" className="field tnum" />
+                      <label htmlFor="word-limit-input" className="label">Word limit</label>
+                      <input id="word-limit-input" name="word_limit" type="number" min="0" defaultValue={a.word_limit ?? ""} placeholder="500" className="field tnum" />
                     </div>
                     <div>
-                      <label className="label">Deadline</label>
-                      <input name="deadline" type="date" defaultValue={a.deadline ?? ""} className="field" />
+                      <label htmlFor="deadline-input" className="label">Deadline</label>
+                      <input id="deadline-input" name="deadline" type="date" defaultValue={a.deadline ?? ""} className="field" />
                     </div>
                     <div>
-                      <label className="label">Status</label>
-                      <select name="secondary_status" defaultValue={a.secondary_status} className="field">
+                      <label htmlFor="secondary-status-input" className="label">Status</label>
+                      <select id="secondary-status-input" name="secondary_status" defaultValue={a.secondary_status} className="field">
                         {SECONDARY_STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
                       </select>
                     </div>
                     <div>
-                      <label className="label">FEE ($)</label>
-                      <input name="secondary_fee" type="number" min="0" step="1" defaultValue={Number(a.secondary_fee ?? 0)} className="field tnum" />
+                      <label htmlFor="secondary-fee-input" className="label">FEE ($)</label>
+                      <input id="secondary-fee-input" name="secondary_fee" type="number" min="0" step="1" defaultValue={Number(a.secondary_fee ?? 0)} className="field tnum" />
                     </div>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "var(--sp-2)", marginBottom: "var(--sp-2)" }}>
                     <div>
-                      <label className="label">Fee waiver</label>
-                      <select name="fee_waiver_status" defaultValue={a.fee_waiver_status} className="field">
+                      <label htmlFor="fee-waiver-status-input" className="label">Fee waiver</label>
+                      <select id="fee-waiver-status-input" name="fee_waiver_status" defaultValue={a.fee_waiver_status} className="field">
                         {FEE_WAIVER_STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
                       </select>
                     </div>
                     <div>
-                      <label className="label">Notes</label>
-                      <input name="notes" type="text" defaultValue={a.notes ?? ""} placeholder="Anything to remember" className="field" />
+                      <label htmlFor="notes-input" className="label">Notes</label>
+                      <input id="notes-input" name="notes" type="text" defaultValue={a.notes ?? ""} placeholder="Anything to remember" className="field" />
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <button type="submit" className="btn btn-primary text-xs" style={{ padding: "7px var(--sp-2)" }}>
+                    <button type="submit" className="btn btn-primary">
                       Save
                     </button>
                     <button

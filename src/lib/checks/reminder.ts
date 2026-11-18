@@ -121,7 +121,7 @@ export function buildReminderEmail(i: ReminderEmailInput): { subject: string; te
   ].join("\n");
 
   const html = emailShell({
-    eyebrow: "REMINDER",
+    eyebrow: "Reminder",
     title: `It has been ${gap} since your last entry`,
     body: [
       para(esc(last)),

@@ -43,12 +43,12 @@ export default async function OutlinePage() {
             </p>
             <div className="flex items-center gap-2 flex-wrap" style={{ marginTop: "var(--sp-2)" }}>
               {entries < 3 && (
-                <Link href="/dashboard/new" className="btn btn-secondary text-xs font-semibold" style={{ padding: "6px var(--sp-2)", textDecoration: "none" }}>
+                <Link href="/dashboard/new" className="btn btn-secondary">
                   Log an experience
                 </Link>
               )}
               {!hasArchetype && (
-                <Link href="/archetype" className="btn btn-secondary text-xs font-semibold" style={{ padding: "6px var(--sp-2)", textDecoration: "none" }}>
+                <Link href="/archetype" className="btn btn-secondary">
                   Generate archetype
                 </Link>
               )}

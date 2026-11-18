@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { upsertProfile } from "./actions";
 import AppShell from "@/components/AppShell";
+import { Notice } from "@/components/ui";
 import ReferralPanel from "./ReferralPanel";
 import AccountData from "./AccountData";
 import HelpButton from "@/components/tour/HelpButton";
@@ -58,52 +59,31 @@ export default async function ProfilePage({
         </Link>
 
         {saved === "1" && (
-          <div
-            className="mb-6 text-sm flex items-center gap-3 flex-wrap"
-            style={{
-              padding: "10px var(--sp-2)",
-              background: "var(--surface)",
-              border: "1px solid var(--border-strong)",
-              borderLeft: "3px solid var(--border-strong)",
-              borderRadius: "var(--radius)",
-              color: "var(--text)",
-            }}
-          >
-            Profile saved successfully.
+          <div style={{ marginBottom: "var(--sp-3)" }}>
+            <Notice tone="success">Saved.</Notice>
           </div>
         )}
 
         {pageError && (
-          <div
-            className="mb-6 text-sm flex items-center gap-3 flex-wrap"
-            style={{
-              padding: "10px var(--sp-2)",
-              background: "var(--danger-tint)",
-              border: "1px solid var(--danger)",
-              borderLeft: "2px solid var(--danger)",
-              borderRadius: "var(--radius)",
-              color: "var(--danger)",
-            }}
-          >
-            {decodeURIComponent(pageError)}
+          <div style={{ marginBottom: "var(--sp-3)" }}>
+            <Notice tone="danger">{decodeURIComponent(pageError)}</Notice>
           </div>
         )}
 
-        <div className="card rounded-2xl p-8">
-          <div className="flex items-start justify-between gap-3 mb-6">
-            <h1 className="text-2xl">Profile</h1>
-            <HelpButton className="md:hidden" tourId="help-profile" />
-          </div>
+        <div className="flex items-start justify-between gap-3" style={{ marginBottom: "var(--sp-4)" }}>
+          <h1 className="text-2xl">Profile and settings</h1>
+          <HelpButton className="md:hidden" tourId="help-profile" />
+        </div>
 
+        <Settings title="Your details" note="Your graduation year sets the timeline for the suggestions on Overview.">
           <form action={upsertProfile} className="space-y-6">
             {/* Full Name */}
             <div>
               <label
                 htmlFor="full_name"
-                className="block text-sm font-medium mb-1.5"
-                style={{ color: "var(--text)" }}
+                className="label"
               >
-                Full Name
+                Full name
               </label>
               <input
                 id="full_name"
@@ -111,7 +91,7 @@ export default async function ProfilePage({
                 type="text"
                 defaultValue={profile?.full_name ?? ""}
                 placeholder="e.g. Jane Smith"
-                className="field w-full px-3.5 py-2.5 rounded-xl text-sm"
+                className="field"
               />
             </div>
 
@@ -119,10 +99,9 @@ export default async function ProfilePage({
             <div>
               <label
                 htmlFor="undergraduate_school"
-                className="block text-sm font-medium mb-1.5"
-                style={{ color: "var(--text)" }}
+                className="label"
               >
-                Undergraduate School
+                Undergraduate school
               </label>
               <input
                 id="undergraduate_school"
@@ -131,7 +110,7 @@ export default async function ProfilePage({
                 list="university-list"
                 defaultValue={profile?.undergraduate_school ?? ""}
                 placeholder="Start typing your school..."
-                className="field w-full px-3.5 py-2.5 rounded-xl text-sm"
+                className="field"
               />
               <datalist id="university-list">
                 <option value="Arizona State University" />
@@ -151,7 +130,7 @@ export default async function ProfilePage({
                 <option value="Emory University" />
                 <option value="Florida International University" />
                 <option value="Florida State University" />
-                <option value="fordham University" />
+                <option value="Fordham University" />
                 <option value="George Washington University" />
                 <option value="Georgetown University" />
                 <option value="Georgia Institute of Technology" />
@@ -236,10 +215,9 @@ export default async function ProfilePage({
             <div data-tour="profile-grad-year">
               <label
                 htmlFor="graduation_year"
-                className="block text-sm font-medium mb-1.5"
-                style={{ color: "var(--text)" }}
+                className="label"
               >
-                Graduation Year
+                Graduation year
               </label>
               <input
                 id="graduation_year"
@@ -249,7 +227,7 @@ export default async function ProfilePage({
                 max={2040}
                 defaultValue={profile?.graduation_year ?? ""}
                 placeholder="e.g. 2026"
-                className="field w-full px-3.5 py-2.5 rounded-xl text-sm"
+                className="field"
               />
             </div>
 
@@ -257,10 +235,9 @@ export default async function ProfilePage({
             <div>
               <label
                 htmlFor="intended_specialty"
-                className="block text-sm font-medium mb-1.5"
-                style={{ color: "var(--text)" }}
+                className="label"
               >
-                Intended Specialty
+                Intended specialty
               </label>
               <input
                 id="intended_specialty"
@@ -268,14 +245,14 @@ export default async function ProfilePage({
                 type="text"
                 defaultValue={profile?.intended_specialty ?? ""}
                 placeholder="e.g. Internal Medicine"
-                className="field w-full px-3.5 py-2.5 rounded-xl text-sm"
+                className="field"
               />
             </div>
 
             <hr className="rule" />
 
             {/* Committee letter tracker */}
-            <p className="section-title">Committee letter</p>
+            <h3 className="text-base" style={{ marginBottom: "var(--sp-1)" }}>Committee letter</h3>
             <div style={{ marginBottom: "var(--sp-2)" }}>
               <label className="flex items-center gap-2 text-sm" style={{ color: "var(--text)", cursor: "pointer" }}>
                 <input
@@ -320,55 +297,51 @@ export default async function ProfilePage({
                 rows={3}
                 defaultValue={profile?.committee_letter_notes ?? ""}
                 placeholder="Deadline for the committee packet, who to contact"
-                className="field resize-none"
+                className="field"
               />
             </div>
 
-            {/* Submit */}
             <div className="pt-2">
-              <button
-                type="submit"
-                className="btn btn-primary w-full"
-              >
-                Save Profile
+              <button type="submit" className="btn btn-primary">
+                Save details
               </button>
             </div>
           </form>
-        </div>
+        </Settings>
 
-        {/* Reminders and breaks */}
-        <div className="card" style={{ padding: "var(--sp-3)", marginTop: "var(--sp-3)" }} data-tour="reminders">
+        <Settings title="Reminders and breaks" note="Off unless you turn them on. Breaks pause the gap check." tour="reminders">
           <ReminderSettings initial={notifPrefs ?? null} />
           <BreakSettings initial={breakRows ?? []} />
-        </div>
+        </Settings>
 
-        {/* Referrals */}
-        <div className="card" style={{ padding: "var(--sp-3)", marginTop: "var(--sp-3)" }} data-tour="referral">
-          <p className="section-title">Refer a Classmate</p>
-          <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-2)" }}>
-            Anyone who signs up through your link is counted here.
-          </p>
+        <Settings title="Invite a classmate" note="Anyone who signs up through your link is counted here." tour="referral">
           <ReferralPanel code={referral} count={refCount} />
-        </div>
+        </Settings>
 
-        {/* Wallet card */}
-        <div className="card" style={{ padding: "var(--sp-3)", marginTop: "var(--sp-3)" }} data-tour="wallet-card">
-          <p className="section-title">Wallet card</p>
-          <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-2)" }}>
-            A condensed PDF at wallet dimensions with your totals and top placements,
-            handy to have on you before an interview.
-          </p>
+        <Settings title="Wallet card" note="A wallet-sized PDF with your totals and top placements, to carry into an interview." tour="wallet-card">
           <WalletCard
             name={profile?.full_name ?? user.email ?? "Applicant"}
             experiences={experiences}
             archetype={profile?.archetype_id ?? null}
           />
-        </div>
-        {/* Export and deletion */}
-        <div className="card" style={{ padding: "var(--sp-3)", marginTop: "var(--sp-3)" }} data-tour="account-data">
+        </Settings>
+        <Settings title="Your data" note="Download everything, or delete the account and every entry with it." tour="account-data">
           <AccountData />
-        </div>
+        </Settings>
       </main>
     </AppShell>
+  );
+}
+
+/** One settings group: what it is on the left, the controls on the right. */
+function Settings({ title, note, tour, children }: { title: string; note?: string; tour?: string; children: React.ReactNode }) {
+  return (
+    <section className="grid lg:grid-cols-12" style={{ gap: "var(--sp-2) var(--sp-4)", padding: "var(--sp-4) 0", borderTop: "1px solid var(--border-strong)" }} data-tour={tour}>
+      <div className="lg:col-span-4">
+        <h2 className="section-title">{title}</h2>
+        {note ? <p className="text-sm" style={{ color: "var(--text-muted)" }}>{note}</p> : null}
+      </div>
+      <div className="lg:col-span-8">{children}</div>
+    </section>
   );
 }

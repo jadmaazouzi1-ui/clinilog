@@ -32,22 +32,20 @@ export default function AccountData() {
 
   return (
     <>
-      <p className="section-title">Your data</p>
       <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-2)" }}>
         Download everything ClinicLog MD stores about you as a JSON file: profile, experiences,
         applications, interviews, letters, trackers and referrals.
       </p>
       <a
         href="/api/account/export"
-        className="btn btn-secondary inline-flex text-sm font-semibold"
-        style={{ padding: "8px var(--sp-2)", textDecoration: "none" }}
+        className="btn btn-secondary"
       >
         Export my data
       </a>
 
       <hr className="rule" />
 
-      <p className="section-title" style={{ color: "var(--danger)" }}>Delete account</p>
+      <h3 className="text-base" style={{ color: "var(--danger)", marginBottom: "var(--sp-1)" }}>Delete account</h3>
       <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-2)" }}>
         Permanently deletes your account and every record linked to it. This cannot be undone,
         so export your data first if you want a copy.

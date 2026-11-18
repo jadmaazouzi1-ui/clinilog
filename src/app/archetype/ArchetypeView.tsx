@@ -108,7 +108,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
           Couldn&apos;t generate your archetype
         </h1>
         <p className="text-sm" style={{ color: "var(--text-muted)", maxWidth: 440, marginBottom: "var(--sp-3)" }}>{error}</p>
-        <button onClick={runAnalysis} className="btn btn-primary text-sm" style={{ padding: "10px var(--sp-3)" }}>
+        <button onClick={runAnalysis} className="btn btn-primary">
           Try again
         </button>
       </div>
@@ -127,67 +127,50 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Canvas cannot read CSS variables: colours come from the palette.
-    // Black field with gold accents, like the recap card.
+    // Canvas cannot read CSS variables: colours come from the palette, and
+    // the faces are the page's own, read from the root font variables.
+    const root = getComputedStyle(document.documentElement);
+    const SERIF = `${root.getPropertyValue("--font-newsreader").trim() || "Georgia"}, Georgia, serif`;
+    const SANS = `${root.getPropertyValue("--font-public-sans").trim() || "system-ui"}, system-ui, sans-serif`;
     ctx.fillStyle = PALETTE.black;
     ctx.fillRect(0, 0, w, h);
 
-    // Dot grid
-    ctx.fillStyle = PALETTE.stone700;
-    for (let x = 14; x < w; x += 32) {
-      for (let y = 14; y < h; y += 32) {
-        ctx.beginPath();
-        ctx.arc(x, y, 1, 0, 2 * Math.PI);
-        ctx.fill();
-      }
-    }
-
-    // Top label
-    ctx.fillStyle = PALETTE.gold300;
-    ctx.font = "bold 22px -apple-system, system-ui, sans-serif";
-    ctx.textAlign = "center";
-    ctx.fillText("MY PRE-MED ARCHETYPE", w / 2, 130);
-
-    // Archetype color accent line
-    ctx.strokeStyle = PALETTE.gold500;
-    ctx.lineWidth = 4;
-    ctx.beginPath();
-    ctx.moveTo(w / 2 - 60, 165);
-    ctx.lineTo(w / 2 + 60, 165);
-    ctx.stroke();
-
-    // Archetype name
-    ctx.fillStyle = PALETTE.cream;
-    ctx.font = "bold 76px -apple-system, system-ui, sans-serif";
-    ctx.fillText(archetype.name, w / 2, 290);
-
-    // Tagline
+    // Left-aligned, like the page it comes from.
+    const left = 96;
+    ctx.textAlign = "left";
     ctx.fillStyle = PALETTE.creamMuted;
-    ctx.font = "italic 36px -apple-system, system-ui, sans-serif";
-    ctx.fillText(`"${archetype.tagline}"`, w / 2, 365);
+    ctx.font = `400 28px ${SANS}`;
+    ctx.fillText("My pre-med archetype", left, 120);
+
+    ctx.fillStyle = PALETTE.cream;
+    ctx.font = `500 84px ${SERIF}`;
+    ctx.fillText(archetype.name, left, 230);
+
+    ctx.fillStyle = PALETTE.creamMuted;
+    ctx.font = `italic 400 36px ${SERIF}`;
+    ctx.fillText(archetype.tagline, left, 296);
 
     // Description (wrap)
     ctx.fillStyle = PALETTE.cream;
-    ctx.font = "28px -apple-system, system-ui, sans-serif";
+    ctx.font = `400 28px ${SANS}`;
     const words = archetype.description.split(" ");
     let line = "";
-    let y = 450;
+    let y = 390;
     for (const word of words) {
       const test = line + word + " ";
-      if (ctx.measureText(test).width > 900) {
-        ctx.fillText(line.trim(), w / 2, y);
+      if (ctx.measureText(test).width > 960) {
+        ctx.fillText(line.trim(), left, y);
         line = word + " ";
-        y += 40;
+        y += 42;
       } else {
         line = test;
       }
     }
-    if (line) ctx.fillText(line.trim(), w / 2, y);
+    if (line) ctx.fillText(line.trim(), left, y);
 
-    // ClinicLog brand
-    ctx.fillStyle = PALETTE.gold300;
-    ctx.font = "bold 24px -apple-system, system-ui, sans-serif";
-    ctx.fillText("ClinicLog MD · cliniclogmd.com", w / 2, h - 50);
+    ctx.fillStyle = PALETTE.creamMuted;
+    ctx.font = `400 24px ${SANS}`;
+    ctx.fillText("ClinicLog MD, cliniclogmd.com", left, h - 64);
 
     // Download
     canvas.toBlob((blob) => {

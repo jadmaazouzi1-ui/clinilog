@@ -41,6 +41,10 @@
   --font-mono: var(--font-public-sans), system-ui, sans-serif;
 }
 
+/* Everything below sits in the components layer, so a Tailwind utility on
+   the same element (hidden, md:inline-flex, w-full) still wins. */
+@layer components {
+
 /* ── Base ─────────────────────────────────────────────────────────────── */
 html {
   background-color: var(--background);
@@ -666,4 +670,6 @@ ul.legal-prose { list-style: disc; padding-left: 1.25rem; margin-bottom: var(--s
   table, tr, td, th, li { break-inside: avoid; }
   h1, h2, h3, .section-title { break-after: avoid; }
   @page { margin: 18mm 16mm; }
+}
+
 }

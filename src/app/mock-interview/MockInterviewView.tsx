@@ -19,7 +19,7 @@ function Block({ title, items }: { title: string; tab?: number; items: Q[] }) {
           >
             <p className="text-sm" style={{ color: "var(--text)", lineHeight: 1.6 }}>
               <span className="tnum" style={{ color: "var(--text-muted)", marginRight: 8 }}>
-                {String(i + 1).padStart(2, "0")}
+                {String(i + 1)}
               </span>
               {q.question}
             </p>
@@ -66,7 +66,7 @@ export default function MockInterviewView({ ready }: { ready: boolean }) {
         <button
           onClick={generate}
           disabled={loading || !ready}
-          className="btn btn-primary text-sm"
+          className="btn btn-primary"
           style={{ padding: "10px var(--sp-3)", opacity: loading || !ready ? 0.6 : 1, cursor: ready ? "pointer" : "not-allowed" }}
         >
           {questions ? "Regenerate" : "Generate questions"}

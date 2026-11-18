@@ -34,7 +34,7 @@ export function ReminderSettings({ initial }: { initial: Prefs | null }) {
 
   return (
     <div id="reminders">
-      <p className="section-title">Reminders</p>
+      <h3 className="text-base" style={{ marginBottom: "var(--sp-1)" }}>Reminders</h3>
       <label className="flex items-start gap-3 text-sm" style={{ color: "var(--text)", cursor: "pointer" }}>
         <input type="checkbox" checked={prefs.reminders_enabled} onChange={(e) => save({ reminders_enabled: e.target.checked })} style={{ marginTop: 3 }} />
         <span>
@@ -93,7 +93,7 @@ export function BreakSettings({ initial }: { initial: Break[] }) {
 
   return (
     <div style={{ marginTop: "var(--sp-4)" }}>
-      <p className="section-title">Breaks</p>
+      <h3 className="text-base" style={{ marginBottom: "var(--sp-1)" }}>Breaks</h3>
       <p className="text-xs" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-2)" }}>
         Save time away, such as a summer, study abroad or leave. Gap checks and reminders ignore these dates. Up to 20.
       </p>

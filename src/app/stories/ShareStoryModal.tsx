@@ -42,66 +42,66 @@ export default function ShareStoryModal() {
         <form action={submitStory} className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium mb-1.5" style={{ color: "var(--text)" }}>
-                First Name <span style={{ color: "var(--text)" }}>*</span>
+              <label htmlFor="name-input" className="label">
+                First name <span style={{ color: "var(--text)" }}>*</span>
               </label>
-              <input
+              <input id="name-input"
                 name="name"
                 type="text"
                 required
                 placeholder="Jane"
-                className="field w-full px-3.5 py-2.5 rounded-xl text-sm"
+                className="field"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1.5" style={{ color: "var(--text)" }}>
-                Undergrad School
+              <label htmlFor="undergrad-school-input" className="label">
+                Undergrad school
               </label>
-              <input
+              <input id="undergrad-school-input"
                 name="undergrad_school"
                 type="text"
                 placeholder="UC Riverside"
-                className="field w-full px-3.5 py-2.5 rounded-xl text-sm"
+                className="field"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1.5" style={{ color: "var(--text)" }}>
-              Medical School Accepted To <span style={{ color: "var(--text)" }}>*</span>
+            <label htmlFor="medical-school-input" className="label">
+              Medical school accepted to <span style={{ color: "var(--text)" }}>*</span>
             </label>
-            <input
+            <input id="medical-school-input"
               name="medical_school"
               type="text"
               required
               placeholder="UCLA David Geffen School of Medicine"
-              className="field w-full px-3.5 py-2.5 rounded-xl text-sm"
+              className="field"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1.5" style={{ color: "var(--text)" }}>
-              Your First-Gen Background <span style={{ color: "var(--text)" }}>*</span>
+            <label htmlFor="background-input" className="label">
+              Your first-generation background <span style={{ color: "var(--text)" }}>*</span>
             </label>
-            <input
+            <input id="background-input"
               name="background"
               type="text"
               required
               placeholder="e.g. Parents immigrated from Mexico, first in family to attend college"
-              className="field w-full px-3.5 py-2.5 rounded-xl text-sm"
+              className="field"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1.5" style={{ color: "var(--text)" }}>
-              Your Story <span style={{ color: "var(--text)" }}>*</span>
+            <label htmlFor="quote-input" className="label">
+              Your story <span style={{ color: "var(--text)" }}>*</span>
             </label>
-            <textarea
+            <textarea id="quote-input"
               name="quote"
               required
               rows={4}
               placeholder="2 or 3 sentences: what you did and what you wish you had known"
-              className="field w-full px-3.5 py-2.5 rounded-xl text-sm resize-none"
+              className="field"
             />
           </div>
 

@@ -121,7 +121,7 @@ export default function HelpCenter() {
           <p className="section-title">Replay a tour</p>
           {GROUPS.map((g) => (
             <div key={g} style={{ marginBottom: "var(--sp-2)" }}>
-              <p className="meta" style={{ marginBottom: 4 }}>{g.toUpperCase()}</p>
+              <p className="meta" style={{ marginBottom: 4 }}>{g}</p>
               <ul>
                 {TOUR_MODULES.filter((m) => m.group === g).map((m) => {
                   const done = rowFor(rows, m.id)?.status === "completed";
@@ -145,10 +145,10 @@ export default function HelpCenter() {
                         <span className="tnum text-xs" style={{ color: done ? "var(--success)" : "var(--text-muted)" }}>
                           {done ? (
                             <>
-                              <span aria-hidden="true">&#10003;</span> DONE
+                              Done
                             </>
                           ) : (
-                            `${m.steps.length} STEP${m.steps.length === 1 ? "" : "S"}`
+                            `${m.steps.length} ${m.steps.length === 1 ? "step" : "steps"}`
                           )}
                         </span>
                       </button>
@@ -237,7 +237,7 @@ function FeedbackForm() {
       <label htmlFor="fb-message" className="sr-only-live">Message</label>
       <textarea
         id="fb-message"
-        className="field resize-none"
+        className="field"
         rows={4}
         maxLength={1000}
         value={message}

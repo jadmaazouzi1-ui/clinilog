@@ -121,8 +121,8 @@ export default async function FeeTrackerPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Name */}
               <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text)" }}>
-                  Program / Waiver Name <span style={{ color: "var(--text)" }}>*</span>
+                <label htmlFor="name" className="label">
+                  Program / waiver name <span style={{ color: "var(--text)" }}>*</span>
                 </label>
                 <input
                   id="name"
@@ -130,14 +130,14 @@ export default async function FeeTrackerPage() {
                   type="text"
                   required
                   placeholder="e.g. AAMC Fee Assistance"
-                  className="field w-full px-3.5 py-2.5 rounded-xl text-sm"
+                  className="field"
                 />
               </div>
 
               {/* Amount Saved */}
               <div>
-                <label htmlFor="amount_saved" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text)" }}>
-                  Amount Saved ($){" "}
+                <label htmlFor="amount_saved" className="label">
+                  Amount saved ($){" "}
                   <span className="font-normal" style={{ color: "var(--text-muted)" }}>(optional)</span>
                 </label>
                 <input
@@ -147,19 +147,19 @@ export default async function FeeTrackerPage() {
                   step="0.01"
                   min="0"
                   placeholder="e.g. 2000.00"
-                  className="field w-full px-3.5 py-2.5 rounded-xl text-sm"
+                  className="field"
                 />
               </div>
 
               {/* Status */}
               <div>
-                <label htmlFor="status" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text)" }}>
+                <label htmlFor="status" className="label">
                   Status
                 </label>
                 <select
                   id="status"
                   name="status"
-                  className="field w-full px-3.5 py-2.5 rounded-xl text-sm"
+                  className="field"
                   defaultValue="Not Applied"
                 >
                   <option value="Not Applied">Not Applied</option>
@@ -171,7 +171,7 @@ export default async function FeeTrackerPage() {
 
               {/* Deadline */}
               <div>
-                <label htmlFor="deadline" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text)" }}>
+                <label htmlFor="deadline" className="label">
                   Deadline{" "}
                   <span className="font-normal" style={{ color: "var(--text-muted)" }}>(optional)</span>
                 </label>
@@ -179,14 +179,14 @@ export default async function FeeTrackerPage() {
                   id="deadline"
                   name="deadline"
                   type="date"
-                  className="field w-full px-3.5 py-2.5 rounded-xl text-sm"
+                  className="field"
                 />
               </div>
             </div>
 
             {/* Notes */}
             <div>
-              <label htmlFor="notes" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text)" }}>
+              <label htmlFor="notes" className="label">
                 Notes{" "}
                 <span className="font-normal" style={{ color: "var(--text-muted)" }}>(optional)</span>
               </label>
@@ -195,7 +195,7 @@ export default async function FeeTrackerPage() {
                 name="notes"
                 rows={3}
                 placeholder="Any notes about this waiver..."
-                className="field w-full px-3.5 py-2.5 rounded-xl text-sm resize-none"
+                className="field"
               />
             </div>
 
@@ -276,7 +276,7 @@ export default async function FeeTrackerPage() {
                         <select
                           name="status"
                           defaultValue={waiver.status}
-                          className="field text-xs px-2.5 py-1.5 rounded-lg"
+                          className="field"
                           style={{ minWidth: "110px" }}
                         >
                           <option value="Not Applied">Not Applied</option>

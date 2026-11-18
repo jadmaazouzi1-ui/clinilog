@@ -208,7 +208,7 @@ export default function Spotlight() {
         style={{ top: cardTop, left: cardLeft }}
       >
         <p className="meta" style={{ marginBottom: 6 }}>
-          {mod.title.toUpperCase()} / STEP {String(index + 1).padStart(2, "0")} OF {String(total).padStart(2, "0")}
+          {mod.title}, step {index + 1} of {total}
         </p>
         <h2 id="tour-title" className="text-sm font-bold" style={{ color: "var(--text)", marginBottom: 4 }}>
           {step.title}

@@ -94,16 +94,16 @@ export async function GET(request: Request) {
     const hours = Math.round(totals.weekHours * 10) / 10;
     const encouragement =
       totals.weekEntries >= 3
-        ? "A steady week. Consistency over months is what an admissions reader actually notices."
-        : "Logged while it was fresh, which is the hard part. Keep the habit.";
+        ? "If any of these are missing a description, this week is the easiest time to write one."
+        : "Logged while it was fresh, which is the hard part.";
 
     const html = emailShell({
-      eyebrow: "WEEKLY SUMMARY",
+      eyebrow: "Weekly summary",
       title: "Your week in hours",
       body: [
-        `<table role="presentation" style="width:100%;border-collapse:collapse;margin-bottom:16px"><tr><td style="padding:8px 0;border-bottom:1px solid ${EMAIL.hairline};font-size:13px;font-weight:700;letter-spacing:.08em;color:${EMAIL.muted}">HOURS LOGGED</td><td style="padding:8px 0;border-bottom:1px solid ${EMAIL.hairline};text-align:right;font-family:ui-monospace,Menlo,monospace;font-size:21px;font-weight:600;color:${EMAIL.text}">${hours}</td></tr><tr><td style="padding:8px 0;border-bottom:1px solid ${EMAIL.hairline};font-size:13px;font-weight:700;letter-spacing:.08em;color:${EMAIL.muted}">ENTRIES ADDED</td><td style="padding:8px 0;border-bottom:1px solid ${EMAIL.hairline};text-align:right;font-family:ui-monospace,Menlo,monospace;font-size:21px;font-weight:600;color:${EMAIL.text}">${String(totals.weekEntries).padStart(2, "0")}</td></tr></table>`,
+        `<table role="presentation" style="width:100%;border-collapse:collapse;margin-bottom:16px"><tr><td class="cl-muted" style="padding:8px 0;border-bottom:1px solid ${EMAIL.hairline};font-size:15px;color:${EMAIL.muted}">Hours logged</td><td style="padding:8px 0;border-bottom:1px solid ${EMAIL.hairline};text-align:right;font-size:21px;font-weight:600;font-variant-numeric:tabular-nums;color:${EMAIL.text}">${hours}</td></tr><tr><td class="cl-muted" style="padding:8px 0;border-bottom:1px solid ${EMAIL.hairline};font-size:15px;color:${EMAIL.muted}">Entries added</td><td style="padding:8px 0;border-bottom:1px solid ${EMAIL.hairline};text-align:right;font-size:21px;font-weight:600;font-variant-numeric:tabular-nums;color:${EMAIL.text}">${totals.weekEntries}</td></tr></table>`,
         para(encouragement, `color:${EMAIL.muted};font-size:15px`),
-        button("https://www.cliniclogmd.com/dashboard", "Open your dashboard"),
+        button("https://www.cliniclogmd.com/dashboard", "Open Overview"),
       ].join("\n"),
       footer: `You receive this because you logged hours in the last 30 days. It stops automatically if you go quiet. <a href="${unsub}" style="${EMAIL_STYLE.link}">Unsubscribe</a>`,
     });

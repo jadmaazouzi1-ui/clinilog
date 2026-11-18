@@ -56,7 +56,7 @@ export default function InterviewsView({
               <div key={status} className="card">
                 <p className="stat-label">{status}</p>
                 <span className="stat-value" style={{ color: STATUS_COLOR[status] }}>
-                  {String(n).padStart(2, "0")}
+                  {String(n)}
                 </span>
               </div>
             ))}
@@ -69,7 +69,7 @@ export default function InterviewsView({
         <p className="section-title flex items-center gap-2" style={{ margin: 0, border: 0, padding: 0 }}>
           Invites and outcomes
         </p>
-        <button onClick={() => setAdding(!adding)} className="btn btn-primary text-sm" style={{ padding: "8px var(--sp-2)" }}>
+        <button onClick={() => setAdding(!adding)} className="btn btn-primary">
           {adding ? "Cancel" : "Log an invite"}
         </button>
       </div>
@@ -82,31 +82,31 @@ export default function InterviewsView({
         >
           <div className="grid grid-cols-1 md:grid-cols-4" style={{ gap: "var(--sp-2)", marginBottom: "var(--sp-2)" }}>
             <div className="md:col-span-2">
-              <label className="label">School</label>
-              <input name="school_name" required placeholder="School name" className="field" />
+              <label htmlFor="school-name-input" className="label">School</label>
+              <input id="school-name-input" name="school_name" required placeholder="School name" className="field" />
             </div>
             <div>
-              <label className="label">Format</label>
-              <select name="format" className="field">
+              <label htmlFor="format-input" className="label">Format</label>
+              <select id="format-input" name="format" className="field">
                 {INTERVIEW_FORMATS.map((f) => <option key={f} value={f}>{f}</option>)}
               </select>
             </div>
             <div>
-              <label className="label">Date</label>
-              <input name="interview_date" type="date" className="field" />
+              <label htmlFor="interview-date-input" className="label">Date</label>
+              <input id="interview-date-input" name="interview_date" type="date" className="field" />
             </div>
           </div>
           <div style={{ marginBottom: "var(--sp-2)" }}>
-            <label className="label">Status</label>
-            <select name="status" className="field">
+            <label htmlFor="status-input" className="label">Status</label>
+            <select id="status-input" name="status" className="field">
               {INTERVIEW_STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
             </select>
           </div>
           <div style={{ marginBottom: "var(--sp-2)" }}>
-            <label className="label">Reflection</label>
-            <textarea name="reflection" rows={3} placeholder="Post-interview notes: what was asked, how it went" className="field resize-none" />
+            <label htmlFor="reflection-input" className="label">Reflection</label>
+            <textarea id="reflection-input" name="reflection" rows={3} placeholder="Post-interview notes: what was asked, how it went" className="field" />
           </div>
-          <button type="submit" className="btn btn-primary text-sm" style={{ padding: "8px var(--sp-3)" }}>Save</button>
+          <button type="submit" className="btn btn-primary">Save</button>
         </form>
       )}
 
@@ -149,7 +149,7 @@ export default function InterviewsView({
                     >
                       {INTERVIEW_STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
                     </select>
-                    <button onClick={() => setEditing(editing === iv.id ? null : iv.id)} className="btn btn-secondary text-xs font-semibold" style={{ padding: "5px var(--sp-1)" }}>
+                    <button onClick={() => setEditing(editing === iv.id ? null : iv.id)} className="btn btn-secondary">
                       {editing === iv.id ? "Close" : "Edit"}
                     </button>
                   </div>
@@ -179,14 +179,14 @@ export default function InterviewsView({
                     )}
                     <form action={addWaitlistUpdate.bind(null, iv.id)} className="flex items-end gap-2 flex-wrap">
                       <div style={{ width: 150 }}>
-                        <label className="label">Date</label>
-                        <input name="update_date" type="date" className="field" />
+                        <label htmlFor={`update-date-input-${iv.id}`} className="label">Date</label>
+                        <input id={`update-date-input-${iv.id}`} name="update_date" type="date" className="field" />
                       </div>
                       <div className="flex-1" style={{ minWidth: 200 }}>
-                        <label className="label">Update</label>
-                        <input name="note" required placeholder="Moved to active waitlist, letter of intent sent" className="field" />
+                        <label htmlFor={`note-input-${iv.id}`} className="label">Update</label>
+                        <input id={`note-input-${iv.id}`} name="note" required placeholder="Moved to active waitlist, letter of intent sent" className="field" />
                       </div>
-                      <button type="submit" className="btn btn-secondary text-xs font-semibold" style={{ padding: "7px var(--sp-2)" }}>Add</button>
+                      <button type="submit" className="btn btn-secondary">Add</button>
                     </form>
                   </div>
                 )}
@@ -198,27 +198,27 @@ export default function InterviewsView({
                   >
                     <div className="grid grid-cols-1 md:grid-cols-4" style={{ gap: "var(--sp-2)", marginBottom: "var(--sp-2)" }}>
                       <div className="md:col-span-2">
-                        <label className="label">School</label>
-                        <input name="school_name" defaultValue={iv.school_name} required className="field" />
+                        <label htmlFor={`school-name-input-${iv.id}`} className="label">School</label>
+                        <input id={`school-name-input-${iv.id}`} name="school_name" defaultValue={iv.school_name} required className="field" />
                       </div>
                       <div>
-                        <label className="label">Format</label>
-                        <select name="format" defaultValue={iv.format} className="field">
+                        <label htmlFor={`format-input-${iv.id}`} className="label">Format</label>
+                        <select id={`format-input-${iv.id}`} name="format" defaultValue={iv.format} className="field">
                           {INTERVIEW_FORMATS.map((f) => <option key={f} value={f}>{f}</option>)}
                         </select>
                       </div>
                       <div>
-                        <label className="label">Date</label>
-                        <input name="interview_date" type="date" defaultValue={iv.interview_date ?? ""} className="field" />
+                        <label htmlFor={`interview-date-input-${iv.id}`} className="label">Date</label>
+                        <input id={`interview-date-input-${iv.id}`} name="interview_date" type="date" defaultValue={iv.interview_date ?? ""} className="field" />
                       </div>
                     </div>
                     <input type="hidden" name="status" value={iv.status} />
                     <div style={{ marginBottom: "var(--sp-2)" }}>
-                      <label className="label">Reflection</label>
-                      <textarea name="reflection" rows={4} defaultValue={iv.reflection ?? ""} className="field resize-none" />
+                      <label htmlFor={`reflection-input-${iv.id}`} className="label">Reflection</label>
+                      <textarea id={`reflection-input-${iv.id}`} name="reflection" rows={4} defaultValue={iv.reflection ?? ""} className="field" />
                     </div>
                     <div className="flex items-center gap-2">
-                      <button type="submit" className="btn btn-primary text-xs" style={{ padding: "7px var(--sp-2)" }}>Save</button>
+                      <button type="submit" className="btn btn-primary">Save</button>
                       <button
                         type="button"
                         onClick={() => deleteInterview(iv.id)}

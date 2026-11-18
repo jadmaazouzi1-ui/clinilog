@@ -27,7 +27,7 @@ export default function ReferralPanel({ code, count }: { code: string | null; co
         </div>
         <div className="datum">
           <span className="data-label">Signups referred</span>
-          <span className="datum-value tnum">{String(count).padStart(2, "0")}</span>
+          <span className="datum-value tnum">{String(count)}</span>
         </div>
       </div>
 
@@ -36,7 +36,7 @@ export default function ReferralPanel({ code, count }: { code: string | null; co
           <label htmlFor="referral-link" className="label">Your invite link</label>
           <input id="referral-link" readOnly value={link} className="field tnum" style={{ fontSize: "var(--text-xs)" }} />
         </div>
-        <button type="button" onClick={copy} className="btn btn-secondary text-xs font-semibold" style={{ padding: "7px var(--sp-2)" }}>
+        <button type="button" onClick={copy} className="btn btn-secondary">
           {copied ? "Copied" : "Copy"}
         </button>
       </div>
