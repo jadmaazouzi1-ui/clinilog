@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { RecordNo } from "@/components/MedicalIcons";
 
-export const metadata = { title: "Record not found | ClinicLog MD" };
 
 export default function NotFound() {
   return (

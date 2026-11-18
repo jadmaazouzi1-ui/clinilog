@@ -6,7 +6,6 @@ import ChangelogNote from "@/components/tour/ChangelogNote";
 import TourRoot from "@/components/tour/TourRoot";
 
 export const metadata = {
-  title: "Changelog | ClinicLog MD",
   description: "What has shipped in ClinicLog MD, newest first.",
 };
 

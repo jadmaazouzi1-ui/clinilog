@@ -4,7 +4,6 @@ import AppShell from "@/components/AppShell";
 import ImportView from "./ImportView";
 
 export const metadata = {
-  title: "Import CSV | ClinicLog MD",
   description: "Import experiences from a spreadsheet, with a preview before anything is saved.",
 };
 

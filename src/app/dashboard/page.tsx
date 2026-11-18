@@ -47,7 +47,6 @@ function greeting(): string {
 }
 
 export const metadata = {
-  title: "Overview | ClinicLog MD",
   description: "Your logged hours, entries and progress toward common AMCAS benchmarks.",
 };
 

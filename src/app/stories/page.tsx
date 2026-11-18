@@ -5,7 +5,6 @@ import AppShell from "@/components/AppShell";
 import ShareStoryModal from "./ShareStoryModal";
 
 export const metadata = {
-  title: "First-gen stories | ClinicLog MD",
   description: "Accounts from first-generation students accepted to medical school, shared with permission.",
 };
 

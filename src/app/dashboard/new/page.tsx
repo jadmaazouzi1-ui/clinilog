@@ -15,7 +15,6 @@ const TYPES = [
 ];
 
 export const metadata = {
-  title: "Log new hours | ClinicLog MD",
   description: "Add an experience with dates, hours, a category and a description.",
 };
 

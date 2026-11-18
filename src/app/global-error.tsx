@@ -9,6 +9,9 @@ import { PALETTE as P } from "@/lib/palette";
 export default function GlobalError({ reset }: { error: Error & { digest?: string }; reset: () => void }) {
   return (
     <html lang="en">
+      <head>
+        <title>ClinicLog MD</title>
+      </head>
       <body style={{ margin: 0, background: P.paper, color: P.ink, fontFamily: "system-ui, -apple-system, sans-serif" }}>
         <div style={{ maxWidth: 440, margin: "64px auto 0", background: P.black, borderBottom: `3px solid ${P.gold500}`, padding: "14px 16px", color: P.cream, fontWeight: 700, fontSize: 14, letterSpacing: ".06em" }}>
           CLINICLOG MD

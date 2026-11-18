@@ -2,7 +2,6 @@ import Link from "next/link";
 import Logo from "@/components/brand/Logo";
 
 export const metadata = {
-  title: "Confirm your email | ClinicLog MD",
   description: "Check your inbox for the confirmation link.",
 };
 

@@ -4,7 +4,6 @@ import { createClient } from "@/lib/supabase/server";
 import AppShell from "@/components/AppShell";
 import MockInterviewView from "./MockInterviewView";
 
-export const metadata = { title: "Mock Interview | ClinicLog MD" };
 
 export default async function MockInterviewPage() {
   const supabase = await createClient();

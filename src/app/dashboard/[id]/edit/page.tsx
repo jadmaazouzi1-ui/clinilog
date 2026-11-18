@@ -6,7 +6,6 @@ import { Experience } from "@/lib/types";
 import AppShell from "@/components/AppShell";
 
 export const metadata = {
-  title: "Edit experience | ClinicLog MD",
   description: "Change the dates, hours or description of a logged experience.",
 };
 

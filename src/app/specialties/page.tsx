@@ -4,7 +4,6 @@ import AppShell from "@/components/AppShell";
 import SpecialtyExplorer from "./SpecialtyExplorer";
 
 export const metadata = {
-  title: "Specialties | ClinicLog MD",
   description: "Compare medical specialties by training length, typical pay and lifestyle.",
 };
 

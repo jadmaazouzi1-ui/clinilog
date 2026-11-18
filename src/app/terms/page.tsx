@@ -1,6 +1,5 @@
 import LegalPage from "@/components/LegalPage";
 
-export const metadata = { title: "Terms of Use | ClinicLog MD" };
 
 export default function TermsPage() {
   return (

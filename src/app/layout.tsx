@@ -21,8 +21,10 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.cliniclogmd.com"),
   title: "ClinicLog MD",
   description: "Log clinical hours for AMCAS and compare medical schools with your numbers. Built for Wake Forest pre-med students.",
-  openGraph: { siteName: "ClinicLog MD", type: "website" },
-  twitter: { card: "summary_large_image" },
+  // Every tab, shared link and installed icon reads "ClinicLog MD" and nothing
+  // else, so pages set no title of their own and there is no title template.
+  openGraph: { title: "ClinicLog MD", siteName: "ClinicLog MD", type: "website" },
+  twitter: { card: "summary_large_image", title: "ClinicLog MD" },
 };
 
 // Next.js 16 emits <meta name="viewport" content="..."> from this export.

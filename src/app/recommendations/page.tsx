@@ -4,7 +4,6 @@ import AppShell from "@/components/AppShell";
 import RecommendationsView from "./RecommendationsView";
 import { Recommendation } from "@/lib/appTypes";
 
-export const metadata = { title: "Letters of Recommendation | ClinicLog MD" };
 
 export default async function RecommendationsPage() {
   const supabase = await createClient();

@@ -1,6 +1,5 @@
 import LegalPage from "@/components/LegalPage";
 
-export const metadata = { title: "Privacy Policy | ClinicLog MD" };
 
 export default function PrivacyPage() {
   return (

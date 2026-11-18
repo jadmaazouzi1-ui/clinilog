@@ -13,7 +13,6 @@ import { ensureReferralCode, referralCount } from "@/lib/referral";
 import { Experience } from "@/lib/types";
 
 export const metadata = {
-  title: "Profile | ClinicLog MD",
   description: "Your profile, graduation year, referral link, wallet card and data export.",
 };
 

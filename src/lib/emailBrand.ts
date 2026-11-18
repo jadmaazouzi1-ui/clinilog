@@ -53,8 +53,8 @@ ${body}
 }
 
 /** A small standalone page (the unsubscribe confirmation) in the same style. */
-export function brandPage(title: string, body: string): string {
-  return `<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>${esc(title)} | ClinicLog MD</title></head><body style="margin:0;background:${P.paper};color:${EMAIL.text};font-family:${FONT}"><div style="max-width:440px;margin:64px auto 0;background:${P.black};padding:14px 16px;border-bottom:3px solid ${P.gold500};color:${P.cream};font-weight:700;font-size:14px;letter-spacing:.06em">CLINICLOG MD</div><div style="max-width:440px;margin:0 auto 64px;padding:24px;background:${P.white};border:2px solid ${P.black};border-top:0">${body}</div></body></html>`;
+export function brandPage(body: string): string {
+  return `<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>ClinicLog MD</title></head><body style="margin:0;background:${P.paper};color:${EMAIL.text};font-family:${FONT}"><div style="max-width:440px;margin:64px auto 0;background:${P.black};padding:14px 16px;border-bottom:3px solid ${P.gold500};color:${P.cream};font-weight:700;font-size:14px;letter-spacing:.06em">CLINICLOG MD</div><div style="max-width:440px;margin:0 auto 64px;padding:24px;background:${P.white};border:2px solid ${P.black};border-top:0">${body}</div></body></html>`;
 }
 
 export const EMAIL_STYLE = { muted: `color:${EMAIL.muted}`, link: `color:${EMAIL.link};font-weight:600` };

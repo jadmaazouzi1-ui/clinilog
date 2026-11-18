@@ -37,7 +37,6 @@ function formatDeadline(dateStr: string | null) {
 }
 
 export const metadata = {
-  title: "Fee tracker | ClinicLog MD",
   description: "Add up primary, secondary and other application fees.",
 };
 

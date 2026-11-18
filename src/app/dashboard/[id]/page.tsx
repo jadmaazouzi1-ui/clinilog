@@ -16,7 +16,6 @@ const TYPE_LABELS: Record<ExperienceType, string> = {
 };
 
 export const metadata = {
-  title: "Experience | ClinicLog MD",
   description: "One logged experience and its details.",
 };
 

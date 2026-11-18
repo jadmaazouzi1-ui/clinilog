@@ -4,7 +4,6 @@ import AppShell from "@/components/AppShell";
 import ApplicationsView from "./ApplicationsView";
 import { SchoolApplication } from "@/lib/appTypes";
 
-export const metadata = { title: "My Applications | ClinicLog MD" };
 
 export default async function ApplicationsPage() {
   const supabase = await createClient();

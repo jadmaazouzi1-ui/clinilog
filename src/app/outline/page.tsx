@@ -4,7 +4,6 @@ import { createClient } from "@/lib/supabase/server";
 import AppShell from "@/components/AppShell";
 import OutlineView from "./OutlineView";
 
-export const metadata = { title: "Statement Outline | ClinicLog MD" };
 
 export default async function OutlinePage() {
   const supabase = await createClient();

@@ -7,7 +7,6 @@ import { checkAuthRateLimit, clientIpFrom } from "@/lib/rateLimit";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata = {
-  title: "Sign in | ClinicLog MD",
   description: "Sign in to ClinicLog MD.",
 };
 

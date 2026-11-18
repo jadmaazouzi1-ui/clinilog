@@ -4,7 +4,6 @@ import AppShell from "@/components/AppShell";
 import InterviewsView from "./InterviewsView";
 import { Interview, WaitlistUpdate } from "@/lib/appTypes";
 
-export const metadata = { title: "Interview Log | ClinicLog MD" };
 
 export default async function InterviewsPage() {
   const supabase = await createClient();

@@ -6,7 +6,6 @@ import { markSvg } from "@/lib/logo";
 import { PALETTE as P } from "@/lib/palette";
 
 export const metadata = {
-  title: "Embeddable badge | ClinicLog MD",
   description: "Copy a small badge linking to ClinicLog MD.",
 };
 

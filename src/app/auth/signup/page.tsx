@@ -8,7 +8,6 @@ import { REFERRAL_COOKIE } from "@/lib/referral";
 import { isAllowedSignupEmail } from "@/lib/allowedEmail";
 
 export const metadata = {
-  title: "Create account | ClinicLog MD",
   description: "Create a ClinicLog MD account with your @wfu.edu email.",
 };
 

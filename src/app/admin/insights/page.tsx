@@ -5,7 +5,6 @@ import { formatMedicalDate } from "@/lib/formatMedical";
 import { EkgDivider, RecordNo, TabIndex } from "@/components/MedicalIcons";
 import SignupsChart from "./SignupsChart";
 
-export const metadata = { title: "Insights | ClinicLog MD" };
 
 /** The single account permitted to view platform analytics. */
 const ADMIN_EMAIL = "jadmaazouzi1@gmail.com";

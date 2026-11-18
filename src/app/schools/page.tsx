@@ -5,7 +5,6 @@ import SchoolList from "./SchoolList";
 import AppShell from "@/components/AppShell";
 
 export const metadata = {
-  title: "Schools | ClinicLog MD",
   description: "Compare medical schools by approximate average GPA and MCAT, mission and state.",
 };
 

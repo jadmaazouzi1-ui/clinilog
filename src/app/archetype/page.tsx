@@ -14,7 +14,6 @@ import ArchetypeView from "./ArchetypeView";
 import { ArchetypeAnalysis } from "@/lib/archetypes";
 
 export const metadata = {
-  title: "Archetype | ClinicLog MD",
   description: "The pattern in your logged experiences, with schools to research. AI assisted.",
 };
 

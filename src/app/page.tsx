@@ -17,7 +17,6 @@ const archivo = Archivo({
 });
 
 export const metadata = {
-  title: "ClinicLog MD | Pre-med hours tracker",
   description:
     "Log clinical hours, shadowing, research and volunteering, compare them to common AMCAS benchmarks, and find medical schools that fit your GPA and MCAT.",
 };

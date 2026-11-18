@@ -16,7 +16,6 @@ const DOES_NOT = [
 ];
 
 export const metadata = {
-  title: "About | ClinicLog MD",
   description: "What ClinicLog MD does, what it does not do, and who runs it.",
 };
 

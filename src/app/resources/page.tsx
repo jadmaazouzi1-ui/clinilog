@@ -225,7 +225,6 @@ const CATEGORIES = [
 ];
 
 export const metadata = {
-  title: "Resources | ClinicLog MD",
   description: "Free MCAT prep, fee assistance, scholarships and pipeline programs for pre-meds.",
 };
 

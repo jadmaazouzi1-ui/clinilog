@@ -38,7 +38,7 @@ for (const path of ["/about", "/terms", "/privacy", "/auth/login", "/auth/signup
 
 test("title and description match the brief", async ({ request }) => {
   const html = await (await request.get("/")).text();
-  expect(html).toContain("<title>ClinicLog MD | Pre-med hours tracker</title>");
+  expect(html).toContain("<title>ClinicLog MD</title>");
   expect(html).toMatch(/<meta name="description" content="Log clinical hours, shadowing, research and volunteering/);
   expect(html).toMatch(/<meta property="og:image"/);
 });

@@ -5,7 +5,6 @@ import GapYearView from "./GapYearView";
 import { GapYearData } from "./actions";
 
 export const metadata = {
-  title: "Gap year planner | ClinicLog MD",
   description: "Plan the time between college and medical school.",
 };
 
