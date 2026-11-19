@@ -26,7 +26,7 @@ export default function PublicPage({ children }: { children: React.ReactNode }) 
         <div className="flex flex-wrap items-center justify-between gap-3 text-xs" style={{ maxWidth: 1120, margin: "0 auto", padding: "var(--sp-3)", color: "var(--text-muted)" }}>
           <p>{AFFILIATION_NOTE}</p>
           <nav aria-label="Footer" className="flex flex-wrap gap-4">
-            {[["About", "/about"], ["Privacy", "/privacy"], ["Terms", "/terms"], ["Changelog", "/changelog"]].map(([label, href]) => (
+            {[["About", "/about"], ["Privacy", "/privacy"], ["Terms", "/terms"], ["Changelog", "/changelog"], ["Data sources", "/data-sources"]].map(([label, href]) => (
               <Link key={href} href={href} className="inline-flex items-center" style={{ minHeight: 44, color: "var(--text-muted)" }}>{label}</Link>
             ))}
           </nav>

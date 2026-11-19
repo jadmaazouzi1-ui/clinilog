@@ -85,7 +85,6 @@ export const TOUR_MODULES: TourModule[] = [
       { page: "/archetype", target: "archetype-locked", title: "Opens at three", body: "Your archetype is available once you have logged 3 experiences. Until then this page shows how many you have." },
       { page: "/archetype", target: "archetype-result", title: "How it is made", body: "AI reads your entries and picks the profile that fits them best. It reflects only what you have logged, so it changes as you add more." },
       { page: "/archetype", target: "archetype-regenerate", title: "Regenerate", body: "Run it again after logging new hours, up to 3 times a day." },
-      { page: "/archetype", target: "archetype-schools", title: "Matched schools", body: "Schools the AI suggests for your profile. Use them as a starting point for research, not a prediction of admission." },
     ],
   },
   {

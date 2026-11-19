@@ -25,7 +25,7 @@ const FACTS: { figure: string; label: string; body: string }[] = [
   {
     figure: String(SCHOOLS.length),
     label: "medical schools",
-    body: `${MD_SCHOOLS.length} MD, ${DO_SCHOOLS.length} DO and ${CARIBBEAN_SCHOOLS.length} Caribbean programs, filtered by your GPA, MCAT, home state and mission.`,
+    body: `${MD_SCHOOLS.length} MD, ${DO_SCHOOLS.length} DO and ${CARIBBEAN_SCHOOLS.length} Caribbean programs, with the GPA and MCAT figures each school publishes, filtered by your numbers and home state.`,
   },
   {
     figure: "1",
@@ -35,7 +35,7 @@ const FACTS: { figure: string; label: string; body: string }[] = [
   {
     figure: String(SPECIALTIES.length),
     label: "specialties",
-    body: "Residency length, patient contact and a short summary of each, for deciding who to shadow next.",
+    body: "How U.S. seniors who ranked each one first fared in the 2025 residency match, from NRMP data where it exists.",
   },
 ];
 
@@ -44,6 +44,7 @@ const FOOTER_LINKS: [string, string][] = [
   ["Privacy", "/privacy"],
   ["Terms", "/terms"],
   ["Changelog", "/changelog"],
+  ["Data sources", "/data-sources"],
 ];
 
 export default async function HomePage() {

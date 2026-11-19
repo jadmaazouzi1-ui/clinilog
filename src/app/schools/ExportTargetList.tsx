@@ -86,7 +86,8 @@ export default function ExportTargetList({
     doc.setFont(PDF_SANS, "normal");
     doc.setFontSize(8);
     doc.setTextColor(...LABEL);
-    doc.text("Averages are approximate. Check each school's own site before you apply. cliniclogmd.com", M, 756);
+    doc.text("Figures come from each school's own website, for the entering class shown. They can be out of date or wrong and are not", M, 744);
+    doc.text("an admissions prediction. Confirm everything with the school and the AAMC or AACOM. Sources: cliniclogmd.com/data-sources", M, 756);
 
     doc.save("target-school-list.pdf");
   }

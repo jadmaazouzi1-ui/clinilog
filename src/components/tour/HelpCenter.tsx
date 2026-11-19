@@ -224,6 +224,9 @@ function FeedbackForm() {
   return (
     <form onSubmit={submit}>
       <p className="section-title">Report a problem or suggest a feature</p>
+      <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: 8 }}>
+        A school or specialty figure looks wrong? Say which one here. <a href="/data-sources" className="link">See where the data comes from</a>.
+      </p>
       <div className="flex gap-4 flex-wrap text-sm" style={{ marginBottom: 8, color: "var(--text)" }}>
         <label className="flex items-center gap-2" style={{ cursor: "pointer" }}>
           <input type="radio" name="fb-kind" checked={kind === "problem"} onChange={() => setKind("problem")} />

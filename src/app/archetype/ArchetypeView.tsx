@@ -250,6 +250,10 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
               Generated {formatDate(generatedAt)}
             </p>
           )}
+          <p className="text-sm" style={{ color: "var(--text-muted)", marginTop: "var(--sp-1)" }}>
+            Written by an AI model from what you logged. It can be wrong, so check it before you use it.{" "}
+            <Link href="/data-sources" className="link">About this data</Link>
+          </p>
         </div>
       </div>
 
@@ -282,35 +286,13 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
         </ul>
       </Section>
 
-      {/* Ideal schools */}
-      <div data-tour="archetype-schools">
-      <Section title="Schools to research" color={color}>
-        <ul className="space-y-2">
-          {archetype.idealSchools.map((s, i) => (
-            <li
-              key={i}
-              className="flex items-center gap-3 rounded-xl px-3.5 py-2.5"
-              style={{ backgroundColor: "var(--surface)", border: "1px solid var(--border-strong)" }}
-            >
-              <span
-                className="text-xs font-bold flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center"
-                style={{ backgroundColor: "var(--surface-alt)", color: "var(--text)" }}
-              >
-                {i + 1}
-              </span>
-              <span className="text-sm font-medium" style={{ color: "var(--text)" }}>{s}</span>
-            </li>
-          ))}
-        </ul>
-        <Link
-          href="/schools"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold mt-4"
-          style={{ color: "var(--text)" }}
-        >
-          Browse all schools
-        </Link>
-      </Section>
-      </div>
+      {/* Where to look next: the app no longer suggests schools per
+          archetype, because those lists had no source. */}
+      <p className="text-sm" style={{ color: "var(--text-muted)" }}>
+        Looking for schools that fit? Compare published averages on the{" "}
+        <Link href="/schools" className="link">Schools page</Link>, and see{" "}
+        <Link href="/data-sources" className="link">where that data comes from</Link>.
+      </p>
 
       {/* Statement angle */}
       <Section title="A possible statement angle" color={color}>

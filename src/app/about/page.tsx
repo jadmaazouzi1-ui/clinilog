@@ -5,7 +5,7 @@ import PublicPage from "@/components/PublicPage";
 const DOES = [
   "Logs clinical, shadowing, research and volunteer hours with dates and descriptions, and totals them by category.",
   "Exports your entries as a PDF to copy into the AMCAS Work and Activities section.",
-  "Lists medical schools with approximate average GPA and MCAT so you can see which are close to your numbers.",
+  "Lists medical schools with the GPA and MCAT figures each school publishes, with the class year and a link to the source. See Data sources.",
   "Tracks applications, interviews, letter writers and fees.",
   "Offers AI help (Advisor, Outline, Mock Interview, Archetype). Each is labelled, and the output is a draft for you to check and rewrite.",
 ];

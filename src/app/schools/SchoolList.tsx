@@ -5,16 +5,15 @@ import { School, SCHOOLS, ALL_STATES, hasPublishedStats } from "@/lib/schools";
 import SchoolActions from "./SchoolActions";
 import ExportTargetList from "./ExportTargetList";
 import { EmptyState } from "@/components/ui";
+import DataNote, { SourceLine } from "@/components/DataNote";
+import { NOTES, SCHOOL_STATS, reviewedLabel } from "@/lib/data-sources";
 
 
-type MissionFilter = "Primary Care & Underserved" | "Research" | "Osteopathic" | "Community Health" | "Caribbean";
-
-const MISSION_FILTERS: { label: string; value: MissionFilter; dot: string }[] = [
-  { label: "Primary Care & Underserved", value: "Primary Care & Underserved", dot: "var(--data-2)" },
-  { label: "Research",                   value: "Research",                   dot: "var(--data-2)" },
-  { label: "Osteopathic (DO)",           value: "Osteopathic",                dot: "var(--data-2)" },
-  { label: "Community Health",           value: "Community Health",           dot: "var(--data-2)" },
-  { label: "Caribbean",                  value: "Caribbean",                  dot: "var(--data-2)" },
+type DegreeFilter = "MD" | "DO" | "Caribbean";
+const DEGREE_FILTERS: { label: string; value: DegreeFilter }[] = [
+  { label: "MD", value: "MD" },
+  { label: "DO", value: "DO" },
+  { label: "Caribbean and international", value: "Caribbean" },
 ];
 
 export default function SchoolList({
@@ -30,10 +29,9 @@ export default function SchoolList({
 }) {
   const [gpa, setGpa] = useState("");
   const [mcat, setMcat] = useState("");
-  const [missionFilters, setMissionFilters] = useState<Set<MissionFilter>>(new Set());
+  const [degreeFilters, setDegreeFilters] = useState<Set<DegreeFilter>>(new Set());
   const [stateFilter, setStateFilter] = useState("");
   const [homeState, setHomeState] = useState("");
-  const [inStatePrefFilter, setInStatePrefFilter] = useState<"" | "In-State Friendly" | "Out-of-State Friendly">("");
   const [matchOnly, setMatchOnly] = useState(false);
 
   // Clamped to the real ranges: a GPA of 40 or an MCAT of 9 would otherwise
@@ -54,8 +52,8 @@ export default function SchoolList({
     return Math.abs(school.avgGpa! - gpaNum) <= 0.3 && Math.abs(school.avgMcat! - mcatNum) <= 5;
   }
 
-  function toggleMission(value: MissionFilter) {
-    setMissionFilters((prev) => {
+  function toggleDegree(value: DegreeFilter) {
+    setDegreeFilters((prev) => {
       const next = new Set(prev);
       next.has(value) ? next.delete(value) : next.add(value);
       return next;
@@ -63,32 +61,18 @@ export default function SchoolList({
   }
 
   function clearAll() {
-    setMissionFilters(new Set());
+    setDegreeFilters(new Set());
     setStateFilter("");
     setHomeState("");
-    setInStatePrefFilter("");
     setMatchOnly(false);
   }
 
-  const hasActiveFilters = missionFilters.size > 0 || stateFilter !== "" || homeState !== "" || inStatePrefFilter !== "" || matchOnly;
+  const hasActiveFilters = degreeFilters.size > 0 || stateFilter !== "" || homeState !== "" || matchOnly;
 
   const filtered = SCHOOLS.filter((s) => {
-    const m = s.mission.toLowerCase();
-    if (missionFilters.size > 0) {
-      const missionMatch = [...missionFilters].some((f) => {
-        if (f === "Primary Care & Underserved") return m.includes("underserved") || m.includes("primary care");
-        if (f === "Research")         return m.includes("research");
-        if (f === "Osteopathic")      return m.includes("osteopathic");
-        if (f === "Community Health") return m.includes("community health");
-        if (f === "Caribbean")        return m.includes("caribbean");
-        return false;
-      });
-      if (!missionMatch) return false;
-    }
+    if (degreeFilters.size > 0 && !degreeFilters.has(s.degree)) return false;
     if (stateFilter && s.state !== stateFilter) return false;
-    if (inStatePrefFilter && s.inStatePref !== inStatePrefFilter) return false;
-    // home state: show only schools in the user's state that are in-state friendly
-    if (homeState && !(s.state === homeState && s.inStatePref === "In-State Friendly")) return false;
+    if (homeState && s.state !== homeState) return false;
     if (matchOnly && !isGoodMatch(s)) return false;
     return true;
   });
@@ -100,10 +84,15 @@ export default function SchoolList({
       <header style={{ marginBottom: "var(--sp-4)" }}>
         <h1 className="text-2xl">Schools</h1>
         <p className="text-sm measure" style={{ color: "var(--text-muted)", marginTop: "var(--sp-h)" }}>
-          {SCHOOLS.length} programs with their published applicant averages. Enter your numbers to see where you sit,
-          and check each school&apos;s own site before you apply: averages move every cycle.
+          {SCHOOLS.length} programs, with the GPA and MCAT figures each school publishes about its entering class.
+          Enter your numbers to see where you sit.
         </p>
       </header>
+
+      <DataNote text={NOTES.schools} />
+      <p className="meta" style={{ marginTop: "calc(var(--sp-3) * -1 + var(--sp-1))", marginBottom: "var(--sp-3)" }}>
+        Figures last checked {reviewedLabel(SCHOOL_STATS.lastReviewed)}. Older than the class entering in 2022, or not published, shows as Not reported.
+      </p>
 
       <section className="grid grid-cols-1 sm:grid-cols-3" style={{ gap: "var(--sp-2)", marginBottom: "var(--sp-2)" }} data-tour="schools-stats">
         <div>
@@ -125,24 +114,16 @@ export default function SchoolList({
         </div>
       </section>
       <p className="hint" style={{ marginBottom: "var(--sp-3)" }}>
-        A match means within 0.3 of the GPA average and 5 points of the MCAT average. Home state shows only that
-        state&apos;s schools that favour residents.
+        A match means within 0.3 of the school&apos;s GPA figure and 5 points of its MCAT figure, for schools that
+        publish both. Home state shows that state&apos;s schools; check each school for how it treats residents.
       </p>
 
       <div className="flex flex-wrap items-center gap-2" style={{ paddingBottom: "var(--sp-2)", borderBottom: "1px solid var(--border)", marginBottom: "var(--sp-2)" }} data-tour="schools-filters" role="group" aria-label="Filters">
-        {MISSION_FILTERS.map((f) => {
-          const active = missionFilters.has(f.value);
+        {DEGREE_FILTERS.map((f) => {
+          const active = degreeFilters.has(f.value);
           return (
-            <button key={f.value} type="button" onClick={() => toggleMission(f.value)} aria-pressed={active} className={toggle(active)}>
+            <button key={f.value} type="button" onClick={() => toggleDegree(f.value)} aria-pressed={active} className={toggle(active)}>
               {f.label}
-            </button>
-          );
-        })}
-        {(["In-State Friendly", "Out-of-State Friendly"] as const).map((pref) => {
-          const active = inStatePrefFilter === pref;
-          return (
-            <button key={pref} type="button" onClick={() => setInStatePrefFilter(active ? "" : pref)} aria-pressed={active} className={toggle(active)}>
-              {pref}
             </button>
           );
         })}
@@ -173,7 +154,7 @@ export default function SchoolList({
       {filtered.length === 0 ? (
         <div>
           <EmptyState title="No schools match every filter">
-            {`None of the ${SCHOOLS.length} programs fits all of these at once. Removing the state or a mission filter usually brings results back.`}
+            {`None of the ${SCHOOLS.length} programs fits all of these at once. Removing the state or program type filter usually brings results back.`}
           </EmptyState>
           <button type="button" onClick={clearAll} className="btn btn-secondary" style={{ marginTop: "var(--sp-2)" }}>
             Clear filters
@@ -183,13 +164,12 @@ export default function SchoolList({
         <ul style={{ borderTop: "1px solid var(--border-strong)" }}>
           <li className="hidden md:grid grid-cols-[minmax(0,1fr)_5rem_5rem_minmax(0,18rem)] gap-x-6 text-xs font-semibold" style={{ color: "var(--text-muted)", padding: "var(--sp-1) 0", borderBottom: "1px solid var(--border)" }} aria-hidden="true">
             <span>School</span>
-            <span className="text-right">Avg GPA</span>
-            <span className="text-right">Avg MCAT</span>
+            <span className="text-right">GPA</span>
+            <span className="text-right">MCAT</span>
             <span>Your list</span>
           </li>
           {filtered.map((school) => {
             const match = isGoodMatch(school);
-            const isInStateForUser = homeState !== "" && school.state === homeState && school.inStatePref === "In-State Friendly";
             return (
               <li
                 key={school.name}
@@ -199,22 +179,44 @@ export default function SchoolList({
                 <div className="col-span-2 md:col-span-1 min-w-0">
                   <h2 className="text-base" style={{ fontFamily: "var(--font-sans)" }}>{school.name}</h2>
                   <p className="text-xs" style={{ color: "var(--text-muted)", marginTop: 2 }}>
-                    {school.degree === "Caribbean" ? "Caribbean program" : `${school.degree} program`} · {school.state} · {school.mission}
-                    {school.inStatePref !== "Neutral" ? ` · ${school.inStatePref}` : ""}
+                    {school.degree === "Caribbean" ? "Caribbean or international program" : `${school.degree} program`} · {school.state}
                   </p>
-                  {(isInStateForUser || match) && (
-                    <p style={{ marginTop: "var(--sp-1)" }} className="flex gap-1 flex-wrap">
-                      {isInStateForUser && <span className="badge badge-info">In-state for you</span>}
-                      {match && <span className="badge badge-success">Matches your numbers</span>}
+                  {match && (
+                    <p style={{ marginTop: "var(--sp-1)" }}>
+                      <span className="badge badge-success">Matches your numbers</span>
                     </p>
                   )}
+                  <div style={{ marginTop: "var(--sp-1)" }}>
+                    <SourceLine>
+                      {school.sourceUrl && (school.avgGpa !== null || school.avgMcat !== null) ? (
+                        <>
+                          Source:{" "}
+                          <a href={school.sourceUrl} target="_blank" rel="noopener noreferrer" className="link">
+                            school website
+                          </a>
+                          {school.enteringYear ? `, class entering ${school.enteringYear}` : ""}
+                          {school.statKind ? ` (${school.statKind}s)` : ""}. Checked {reviewedLabel(school.checked)}.
+                        </>
+                      ) : (
+                        <>
+                          No current figures published on the{" "}
+                          {school.sourceUrl ? (
+                            <a href={school.sourceUrl} target="_blank" rel="noopener noreferrer" className="link">school website</a>
+                          ) : (
+                            "school website"
+                          )}
+                          . Checked {reviewedLabel(school.checked)}.
+                        </>
+                      )}
+                    </SourceLine>
+                  </div>
                 </div>
                 <p className="tnum md:text-right text-sm">
-                  <span className="md:hidden text-xs" style={{ color: "var(--text-muted)" }}>Avg GPA </span>
+                  <span className="md:hidden text-xs" style={{ color: "var(--text-muted)" }}>GPA </span>
                   {school.avgGpa === null ? <span style={{ color: "var(--text-muted)" }}>Not reported</span> : school.avgGpa.toFixed(2)}
                 </p>
                 <p className="tnum md:text-right text-sm">
-                  <span className="md:hidden text-xs" style={{ color: "var(--text-muted)" }}>Avg MCAT </span>
+                  <span className="md:hidden text-xs" style={{ color: "var(--text-muted)" }}>MCAT </span>
                   {school.avgMcat === null ? <span style={{ color: "var(--text-muted)" }}>Not reported</span> : school.avgMcat}
                 </p>
                 <div className="col-span-2 md:col-span-1">

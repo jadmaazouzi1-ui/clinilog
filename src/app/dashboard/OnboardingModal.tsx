@@ -195,7 +195,7 @@ export default function OnboardingModal() {
               </table>
             </div>
             <p style={{ fontSize: "var(--text-sm)", lineHeight: 1.6, color: "var(--text-muted)", marginBottom: 8 }}>
-              Filter {SCHOOLS.length} medical schools by GPA, MCAT, mission and state. Averages are approximate, so confirm them on each school&apos;s site.
+              Compare {SCHOOLS.length} medical schools by the GPA and MCAT figures each one publishes, and by state. Figures come from each school&apos;s website and can be out of date, so confirm them there before you apply.
             </p>
           </div>
         )}

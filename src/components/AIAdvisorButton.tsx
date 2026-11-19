@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
+import Link from "next/link";
 import { createBrowserClient } from "@supabase/ssr";
 import { formatHours } from "@/lib/types";
 
@@ -211,7 +212,7 @@ export default function AIAdvisorButton() {
               {remaining !== null ? `${remaining} of 20 messages left today` : "Sees your logged totals, not your descriptions"}
             </p>
             <p className="text-xs" style={{ color: "var(--text-muted)", marginTop: 2 }}>
-              General guidance from a language model. It can be wrong; check anything that matters with your advisor.
+              General guidance from a language model. School or specialty facts in its answers come from the model, not from our sources, and it can be wrong. <Link href="/data-sources" className="link">About this data</Link>
             </p>
           </div>
           <button
