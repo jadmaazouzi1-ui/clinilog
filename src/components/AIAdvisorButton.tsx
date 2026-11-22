@@ -100,7 +100,7 @@ export default function AIAdvisorButton() {
         ? m
         : [{
             role: "assistant",
-            content: "I can see your logged hours and profile, not your descriptions. Ask me about applying, and check anything important with your pre-health advisor, since I can be wrong.",
+            content: "I can see your hours, graduation year, intended specialty and the start of your descriptions and reflections for up to 12 entries. Ask me about applying, and check anything important with your pre-health advisor, since I can be wrong.",
           }],
     );
     setTimeout(() => inputRef.current?.focus(), 300);
@@ -209,10 +209,13 @@ export default function AIAdvisorButton() {
           <div className="flex-1 min-w-0">
             <h2 className="section-title" style={{ margin: 0 }}>AI advisor</h2>
             <p className="text-xs tnum" style={{ color: "var(--text-muted)" }}>
-              {remaining !== null ? `${remaining} of 20 messages left today` : "Sees your logged totals, not your descriptions"}
+              {remaining !== null ? `${remaining} of 20 messages left today` : "20 messages a day"}
             </p>
             <p className="text-xs" style={{ color: "var(--text-muted)", marginTop: 2 }}>
-              General guidance from a language model. School or specialty facts in its answers come from the model, not from our sources, and it can be wrong. <Link href="/data-sources" className="link">About this data</Link>
+              Sends your messages and up to 12 of your entries, with the start of each description and reflection, to
+              Google&apos;s Gemini. Google may use them to improve its products. Answers can be wrong, and school or
+              specialty facts in them come from the model, not our sources.{" "}
+              <Link href="/privacy#ai" className="link">What is sent</Link>
             </p>
           </div>
           <button

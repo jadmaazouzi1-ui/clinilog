@@ -70,3 +70,15 @@ export function EmptyState({
     </div>
   );
 }
+
+/** The line beside every AI feature button. What goes where, and that the
+ *  result needs checking. Matches the Privacy Policy's AI section. */
+export function AiDisclosure({ what = "your logged entries" }: { what?: string }) {
+  return (
+    <p className="text-sm" style={{ color: "var(--text-muted)", maxWidth: "60ch" }}>
+      Sends {what} to Google&apos;s Gemini to generate this. Google may use it to improve its products. Check the
+      result before you use it.{" "}
+      <a href="/privacy#ai" className="link">What is sent</a>
+    </p>
+  );
+}

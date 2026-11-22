@@ -42,13 +42,11 @@ export async function POST(req: Request) {
 
   // Pull profile + experiences
   const [profileRes, expRes] = await Promise.all([
-    supabase.from("profiles").select("full_name, undergraduate_school, graduation_year, intended_specialty").eq("id", user.id).single(),
+    supabase.from("profiles").select("graduation_year, intended_specialty").eq("id", user.id).single(),
     supabase.from("experiences").select("title, organization, type, hours, description, reflection, start_date, end_date").order("start_date", { ascending: false }),
   ]);
 
   const profile: {
-    full_name?: string | null;
-    undergraduate_school?: string | null;
     graduation_year?: number | string | null;
     intended_specialty?: string | null;
   } = profileRes.data ?? {};
@@ -92,9 +90,9 @@ Return ONLY a valid JSON object (no markdown, no code blocks, no extra text) wit
 
 Be specific and plain, not flattering. Every claim must point to something in their log: name the entries and hours it rests on. Do not claim traits the data does not show (for example, do not call someone resilient or passionate unless their own words say so). Strengths are 1 sentence each, in second person, and each one names the entry it comes from.`;
 
+  // Name and undergraduate school are not sent: the result does not need
+  // them, and the Gemini API terms ask that personal details stay out.
   const userPrompt = `Student profile:
-Name: ${profile.full_name ?? "(not provided)"}
-Undergraduate school: ${profile.undergraduate_school ?? "(not provided)"}
 Graduation year: ${profile.graduation_year ?? "(not provided)"}
 Intended specialty: ${profile.intended_specialty ?? "(undecided)"}
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Loading } from "@/components/ui";
+import { AiDisclosure, Loading } from "@/components/ui";
 
 interface Q { question: string; why: string }
 interface Questions { traditional: Q[]; mmi: Q[] }
@@ -67,13 +67,15 @@ export default function MockInterviewView({ ready }: { ready: boolean }) {
           onClick={generate}
           disabled={loading || !ready}
           className="btn btn-primary"
-          style={{ padding: "10px var(--sp-3)", opacity: loading || !ready ? 0.6 : 1, cursor: ready ? "pointer" : "not-allowed" }}
         >
           {questions ? "Regenerate" : "Generate questions"}
         </button>
         <span className="meta">
           {remaining === null ? "10 sets a day" : `${remaining} ${remaining === 1 ? "set" : "sets"} left today`}
         </span>
+      </div>
+      <div style={{ marginTop: "calc(var(--sp-3) * -1 + var(--sp-1))", marginBottom: "var(--sp-3)" }}>
+        <AiDisclosure what="your archetype and up to 12 entries, with the start of each description and reflection," />
       </div>
 
       {loading && (

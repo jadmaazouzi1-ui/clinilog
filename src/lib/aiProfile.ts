@@ -2,7 +2,9 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { Experience, formatHours } from "@/lib/types";
 
 /**
- * Compact profile summary shared by the outline and mock-interview prompts.
+ * Compact profile summary shared by the advisor, outline and mock-interview
+ * prompts. It leaves out the student's name: the answers do not need it,
+ * and the Gemini API terms ask that personal details stay out.
  * Kept deterministic and bounded so a user with 200 entries does not blow
  * the context window or the request cost.
  */
@@ -10,7 +12,7 @@ export async function buildAiProfile(supabase: SupabaseClient, userId: string) {
   const [{ data: profileRow }, { data: expRows }] = await Promise.all([
     supabase
       .from("profiles")
-      .select("full_name, archetype_id, archetype_data, intended_specialty, graduation_year")
+      .select("archetype_id, archetype_data, intended_specialty, graduation_year")
       .eq("id", userId)
       .single(),
     supabase.from("experiences").select("*").order("hours", { ascending: false }).limit(25),
@@ -37,7 +39,6 @@ export async function buildAiProfile(supabase: SupabaseClient, userId: string) {
     experiences,
     totalHours,
     summary: [
-      `Name: ${profileRow?.full_name ?? "Not given"}`,
       `Archetype: ${profileRow?.archetype_id ?? "Not yet generated"}`,
       `Intended specialty: ${profileRow?.intended_specialty ?? "Undecided"}`,
       `Graduation year: ${profileRow?.graduation_year ?? "Not given"}`,

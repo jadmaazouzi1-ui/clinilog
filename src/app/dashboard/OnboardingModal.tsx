@@ -285,9 +285,11 @@ export default function OnboardingModal() {
                   rows={3}
                   value={expDesc}
                   placeholder="What you did, in a sentence or two"
+                  aria-describedby="ob-desc-hint"
                   onChange={(e) => setExpDesc(e.target.value)}
                   style={{ resize: "vertical" }}
                 />
+                <p className="hint" id="ob-desc-hint">Never include patient names or anything that could identify a patient.</p>
               </div>
               <label className="text-xs" style={{ display: "flex", gap: 10, alignItems: "flex-start", color: "var(--text-muted)", cursor: "pointer" }}>
                 <input type="checkbox" checked={remindMe} onChange={(e) => setRemindMe(e.target.checked)} style={{ marginTop: 3 }} />

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Loading } from "@/components/ui";
+import { AiDisclosure, Loading } from "@/components/ui";
 
 interface Outline {
   hook: string;
@@ -37,11 +37,13 @@ export default function OutlineView({ ready }: { ready: boolean }) {
           onClick={generate}
           disabled={loading || !ready}
           className="btn btn-primary"
-          style={{ padding: "10px var(--sp-3)", opacity: loading || !ready ? 0.6 : 1, cursor: ready ? "pointer" : "not-allowed" }}
         >
           {outline ? "Regenerate outline" : "Generate outline"}
         </button>
         <span className="meta">10 outlines a day</span>
+      </div>
+      <div style={{ marginTop: "calc(var(--sp-3) * -1 + var(--sp-1))", marginBottom: "var(--sp-3)" }}>
+        <AiDisclosure what="your archetype and up to 12 entries, with the start of each description and reflection," />
       </div>
 
       {loading && (

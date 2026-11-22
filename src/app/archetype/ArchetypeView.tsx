@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { PALETTE } from "@/lib/palette";
 import Link from "next/link";
 import { ARCHETYPES, ArchetypeAnalysis, getArchetype } from "@/lib/archetypes";
 import { formatDate } from "@/lib/format";
-import { Loading } from "@/components/ui";
+import { AiDisclosure, Loading } from "@/components/ui";
 
 interface Props {
   initialAnalysis: ArchetypeAnalysis | null;
@@ -59,17 +59,6 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
     }
   }
 
-  // Auto-run when no stored analysis yet
-  useEffect(() => {
-    if (!initialAnalysis && experienceCount >= 3) {
-      // A request on first view, the documented case for an effect. The
-      // loading flag it sets is what the user should see straight away.
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      runAnalysis();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   // ── Not enough experiences ────────────────────────────────────────────
   if (experienceCount < 3) {
     return (
@@ -97,7 +86,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
           Analyzing your experiences
         </h1>
         <p className="text-sm" style={{ color: "var(--text-muted)", maxWidth: 440 }}>
-          Reading every hour, every reflection, every organization. This usually takes 10 to 20 seconds.
+          Your entries are with Google&apos;s Gemini. This usually takes 10 to 20 seconds.
         </p>
       </div>
     );
@@ -111,14 +100,31 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
           Couldn&apos;t generate your archetype
         </h1>
         <p className="text-sm" style={{ color: "var(--text-muted)", maxWidth: 440, marginBottom: "var(--sp-3)" }}>{error}</p>
-        <button onClick={runAnalysis} className="btn btn-primary">
+        <button onClick={runAnalysis} className="btn btn-primary" style={{ marginBottom: "var(--sp-15)" }}>
           Try again
         </button>
+        <AiDisclosure what="your entries, including descriptions and reflections," />
       </div>
     );
   }
 
-  if (!analysis) return null;
+  // ── Nothing generated yet: wait for a click, so nothing is sent to the
+  // AI provider just by opening the page. ──────────────────────────────
+  if (!analysis) {
+    return (
+      <div className="card" style={{ padding: "var(--sp-4) var(--sp-3)" }}>
+        <h1 className="text-2xl" style={{ marginBottom: "var(--sp-1)" }}>Your archetype</h1>
+        <p className="text-sm" style={{ color: "var(--text-muted)", maxWidth: "60ch", marginBottom: "var(--sp-3)" }}>
+          An AI read of the pattern in your {experienceCount} entries: which of 15 profiles fits best, what your log
+          shows, and what to add next.
+        </p>
+        <button onClick={runAnalysis} className="btn btn-primary" style={{ marginBottom: "var(--sp-15)" }}>
+          Generate my archetype
+        </button>
+        <AiDisclosure what="your entries, including descriptions and reflections," />
+      </div>
+    );
+  }
 
   const archetype = getArchetype(analysis.archetype_id) ?? ARCHETYPES[0];
   const color = "var(--action)";
@@ -235,7 +241,7 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
               onClick={downloadCard}
               className="btn btn-primary"
             >
-                Download Card
+                Download card
             </button>
             <button
               data-tour="archetype-regenerate"
@@ -244,6 +250,9 @@ export default function ArchetypeView({ initialAnalysis, experienceCount, genera
               className="btn btn-secondary">
               Regenerate
             </button>
+          </div>
+          <div style={{ marginTop: "var(--sp-15)" }}>
+            <AiDisclosure what="your entries, including descriptions and reflections," />
           </div>
           {generatedAt && (
             <p className="text-xs mt-3" style={{ color: "var(--text-muted)" }}>

@@ -116,7 +116,8 @@ export default function ExperienceForm({
             aria-describedby="description-hint"
           />
           <p className="hint" id="description-hint">
-            AMCAS allows 700 characters for each experience. Rough notes now are fine.
+            Rough notes now are fine. Never include patient names, dates of birth, record numbers or anything else that
+            could identify a patient. <a href="/privacy#patients" className="link">Why</a>
           </p>
         </div>
 
@@ -129,9 +130,14 @@ export default function ExperienceForm({
             name="reflection"
             rows={4}
             defaultValue={values?.reflection ?? ""}
-            placeholder="A patient, a moment or a mistake you still think about."
+            placeholder="A moment or a mistake you still think about."
             className="field"
+            aria-describedby="reflection-hint"
           />
+          <p className="hint" id="reflection-hint">
+            Write about what you learned, not who the patient was. Leave out names, ages with dates, rooms and anything
+            else that could identify a patient or a staff member.
+          </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2" style={{ paddingTop: "var(--sp-1)" }}>

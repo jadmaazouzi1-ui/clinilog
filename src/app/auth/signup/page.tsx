@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import AuthFrame from "@/components/AuthFrame";
+import { LEGAL_VERSION } from "@/lib/legal";
 import { Notice } from "@/components/ui";
 import Link from "next/link";
 import { cookies, headers } from "next/headers";
@@ -49,6 +50,12 @@ export default async function SignupPage({
       redirect(`/auth/signup?error=${encodeURIComponent("Use a password of at least 10 characters.")}`);
     }
 
+    // Checked on the server too: the checkbox's required attribute can be
+    // removed in the browser.
+    if (formData.get("agree") !== "on") {
+      redirect(`/auth/signup?error=${encodeURIComponent("Confirm you are 18 or older and agree to the Terms and Privacy Policy.")}`);
+    }
+
     const supabase = await createClient();
 
     const ip = clientIpFrom(await headers());
@@ -63,6 +70,9 @@ export default async function SignupPage({
       options: {
         data: {
           full_name: name,
+          // Copied to profiles.legal_version, with the time, by the
+          // handle_new_user() trigger when the account is created.
+          legal_version: LEGAL_VERSION,
         },
       },
     });
@@ -140,11 +150,14 @@ export default async function SignupPage({
           />
           <p className="hint" id="password-hint">At least 10 characters.</p>
         </div>
+        <label className="text-sm flex items-start gap-3" style={{ cursor: "pointer" }}>
+          <input type="checkbox" name="agree" required style={{ marginTop: 3 }} />
+          <span>
+            I am 18 or older, and I agree to the <Link href="/terms" className="link" target="_blank">Terms of Service</Link> and
+            the <Link href="/privacy" className="link" target="_blank">Privacy Policy</Link>.
+          </span>
+        </label>
         <button type="submit" className="btn btn-primary btn-block">Create account</button>
-        <p className="text-xs" style={{ color: "var(--text-muted)" }}>
-          Creating an account means you agree to the <Link href="/terms" className="link">Terms</Link> and the{" "}
-          <Link href="/privacy" className="link">Privacy Policy</Link>.
-        </p>
       </form>
     </AuthFrame>
   );

@@ -1,4 +1,5 @@
 import { createServerClient } from "@supabase/ssr";
+import { LEGAL_VERSION } from "@/lib/legal";
 import { NextResponse, type NextRequest } from "next/server";
 
 const isDev = process.env.NODE_ENV !== "production";
@@ -102,6 +103,16 @@ export async function proxy(request: NextRequest) {
     const url = request.nextUrl.clone();
     url.pathname = "/auth/verify-email";
     url.search = "";
+    return withCsp(NextResponse.redirect(url), csp);
+  }
+
+  // The Terms or Privacy Policy changed since this user last accepted them:
+  // accept the current version before going anywhere else. The version is
+  // mirrored into the user's metadata by accept_legal(), so no extra query.
+  if (user && isProtected && path !== "/legal/accept" && user.user_metadata?.legal_version !== LEGAL_VERSION) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/legal/accept";
+    url.search = `?next=${encodeURIComponent(path)}`;
     return withCsp(NextResponse.redirect(url), csp);
   }
 
