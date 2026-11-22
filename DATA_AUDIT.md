@@ -67,18 +67,18 @@ Sent only when the user opens or runs the feature. Each route checks a per-user 
 
 | Feature | Route | Sent to Gemini |
 |---|---|---|
-| AI Advisor | `src/app/api/advisor/route.ts`, `src/lib/aiProfile.ts` | Every message in the conversation so far, plus a profile summary: **full name**, archetype, intended specialty, graduation year, total hours and hours by category, and for the 12 entries with the most hours: title, organization, category, hours, **description (first 300 characters) and reflection (first 300 characters)** |
-| Archetype | `src/app/api/archetype/route.ts` | **Full name, undergraduate school**, graduation year, intended specialty, and **every experience** with title, organization, category, hours, dates, **full description and full reflection** |
-| Statement outline | `src/app/api/outline/route.ts` | The same profile summary as the Advisor (name, archetype, specialty, year, totals, top 12 entries with 300 characters of description and reflection) |
+| AI Advisor | `src/app/api/advisor/route.ts`, `src/lib/aiProfile.ts` | Every message in the conversation so far, plus a profile summary: archetype, intended specialty, graduation year, total hours and hours by category, and for the 12 entries with the most hours: title, organization, category, hours, **description (first 300 characters) and reflection (first 300 characters)** |
+| Archetype | `src/app/api/archetype/route.ts` | Graduation year, intended specialty, and **every experience** with title, organization, category, hours, dates, **full description and full reflection** |
+| Statement outline | `src/app/api/outline/route.ts` | The same profile summary as the Advisor (archetype, specialty, year, totals, top 12 entries with 300 characters of description and reflection) |
 | Mock interview | `src/app/api/mock-interview/route.ts` | The same profile summary |
 
 Archetype results are saved to `profiles.archetype_data`. Advisor, outline and mock interview responses are not saved.
 
-**Correction needed in the app:** the AI Advisor header and its first message currently say it sees "logged totals, not your descriptions". That is false: it sends descriptions and reflections. Fix with this work.
+Full name and undergraduate school were removed from every prompt on 21 Nov 2026. The AI Advisor's header and greeting now say it sees descriptions and reflections (they previously said it did not). Archetype runs only when the user clicks Generate.
 
 **Plan and terms.** The project is on the Gemini API free tier (the daily quota error in the dev log on 18 Nov 2026 read "generate_content_free_tier_requests"). Google's Gemini API Additional Terms, effective 23 Mar 2026 (https://aistudio.google.com/docs/terms):
 - Unpaid services: Google uses submitted content and responses "to provide, improve, and develop Google products and services and machine learning technologies"; "human reviewers may read, annotate, and process your API input and output" after Google disconnects it from the account.
-- Unpaid services: "Do not submit sensitive, confidential, or personal information to the Unpaid Services." The app currently sends names, school and personal reflections.
+- Unpaid services: "Do not submit sensitive, confidential, or personal information to the Unpaid Services." The app no longer sends name or school, but entries can hold personal details; the Privacy Policy tells users so.
 - Paid services: prompts and responses are not used to improve products; they are logged "for a limited period of time, solely for detecting and preventing violations of the Prohibited Use Policy" (no number of days given).
 - Users must be 18 or older, and the API may not be used in a service "likely to be accessed by individuals under the age of 18".
 - Only paid services may be offered to users in the EEA, Switzerland or the UK.
@@ -92,11 +92,11 @@ Archetype results are saved to `profiles.archetype_data`. Advisor, outline and m
 ## 3. Retention and deletion
 - **Deleting an entry** deletes the row immediately (`src/app/dashboard/actions.ts`). Other trackers likewise.
 - **Deleting the account** (`/profile`, type DELETE; `src/app/api/account/delete/route.ts` calls `public.delete_my_account()`) deletes the `auth.users` row. Every user table has `ON DELETE CASCADE` to `auth.users`, so all rows go at once, except:
-  - `page_visits`: `ON DELETE SET NULL`, so the visited paths and times stay, with no user attached.
+  - `page_visits`: `ON DELETE SET NULL`, but `delete_my_account()` now deletes the user's rows first (migration `20261121120000_legal_acceptance.sql`).
   - `story_submissions`: never linked to an account, so a submitted story stays until removed by hand.
-  - `auth_rate_limits`: keyed by IP or email, not user id, so those rows stay.
+  - `auth_rate_limits`: the `email:` row for the user's address is deleted by `delete_my_account()`; rows keyed by IP stay.
 - **Backups:** Supabase takes database backups under its plan. The retention period for this project's plan is not visible in the code. **Ask or check the Supabase dashboard.**
-- **Export:** `/api/account/export` returns a JSON file of 16 tables (`src/app/api/account/export/route.ts`). It does not include `feedback` (users cannot read their feedback rows under RLS), `page_visits`, `user_rate_limits` or the sign-in email itself. Experiences can also be exported as a PDF. There is no CSV export; CSV is import only (the template download in `src/app/import/ImportView.tsx`).
+- **Export:** `/api/account/export` returns a JSON file of 16 tables (`src/app/api/account/export/route.ts`). It does not include `feedback` (deleted with the account through its cascade) (users cannot read their feedback rows under RLS), `page_visits`, `user_rate_limits` or the sign-in email itself. Experiences can also be exported as a PDF. There is no CSV export; CSV is import only (the template download in `src/app/import/ImportView.tsx`).
 - **Theme and other preferences** stay in the browser until cleared.
 
 ## 4. Security measures that exist
@@ -118,3 +118,16 @@ Archetype results are saved to `profiles.archetype_data`. Advisor, outline and m
 6. **Governing law.** North Carolina?
 7. **Price.** The service has no paid tier and takes no payments. Confirm the Terms should say there is no charge today and that you would give notice before any paid feature.
 8. **Supabase auth emails and backups.** Which mail service sends confirmation and reset emails, and how long does the Supabase plan keep backups?
+
+## 6. Answers (21 Nov 2026)
+1. Gemini plan: stay on the unpaid tier. Name and school removed from prompts; the Privacy Policy discloses Google's use and human review, and asks users to leave personal and patient details out of entries they use with AI.
+2. Done, see 1.
+3. 18 and older. Sign-up and re-acceptance ask users to confirm it.
+4. Contact: the Help Center form only (signed in).
+5. Operator: Jad Maazouzi, an individual.
+6. Governing law: North Carolina.
+7. No charge today; notice before any paid feature.
+8. Still open: which mail service sends Supabase Auth emails, and the backup retention period. The policy describes both without numbers.
+
+## 7. Consent records
+`profiles.legal_version` and `legal_accepted_at`, set by `handle_new_user()` at sign-up and by `accept_legal()` afterwards; users cannot write them directly. The current version is `LEGAL_VERSION` in `src/lib/legal.ts`; the proxy sends anyone with an older version to `/legal/accept`.

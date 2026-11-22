@@ -49,7 +49,7 @@ export default function AccountData() {
       <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-2)" }}>
         Permanently deletes your account, every entry and tracker, your feedback and your page view
         history, right away. This cannot be undone, so export your data first if you want a copy.
-        Database backups can hold a copy for a short time after that. A first-generation story you
+        Database backups can hold a copy for a limited time after that. A first-generation story you
         submitted is not linked to your account, so ask through the Help Center to remove it.
       </p>
       <label htmlFor="delete-confirm" className="label">Type DELETE to confirm</label>
