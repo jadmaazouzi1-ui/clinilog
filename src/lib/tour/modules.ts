@@ -153,7 +153,7 @@ export const TOUR_MODULES: TourModule[] = [
       { page: "/profile", target: "profile-grad-year", title: "Graduation year", body: "Your graduation year sets the timeline behind insights and suggestions. Keep it current if your plans change." },
       { page: "/profile", target: "theme-toggle", title: "Dark mode", body: "Switch between light and dark here. Your choice follows your account." },
       { page: "/profile", target: "account-data", title: "Privacy and data", body: "Export a copy of what you have saved, turn emails on or off, or delete your account and its data. Deleting cannot be undone." },
-      { page: "/profile", target: null, title: "Privacy", body: "Your entries are visible only to you. AI features send entries to Google only when you use them, and you should never log patient details. The Privacy Policy has the full list." },
+      { page: "/profile", target: null, title: "Privacy", body: "Only you can see your entries, and AI features send them to Google only when you use one. Never log patient details." },
     ],
   },
 ];
