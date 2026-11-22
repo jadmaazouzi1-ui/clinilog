@@ -11,7 +11,8 @@ const COST_TERMS = [
 test("landing HTML has no cost wording, dashes or user counts", async ({ request }) => {
   const res = await request.get("/");
   expect(res.ok()).toBeTruthy();
-  const html = await res.text();
+  // Netlify injects an HTML comment advertising its own hosting; visitors never see it.
+  const html = (await res.text()).replace(/<!--[\s\S]*?-->/g, "");
   const hits = COST_TERMS.filter((t) => new RegExp(`\\b${t}\\b`, "i").test(html));
   if (html.includes("$0")) hits.push("$0");
   expect(hits, `cost wording found: ${hits.join(", ")}`).toEqual([]);
@@ -29,7 +30,8 @@ for (const path of ["/about", "/terms", "/privacy", "/auth/login", "/auth/signup
   test(`${path} makes no price claim`, async ({ request }) => {
     const res = await request.get(path);
     expect(res.ok()).toBeTruthy();
-    const html = await res.text();
+    // Netlify injects an HTML comment advertising its own hosting; visitors never see it.
+    const html = (await res.text()).replace(/<!--[\s\S]*?-->/g, "");
     const hits = ["free", "forever", "no cost", "credit card", "pricing", "premium", "subscription", "unlimited"]
       .filter((t) => new RegExp(`\\b${t}\\b`, "i").test(html));
     expect(hits, `price wording on ${path}: ${hits.join(", ")}`).toEqual([]);

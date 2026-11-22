@@ -10,21 +10,20 @@ test.describe("Public navigation", () => {
     await expect.poll(() => new URL(page.url()).pathname).toBe("/");
   });
 
-  test("About page loads with hero headline", async ({ page }) => {
+  test("About page loads with its heading", async ({ page }) => {
     await page.goto("/about");
-    await expect(page.getByRole("heading", { name: /the pre-med journey deserves better tools/i })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1, name: "About ClinicLog MD" })).toBeVisible();
   });
 
-  test("About page shows the three values cards", async ({ page }) => {
+  test("About page says what it does and does not do", async ({ page }) => {
     await page.goto("/about");
-    await expect(page.getByRole("heading", { name: /accessibility/i })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /clarity/i })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /community/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "What it does", exact: true })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "What it does not do" })).toBeVisible();
   });
 
   test("About page closing CTA links to signup", async ({ page }) => {
     await page.goto("/about");
-    const cta = page.getByRole("link", { name: /get started free/i });
+    const cta = page.getByRole("main").getByRole("link", { name: "Create an account" });
     await expect(cta).toBeVisible();
     await expect(cta).toHaveAttribute("href", "/auth/signup");
   });

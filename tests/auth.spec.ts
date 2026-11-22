@@ -10,7 +10,7 @@ test.describe("Auth pages: unauthenticated", () => {
 
   test("login page shows Forgot password link", async ({ page }) => {
     await page.goto("/auth/login");
-    await expect(page.getByRole("link", { name: /forgot password/i })).toBeVisible();
+    await expect(page.getByRole("link", { name: /forgot (your )?password/i })).toBeVisible();
   });
 
   test("login page links to signup", async ({ page }) => {

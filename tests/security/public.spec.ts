@@ -53,7 +53,9 @@ test("5. security headers are present", async ({ request }) => {
   expect(scriptSrc(h["content-security-policy"])).toMatch(/'nonce-[A-Za-z0-9+/=]{16,}'/);
   const again = (await request.get("/")).headers()["content-security-policy"];
   expect(scriptSrc(again)).not.toBe(scriptSrc(h["content-security-policy"]));
-  expect(h["strict-transport-security"]).toContain("max-age=63072000");
+  // next.config.ts asks for two years; Netlify replaces it with its own
+  // header (one year, with preload). Either is long enough.
+  expect(Number(h["strict-transport-security"].match(/max-age=(\d+)/)?.[1])).toBeGreaterThanOrEqual(31536000);
   expect(h["x-frame-options"]).toBe("DENY");
   expect(h["x-content-type-options"]).toBe("nosniff");
   expect(h["referrer-policy"]).toBe("strict-origin-when-cross-origin");

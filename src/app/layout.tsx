@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import ThemeSync from "@/components/ThemeSync";
 import { Newsreader, Public_Sans } from "next/font/google";
 import { headers } from "next/headers";
 import "./globals.css";
@@ -77,6 +78,7 @@ export default async function RootLayout({
         className="min-h-full flex flex-col"
         style={{ backgroundColor: "var(--background)", color: "var(--text)" }}
       >
+        <ThemeSync />
         {children}
       </body>
     </html>
