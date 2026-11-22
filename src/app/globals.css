@@ -597,6 +597,41 @@ a.card:hover { border-color: var(--border-strong); }
 ul.legal-prose { list-style: disc; padding-left: 1.25rem; margin-bottom: var(--sp-2); }
 .legal-prose li { margin-bottom: var(--sp-h); }
 .legal-prose strong { color: var(--text); }
+.legal-prose h3 { font-size: var(--text-lg); font-weight: 600; color: var(--text); margin: var(--sp-3) 0 var(--sp-1); }
+.legal-prose .table { margin-bottom: var(--sp-2); }
+.legal-prose .table td { color: var(--text-muted); line-height: 1.55; }
+.legal-section { scroll-margin-top: var(--sp-3); }
+.legal-summary {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: var(--sp-2) var(--sp-3);
+  margin-bottom: var(--sp-3);
+}
+.legal-summary h2 { margin-top: 0; }
+.legal-callout {
+  border: 1px solid var(--border-strong);
+  border-left-width: 4px;
+  border-radius: var(--radius-card);
+  padding: var(--sp-2) var(--sp-3);
+  margin: var(--sp-2) 0;
+}
+.legal-callout p:last-child, .legal-summary ul:last-child { margin-bottom: 0; }
+.legal-toc { margin-top: var(--sp-3); }
+.legal-toc h2 { margin-bottom: var(--sp-1); }
+.legal-toc ol { list-style: none; padding: 0; margin: 0; }
+.legal-toc a {
+  display: flex;
+  align-items: center;
+  min-height: 32px;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  text-decoration: none;
+}
+.legal-toc a:hover { color: var(--text); text-decoration: underline; }
+@media (min-width: 1024px) {
+  .legal-aside { position: sticky; top: var(--sp-3); max-height: calc(100vh - 2 * var(--sp-3)); overflow-y: auto; }
+}
 
 /* ── Guided tour and Help Center ──────────────────────────────────────── */
 .tour-layer { position: fixed; inset: 0; z-index: 90; pointer-events: none; }
@@ -685,6 +720,11 @@ ul.legal-prose { list-style: disc; padding-left: 1.25rem; margin-bottom: var(--s
   a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 9pt; color: var(--stone-700); }
   table, tr, td, th, li { break-inside: avoid; }
   h1, h2, h3, .section-title { break-after: avoid; }
+  header, footer, .legal-toc { display: none !important; }
+  .legal-aside { position: static !important; max-height: none !important; }
+  .legal-prose { max-width: none !important; }
+  .legal-prose p, .legal-prose li, .legal-prose td { color: var(--black) !important; }
+  .legal-summary, .legal-callout { background: none !important; break-inside: avoid; }
   @page { margin: 18mm 16mm; }
 }
 

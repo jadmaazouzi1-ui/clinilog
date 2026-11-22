@@ -151,6 +151,11 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
               </button>
             </form>
           </div>
+          <nav aria-label="Legal" className="flex gap-3 text-xs" style={{ padding: "var(--sp-h) 0 0 var(--sp-15)" }}>
+            <Link href="/privacy" className="inline-flex items-center" style={{ minHeight: 32, color: "var(--text-muted)" }}>Privacy</Link>
+            <Link href="/terms" className="inline-flex items-center" style={{ minHeight: 32, color: "var(--text-muted)" }}>Terms</Link>
+            <Link href="/data-sources" className="inline-flex items-center" style={{ minHeight: 32, color: "var(--text-muted)" }}>Data sources</Link>
+          </nav>
         </div>
       </aside>
 
@@ -314,6 +319,9 @@ export default function AppShell({ userEmail, activePath, breadcrumbs, children 
             {[
               { href: "/changelog", label: "Changelog" },
               { href: "/about", label: "About ClinicLog MD" },
+              { href: "/privacy", label: "Privacy Policy" },
+              { href: "/terms", label: "Terms of Service" },
+              { href: "/data-sources", label: "Data sources" },
             ].map((item) => (
               <Link key={item.href} href={item.href} onClick={() => setToolsOpen(false)} className="nav-item" style={{ minHeight: 44 }}>
                 {item.label}

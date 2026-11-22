@@ -135,8 +135,8 @@ export default function ExperienceForm({
             aria-describedby="reflection-hint"
           />
           <p className="hint" id="reflection-hint">
-            Write about what you learned, not who the patient was. Leave out names, ages with dates, rooms and anything
-            else that could identify a patient or a staff member.
+            Write about what you learned, not who the patient was. Leave out names, exact dates, room numbers and
+            anything else that could identify a patient or a staff member.
           </p>
         </div>
 

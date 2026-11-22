@@ -238,7 +238,7 @@ export default function OnboardingModal() {
               </div>
             </div>
             <p style={{ fontSize: "var(--text-sm)", lineHeight: 1.6, color: "var(--text-muted)", marginBottom: 8 }}>
-              The AI Advisor can see your logged totals and answers questions about applying. It can be wrong, so check anything important with your advisor.
+              The AI Advisor answers questions about applying, using your totals and the start of your top entries, which it sends to Google&apos;s Gemini. It can be wrong, so check anything important with your advisor.
             </p>
           </div>
         )}

@@ -33,8 +33,8 @@ export default function AccountData() {
   return (
     <>
       <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-2)" }}>
-        Download everything ClinicLog MD stores about you as a JSON file: profile, experiences,
-        applications, interviews, letters, trackers and referrals.
+        Download what you have saved in ClinicLog MD as a JSON file: profile, experiences, schools,
+        interviews, letters, trackers, reminder settings, breaks and referrals.
       </p>
       <a
         href="/api/account/export"
@@ -47,8 +47,10 @@ export default function AccountData() {
 
       <h3 className="text-base" style={{ color: "var(--danger)", marginBottom: "var(--sp-1)" }}>Delete account</h3>
       <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-2)" }}>
-        Permanently deletes your account and every record linked to it. This cannot be undone,
-        so export your data first if you want a copy.
+        Permanently deletes your account, every entry and tracker, your feedback and your page view
+        history, right away. This cannot be undone, so export your data first if you want a copy.
+        Database backups can hold a copy for a short time after that. A first-generation story you
+        submitted is not linked to your account, so ask through the Help Center to remove it.
       </p>
       <label htmlFor="delete-confirm" className="label">Type DELETE to confirm</label>
       <div className="flex items-end gap-2 flex-wrap">

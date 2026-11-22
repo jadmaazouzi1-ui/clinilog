@@ -129,7 +129,7 @@ export const TOUR_MODULES: TourModule[] = [
     title: "AI Advisor",
     group: "More",
     steps: [
-      { page: "*", target: "advisor-header", title: "Your AI Advisor", body: "Ask about planning, hours or application steps; it can see your logged totals. Its answers are suggestions, not admissions advice." },
+      { page: "*", target: "advisor-header", title: "Your AI Advisor", body: "Ask about planning, hours or application steps; it sees your totals and the start of your top entries, sent to Google's Gemini. Its answers are suggestions, not admissions advice." },
       { page: "*", target: "advisor-input", title: "Ask a question", body: "You get 20 messages a day. Do not enter sensitive personal details such as health information or ID numbers." },
     ],
   },
@@ -152,8 +152,8 @@ export const TOUR_MODULES: TourModule[] = [
     steps: [
       { page: "/profile", target: "profile-grad-year", title: "Graduation year", body: "Your graduation year sets the timeline behind insights and suggestions. Keep it current if your plans change." },
       { page: "/profile", target: "theme-toggle", title: "Dark mode", body: "Switch between light and dark here. Your choice follows your account." },
-      { page: "/profile", target: "account-data", title: "Your data", body: "Export a copy of everything you have stored, or delete your account and all its data. Deleting cannot be undone." },
-      { page: "/profile", target: null, title: "Privacy", body: "Your entries are visible only to you. The Privacy page explains what is stored and who processes it." },
+      { page: "/profile", target: "account-data", title: "Privacy and data", body: "Export a copy of what you have saved, turn emails on or off, or delete your account and its data. Deleting cannot be undone." },
+      { page: "/profile", target: null, title: "Privacy", body: "Your entries are visible only to you. AI features send entries to Google only when you use them, and you should never log patient details. The Privacy Policy has the full list." },
     ],
   },
 ];
@@ -185,10 +185,12 @@ export const HELP_ANSWERS: HelpAnswer[] = [
   { q: "How do I import a spreadsheet?", a: "Go to Import CSV, download the template, fill it in and upload it. You can review every row before anything is saved." },
   { q: "When can I see my archetype?", a: "After you log 3 experiences. You can regenerate it up to 3 times a day." },
   { q: "Are the AMCAS hour benchmarks requirements?", a: "No. They are common benchmarks many applicants use, not rules set by schools." },
-  { q: "How accurate is the school data?", a: "It is a guide and can be out of date. Always confirm on each school's own website." },
+  { q: "How accurate is the school data?", a: "GPA and MCAT figures come from each school's own website, with the class year shown. Many schools publish none. Always confirm on the school's site. Data sources has the details." },
   { q: "How do I export my entries?", a: "Export All on Overview makes a PDF. Profile has a full data export as a file." },
-  { q: "How do I delete my account?", a: "Go to Profile, then Your data, and type DELETE to confirm. This removes all your data and cannot be undone." },
-  { q: "Who can see my entries?", a: "Only you. Entries are private to your account, and ClinicLog MD does not share them with Wake Forest or anyone else." },
+  { q: "How do I delete my account?", a: "Go to Profile, then Privacy and data, and type DELETE to confirm. This removes your account and your data right away and cannot be undone." },
+  { q: "Who can see my entries?", a: "Only you. ClinicLog MD does not share them with Wake Forest or any school. When you use an AI feature, the entries it needs go to Google's Gemini, as the Privacy Policy explains." },
   { q: "What are the AI limits?", a: "Advisor 20 messages, outlines 10, mock interviews 10 and archetype 3, each per day." },
+  { q: "Can I write about patients?", a: "Write about what you did and learned, never who the patient was. Leave out names, dates of birth, room numbers and anything else that could identify someone." },
+  { q: "How do I stop the weekly email?", a: "Turn off Weekly summary on Profile, or use the link at the bottom of any summary." },
   { q: "How do I turn tips off?", a: "Open Help and switch off Show tips. Tours then only run when you start them." },
 ];

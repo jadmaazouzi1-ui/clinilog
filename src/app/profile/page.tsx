@@ -6,6 +6,8 @@ import AppShell from "@/components/AppShell";
 import { Notice } from "@/components/ui";
 import ReferralPanel from "./ReferralPanel";
 import AccountData from "./AccountData";
+import WeeklySummaryToggle from "./WeeklySummaryToggle";
+import { LEGAL_VERSION } from "@/lib/legal";
 import HelpButton from "@/components/tour/HelpButton";
 import { ReminderSettings, BreakSettings } from "./ReminderSettings";
 import WalletCard from "@/components/WalletCard";
@@ -309,7 +311,8 @@ export default async function ProfilePage({
           </form>
         </Settings>
 
-        <Settings title="Reminders and breaks" note="Off unless you turn them on. Breaks pause the gap check." tour="reminders">
+        <Settings title="Emails, reminders and breaks" note="The weekly summary is on until you turn it off. Gap reminders are off unless you turn them on. Breaks pause the gap check." tour="reminders">
+          <WeeklySummaryToggle initialOn={!profile?.digest_opt_out} />
           <ReminderSettings initial={notifPrefs ?? null} />
           <BreakSettings initial={breakRows ?? []} />
         </Settings>
@@ -325,7 +328,16 @@ export default async function ProfilePage({
             archetype={profile?.archetype_id ?? null}
           />
         </Settings>
-        <Settings title="Your data" note="Download everything, or delete the account and every entry with it." tour="account-data">
+        <Settings title="Privacy and data" note="Download everything, or delete the account and every entry with it." tour="account-data">
+          <p className="text-sm" style={{ color: "var(--text-muted)", marginBottom: "var(--sp-2)" }}>
+            {profile?.legal_version
+              ? <>You accepted the Terms and Privacy Policy version {profile.legal_version}
+                  {profile.legal_accepted_at ? <> on {new Date(profile.legal_accepted_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" })}</> : null}.
+                  {profile.legal_version !== LEGAL_VERSION ? " A newer version is waiting for you." : ""}{" "}</>
+              : null}
+            Read the <Link href="/privacy" className="link">Privacy Policy</Link> and the{" "}
+            <Link href="/terms" className="link">Terms of Service</Link>.
+          </p>
           <AccountData />
         </Settings>
       </main>

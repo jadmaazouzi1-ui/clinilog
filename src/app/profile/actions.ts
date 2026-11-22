@@ -52,3 +52,14 @@ export async function upsertProfile(formData: FormData) {
 
   redirect("/profile?saved=1");
 }
+
+/** Weekly summary email on or off. The same column the unsubscribe link sets. */
+export async function setWeeklySummary(on: boolean): Promise<{ ok: boolean }> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { ok: false };
+  const { error } = await supabase.from("profiles").update({ digest_opt_out: !on }).eq("id", user.id);
+  return { ok: !error };
+}
