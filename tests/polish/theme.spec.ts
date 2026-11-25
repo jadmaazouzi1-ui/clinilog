@@ -1,6 +1,5 @@
 import { test, expect } from "@playwright/test";
 import { execFileSync } from "node:child_process";
-import { AFFILIATION_NOTE } from "../../src/lib/brand";
 
 // Black and Old Gold theme: one theme file, the mark everywhere, the icons
 // and manifest, and the light/dark default rules.
@@ -40,10 +39,10 @@ test("icons, manifest and theme-color tags are served", async ({ request }) => {
   expect(has('rel="manifest"', 'href="/manifest.webmanifest"')).toBe(true);
 });
 
-test("affiliation note is on the landing footer and the About page", async ({ request }) => {
-  for (const path of ["/", "/about"]) {
+test("the old affiliation footer line is gone", async ({ request }) => {
+  for (const path of ["/", "/about", "/privacy", "/auth/login", "/auth/signup"]) {
     const html = await (await request.get(path)).text();
-    expect(html, path).toContain(AFFILIATION_NOTE);
+    expect(html, path).not.toMatch(/Independent student project/i);
   }
 });
 

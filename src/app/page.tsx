@@ -3,7 +3,6 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import Logo from "@/components/brand/Logo";
-import { AFFILIATION_NOTE } from "@/lib/brand";
 import overview from "../../public/landing-overview.webp";
 import logger from "../../public/landing-logger.webp";
 import { SCHOOLS, MD_SCHOOLS, DO_SCHOOLS, CARIBBEAN_SCHOOLS } from "@/lib/schools";
@@ -147,10 +146,7 @@ export default async function HomePage() {
 
       <footer className="lp-footer">
         <div className="lp-wrap lp-footer-inner">
-          <div>
-            <p>Built by a first-generation pre-med student at Wake Forest.</p>
-            <p className="lp-disclaimer">{AFFILIATION_NOTE}</p>
-          </div>
+          <p>Built by a first-generation pre-med student at Wake Forest.</p>
           <nav aria-label="Footer">
             {FOOTER_LINKS.map(([label, href]) => (
               <Link key={href} href={href}>{label}</Link>

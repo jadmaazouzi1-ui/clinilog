@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { AFFILIATION_NOTE } from "@/lib/brand";
 import PublicPage from "@/components/PublicPage";
 
 const DOES = [
@@ -31,7 +30,6 @@ export default function AboutPage() {
           <p className="text-lg" style={{ color: "var(--text)" }}>
             ClinicLog MD is a tool for pre-med students at Wake Forest. A pre-med student builds and runs it. Sign-up needs a @wfu.edu email.
           </p>
-          <p>{AFFILIATION_NOTE}</p>
 
           <h2>What it does</h2>
           <ul>

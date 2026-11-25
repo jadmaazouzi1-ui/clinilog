@@ -96,6 +96,5 @@
 /* ── Footer ── */
 .lp-footer { border-top: 1px solid var(--border); padding: var(--sp-4) 0 var(--sp-6); font-size: var(--text-sm); }
 .lp-footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--sp-3); }
-.lp-disclaimer { color: var(--text-muted); font-size: var(--text-xs); margin-top: var(--sp-h); }
 .lp-footer nav { display: flex; flex-wrap: wrap; gap: var(--sp-3); }
 .lp-footer nav a { display: inline-flex; align-items: center; min-height: 44px; color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
